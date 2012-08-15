@@ -35,7 +35,7 @@ About
 ---------------------------------------
 This program is a designer for Celtic knotworks, using the algorithm described
 at http://www.entrelacs.net/ .
-It's mostly functional with some occasional crashes but far from complete.
+The software is mostly functional but far from complete.
 Some UI elements have no effect as their underlaying actions have not been
 implemented.
 
@@ -43,3 +43,4 @@ implemented.
 Contacts
 ---------------------------------------
 Mattia Basaglia <mattia.basaglia@gmail.com>
+https://sourceforge.net/projects/knotter/
