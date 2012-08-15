@@ -1,0 +1,45 @@
+
+---------------------------------------
+Build instructions
+---------------------------------------
+
+This program uses the Qt framework, to generate the Makefile run
+
+qmake Knotter.pro
+
+That will generate the Makefile and some additional source files,
+at this point you can build the program using
+
+make
+
+
+---------------------------------------
+License
+---------------------------------------
+GPLv3 or later, see COPYING.
+
+
+---------------------------------------
+Documentation
+---------------------------------------
+The source files are commented using Doxygen commands
+but there's no Doxyfile yet.
+To generate documentation run
+
+Doxygen -g
+Doxygen
+
+
+---------------------------------------
+About
+---------------------------------------
+This program is a designer for Celtic knotworks, using the algorithm described
+at http://www.entrelacs.net/ .
+It's mostly functional with some occasional crashes but far from complete.
+Some UI elements have no effect as their underlaying actions have not been
+implemented.
+
+---------------------------------------
+Contacts
+---------------------------------------
+Mattia Basaglia <mattia.basaglia@gmail.com>
