@@ -46,5 +46,4 @@ QMAKE_CXXFLAGS += -Werror
 
 OTHER_FILES += \
     COPYING \
-    license_template \
     README
