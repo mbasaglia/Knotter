@@ -1,14 +1,15 @@
 <map id="G" name="G">
-<area shape="rect" id="node3" href="$knot__window_8hpp.html" title="knot_window.hpp" alt="" coords="2781,83,2904,112"/>
+<area shape="rect" id="node3" href="$knot__window_8hpp.html" title="knot_window.hpp" alt="" coords="2933,83,3056,112"/>
 <area shape="rect" id="node5" href="$ui__knot__window_8h.html" title="ui_knot_window.h" alt="" coords="2287,237,2412,267"/>
-<area shape="rect" id="node64" href="$style__dialog_8hpp.html" title="style_dialog.hpp" alt="" coords="1717,160,1832,189"/>
-<area shape="rect" id="node99" href="$clipboard_8hpp.html" title="clipboard.hpp" alt="" coords="2793,237,2892,267"/>
-<area shape="rect" id="node31" href="$knotview_8hpp.html" title="knotview.hpp" alt="" coords="2793,315,2892,344"/>
-<area shape="rect" id="node35" href="$node_8hpp.html" title="node.hpp" alt="" coords="2997,547,3072,576"/>
-<area shape="rect" id="node41" href="$edge_8hpp.html" title="edge.hpp" alt="" coords="2704,624,2779,653"/>
-<area shape="rect" id="node47" href="$knotgraph_8hpp.html" title="knotgraph.hpp" alt="" coords="2783,392,2887,421"/>
-<area shape="rect" id="node37" href="$custom__item_8hpp.html" title="custom_item.hpp" alt="" coords="2789,701,2912,731"/>
-<area shape="rect" id="node55" href="$knot__curve__style_8hpp.html" title="knot_curve_style.hpp" alt="" coords="2917,469,3064,499"/>
-<area shape="rect" id="node66" href="$ui__style__dialog_8h.html" title="ui_style_dialog.h" alt="" coords="1311,237,1428,267"/>
-<area shape="rect" id="node86" href="$color__widget_8hpp.html" title="color_widget.hpp" alt="" coords="217,315,337,344"/>
+<area shape="rect" id="node67" href="$style__dialog_8hpp.html" title="style_dialog.hpp" alt="" coords="1713,160,1828,189"/>
+<area shape="rect" id="node102" href="$clipboard_8hpp.html" title="clipboard.hpp" alt="" coords="2945,237,3044,267"/>
+<area shape="rect" id="node31" href="$knotview_8hpp.html" title="knotview.hpp" alt="" coords="2945,315,3044,344"/>
+<area shape="rect" id="node35" href="$node_8hpp.html" title="node.hpp" alt="" coords="2783,547,2857,576"/>
+<area shape="rect" id="node41" href="$edge_8hpp.html" title="edge.hpp" alt="" coords="2568,624,2643,653"/>
+<area shape="rect" id="node47" href="$knotgraph_8hpp.html" title="knotgraph.hpp" alt="" coords="2657,392,2761,421"/>
+<area shape="rect" id="node61" href="$snapping__grid_8hpp.html" title="snapping_grid.hpp" alt="" coords="2896,624,3021,653"/>
+<area shape="rect" id="node37" href="$custom__item_8hpp.html" title="custom_item.hpp" alt="" coords="2759,701,2881,731"/>
+<area shape="rect" id="node55" href="$knot__curve__style_8hpp.html" title="knot_curve_style.hpp" alt="" coords="2553,469,2700,499"/>
+<area shape="rect" id="node69" href="$ui__style__dialog_8h.html" title="ui_style_dialog.h" alt="" coords="1303,237,1420,267"/>
+<area shape="rect" id="node89" href="$color__widget_8hpp.html" title="color_widget.hpp" alt="" coords="217,315,337,344"/>
 </map>

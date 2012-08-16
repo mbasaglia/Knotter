@@ -103,8 +103,8 @@ function toggleVisibility(linkObj) {
 <a href="moc__style__dialog_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/****************************************************************************</span>
 <a name="l00002"></a>00002 <span class="comment">** Meta object code from reading C++ file &#39;style_dialog.hpp&#39;</span>
 <a name="l00003"></a>00003 <span class="comment">**</span>
-<a name="l00004"></a>00004 <span class="comment">** Created: Thu Aug 16 11:39:54 2012</span>
-<a name="l00005"></a>00005 <span class="comment">**      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)</span>
+<a name="l00004"></a>00004 <span class="comment">** Created: Thu Aug 16 21:33:13 2012</span>
+<a name="l00005"></a>00005 <span class="comment">**      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)</span>
 <a name="l00006"></a>00006 <span class="comment">**</span>
 <a name="l00007"></a>00007 <span class="comment">** WARNING! All changes made in this file will be lost!</span>
 <a name="l00008"></a>00008 <span class="comment">*****************************************************************************/</span>
@@ -112,8 +112,8 @@ function toggleVisibility(linkObj) {
 <a name="l00010"></a>00010 <span class="preprocessor">#include &quot;<a class="code" href="style__dialog_8hpp.html">style_dialog.hpp</a>&quot;</span>
 <a name="l00011"></a>00011 <span class="preprocessor">#if !defined(Q_MOC_OUTPUT_REVISION)</span>
 <a name="l00012"></a>00012 <span class="preprocessor"></span><span class="preprocessor">#error &quot;The header file &#39;style_dialog.hpp&#39; doesn&#39;t include &lt;QObject&gt;.&quot;</span>
-<a name="l00013"></a>00013 <span class="preprocessor"></span><span class="preprocessor">#elif Q_MOC_OUTPUT_REVISION != 62</span>
-<a name="l00014"></a>00014 <span class="preprocessor"></span><span class="preprocessor">#error &quot;This file was generated using the moc from 4.7.4. It&quot;</span>
+<a name="l00013"></a>00013 <span class="preprocessor"></span><span class="preprocessor">#elif Q_MOC_OUTPUT_REVISION != 63</span>
+<a name="l00014"></a>00014 <span class="preprocessor"></span><span class="preprocessor">#error &quot;This file was generated using the moc from 4.8.0. It&quot;</span>
 <a name="l00015"></a>00015 <span class="preprocessor"></span><span class="preprocessor">#error &quot;cannot be used with the include files from this version of Qt.&quot;</span>
 <a name="l00016"></a>00016 <span class="preprocessor"></span><span class="preprocessor">#error &quot;(The moc has changed too much.)&quot;</span>
 <a name="l00017"></a>00017 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
@@ -122,7 +122,7 @@ function toggleVisibility(linkObj) {
 <a name="l00020"></a><a class="code" href="moc__style__dialog_8cpp.html#a222e0b7ef9dded5cccadaacaa6e64065">00020</a> <span class="keyword">static</span> <span class="keyword">const</span> uint <a class="code" href="moc__style__dialog_8cpp.html#a222e0b7ef9dded5cccadaacaa6e64065">qt_meta_data_StyleDialog</a>[] = {
 <a name="l00021"></a>00021 
 <a name="l00022"></a>00022  <span class="comment">// content:</span>
-<a name="l00023"></a>00023        5,       <span class="comment">// revision</span>
+<a name="l00023"></a>00023        6,       <span class="comment">// revision</span>
 <a name="l00024"></a>00024        0,       <span class="comment">// classname</span>
 <a name="l00025"></a>00025        0,    0, <span class="comment">// classinfo</span>
 <a name="l00026"></a>00026       11,   14, <span class="comment">// methods</span>
@@ -164,59 +164,73 @@ function toggleVisibility(linkObj) {
 <a name="l00062"></a>00062     <span class="stringliteral">&quot;on_point_combo_activated(int)\0&quot;</span>
 <a name="l00063"></a>00063 };
 <a name="l00064"></a>00064 
-<a name="l00065"></a>00065 <span class="keyword">const</span> QMetaObject StyleDialog::staticMetaObject = {
-<a name="l00066"></a>00066     { &amp;QDialog::staticMetaObject, <a class="code" href="moc__style__dialog_8cpp.html#a591b954a618bda06205c2b5f85a7aaf6">qt_meta_stringdata_StyleDialog</a>,
-<a name="l00067"></a>00067       <a class="code" href="moc__style__dialog_8cpp.html#a222e0b7ef9dded5cccadaacaa6e64065">qt_meta_data_StyleDialog</a>, 0 }
-<a name="l00068"></a>00068 };
-<a name="l00069"></a>00069 
-<a name="l00070"></a>00070 <span class="preprocessor">#ifdef Q_NO_DATA_RELOCATION</span>
-<a name="l00071"></a>00071 <span class="preprocessor"></span><span class="keyword">const</span> QMetaObject &amp;StyleDialog::getStaticMetaObject() { <span class="keywordflow">return</span> staticMetaObject; }
-<a name="l00072"></a>00072 <span class="preprocessor">#endif //Q_NO_DATA_RELOCATION</span>
-<a name="l00073"></a>00073 <span class="preprocessor"></span>
-<a name="l00074"></a>00074 <span class="keyword">const</span> QMetaObject *StyleDialog::metaObject()<span class="keyword"> const</span>
-<a name="l00075"></a>00075 <span class="keyword"></span>{
-<a name="l00076"></a>00076     <span class="keywordflow">return</span> QObject::d_ptr-&gt;metaObject ? QObject::d_ptr-&gt;metaObject : &amp;staticMetaObject;
-<a name="l00077"></a>00077 }
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079 <span class="keywordtype">void</span> *StyleDialog::qt_metacast(<span class="keyword">const</span> <span class="keywordtype">char</span> *_clname)
-<a name="l00080"></a>00080 {
-<a name="l00081"></a>00081     <span class="keywordflow">if</span> (!_clname) <span class="keywordflow">return</span> 0;
-<a name="l00082"></a>00082     <span class="keywordflow">if</span> (!strcmp(_clname, <a class="code" href="moc__style__dialog_8cpp.html#a591b954a618bda06205c2b5f85a7aaf6">qt_meta_stringdata_StyleDialog</a>))
-<a name="l00083"></a>00083         <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(<span class="keyword">const_cast&lt;</span> <a class="code" href="classStyleDialog.html">StyleDialog</a>*<span class="keyword">&gt;</span>(<span class="keyword">this</span>));
-<a name="l00084"></a>00084     <span class="keywordflow">return</span> QDialog::qt_metacast(_clname);
+<a name="l00065"></a>00065 <span class="keywordtype">void</span> StyleDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, <span class="keywordtype">int</span> _id, <span class="keywordtype">void</span> **_a)
+<a name="l00066"></a>00066 {
+<a name="l00067"></a>00067     <span class="keywordflow">if</span> (_c == QMetaObject::InvokeMetaMethod) {
+<a name="l00068"></a>00068         Q_ASSERT(staticMetaObject.cast(_o));
+<a name="l00069"></a>00069         <a class="code" href="classStyleDialog.html">StyleDialog</a> *_t = <span class="keyword">static_cast&lt;</span><a class="code" href="classStyleDialog.html">StyleDialog</a> *<span class="keyword">&gt;</span>(_o);
+<a name="l00070"></a>00070         <span class="keywordflow">switch</span> (_id) {
+<a name="l00071"></a>00071         <span class="keywordflow">case</span> 0: _t-&gt;<a class="code" href="classStyleDialog.html#a8194d2c311d1c0cb38e35460e30fd50e" title="emitted when values have been changed and need to be applied">changed</a>(); <span class="keywordflow">break</span>;
+<a name="l00072"></a>00072         <span class="keywordflow">case</span> 1: _t-&gt;clicked((*<span class="keyword">reinterpret_cast&lt;</span> QAbstractButton*(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
+<a name="l00073"></a>00073         <span class="keywordflow">case</span> 2: _t-&gt;on_knot_width_spinner_valueChanged((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keywordtype">double</span>(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
+<a name="l00074"></a>00074         <span class="keywordflow">case</span> 3: _t-&gt;on_outline_width_spinner_valueChanged((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keywordtype">double</span>(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
+<a name="l00075"></a>00075         <span class="keywordflow">case</span> 4: _t-&gt;on_color_color_changed((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keyword">const </span>QColor(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
+<a name="l00076"></a>00076         <span class="keywordflow">case</span> 5: _t-&gt;on_outline_color_color_changed((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keyword">const </span>QColor(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
+<a name="l00077"></a>00077         <span class="keywordflow">case</span> 6: _t-&gt;on_style_combo_activated((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keywordtype">int</span>(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
+<a name="l00078"></a>00078         <span class="keywordflow">case</span> 7: _t-&gt;on_cusp_angle_spinner_valueChanged((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keywordtype">double</span>(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
+<a name="l00079"></a>00079         <span class="keywordflow">case</span> 8: _t-&gt;on_handle_length_spinner_valueChanged((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keywordtype">double</span>(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
+<a name="l00080"></a>00080         <span class="keywordflow">case</span> 9: _t-&gt;on_crossing_gap_spinner_valueChanged((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keywordtype">double</span>(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
+<a name="l00081"></a>00081         <span class="keywordflow">case</span> 10: _t-&gt;on_point_combo_activated((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keywordtype">int</span>(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
+<a name="l00082"></a>00082         <span class="keywordflow">default</span>: ;
+<a name="l00083"></a>00083         }
+<a name="l00084"></a>00084     }
 <a name="l00085"></a>00085 }
 <a name="l00086"></a>00086 
-<a name="l00087"></a>00087 <span class="keywordtype">int</span> StyleDialog::qt_metacall(QMetaObject::Call _c, <span class="keywordtype">int</span> _id, <span class="keywordtype">void</span> **_a)
-<a name="l00088"></a>00088 {
-<a name="l00089"></a>00089     _id = QDialog::qt_metacall(_c, _id, _a);
-<a name="l00090"></a>00090     <span class="keywordflow">if</span> (_id &lt; 0)
-<a name="l00091"></a>00091         <span class="keywordflow">return</span> _id;
-<a name="l00092"></a>00092     <span class="keywordflow">if</span> (_c == QMetaObject::InvokeMetaMethod) {
-<a name="l00093"></a>00093         <span class="keywordflow">switch</span> (_id) {
-<a name="l00094"></a>00094         <span class="keywordflow">case</span> 0: <a class="code" href="classStyleDialog.html#a8194d2c311d1c0cb38e35460e30fd50e" title="emitted when values have been changed and need to be applied">changed</a>(); <span class="keywordflow">break</span>;
-<a name="l00095"></a>00095         <span class="keywordflow">case</span> 1: <a class="code" href="classStyleDialog.html#aad8e7e59c932f78cc9c52799ea1bad95">clicked</a>((*<span class="keyword">reinterpret_cast&lt;</span> QAbstractButton*(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
-<a name="l00096"></a>00096         <span class="keywordflow">case</span> 2: <a class="code" href="classStyleDialog.html#a06196f083868e00bc32c106a0aa1a6ec">on_knot_width_spinner_valueChanged</a>((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keywordtype">double</span>(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
-<a name="l00097"></a>00097         <span class="keywordflow">case</span> 3: <a class="code" href="classStyleDialog.html#aba2e0d7b5396b8e1b073008bd0cd0805">on_outline_width_spinner_valueChanged</a>((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keywordtype">double</span>(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
-<a name="l00098"></a>00098         <span class="keywordflow">case</span> 4: <a class="code" href="classStyleDialog.html#aa24fdae387209764a8f4d87d8b31fcfb">on_color_color_changed</a>((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keyword">const </span>QColor(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
-<a name="l00099"></a>00099         <span class="keywordflow">case</span> 5: <a class="code" href="classStyleDialog.html#aa1c6cf4ea176b71ee5578d1b7f80fe3c">on_outline_color_color_changed</a>((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keyword">const </span>QColor(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
-<a name="l00100"></a>00100         <span class="keywordflow">case</span> 6: <a class="code" href="classStyleDialog.html#ac278cfd4cdc4b98b0df2375292c36692">on_style_combo_activated</a>((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keywordtype">int</span>(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
-<a name="l00101"></a>00101         <span class="keywordflow">case</span> 7: <a class="code" href="classStyleDialog.html#a2067ec539dc31f146b21ef2fadb4cff1">on_cusp_angle_spinner_valueChanged</a>((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keywordtype">double</span>(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
-<a name="l00102"></a>00102         <span class="keywordflow">case</span> 8: <a class="code" href="classStyleDialog.html#a7225d00ec0bd51b7668a9be4404ae0b5">on_handle_length_spinner_valueChanged</a>((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keywordtype">double</span>(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
-<a name="l00103"></a>00103         <span class="keywordflow">case</span> 9: <a class="code" href="classStyleDialog.html#a9b28df0ff603582e1341ba6d93b7f5d2">on_crossing_gap_spinner_valueChanged</a>((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keywordtype">double</span>(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
-<a name="l00104"></a>00104         <span class="keywordflow">case</span> 10: <a class="code" href="classStyleDialog.html#ae466cfa677aa03713677dcebb2195139">on_point_combo_activated</a>((*<span class="keyword">reinterpret_cast&lt;</span> <span class="keywordtype">int</span>(*)<span class="keyword">&gt;</span>(_a[1]))); <span class="keywordflow">break</span>;
-<a name="l00105"></a>00105         <span class="keywordflow">default</span>: ;
-<a name="l00106"></a>00106         }
-<a name="l00107"></a>00107         _id -= 11;
-<a name="l00108"></a>00108     }
-<a name="l00109"></a>00109     <span class="keywordflow">return</span> _id;
-<a name="l00110"></a>00110 }
-<a name="l00111"></a>00111 
-<a name="l00112"></a>00112 <span class="comment">// SIGNAL 0</span>
-<a name="l00113"></a><a class="code" href="classStyleDialog.html#a8194d2c311d1c0cb38e35460e30fd50e">00113</a> <span class="keywordtype">void</span> <a class="code" href="classStyleDialog.html#a8194d2c311d1c0cb38e35460e30fd50e" title="emitted when values have been changed and need to be applied">StyleDialog::changed</a>()
+<a name="l00087"></a>00087 <span class="keyword">const</span> QMetaObjectExtraData StyleDialog::staticMetaObjectExtraData = {
+<a name="l00088"></a>00088     0,  qt_static_metacall 
+<a name="l00089"></a>00089 };
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091 <span class="keyword">const</span> QMetaObject StyleDialog::staticMetaObject = {
+<a name="l00092"></a>00092     { &amp;QDialog::staticMetaObject, <a class="code" href="moc__style__dialog_8cpp.html#a591b954a618bda06205c2b5f85a7aaf6">qt_meta_stringdata_StyleDialog</a>,
+<a name="l00093"></a>00093       <a class="code" href="moc__style__dialog_8cpp.html#a222e0b7ef9dded5cccadaacaa6e64065">qt_meta_data_StyleDialog</a>, &amp;staticMetaObjectExtraData }
+<a name="l00094"></a>00094 };
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096 <span class="preprocessor">#ifdef Q_NO_DATA_RELOCATION</span>
+<a name="l00097"></a>00097 <span class="preprocessor"></span><span class="keyword">const</span> QMetaObject &amp;StyleDialog::getStaticMetaObject() { <span class="keywordflow">return</span> staticMetaObject; }
+<a name="l00098"></a>00098 <span class="preprocessor">#endif //Q_NO_DATA_RELOCATION</span>
+<a name="l00099"></a>00099 <span class="preprocessor"></span>
+<a name="l00100"></a>00100 <span class="keyword">const</span> QMetaObject *StyleDialog::metaObject()<span class="keyword"> const</span>
+<a name="l00101"></a>00101 <span class="keyword"></span>{
+<a name="l00102"></a>00102     <span class="keywordflow">return</span> QObject::d_ptr-&gt;metaObject ? QObject::d_ptr-&gt;metaObject : &amp;staticMetaObject;
+<a name="l00103"></a>00103 }
+<a name="l00104"></a>00104 
+<a name="l00105"></a>00105 <span class="keywordtype">void</span> *StyleDialog::qt_metacast(<span class="keyword">const</span> <span class="keywordtype">char</span> *_clname)
+<a name="l00106"></a>00106 {
+<a name="l00107"></a>00107     <span class="keywordflow">if</span> (!_clname) <span class="keywordflow">return</span> 0;
+<a name="l00108"></a>00108     <span class="keywordflow">if</span> (!strcmp(_clname, <a class="code" href="moc__style__dialog_8cpp.html#a591b954a618bda06205c2b5f85a7aaf6">qt_meta_stringdata_StyleDialog</a>))
+<a name="l00109"></a>00109         <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(<span class="keyword">const_cast&lt;</span> <a class="code" href="classStyleDialog.html">StyleDialog</a>*<span class="keyword">&gt;</span>(<span class="keyword">this</span>));
+<a name="l00110"></a>00110     <span class="keywordflow">return</span> QDialog::qt_metacast(_clname);
+<a name="l00111"></a>00111 }
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113 <span class="keywordtype">int</span> StyleDialog::qt_metacall(QMetaObject::Call _c, <span class="keywordtype">int</span> _id, <span class="keywordtype">void</span> **_a)
 <a name="l00114"></a>00114 {
-<a name="l00115"></a>00115     QMetaObject::activate(<span class="keyword">this</span>, &amp;staticMetaObject, 0, 0);
-<a name="l00116"></a>00116 }
-<a name="l00117"></a>00117 QT_END_MOC_NAMESPACE
+<a name="l00115"></a>00115     _id = QDialog::qt_metacall(_c, _id, _a);
+<a name="l00116"></a>00116     <span class="keywordflow">if</span> (_id &lt; 0)
+<a name="l00117"></a>00117         <span class="keywordflow">return</span> _id;
+<a name="l00118"></a>00118     <span class="keywordflow">if</span> (_c == QMetaObject::InvokeMetaMethod) {
+<a name="l00119"></a>00119         <span class="keywordflow">if</span> (_id &lt; 11)
+<a name="l00120"></a>00120             qt_static_metacall(<span class="keyword">this</span>, _c, _id, _a);
+<a name="l00121"></a>00121         _id -= 11;
+<a name="l00122"></a>00122     }
+<a name="l00123"></a>00123     <span class="keywordflow">return</span> _id;
+<a name="l00124"></a>00124 }
+<a name="l00125"></a>00125 
+<a name="l00126"></a>00126 <span class="comment">// SIGNAL 0</span>
+<a name="l00127"></a><a class="code" href="classStyleDialog.html#a8194d2c311d1c0cb38e35460e30fd50e">00127</a> <span class="keywordtype">void</span> <a class="code" href="classStyleDialog.html#a8194d2c311d1c0cb38e35460e30fd50e" title="emitted when values have been changed and need to be applied">StyleDialog::changed</a>()
+<a name="l00128"></a>00128 {
+<a name="l00129"></a>00129     QMetaObject::activate(<span class="keyword">this</span>, &amp;staticMetaObject, 0, 0);
+<a name="l00130"></a>00130 }
+<a name="l00131"></a>00131 QT_END_MOC_NAMESPACE
 </pre></div></div>
 </div>
 <!-- window showing the filter options -->
@@ -233,7 +247,7 @@ function toggleVisibility(linkObj) {
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 16 2012 11:40:09 for Knotter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 16 2012 22:20:35 for Knotter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

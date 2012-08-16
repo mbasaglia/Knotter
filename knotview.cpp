@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QXmlStreamWriter>
 #include <QDomDocument>
 #include <QSvgGenerator>
-
 /**
     \todo snap to grid
     \todo insert fixed shapes
@@ -152,6 +151,8 @@ QPointF KnotView::get_mouse_point(QMouseEvent *event)
         p = line.p2();
     }
 
+    grid.snap(p);
+
     return p;
 }
 
@@ -201,7 +202,7 @@ void KnotView::mousePressEvent(QMouseEvent *event)
                 QLineF newline ( v1->pos(), p );
                 newline.setAngle( oldline.angle() );
 
-                undo_stack.beginMacro("Break Edge");
+                undo_stack.beginMacro(tr("Break Edge"));
                 add_node(newline.p2(),node_list());
                 remove_edge(v1,v2);
                 add_edge(last_node,v1);
@@ -488,6 +489,8 @@ void KnotView::clear()
     mode_change();
 }
 
+/// \todo Grid I/O
+
 void KnotView::writeXML(QIODevice *device) const
 {
     QXmlStreamWriter xml(device);
@@ -597,7 +600,7 @@ bool KnotView::readXML(QIODevice *device)
     if ( graph.isNull() )
         return false; // XML does not contain a graph description
 
-    undo_stack.beginMacro("Load Knot");
+    undo_stack.beginMacro(tr("Load Knot"));
 
     QMap<QString,Node*> node_ids;
     QDomElement node = graph.firstChildElement("node");
@@ -880,7 +883,7 @@ void KnotView::move_nodes ( QPointF dest )
         QPointF delta = dest-oldpos;
     if ( moved_nodes.size() > 1 )
     {
-        undo_stack.beginMacro("Move Nodes");
+        undo_stack.beginMacro(tr("Move Nodes"));
         foreach ( Node* n, moved_nodes )
         {
             undo_stack.push(new MoveNodes(n,n->pos()-delta,n->pos(),this));
@@ -947,6 +950,11 @@ node_list KnotView::selected_nodes() const
     return nl;
 }
 
+snapping_grid &KnotView::get_grid()
+{
+    return grid;
+}
+
 void KnotView::mode_edit_node()
 {
     mode = EDIT_NODE;
@@ -969,7 +977,7 @@ void KnotView::erase_selected()
 {
     //if ( mode == EDIT_NODE )
     {
-        undo_stack.beginMacro("Remove Nodes");
+        undo_stack.beginMacro(tr("Remove Nodes"));
         foreach( QGraphicsItem* node, scene()->selectedItems() )
         {
             remove_node ( dynamic_cast<Node*>(node) );
@@ -982,7 +990,7 @@ void KnotView::link_selected()
 {
     if ( mode == EDIT_NODE )
     {
-        undo_stack.beginMacro("Link Nodes");
+        undo_stack.beginMacro(tr("Link Nodes"));
         typedef QList<QGraphicsItem*>::iterator iter;
         QList<QGraphicsItem*> sel = scene()->selectedItems();
         for ( iter i = sel.begin(); i != sel.end(); ++i )
@@ -1011,7 +1019,7 @@ void KnotView::merge_selected()
         if ( selection.count() < 2 )
             return;
 
-        undo_stack.beginMacro("Merge Nodes");
+        undo_stack.beginMacro(tr("Merge Nodes"));
 
         foreach( QGraphicsItem* node, selection )
         {

@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="node1" href="$classQDialog.html" title="QDialog" alt="" coords="184,5,253,35"/>
-<area shape="rect" id="node3" href="$classStyleDialog.html" title="StyleDialog" alt="" coords="324,32,412,61"/>
-<area shape="rect" id="node4" href="$classUi__StyleDialog.html" title="Ui_StyleDialog" alt="" coords="5,59,115,88"/>
-<area shape="rect" id="node6" href="$classUi_1_1StyleDialog.html" title="Ui::StyleDialog" alt="" coords="164,59,273,88"/>
+<area shape="rect" id="node1" href="$classQMainWindow.html" title="QMainWindow" alt="" coords="185,5,292,35"/>
+<area shape="rect" id="node3" href="$classKnot__Window.html" title="Knot_Window" alt="" coords="351,32,452,61"/>
+<area shape="rect" id="node4" href="$classUi__Knot__Window.html" title="Ui_Knot_Window" alt="" coords="5,59,128,88"/>
+<area shape="rect" id="node6" href="$classUi_1_1Knot__Window.html" title="Ui::Knot_Window" alt="" coords="177,59,300,88"/>
 </map>

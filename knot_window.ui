@@ -109,16 +109,26 @@
     <addaction name="separator"/>
     <addaction name="actionRefresh_Path"/>
    </widget>
+   <widget class="QMenu" name="menu_Settings">
+    <property name="title">
+     <string>&amp;Settings</string>
+    </property>
+    <addaction name="action_Style"/>
+    <addaction name="action_Configure_Knotter"/>
+    <addaction name="actionEnable_Grid"/>
+    <addaction name="actionConfigure_G_rid"/>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
    <addaction name="menu_View"/>
    <addaction name="menuNo_des"/>
    <addaction name="menu_Knot"/>
+   <addaction name="menu_Settings"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="EditBar">
    <property name="windowTitle">
-    <string>toolBar</string>
+    <string>EditBar</string>
    </property>
    <property name="allowedAreas">
     <set>Qt::AllToolBarAreas</set>
@@ -136,10 +146,12 @@
    <addaction name="action_Link"/>
    <addaction name="action_Erase"/>
    <addaction name="action_Merge"/>
+   <addaction name="separator"/>
+   <addaction name="actionEnable_Grid"/>
   </widget>
   <widget class="QToolBar" name="MainToolBar">
    <property name="windowTitle">
-    <string>toolBar</string>
+    <string>MainToolBar</string>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -160,9 +172,6 @@
    <property name="text">
     <string>&amp;Save</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+S</string>
-   </property>
   </action>
   <action name="actionSave_As">
    <property name="text">
@@ -178,16 +187,10 @@
    <property name="text">
     <string>&amp;Open</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+O</string>
-   </property>
   </action>
   <action name="action_New">
    <property name="text">
-    <string>&amp;New...</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+N</string>
+    <string>&amp;New</string>
    </property>
   </action>
   <action name="action_Quit">
@@ -204,7 +207,7 @@
      <normaloff>:/img/edit_edges.svg</normaloff>:/img/edit_edges.svg</iconset>
    </property>
    <property name="text">
-    <string>Edit Edges</string>
+    <string>Edit &amp;Edges</string>
    </property>
    <property name="shortcut">
     <string>Alt+Shift+E</string>
@@ -222,7 +225,7 @@
      <normaloff>:/img/edit_nodes.svg</normaloff>:/img/edit_nodes.svg</iconset>
    </property>
    <property name="text">
-    <string>Edit Nodes</string>
+    <string>Edit &amp;Nodes</string>
    </property>
    <property name="toolTip">
     <string>Edit Nodes</string>
@@ -240,7 +243,7 @@
      <normaloff>:/img/edge_list.svg</normaloff>:/img/edge_list.svg</iconset>
    </property>
    <property name="text">
-    <string>Edge List</string>
+    <string>Edge &amp;List</string>
    </property>
    <property name="shortcut">
     <string>Alt+Shift+L</string>
@@ -291,24 +294,15 @@
    <property name="text">
     <string>&amp;Undo</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+Z</string>
-   </property>
   </action>
   <action name="action_Redo">
    <property name="text">
     <string>&amp;Redo</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+Z</string>
-   </property>
   </action>
   <action name="actionSelect_All">
    <property name="text">
     <string>Select &amp;All</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+A</string>
    </property>
   </action>
   <action name="actionRefresh_Path">
@@ -342,16 +336,10 @@
    <property name="text">
     <string>Zoom &amp;In</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl++</string>
-   </property>
   </action>
   <action name="actionZoom_Out">
    <property name="text">
     <string>Zoom &amp;Out</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+-</string>
    </property>
   </action>
   <action name="action_Reset_Zoom">
@@ -423,6 +411,31 @@
   <action name="action_Paste">
    <property name="text">
     <string>&amp;Paste</string>
+   </property>
+  </action>
+  <action name="action_Configure_Knotter">
+   <property name="text">
+    <string>&amp;Configure Knotter...</string>
+   </property>
+  </action>
+  <action name="actionEnable_Grid">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/img/square_grid.svg</normaloff>:/img/square_grid.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Enable &amp;Grid</string>
+   </property>
+  </action>
+  <action name="actionConfigure_G_rid">
+   <property name="text">
+    <string>Configure G&amp;rid...</string>
    </property>
   </action>
  </widget>
@@ -816,6 +829,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionConfigure_G_rid</sender>
+   <signal>triggered()</signal>
+   <receiver>Knot_Window</receiver>
+   <slot>configure_grid()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionEnable_Grid</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>Knot_Window</receiver>
+   <slot>enable_grid(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>mode_edge_list()</slot>
@@ -832,5 +877,7 @@
   <slot>copy()</slot>
   <slot>cut()</slot>
   <slot>paste()</slot>
+  <slot>enable_grid(bool)</slot>
+  <slot>configure_grid()</slot>
  </slots>
 </ui>

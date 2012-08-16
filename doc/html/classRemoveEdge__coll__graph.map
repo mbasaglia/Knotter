@@ -1,10 +1,11 @@
 <map id="G" name="G">
-<area shape="rect" id="node2" href="$classQUndoCommand.html" title="QUndoCommand" alt="" coords="792,5,915,35"/>
-<area shape="rect" id="node4" href="$classNode.html" title="Node" alt="" coords="561,88,615,117"/>
-<area shape="rect" id="node16" href="$classKnotView.html" title="KnotView" alt="" coords="815,301,892,331"/>
-<area shape="rect" id="node6" href="$classCustomItem.html" title="CustomItem" alt="" coords="241,53,335,83"/>
-<area shape="rect" id="node8" href="$classQGraphicsItem.html" title="QGraphicsItem" alt="" coords="7,27,116,56"/>
-<area shape="rect" id="node31" href="$classKnotGraph.html" title="KnotGraph" alt="" coords="547,461,629,491"/>
-<area shape="rect" id="node18" href="$classQGraphicsView.html" title="QGraphicsView" alt="" coords="532,141,644,171"/>
-<area shape="rect" id="node33" href="$classQGraphicsPathItem.html" title="QGraphicsPathItem" alt="" coords="220,283,356,312"/>
+<area shape="rect" id="node2" href="$classQUndoCommand.html" title="QUndoCommand" alt="" coords="792,333,915,363"/>
+<area shape="rect" id="node4" href="$classNode.html" title="Node" alt="" coords="561,763,615,792"/>
+<area shape="rect" id="node16" href="$classKnotView.html" title="KnotView" alt="" coords="815,387,892,416"/>
+<area shape="rect" id="node6" href="$classCustomItem.html" title="CustomItem" alt="" coords="241,784,335,813"/>
+<area shape="rect" id="node8" href="$classQGraphicsItem.html" title="QGraphicsItem" alt="" coords="7,784,116,813"/>
+<area shape="rect" id="node27" href="$classsnapping__grid.html" title="snapping_grid" alt="" coords="537,284,639,313"/>
+<area shape="rect" id="node39" href="$classKnotGraph.html" title="KnotGraph" alt="" coords="547,507,629,536"/>
+<area shape="rect" id="node18" href="$classQGraphicsView.html" title="QGraphicsView" alt="" coords="532,59,644,88"/>
+<area shape="rect" id="node41" href="$classQGraphicsPathItem.html" title="QGraphicsPathItem" alt="" coords="220,497,356,527"/>
 </map>

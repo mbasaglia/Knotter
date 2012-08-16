@@ -26,11 +26,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtGui/QApplication>
 #include "knot_window.hpp"
 
+#include <QTranslator>
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    /*QTranslator myappTranslator;
+    myappTranslator.load("knotter_it");
+    a.installTranslator(&myappTranslator);*/
+
     Knot_Window w;
     w.show();
+
     
     return a.exec();
 }

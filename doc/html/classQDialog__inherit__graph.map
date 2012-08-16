@@ -1,3 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" id="node3" href="$classStyleDialog.html" title="StyleDialog" alt="" coords="5,83,93,112"/>
+<area shape="rect" id="node3" href="$classconfig__dialog.html" title="config_dialog" alt="" coords="5,83,104,112"/>
+<area shape="rect" id="node5" href="$classGridConfig.html" title="GridConfig" alt="" coords="128,83,211,112"/>
+<area shape="rect" id="node7" href="$classStyleDialog.html" title="StyleDialog" alt="" coords="235,83,323,112"/>
 </map>

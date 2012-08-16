@@ -133,134 +133,138 @@ function toggleVisibility(linkObj) {
 <a name="l00031"></a>00031 <span class="preprocessor">#include &quot;<a class="code" href="edge_8hpp.html">edge.hpp</a>&quot;</span>
 <a name="l00032"></a>00032 <span class="preprocessor">#include &lt;QUndoStack&gt;</span>
 <a name="l00033"></a>00033 <span class="preprocessor">#include &quot;<a class="code" href="knotgraph_8hpp.html">knotgraph.hpp</a>&quot;</span>
-<a name="l00034"></a>00034 
+<a name="l00034"></a>00034 <span class="preprocessor">#include &quot;<a class="code" href="snapping__grid_8hpp.html">snapping_grid.hpp</a>&quot;</span>
 <a name="l00035"></a>00035 
-<a name="l00036"></a><a class="code" href="classKnotView.html">00036</a> <span class="keyword">class </span><a class="code" href="classKnotView.html">KnotView</a> : <span class="keyword">public</span> <a class="code" href="classQGraphicsView.html">QGraphicsView</a>
-<a name="l00037"></a>00037 {
-<a name="l00038"></a>00038         Q_OBJECT
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040     <span class="keyword">protected</span>:
-<a name="l00041"></a><a class="code" href="classKnotView.html#a7352e4d246dfaea6c89b920e682241ef">00041</a>         <span class="keyword">enum</span> <a class="code" href="classKnotView.html#a7352e4d246dfaea6c89b920e682241ef">mode_type</a> { <a class="code" href="classKnotView.html#a7352e4d246dfaea6c89b920e682241efa5a537fb15308aaf51aba173f918e291c">EDIT_NODE</a>, <a class="code" href="classKnotView.html#a7352e4d246dfaea6c89b920e682241efa6172c89bb33902fd4d271a4e36e38216">INSERT_EDGE_CHAIN</a>,
-<a name="l00042"></a><a class="code" href="classKnotView.html#a7352e4d246dfaea6c89b920e682241efacd2be521758ce16c3ea6f4a6223a3271">00042</a>                           <a class="code" href="classKnotView.html#a7352e4d246dfaea6c89b920e682241efacd2be521758ce16c3ea6f4a6223a3271">INSERT_EDGE</a> };
-<a name="l00043"></a>00043 
-<a name="l00044"></a><a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77">00044</a>         <span class="keyword">enum</span> <a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77">mouse_status_type</a> {
-<a name="l00045"></a><a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77ab3fafe57916d1703bf681e5220cd4f33">00045</a>                 <a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77ab3fafe57916d1703bf681e5220cd4f33" title="default, mouse actions depend on mode_type">DEFAULT</a>, <span class="comment">///&lt; default, mouse actions depend on mode_type</span>
-<a name="l00046"></a><a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77ad385198f2c7f5ca8f7a4243b1b87d485">00046</a> <span class="comment"></span>                <a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77ad385198f2c7f5ca8f7a4243b1b87d485" title="moving existing nodes around">MOVING</a>,  <span class="comment">///&lt; moving existing nodes around</span>
-<a name="l00047"></a><a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77a0a694339fd03a13a456745c440e1abbe">00047</a> <span class="comment"></span>                <a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77a0a694339fd03a13a456745c440e1abbe" title="dragging the view">DRAGGING</a>,<span class="comment">///&lt; dragging the view</span>
-<a name="l00048"></a><a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77a1b49454257f6b9068bcbc31ef7317c11">00048</a> <span class="comment"></span>                <a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77a1b49454257f6b9068bcbc31ef7317c11" title="placing new items">PLACING</a>  <span class="comment">///&lt; placing new items</span>
-<a name="l00049"></a>00049 <span class="comment"></span>        };
-<a name="l00050"></a>00050 
+<a name="l00036"></a>00036 
+<a name="l00037"></a><a class="code" href="classKnotView.html">00037</a> <span class="keyword">class </span><a class="code" href="classKnotView.html">KnotView</a> : <span class="keyword">public</span> <a class="code" href="classQGraphicsView.html">QGraphicsView</a>
+<a name="l00038"></a>00038 {
+<a name="l00039"></a>00039         Q_OBJECT
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041     <span class="keyword">protected</span>:
+<a name="l00042"></a><a class="code" href="classKnotView.html#a7352e4d246dfaea6c89b920e682241ef">00042</a>         <span class="keyword">enum</span> <a class="code" href="classKnotView.html#a7352e4d246dfaea6c89b920e682241ef">mode_type</a> { <a class="code" href="classKnotView.html#a7352e4d246dfaea6c89b920e682241efa5a537fb15308aaf51aba173f918e291c">EDIT_NODE</a>, <a class="code" href="classKnotView.html#a7352e4d246dfaea6c89b920e682241efa6172c89bb33902fd4d271a4e36e38216">INSERT_EDGE_CHAIN</a>,
+<a name="l00043"></a><a class="code" href="classKnotView.html#a7352e4d246dfaea6c89b920e682241efacd2be521758ce16c3ea6f4a6223a3271">00043</a>                           <a class="code" href="classKnotView.html#a7352e4d246dfaea6c89b920e682241efacd2be521758ce16c3ea6f4a6223a3271">INSERT_EDGE</a> };
+<a name="l00044"></a>00044 
+<a name="l00045"></a><a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77">00045</a>         <span class="keyword">enum</span> <a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77">mouse_status_type</a> {
+<a name="l00046"></a><a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77ab3fafe57916d1703bf681e5220cd4f33">00046</a>                 <a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77ab3fafe57916d1703bf681e5220cd4f33" title="default, mouse actions depend on mode_type">DEFAULT</a>, <span class="comment">///&lt; default, mouse actions depend on mode_type</span>
+<a name="l00047"></a><a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77ad385198f2c7f5ca8f7a4243b1b87d485">00047</a> <span class="comment"></span>                <a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77ad385198f2c7f5ca8f7a4243b1b87d485" title="moving existing nodes around">MOVING</a>,  <span class="comment">///&lt; moving existing nodes around</span>
+<a name="l00048"></a><a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77a0a694339fd03a13a456745c440e1abbe">00048</a> <span class="comment"></span>                <a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77a0a694339fd03a13a456745c440e1abbe" title="dragging the view">DRAGGING</a>,<span class="comment">///&lt; dragging the view</span>
+<a name="l00049"></a><a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77a1b49454257f6b9068bcbc31ef7317c11">00049</a> <span class="comment"></span>                <a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77a1b49454257f6b9068bcbc31ef7317c11" title="placing new items">PLACING</a>  <span class="comment">///&lt; placing new items</span>
+<a name="l00050"></a>00050 <span class="comment"></span>        };
 <a name="l00051"></a>00051 
-<a name="l00052"></a><a class="code" href="classKnotView.html#ada1e5dc3708eab12fd2090c58eeb5d91">00052</a>         <a class="code" href="classKnotView.html#a7352e4d246dfaea6c89b920e682241ef">mode_type</a> <a class="code" href="classKnotView.html#ada1e5dc3708eab12fd2090c58eeb5d91">mode</a>;
-<a name="l00053"></a><a class="code" href="classKnotView.html#a292278079255d5c8aec60f78363a82a9">00053</a>         <a class="code" href="classNode.html">Node</a>* <a class="code" href="classKnotView.html#a292278079255d5c8aec60f78363a82a9">last_node</a>;
-<a name="l00054"></a><a class="code" href="classKnotView.html#a2830cbf2fa7cbc58d9eee122893c0b93">00054</a>         <a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77">mouse_status_type</a> <a class="code" href="classKnotView.html#a2830cbf2fa7cbc58d9eee122893c0b93">mouse_status</a>;
-<a name="l00055"></a>00055         <span class="comment">//bool moving;</span>
-<a name="l00056"></a>00056         <span class="comment">//bool dragging;</span>
-<a name="l00057"></a><a class="code" href="classKnotView.html#a52867b1dbb7379a4420835c48b6d6c06">00057</a>         QPointF <a class="code" href="classKnotView.html#a52867b1dbb7379a4420835c48b6d6c06">oldpos</a>;
-<a name="l00058"></a><a class="code" href="classKnotView.html#a436f550195fac7f72209c2f0ab7278bd">00058</a>         <a class="code" href="node_8hpp.html#a961a99add64427631221bdd787e82764">node_list</a> <a class="code" href="classKnotView.html#a436f550195fac7f72209c2f0ab7278bd">moved_nodes</a>;
-<a name="l00059"></a><a class="code" href="classKnotView.html#a8c890dba42da9b9dc397e23e2bca53fd">00059</a>         QGraphicsLineItem* <a class="code" href="classKnotView.html#a8c890dba42da9b9dc397e23e2bca53fd">guide</a>;
-<a name="l00060"></a><a class="code" href="classKnotView.html#a2b5ef0e380c8c0d7426f9e6b72ef3cee">00060</a>         QGraphicsRectItem* <a class="code" href="classKnotView.html#a2b5ef0e380c8c0d7426f9e6b72ef3cee">rubberband</a>;
-<a name="l00061"></a><a class="code" href="classKnotView.html#ae9b3d7250d7b9c25811d6f864736471a">00061</a>         QUndoStack <a class="code" href="classKnotView.html#ae9b3d7250d7b9c25811d6f864736471a">undo_stack</a>;
-<a name="l00062"></a><a class="code" href="classKnotView.html#aa86ac64d1c1945a8e5c821f9a2669a0b">00062</a>         <a class="code" href="classKnotGraph.html">KnotGraph</a> <a class="code" href="classKnotView.html#aa86ac64d1c1945a8e5c821f9a2669a0b">knot</a>;
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064     <span class="keyword">public</span>:
-<a name="l00065"></a>00065         <a class="code" href="classKnotView.html#a523f74a7b05e67969d8d616ea22c4743">KnotView</a>(QWidget *parent);
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a138039ef56667b862609da019b96381c">do_add_node</a> ( <a class="code" href="classNode.html">Node</a>* node, <a class="code" href="node_8hpp.html#a961a99add64427631221bdd787e82764">node_list</a> adjl );
-<a name="l00068"></a>00068         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#aef05d870c836955390357d5d2416bcee">do_remove_node</a> ( <a class="code" href="classNode.html">Node</a>* node );
-<a name="l00069"></a>00069         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a81688c5d497f74939e7e3916bb99e83a">do_move_node</a> ( <a class="code" href="classNode.html">Node</a>* node, QPointF pos );
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a839e0ec0bfa7e594fcb0d0bbafbdb2a0">link</a> ( <a class="code" href="classNode.html">Node</a>*a, <a class="code" href="classNode.html">Node</a>*b );
-<a name="l00072"></a>00072         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a58efd8de95108d19bfdcf81468dc4c89">unlink</a> ( <a class="code" href="classNode.html">Node</a>*a, <a class="code" href="classNode.html">Node</a>*b );
-<a name="l00073"></a>00073         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#aad49cacb3de827619e887596d18ef27c">do_toggle_edge</a> ( <a class="code" href="classNode.html">Node</a>*a, <a class="code" href="classNode.html">Node</a>*b, <a class="code" href="classEdge.html#a58c239ab1a344bfc60ffdfcec04e39a5">Edge::type_type</a> type );
-<a name="l00074"></a>00074 
-<a name="l00075"></a>00075 
-<a name="l00076"></a><a class="code" href="classKnotView.html#aacc23d242403ff2c70decae8dfe2bfae">00076</a>         <span class="keyword">const</span> QUndoStack&amp; <a class="code" href="classKnotView.html#aacc23d242403ff2c70decae8dfe2bfae">get_undo_stack</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classKnotView.html#ae9b3d7250d7b9c25811d6f864736471a">undo_stack</a>; }
-<a name="l00077"></a><a class="code" href="classKnotView.html#a25a861cc181cf14e5bdefccdbdaf37d5">00077</a>         QUndoStack&amp; <a class="code" href="classKnotView.html#a25a861cc181cf14e5bdefccdbdaf37d5">get_undo_stack</a>() { <span class="keywordflow">return</span> <a class="code" href="classKnotView.html#ae9b3d7250d7b9c25811d6f864736471a">undo_stack</a>; }
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079 
-<a name="l00080"></a>00080         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#aaa6e67754c95b953089f11e42ce87433">clear</a>();
+<a name="l00052"></a>00052 
+<a name="l00053"></a><a class="code" href="classKnotView.html#ada1e5dc3708eab12fd2090c58eeb5d91">00053</a>         <a class="code" href="classKnotView.html#a7352e4d246dfaea6c89b920e682241ef">mode_type</a> <a class="code" href="classKnotView.html#ada1e5dc3708eab12fd2090c58eeb5d91">mode</a>;
+<a name="l00054"></a><a class="code" href="classKnotView.html#a292278079255d5c8aec60f78363a82a9">00054</a>         <a class="code" href="classNode.html">Node</a>* <a class="code" href="classKnotView.html#a292278079255d5c8aec60f78363a82a9">last_node</a>;
+<a name="l00055"></a><a class="code" href="classKnotView.html#a2830cbf2fa7cbc58d9eee122893c0b93">00055</a>         <a class="code" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77">mouse_status_type</a> <a class="code" href="classKnotView.html#a2830cbf2fa7cbc58d9eee122893c0b93">mouse_status</a>;
+<a name="l00056"></a>00056         <span class="comment">//bool moving;</span>
+<a name="l00057"></a>00057         <span class="comment">//bool dragging;</span>
+<a name="l00058"></a><a class="code" href="classKnotView.html#a52867b1dbb7379a4420835c48b6d6c06">00058</a>         QPointF <a class="code" href="classKnotView.html#a52867b1dbb7379a4420835c48b6d6c06">oldpos</a>;
+<a name="l00059"></a><a class="code" href="classKnotView.html#a436f550195fac7f72209c2f0ab7278bd">00059</a>         <a class="code" href="node_8hpp.html#a961a99add64427631221bdd787e82764">node_list</a> <a class="code" href="classKnotView.html#a436f550195fac7f72209c2f0ab7278bd">moved_nodes</a>;
+<a name="l00060"></a><a class="code" href="classKnotView.html#a8c890dba42da9b9dc397e23e2bca53fd">00060</a>         QGraphicsLineItem* <a class="code" href="classKnotView.html#a8c890dba42da9b9dc397e23e2bca53fd">guide</a>;
+<a name="l00061"></a><a class="code" href="classKnotView.html#a2b5ef0e380c8c0d7426f9e6b72ef3cee">00061</a>         QGraphicsRectItem* <a class="code" href="classKnotView.html#a2b5ef0e380c8c0d7426f9e6b72ef3cee">rubberband</a>;
+<a name="l00062"></a><a class="code" href="classKnotView.html#ae9b3d7250d7b9c25811d6f864736471a">00062</a>         QUndoStack <a class="code" href="classKnotView.html#ae9b3d7250d7b9c25811d6f864736471a">undo_stack</a>;
+<a name="l00063"></a><a class="code" href="classKnotView.html#aa86ac64d1c1945a8e5c821f9a2669a0b">00063</a>         <a class="code" href="classKnotGraph.html">KnotGraph</a> <a class="code" href="classKnotView.html#aa86ac64d1c1945a8e5c821f9a2669a0b">knot</a>;
+<a name="l00064"></a><a class="code" href="classKnotView.html#ad4ab7ad486f74feb7a56201e5b588b0a">00064</a>         <a class="code" href="classsnapping__grid.html">snapping_grid</a> <a class="code" href="classKnotView.html#ad4ab7ad486f74feb7a56201e5b588b0a">grid</a>;
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066     <span class="keyword">public</span>:
+<a name="l00067"></a>00067         <a class="code" href="classKnotView.html#a523f74a7b05e67969d8d616ea22c4743">KnotView</a>(QWidget *parent);
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a138039ef56667b862609da019b96381c">do_add_node</a> ( <a class="code" href="classNode.html">Node</a>* node, <a class="code" href="node_8hpp.html#a961a99add64427631221bdd787e82764">node_list</a> adjl );
+<a name="l00070"></a>00070         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#aef05d870c836955390357d5d2416bcee">do_remove_node</a> ( <a class="code" href="classNode.html">Node</a>* node );
+<a name="l00071"></a>00071         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a81688c5d497f74939e7e3916bb99e83a">do_move_node</a> ( <a class="code" href="classNode.html">Node</a>* node, QPointF pos );
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a839e0ec0bfa7e594fcb0d0bbafbdb2a0">link</a> ( <a class="code" href="classNode.html">Node</a>*a, <a class="code" href="classNode.html">Node</a>*b );
+<a name="l00074"></a>00074         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a58efd8de95108d19bfdcf81468dc4c89">unlink</a> ( <a class="code" href="classNode.html">Node</a>*a, <a class="code" href="classNode.html">Node</a>*b );
+<a name="l00075"></a>00075         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#aad49cacb3de827619e887596d18ef27c">do_toggle_edge</a> ( <a class="code" href="classNode.html">Node</a>*a, <a class="code" href="classNode.html">Node</a>*b, <a class="code" href="classEdge.html#a58c239ab1a344bfc60ffdfcec04e39a5">Edge::type_type</a> type );
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077 
+<a name="l00078"></a><a class="code" href="classKnotView.html#aacc23d242403ff2c70decae8dfe2bfae">00078</a>         <span class="keyword">const</span> QUndoStack&amp; <a class="code" href="classKnotView.html#aacc23d242403ff2c70decae8dfe2bfae">get_undo_stack</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classKnotView.html#ae9b3d7250d7b9c25811d6f864736471a">undo_stack</a>; }
+<a name="l00079"></a><a class="code" href="classKnotView.html#a25a861cc181cf14e5bdefccdbdaf37d5">00079</a>         QUndoStack&amp; <a class="code" href="classKnotView.html#a25a861cc181cf14e5bdefccdbdaf37d5">get_undo_stack</a>() { <span class="keywordflow">return</span> <a class="code" href="classKnotView.html#ae9b3d7250d7b9c25811d6f864736471a">undo_stack</a>; }
+<a name="l00080"></a>00080 
 <a name="l00081"></a>00081 
-<a name="l00082"></a>00082         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a5d96dc56aed67c322ce998454375a35f">writeXML</a>( QIODevice* device ) <span class="keyword">const</span> ;
-<a name="l00083"></a>00083         <span class="keywordtype">bool</span> <a class="code" href="classKnotView.html#a44eef0b74feb5f7700a7fd7adabfe093">readXML</a>( QIODevice* device );
-<a name="l00084"></a>00084         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#ad7fcbc472ef1bf85ae34e082960f3140">writeSVG</a> ( QIODevice* device );
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086         <span class="comment">// style setup</span>
+<a name="l00082"></a>00082         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#aaa6e67754c95b953089f11e42ce87433">clear</a>();
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a5d96dc56aed67c322ce998454375a35f">writeXML</a>( QIODevice* device ) <span class="keyword">const</span> ;
+<a name="l00085"></a>00085         <span class="keywordtype">bool</span> <a class="code" href="classKnotView.html#a44eef0b74feb5f7700a7fd7adabfe093">readXML</a>( QIODevice* device );
+<a name="l00086"></a>00086         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#ad7fcbc472ef1bf85ae34e082960f3140">writeSVG</a> ( QIODevice* device );
 <a name="l00087"></a>00087 
-<a name="l00088"></a>00088         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a916f166bd8f329c0271406ebe904ae59">set_width</a> ( <span class="keywordtype">double</span> w );
-<a name="l00089"></a>00089         <span class="keywordtype">double</span> <a class="code" href="classKnotView.html#aca04fd3b4d5ce2541b82194249e275ef">get_width</a> ( ) <span class="keyword">const</span>;
-<a name="l00090"></a>00090 
-<a name="l00091"></a>00091         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a036633ef2e936f89713b39a5b7d0d3db">set_pen</a> ( QPen p );
-<a name="l00092"></a>00092         QPen <a class="code" href="classKnotView.html#a721b4e4eb7b2c036610c0933f01dc936">get_pen</a>() <span class="keyword">const</span>;
-<a name="l00093"></a>00093 
-<a name="l00094"></a>00094         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#ac2f67ad0e5cd716c42eb16fd44af21e8">set_brush</a> ( QBrush b );
-<a name="l00095"></a>00095         QBrush <a class="code" href="classKnotView.html#a417c414ac2abee20f4104d8fd3a26898">get_brush</a> ( ) <span class="keyword">const</span>;
-<a name="l00096"></a>00096 
-<a name="l00097"></a>00097         <a class="code" href="structknot__curve__styler.html#afeaa0b54106a339d16c27bf765807f35">knot_curve_styler::style_id</a> <a class="code" href="classKnotView.html#a147f24556d7d7eab4539d4acad01d7b7">get_curve_style</a>() <span class="keyword">const</span>;
-<a name="l00098"></a>00098         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a27898c3f27a3c434a5494e782c5cf18a">set_curve_style</a>(<a class="code" href="structknot__curve__styler.html#afeaa0b54106a339d16c27bf765807f35">knot_curve_styler::style_id</a>);
-<a name="l00099"></a>00099 
-<a name="l00100"></a>00100         <span class="keywordtype">double</span> <a class="code" href="classKnotView.html#af1c70602a54cd16d320234c6226ac983">get_cusp_angle</a>() <span class="keyword">const</span>;
-<a name="l00101"></a>00101         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a3770d708d857d236bb92c7d3030fef6e">set_cusp_angle</a>(<span class="keywordtype">double</span> ca);
-<a name="l00102"></a>00102 
-<a name="l00103"></a>00103         <span class="keywordtype">double</span> <a class="code" href="classKnotView.html#a886dda5db04d12703a4157477f602d4d">get_handle_length</a>() <span class="keyword">const</span>;
-<a name="l00104"></a>00104         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a64c7b90646fb2670ad016f63206254a7">set_handle_length</a>(<span class="keywordtype">double</span> hl);
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106         <span class="keywordtype">double</span> <a class="code" href="classKnotView.html#a840058a10dc047b2df8d9dd225416eba">get_crossing_distance</a>() <span class="keyword">const</span>;
-<a name="l00107"></a>00107         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a5a76d7d02b6070d00e9010b1a29dd6de">set_crossing_distance</a>(<span class="keywordtype">double</span> cd);
-<a name="l00108"></a>00108 
-<a name="l00109"></a>00109         Qt::PenJoinStyle <a class="code" href="classKnotView.html#ab134f7f72cbccc031f8fa7adaae3f27d">get_join_style</a>() <span class="keyword">const</span>;
-<a name="l00110"></a>00110         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a508f378f7497d3cff185f81b6f0a4620">set_join_style</a>(Qt::PenJoinStyle);
-<a name="l00111"></a>00111 
-<a name="l00112"></a>00112 
-<a name="l00113"></a>00113         <span class="comment">// push new undo command</span>
-<a name="l00114"></a>00114         <a class="code" href="classNode.html">Node</a>* <a class="code" href="classKnotView.html#a8a5d0293824a191a57ddb6009019b6fe">add_node</a>(QPointF pos,<a class="code" href="node_8hpp.html#a961a99add64427631221bdd787e82764">node_list</a> adjl=<a class="code" href="node_8hpp.html#a961a99add64427631221bdd787e82764">node_list</a>());
-<a name="l00115"></a>00115         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a8a5d0293824a191a57ddb6009019b6fe">add_node</a>(<a class="code" href="classNode.html">Node</a>* n);
-<a name="l00116"></a>00116         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#abcc9454ce1e4ca626b98e4d7040c8a48">remove_node</a>(<a class="code" href="classNode.html">Node</a>* node);
-<a name="l00117"></a>00117         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#abcc9454ce1e4ca626b98e4d7040c8a48">remove_node</a>(<a class="code" href="classNode.html">Node</a>* node,<a class="code" href="node_8hpp.html#a961a99add64427631221bdd787e82764">node_list</a> adjl);
-<a name="l00118"></a>00118         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a8f52fef2f8f1dcd7ad75cf0d962697b6">add_edge</a> ( <a class="code" href="classNode.html">Node</a>* p1, <a class="code" href="classNode.html">Node</a>* p2 );
-<a name="l00119"></a>00119         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#aefb36f6ee0a827294b968daec77bbbbf">remove_edge</a> ( <a class="code" href="classNode.html">Node</a>* p1, <a class="code" href="classNode.html">Node</a>* p2 );
-<a name="l00120"></a>00120         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#ae38538713cdb15d5443b759ee5b34603">move_nodes</a> ( QPointF dest );
-<a name="l00121"></a>00121         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a1591b8e0250cb7506a5859c86223be8f">toggle_edge</a>(<a class="code" href="classEdge.html">Edge</a> *e);
-<a name="l00122"></a>00122         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a10877a6863a9aded3943a24f9b7a498c">toggle_edge_inverted</a>(<a class="code" href="classEdge.html">Edge</a> *e);
-<a name="l00123"></a>00123         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a6bb934c55287559574736e4e0f82cc87">set_edge_type</a> ( <a class="code" href="classEdge.html">Edge</a>* e, <a class="code" href="classEdge.html#a58c239ab1a344bfc60ffdfcec04e39a5">Edge::type_type</a> type );
-<a name="l00124"></a>00124 
-<a name="l00125"></a>00125         <a class="code" href="node_8hpp.html#a961a99add64427631221bdd787e82764">node_list</a> <a class="code" href="classKnotView.html#a8dda0b3ed576dea39dd4adc013b290c2">selected_nodes</a>() <span class="keyword">const</span>;
+<a name="l00088"></a>00088         <span class="comment">// style setup</span>
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a916f166bd8f329c0271406ebe904ae59">set_width</a> ( <span class="keywordtype">double</span> w );
+<a name="l00091"></a>00091         <span class="keywordtype">double</span> <a class="code" href="classKnotView.html#aca04fd3b4d5ce2541b82194249e275ef">get_width</a> ( ) <span class="keyword">const</span>;
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a036633ef2e936f89713b39a5b7d0d3db">set_pen</a> ( QPen p );
+<a name="l00094"></a>00094         QPen <a class="code" href="classKnotView.html#a721b4e4eb7b2c036610c0933f01dc936">get_pen</a>() <span class="keyword">const</span>;
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#ac2f67ad0e5cd716c42eb16fd44af21e8">set_brush</a> ( QBrush b );
+<a name="l00097"></a>00097         QBrush <a class="code" href="classKnotView.html#a417c414ac2abee20f4104d8fd3a26898">get_brush</a> ( ) <span class="keyword">const</span>;
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099         <a class="code" href="structknot__curve__styler.html#afeaa0b54106a339d16c27bf765807f35">knot_curve_styler::style_id</a> <a class="code" href="classKnotView.html#a147f24556d7d7eab4539d4acad01d7b7">get_curve_style</a>() <span class="keyword">const</span>;
+<a name="l00100"></a>00100         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a27898c3f27a3c434a5494e782c5cf18a">set_curve_style</a>(<a class="code" href="structknot__curve__styler.html#afeaa0b54106a339d16c27bf765807f35">knot_curve_styler::style_id</a>);
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102         <span class="keywordtype">double</span> <a class="code" href="classKnotView.html#af1c70602a54cd16d320234c6226ac983">get_cusp_angle</a>() <span class="keyword">const</span>;
+<a name="l00103"></a>00103         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a3770d708d857d236bb92c7d3030fef6e">set_cusp_angle</a>(<span class="keywordtype">double</span> ca);
+<a name="l00104"></a>00104 
+<a name="l00105"></a>00105         <span class="keywordtype">double</span> <a class="code" href="classKnotView.html#a886dda5db04d12703a4157477f602d4d">get_handle_length</a>() <span class="keyword">const</span>;
+<a name="l00106"></a>00106         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a64c7b90646fb2670ad016f63206254a7">set_handle_length</a>(<span class="keywordtype">double</span> hl);
+<a name="l00107"></a>00107 
+<a name="l00108"></a>00108         <span class="keywordtype">double</span> <a class="code" href="classKnotView.html#a840058a10dc047b2df8d9dd225416eba">get_crossing_distance</a>() <span class="keyword">const</span>;
+<a name="l00109"></a>00109         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a5a76d7d02b6070d00e9010b1a29dd6de">set_crossing_distance</a>(<span class="keywordtype">double</span> cd);
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111         Qt::PenJoinStyle <a class="code" href="classKnotView.html#ab134f7f72cbccc031f8fa7adaae3f27d">get_join_style</a>() <span class="keyword">const</span>;
+<a name="l00112"></a>00112         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a508f378f7497d3cff185f81b6f0a4620">set_join_style</a>(Qt::PenJoinStyle);
+<a name="l00113"></a>00113 
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115         <span class="comment">// push new undo command</span>
+<a name="l00116"></a>00116         <a class="code" href="classNode.html">Node</a>* <a class="code" href="classKnotView.html#a8a5d0293824a191a57ddb6009019b6fe">add_node</a>(QPointF pos,<a class="code" href="node_8hpp.html#a961a99add64427631221bdd787e82764">node_list</a> adjl=<a class="code" href="node_8hpp.html#a961a99add64427631221bdd787e82764">node_list</a>());
+<a name="l00117"></a>00117         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a8a5d0293824a191a57ddb6009019b6fe">add_node</a>(<a class="code" href="classNode.html">Node</a>* n);
+<a name="l00118"></a>00118         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#abcc9454ce1e4ca626b98e4d7040c8a48">remove_node</a>(<a class="code" href="classNode.html">Node</a>* node);
+<a name="l00119"></a>00119         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#abcc9454ce1e4ca626b98e4d7040c8a48">remove_node</a>(<a class="code" href="classNode.html">Node</a>* node,<a class="code" href="node_8hpp.html#a961a99add64427631221bdd787e82764">node_list</a> adjl);
+<a name="l00120"></a>00120         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a8f52fef2f8f1dcd7ad75cf0d962697b6">add_edge</a> ( <a class="code" href="classNode.html">Node</a>* p1, <a class="code" href="classNode.html">Node</a>* p2 );
+<a name="l00121"></a>00121         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#aefb36f6ee0a827294b968daec77bbbbf">remove_edge</a> ( <a class="code" href="classNode.html">Node</a>* p1, <a class="code" href="classNode.html">Node</a>* p2 );
+<a name="l00122"></a>00122         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#ae38538713cdb15d5443b759ee5b34603">move_nodes</a> ( QPointF dest );
+<a name="l00123"></a>00123         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a1591b8e0250cb7506a5859c86223be8f">toggle_edge</a>(<a class="code" href="classEdge.html">Edge</a> *e);
+<a name="l00124"></a>00124         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a10877a6863a9aded3943a24f9b7a498c">toggle_edge_inverted</a>(<a class="code" href="classEdge.html">Edge</a> *e);
+<a name="l00125"></a>00125         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a6bb934c55287559574736e4e0f82cc87">set_edge_type</a> ( <a class="code" href="classEdge.html">Edge</a>* e, <a class="code" href="classEdge.html#a58c239ab1a344bfc60ffdfcec04e39a5">Edge::type_type</a> type );
 <a name="l00126"></a>00126 
-<a name="l00127"></a>00127     <span class="keyword">protected</span>:
-<a name="l00128"></a>00128         QPointF <a class="code" href="classKnotView.html#ab748cd20c0650663b9b4e26538f5a21f">get_mouse_point</a> ( QMouseEvent *event );
-<a name="l00129"></a>00129         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#acc83f2f9b50bf532f481a32f0a159e69">mousePressEvent</a>(QMouseEvent *event);
-<a name="l00130"></a>00130         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a96711670b5c035dd1218cbf65c7fc842">mouseMoveEvent</a>(QMouseEvent *event);
-<a name="l00131"></a>00131         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#af89d4c2263fb5e2f38075432e5595fcd">mouseReleaseEvent</a>(QMouseEvent *event);
-<a name="l00132"></a>00132         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a47672e24bcd94c805784e221a48a15a3">wheelEvent</a>(QWheelEvent *event);
-<a name="l00133"></a>00133         <a class="code" href="classNode.html">Node</a>* <a class="code" href="classKnotView.html#af813eaef172d72afd2ac1937d13c573d">node_at</a> ( QPointF p );
-<a name="l00134"></a>00134         <a class="code" href="classEdge.html">Edge</a>* <a class="code" href="classKnotView.html#a4e972755d4b7f5a996da2a7b6923b97c">edge_at</a> ( QPointF p );
-<a name="l00135"></a>00135 
-<a name="l00136"></a>00136         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#af2f689e88f14e5573b2330af228fdbf5">set_guide</a>(QPointF from, QPointF to);
-<a name="l00137"></a>00137         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a6e8a7c398f08d932950fbde3f243699a">unset_guide</a>();
-<a name="l00138"></a>00138         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#aa841ed84de0275c9208280d899e0b2d4">mode_change</a>();
+<a name="l00127"></a>00127         <a class="code" href="node_8hpp.html#a961a99add64427631221bdd787e82764">node_list</a> <a class="code" href="classKnotView.html#a8dda0b3ed576dea39dd4adc013b290c2">selected_nodes</a>() <span class="keyword">const</span>;
+<a name="l00128"></a>00128 
+<a name="l00129"></a>00129         <a class="code" href="classsnapping__grid.html">snapping_grid</a>&amp; <a class="code" href="classKnotView.html#a8076f3bf6393a1a960f76ea8ee57949b">get_grid</a>();
+<a name="l00130"></a>00130 
+<a name="l00131"></a>00131     <span class="keyword">protected</span>:
+<a name="l00132"></a>00132         QPointF <a class="code" href="classKnotView.html#ab748cd20c0650663b9b4e26538f5a21f">get_mouse_point</a> ( QMouseEvent *event );
+<a name="l00133"></a>00133         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#acc83f2f9b50bf532f481a32f0a159e69">mousePressEvent</a>(QMouseEvent *event);
+<a name="l00134"></a>00134         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a96711670b5c035dd1218cbf65c7fc842">mouseMoveEvent</a>(QMouseEvent *event);
+<a name="l00135"></a>00135         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#af89d4c2263fb5e2f38075432e5595fcd">mouseReleaseEvent</a>(QMouseEvent *event);
+<a name="l00136"></a>00136         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a47672e24bcd94c805784e221a48a15a3">wheelEvent</a>(QWheelEvent *event);
+<a name="l00137"></a>00137         <a class="code" href="classNode.html">Node</a>* <a class="code" href="classKnotView.html#af813eaef172d72afd2ac1937d13c573d">node_at</a> ( QPointF p );
+<a name="l00138"></a>00138         <a class="code" href="classEdge.html">Edge</a>* <a class="code" href="classKnotView.html#a4e972755d4b7f5a996da2a7b6923b97c">edge_at</a> ( QPointF p );
 <a name="l00139"></a>00139 
-<a name="l00140"></a>00140     <span class="keyword">public</span> slots:
-<a name="l00141"></a>00141         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#afed2799c2633f637c1a9b207d68562ef">mode_edit_node</a>();
-<a name="l00142"></a>00142         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#abe6f9c377f5608f39e853ca2ba38c888">mode_insert_edge</a>();
-<a name="l00143"></a>00143         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#aaa15e6a8eecbe17663b4a98cbb4745b1">mode_edge_chain</a>();
-<a name="l00144"></a>00144 
-<a name="l00145"></a>00145         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a3fc1c8d8670c6805c083c512d9c98475">erase_selected</a>();
-<a name="l00146"></a>00146         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a162fdf3c7ca1296a59f9aba23d767d3c">link_selected</a>();
-<a name="l00147"></a>00147         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a6670595d1d815659d839fbcb220204c8">merge_selected</a>();
+<a name="l00140"></a>00140         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#af2f689e88f14e5573b2330af228fdbf5">set_guide</a>(QPointF from, QPointF to);
+<a name="l00141"></a>00141         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a6e8a7c398f08d932950fbde3f243699a">unset_guide</a>();
+<a name="l00142"></a>00142         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#aa841ed84de0275c9208280d899e0b2d4">mode_change</a>();
+<a name="l00143"></a>00143 
+<a name="l00144"></a>00144     <span class="keyword">public</span> slots:
+<a name="l00145"></a>00145         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#afed2799c2633f637c1a9b207d68562ef">mode_edit_node</a>();
+<a name="l00146"></a>00146         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#abe6f9c377f5608f39e853ca2ba38c888">mode_insert_edge</a>();
+<a name="l00147"></a>00147         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#aaa15e6a8eecbe17663b4a98cbb4745b1">mode_edge_chain</a>();
 <a name="l00148"></a>00148 
-<a name="l00149"></a>00149         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a5a36b11469ed576678bacd0fbc9980d8">select_all</a>();
-<a name="l00150"></a>00150 
-<a name="l00151"></a>00151         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a069807cbad050f3f937148469163d855">redraw</a>(<span class="keywordtype">bool</span> recalculate_node=<span class="keyword">true</span>);
+<a name="l00149"></a>00149         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a3fc1c8d8670c6805c083c512d9c98475">erase_selected</a>();
+<a name="l00150"></a>00150         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a162fdf3c7ca1296a59f9aba23d767d3c">link_selected</a>();
+<a name="l00151"></a>00151         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a6670595d1d815659d839fbcb220204c8">merge_selected</a>();
 <a name="l00152"></a>00152 
-<a name="l00153"></a>00153         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#ae0c43947d78f98c185c8cd017b4ec195">reset_view</a>();
-<a name="l00154"></a>00154         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a0123e6126a12ba8d9b07d488ae8fa93f">zoom</a> ( <span class="keywordtype">double</span> factor );
-<a name="l00155"></a>00155         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a152a5ce6b1eaa7e0967a90761f085775">reset_zoom</a>();
+<a name="l00153"></a>00153         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a5a36b11469ed576678bacd0fbc9980d8">select_all</a>();
+<a name="l00154"></a>00154 
+<a name="l00155"></a>00155         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a069807cbad050f3f937148469163d855">redraw</a>(<span class="keywordtype">bool</span> recalculate_node=<span class="keyword">true</span>);
 <a name="l00156"></a>00156 
-<a name="l00157"></a>00157     signals:
-<a name="l00158"></a>00158         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a9759dd15896d73d1c9d3651a88760640">mouse_moved</a> ( QPointF );
-<a name="l00159"></a>00159 };
+<a name="l00157"></a>00157         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#ae0c43947d78f98c185c8cd017b4ec195">reset_view</a>();
+<a name="l00158"></a>00158         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a0123e6126a12ba8d9b07d488ae8fa93f">zoom</a> ( <span class="keywordtype">double</span> factor );
+<a name="l00159"></a>00159         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a152a5ce6b1eaa7e0967a90761f085775">reset_zoom</a>();
 <a name="l00160"></a>00160 
-<a name="l00161"></a>00161 <span class="preprocessor">#endif // KNOTVIEW_HPP</span>
+<a name="l00161"></a>00161     signals:
+<a name="l00162"></a>00162         <span class="keywordtype">void</span> <a class="code" href="classKnotView.html#a9759dd15896d73d1c9d3651a88760640">mouse_moved</a> ( QPointF );
+<a name="l00163"></a>00163 };
+<a name="l00164"></a>00164 
+<a name="l00165"></a>00165 <span class="preprocessor">#endif // KNOTVIEW_HPP</span>
 </pre></div></div>
 </div>
 <!-- window showing the filter options -->
@@ -277,7 +281,7 @@ function toggleVisibility(linkObj) {
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 16 2012 11:40:09 for Knotter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 16 2012 22:20:35 for Knotter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

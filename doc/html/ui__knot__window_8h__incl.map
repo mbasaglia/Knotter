@@ -1,8 +1,9 @@
 <map id="G" name="G">
 <area shape="rect" id="node27" href="$knotview_8hpp.html" title="knotview.hpp" alt="" coords="1787,83,1885,112"/>
-<area shape="rect" id="node31" href="$node_8hpp.html" title="node.hpp" alt="" coords="1683,315,1757,344"/>
-<area shape="rect" id="node37" href="$edge_8hpp.html" title="edge.hpp" alt="" coords="1909,392,1984,421"/>
-<area shape="rect" id="node43" href="$knotgraph_8hpp.html" title="knotgraph.hpp" alt="" coords="1784,160,1888,189"/>
-<area shape="rect" id="node33" href="$custom__item_8hpp.html" title="custom_item.hpp" alt="" coords="1823,469,1945,499"/>
-<area shape="rect" id="node51" href="$knot__curve__style_8hpp.html" title="knot_curve_style.hpp" alt="" coords="1763,237,1909,267"/>
+<area shape="rect" id="node31" href="$node_8hpp.html" title="node.hpp" alt="" coords="1789,315,1864,344"/>
+<area shape="rect" id="node37" href="$edge_8hpp.html" title="edge.hpp" alt="" coords="1575,392,1649,421"/>
+<area shape="rect" id="node43" href="$knotgraph_8hpp.html" title="knotgraph.hpp" alt="" coords="1664,160,1768,189"/>
+<area shape="rect" id="node57" href="$snapping__grid_8hpp.html" title="snapping_grid.hpp" alt="" coords="1903,392,2028,421"/>
+<area shape="rect" id="node33" href="$custom__item_8hpp.html" title="custom_item.hpp" alt="" coords="1765,469,1888,499"/>
+<area shape="rect" id="node51" href="$knot__curve__style_8hpp.html" title="knot_curve_style.hpp" alt="" coords="1560,237,1707,267"/>
 </map>

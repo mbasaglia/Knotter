@@ -76,6 +76,10 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
         void zoom_in();
         void zoom_out();
+
+        void configure_grid();
+
+        void enable_grid ( bool enabled );
 };
 
 #endif // KNOT_WINDOW_HPP

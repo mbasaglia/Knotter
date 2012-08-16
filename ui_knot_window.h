@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'knot_window.ui'
 **
-** Created: Thu Aug 16 14:40:40 2012
-**      by: Qt User Interface Compiler version 4.7.4
+** Created: Thu Aug 16 22:16:15 2012
+**      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -59,6 +59,9 @@ public:
     QAction *actionCut;
     QAction *action_Copy;
     QAction *action_Paste;
+    QAction *action_Configure_Knotter;
+    QAction *actionEnable_Grid;
+    QAction *actionConfigure_G_rid;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     KnotView *canvas;
@@ -70,6 +73,7 @@ public:
     QMenu *menu_Zoom;
     QMenu *menu_Toolbars;
     QMenu *menu_Knot;
+    QMenu *menu_Settings;
     QStatusBar *statusbar;
     QToolBar *EditBar;
     QToolBar *MainToolBar;
@@ -171,6 +175,17 @@ public:
         action_Copy->setObjectName(QString::fromUtf8("action_Copy"));
         action_Paste = new QAction(Knot_Window);
         action_Paste->setObjectName(QString::fromUtf8("action_Paste"));
+        action_Configure_Knotter = new QAction(Knot_Window);
+        action_Configure_Knotter->setObjectName(QString::fromUtf8("action_Configure_Knotter"));
+        actionEnable_Grid = new QAction(Knot_Window);
+        actionEnable_Grid->setObjectName(QString::fromUtf8("actionEnable_Grid"));
+        actionEnable_Grid->setCheckable(true);
+        actionEnable_Grid->setChecked(true);
+        QIcon icon6;
+        icon6.addFile(QString::fromUtf8(":/img/square_grid.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        actionEnable_Grid->setIcon(icon6);
+        actionConfigure_G_rid = new QAction(Knot_Window);
+        actionConfigure_G_rid->setObjectName(QString::fromUtf8("actionConfigure_G_rid"));
         centralWidget = new QWidget(Knot_Window);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -200,6 +215,8 @@ public:
         menu_Toolbars->setObjectName(QString::fromUtf8("menu_Toolbars"));
         menu_Knot = new QMenu(menuBar);
         menu_Knot->setObjectName(QString::fromUtf8("menu_Knot"));
+        menu_Settings = new QMenu(menuBar);
+        menu_Settings->setObjectName(QString::fromUtf8("menu_Settings"));
         Knot_Window->setMenuBar(menuBar);
         statusbar = new QStatusBar(Knot_Window);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -218,6 +235,7 @@ public:
         menuBar->addAction(menu_View->menuAction());
         menuBar->addAction(menuNo_des->menuAction());
         menuBar->addAction(menu_Knot->menuAction());
+        menuBar->addAction(menu_Settings->menuAction());
         menu_File->addAction(action_New);
         menu_File->addAction(action_Open);
         menu_File->addSeparator();
@@ -259,6 +277,10 @@ public:
         menu_Knot->addAction(actionEdge_List);
         menu_Knot->addSeparator();
         menu_Knot->addAction(actionRefresh_Path);
+        menu_Settings->addAction(action_Style);
+        menu_Settings->addAction(action_Configure_Knotter);
+        menu_Settings->addAction(actionEnable_Grid);
+        menu_Settings->addAction(actionConfigure_G_rid);
         EditBar->addAction(actionEdit_Nodes);
         EditBar->addAction(actionInsert_Edges);
         EditBar->addAction(actionEdge_List);
@@ -266,6 +288,8 @@ public:
         EditBar->addAction(action_Link);
         EditBar->addAction(action_Erase);
         EditBar->addAction(action_Merge);
+        EditBar->addSeparator();
+        EditBar->addAction(actionEnable_Grid);
         MainToolBar->addAction(action_New);
         MainToolBar->addAction(action_Open);
         MainToolBar->addAction(action_Save);
@@ -299,6 +323,8 @@ public:
         QObject::connect(actionCut, SIGNAL(triggered()), Knot_Window, SLOT(cut()));
         QObject::connect(action_Copy, SIGNAL(triggered()), Knot_Window, SLOT(copy()));
         QObject::connect(action_Paste, SIGNAL(triggered()), Knot_Window, SLOT(paste()));
+        QObject::connect(actionConfigure_G_rid, SIGNAL(triggered()), Knot_Window, SLOT(configure_grid()));
+        QObject::connect(actionEnable_Grid, SIGNAL(triggered(bool)), Knot_Window, SLOT(enable_grid(bool)));
 
         QMetaObject::connectSlotsByName(Knot_Window);
     } // setupUi
@@ -307,22 +333,19 @@ public:
     {
         Knot_Window->setWindowTitle(QApplication::translate("Knot_Window", "Knotter", 0, QApplication::UnicodeUTF8));
         action_Save->setText(QApplication::translate("Knot_Window", "&Save", 0, QApplication::UnicodeUTF8));
-        action_Save->setShortcut(QApplication::translate("Knot_Window", "Ctrl+S", 0, QApplication::UnicodeUTF8));
         actionSave_As->setText(QApplication::translate("Knot_Window", "Save &As...", 0, QApplication::UnicodeUTF8));
         action_Export->setText(QApplication::translate("Knot_Window", "E&xport...", 0, QApplication::UnicodeUTF8));
         action_Open->setText(QApplication::translate("Knot_Window", "&Open", 0, QApplication::UnicodeUTF8));
-        action_Open->setShortcut(QApplication::translate("Knot_Window", "Ctrl+O", 0, QApplication::UnicodeUTF8));
-        action_New->setText(QApplication::translate("Knot_Window", "&New...", 0, QApplication::UnicodeUTF8));
-        action_New->setShortcut(QApplication::translate("Knot_Window", "Ctrl+N", 0, QApplication::UnicodeUTF8));
+        action_New->setText(QApplication::translate("Knot_Window", "&New", 0, QApplication::UnicodeUTF8));
         action_Quit->setText(QApplication::translate("Knot_Window", "&Quit", 0, QApplication::UnicodeUTF8));
-        actionInsert_Edges->setText(QApplication::translate("Knot_Window", "Edit Edges", 0, QApplication::UnicodeUTF8));
+        actionInsert_Edges->setText(QApplication::translate("Knot_Window", "Edit &Edges", 0, QApplication::UnicodeUTF8));
         actionInsert_Edges->setShortcut(QApplication::translate("Knot_Window", "Alt+Shift+E", 0, QApplication::UnicodeUTF8));
-        actionEdit_Nodes->setText(QApplication::translate("Knot_Window", "Edit Nodes", 0, QApplication::UnicodeUTF8));
+        actionEdit_Nodes->setText(QApplication::translate("Knot_Window", "Edit &Nodes", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         actionEdit_Nodes->setToolTip(QApplication::translate("Knot_Window", "Edit Nodes", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         actionEdit_Nodes->setShortcut(QApplication::translate("Knot_Window", "Alt+Shift+N", 0, QApplication::UnicodeUTF8));
-        actionEdge_List->setText(QApplication::translate("Knot_Window", "Edge List", 0, QApplication::UnicodeUTF8));
+        actionEdge_List->setText(QApplication::translate("Knot_Window", "Edge &List", 0, QApplication::UnicodeUTF8));
         actionEdge_List->setShortcut(QApplication::translate("Knot_Window", "Alt+Shift+L", 0, QApplication::UnicodeUTF8));
         action_Link->setText(QApplication::translate("Knot_Window", "&Link", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
@@ -340,18 +363,13 @@ public:
 #endif // QT_NO_TOOLTIP
         action_Merge->setShortcut(QApplication::translate("Knot_Window", "Ctrl+M", 0, QApplication::UnicodeUTF8));
         action_Undo->setText(QApplication::translate("Knot_Window", "&Undo", 0, QApplication::UnicodeUTF8));
-        action_Undo->setShortcut(QApplication::translate("Knot_Window", "Ctrl+Z", 0, QApplication::UnicodeUTF8));
         action_Redo->setText(QApplication::translate("Knot_Window", "&Redo", 0, QApplication::UnicodeUTF8));
-        action_Redo->setShortcut(QApplication::translate("Knot_Window", "Ctrl+Shift+Z", 0, QApplication::UnicodeUTF8));
         actionSelect_All->setText(QApplication::translate("Knot_Window", "Select &All", 0, QApplication::UnicodeUTF8));
-        actionSelect_All->setShortcut(QApplication::translate("Knot_Window", "Ctrl+A", 0, QApplication::UnicodeUTF8));
         actionRefresh_Path->setText(QApplication::translate("Knot_Window", "Refresh &Path", 0, QApplication::UnicodeUTF8));
         action_Main->setText(QApplication::translate("Knot_Window", "&Main", 0, QApplication::UnicodeUTF8));
         action_Knot_Editing->setText(QApplication::translate("Knot_Window", "&Knot Editing", 0, QApplication::UnicodeUTF8));
         actionZoom_In->setText(QApplication::translate("Knot_Window", "Zoom &In", 0, QApplication::UnicodeUTF8));
-        actionZoom_In->setShortcut(QApplication::translate("Knot_Window", "Ctrl++", 0, QApplication::UnicodeUTF8));
         actionZoom_Out->setText(QApplication::translate("Knot_Window", "Zoom &Out", 0, QApplication::UnicodeUTF8));
-        actionZoom_Out->setShortcut(QApplication::translate("Knot_Window", "Ctrl+-", 0, QApplication::UnicodeUTF8));
         action_Reset_Zoom->setText(QApplication::translate("Knot_Window", "&Reset Zoom", 0, QApplication::UnicodeUTF8));
         action_Reset_Zoom->setShortcut(QApplication::translate("Knot_Window", "Ctrl+0", 0, QApplication::UnicodeUTF8));
         action_Reset_View->setText(QApplication::translate("Knot_Window", "&Reset View", 0, QApplication::UnicodeUTF8));
@@ -363,6 +381,9 @@ public:
         actionCut->setText(QApplication::translate("Knot_Window", "Cu&t", 0, QApplication::UnicodeUTF8));
         action_Copy->setText(QApplication::translate("Knot_Window", "&Copy", 0, QApplication::UnicodeUTF8));
         action_Paste->setText(QApplication::translate("Knot_Window", "&Paste", 0, QApplication::UnicodeUTF8));
+        action_Configure_Knotter->setText(QApplication::translate("Knot_Window", "&Configure Knotter...", 0, QApplication::UnicodeUTF8));
+        actionEnable_Grid->setText(QApplication::translate("Knot_Window", "Enable &Grid", 0, QApplication::UnicodeUTF8));
+        actionConfigure_G_rid->setText(QApplication::translate("Knot_Window", "Configure G&rid...", 0, QApplication::UnicodeUTF8));
         menu_File->setTitle(QApplication::translate("Knot_Window", "&File", 0, QApplication::UnicodeUTF8));
         menuNo_des->setTitle(QApplication::translate("Knot_Window", "No&des", 0, QApplication::UnicodeUTF8));
         menu_Edit->setTitle(QApplication::translate("Knot_Window", "&Edit", 0, QApplication::UnicodeUTF8));
@@ -370,8 +391,9 @@ public:
         menu_Zoom->setTitle(QApplication::translate("Knot_Window", "&Zoom", 0, QApplication::UnicodeUTF8));
         menu_Toolbars->setTitle(QApplication::translate("Knot_Window", "&Toolbars", 0, QApplication::UnicodeUTF8));
         menu_Knot->setTitle(QApplication::translate("Knot_Window", "&Knot", 0, QApplication::UnicodeUTF8));
-        EditBar->setWindowTitle(QApplication::translate("Knot_Window", "toolBar", 0, QApplication::UnicodeUTF8));
-        MainToolBar->setWindowTitle(QApplication::translate("Knot_Window", "toolBar", 0, QApplication::UnicodeUTF8));
+        menu_Settings->setTitle(QApplication::translate("Knot_Window", "&Settings", 0, QApplication::UnicodeUTF8));
+        EditBar->setWindowTitle(QApplication::translate("Knot_Window", "EditBar", 0, QApplication::UnicodeUTF8));
+        MainToolBar->setWindowTitle(QApplication::translate("Knot_Window", "MainToolBar", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

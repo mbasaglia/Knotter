@@ -6,5 +6,7 @@
         <file>img/edit_edges.svg</file>
         <file>img/edit_nodes.svg</file>
         <file>img/link.svg</file>
+        <file>img/square_grid.svg</file>
+        <file>img/triangular_grid.svg</file>
     </qresource>
 </RCC>

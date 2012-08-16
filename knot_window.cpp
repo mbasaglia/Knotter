@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "commands.hpp"
 #include <QFileDialog>
 #include <QMessageBox>
+#include "gridconfig.hpp"
 
 Knot_Window::Knot_Window(QWidget *parent) :
     QMainWindow(parent)
@@ -152,7 +153,7 @@ void Knot_Window::copy()
 
 void Knot_Window::cut()
 {
-    canvas->get_undo_stack().beginMacro("Cut");
+    canvas->get_undo_stack().beginMacro(tr("Cut"));
 
     clipboard.copy ( canvas );
 
@@ -171,7 +172,7 @@ void Knot_Window::paste()
 
 void Knot_Window::clear()
 {
-    canvas->get_undo_stack().beginMacro("Clear Document");
+    canvas->get_undo_stack().beginMacro(tr("Clear Document"));
     filename = "";
     canvas->select_all();
     canvas->erase_selected();
@@ -184,7 +185,7 @@ void Knot_Window::save(QString file)
     QFile quf(file);
     if ( ! quf.open(QIODevice::WriteOnly | QIODevice::Text) )
     {
-        QMessageBox::warning(this,"File Error","Could not write to \""+filename+"\".");
+        QMessageBox::warning(this,tr("File Error"),tr("Could not write to \"%1\".").arg(filename));
         return;
     }
 
@@ -204,7 +205,7 @@ void Knot_Window::save()
 
 void Knot_Window::saveAs()
 {
-    QString fn = QFileDialog::getSaveFileName(this,"Save Knot",filename,
+    QString fn = QFileDialog::getSaveFileName(this,tr("Save Knot"),filename,
                 "Knot files (*.knot);;XML files (*.xml);;All files (*)" );
     if ( fn.isNull() )
         return;
@@ -214,7 +215,7 @@ void Knot_Window::saveAs()
 
 void Knot_Window::open()
 {
-    QString fn = QFileDialog::getOpenFileName(this,"Open Knot",filename,
+    QString fn = QFileDialog::getOpenFileName(this,tr("Open Knot"),filename,
                 "Knot files (*.knot);;XML files (*.xml);;All files (*)" );
     if ( fn.isNull() )
         return;
@@ -222,13 +223,13 @@ void Knot_Window::open()
     QFile quf(filename);
     if ( ! quf.open(QIODevice::ReadOnly | QIODevice::Text) )
     {
-        QMessageBox::warning(this,"File Error","Could not read \""+filename+"\".");
+        QMessageBox::warning(this,tr("File Error"),tr("Could not read \"%1\".").arg(filename));
         return;
     }
     canvas->clear();
     canvas->get_undo_stack().setClean();
     if ( !canvas->readXML(&quf) )
-        QMessageBox::warning(this,"File Error","Error while reading \""+filename+"\".");
+        QMessageBox::warning(this,tr("File Error"),tr("Error while reading \"%1\".").arg(filename));
 
     update_style_dialog();
 
@@ -236,12 +237,12 @@ void Knot_Window::open()
 
 void Knot_Window::exportSVG()
 {
-    QString exname = QFileDialog::getSaveFileName(this,"Export Knot as SVG",filename,
+    QString exname = QFileDialog::getSaveFileName(this,tr("Export Knot as SVG"),filename,
                 "SVG Images (*.svg);;XML files (*.xml);;All files (*)" );
     QFile quf(exname);
     if ( ! quf.open(QIODevice::WriteOnly | QIODevice::Text) )
     {
-        QMessageBox::warning(this,"File Error","Could not write to \""+exname+"\".");
+        QMessageBox::warning(this,tr("File Error"),tr("Could not write to \"%1\".").arg(exname));
         return;
     }
     canvas->writeSVG ( &quf );
@@ -271,6 +272,24 @@ void Knot_Window::zoom_in()
 void Knot_Window::zoom_out()
 {
     canvas->zoom(0.5);
+}
+
+void Knot_Window::configure_grid()
+{
+    snapping_grid &grid = canvas->get_grid();
+    GridConfig(&grid,this).exec();
+
+    actionEnable_Grid->setChecked(grid.is_enabled());
+    if ( grid.get_shape() == snapping_grid::TRIANGLE )
+        actionEnable_Grid->setIcon(QIcon(":/img/triangular_grid.svg"));
+    else
+        actionEnable_Grid->setIcon(QIcon(":/img/square_grid.svg"));
+
+}
+
+void Knot_Window::enable_grid(bool enabled)
+{
+    canvas->get_grid().enable ( enabled );
 }
 
 

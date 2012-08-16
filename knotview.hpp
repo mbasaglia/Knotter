@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "edge.hpp"
 #include <QUndoStack>
 #include "knotgraph.hpp"
+#include "snapping_grid.hpp"
 
 
 class KnotView : public QGraphicsView
@@ -60,6 +61,7 @@ class KnotView : public QGraphicsView
         QGraphicsRectItem* rubberband;
         QUndoStack undo_stack;
         KnotGraph knot;
+        snapping_grid grid;
 
     public:
         KnotView(QWidget *parent);
@@ -123,6 +125,8 @@ class KnotView : public QGraphicsView
         void set_edge_type ( Edge* e, Edge::type_type type );
 
         node_list selected_nodes() const;
+
+        snapping_grid& get_grid();
 
     protected:
         QPointF get_mouse_point ( QMouseEvent *event );

@@ -30,7 +30,10 @@ SOURCES += main.cpp\
     knotgraph.cpp \
     style_dialog.cpp \
     knot_curve_style.cpp \
-    clipboard.cpp
+    clipboard.cpp \
+    config_dialog.cpp \
+    snapping_grid.cpp \
+    gridconfig.cpp
 
 HEADERS  += knot_window.hpp \
     knotview.hpp \
@@ -42,10 +45,15 @@ HEADERS  += knot_window.hpp \
     style_dialog.hpp \
     color_widget.hpp \
     knot_curve_style.hpp \
-    clipboard.hpp
+    clipboard.hpp \
+    config_dialog.hpp \
+    snapping_grid.hpp \
+    gridconfig.hpp
 
 FORMS    += knot_window.ui \
-    style_dialog.ui
+    style_dialog.ui \
+    config_dialog.ui \
+    gridconfig.ui
 
 QMAKE_CXXFLAGS += -Werror
 
@@ -64,11 +72,14 @@ OTHER_FILES += \
 RESOURCES += \
     icons.qrc
 
+TRANSLATIONS = knotter_it.ts
+
+
 MYDISTFILES = $$FORMS $$OTHER_FILES $$RESOURCES Makefile Knotter.pro
-MYDIST_NAME = "$$TARGET-$$VERSION"
+MYDIST_NAME = "$$TARGET-$${VERSION}"
 MYDIST_TAR = "$${MYDIST_NAME}.tar"
 MYDIST_TAR_GZ = "$${MYDIST_TAR}.gz"
-MYDIST_TMP = ".tmp/$$MYDIST_NAME"
+MYDIST_TMP = ".tmp/$${MYDIST_NAME}"
 mydist.depends = $$TARGET
                                                                                             #
 mydist.commands =                                                                           \
@@ -79,7 +90,7 @@ mydist.commands =                                                               
                 $(COPY_FILE) --parents $$MYDISTFILES `ls *.hpp *.cpp *.h` $$MYDIST_TMP &&   \
                 (                                                                           \
                     cd `dirname $$MYDIST_TMP`  &&                                           \
-                    $(TAR) $$MYDIST_TAR $$MYDIST_NAME" &&                                   \
+                    $(TAR) $$MYDIST_TAR $$MYDIST_NAME &&                                    \
                     $(COMPRESS) $$MYDIST_TAR                                                \
                 ) &&                                                                        \
                 $(MOVE) `dirname $$MYDIST_TMP`/$$MYDIST_TAR_GZ $$MYDIST_TAR_GZ &&           \
