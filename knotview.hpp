@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QUndoStack>
 #include "knotgraph.hpp"
 
-typedef QList<Node*> node_list;
 
 class KnotView : public QGraphicsView
 {
@@ -40,11 +39,21 @@ class KnotView : public QGraphicsView
 
     protected:
         enum mode_type { EDIT_NODE, INSERT_EDGE_CHAIN,
-                          INSERT_EDGE, TOGGLE_EDGE };
+                          INSERT_EDGE };
+
+        enum mouse_status_type {
+                DEFAULT, ///< default, mouse actions depend on mode_type
+                MOVING,  ///< moving existing nodes around
+                DRAGGING,///< dragging the view
+                PLACING  ///< placing new items
+        };
+
+
         mode_type mode;
         Node* last_node;
-        bool moving;
-        bool dragging;
+        mouse_status_type mouse_status;
+        //bool moving;
+        //bool dragging;
         QPointF oldpos;
         node_list moved_nodes;
         QGraphicsLineItem* guide;
@@ -97,6 +106,9 @@ class KnotView : public QGraphicsView
         double get_crossing_distance() const;
         void set_crossing_distance(double cd);
 
+        Qt::PenJoinStyle get_join_style() const;
+        void set_join_style(Qt::PenJoinStyle);
+
 
         // push new undo command
         Node* add_node(QPointF pos,node_list adjl=node_list());
@@ -109,6 +121,8 @@ class KnotView : public QGraphicsView
         void toggle_edge(Edge *e);
         void toggle_edge_inverted(Edge *e);
         void set_edge_type ( Edge* e, Edge::type_type type );
+
+        node_list selected_nodes() const;
 
     protected:
         QPointF get_mouse_point ( QMouseEvent *event );
@@ -126,7 +140,6 @@ class KnotView : public QGraphicsView
     public slots:
         void mode_edit_node();
         void mode_insert_edge();
-        void mode_toggle_edge();
         void mode_edge_chain();
 
         void erase_selected();
@@ -136,6 +149,10 @@ class KnotView : public QGraphicsView
         void select_all();
 
         void redraw(bool recalculate_node=true);
+
+        void reset_view();
+        void zoom ( double factor );
+        void reset_zoom();
 
     signals:
         void mouse_moved ( QPointF );

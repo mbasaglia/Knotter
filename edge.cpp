@@ -237,6 +237,7 @@ QLineF Edge::handle_point(Edge::handle_type handle,
     {
         // this line starts at handle_length+crossing_distance on the 45deg
         QLineF line3;
+        line2.setLength(line2.length()/2);
         line3.setP1(line2.p2());
 
         // adjust angle

@@ -36,14 +36,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /**
     \todo snap to grid
     \todo insert fixed shapes
-    \todo copy-paste
-    \todo zooming
 */
 
 KnotView::KnotView( QWidget* parent )
     : QGraphicsView(parent), mode(EDIT_NODE),
     last_node(NULL),
-    moving(false),dragging ( false ),
+    mouse_status(DEFAULT),
     guide(NULL), rubberband(NULL)
 {
     setScene ( new QGraphicsScene );
@@ -53,6 +51,8 @@ KnotView::KnotView( QWidget* parent )
     setRenderHint(QPainter::Antialiasing);
     setTransformationAnchor( QGraphicsView::NoAnchor );
     scene()->addItem(&knot);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 void KnotView::do_add_node(Node *node, node_list adjl)
@@ -80,7 +80,7 @@ void KnotView::do_remove_node(Node *node)
             last_node = moved_nodes.back(); // why can this make last_node = NULL?
             moved_nodes.pop_back();
         }
-        if ( last_node )
+        if ( last_node && last_node->scene() )
             set_guide(last_node->pos(),guide->line().p2());
         else
             unset_guide();
@@ -101,17 +101,18 @@ void KnotView::do_remove_node(Node *node)
             }
             --i;
         }
-        if ( node == last_node )
+        if ( node == last_node || !last_node || !last_node->scene() )
         {
             last_node = NULL;
             unset_guide();
         }
-        else if ( guide )
+        else
         {
             set_guide(last_node->pos(),guide->line().p2());
         }
 
     }
+
 
     node->setSelected(false);
     scene()->removeItem(node);
@@ -183,7 +184,7 @@ void KnotView::mousePressEvent(QMouseEvent *event)
     else if ( event->button() == Qt::MiddleButton ) // drag view
     {
         oldpos = event->pos();
-        dragging = true;
+        mouse_status = DRAGGING;
         return;
     }
 
@@ -232,7 +233,7 @@ void KnotView::mousePressEvent(QMouseEvent *event)
         }
         if ( !moved_nodes.empty() )
         {
-            moving = true;
+            mouse_status = MOVING;
             oldpos = p;
             QGraphicsView::mousePressEvent(event);
         }
@@ -284,41 +285,15 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
     emit mouse_moved ( p );
 
 
-    if ( dragging ) // drag view
+    if ( mouse_status == DRAGGING ) // drag view
     {
-        /*if ( event->modifiers() & Qt::ControlModifier )
-        {
-            QTransform t ;
-            setTransform(QTransform());
-            p = mapToScene(event->pos());
-            QPointF midpoint = mapToScene(QPoint(width()/2,height()/2));
-            QLineF delta (midpoint,p),
-                   starting (midpoint,mapToScene(oldpos.toPoint()));
-            if ( delta.length() > 10 )
-                t.rotate(-delta.angle()+starting.angle());
-            setTransform(t);
-        }
-        else*/
-        {
-            // <rant> If you are wandering why not just this->translate()
-            // that's because Qt is buggy and sucks... </rant>
+        QPointF delta = oldpos-event->pos();
+        delta /= matrix().m11(); // take scaling into account
+        QRectF r = sceneRect();
+        r.translate(delta);
+        setSceneRect ( r );
+        oldpos = event->pos();
 
-            /*
-            // This works with rotation as well but sucks a bit.
-            // requires setSceneRect ( 0, 0, INT_MAX, INT_MAX );
-            QPointF delta = oldpos-event->pos();
-            QScrollBar* sb = verticalScrollBar();
-            sb->setValue(sb->value()+delta.y());
-            sb = horizontalScrollBar();
-            sb->setValue(sb->value()+delta.x());
-            oldpos=event->pos();*/
-
-            QRectF r = sceneRect();
-            r.translate(oldpos-event->pos());
-            setSceneRect ( r );
-            oldpos = event->pos();
-
-        }
         return;
     }
 
@@ -376,16 +351,16 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
     }
     else if ( event->button() == Qt::MiddleButton ) // drag view
     {
-        dragging = false;
+        mouse_status = DEFAULT;
         return;
     }
     else if ( mode == EDIT_NODE )
     {
-        if ( moving )
+        if ( mouse_status == MOVING )
         {
             if ( p != oldpos )
                 move_nodes(p);
-            moving = false;
+            mouse_status = DEFAULT;
             QGraphicsView::mouseReleaseEvent(event);
 
         }
@@ -411,10 +386,21 @@ void KnotView::wheelEvent(QWheelEvent *event)
     if ( !isInteractive() ) return;
 
     QPointF p = mapToScene(event->pos());
-    if ( event->delta() < 0 )
-        toggle_edge(edge_at(p));
-    else
-        toggle_edge_inverted(edge_at(p));
+
+    if ( event->modifiers() & Qt::ControlModifier )
+    {
+        if ( event->delta() < 0 )
+            zoom(0.8);
+        else
+            zoom(1.25);
+    }
+    else // toggle egde type
+    {
+        if ( event->delta() < 0 )
+            toggle_edge(edge_at(p));
+        else
+            toggle_edge_inverted(edge_at(p));
+    }
 }
 
 
@@ -486,14 +472,19 @@ void KnotView::do_toggle_edge(Node *a, Node *b, Edge::type_type type)
 
 void KnotView::clear()
 {
-    undo_stack.clear();
     last_node = 0;
-    foreach ( QGraphicsItem* itm, scene()->items() )
+    undo_stack.clear();
+    scene()->removeItem(&knot);
+    unset_guide();
+    scene()->clear();
+    scene()->addItem(&knot);
+    knot.clear();
+    /*foreach ( QGraphicsItem* itm, scene()->items() )
     {
         Node* nod = dynamic_cast<Node*>(itm);
         if ( nod )
             do_remove_node(nod);
-    }
+    }*/
     mode_change();
 }
 
@@ -505,10 +496,8 @@ void KnotView::writeXML(QIODevice *device) const
     xml.writeStartDocument("1.0");
 
     xml.writeStartElement("knot");
-        xml.writeAttribute("version","1"); // version MUST be an integer
+        xml.writeAttribute("version","1"); // note: version MUST be an integer
 
-        /// \todo full style I/O
-        /// \todo missing joinstyle (scorporate from pen before setting I/O)
         xml.writeStartElement("style");
             xml.writeStartElement("stroke");
                 xml.writeAttribute("width",QString::number(get_width()));
@@ -522,10 +511,19 @@ void KnotView::writeXML(QIODevice *device) const
             xml.writeStartElement("cusp");
                 xml.writeTextElement("style",knot_curve_styler::name(knot.get_curve_style()));
                 xml.writeTextElement("min-angle",QString::number(knot.get_cusp_angle()));
+                QString point;
+                switch ( knot.get_join_style() )
+                {
+                    default:
+                    case Qt::BevelJoin: point = "bevel"; break;
+                    case Qt::MiterJoin: point = "miter"; break;
+                    case Qt::RoundJoin: point = "round"; break;
+                }
+                xml.writeTextElement("point",point);
             xml.writeEndElement();
             xml.writeStartElement("crossing");
                 xml.writeTextElement("gap",QString::number(knot.get_crossing_distance()));
-                xml.writeTextElement("andle-length",QString::number(knot.get_handle_length()));
+                xml.writeTextElement("handle-length",QString::number(knot.get_handle_length()));
             xml.writeEndElement();
         xml.writeEndElement();
 
@@ -645,8 +643,8 @@ bool KnotView::readXML(QIODevice *device)
     }
 
     undo_stack.endMacro();
+    undo_stack.setClean();
 
-    /// \todo full style I/O
     QDomElement style = knot.firstChildElement("style");
     if ( !style.isNull() )
     {
@@ -667,12 +665,20 @@ bool KnotView::readXML(QIODevice *device)
             QDomElement cusp_angle = cusp.firstChildElement("min-angle");
             double angle = cusp_angle.isNull() ? 225 : cusp_angle.text().toDouble();
             set_cusp_angle(angle);
+            QDomElement cusp_point = cusp.firstChildElement("point");
+            QString point_name =  cusp_point.isNull() ? "miter" : cusp_point.text();
+            if ( point_name == "bevel" )
+                set_join_style(Qt::BevelJoin);
+            else if ( point_name == "round" )
+                set_join_style ( Qt::RoundJoin );
+            else
+                set_join_style ( Qt::MiterJoin );
 
         QDomElement crossing = style.firstChildElement("crossing");
             QDomElement egap = crossing.firstChildElement("gap");
             double dgap = egap.isNull() ? 10 : egap.text().toDouble();
             set_crossing_distance(dgap);
-            QDomElement handle_length = crossing.firstChildElement("andle-length");
+            QDomElement handle_length = crossing.firstChildElement("handle-length");
             double hl = handle_length.isNull() ? 10 : handle_length.text().toDouble();
             set_handle_length(hl);
 
@@ -687,7 +693,7 @@ void KnotView::writeSVG(QIODevice *device)
     /// \todo export only path ( output of knot.build() )
     QSvgGenerator gen;
     gen.setOutputDevice(device);
-    gen.setSize(knot.boundingRect().size().toSize());
+    //gen.setSize(knot.boundingRect().size().toSize());
     /// \todo gen.setViewBox (?)
     QPainter painter;
     painter.begin(&gen);
@@ -776,6 +782,17 @@ double KnotView::get_crossing_distance() const
 void KnotView::set_crossing_distance(double cd)
 {
     knot.set_crossing_distance(cd);
+    redraw(true);
+}
+
+Qt::PenJoinStyle KnotView::get_join_style() const
+{
+    return knot.get_join_style();
+}
+
+void KnotView::set_join_style(Qt::PenJoinStyle pjs)
+{
+    knot.set_join_style(pjs);
     redraw(true);
 }
 
@@ -918,6 +935,18 @@ void KnotView::set_edge_type(Edge *e, Edge::type_type type)
     }
 }
 
+node_list KnotView::selected_nodes() const
+{
+    node_list nl;
+    foreach ( QGraphicsItem* it, scene()->selectedItems() )
+    {
+        Node* n = dynamic_cast<Node*>(it);
+        if(n)
+            nl.push_back(n);
+    }
+    return nl;
+}
+
 void KnotView::mode_edit_node()
 {
     mode = EDIT_NODE;
@@ -927,12 +956,6 @@ void KnotView::mode_edit_node()
 void KnotView::mode_insert_edge()
 {
     mode = INSERT_EDGE;
-    mode_change();
-}
-
-void KnotView::mode_toggle_edge()
-{
-    mode = TOGGLE_EDGE;
     mode_change();
 }
 
@@ -1034,5 +1057,23 @@ void KnotView::redraw(bool recalculate_node)
     if ( recalculate_node )
         knot.build();
     scene()->invalidate();
+}
+
+void KnotView::reset_view()
+{
+    reset_zoom();
+    setSceneRect ( -width()/2, -height()/2, width(), height());
+}
+
+void KnotView::zoom(double factor)
+{
+    scale(factor,factor);
+}
+
+void KnotView::reset_zoom()
+{
+    QMatrix trans = matrix();
+    trans.setMatrix(1,trans.m12(),trans.m21(),1,trans.dx(),trans.dy());
+    setMatrix(trans);
 }
 

@@ -1,8 +1,8 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'knotview.hpp'
 **
-** Created: Wed Aug 15 11:42:25 2012
-**      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)
+** Created: Thu Aug 16 11:39:53 2012
+**      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -10,8 +10,8 @@
 #include "knotview.hpp"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'knotview.hpp' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 63
-#error "This file was generated using the moc from 4.8.0. It"
+#elif Q_MOC_OUTPUT_REVISION != 62
+#error "This file was generated using the moc from 4.7.4. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,10 +20,10 @@ QT_BEGIN_MOC_NAMESPACE
 static const uint qt_meta_data_KnotView[] = {
 
  // content:
-       6,       // revision
+       5,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   14, // methods
+      13,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -37,13 +37,15 @@ static const uint qt_meta_data_KnotView[] = {
       31,    9,    9,    9, 0x0a,
       48,    9,    9,    9, 0x0a,
       67,    9,    9,    9, 0x0a,
-      86,    9,    9,    9, 0x0a,
-     104,    9,    9,    9, 0x0a,
-     121,    9,    9,    9, 0x0a,
-     137,    9,    9,    9, 0x0a,
-     154,    9,    9,    9, 0x0a,
-     184,  167,    9,    9, 0x0a,
-     197,    9,    9,    9, 0x2a,
+      85,    9,    9,    9, 0x0a,
+     102,    9,    9,    9, 0x0a,
+     118,    9,    9,    9, 0x0a,
+     135,    9,    9,    9, 0x0a,
+     165,  148,    9,    9, 0x0a,
+     178,    9,    9,    9, 0x2a,
+     187,    9,    9,    9, 0x0a,
+     207,  200,    9,    9, 0x0a,
+     220,    9,    9,    9, 0x0a,
 
        0        // eod
 };
@@ -51,41 +53,16 @@ static const uint qt_meta_data_KnotView[] = {
 static const char qt_meta_stringdata_KnotView[] = {
     "KnotView\0\0mouse_moved(QPointF)\0"
     "mode_edit_node()\0mode_insert_edge()\0"
-    "mode_toggle_edge()\0mode_edge_chain()\0"
-    "erase_selected()\0link_selected()\0"
-    "merge_selected()\0select_all()\0"
-    "recalculate_node\0redraw(bool)\0redraw()\0"
-};
-
-void KnotView::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
-{
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        Q_ASSERT(staticMetaObject.cast(_o));
-        KnotView *_t = static_cast<KnotView *>(_o);
-        switch (_id) {
-        case 0: _t->mouse_moved((*reinterpret_cast< QPointF(*)>(_a[1]))); break;
-        case 1: _t->mode_edit_node(); break;
-        case 2: _t->mode_insert_edge(); break;
-        case 3: _t->mode_toggle_edge(); break;
-        case 4: _t->mode_edge_chain(); break;
-        case 5: _t->erase_selected(); break;
-        case 6: _t->link_selected(); break;
-        case 7: _t->merge_selected(); break;
-        case 8: _t->select_all(); break;
-        case 9: _t->redraw((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 10: _t->redraw(); break;
-        default: ;
-        }
-    }
-}
-
-const QMetaObjectExtraData KnotView::staticMetaObjectExtraData = {
-    0,  qt_static_metacall 
+    "mode_edge_chain()\0erase_selected()\0"
+    "link_selected()\0merge_selected()\0"
+    "select_all()\0recalculate_node\0"
+    "redraw(bool)\0redraw()\0reset_view()\0"
+    "factor\0zoom(double)\0reset_zoom()\0"
 };
 
 const QMetaObject KnotView::staticMetaObject = {
     { &QGraphicsView::staticMetaObject, qt_meta_stringdata_KnotView,
-      qt_meta_data_KnotView, &staticMetaObjectExtraData }
+      qt_meta_data_KnotView, 0 }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
@@ -111,9 +88,23 @@ int KnotView::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 11)
-            qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        switch (_id) {
+        case 0: mouse_moved((*reinterpret_cast< QPointF(*)>(_a[1]))); break;
+        case 1: mode_edit_node(); break;
+        case 2: mode_insert_edge(); break;
+        case 3: mode_edge_chain(); break;
+        case 4: erase_selected(); break;
+        case 5: link_selected(); break;
+        case 6: merge_selected(); break;
+        case 7: select_all(); break;
+        case 8: redraw((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 9: redraw(); break;
+        case 10: reset_view(); break;
+        case 11: zoom((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 12: reset_zoom(); break;
+        default: ;
+        }
+        _id -= 13;
     }
     return _id;
 }

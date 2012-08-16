@@ -52,6 +52,7 @@ class KnotGraph : public QGraphicsPathItem
         void remove_node(Node* which);
         void remove_edge ( Edge* which );
         void add ( CustomItem* what );
+        void clear();
 
         QPainterPath build();
 
@@ -72,6 +73,9 @@ class KnotGraph : public QGraphicsPathItem
 
         double get_crossing_distance() const;
         void set_crossing_distance(double cd);
+
+        Qt::PenJoinStyle get_join_style() const;
+        void set_join_style(Qt::PenJoinStyle);
 
 };
 

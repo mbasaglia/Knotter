@@ -34,9 +34,8 @@ KnotGraph::KnotGraph()
     stroker.setWidth(5);
     stroker.setCapStyle(Qt::FlatCap);
 
-    QPen p = pen();
-    p.setJoinStyle(Qt::MiterJoin);
-    setPen(p);
+    /// \todo configure miter limit
+    stroker.setJoinStyle(Qt::MiterJoin);
 
     /// \todo allow per-node style: if NULL use default else use node setup (?)
     curve_style = knot_curve_styler::idof("pointed");
@@ -72,6 +71,12 @@ void KnotGraph::add(CustomItem *what)
 {
     add_node ( dynamic_cast<Node*>(what) );
     add_edge ( dynamic_cast<Edge*>(what) );
+}
+
+void KnotGraph::clear()
+{
+    nodes.clear();
+    edges.clear();
 }
 
 QPainterPath KnotGraph::build()
@@ -123,8 +128,6 @@ QPainterPath KnotGraph::build()
 
     edges = traversed_edges;
     traversed_edges.clear();
-
-    stroker.setJoinStyle(pen().joinStyle()); /// \todo make stroke joinstyle != pen joinstyle
 
     setPath(stroker.createStroke(path).simplified());
 
@@ -179,6 +182,16 @@ double KnotGraph::get_crossing_distance() const
 void KnotGraph::set_crossing_distance(double cd)
 {
     crossing_distance = cd;
+}
+
+Qt::PenJoinStyle KnotGraph::get_join_style() const
+{
+    return stroker.joinStyle();
+}
+
+void KnotGraph::set_join_style(Qt::PenJoinStyle pjs)
+{
+    stroker.setJoinStyle(pjs);
 }
 
 

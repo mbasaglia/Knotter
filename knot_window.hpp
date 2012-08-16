@@ -29,15 +29,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QUndoStack>
 #include <QUndoView>
 #include "style_dialog.hpp"
+#include "clipboard.hpp"
 
 class Knot_Window : public QMainWindow, private Ui::Knot_Window
 {
         Q_OBJECT
 
     protected:
-        QString filename;
-        QUndoView undoView;
-        StyleDialog style_dialog;
+        QString         filename;
+        QUndoView       undoView;
+        StyleDialog     style_dialog;
+        ClipboardItem   clipboard;
 
     public:
         explicit Knot_Window(QWidget *parent = 0);
@@ -49,12 +51,18 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         /// set dialog values from canvas settings
         void update_style_dialog();
 
+        void update_title(bool clean);
+
     public slots:
         void mode_edge_list();
         void mode_node();
         void mode_edge();
 
         void mouse_moved(QPointF);
+
+        void copy();
+        void cut();
+        void paste();
 
         void clear();
 
@@ -65,6 +73,9 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
         /// set canvas style based on style dialog
         void apply_style();
+
+        void zoom_in();
+        void zoom_out();
 };
 
 #endif // KNOT_WINDOW_HPP

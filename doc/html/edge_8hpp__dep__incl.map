@@ -1,0 +1,24 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$node_8hpp.html" title="node.hpp" alt="" coords="207,83,282,112"/>
+<area shape="rect" id="node5" href="$knotview_8hpp.html" title="knotview.hpp" alt="" coords="306,315,404,344"/>
+<area shape="rect" id="node39" href="$knotgraph_8hpp.html" title="knotgraph.hpp" alt="" coords="43,237,147,267"/>
+<area shape="rect" id="node50" href="$edge_8cpp.html" title="edge.cpp" alt="" coords="22,160,96,189"/>
+<area shape="rect" id="node52" href="$node_8cpp.html" title="node.cpp" alt="" coords="392,160,467,189"/>
+<area shape="rect" id="node45" href="$knot__curve__style_8hpp.html" title="knot_curve_style.hpp" alt="" coords="171,160,318,189"/>
+<area shape="rect" id="node7" href="$clipboard_8hpp.html" title="clipboard.hpp" alt="" coords="608,392,707,421"/>
+<area shape="rect" id="node19" href="$commands_8hpp.html" title="commands.hpp" alt="" coords="128,392,238,421"/>
+<area shape="rect" id="node22" href="$knotview_8cpp.html" title="knotview.cpp" alt="" coords="42,469,140,499"/>
+<area shape="rect" id="node24" href="$ui__knot__window_8h.html" title="ui_knot_window.h" alt="" coords="402,469,527,499"/>
+<area shape="rect" id="node27" href="$ui__style__dialog_8h.html" title="ui_style_dialog.h" alt="" coords="262,392,379,421"/>
+<area shape="rect" id="node37" href="$moc__knotview_8cpp.html" title="moc_knotview.cpp" alt="" coords="454,392,584,421"/>
+<area shape="rect" id="node9" href="$clipboard_8cpp.html" title="clipboard.cpp" alt="" coords="551,469,650,499"/>
+<area shape="rect" id="node11" href="$knot__window_8hpp.html" title="knot_window.hpp" alt="" coords="527,547,650,576"/>
+<area shape="rect" id="node13" href="$knot__window_8cpp.html" title="knot_window.cpp" alt="" coords="242,624,364,653"/>
+<area shape="rect" id="node15" href="$main_8cpp.html" title="main.cpp" alt="" coords="620,624,695,653"/>
+<area shape="rect" id="node17" href="$moc__knot__window_8cpp.html" title="moc_knot_window.cpp" alt="" coords="442,624,596,653"/>
+<area shape="rect" id="node29" href="$style__dialog_8hpp.html" title="style_dialog.hpp" alt="" coords="263,469,378,499"/>
+<area shape="rect" id="node32" href="$moc__style__dialog_8cpp.html" title="moc_style_dialog.cpp" alt="" coords="218,547,364,576"/>
+<area shape="rect" id="node34" href="$style__dialog_8cpp.html" title="style_dialog.cpp" alt="" coords="388,547,503,576"/>
+<area shape="rect" id="node42" href="$knotgraph_8cpp.html" title="knotgraph.cpp" alt="" coords="78,315,182,344"/>
+<area shape="rect" id="node48" href="$knot__curve__style_8cpp.html" title="knot_curve_style.cpp" alt="" coords="171,237,318,267"/>
+</map>

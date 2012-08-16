@@ -120,14 +120,12 @@ void StyleDialog::on_crossing_gap_spinner_valueChanged(double arg1)
 
 void StyleDialog::on_point_combo_activated(int index)
 {
-    QPen p = preview->get_pen();
     if ( index == 0 )
-        p.setJoinStyle(Qt::BevelJoin);
+        preview->set_join_style(Qt::BevelJoin);
     else if ( index == 1 )
-        p.setJoinStyle(Qt::MiterJoin);
+        preview->set_join_style(Qt::MiterJoin);
     else if ( index == 2 )
-        p.setJoinStyle(Qt::RoundJoin);
-    preview->set_pen ( p );
+        preview->set_join_style(Qt::RoundJoin);
 }
 
 

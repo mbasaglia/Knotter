@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Knot_Window</string>
+   <string>Knotter</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="icons.qrc">
+    <normaloff>:/img/logo.svg</normaloff>:/img/logo.svg</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -70,13 +74,6 @@
     <property name="title">
      <string>&amp;View</string>
     </property>
-    <widget class="QMenu" name="menu_Toolbars">
-     <property name="title">
-      <string>&amp;Toolbars</string>
-     </property>
-     <addaction name="action_Main"/>
-     <addaction name="action_Knot_Editing"/>
-    </widget>
     <widget class="QMenu" name="menu_Zoom">
      <property name="title">
       <string>&amp;Zoom</string>
@@ -84,6 +81,13 @@
      <addaction name="actionZoom_In"/>
      <addaction name="actionZoom_Out"/>
      <addaction name="action_Reset_Zoom"/>
+    </widget>
+    <widget class="QMenu" name="menu_Toolbars">
+     <property name="title">
+      <string>&amp;Toolbars</string>
+     </property>
+     <addaction name="action_Main"/>
+     <addaction name="action_Knot_Editing"/>
     </widget>
     <addaction name="menu_Toolbars"/>
     <addaction name="separator"/>
@@ -98,6 +102,11 @@
      <string>&amp;Knot</string>
     </property>
     <addaction name="action_Style"/>
+    <addaction name="separator"/>
+    <addaction name="actionEdit_Nodes"/>
+    <addaction name="actionInsert_Edges"/>
+    <addaction name="actionEdge_List"/>
+    <addaction name="separator"/>
     <addaction name="actionRefresh_Path"/>
    </widget>
    <addaction name="menu_File"/>
@@ -190,6 +199,10 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/img/edit_edges.svg</normaloff>:/img/edit_edges.svg</iconset>
+   </property>
    <property name="text">
     <string>Edit Edges</string>
    </property>
@@ -203,6 +216,10 @@
    </property>
    <property name="checked">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/img/edit_nodes.svg</normaloff>:/img/edit_nodes.svg</iconset>
    </property>
    <property name="text">
     <string>Edit Nodes</string>
@@ -218,6 +235,10 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/img/edge_list.svg</normaloff>:/img/edge_list.svg</iconset>
+   </property>
    <property name="text">
     <string>Edge List</string>
    </property>
@@ -226,6 +247,10 @@
    </property>
   </action>
   <action name="action_Link">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/img/link.svg</normaloff>:/img/link.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Link</string>
    </property>
@@ -248,6 +273,10 @@
    </property>
   </action>
   <action name="action_Merge">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/img/merge.svg</normaloff>:/img/merge.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Merge</string>
    </property>
@@ -366,11 +395,17 @@
    </property>
   </action>
   <action name="actionInsert_S_quare">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Insert S&amp;quare</string>
    </property>
   </action>
   <action name="actionInsert_Triangle">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Insert &amp;Triangle</string>
    </property>
@@ -404,10 +439,14 @@
     <slot>merge_selected()</slot>
     <slot>select_all()</slot>
     <slot>redraw()</slot>
+    <slot>reset_view()</slot>
+    <slot>reset_zoom()</slot>
    </slots>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>action_Erase</sender>
@@ -633,6 +672,150 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>action_Reset_View</sender>
+   <signal>triggered()</signal>
+   <receiver>canvas</receiver>
+   <slot>reset_view()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>263</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Main</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>MainToolBar</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>55</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Knot_Editing</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>EditBar</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>32</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Reset_Zoom</sender>
+   <signal>triggered()</signal>
+   <receiver>canvas</receiver>
+   <slot>reset_zoom()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionZoom_In</sender>
+   <signal>triggered()</signal>
+   <receiver>Knot_Window</receiver>
+   <slot>zoom_in()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionZoom_Out</sender>
+   <signal>triggered()</signal>
+   <receiver>Knot_Window</receiver>
+   <slot>zoom_out()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCut</sender>
+   <signal>triggered()</signal>
+   <receiver>Knot_Window</receiver>
+   <slot>cut()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Copy</sender>
+   <signal>triggered()</signal>
+   <receiver>Knot_Window</receiver>
+   <slot>copy()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Paste</sender>
+   <signal>triggered()</signal>
+   <receiver>Knot_Window</receiver>
+   <slot>paste()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>mode_edge_list()</slot>
@@ -644,5 +827,10 @@
   <slot>saveAs()</slot>
   <slot>open()</slot>
   <slot>exportSVG()</slot>
+  <slot>zoom_in()</slot>
+  <slot>zoom_out()</slot>
+  <slot>copy()</slot>
+  <slot>cut()</slot>
+  <slot>paste()</slot>
  </slots>
 </ui>

@@ -17,7 +17,7 @@ QT       += core gui xml svg
 
 
 TARGET = knotter
-VERSION = 0.1.0
+VERSION = 0.2.0
 
 TEMPLATE = app
 
@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     edge.cpp \
     knotgraph.cpp \
     style_dialog.cpp \
-    knot_curve_style.cpp
+    knot_curve_style.cpp \
+    clipboard.cpp
 
 HEADERS  += knot_window.hpp \
     knotview.hpp \
@@ -40,7 +41,8 @@ HEADERS  += knot_window.hpp \
     knotgraph.hpp \
     style_dialog.hpp \
     color_widget.hpp \
-    knot_curve_style.hpp
+    knot_curve_style.hpp \
+    clipboard.hpp
 
 FORMS    += knot_window.ui \
     style_dialog.ui
@@ -49,4 +51,8 @@ QMAKE_CXXFLAGS += -Werror
 
 OTHER_FILES += \
     COPYING \
-    README
+    README \
+    Doxyfile
+
+RESOURCES += \
+    icons.qrc

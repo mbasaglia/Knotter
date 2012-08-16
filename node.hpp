@@ -65,7 +65,7 @@ class Node : public CustomItem
 {
     protected:
         static const int radius = 5;
-        QVector<Edge*> edges;
+        QList<Edge*> edges;
 
     public:
 
@@ -82,7 +82,7 @@ class Node : public CustomItem
         Edge* get_link(Node* other) const;
         void add_link ( Edge* edge );
         void remove_link ( Edge* which );
-        QVector<Edge*> links() const { return edges; }
+        QList<Edge*> links() const { return edges; }
         QList<Node*> linked_to() const;
 
 
@@ -96,5 +96,8 @@ class Node : public CustomItem
         TraversalInfo next_edge ( Edge* edge, Edge::handle_type handle ) const;
 
 };
+
+
+typedef QList<Node*> node_list;
 
 #endif // NODE_HPP

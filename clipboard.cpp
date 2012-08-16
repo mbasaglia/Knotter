@@ -1,0 +1,68 @@
+#include "clipboard.hpp"
+
+ClipboardItem::ClipboardItem ( node_list insert_nodes )
+{
+    if ( !insert_nodes.empty() )
+    {
+        foreach(Node* n, insert_nodes)
+            center += n->pos();
+        center /= insert_nodes.size();
+
+        QMap<Node*,int> ids;
+        int next_id = 1;
+        foreach(Node* n, insert_nodes)
+        {
+            nodes.push_back(ClipboardNode(next_id,n->pos()-center));
+            ids[n] = next_id;
+            next_id++;
+        }
+
+        foreach(Node* n, insert_nodes)
+        {
+            foreach ( Edge* e, n->links() )
+            {
+                int id1 = ids.value(e->vertex1(),0);
+                int id2 = ids.value(e->vertex2(),0);
+                if ( id1 == 0 || id2 == 0 )
+                    continue; // edge with a vertex outside the selection
+
+                // avoid redundancies
+                if ( id1 > id2 )
+                    qSwap(id1,id2);
+                ClipboardEdge e ( id1, id2 );
+                if ( !edges.contains(e) )
+                    edges.push_back(e);
+            }
+        }
+    }
+}
+
+void ClipboardItem::paste(KnotView *kv, QPointF p) const
+{
+    if ( !kv ) return;
+
+    kv->get_undo_stack().beginMacro("Paste");
+
+    kv->scene()->clearSelection();
+
+    QMap<int, Node*> ids;
+    foreach(ClipboardNode n, nodes)
+    {
+        ( ids[n.id] = kv->add_node(n.pos+p) ) -> setSelected(true);
+    }
+
+
+    foreach ( ClipboardEdge e, edges )
+    {
+        kv->add_edge(ids[e.n1],ids[e.n2]);
+    }
+
+    kv->get_undo_stack().endMacro();
+}
+
+void ClipboardItem::copy(KnotView *kv)
+{
+    *this = ClipboardItem(kv->selected_nodes());
+}
+
+

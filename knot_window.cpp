@@ -46,6 +46,7 @@ Knot_Window::Knot_Window(QWidget *parent) :
     action_Quit->setShortcuts(QKeySequence::Quit);
     action_Export->setIcon(QIcon::fromTheme("image-x-generic"));
 
+
     QAction *undos = canvas->get_undo_stack().createUndoAction(this, tr("&Undo"));
     menu_Edit->insertAction(action_Undo,undos);
     MainToolBar->insertAction(action_Undo,undos);
@@ -57,6 +58,13 @@ Knot_Window::Knot_Window(QWidget *parent) :
     delete action_Redo;
     action_Redo = redos;
 
+    action_Copy->setIcon(QIcon::fromTheme("edit-copy"));
+    action_Copy->setShortcuts(QKeySequence::Copy);
+    action_Paste->setIcon(QIcon::fromTheme("edit-paste"));
+    action_Paste->setShortcuts(QKeySequence::Paste);
+    actionCut->setIcon(QIcon::fromTheme("edit-cut"));
+    actionCut->setShortcuts(QKeySequence::Cut);
+
     action_Undo->setIcon(QIcon::fromTheme("edit-undo"));
     action_Undo->setShortcuts(QKeySequence::Undo);
     action_Redo->setIcon(QIcon::fromTheme("edit-redo"));
@@ -66,7 +74,19 @@ Knot_Window::Knot_Window(QWidget *parent) :
 
 
     action_Erase->setIcon(QIcon::fromTheme("edit-delete"));
-    action_Link->setIcon(QIcon::fromTheme("insert-link"));
+    //action_Link->setIcon(QIcon::fromTheme("insert-link"));
+
+
+    actionZoom_In->setIcon(QIcon::fromTheme("zoom-in"));
+    actionZoom_In->setShortcuts(QKeySequence::ZoomIn);
+    actionZoom_Out->setIcon(QIcon::fromTheme("zoom-out"));
+    actionZoom_Out->setShortcuts(QKeySequence::ZoomOut);
+    action_Reset_Zoom->setIcon(QIcon::fromTheme("zoom-original"));
+    actionRefresh_Path->setIcon(QIcon::fromTheme("view-refresh"));
+    actionRefresh_Path->setShortcuts(QKeySequence::Refresh);
+    action_Reset_View->setIcon(QIcon::fromTheme("view-restore"));
+
+    action_Style->setIcon(QIcon::fromTheme("preferences-other"));
 
 
     // overcome bug in code generator from ui file
@@ -78,6 +98,7 @@ Knot_Window::Knot_Window(QWidget *parent) :
     EditBar->show();
 
 
+    this->connect(&canvas->get_undo_stack(),SIGNAL(cleanChanged(bool)),SLOT(update_title(bool)));
     undoView.setStack(&canvas->get_undo_stack());
     undoView.setWindowTitle("Action History");
     undoView.show();
@@ -86,6 +107,7 @@ Knot_Window::Knot_Window(QWidget *parent) :
     style_dialog.connect(action_Style,SIGNAL(triggered()),SLOT(show()));
     style_dialog.connect(action_Style,SIGNAL(triggered()),SLOT(raise()));
     this->connect(action_Style,SIGNAL(triggered()),SLOT(update_style_dialog()));
+    style_dialog.setWindowIcon(QIcon::fromTheme("preferences-other"));
 
     style_dialog.setAttribute(Qt::WA_QuitOnClose, false);
     update_style_dialog();
@@ -121,6 +143,30 @@ void Knot_Window::mode_edge()
 void Knot_Window::mouse_moved(QPointF p)
 {
     statusBar()->showMessage(QString("%1,%2").arg(p.x()).arg(p.y()));
+}
+
+void Knot_Window::copy()
+{
+    clipboard.copy ( canvas );
+}
+
+void Knot_Window::cut()
+{
+    canvas->get_undo_stack().beginMacro("Cut");
+
+    clipboard.copy ( canvas );
+
+    node_list sel = canvas->selected_nodes();
+    foreach ( Node* n, sel )
+        canvas->remove_node(n);
+
+    canvas->get_undo_stack().endMacro();
+}
+
+void Knot_Window::paste()
+{
+    clipboard.paste ( canvas, canvas->mapToScene(
+                                canvas->mapFromGlobal(QCursor::pos()) ) );
 }
 
 void Knot_Window::clear()
@@ -207,16 +253,24 @@ void Knot_Window::apply_style()
     canvas->set_width ( style_dialog.knot_width_spinner->value() );
     canvas->set_brush ( QBrush ( style_dialog.color->color() ) );
     canvas->set_pen ( QPen ( style_dialog.outline_color->color(),
-                             style_dialog.outline_width_spinner->value(),
-                             Qt::SolidLine,
-                             Qt::SquareCap,
-                             style_dialog.get_join_style()
+                             style_dialog.outline_width_spinner->value()
                             ) );
     canvas->set_curve_style ( style_dialog.get_style_id() );
     canvas->set_cusp_angle ( style_dialog.cusp_angle_spinner->value() );
     canvas->set_handle_length ( style_dialog.handle_length_spinner->value() );
     canvas->set_crossing_distance ( style_dialog.crossing_gap_spinner->value() );
+    canvas->set_join_style ( style_dialog.get_join_style() );
 
+}
+
+void Knot_Window::zoom_in()
+{
+    canvas->zoom(2);
+}
+
+void Knot_Window::zoom_out()
+{
+    canvas->zoom(0.5);
 }
 
 
@@ -232,5 +286,11 @@ void Knot_Window::update_style_dialog()
     style_dialog.cusp_angle_spinner->setValue ( canvas->get_cusp_angle() );
     style_dialog.handle_length_spinner->setValue ( canvas->get_handle_length() );
     style_dialog.crossing_gap_spinner->setValue ( canvas->get_crossing_distance() );
+    style_dialog.set_join_style( canvas->get_join_style() );
+}
+
+void Knot_Window::update_title(bool clean)
+{
+    setWindowTitle("Knotter - "+(filename.isEmpty()?"knot":filename)+(clean?"":"*"));
 }
 

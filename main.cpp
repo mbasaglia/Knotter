@@ -26,10 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtGui/QApplication>
 #include "knot_window.hpp"
 
-/**
-    \todo Add Doxyfile
-    \todo Draw some icons
-*/
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
