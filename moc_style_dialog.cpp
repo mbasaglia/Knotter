@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'style_dialog.hpp'
 **
-** Created: Thu Aug 16 11:39:54 2012
+** Created: Thu Aug 16 14:40:51 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!

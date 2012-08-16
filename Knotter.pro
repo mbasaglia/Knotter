@@ -52,7 +52,45 @@ QMAKE_CXXFLAGS += -Werror
 OTHER_FILES += \
     COPYING \
     README \
-    Doxyfile
+    Doxyfile \
+    img/logo.svg \
+    img/link.svg \
+    img/icon.png \
+    img/edit_nodes.svg \
+    img/edit_edges.svg \
+    img/edge_list.svg \
+    img/merge.svg
 
 RESOURCES += \
     icons.qrc
+
+MYDISTFILES = $$FORMS $$OTHER_FILES $$RESOURCES Makefile Knotter.pro
+MYDIST_NAME = "$$TARGET-$$VERSION"
+MYDIST_TAR = "$${MYDIST_NAME}.tar"
+MYDIST_TAR_GZ = "$${MYDIST_TAR}.gz"
+MYDIST_TMP = ".tmp/$$MYDIST_NAME"
+mydist.depends = $$TARGET
+                                                                                            #
+mydist.commands =                                                                           \
+                (                                                                           \
+                    $(CHK_DIR_EXISTS) $$MYDIST_TMP ||                                       \
+                    $(MKDIR) $$MYDIST_TMP                                                   \
+                ) &&                                                                        \
+                $(COPY_FILE) --parents $$MYDISTFILES `ls *.hpp *.cpp *.h` $$MYDIST_TMP &&   \
+                (                                                                           \
+                    cd `dirname $$MYDIST_TMP`  &&                                           \
+                    $(TAR) $$MYDIST_TAR $$MYDIST_NAME" &&                                   \
+                    $(COMPRESS) $$MYDIST_TAR                                                \
+                ) &&                                                                        \
+                $(MOVE) `dirname $$MYDIST_TMP`/$$MYDIST_TAR_GZ $$MYDIST_TAR_GZ &&           \
+                $(DEL_FILE) -r $$MYDIST_TMP                                                 #
+
+
+mydistclean.depends = clean
+mydistclean.commands = $(DEL_FILE) $$MYDIST_TAR_GZ Makefile
+QMAKE_EXTRA_TARGETS += mydist mydistclean
+
+Doxyfile.commands = doxygen -g
+doc.depends = $$TARGET Doxyfile
+doc.commands = doxygen
+QMAKE_EXTRA_TARGETS += doc Doxyfile
