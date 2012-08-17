@@ -39,27 +39,29 @@ include(translations/translations.pri)
 # QMAKE_CXXFLAGS += -Werror
 
 
-MYDISTFILES =  COPYING README Doxyfile NEWS icons.qrc Makefile Knotter.pro \
-                `ls *.hpp *.cpp *.ui ` dialogs img graphics
+MYDISTFILES =  COPYING README Doxyfile NEWS Makefile Knotter.pro
+MYDISTDIRS  =  src include img
+
 MYDIST_NAME = "$$TARGET-$${VERSION}"
 MYDIST_TAR = "$${MYDIST_NAME}.tar"
 MYDIST_TAR_GZ = "$${MYDIST_TAR}.gz"
 MYDIST_TMP = ".tmp/$${MYDIST_NAME}"
 mydist.depends = $$TARGET
-                                                                                            #
-mydist.commands =                                                                           \
-                (                                                                           \
-                    $(CHK_DIR_EXISTS) $$MYDIST_TMP ||                                       \
-                    $(MKDIR) $$MYDIST_TMP                                                   \
-                ) &&                                                                        \
-                $(COPY_FILE) -r --parents $$MYDISTFILES  $$MYDIST_TMP &&                    \
-                (                                                                           \
-                    cd `dirname $$MYDIST_TMP`  &&                                           \
-                    $(TAR) $$MYDIST_TAR $$MYDIST_NAME &&                                    \
-                    $(COMPRESS) $$MYDIST_TAR                                                \
-                ) &&                                                                        \
-                $(MOVE) `dirname $$MYDIST_TMP`/$$MYDIST_TAR_GZ $$MYDIST_TAR_GZ &&           \
-                $(DEL_FILE) -r $$MYDIST_TMP                                                 #
+                                                                            #
+mydist.commands =                                                           \
+        (                                                                   \
+            $(CHK_DIR_EXISTS) $$MYDIST_TMP ||                               \
+            $(MKDIR) $$MYDIST_TMP                                           \
+        ) &&                                                                \
+        $(COPY_FILE) --parents $$MYDISTFILES  $$MYDIST_TMP &&               \
+        $(COPY_DIR)  --parents $$MYDISTDIRS   $$MYDIST_TMP &&               \
+        (                                                                   \
+            cd `dirname $$MYDIST_TMP`  &&                                   \
+            $(TAR) $$MYDIST_TAR $$MYDIST_NAME &&                            \
+            $(COMPRESS) $$MYDIST_TAR                                        \
+        ) &&                                                                \
+        $(MOVE) `dirname $$MYDIST_TMP`/$$MYDIST_TAR_GZ $$MYDIST_TAR_GZ &&   \
+        $(DEL_FILE) -r $$MYDIST_TMP                                         #
 
 
 mydistclean.depends = clean
