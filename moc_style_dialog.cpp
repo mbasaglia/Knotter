@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'style_dialog.hpp'
 **
-** Created: Fri Aug 17 09:18:17 2012
+** Created: Fri Aug 17 13:34:09 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_StyleDialog[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -44,6 +44,7 @@ static const uint qt_meta_data_StyleDialog[] = {
      299,   56,   12,   12, 0x08,
      345,   56,   12,   12, 0x08,
      390,  220,   12,   12, 0x08,
+     420,  220,   12,   12, 0x08,
 
        0        // eod
 };
@@ -60,6 +61,7 @@ static const char qt_meta_stringdata_StyleDialog[] = {
     "on_handle_length_spinner_valueChanged(double)\0"
     "on_crossing_gap_spinner_valueChanged(double)\0"
     "on_point_combo_activated(int)\0"
+    "on_outline_pattern_combo_activated(int)\0"
 };
 
 void StyleDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -79,6 +81,7 @@ void StyleDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 8: _t->on_handle_length_spinner_valueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 9: _t->on_crossing_gap_spinner_valueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 10: _t->on_point_combo_activated((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 11: _t->on_outline_pattern_combo_activated((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -116,9 +119,9 @@ int StyleDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 11)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        _id -= 12;
     }
     return _id;
 }

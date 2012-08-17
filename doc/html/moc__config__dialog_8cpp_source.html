@@ -57,7 +57,7 @@ function toggleVisibility(linkObj) {
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Knotter&#160;<span id="projectnumber">0.2.0</span></div>
+   <div id="projectname">Knotter&#160;<span id="projectnumber">0.3.0</span></div>
    <div id="projectbrief">Celtic knotwork designer</div>
   </td>
  </tr>
@@ -67,7 +67,6 @@ function toggleVisibility(linkObj) {
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -103,13 +102,13 @@ function toggleVisibility(linkObj) {
 <a href="moc__config__dialog_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/****************************************************************************</span>
 <a name="l00002"></a>00002 <span class="comment">** Meta object code from reading C++ file &#39;config_dialog.hpp&#39;</span>
 <a name="l00003"></a>00003 <span class="comment">**</span>
-<a name="l00004"></a>00004 <span class="comment">** Created: Thu Aug 16 21:33:14 2012</span>
+<a name="l00004"></a>00004 <span class="comment">** Created: Fri Aug 17 13:34:10 2012</span>
 <a name="l00005"></a>00005 <span class="comment">**      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)</span>
 <a name="l00006"></a>00006 <span class="comment">**</span>
 <a name="l00007"></a>00007 <span class="comment">** WARNING! All changes made in this file will be lost!</span>
 <a name="l00008"></a>00008 <span class="comment">*****************************************************************************/</span>
 <a name="l00009"></a>00009 
-<a name="l00010"></a>00010 <span class="preprocessor">#include &quot;<a class="code" href="config__dialog_8hpp.html">config_dialog.hpp</a>&quot;</span>
+<a name="l00010"></a>00010 <span class="preprocessor">#include &quot;dialogs/config_dialog.hpp&quot;</span>
 <a name="l00011"></a>00011 <span class="preprocessor">#if !defined(Q_MOC_OUTPUT_REVISION)</span>
 <a name="l00012"></a>00012 <span class="preprocessor"></span><span class="preprocessor">#error &quot;The header file &#39;config_dialog.hpp&#39; doesn&#39;t include &lt;QObject&gt;.&quot;</span>
 <a name="l00013"></a>00013 <span class="preprocessor"></span><span class="preprocessor">#elif Q_MOC_OUTPUT_REVISION != 63</span>
@@ -169,7 +168,7 @@ function toggleVisibility(linkObj) {
 <a name="l00067"></a>00067 {
 <a name="l00068"></a>00068     <span class="keywordflow">if</span> (!_clname) <span class="keywordflow">return</span> 0;
 <a name="l00069"></a>00069     <span class="keywordflow">if</span> (!strcmp(_clname, <a class="code" href="moc__config__dialog_8cpp.html#a2b6d29d9b0de3835c85f889755542659">qt_meta_stringdata_config_dialog</a>))
-<a name="l00070"></a>00070         <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(<span class="keyword">const_cast&lt;</span> <a class="code" href="classconfig__dialog.html">config_dialog</a>*<span class="keyword">&gt;</span>(<span class="keyword">this</span>));
+<a name="l00070"></a>00070         <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(<span class="keyword">const_cast&lt;</span> config_dialog*<span class="keyword">&gt;</span>(<span class="keyword">this</span>));
 <a name="l00071"></a>00071     <span class="keywordflow">return</span> QDialog::qt_metacast(_clname);
 <a name="l00072"></a>00072 }
 <a name="l00073"></a>00073 
@@ -188,7 +187,7 @@ function toggleVisibility(linkObj) {
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -197,7 +196,7 @@ function toggleVisibility(linkObj) {
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 16 2012 23:29:56 for Knotter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Aug 17 2012 13:35:59 for Knotter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

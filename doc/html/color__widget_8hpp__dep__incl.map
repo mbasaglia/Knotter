@@ -1,11 +1,4 @@
 <map id="G" name="G">
-<area shape="rect" id="node3" href="$ui__style__dialog_8h.html" title="ui_style_dialog.h" alt="" coords="289,83,407,112"/>
-<area shape="rect" id="node19" href="$moc__color__widget_8cpp.html" title="moc_color_widget.cpp" alt="" coords="431,83,583,112"/>
-<area shape="rect" id="node5" href="$style__dialog_8hpp.html" title="style_dialog.hpp" alt="" coords="291,160,405,189"/>
-<area shape="rect" id="node7" href="$knot__window_8hpp.html" title="knot_window.hpp" alt="" coords="128,237,251,267"/>
-<area shape="rect" id="node15" href="$moc__style__dialog_8cpp.html" title="moc_style_dialog.cpp" alt="" coords="275,237,421,267"/>
-<area shape="rect" id="node17" href="$style__dialog_8cpp.html" title="style_dialog.cpp" alt="" coords="445,237,560,267"/>
-<area shape="rect" id="node9" href="$knot__window_8cpp.html" title="knot_window.cpp" alt="" coords="5,315,128,344"/>
-<area shape="rect" id="node11" href="$main_8cpp.html" title="main.cpp" alt="" coords="152,315,227,344"/>
-<area shape="rect" id="node13" href="$moc__knot__window_8cpp.html" title="moc_knot_window.cpp" alt="" coords="251,315,405,344"/>
+<area shape="rect" id="node3" href="$ui__style__dialog_8h.html" title="ui_style_dialog.h" alt="" coords="5,83,123,112"/>
+<area shape="rect" id="node5" href="$moc__color__widget_8cpp.html" title="moc_color_widget.cpp" alt="" coords="147,83,299,112"/>
 </map>

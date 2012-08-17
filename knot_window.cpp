@@ -119,26 +119,16 @@ Knot_Window::Knot_Window(QWidget *parent) :
 void Knot_Window::mode_edge_list()
 {
     actionInsert_Edges->setChecked(false);
-    actionEdit_Nodes->setChecked(false);
     actionEdge_List->setChecked(true);
     canvas->mode_edge_chain();
     style_dialog.connect(action_Style,SIGNAL(triggered()),SLOT(setFocus()));
 }
 
-void Knot_Window::mode_node()
-{
-    actionInsert_Edges->setChecked(false);
-    actionEdit_Nodes->setChecked(true);
-    actionEdge_List->setChecked(false);
-    canvas->mode_edit_node();
-}
-
 void Knot_Window::mode_edge()
 {
     actionInsert_Edges->setChecked(true);
-    actionEdit_Nodes->setChecked(false);
     actionEdge_List->setChecked(false);
-    canvas->mode_insert_edge();
+    canvas->mode_edit_node_edge();
 }
 
 void Knot_Window::mouse_moved(QPointF p)
@@ -249,21 +239,6 @@ void Knot_Window::exportSVG()
     quf.close();
 }
 
-void Knot_Window::apply_style()
-{
-    canvas->set_width ( style_dialog.knot_width_spinner->value() );
-    canvas->set_brush ( QBrush ( style_dialog.color->color() ) );
-    canvas->set_pen ( QPen ( style_dialog.outline_color->color(),
-                             style_dialog.outline_width_spinner->value()
-                            ) );
-    canvas->set_curve_style ( style_dialog.get_style_id() );
-    canvas->set_cusp_angle ( style_dialog.cusp_angle_spinner->value() );
-    canvas->set_handle_length ( style_dialog.handle_length_spinner->value() );
-    canvas->set_crossing_distance ( style_dialog.crossing_gap_spinner->value() );
-    canvas->set_join_style ( style_dialog.get_join_style() );
-
-}
-
 void Knot_Window::zoom_in()
 {
     canvas->zoom(2);
@@ -297,6 +272,22 @@ void Knot_Window::enable_grid(bool enabled)
 }
 
 
+void Knot_Window::apply_style()
+{
+    canvas->set_width ( style_dialog.knot_width_spinner->value() );
+    canvas->set_brush ( QBrush ( style_dialog.color->color() ) );
+    canvas->set_pen ( QPen ( style_dialog.outline_color->color(),
+                             style_dialog.outline_width_spinner->value(),
+                             style_dialog.get_pen_style()
+                            ) );
+    canvas->set_curve_style ( style_dialog.get_style_id() );
+    canvas->set_cusp_angle ( style_dialog.cusp_angle_spinner->value() );
+    canvas->set_handle_length ( style_dialog.handle_length_spinner->value() );
+    canvas->set_crossing_distance ( style_dialog.crossing_gap_spinner->value() );
+    canvas->set_join_style ( style_dialog.get_join_style() );
+
+}
+
 void Knot_Window::update_style_dialog()
 {
     style_dialog.knot_width_spinner->setValue(canvas->get_width());
@@ -304,6 +295,7 @@ void Knot_Window::update_style_dialog()
     QPen pen = canvas->get_pen();
     style_dialog.outline_color->set_color ( pen.color() );
     style_dialog.outline_width_spinner->setValue ( pen.width() );
+    style_dialog.set_pen_style(pen.style());
     style_dialog.set_join_style ( pen.joinStyle() );
     style_dialog.set_style_id(canvas->get_curve_style() );
     style_dialog.cusp_angle_spinner->setValue ( canvas->get_cusp_angle() );

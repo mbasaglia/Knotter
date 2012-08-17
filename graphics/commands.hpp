@@ -114,7 +114,7 @@ class RemoveEdge : public QUndoCommand
         void redo() { kv->unlink(n1,n2); }
 };
 
-class MoveNodes : public QUndoCommand
+class MoveNode : public QUndoCommand
 {
     Node* node;
     QPointF start_pos;
@@ -122,7 +122,7 @@ class MoveNodes : public QUndoCommand
     KnotView* kv;
 
     public:
-        MoveNodes ( Node* node, QPointF start_pos, QPointF end_pos, KnotView* kv )
+        MoveNode ( Node* node, QPointF start_pos, QPointF end_pos, KnotView* kv )
             : node(node), start_pos ( start_pos ), end_pos ( end_pos ), kv ( kv )
         {
             setText("Move Node");
@@ -131,10 +131,12 @@ class MoveNodes : public QUndoCommand
         void undo()
         {
             kv->do_move_node(node,start_pos);
+            kv->redraw(true);
         }
         void redo()
         {
             kv->do_move_node(node,end_pos);
+            kv->redraw(true);
         }
 };
 

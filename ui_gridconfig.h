@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'gridconfig.ui'
 **
-** Created: Fri Aug 17 09:18:04 2012
+** Created: Fri Aug 17 13:33:38 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -17,10 +17,12 @@
 #include <QtGui/QComboBox>
 #include <QtGui/QDialog>
 #include <QtGui/QDialogButtonBox>
+#include <QtGui/QDoubleSpinBox>
 #include <QtGui/QGridLayout>
 #include <QtGui/QGroupBox>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
+#include <QtGui/QPushButton>
 #include <QtGui/QSpinBox>
 
 QT_BEGIN_NAMESPACE
@@ -35,13 +37,23 @@ public:
     QSpinBox *size_spin;
     QLabel *label_2;
     QComboBox *shape_combo;
+    QGroupBox *groupBox;
+    QGridLayout *gridLayout_3;
+    QLabel *label_3;
+    QDoubleSpinBox *origin_x_spin;
+    QLabel *label_4;
+    QDoubleSpinBox *origin_y_spin;
+    QPushButton *pushButton;
     QDialogButtonBox *buttonBox;
 
     void setupUi(QDialog *GridConfig)
     {
         if (GridConfig->objectName().isEmpty())
             GridConfig->setObjectName(QString::fromUtf8("GridConfig"));
-        GridConfig->resize(400, 176);
+        GridConfig->resize(400, 249);
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/img/move_grid.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        GridConfig->setWindowIcon(icon);
         GridConfig->setModal(true);
         gridLayout = new QGridLayout(GridConfig);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
@@ -74,6 +86,43 @@ public:
 
         gridLayout_2->addWidget(shape_combo, 1, 1, 1, 1);
 
+        groupBox = new QGroupBox(enable_check);
+        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        groupBox->setEnabled(false);
+        gridLayout_3 = new QGridLayout(groupBox);
+        gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
+        label_3 = new QLabel(groupBox);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+
+        gridLayout_3->addWidget(label_3, 0, 0, 1, 1);
+
+        origin_x_spin = new QDoubleSpinBox(groupBox);
+        origin_x_spin->setObjectName(QString::fromUtf8("origin_x_spin"));
+        origin_x_spin->setMinimum(-8192);
+        origin_x_spin->setMaximum(8192);
+
+        gridLayout_3->addWidget(origin_x_spin, 0, 1, 1, 1);
+
+        label_4 = new QLabel(groupBox);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+
+        gridLayout_3->addWidget(label_4, 1, 0, 1, 1);
+
+        origin_y_spin = new QDoubleSpinBox(groupBox);
+        origin_y_spin->setObjectName(QString::fromUtf8("origin_y_spin"));
+        origin_y_spin->setMinimum(-8192);
+        origin_y_spin->setMaximum(8192);
+
+        gridLayout_3->addWidget(origin_y_spin, 1, 1, 1, 1);
+
+        pushButton = new QPushButton(groupBox);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+
+        gridLayout_3->addWidget(pushButton, 2, 0, 1, 2);
+
+
+        gridLayout_2->addWidget(groupBox, 2, 0, 1, 2);
+
 
         gridLayout->addWidget(enable_check, 0, 0, 1, 1);
 
@@ -105,6 +154,12 @@ public:
          << QApplication::translate("GridConfig", "Triangle1", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("GridConfig", "Triangle2", 0, QApplication::UnicodeUTF8)
         );
+        groupBox->setTitle(QApplication::translate("GridConfig", "Origin", 0, QApplication::UnicodeUTF8));
+        label_3->setText(QApplication::translate("GridConfig", "x", 0, QApplication::UnicodeUTF8));
+        origin_x_spin->setSuffix(QApplication::translate("GridConfig", "px", 0, QApplication::UnicodeUTF8));
+        label_4->setText(QApplication::translate("GridConfig", "y", 0, QApplication::UnicodeUTF8));
+        origin_y_spin->setSuffix(QApplication::translate("GridConfig", "px", 0, QApplication::UnicodeUTF8));
+        pushButton->setText(QApplication::translate("GridConfig", "&Reset", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

@@ -55,7 +55,6 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
     public slots:
         void mode_edge_list();
-        void mode_node();
         void mode_edge();
 
         void mouse_moved(QPointF);

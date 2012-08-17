@@ -34,7 +34,6 @@ snapping_grid::snapping_grid(double size, grid_shape type, QPointF origin, bool 
 
 void snapping_grid::snap(QPointF &p) const
 {
-    /// \todo find a way to draw the grid (lines or dots?)
     /// \todo find a cool way to configure the origin ( cool way != typing coordinates )
 
     if ( !enabled )
@@ -182,5 +181,6 @@ void snapping_grid::set_shape(snapping_grid::grid_shape shape)
 
 void snapping_grid::set_origin(QPointF origin)
 {
+    /// \todo normalize origin
     this->origin = origin;
 }

@@ -33,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDomDocument>
 #include <QSvgGenerator>
 
-
 /// \todo move to own file
 class GridScene : public QGraphicsScene
 {
@@ -50,19 +49,18 @@ class GridScene : public QGraphicsScene
         }
 };
 /**
-    \todo snap to grid
     \todo insert fixed shapes
 */
 
 KnotView::KnotView( QWidget* parent )
-    : QGraphicsView(parent), mode(EDIT_NODE),
+    : QGraphicsView(parent), mode(EDIT_NODE_EDGE),
     last_node(NULL),
     mouse_status(DEFAULT),
     guide(NULL), rubberband(NULL)
 {
     setScene ( new GridScene(&grid) );
     setSceneRect ( 0, 0, width(), height());
-    mode_edit_node();
+    mode_edit_node_edge();
     setMouseTracking(true);
     setRenderHint(QPainter::Antialiasing);
     setTransformationAnchor( QGraphicsView::NoAnchor );
@@ -88,14 +86,15 @@ void KnotView::do_remove_node(Node *node)
 {
     if ( mode == INSERT_EDGE_CHAIN && guide )
     {
-        if ( moved_nodes.empty() )
+        if ( node_chain.size() < 2 )
         {
+            node_chain.clear();
             last_node = NULL;
         }
         else
         {
-            last_node = moved_nodes.back(); // why can this make last_node = NULL?
-            moved_nodes.pop_back();
+            node_chain.pop_back();
+            last_node = node_chain.back(); // why can this make last_node = NULL?
         }
         if ( last_node && last_node->scene() )
             set_guide(last_node->pos(),guide->line().p2());
@@ -148,57 +147,145 @@ void KnotView::do_remove_node(Node *node)
 void KnotView::do_move_node(Node* node, QPointF pos)
 {
     node->setPos(pos);
-    redraw(true);
+    // redraw(true); Causes degfault if undose (?)
 }
 
 
 
 QPointF KnotView::get_mouse_point(QMouseEvent *event)
 {
-    /// \todo fix this to work with dragging
+    return mapToScene(event->pos());
+}
 
-    QPointF p = mapToScene(event->pos());
-
-    if ( mouse_status != SELECTING )
+void KnotView::snap(QPointF& p,QMouseEvent *event)
+{
+    if ( last_node && ( event->modifiers() & Qt::ControlModifier ) )
     {
-
-        if ( last_node && ( event->modifiers() & Qt::ControlModifier ) )
-        {
-            // snap to closest 15deg angle from last node
-            QLineF line(last_node->pos(),p);
-            int angle = line.angle() / 15;
-            angle *= 15;
-            line.setAngle(angle);
-            p = line.p2();
-        }
-
-        grid.snap(p);
+        // snap to closest 15deg angle from last node
+        QLineF line(last_node->pos(),p);
+        int angle = line.angle() / 15;
+        angle *= 15;
+        line.setAngle(angle);
+        p = line.p2();
     }
 
-    return p;
+    grid.snap(p);
+}
+
+void KnotView::mouseDoubleClickEvent(QMouseEvent * event)
+{
+    if ( !isInteractive() ) return;
+
+    /// \todo make auto-simmetry ( top-bottom left-right, quadrature, rotation )
+
+    if ( event->button() == Qt::LeftButton )
+    {
+        QPointF p = get_mouse_point ( event );
+        Node *node=node_at(p);
+
+        snap ( p, event );
+
+        if ( node )
+            node->setPos(p);
+        else
+            node=node_at(p);
+
+        if ( !node )
+            add_node_or_break_edge(p);
+    }
+
 }
 
 void KnotView::mousePressEvent(QMouseEvent *event)
 {
     if ( !isInteractive() ) return;
 
-    /// \todo make auto-simmetry ( top-bottom left-right, quadrature, rotation )
-
     QPointF p = get_mouse_point ( event );
-    Node* itm = node_at(p);
+    Node* node = node_at(p);
+    Edge* edge = edge_at(p);
 
-    if ( event->button() == Qt::RightButton ) // select nodes
+    if ( mode == MOVE_GRID )
+    {
+        mouse_status = MOVING;
+        return;
+    }
+
+
+    if ( event->button() == Qt::LeftButton )
+    {
+        if ( mode == INSERT_EDGE_CHAIN )
+        {
+            snap(p,event);
+            if ( !node )
+                node = node_at(p);
+
+            Node* next_node = node;
+            if ( !next_node )
+            {
+                node_list pl;
+                if ( last_node )
+                    pl.push_back(last_node);
+                next_node = add_node_or_break_edge(p,pl);
+            }
+            else if ( last_node )
+            {
+                add_edge(last_node,next_node);
+            }
+
+            last_node = next_node;
+
+            node_chain.push_back ( last_node );
+
+            set_guide(last_node->pos(),p);
+            scene()->clearSelection();
+            last_node->setSelected(true);
+
+            return;
+        }
+
+
+        if ( node )
+        {
+            node->setSelected(true);
+            mouse_status = MOVING;
+            snap(p,event);
+            startpos = oldpos = p;
+        }
+        else if ( edge )
+        {
+            edge->vertex1()->setSelected(true);
+            edge->vertex2()->setSelected(true);
+            mouse_status = MOVING;
+            snap(p,event);
+            startpos = oldpos = p;
+        }
+        else if ( !( event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier) ) )
+            scene()->clearSelection();
+    }
+    else if ( event->button() == Qt::MidButton )
+    {
+        oldpos = event->pos();
+        mouse_status = DRAGGING;
+    }
+    else if ( event->button() == Qt::RightButton )
     {
         if ( mode == INSERT_EDGE_CHAIN )
         {
             mode_change();
         }
 
-        if ( ! ( event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier) ) )
-            scene()->clearSelection();
-        if ( itm )
-            itm->setSelected(!itm->isSelected());
+        if ( node )
+        {
+            last_node = node;
+            set_guide(last_node->pos(),p);
+            mouse_status = EDGING;
+        }
+        else if ( edge )
+            cycle_edge(edge);
+    }
 
+    if ( mouse_status == DEFAULT )
+    {
         mouse_status = SELECTING;
         QColor bg = QApplication::palette().color(QPalette::Highlight);
         bg.setAlpha(128);
@@ -206,104 +293,9 @@ void KnotView::mousePressEvent(QMouseEvent *event)
             QApplication::palette().color(QPalette::Highlight), bg );
         rubberband->setPos(p);
         rubberband->setZValue(100);
-        return;
-    }
-    else if ( event->button() == Qt::MiddleButton ) // drag view
-    {
-        oldpos = event->pos();
-        mouse_status = DRAGGING;
-        return;
-    }
-
-    if ( mode == EDIT_NODE )
-    {
-        if ( !itm )
-        {
-            Edge* edg = edge_at(p);
-            if ( edg )
-            {
-                Node* v1 = edg->vertex1();
-                Node* v2 = edg->vertex2();
-                QLineF oldline ( v1->pos(), v2->pos() );
-                QLineF newline ( v1->pos(), p );
-                newline.setAngle( oldline.angle() );
-
-                undo_stack.beginMacro(tr("Break Edge"));
-                add_node(newline.p2(),node_list());
-                remove_edge(v1,v2);
-                add_edge(last_node,v1);
-                add_edge(last_node,v2);
-                undo_stack.endMacro();
-            }
-            else
-                add_node(p,node_list());
-
-            scene()->clearSelection();
-            last_node->setSelected(true);
-        }
-        else
-        {
-            last_node = itm;
-            if ( !last_node->isSelected() )
-            {
-                scene()->clearSelection();
-                last_node->setSelected(true);
-            }
-        }
-
-        moved_nodes.clear();
-        foreach ( QGraphicsItem* itm, scene()->selectedItems() )
-        {
-            Node* n = dynamic_cast<Node*>(itm);
-            if ( n )
-                moved_nodes.push_back(n);
-        }
-        if ( !moved_nodes.empty() )
-        {
-            mouse_status = MOVING;
-            oldpos = p;
-            startpos = p;
-            //QGraphicsView::mousePressEvent(event);
-        }
-    }
-    else if ( mode == INSERT_EDGE )
-    {
-        if ( itm )
-        {
-            last_node = itm;
-            set_guide(last_node->pos(),p);
-        }
-        else
-            toggle_edge(edge_at(p));
-    }
-    else if ( mode == INSERT_EDGE_CHAIN )
-    {
-        Node* next_node = itm;
-        if ( !next_node )
-        {
-            Node* prev_node = last_node;
-            node_list pl;
-            if ( last_node )
-                pl.push_back(last_node);
-            add_node(p,pl);
-            next_node = last_node;
-            last_node = prev_node;
-        }
-        else if ( last_node )
-        {
-            add_edge(last_node,next_node);
-        }
-
-
-        moved_nodes.push_back ( last_node );
-
-        last_node = next_node;
-        set_guide(last_node->pos(),p);
-        scene()->clearSelection();
-        last_node->setSelected(true);
     }
 }
-#include <QScrollBar>
+
 void KnotView::mouseMoveEvent(QMouseEvent *event)
 {
     if ( !isInteractive() ) return;
@@ -313,7 +305,29 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
     emit mouse_moved ( p );
 
 
-    if ( mouse_status == DRAGGING ) // drag view
+    if ( mode == MOVE_GRID )
+    {
+        grid.set_origin(p);
+        redraw(false);
+        return;
+    }
+
+    if ( mouse_status == MOVING )
+    {
+        snap(p,event);
+        foreach(Node* n,selected_nodes())
+        {
+            n->setPos(n->pos()+p-oldpos);
+        }
+        oldpos = p;
+
+        knot.build();/// \todo option to turn on/off fluid knot refresh
+    }
+    else if ( mouse_status == SELECTING )
+    {
+        rubberband->setRect(QRectF(QPointF(0,0),p-rubberband->pos()));
+    }
+    else if ( mouse_status == DRAGGING ) // drag view
     {
         QPointF delta = oldpos-event->pos();
         delta /= matrix().m11(); // take scaling into account
@@ -321,10 +335,29 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
         r.translate(delta);
         setSceneRect ( r );
         oldpos = event->pos();
-
         return;
     }
+    else if ( mouse_status == EDGING )
+    {
+        if ( guide && last_node )
+        {
+            set_guide ( last_node->pos(), p );
+        }
+    }
+    else if ( mode == INSERT_EDGE_CHAIN )
+    {
+        QPointF q = p;
+        snap(q,event);
 
+        if ( guide && last_node )
+        {
+            set_guide ( last_node->pos(), q );
+        }
+    }
+
+
+
+    // highlight item under cursor
     foreach ( QGraphicsItem* gi, scene()->items() )
     {
         CustomItem* ci = dynamic_cast<CustomItem*>(gi);
@@ -336,33 +369,8 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
         ci->highlight = true;
 
 
-    if ( rubberband )
-    {
-        rubberband->setRect(QRectF(QPointF(0,0),p-rubberband->pos()));
-    }
-    else if ( mode == EDIT_NODE )
-    {
-        if ( mouse_status == MOVING )
-        {
-            foreach(Node* n,moved_nodes)
-            {
-                n->setPos(n->pos()+p-oldpos);
-            }
-            oldpos = p;
-            //QGraphicsView::mouseMoveEvent(event);
-            knot.build();/// \todo option to turn on/off fluid knot refresh
-        }
-    }
-    else if ( mode == INSERT_EDGE_CHAIN || mode == INSERT_EDGE )
-    {
-        if ( guide && last_node )
-        {
-            set_guide ( last_node->pos(), p );
-        }
-    }
     redraw(false);
 }
-
 
 void KnotView::mouseReleaseEvent(QMouseEvent *event)
 {
@@ -371,8 +379,41 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
     QPointF p = get_mouse_point ( event );
 
 
-    if ( mouse_status == SELECTING )
+    if ( mode == MOVE_GRID )
     {
+        grid.set_origin(p);
+        redraw(false);
+        mode_edit_node_edge();
+        mouse_status = DEFAULT;
+        return;
+    }
+
+    Node* node = node_at(p);
+    Edge* edge = edge_at(p);
+
+    if ( mouse_status == MOVING )
+    {
+        snap(p,event);
+        if ( p != startpos )
+            move_nodes(p);
+
+        if ( !( event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier) ) )
+            scene()->clearSelection();
+
+        if ( node )
+            node->setSelected(!node->isSelected());
+        else if ( edge )
+        {
+            edge->vertex1()->setSelected(!edge->vertex1()->isSelected());
+            edge->vertex2()->setSelected(!edge->vertex1()->isSelected());
+        }
+    }
+    else if ( mouse_status == SELECTING )
+    {
+
+        if ( !( event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier) ) )
+            scene()->clearSelection();
+
         QList<QGraphicsItem*> sel = scene()->selectedItems();
         QPainterPath pp;
         pp.addRect(rubberband->rect());
@@ -384,25 +425,8 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
         scene()->removeItem(rubberband);
         delete rubberband;
         rubberband = NULL;
-        mouse_status = DEFAULT;
     }
-    else if ( event->button() == Qt::MiddleButton ) // drag view
-    {
-        mouse_status = DEFAULT;
-        return;
-    }
-    else if ( mode == EDIT_NODE )
-    {
-        if ( mouse_status == MOVING )
-        {
-            if ( p != startpos )
-                move_nodes(p);
-            mouse_status = DEFAULT;
-            //QGraphicsView::mouseReleaseEvent(event);
-
-        }
-    }
-    else if ( mode == INSERT_EDGE )
+    else if ( mouse_status == EDGING )
     {
         unset_guide();
 
@@ -415,7 +439,8 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
                 add_edge ( last_node, itm );
         }
     }
-    redraw(false);
+
+    mouse_status = DEFAULT;
 }
 
 void KnotView::wheelEvent(QWheelEvent *event)
@@ -434,9 +459,9 @@ void KnotView::wheelEvent(QWheelEvent *event)
     else // toggle egde type
     {
         if ( event->delta() < 0 )
-            toggle_edge(edge_at(p));
+            cycle_edge(edge_at(p));
         else
-            toggle_edge_inverted(edge_at(p));
+            cycle_edge_inverted(edge_at(p));
     }
 }
 
@@ -478,15 +503,15 @@ void KnotView::unlink(Node *a, Node *b)
     {
         if ( mode == INSERT_EDGE_CHAIN && guide)
         {
-            if ( moved_nodes.empty() )
+            if ( node_chain.empty() )
             {
                 last_node = NULL;
                 unset_guide();
             }
             else
             {
-                last_node = moved_nodes.back();
-                moved_nodes.pop_back();
+                last_node = node_chain.back();
+                node_chain.pop_back();
                 set_guide(last_node->pos(),guide->line().p2());
             }
         }
@@ -869,6 +894,33 @@ Node *KnotView::add_node(QPointF pos, node_list adjl)
     return nn;
 }
 
+Node* KnotView::add_node_or_break_edge(QPointF p,node_list adjl)
+{
+    Edge* edg = edge_at(p);
+    Node* retnode;
+    if ( edg )
+    {
+        Node* v1 = edg->vertex1();
+        Node* v2 = edg->vertex2();
+        QLineF oldline ( v1->pos(), v2->pos() );
+        QLineF newline ( v1->pos(), p );
+        newline.setAngle( oldline.angle() );
+
+        undo_stack.beginMacro(tr("Break Edge"));
+        adjl.push_back(v1);
+        adjl.push_back(v2);
+        retnode = add_node(newline.p2(),adjl);
+        remove_edge(v1,v2);
+        undo_stack.endMacro();
+    }
+    else
+        retnode = add_node(p,adjl);
+
+    scene()->clearSelection();
+    retnode->setSelected(true);
+    return retnode;
+}
+
 /**
     add existing node, undo command will takes ownership
 */
@@ -914,24 +966,23 @@ void KnotView::remove_edge(Node *p1, Node *p2)
 void KnotView::move_nodes ( QPointF dest )
 {
     QPointF delta = dest-startpos;
-    if ( moved_nodes.size() > 1 )
+    if ( selected_nodes().size() > 1 )
     {
         undo_stack.beginMacro(tr("Move Nodes"));
-        foreach ( Node* n, moved_nodes )
+        foreach ( Node* n, selected_nodes() )
         {
-            undo_stack.push(new MoveNodes(n,n->pos()-delta,n->pos(),this));
+            undo_stack.push(new MoveNode(n,n->pos()-delta,n->pos(),this));
         }
         undo_stack.endMacro();
     }
-    else if ( moved_nodes.size() == 1 )
+    else if ( selected_nodes().size() == 1 )
     {
-        undo_stack.push(new MoveNodes(moved_nodes[0],moved_nodes[0]->pos()-delta,
-                                     moved_nodes[0]->pos(),this));
+        undo_stack.push(new MoveNode(selected_nodes()[0],selected_nodes()[0]->pos()-delta,
+                                     selected_nodes()[0]->pos(),this));
     }
-    moved_nodes.clear();
 }
 
-void KnotView::toggle_edge(Edge* e)
+void KnotView::cycle_edge(Edge* e)
 {
     if ( e )
     {
@@ -947,7 +998,7 @@ void KnotView::toggle_edge(Edge* e)
     }
 }
 
-void KnotView::toggle_edge_inverted(Edge *e)
+void KnotView::cycle_edge_inverted(Edge *e)
 {
     if ( e )
     {
@@ -988,21 +1039,21 @@ snapping_grid &KnotView::get_grid()
     return grid;
 }
 
-void KnotView::mode_edit_node()
+void KnotView::mode_edit_node_edge()
 {
-    mode = EDIT_NODE;
-    mode_change();
-}
-
-void KnotView::mode_insert_edge()
-{
-    mode = INSERT_EDGE;
+    mode = EDIT_NODE_EDGE;
     mode_change();
 }
 
 void KnotView::mode_edge_chain()
 {
     mode = INSERT_EDGE_CHAIN;
+    mode_change();
+}
+
+void KnotView::mode_move_grid()
+{
+    mode = MOVE_GRID;
     mode_change();
 }
 
@@ -1021,63 +1072,54 @@ void KnotView::erase_selected()
 
 void KnotView::link_selected()
 {
-    if ( mode == EDIT_NODE )
+    undo_stack.beginMacro(tr("Link Nodes"));
+    typedef QList<QGraphicsItem*>::iterator iter;
+    QList<QGraphicsItem*> sel = scene()->selectedItems();
+    for ( iter i = sel.begin(); i != sel.end(); ++i )
     {
-        undo_stack.beginMacro(tr("Link Nodes"));
-        typedef QList<QGraphicsItem*>::iterator iter;
-        QList<QGraphicsItem*> sel = scene()->selectedItems();
-        for ( iter i = sel.begin(); i != sel.end(); ++i )
-        {
-            iter j = i;
-            for ( ++j; j != sel.end(); ++j )
-                add_edge(dynamic_cast<Node*>(*i),dynamic_cast<Node*>(*j));
-        }
-        undo_stack.endMacro();
+        iter j = i;
+        for ( ++j; j != sel.end(); ++j )
+            add_edge(dynamic_cast<Node*>(*i),dynamic_cast<Node*>(*j));
     }
+    undo_stack.endMacro();
 }
 
 
 void KnotView::merge_selected()
 {
+    QPointF pos; // average position
 
-    if ( mode == EDIT_NODE )
+    node_list links; // nodes linked to selection
+
+    QList<QGraphicsItem*> selection = scene()->selectedItems();
+
+    if ( selection.count() < 2 )
+        return;
+
+    undo_stack.beginMacro(tr("Merge Nodes"));
+
+    foreach( QGraphicsItem* node, selection )
     {
-
-        QPointF pos; // average position
-
-        node_list links; // nodes linked to selection
-
-        QList<QGraphicsItem*> selection = scene()->selectedItems();
-
-        if ( selection.count() < 2 )
-            return;
-
-        undo_stack.beginMacro(tr("Merge Nodes"));
-
-        foreach( QGraphicsItem* node, selection )
+        Node* n = dynamic_cast<Node*>(node);
+        if ( n )
         {
-            Node* n = dynamic_cast<Node*>(node);
-            if ( n )
+            pos += node->pos();
+            node_list adjacency_list;
+            foreach ( Edge* e, n->links() )
             {
-                pos += node->pos();
-                node_list adjacency_list;
-                foreach ( Edge* e, n->links() )
-                {
-                    Node *o = e->other(n);
-                    adjacency_list.push_back(o);
-                    if ( !scene()->selectedItems().contains(o) )
-                        links.push_back(o);
-                }
-                remove_node(n,adjacency_list);
+                Node *o = e->other(n);
+                adjacency_list.push_back(o);
+                if ( !scene()->selectedItems().contains(o) )
+                    links.push_back(o);
             }
+            remove_node(n,adjacency_list);
         }
-
-        add_node(pos/selection.count(),links);
-        last_node->setSelected(true);
-
-        undo_stack.endMacro();
-
     }
+
+    add_node(pos/selection.count(),links);
+    last_node->setSelected(true);
+
+    undo_stack.endMacro();
 }
 
 void KnotView::select_all()
@@ -1116,5 +1158,19 @@ void KnotView::reset_zoom()
     QMatrix trans = matrix();
     trans.setMatrix(1,trans.m12(),trans.m21(),1,trans.dx(),trans.dy());
     setMatrix(trans);
+}
+
+void KnotView::flip_horizontal()
+{
+    foreach(Node* node,selected_nodes())
+        node->setX(-node->x());
+    redraw(true);
+}
+
+void KnotView::flip_vertical()
+{
+    foreach(Node* node,selected_nodes())
+        node->setY(-node->y());
+    redraw(true);
 }
 

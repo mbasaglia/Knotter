@@ -25,9 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "style_dialog.hpp"
 
-/**
-    \todo PenStyle
-*/
 StyleDialog::StyleDialog(QWidget *parent) :
     QDialog(parent)
 {
@@ -46,6 +43,8 @@ StyleDialog::StyleDialog(QWidget *parent) :
     preview->setSceneRect(preview->scene()->itemsBoundingRect());
 
     preview->setInteractive(false);
+
+    preview->get_grid().enable(false);
 
     combo_style[knot_curve_styler::idof("pointed")]=0;
     combo_style[knot_curve_styler::idof("ogee")]=1;
@@ -158,5 +157,44 @@ void StyleDialog::set_join_style(Qt::PenJoinStyle pjs)
         case Qt::RoundJoin:
             point_combo->setCurrentIndex(2);
             break;
+    }
+}
+
+Qt::PenStyle StyleDialog::get_pen_style() const
+{
+    return pen_style_from_index(outline_pattern_combo->currentIndex());
+}
+
+void StyleDialog::set_pen_style(Qt::PenStyle ps)
+{
+    int index;
+
+    switch ( ps )
+    {
+            case Qt::SolidLine: index = 0;  break;
+    default:case Qt::NoPen:     index = 1;  break;
+            case Qt::DotLine:   index = 2;  break;
+            case Qt::DashLine:  index = 3;  break;
+            case Qt::DashDotLine:index = 4; break;
+    }
+    outline_pattern_combo->setCurrentIndex(index);
+}
+
+void StyleDialog::on_outline_pattern_combo_activated(int index)
+{
+    QPen p = preview->get_pen();
+    p.setStyle(pen_style_from_index(index));
+    preview->set_pen ( p );
+}
+
+Qt::PenStyle StyleDialog::pen_style_from_index(int index) const
+{
+    switch ( index )
+    {
+            case 0: return Qt::SolidLine;
+    default:case 1: return Qt::NoPen;
+            case 2: return Qt::DotLine;
+            case 3: return Qt::DashLine;
+            case 4: return Qt::DashDotLine;
     }
 }

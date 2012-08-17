@@ -37,6 +37,8 @@ class StyleDialog : public QDialog, private Ui::StyleDialog
         QMap<knot_curve_styler::style_id,int> combo_style;
         knot_curve_styler::style_id curstyle;
 
+        Qt::PenStyle pen_style_from_index( int index ) const;
+
     public:
         explicit StyleDialog(QWidget *parent = 0);
 
@@ -45,6 +47,9 @@ class StyleDialog : public QDialog, private Ui::StyleDialog
 
         Qt::PenJoinStyle get_join_style() const;
         void set_join_style(Qt::PenJoinStyle pjs);
+
+        Qt::PenStyle get_pen_style() const;
+        void set_pen_style( Qt::PenStyle ps );
 
     public slots:
         void clicked ( QAbstractButton * button );
@@ -63,6 +68,7 @@ class StyleDialog : public QDialog, private Ui::StyleDialog
         void on_handle_length_spinner_valueChanged(double arg1);
         void on_crossing_gap_spinner_valueChanged(double arg1);
         void on_point_combo_activated(int index);
+        void on_outline_pattern_combo_activated(int index);
 };
 
 #endif // STYLE_DIALOG_HPP

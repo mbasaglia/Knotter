@@ -35,13 +35,25 @@ GridConfig::GridConfig(snapping_grid *target_grid, QWidget *parent) :
         size_spin->setValue(target->get_size());
         shape_combo->setCurrentIndex(target->get_shape());
         enable_check->setChecked(target->is_enabled());
+        origin_x_spin->setValue(target->get_origin().x());
+        origin_y_spin->setValue(target->get_origin().y());
     }
 }
 
 
 void GridConfig::on_buttonBox_accepted()
 {
-    target->set_size(size_spin->value());
-    target->set_shape(snapping_grid::grid_shape(shape_combo->currentIndex()));
-    target->enable ( enable_check->isChecked() );
+    if ( target )
+    {
+        target->set_size(size_spin->value());
+        target->set_shape(snapping_grid::grid_shape(shape_combo->currentIndex()));
+        target->enable ( enable_check->isChecked() );
+        target->set_origin(QPointF(origin_x_spin->value(),origin_y_spin->value()));
+    }
+}
+
+void GridConfig::on_pushButton_clicked()
+{
+    origin_x_spin->setValue(0);
+    origin_y_spin->setValue(0);
 }

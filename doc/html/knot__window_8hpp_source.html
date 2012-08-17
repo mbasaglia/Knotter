@@ -57,7 +57,7 @@ function toggleVisibility(linkObj) {
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Knotter&#160;<span id="projectnumber">0.2.0</span></div>
+   <div id="projectname">Knotter&#160;<span id="projectnumber">0.3.0</span></div>
    <div id="projectbrief">Celtic knotwork designer</div>
   </td>
  </tr>
@@ -67,7 +67,6 @@ function toggleVisibility(linkObj) {
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -130,8 +129,8 @@ function toggleVisibility(linkObj) {
 <a name="l00028"></a>00028 <span class="preprocessor">#include &quot;<a class="code" href="ui__knot__window_8h.html">ui_knot_window.h</a>&quot;</span>
 <a name="l00029"></a>00029 <span class="preprocessor">#include &lt;QUndoStack&gt;</span>
 <a name="l00030"></a>00030 <span class="preprocessor">#include &lt;QUndoView&gt;</span>
-<a name="l00031"></a>00031 <span class="preprocessor">#include &quot;<a class="code" href="style__dialog_8hpp.html">style_dialog.hpp</a>&quot;</span>
-<a name="l00032"></a>00032 <span class="preprocessor">#include &quot;<a class="code" href="clipboard_8hpp.html">clipboard.hpp</a>&quot;</span>
+<a name="l00031"></a>00031 <span class="preprocessor">#include &quot;dialogs/style_dialog.hpp&quot;</span>
+<a name="l00032"></a>00032 <span class="preprocessor">#include &quot;graphics/clipboard.hpp&quot;</span>
 <a name="l00033"></a>00033 
 <a name="l00034"></a><a class="code" href="classKnot__Window.html">00034</a> <span class="keyword">class </span><a class="code" href="classKnot__Window.html">Knot_Window</a> : <span class="keyword">public</span> <a class="code" href="classQMainWindow.html">QMainWindow</a>, <span class="keyword">private</span> Ui::<a class="code" href="classKnot__Window.html">Knot_Window</a>
 <a name="l00035"></a>00035 {
@@ -140,8 +139,8 @@ function toggleVisibility(linkObj) {
 <a name="l00038"></a>00038     <span class="keyword">protected</span>:
 <a name="l00039"></a><a class="code" href="classKnot__Window.html#a443f006f99de2bf0d1da4ce953b32df0">00039</a>         QString         <a class="code" href="classKnot__Window.html#a443f006f99de2bf0d1da4ce953b32df0">filename</a>;
 <a name="l00040"></a><a class="code" href="classKnot__Window.html#a85ad87935a30c3455fe6a54102f5503c">00040</a>         QUndoView       <a class="code" href="classKnot__Window.html#a85ad87935a30c3455fe6a54102f5503c">undoView</a>;
-<a name="l00041"></a><a class="code" href="classKnot__Window.html#a838b87014ecf607082fa664923269092">00041</a>         <a class="code" href="classStyleDialog.html">StyleDialog</a>     <a class="code" href="classKnot__Window.html#a838b87014ecf607082fa664923269092">style_dialog</a>;
-<a name="l00042"></a><a class="code" href="classKnot__Window.html#a8474b273ae9fdf06537c863b986fb2df">00042</a>         <a class="code" href="classClipboardItem.html">ClipboardItem</a>   <a class="code" href="classKnot__Window.html#a8474b273ae9fdf06537c863b986fb2df">clipboard</a>;
+<a name="l00041"></a><a class="code" href="classKnot__Window.html#a838b87014ecf607082fa664923269092">00041</a>         StyleDialog     <a class="code" href="classKnot__Window.html#a838b87014ecf607082fa664923269092">style_dialog</a>;
+<a name="l00042"></a><a class="code" href="classKnot__Window.html#a8474b273ae9fdf06537c863b986fb2df">00042</a>         ClipboardItem   <a class="code" href="classKnot__Window.html#a8474b273ae9fdf06537c863b986fb2df">clipboard</a>;
 <a name="l00043"></a>00043 
 <a name="l00044"></a>00044     <span class="keyword">public</span>:
 <a name="l00045"></a>00045         <span class="keyword">explicit</span> <a class="code" href="classKnot__Window.html#aac633aba5b7659b0c5bce0a381b3fb1d">Knot_Window</a>(QWidget *parent = 0);
@@ -157,34 +156,33 @@ function toggleVisibility(linkObj) {
 <a name="l00055"></a>00055 
 <a name="l00056"></a>00056     <span class="keyword">public</span> slots:
 <a name="l00057"></a>00057         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a4d3ed53be70e79e60e562ddfacaca07e">mode_edge_list</a>();
-<a name="l00058"></a>00058         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a20a0283462ec8c25f88458156b2d51ba">mode_node</a>();
-<a name="l00059"></a>00059         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#aad28026c47875e438cfdbe3ee257c2c8">mode_edge</a>();
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a98d6226f2c25cf49094bcbd6d89e88ec">mouse_moved</a>(QPointF);
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a9cb6ab53f767ed469662ed59b842a7b1">copy</a>();
-<a name="l00064"></a>00064         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#afcf66a5cd05c0dbf8784b5cd5d0e72eb">cut</a>();
-<a name="l00065"></a>00065         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a9bbb2707663acddc95cda8596d4ff26c">paste</a>();
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#ab605a6b118e8ba90d900ddd7932b868a">clear</a>();
-<a name="l00068"></a>00068 
-<a name="l00069"></a>00069         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a76abb9eac6a9b88156a2fc5a2d693902">save</a>();
-<a name="l00070"></a>00070         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#af9df0d76d9ed324a0a2d8a5e731cb008">saveAs</a>();
-<a name="l00071"></a>00071         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a25d170e8bd13e87913b0424fae9b9df1">open</a>();
-<a name="l00072"></a>00072         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a0257cd00d5de6b54d8e9a25896cda3bc">exportSVG</a>();
-<a name="l00073"></a>00073 <span class="comment"></span>
-<a name="l00074"></a>00074 <span class="comment">        /// set canvas style based on style dialog</span>
-<a name="l00075"></a>00075 <span class="comment"></span>        <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a8023d8846ca4c64a6025df527daf598e" title="set canvas style based on style dialog">apply_style</a>();
-<a name="l00076"></a>00076 
-<a name="l00077"></a>00077         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a93317564442496ea6916b54a97463c92">zoom_in</a>();
-<a name="l00078"></a>00078         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#ab056a2cf843018abe5adb8fb01ce07b4">zoom_out</a>();
-<a name="l00079"></a>00079 
-<a name="l00080"></a>00080         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a88a8bd52f2804a173bbb7afd33de8661">configure_grid</a>();
-<a name="l00081"></a>00081 
-<a name="l00082"></a>00082         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a137d49b9a7c16d637ca34ad7bfde89be">enable_grid</a> ( <span class="keywordtype">bool</span> enabled );
-<a name="l00083"></a>00083 };
-<a name="l00084"></a>00084 
-<a name="l00085"></a>00085 <span class="preprocessor">#endif // KNOT_WINDOW_HPP</span>
+<a name="l00058"></a>00058         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#aad28026c47875e438cfdbe3ee257c2c8">mode_edge</a>();
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a98d6226f2c25cf49094bcbd6d89e88ec">mouse_moved</a>(QPointF);
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a9cb6ab53f767ed469662ed59b842a7b1">copy</a>();
+<a name="l00063"></a>00063         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#afcf66a5cd05c0dbf8784b5cd5d0e72eb">cut</a>();
+<a name="l00064"></a>00064         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a9bbb2707663acddc95cda8596d4ff26c">paste</a>();
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#ab605a6b118e8ba90d900ddd7932b868a">clear</a>();
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a76abb9eac6a9b88156a2fc5a2d693902">save</a>();
+<a name="l00069"></a>00069         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#af9df0d76d9ed324a0a2d8a5e731cb008">saveAs</a>();
+<a name="l00070"></a>00070         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a25d170e8bd13e87913b0424fae9b9df1">open</a>();
+<a name="l00071"></a>00071         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a0257cd00d5de6b54d8e9a25896cda3bc">exportSVG</a>();
+<a name="l00072"></a>00072 <span class="comment"></span>
+<a name="l00073"></a>00073 <span class="comment">        /// set canvas style based on style dialog</span>
+<a name="l00074"></a>00074 <span class="comment"></span>        <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a8023d8846ca4c64a6025df527daf598e" title="set canvas style based on style dialog">apply_style</a>();
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a93317564442496ea6916b54a97463c92">zoom_in</a>();
+<a name="l00077"></a>00077         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#ab056a2cf843018abe5adb8fb01ce07b4">zoom_out</a>();
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a88a8bd52f2804a173bbb7afd33de8661">configure_grid</a>();
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081         <span class="keywordtype">void</span> <a class="code" href="classKnot__Window.html#a137d49b9a7c16d637ca34ad7bfde89be">enable_grid</a> ( <span class="keywordtype">bool</span> enabled );
+<a name="l00082"></a>00082 };
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084 <span class="preprocessor">#endif // KNOT_WINDOW_HPP</span>
 </pre></div></div>
 </div>
 <!-- window showing the filter options -->
@@ -192,7 +190,7 @@ function toggleVisibility(linkObj) {
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -201,7 +199,7 @@ function toggleVisibility(linkObj) {
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 16 2012 23:29:56 for Knotter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Aug 17 2012 13:35:59 for Knotter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

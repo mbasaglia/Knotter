@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.1"
+   width="64"
+   height="64"
+   id="svg4672">
+  <defs
+     id="defs4674">
+    <radialGradient
+       cx="36.739578"
+       cy="54.829159"
+       r="11.5"
+       fx="36.739578"
+       fy="54.829159"
+       id="radialGradient5333"
+       xlink:href="#linearGradient5327"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-1.1340781,1.1469995,-1.7693199,-1.7493877,168.84143,74.123291)" />
+    <linearGradient
+       id="linearGradient5327">
+      <stop
+         id="stop5329"
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop5331"
+         style="stop-color:#c9c9c9;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+    <radialGradient
+       cx="36.739578"
+       cy="54.829159"
+       r="11.5"
+       fx="36.739578"
+       fy="54.829159"
+       id="radialGradient4695"
+       xlink:href="#linearGradient5327"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-1.1340781,1.1469995,-1.7693199,-1.7493877,173.8577,80.322634)" />
+  </defs>
+  <metadata
+     id="metadata4677">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <path
+       d="M 26.5,4 26.5,26.5 4,26.5 4,29.5 26.5,29.5 26.5,52 29.5,52 29.5,29.5 52,29.5 52,26.5 29.5,26.5 29.5,4 26.5,4 z"
+       id="path4716"
+       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#aeaeae;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans" />
+    <path
+       d="M 4.5,27 26.5,27 27,27 27,26.5 27,4.5 27,3.5 26,3.5 26,4 26,26 4,26 3.5,26 3.5,27 z M 3.5,29 3.5,30 4,30 26,30 26,52 26,52.5 27,52.5 27,51.5 27,29.5 27,29 26.5,29 4.5,29 z M 29,52.5 30,52.5 30,52 30,30 52,30 52.5,30 52.5,29 51.5,29 29.5,29 29,29 29,29.5 29,51.5 z M 52.5,27 52.5,26 52,26 30,26 30,4 30,3.5 29,3.5 29,4.5 29,26.5 29,27 29.5,27 51.5,27 z"
+       id="path5745"
+       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#7b7b7b;fill-opacity:1;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans" />
+    <path
+       d="M 35,58 43,50 49,62 53.8,59.6 48,48 57,48 35,26 z"
+       id="path4807"
+       style="color:#000000;fill:url(#radialGradient4695);fill-opacity:1;stroke:#271717;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+  </g>
+</svg>

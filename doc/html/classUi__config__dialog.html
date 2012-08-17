@@ -57,7 +57,7 @@ function toggleVisibility(linkObj) {
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Knotter&#160;<span id="projectnumber">0.2.0</span></div>
+   <div id="projectname">Knotter&#160;<span id="projectnumber">0.3.0</span></div>
    <div id="projectbrief">Celtic knotwork designer</div>
   </td>
  </tr>
@@ -67,7 +67,6 @@ function toggleVisibility(linkObj) {
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -113,22 +112,24 @@ function toggleVisibility(linkObj) {
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe src="classUi__config__dialog__inherit__graph.svg" width="128" height="195" frameborder="0" scrolling="no"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe src="classUi__config__dialog__inherit__graph.svg" width="128" height="118" frameborder="0" scrolling="no"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png"/> Collaboration diagram for Ui_config_dialog:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe src="classUi__config__dialog__coll__graph.svg" width="427" height="431" frameborder="0" scrolling="no"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe src="classUi__config__dialog__coll__graph.svg" width="759" height="187" frameborder="0" scrolling="no"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classUi__config__dialog-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUi__config__dialog.html#a69efeb70b893bf4808973beb2ddf7b19">setupUi</a> (<a class="el" href="classQDialog.html">QDialog</a> *<a class="el" href="classconfig__dialog.html">config_dialog</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUi__config__dialog.html#abcbe7f531a2d235190fd15fe16c14dbd">retranslateUi</a> (<a class="el" href="classQDialog.html">QDialog</a> *<a class="el" href="classconfig__dialog.html">config_dialog</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUi__config__dialog.html#a69efeb70b893bf4808973beb2ddf7b19">setupUi</a> (QDialog *config_dialog)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUi__config__dialog.html#abcbe7f531a2d235190fd15fe16c14dbd">retranslateUi</a> (QDialog *config_dialog)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QGridLayout *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUi__config__dialog.html#a50affd37bd26ba21b8e8436f26a6eeea">gridLayout_2</a></td></tr>
@@ -141,12 +142,15 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QLabel *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUi__config__dialog.html#a13fb65c2293fd9cad83013bdc5801bcc">label_3</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QComboBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUi__config__dialog.html#afd41dc4e8b8fcab2e4caf080b1a736f4">language_combo</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QDialogButtonBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUi__config__dialog.html#a12aa6552303575192e42ea5dc417219c">buttonBox</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">QSpacerItem *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUi__config__dialog.html#a5f9aec754f91b55b1410a98edae8c8b5">verticalSpacer</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QGroupBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUi__config__dialog.html#a7004ef07ce9ea743ae5018c8c2d93ce1">groupBox_2</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QGridLayout *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUi__config__dialog.html#a683b0d95d05a5b07ac48507ad1d49ee3">gridLayout_3</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QCheckBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUi__config__dialog.html#a0904d285db4643ae1fb6ddf9a00cdd47">fluid_check</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QLabel *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUi__config__dialog.html#a600cc9af157e6c036ed72ed25dd6cf86">label_4</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QComboBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUi__config__dialog.html#a5616aeaebb7d6e7af088de54718b031c">comboBox</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00029">29</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
+<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00028">28</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="abcbe7f531a2d235190fd15fe16c14dbd"></a><!-- doxytag: member="Ui_config_dialog::retranslateUi" ref="abcbe7f531a2d235190fd15fe16c14dbd" args="(QDialog *config_dialog)" -->
 <div class="memitem">
@@ -155,7 +159,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">void Ui_config_dialog::retranslateUi </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classQDialog.html">QDialog</a> *&#160;</td>
+          <td class="paramtype">QDialog *&#160;</td>
           <td class="paramname"><em>config_dialog</em></td><td>)</td>
           <td><code> [inline]</code></td>
         </tr>
@@ -163,9 +167,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00124">124</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
+<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00141">141</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
 
-<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00045">setupUi()</a>.</p>
+<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00047">setupUi()</a>.</p>
 
 </div>
 </div>
@@ -176,7 +180,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">void Ui_config_dialog::setupUi </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classQDialog.html">QDialog</a> *&#160;</td>
+          <td class="paramtype">QDialog *&#160;</td>
           <td class="paramname"><em>config_dialog</em></td><td>)</td>
           <td><code> [inline]</code></td>
         </tr>
@@ -184,9 +188,7 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00045">45</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
-
-<p>Referenced by <a class="el" href="config__dialog_8cpp_source.html#l00028">config_dialog::config_dialog()</a>.</p>
+<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00047">47</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
 
 </div>
 </div>
@@ -202,9 +204,26 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00041">41</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
+<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00040">40</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
 
-<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00045">setupUi()</a>.</p>
+<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00047">setupUi()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5616aeaebb7d6e7af088de54718b031c"></a><!-- doxytag: member="Ui_config_dialog::comboBox" ref="a5616aeaebb7d6e7af088de54718b031c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QComboBox* <a class="el" href="classUi__config__dialog.html#a5616aeaebb7d6e7af088de54718b031c">Ui_config_dialog::comboBox</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00045">45</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
+
+<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00141">retranslateUi()</a>, and <a class="el" href="ui__config__dialog_8h_source.html#l00047">setupUi()</a>.</p>
 
 </div>
 </div>
@@ -221,7 +240,7 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00043">43</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
 
-<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00124">retranslateUi()</a>, and <a class="el" href="ui__config__dialog_8h_source.html#l00045">setupUi()</a>.</p>
+<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00141">retranslateUi()</a>, and <a class="el" href="ui__config__dialog_8h_source.html#l00047">setupUi()</a>.</p>
 
 </div>
 </div>
@@ -236,9 +255,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00034">34</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
+<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00033">33</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
 
-<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00045">setupUi()</a>.</p>
+<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00047">setupUi()</a>.</p>
 
 </div>
 </div>
@@ -253,9 +272,26 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00032">32</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
+<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00031">31</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
 
-<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00045">setupUi()</a>.</p>
+<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00047">setupUi()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a683b0d95d05a5b07ac48507ad1d49ee3"></a><!-- doxytag: member="Ui_config_dialog::gridLayout_3" ref="a683b0d95d05a5b07ac48507ad1d49ee3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QGridLayout* <a class="el" href="classUi__config__dialog.html#a683b0d95d05a5b07ac48507ad1d49ee3">Ui_config_dialog::gridLayout_3</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00042">42</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
+
+<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00047">setupUi()</a>.</p>
 
 </div>
 </div>
@@ -270,9 +306,26 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00033">33</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
+<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00032">32</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
 
-<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00124">retranslateUi()</a>, and <a class="el" href="ui__config__dialog_8h_source.html#l00045">setupUi()</a>.</p>
+<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00141">retranslateUi()</a>, and <a class="el" href="ui__config__dialog_8h_source.html#l00047">setupUi()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7004ef07ce9ea743ae5018c8c2d93ce1"></a><!-- doxytag: member="Ui_config_dialog::groupBox_2" ref="a7004ef07ce9ea743ae5018c8c2d93ce1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QGroupBox* <a class="el" href="classUi__config__dialog.html#a7004ef07ce9ea743ae5018c8c2d93ce1">Ui_config_dialog::groupBox_2</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00041">41</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
+
+<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00141">retranslateUi()</a>, and <a class="el" href="ui__config__dialog_8h_source.html#l00047">setupUi()</a>.</p>
 
 </div>
 </div>
@@ -287,9 +340,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00036">36</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
+<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00035">35</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
 
-<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00124">retranslateUi()</a>, and <a class="el" href="ui__config__dialog_8h_source.html#l00045">setupUi()</a>.</p>
+<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00141">retranslateUi()</a>, and <a class="el" href="ui__config__dialog_8h_source.html#l00047">setupUi()</a>.</p>
 
 </div>
 </div>
@@ -304,9 +357,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00038">38</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
+<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00037">37</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
 
-<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00124">retranslateUi()</a>, and <a class="el" href="ui__config__dialog_8h_source.html#l00045">setupUi()</a>.</p>
+<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00141">retranslateUi()</a>, and <a class="el" href="ui__config__dialog_8h_source.html#l00047">setupUi()</a>.</p>
 
 </div>
 </div>
@@ -321,9 +374,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00035">35</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
+<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00034">34</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
 
-<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00124">retranslateUi()</a>, and <a class="el" href="ui__config__dialog_8h_source.html#l00045">setupUi()</a>.</p>
+<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00141">retranslateUi()</a>, and <a class="el" href="ui__config__dialog_8h_source.html#l00047">setupUi()</a>.</p>
 
 </div>
 </div>
@@ -338,9 +391,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00037">37</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
+<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00036">36</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
 
-<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00124">retranslateUi()</a>, and <a class="el" href="ui__config__dialog_8h_source.html#l00045">setupUi()</a>.</p>
+<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00141">retranslateUi()</a>, and <a class="el" href="ui__config__dialog_8h_source.html#l00047">setupUi()</a>.</p>
 
 </div>
 </div>
@@ -355,9 +408,26 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00039">39</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
+<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00038">38</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
 
-<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00124">retranslateUi()</a>, and <a class="el" href="ui__config__dialog_8h_source.html#l00045">setupUi()</a>.</p>
+<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00141">retranslateUi()</a>, and <a class="el" href="ui__config__dialog_8h_source.html#l00047">setupUi()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a600cc9af157e6c036ed72ed25dd6cf86"></a><!-- doxytag: member="Ui_config_dialog::label_4" ref="a600cc9af157e6c036ed72ed25dd6cf86" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QLabel* <a class="el" href="classUi__config__dialog.html#a600cc9af157e6c036ed72ed25dd6cf86">Ui_config_dialog::label_4</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00044">44</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
+
+<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00141">retranslateUi()</a>, and <a class="el" href="ui__config__dialog_8h_source.html#l00047">setupUi()</a>.</p>
 
 </div>
 </div>
@@ -372,26 +442,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00040">40</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
+<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00039">39</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
 
-<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00045">setupUi()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5f9aec754f91b55b1410a98edae8c8b5"></a><!-- doxytag: member="Ui_config_dialog::verticalSpacer" ref="a5f9aec754f91b55b1410a98edae8c8b5" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">QSpacerItem* <a class="el" href="classUi__config__dialog.html#a5f9aec754f91b55b1410a98edae8c8b5">Ui_config_dialog::verticalSpacer</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="ui__config__dialog_8h_source.html#l00042">42</a> of file <a class="el" href="ui__config__dialog_8h_source.html">ui_config_dialog.h</a>.</p>
-
-<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00045">setupUi()</a>.</p>
+<p>Referenced by <a class="el" href="ui__config__dialog_8h_source.html#l00047">setupUi()</a>.</p>
 
 </div>
 </div>
@@ -404,7 +457,7 @@ Public Attributes</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -413,7 +466,7 @@ Public Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 16 2012 23:29:56 for Knotter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Aug 17 2012 13:35:59 for Knotter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

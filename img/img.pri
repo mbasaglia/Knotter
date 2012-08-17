@@ -8,4 +8,8 @@ OTHER_FILES += \
     img/edge_list.svg \
     img/merge.svg \
     img/square_grid.svg \
-    img/triangula_grid.svg
+    img/triangular_grid.svg \
+    img/vflip.svg \
+    img/triangular_grid2.svg \
+    img/move_grid.svg \
+    img/hflip.svg

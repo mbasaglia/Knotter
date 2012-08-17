@@ -9,5 +9,8 @@
         <file>img/square_grid.svg</file>
         <file>img/triangular_grid.svg</file>
         <file>img/triangular_grid2.svg</file>
+        <file>img/hflip.svg</file>
+        <file>img/vflip.svg</file>
+        <file>img/move_grid.svg</file>
     </qresource>
 </RCC>

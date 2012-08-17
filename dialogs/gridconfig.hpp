@@ -41,6 +41,7 @@ class GridConfig : public QDialog, private Ui::GridConfig
         explicit GridConfig(snapping_grid *target_grid, QWidget *parent = 0);
     private slots:
         void on_buttonBox_accepted();
+        void on_pushButton_clicked();
 };
 
 #endif // GRIDCONFIG_HPP

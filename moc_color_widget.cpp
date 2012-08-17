@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'color_widget.hpp'
 **
-** Created: Fri Aug 17 09:18:16 2012
+** Created: Fri Aug 17 13:34:08 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)
 **
 ** WARNING! All changes made in this file will be lost!

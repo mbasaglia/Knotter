@@ -1,19 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" id="node2" href="$classQMainWindow.html" title="QMainWindow" alt="" coords="1720,611,1827,640"/>
-<area shape="rect" id="node4" href="$classUi_1_1Knot__Window.html" title="Ui::Knot_Window" alt="" coords="1572,663,1695,692"/>
-<area shape="rect" id="node6" href="$classUi__Knot__Window.html" title="Ui_Knot_Window" alt="" coords="1064,508,1187,537"/>
-<area shape="rect" id="node88" href="$classUi__StyleDialog.html" title="Ui_StyleDialog" alt="" coords="1071,1579,1180,1608"/>
-<area shape="rect" id="node22" href="$classKnotView.html" title="KnotView" alt="" coords="777,1131,855,1160"/>
-<area shape="rect" id="node24" href="$classQGraphicsView.html" title="QGraphicsView" alt="" coords="487,1131,599,1160"/>
-<area shape="rect" id="node26" href="$classNode.html" title="Node" alt="" coords="516,1471,569,1500"/>
-<area shape="rect" id="node28" href="$classCustomItem.html" title="CustomItem" alt="" coords="187,1529,280,1559"/>
-<area shape="rect" id="node42" href="$classsnapping__grid.html" title="snapping_grid" alt="" coords="492,865,593,895"/>
-<area shape="rect" id="node54" href="$classKnotGraph.html" title="KnotGraph" alt="" coords="501,1077,584,1107"/>
-<area shape="rect" id="node71" href="$classClipboardItem.html" title="ClipboardItem" alt="" coords="492,673,593,703"/>
-<area shape="rect" id="node56" href="$classQGraphicsPathItem.html" title="QGraphicsPathItem" alt="" coords="165,1173,301,1203"/>
-<area shape="rect" id="node82" href="$classStyleDialog.html" title="StyleDialog" alt="" coords="1729,1396,1817,1425"/>
-<area shape="rect" id="node84" href="$classQDialog.html" title="QDialog" alt="" coords="1383,1448,1452,1477"/>
-<area shape="rect" id="node86" href="$classUi_1_1StyleDialog.html" title="Ui::StyleDialog" alt="" coords="1363,1540,1472,1569"/>
-<area shape="rect" id="node101" href="$classColorWidget.html" title="ColorWidget" alt="" coords="769,1929,863,1959"/>
-<area shape="rect" id="node103" href="$classQLineEdit.html" title="QLineEdit" alt="" coords="504,1929,581,1959"/>
+<area shape="rect" id="node2" href="$classQMainWindow.html" title="QMainWindow" alt="" coords="241,355,348,384"/>
+<area shape="rect" id="node4" href="$classUi_1_1Knot__Window.html" title="Ui::Knot_Window" alt="" coords="372,355,495,384"/>
+<area shape="rect" id="node6" href="$classUi__Knot__Window.html" title="Ui_Knot_Window" alt="" coords="372,275,495,304"/>
 </map>

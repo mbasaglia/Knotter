@@ -1,12 +1,4 @@
 <map id="G" name="G">
-<area shape="rect" id="node14" href="$classColorWidget.html" title="ColorWidget" alt="" coords="815,561,908,591"/>
-<area shape="rect" id="node16" href="$classQLineEdit.html" title="QLineEdit" alt="" coords="549,561,627,591"/>
-<area shape="rect" id="node20" href="$classKnotView.html" title="KnotView" alt="" coords="823,852,900,881"/>
-<area shape="rect" id="node22" href="$classQGraphicsView.html" title="QGraphicsView" alt="" coords="532,721,644,751"/>
-<area shape="rect" id="node24" href="$classNode.html" title="Node" alt="" coords="561,896,615,925"/>
-<area shape="rect" id="node26" href="$classCustomItem.html" title="CustomItem" alt="" coords="241,904,335,933"/>
-<area shape="rect" id="node28" href="$classQGraphicsItem.html" title="QGraphicsItem" alt="" coords="7,904,116,933"/>
-<area shape="rect" id="node42" href="$classsnapping__grid.html" title="snapping_grid" alt="" coords="537,775,639,804"/>
-<area shape="rect" id="node54" href="$classKnotGraph.html" title="KnotGraph" alt="" coords="547,1193,629,1223"/>
-<area shape="rect" id="node56" href="$classQGraphicsPathItem.html" title="QGraphicsPathItem" alt="" coords="220,1156,356,1185"/>
+<area shape="rect" id="node20" href="$classColorWidget.html" title="ColorWidget" alt="" coords="247,824,340,853"/>
+<area shape="rect" id="node22" href="$classQLineEdit.html" title="QLineEdit" alt="" coords="17,771,95,800"/>
 </map>

@@ -1,11 +1,13 @@
 This file contains a brief description of Knotter releases,
 showing when features have been added to the program.
 
-Knotter 0.3.0 (beta) - Ongoing development
+Knotter 0.3.0 (beta)
 --------------------
-* Grid
-* I8n
-* Customization
+* Snap to Grid
+* I8n setup
+* Pen Style
+* Better Mouse Input
+* Flip selection
 
 Knotter 0.2.0 (beta)
 ---------------------

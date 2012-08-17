@@ -57,7 +57,7 @@ function toggleVisibility(linkObj) {
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Knotter&#160;<span id="projectnumber">0.2.0</span></div>
+   <div id="projectname">Knotter&#160;<span id="projectnumber">0.3.0</span></div>
    <div id="projectbrief">Celtic knotwork designer</div>
   </td>
  </tr>
@@ -67,7 +67,6 @@ function toggleVisibility(linkObj) {
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -139,7 +138,7 @@ function toggleVisibility(linkObj) {
 <a name="l00037"></a>00037 
 <a name="l00038"></a>00038     <span class="keyword">protected</span>:
 <a name="l00039"></a><a class="code" href="classColorWidget.html#a9c325a8ad3a5ee3d12ceef276dbd656a">00039</a>         QColorDialog <a class="code" href="classColorWidget.html#a9c325a8ad3a5ee3d12ceef276dbd656a">color_dialog</a>;
-<a name="l00040"></a>00040 
+<a name="l00040"></a><a class="code" href="classColorWidget.html#a464f51cbd2d36e6c5d3e9a61af946d6a">00040</a>         QColor <a class="code" href="classColorWidget.html#a464f51cbd2d36e6c5d3e9a61af946d6a">clr</a>;
 <a name="l00041"></a>00041     <span class="keyword">public</span>:
 <a name="l00042"></a><a class="code" href="classColorWidget.html#a254e63e3a2967df3e1f38829f1f042b9">00042</a>         <a class="code" href="classColorWidget.html#a254e63e3a2967df3e1f38829f1f042b9">ColorWidget</a> ( QWidget* parent = NULL ) : <a class="code" href="classQLineEdit.html">QLineEdit</a>(parent)
 <a name="l00043"></a>00043         {
@@ -155,7 +154,7 @@ function toggleVisibility(linkObj) {
 <a name="l00053"></a>00053 
 <a name="l00054"></a><a class="code" href="classColorWidget.html#a596610cdf749c5a2df62509e05a895a8">00054</a>         QColor <a class="code" href="classColorWidget.html#a596610cdf749c5a2df62509e05a895a8">color</a>()<span class="keyword"> const</span>
 <a name="l00055"></a>00055 <span class="keyword">        </span>{
-<a name="l00056"></a>00056             <span class="keywordflow">return</span> <a class="code" href="classColorWidget.html#a9c325a8ad3a5ee3d12ceef276dbd656a">color_dialog</a>.currentColor();
+<a name="l00056"></a>00056             <span class="keywordflow">return</span> <a class="code" href="classColorWidget.html#a464f51cbd2d36e6c5d3e9a61af946d6a">clr</a>;<span class="comment">//color_dialog.currentColor();</span>
 <a name="l00057"></a>00057         }
 <a name="l00058"></a><a class="code" href="classColorWidget.html#aa2419d06d765065632b4c5c4395091ab">00058</a>         <span class="keywordtype">void</span> <a class="code" href="classColorWidget.html#aa2419d06d765065632b4c5c4395091ab">set_color</a>( QColor c)
 <a name="l00059"></a>00059         {
@@ -175,32 +174,33 @@ function toggleVisibility(linkObj) {
 <a name="l00073"></a>00073     <span class="keyword">protected</span> slots:
 <a name="l00074"></a><a class="code" href="classColorWidget.html#ad876fba43f3ab8618ac87feec5dacdc9">00074</a>         <span class="keywordtype">void</span> <a class="code" href="classColorWidget.html#ad876fba43f3ab8618ac87feec5dacdc9">update_color</a>(QColor c)
 <a name="l00075"></a>00075         {
-<a name="l00076"></a>00076             QPalette pal = palette();
-<a name="l00077"></a>00077             pal.setColor(QPalette::Base, c);
-<a name="l00078"></a>00078             <span class="comment">/*QColor complement;//(255-c.red(),255-c.green(),255-c.blue()) ;</span>
-<a name="l00079"></a>00079 <span class="comment">            complement.setHsv(360-c.hue(),255-c.saturation(),255-c.value()) ;</span>
-<a name="l00080"></a>00080 <span class="comment">            pal.setColor(QPalette::Text, complement);</span>
-<a name="l00081"></a>00081 <span class="comment">            setText(c.name());*/</span>
-<a name="l00082"></a>00082             setPalette(pal);
-<a name="l00083"></a>00083 
-<a name="l00084"></a>00084             update();
-<a name="l00085"></a>00085             emit <a class="code" href="classColorWidget.html#acf220d4e88c250abe1dd1934d9fab865">color_changed</a>(c);
-<a name="l00086"></a>00086         }
-<a name="l00087"></a>00087 
+<a name="l00076"></a>00076             <a class="code" href="classColorWidget.html#a464f51cbd2d36e6c5d3e9a61af946d6a">clr</a> = c;
+<a name="l00077"></a>00077             QPalette pal = palette();
+<a name="l00078"></a>00078             pal.setColor(QPalette::Base, c);
+<a name="l00079"></a>00079             <span class="comment">/*QColor complement;//(255-c.red(),255-c.green(),255-c.blue()) ;</span>
+<a name="l00080"></a>00080 <span class="comment">            complement.setHsv(360-c.hue(),255-c.saturation(),255-c.value()) ;</span>
+<a name="l00081"></a>00081 <span class="comment">            pal.setColor(QPalette::Text, complement);</span>
+<a name="l00082"></a>00082 <span class="comment">            setText(c.name());*/</span>
+<a name="l00083"></a>00083             setPalette(pal);
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085             update();
+<a name="l00086"></a>00086             emit <a class="code" href="classColorWidget.html#acf220d4e88c250abe1dd1934d9fab865">color_changed</a>(c);
+<a name="l00087"></a>00087         }
 <a name="l00088"></a>00088 
-<a name="l00089"></a>00089         <span class="comment">/*void update_from_text()</span>
-<a name="l00090"></a>00090 <span class="comment">        {</span>
-<a name="l00091"></a>00091 <span class="comment">            QColor c(text());</span>
-<a name="l00092"></a>00092 <span class="comment">            if ( c.isValid() )</span>
-<a name="l00093"></a>00093 <span class="comment">                set_color(c);</span>
-<a name="l00094"></a>00094 <span class="comment">        }*/</span>
-<a name="l00095"></a>00095 
-<a name="l00096"></a>00096     signals:
-<a name="l00097"></a>00097         <span class="keywordtype">void</span> <a class="code" href="classColorWidget.html#acf220d4e88c250abe1dd1934d9fab865">color_changed</a> ( QColor );
-<a name="l00098"></a>00098 
-<a name="l00099"></a>00099 };
-<a name="l00100"></a>00100 
-<a name="l00101"></a>00101 <span class="preprocessor">#endif // COLOR_WIDGET_HPP</span>
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090         <span class="comment">/*void update_from_text()</span>
+<a name="l00091"></a>00091 <span class="comment">        {</span>
+<a name="l00092"></a>00092 <span class="comment">            QColor c(text());</span>
+<a name="l00093"></a>00093 <span class="comment">            if ( c.isValid() )</span>
+<a name="l00094"></a>00094 <span class="comment">                set_color(c);</span>
+<a name="l00095"></a>00095 <span class="comment">        }*/</span>
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097     signals:
+<a name="l00098"></a>00098         <span class="keywordtype">void</span> <a class="code" href="classColorWidget.html#acf220d4e88c250abe1dd1934d9fab865">color_changed</a> ( QColor );
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100 };
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102 <span class="preprocessor">#endif // COLOR_WIDGET_HPP</span>
 </pre></div></div>
 </div>
 <!-- window showing the filter options -->
@@ -208,7 +208,7 @@ function toggleVisibility(linkObj) {
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -217,7 +217,7 @@ function toggleVisibility(linkObj) {
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 16 2012 23:29:56 for Knotter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Aug 17 2012 13:35:59 for Knotter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

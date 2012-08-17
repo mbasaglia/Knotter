@@ -56,6 +56,9 @@
     <addaction name="separator"/>
     <addaction name="actionInsert_S_quare"/>
     <addaction name="actionInsert_Triangle"/>
+    <addaction name="separator"/>
+    <addaction name="action_Horizontal_Flip"/>
+    <addaction name="action_Vertical_Flip"/>
    </widget>
    <widget class="QMenu" name="menu_Edit">
     <property name="title">
@@ -69,6 +72,8 @@
     <addaction name="action_Paste"/>
     <addaction name="separator"/>
     <addaction name="actionSelect_All"/>
+    <addaction name="separator"/>
+    <addaction name="action_Configure_Knotter"/>
    </widget>
    <widget class="QMenu" name="menu_View">
     <property name="title">
@@ -96,6 +101,10 @@
     <addaction name="separator"/>
     <addaction name="actionShow_Graph"/>
     <addaction name="actionShow_Knot_line"/>
+    <addaction name="separator"/>
+    <addaction name="actionEnable_Grid"/>
+    <addaction name="actionConfigure_G_rid"/>
+    <addaction name="action_Move_Grid"/>
    </widget>
    <widget class="QMenu" name="menu_Knot">
     <property name="title">
@@ -103,27 +112,16 @@
     </property>
     <addaction name="action_Style"/>
     <addaction name="separator"/>
-    <addaction name="actionEdit_Nodes"/>
     <addaction name="actionInsert_Edges"/>
     <addaction name="actionEdge_List"/>
     <addaction name="separator"/>
     <addaction name="actionRefresh_Path"/>
-   </widget>
-   <widget class="QMenu" name="menu_Settings">
-    <property name="title">
-     <string>&amp;Settings</string>
-    </property>
-    <addaction name="action_Style"/>
-    <addaction name="action_Configure_Knotter"/>
-    <addaction name="actionEnable_Grid"/>
-    <addaction name="actionConfigure_G_rid"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
    <addaction name="menu_View"/>
    <addaction name="menuNo_des"/>
    <addaction name="menu_Knot"/>
-   <addaction name="menu_Settings"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="EditBar">
@@ -139,7 +137,6 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionEdit_Nodes"/>
    <addaction name="actionInsert_Edges"/>
    <addaction name="actionEdge_List"/>
    <addaction name="separator"/>
@@ -148,6 +145,9 @@
    <addaction name="action_Merge"/>
    <addaction name="separator"/>
    <addaction name="actionEnable_Grid"/>
+   <addaction name="separator"/>
+   <addaction name="action_Horizontal_Flip"/>
+   <addaction name="action_Vertical_Flip"/>
   </widget>
   <widget class="QToolBar" name="MainToolBar">
    <property name="windowTitle">
@@ -202,36 +202,18 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon">
-    <iconset resource="icons.qrc">
-     <normaloff>:/img/edit_edges.svg</normaloff>:/img/edit_edges.svg</iconset>
-   </property>
-   <property name="text">
-    <string>Edit &amp;Edges</string>
-   </property>
-   <property name="shortcut">
-    <string>Alt+Shift+E</string>
-   </property>
-  </action>
-  <action name="actionEdit_Nodes">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
    <property name="checked">
     <bool>true</bool>
    </property>
    <property name="icon">
     <iconset resource="icons.qrc">
-     <normaloff>:/img/edit_nodes.svg</normaloff>:/img/edit_nodes.svg</iconset>
+     <normaloff>:/img/edit_edges.svg</normaloff>:/img/edit_edges.svg</iconset>
    </property>
    <property name="text">
-    <string>Edit &amp;Nodes</string>
-   </property>
-   <property name="toolTip">
-    <string>Edit Nodes</string>
+    <string>&amp;Edges and Nodes</string>
    </property>
    <property name="shortcut">
-    <string>Alt+Shift+N</string>
+    <string>Alt+Shift+E</string>
    </property>
   </action>
   <action name="actionEdge_List">
@@ -414,8 +396,11 @@
    </property>
   </action>
   <action name="action_Configure_Knotter">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
-    <string>&amp;Configure Knotter...</string>
+    <string>Pre&amp;ferences...</string>
    </property>
   </action>
   <action name="actionEnable_Grid">
@@ -430,12 +415,42 @@
      <normaloff>:/img/square_grid.svg</normaloff>:/img/square_grid.svg</iconset>
    </property>
    <property name="text">
-    <string>Enable &amp;Grid</string>
+    <string>&amp;Enable Grid</string>
    </property>
   </action>
   <action name="actionConfigure_G_rid">
    <property name="text">
     <string>Configure G&amp;rid...</string>
+   </property>
+  </action>
+  <action name="action_Horizontal_Flip">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/img/hflip.svg</normaloff>:/img/hflip.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Horizontal Flip</string>
+   </property>
+  </action>
+  <action name="action_Vertical_Flip">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/img/vflip.svg</normaloff>:/img/vflip.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Vertical Flip</string>
+   </property>
+  </action>
+  <action name="action_Move_Grid">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/img/move_grid.svg</normaloff>:/img/move_grid.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Move Grid</string>
    </property>
   </action>
  </widget>
@@ -454,6 +469,9 @@
     <slot>redraw()</slot>
     <slot>reset_view()</slot>
     <slot>reset_zoom()</slot>
+    <slot>flip_horizontal()</slot>
+    <slot>flip_vertical()</slot>
+    <slot>mode_move_grid()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -530,22 +548,6 @@
    <signal>triggered()</signal>
    <receiver>Knot_Window</receiver>
    <slot>mode_edge_list()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>239</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionEdit_Nodes</sender>
-   <signal>triggered()</signal>
-   <receiver>Knot_Window</receiver>
-   <slot>mode_node()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -858,6 +860,54 @@
     <hint type="destinationlabel">
      <x>319</x>
      <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Horizontal_Flip</sender>
+   <signal>triggered()</signal>
+   <receiver>canvas</receiver>
+   <slot>flip_horizontal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Vertical_Flip</sender>
+   <signal>triggered()</signal>
+   <receiver>canvas</receiver>
+   <slot>flip_vertical()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Move_Grid</sender>
+   <signal>triggered()</signal>
+   <receiver>canvas</receiver>
+   <slot>mode_move_grid()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>266</y>
     </hint>
    </hints>
   </connection>

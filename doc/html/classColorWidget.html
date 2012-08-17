@@ -57,7 +57,7 @@ function toggleVisibility(linkObj) {
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Knotter&#160;<span id="projectnumber">0.2.0</span></div>
+   <div id="projectname">Knotter&#160;<span id="projectnumber">0.3.0</span></div>
    <div id="projectbrief">Celtic knotwork designer</div>
   </td>
  </tr>
@@ -67,7 +67,6 @@ function toggleVisibility(linkObj) {
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -123,7 +122,8 @@ function toggleVisibility(linkObj) {
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe src="classColorWidget__coll__graph.svg" width="211" height="136" frameborder="0" scrolling="no"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe src="classColorWidget__coll__graph.svg" width="296" height="136" frameborder="0" scrolling="no"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classColorWidget-members.html">List of all members.</a></p>
@@ -145,6 +145,7 @@ Protected Member Functions</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QColorDialog&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classColorWidget.html#a9c325a8ad3a5ee3d12ceef276dbd656a">color_dialog</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QColor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classColorWidget.html#a464f51cbd2d36e6c5d3e9a61af946d6a">clr</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
@@ -186,7 +187,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="color__widget_8hpp_source.html#l00054">54</a> of file <a class="el" href="color__widget_8hpp_source.html">color_widget.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00252">Knot_Window::apply_style()</a>, and <a class="el" href="color__widget_8hpp_source.html#l00042">ColorWidget()</a>.</p>
+<p>Referenced by <a class="el" href="color__widget_8hpp_source.html#l00042">ColorWidget()</a>.</p>
 
 </div>
 </div>
@@ -247,8 +248,6 @@ Protected Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="color__widget_8hpp_source.html#l00058">58</a> of file <a class="el" href="color__widget_8hpp_source.html">color_widget.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00296">Knot_Window::update_style_dialog()</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ad876fba43f3ab8618ac87feec5dacdc9"></a><!-- doxytag: member="ColorWidget::update_color" ref="ad876fba43f3ab8618ac87feec5dacdc9" args="(QColor c)" -->
@@ -273,6 +272,23 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a464f51cbd2d36e6c5d3e9a61af946d6a"></a><!-- doxytag: member="ColorWidget::clr" ref="a464f51cbd2d36e6c5d3e9a61af946d6a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QColor <a class="el" href="classColorWidget.html#a464f51cbd2d36e6c5d3e9a61af946d6a">ColorWidget::clr</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="color__widget_8hpp_source.html#l00040">40</a> of file <a class="el" href="color__widget_8hpp_source.html">color_widget.hpp</a>.</p>
+
+<p>Referenced by <a class="el" href="color__widget_8hpp_source.html#l00054">color()</a>, and <a class="el" href="color__widget_8hpp_source.html#l00074">update_color()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a9c325a8ad3a5ee3d12ceef276dbd656a"></a><!-- doxytag: member="ColorWidget::color_dialog" ref="a9c325a8ad3a5ee3d12ceef276dbd656a" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -286,7 +302,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="color__widget_8hpp_source.html#l00039">39</a> of file <a class="el" href="color__widget_8hpp_source.html">color_widget.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="color__widget_8hpp_source.html#l00054">color()</a>, <a class="el" href="color__widget_8hpp_source.html#l00042">ColorWidget()</a>, <a class="el" href="color__widget_8hpp_source.html#l00067">mouseReleaseEvent()</a>, and <a class="el" href="color__widget_8hpp_source.html#l00058">set_color()</a>.</p>
+<p>Referenced by <a class="el" href="color__widget_8hpp_source.html#l00042">ColorWidget()</a>, <a class="el" href="color__widget_8hpp_source.html#l00067">mouseReleaseEvent()</a>, and <a class="el" href="color__widget_8hpp_source.html#l00058">set_color()</a>.</p>
 
 </div>
 </div>
@@ -300,7 +316,7 @@ Protected Attributes</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -309,7 +325,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 16 2012 23:29:56 for Knotter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Aug 17 2012 13:35:59 for Knotter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

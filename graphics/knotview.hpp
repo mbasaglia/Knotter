@@ -39,15 +39,15 @@ class KnotView : public QGraphicsView
         Q_OBJECT
 
     protected:
-        enum mode_type { EDIT_NODE, INSERT_EDGE_CHAIN,
-                          INSERT_EDGE };
+        enum mode_type { EDIT_NODE_EDGE, INSERT_EDGE_CHAIN, MOVE_GRID };
 
         enum mouse_status_type {
                 DEFAULT, ///< default, mouse actions depend on mode_type
                 MOVING,  ///< moving existing nodes around
                 DRAGGING,///< dragging the view
                 PLACING, ///< placing new items
-                SELECTING///< dragging the rubberband
+                SELECTING,///< dragging the rubberband
+                EDGING   ///< toggling an edge
         };
 
 
@@ -56,7 +56,7 @@ class KnotView : public QGraphicsView
         mouse_status_type mouse_status;
         QPointF oldpos;
         QPointF startpos;
-        node_list moved_nodes;
+        node_list node_chain;
         QGraphicsLineItem* guide;
         QGraphicsRectItem* rubberband;
         QUndoStack undo_stack;
@@ -114,14 +114,15 @@ class KnotView : public QGraphicsView
 
         // push new undo command
         Node* add_node(QPointF pos,node_list adjl=node_list());
+        Node *add_node_or_break_edge(QPointF p,node_list adjl=node_list());
         void add_node(Node* n);
         void remove_node(Node* node);
         void remove_node(Node* node,node_list adjl);
         void add_edge ( Node* p1, Node* p2 );
         void remove_edge ( Node* p1, Node* p2 );
         void move_nodes ( QPointF dest );
-        void toggle_edge(Edge *e);
-        void toggle_edge_inverted(Edge *e);
+        void cycle_edge(Edge *e);
+        void cycle_edge_inverted(Edge *e);
         void set_edge_type ( Edge* e, Edge::type_type type );
 
         node_list selected_nodes() const;
@@ -130,6 +131,8 @@ class KnotView : public QGraphicsView
 
     protected:
         QPointF get_mouse_point ( QMouseEvent *event );
+        void snap ( QPointF &p, QMouseEvent *event );
+        void mouseDoubleClickEvent(QMouseEvent *event);
         void mousePressEvent(QMouseEvent *event);
         void mouseMoveEvent(QMouseEvent *event);
         void mouseReleaseEvent(QMouseEvent *event);
@@ -142,9 +145,9 @@ class KnotView : public QGraphicsView
         void mode_change();
 
     public slots:
-        void mode_edit_node();
-        void mode_insert_edge();
+        void mode_edit_node_edge();
         void mode_edge_chain();
+        void mode_move_grid();
 
         void erase_selected();
         void link_selected();
@@ -157,6 +160,9 @@ class KnotView : public QGraphicsView
         void reset_view();
         void zoom ( double factor );
         void reset_zoom();
+
+        void flip_horizontal();
+        void flip_vertical();
 
     signals:
         void mouse_moved ( QPointF );

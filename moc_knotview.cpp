@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'knotview.hpp'
 **
-** Created: Fri Aug 17 09:18:20 2012
+** Created: Fri Aug 17 13:34:12 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_KnotView[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      15,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -35,29 +35,32 @@ static const uint qt_meta_data_KnotView[] = {
 
  // slots: signature, parameters, type, tag, flags
       31,    9,    9,    9, 0x0a,
-      48,    9,    9,    9, 0x0a,
-      67,    9,    9,    9, 0x0a,
-      85,    9,    9,    9, 0x0a,
-     102,    9,    9,    9, 0x0a,
-     118,    9,    9,    9, 0x0a,
-     135,    9,    9,    9, 0x0a,
-     165,  148,    9,    9, 0x0a,
-     178,    9,    9,    9, 0x2a,
-     187,    9,    9,    9, 0x0a,
-     207,  200,    9,    9, 0x0a,
-     220,    9,    9,    9, 0x0a,
+      53,    9,    9,    9, 0x0a,
+      71,    9,    9,    9, 0x0a,
+      88,    9,    9,    9, 0x0a,
+     105,    9,    9,    9, 0x0a,
+     121,    9,    9,    9, 0x0a,
+     138,    9,    9,    9, 0x0a,
+     168,  151,    9,    9, 0x0a,
+     181,    9,    9,    9, 0x2a,
+     190,    9,    9,    9, 0x0a,
+     210,  203,    9,    9, 0x0a,
+     223,    9,    9,    9, 0x0a,
+     236,    9,    9,    9, 0x0a,
+     254,    9,    9,    9, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_KnotView[] = {
     "KnotView\0\0mouse_moved(QPointF)\0"
-    "mode_edit_node()\0mode_insert_edge()\0"
-    "mode_edge_chain()\0erase_selected()\0"
+    "mode_edit_node_edge()\0mode_edge_chain()\0"
+    "mode_move_grid()\0erase_selected()\0"
     "link_selected()\0merge_selected()\0"
     "select_all()\0recalculate_node\0"
     "redraw(bool)\0redraw()\0reset_view()\0"
     "factor\0zoom(double)\0reset_zoom()\0"
+    "flip_horizontal()\0flip_vertical()\0"
 };
 
 void KnotView::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -67,9 +70,9 @@ void KnotView::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         KnotView *_t = static_cast<KnotView *>(_o);
         switch (_id) {
         case 0: _t->mouse_moved((*reinterpret_cast< QPointF(*)>(_a[1]))); break;
-        case 1: _t->mode_edit_node(); break;
-        case 2: _t->mode_insert_edge(); break;
-        case 3: _t->mode_edge_chain(); break;
+        case 1: _t->mode_edit_node_edge(); break;
+        case 2: _t->mode_edge_chain(); break;
+        case 3: _t->mode_move_grid(); break;
         case 4: _t->erase_selected(); break;
         case 5: _t->link_selected(); break;
         case 6: _t->merge_selected(); break;
@@ -79,6 +82,8 @@ void KnotView::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 10: _t->reset_view(); break;
         case 11: _t->zoom((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 12: _t->reset_zoom(); break;
+        case 13: _t->flip_horizontal(); break;
+        case 14: _t->flip_vertical(); break;
         default: ;
         }
     }
@@ -116,9 +121,9 @@ int KnotView::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 15)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 15;
     }
     return _id;
 }
