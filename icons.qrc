@@ -8,5 +8,6 @@
         <file>img/link.svg</file>
         <file>img/square_grid.svg</file>
         <file>img/triangular_grid.svg</file>
+        <file>img/triangular_grid2.svg</file>
     </qresource>
 </RCC>

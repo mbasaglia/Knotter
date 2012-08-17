@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'gridconfig.ui'
 **
-** Created: Thu Aug 16 21:32:20 2012
+** Created: Fri Aug 17 09:18:04 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -102,7 +102,8 @@ public:
         shape_combo->clear();
         shape_combo->insertItems(0, QStringList()
          << QApplication::translate("GridConfig", "Square", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("GridConfig", "Triangle", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("GridConfig", "Triangle1", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("GridConfig", "Triangle2", 0, QApplication::UnicodeUTF8)
         );
     } // retranslateUi
 

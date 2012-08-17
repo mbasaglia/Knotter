@@ -68,7 +68,12 @@
         </item>
         <item>
          <property name="text">
-          <string>Triangle</string>
+          <string>Triangle1</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Triangle2</string>
          </property>
         </item>
        </widget>

@@ -28,8 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ui_knot_window.h"
 #include <QUndoStack>
 #include <QUndoView>
-#include "style_dialog.hpp"
-#include "clipboard.hpp"
+#include "dialogs/style_dialog.hpp"
+#include "graphics/clipboard.hpp"
 
 class Knot_Window : public QMainWindow, private Ui::Knot_Window
 {

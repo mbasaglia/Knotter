@@ -26,12 +26,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef SNAPPING_GRID_HPP
 #define SNAPPING_GRID_HPP
 
-#include <QGraphicsItem>
+#include <QPointF>
+#include <QPainter>
 
-class snapping_grid // : public QGraphicsItem
+class snapping_grid
 {
     public:
-        enum grid_shape { SQUARE, TRIANGLE };
+        enum grid_shape { SQUARE, TRIANGLE1, TRIANGLE2 };
 
     protected:
         double size;
@@ -45,7 +46,17 @@ class snapping_grid // : public QGraphicsItem
                                  QPointF origin=QPointF(0,0),
                                  bool enabled = true );
 
-        void snap ( QPointF &p );
+        /// move p to closest grid point
+        void snap ( QPointF &p ) const;
+        /// returns closest grid point
+        QPointF nearest ( QPointF p ) const { snap(p); return p; }
+        /// returns closest grid point
+        QPointF nearest ( double x, double y ) const { return nearest(QPointF(x,y)); }
+
+        /// draws grid lines that cover at least rect
+        void render (QPainter *painter, const QRectF &rect) const;
+
+
 
         bool is_enabled () const;
 

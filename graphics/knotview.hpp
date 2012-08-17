@@ -46,16 +46,16 @@ class KnotView : public QGraphicsView
                 DEFAULT, ///< default, mouse actions depend on mode_type
                 MOVING,  ///< moving existing nodes around
                 DRAGGING,///< dragging the view
-                PLACING  ///< placing new items
+                PLACING, ///< placing new items
+                SELECTING///< dragging the rubberband
         };
 
 
         mode_type mode;
         Node* last_node;
         mouse_status_type mouse_status;
-        //bool moving;
-        //bool dragging;
         QPointF oldpos;
+        QPointF startpos;
         node_list moved_nodes;
         QGraphicsLineItem* guide;
         QGraphicsRectItem* rubberband;

@@ -1,0 +1,23 @@
+This file contains a brief description of Knotter releases,
+showing when features have been added to the program.
+
+Knotter 0.3.0 (beta) - Ongoing development
+--------------------
+* Grid
+* I8n
+* Customization
+
+Knotter 0.2.0 (beta)
+---------------------
+* Zooming
+* Copy/Paste
+* Fixed some crashes
+
+Knotter 0.1.0 (alpha)
+---------------------
+First public release
+* Basic Editing
+* Open/Save
+* Undo/Redo
+* Style
+* SVG Export

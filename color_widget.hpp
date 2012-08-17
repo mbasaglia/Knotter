@@ -37,7 +37,7 @@ class ColorWidget : public QLineEdit
 
     protected:
         QColorDialog color_dialog;
-
+        QColor clr;
     public:
         ColorWidget ( QWidget* parent = NULL ) : QLineEdit(parent)
         {
@@ -47,13 +47,13 @@ class ColorWidget : public QLineEdit
             this->connect(&color_dialog,SIGNAL(colorSelected(QColor)),
                             SLOT(update_color(QColor)) );
             //this->connect(this,SIGNAL(editingFinished()),SLOT(update_from_text()));
-
+            color_dialog.setOptions(QColorDialog::ShowAlphaChannel|QColorDialog::NoButtons);
             update_color(color());
         }
 
         QColor color() const
         {
-            return color_dialog.currentColor();
+            return clr;//color_dialog.currentColor();
         }
         void set_color( QColor c)
         {
@@ -73,6 +73,7 @@ class ColorWidget : public QLineEdit
     protected slots:
         void update_color(QColor c)
         {
+            clr = c;
             QPalette pal = palette();
             pal.setColor(QPalette::Base, c);
             /*QColor complement;//(255-c.red(),255-c.green(),255-c.blue()) ;

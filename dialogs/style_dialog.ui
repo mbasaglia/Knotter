@@ -244,17 +244,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ColorWidget</class>
-   <extends>QLineEdit</extends>
-   <header>color_widget.hpp</header>
-   <slots>
-    <signal>color_changed(QColor)</signal>
-   </slots>
-  </customwidget>
-  <customwidget>
    <class>KnotView</class>
    <extends>QGraphicsView</extends>
-   <header>knotview.hpp</header>
+   <header>graphics/knotview.hpp</header>
    <slots>
     <signal>mouse_moved(QPointF)</signal>
     <slot>erase_selected()</slot>
@@ -262,6 +254,16 @@
     <slot>merge_selected()</slot>
     <slot>select_all()</slot>
     <slot>redraw()</slot>
+    <slot>reset_view()</slot>
+    <slot>reset_zoom()</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>ColorWidget</class>
+   <extends>QLineEdit</extends>
+   <header>color_widget.hpp</header>
+   <slots>
+    <signal>color_changed(QColor)</signal>
    </slots>
   </customwidget>
  </customwidgets>

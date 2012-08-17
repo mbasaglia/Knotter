@@ -32,6 +32,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QXmlStreamWriter>
 #include <QDomDocument>
 #include <QSvgGenerator>
+
+
+/// \todo move to own file
+class GridScene : public QGraphicsScene
+{
+    public:
+        snapping_grid* grid;
+
+        GridScene ( snapping_grid* grid ) : grid ( grid ) {}
+
+    protected:
+        void drawBackground(QPainter *painter, const QRectF &rect)
+        {
+            if ( grid )
+                grid->render(painter,rect);
+        }
+};
 /**
     \todo snap to grid
     \todo insert fixed shapes
@@ -43,7 +60,7 @@ KnotView::KnotView( QWidget* parent )
     mouse_status(DEFAULT),
     guide(NULL), rubberband(NULL)
 {
-    setScene ( new QGraphicsScene );
+    setScene ( new GridScene(&grid) );
     setSceneRect ( 0, 0, width(), height());
     mode_edit_node();
     setMouseTracking(true);
@@ -52,6 +69,7 @@ KnotView::KnotView( QWidget* parent )
     scene()->addItem(&knot);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    //setCacheMode(CacheBackground);
 }
 
 void KnotView::do_add_node(Node *node, node_list adjl)
@@ -141,17 +159,21 @@ QPointF KnotView::get_mouse_point(QMouseEvent *event)
 
     QPointF p = mapToScene(event->pos());
 
-    if ( last_node && ( event->modifiers() & Qt::ControlModifier ) )
+    if ( mouse_status != SELECTING )
     {
-        // snap to closest 15deg angle from last node
-        QLineF line(last_node->pos(),p);
-        int angle = line.angle() / 15;
-        angle *= 15;
-        line.setAngle(angle);
-        p = line.p2();
-    }
 
-    grid.snap(p);
+        if ( last_node && ( event->modifiers() & Qt::ControlModifier ) )
+        {
+            // snap to closest 15deg angle from last node
+            QLineF line(last_node->pos(),p);
+            int angle = line.angle() / 15;
+            angle *= 15;
+            line.setAngle(angle);
+            p = line.p2();
+        }
+
+        grid.snap(p);
+    }
 
     return p;
 }
@@ -159,6 +181,8 @@ QPointF KnotView::get_mouse_point(QMouseEvent *event)
 void KnotView::mousePressEvent(QMouseEvent *event)
 {
     if ( !isInteractive() ) return;
+
+    /// \todo make auto-simmetry ( top-bottom left-right, quadrature, rotation )
 
     QPointF p = get_mouse_point ( event );
     Node* itm = node_at(p);
@@ -174,6 +198,8 @@ void KnotView::mousePressEvent(QMouseEvent *event)
             scene()->clearSelection();
         if ( itm )
             itm->setSelected(!itm->isSelected());
+
+        mouse_status = SELECTING;
         QColor bg = QApplication::palette().color(QPalette::Highlight);
         bg.setAlpha(128);
         rubberband = scene()->addRect ( 0,0,0,0,
@@ -236,7 +262,8 @@ void KnotView::mousePressEvent(QMouseEvent *event)
         {
             mouse_status = MOVING;
             oldpos = p;
-            QGraphicsView::mousePressEvent(event);
+            startpos = p;
+            //QGraphicsView::mousePressEvent(event);
         }
     }
     else if ( mode == INSERT_EDGE )
@@ -315,8 +342,16 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
     }
     else if ( mode == EDIT_NODE )
     {
-        QGraphicsView::mouseMoveEvent(event);
-         knot.build();/// \todo option to turn on/off fluid knot refresh
+        if ( mouse_status == MOVING )
+        {
+            foreach(Node* n,moved_nodes)
+            {
+                n->setPos(n->pos()+p-oldpos);
+            }
+            oldpos = p;
+            //QGraphicsView::mouseMoveEvent(event);
+            knot.build();/// \todo option to turn on/off fluid knot refresh
+        }
     }
     else if ( mode == INSERT_EDGE_CHAIN || mode == INSERT_EDGE )
     {
@@ -336,7 +371,7 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
     QPointF p = get_mouse_point ( event );
 
 
-    if ( event->button() == Qt::RightButton )
+    if ( mouse_status == SELECTING )
     {
         QList<QGraphicsItem*> sel = scene()->selectedItems();
         QPainterPath pp;
@@ -349,6 +384,7 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
         scene()->removeItem(rubberband);
         delete rubberband;
         rubberband = NULL;
+        mouse_status = DEFAULT;
     }
     else if ( event->button() == Qt::MiddleButton ) // drag view
     {
@@ -359,10 +395,10 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
     {
         if ( mouse_status == MOVING )
         {
-            if ( p != oldpos )
+            if ( p != startpos )
                 move_nodes(p);
             mouse_status = DEFAULT;
-            QGraphicsView::mouseReleaseEvent(event);
+            //QGraphicsView::mouseReleaseEvent(event);
 
         }
     }
@@ -720,12 +756,9 @@ double KnotView::get_width() const
 
 void KnotView::set_pen(QPen p)
 {
-    bool redraw_knot = false;
-    if ( p.joinStyle() != get_pen().joinStyle() )
-        redraw_knot = true; // alters path
-
+    /// \bug pen width = 0 still renders outline (caused by Qt, width = 0 => 1px cosmetic )
     knot.setPen(p);
-    redraw(redraw_knot);
+    redraw(false);
 }
 
 QPen KnotView::get_pen() const
@@ -880,7 +913,7 @@ void KnotView::remove_edge(Node *p1, Node *p2)
 
 void KnotView::move_nodes ( QPointF dest )
 {
-        QPointF delta = dest-oldpos;
+    QPointF delta = dest-startpos;
     if ( moved_nodes.size() > 1 )
     {
         undo_stack.beginMacro(tr("Move Nodes"));

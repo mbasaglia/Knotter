@@ -24,10 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 #include "knot_window.hpp"
-#include "commands.hpp"
+#include "graphics/commands.hpp"
 #include <QFileDialog>
 #include <QMessageBox>
-#include "gridconfig.hpp"
+#include "dialogs/gridconfig.hpp"
 
 Knot_Window::Knot_Window(QWidget *parent) :
     QMainWindow(parent)
@@ -280,16 +280,20 @@ void Knot_Window::configure_grid()
     GridConfig(&grid,this).exec();
 
     actionEnable_Grid->setChecked(grid.is_enabled());
-    if ( grid.get_shape() == snapping_grid::TRIANGLE )
+    if ( grid.get_shape() == snapping_grid::TRIANGLE1 )
         actionEnable_Grid->setIcon(QIcon(":/img/triangular_grid.svg"));
+    else if ( grid.get_shape() == snapping_grid::TRIANGLE2 )
+        actionEnable_Grid->setIcon(QIcon(":/img/triangular_grid2.svg"));
     else
         actionEnable_Grid->setIcon(QIcon(":/img/square_grid.svg"));
+    canvas->redraw(false);
 
 }
 
 void Knot_Window::enable_grid(bool enabled)
 {
     canvas->get_grid().enable ( enabled );
+    canvas->redraw(false);
 }
 
 

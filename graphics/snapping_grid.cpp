@@ -25,12 +25,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "snapping_grid.hpp"
 #include <cmath>
+#include <QPainter>
+#include <QVarLengthArray>
 
 snapping_grid::snapping_grid(double size, grid_shape type, QPointF origin, bool enabled)
     : size ( size ), shape ( type ), origin ( origin ), enabled ( enabled )
 {}
 
-void snapping_grid::snap(QPointF &p)
+void snapping_grid::snap(QPointF &p) const
 {
     /// \todo find a way to draw the grid (lines or dots?)
     /// \todo find a cool way to configure the origin ( cool way != typing coordinates )
@@ -49,7 +51,7 @@ void snapping_grid::snap(QPointF &p)
         p *= size;
         p += origin;
     }
-    else if ( shape == TRIANGLE )
+    else if ( shape == TRIANGLE1 )
     {
         /**
             Triangular grid, find intersection of line1 and line2
@@ -70,6 +72,77 @@ void snapping_grid::snap(QPointF &p)
         qint64 n1 = qRound64 ( p.x()/size - n2/2.0 );
         p.setX(size*(n2/2.0+n1)+origin.y());
     }
+    else if ( shape == TRIANGLE2 )
+    {
+        double x_factor = size * sqrt(3.0)/2.0;
+        qint64 n2 = qRound64(p.x()/x_factor);
+        p.setX(n2*x_factor+origin.x());
+        qint64 n1 = qRound64 ( p.y()/size - n2/2.0 );
+        p.setY(size*(n2/2.0+n1)+origin.x());
+    }
+}
+
+void snapping_grid::render(QPainter *painter, const QRectF &rect) const
+{
+    if ( !enabled )
+        return;
+    painter->setPen(QPen(Qt::lightGray,0));
+    QPointF topleft = nearest(rect.left()-size,rect.top()-size);
+
+    QVarLengthArray<QLineF, 128> lines;
+    if ( shape == snapping_grid::SQUARE )
+    {
+        for (double x = topleft.x(); x < rect.right(); x += size)
+                lines.append(QLineF(x, rect.top(), x, rect.bottom()));
+        for (double y = topleft.y(); y < rect.bottom(); y += size)
+                lines.append(QLineF(rect.left(), y, rect.right(), y));
+    }
+    else if ( shape == snapping_grid::TRIANGLE1 )
+    {
+        double y_factor = size*sqrt(3.0)/2.0;
+        double y;
+        for ( y = topleft.y(); y < rect.bottom(); y += y_factor)
+                lines.append(QLineF(rect.left(), y, rect.right(), y));
+
+        double slope =  sqrt(3.0);
+        double x = topleft.x();
+        for ( double x2 = x; x2 < rect.right(); x += size )
+        {
+            x2 = (rect.bottom()-topleft.y())/(-slope)+x;
+            lines.append(QLineF(x, topleft.y(),x2,rect.bottom() ));
+        }
+
+        for ( double x2 = x; x2 > rect.left(); x -= size )
+        {
+            x2 = (rect.bottom()-topleft.y())/(slope)+x;
+            lines.append(QLineF(x, topleft.y(),x2,rect.bottom() ));
+        }
+
+    }
+    else if ( shape == snapping_grid::TRIANGLE2 )
+    {
+        double x_factor = size*sqrt(3.0)/2.0;
+        double x;
+        for ( x = topleft.x(); x < rect.right(); x += x_factor)
+                lines.append(QLineF(x,rect.top(), x, rect.bottom()));
+
+        double slope =  sqrt(3.0);
+        double y = topleft.y();
+        for ( double y2 = y; y2 < rect.bottom(); y += size )
+        {
+            y2 = (rect.right()-topleft.x())/(-slope)+y;
+            lines.append(QLineF(topleft.x(),y,rect.right(),y2 ));
+        }
+
+        for ( double y2 = y; y2 > rect.top(); y -= size )
+        {
+            y2 = (rect.right()-topleft.x())/(slope)+y;
+            lines.append(QLineF(topleft.x(),y,rect.right(),y2 ));
+        }
+
+    }
+
+    painter->drawLines(lines.data(), lines.size());
 }
 
 bool snapping_grid::is_enabled() const

@@ -124,8 +124,7 @@ function toggleVisibility(linkObj) {
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe src="classKnotView__coll__graph.svg" width="878" height="903" frameborder="0" scrolling="no"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe src="classKnotView__coll__graph.svg" width="878" height="903" frameborder="0" scrolling="no"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classKnotView-members.html">List of all members.</a></p>
@@ -195,10 +194,14 @@ Protected Types</h2></td></tr>
 <a class="el" href="classKnotView.html#a7352e4d246dfaea6c89b920e682241efa6172c89bb33902fd4d271a4e36e38216">INSERT_EDGE_CHAIN</a>, 
 <a class="el" href="classKnotView.html#a7352e4d246dfaea6c89b920e682241efacd2be521758ce16c3ea6f4a6223a3271">INSERT_EDGE</a>
  }</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77">mouse_status_type</a> { <a class="el" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77ab3fafe57916d1703bf681e5220cd4f33">DEFAULT</a>, 
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77">mouse_status_type</a> { <br/>
+&#160;&#160;<a class="el" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77ab3fafe57916d1703bf681e5220cd4f33">DEFAULT</a>, 
 <a class="el" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77ad385198f2c7f5ca8f7a4243b1b87d485">MOVING</a>, 
 <a class="el" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77a0a694339fd03a13a456745c440e1abbe">DRAGGING</a>, 
-<a class="el" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77a1b49454257f6b9068bcbc31ef7317c11">PLACING</a>
+<a class="el" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77a1b49454257f6b9068bcbc31ef7317c11">PLACING</a>, 
+<br/>
+&#160;&#160;<a class="el" href="classKnotView.html#ab46c6db2daa4f1d11b99cdb044e9fc77a4afa871adcdff753db8ab9ccd1de935a">SELECTING</a>
+<br/>
  }</td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -277,6 +280,9 @@ Protected Attributes</h2></td></tr>
 <tr><td valign="top"><em><a class="anchor" id="ab46c6db2daa4f1d11b99cdb044e9fc77a1b49454257f6b9068bcbc31ef7317c11"></a><!-- doxytag: member="PLACING" ref="ab46c6db2daa4f1d11b99cdb044e9fc77a1b49454257f6b9068bcbc31ef7317c11" args="" -->PLACING</em>&nbsp;</td><td>
 <p>placing new items </p>
 </td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ab46c6db2daa4f1d11b99cdb044e9fc77a4afa871adcdff753db8ab9ccd1de935a"></a><!-- doxytag: member="SELECTING" ref="ab46c6db2daa4f1d11b99cdb044e9fc77a4afa871adcdff753db8ab9ccd1de935a" args="" -->SELECTING</em>&nbsp;</td><td>
+<p>dragging the rubberband </p>
+</td></tr>
 </table>
 </dd>
 </dl>
@@ -334,9 +340,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00869">869</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00874">874</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00989">link_selected()</a>, <a class="el" href="knotview_8cpp_source.html#l00159">mousePressEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00332">mouseReleaseEvent()</a>, <a class="el" href="clipboard_8cpp_source.html#l00065">ClipboardItem::paste()</a>, <a class="el" href="knotview_8cpp_source.html#l00587">readXML()</a>, and <a class="el" href="style__dialog_8cpp_source.html#l00028">StyleDialog::StyleDialog()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00994">link_selected()</a>, <a class="el" href="knotview_8cpp_source.html#l00163">mousePressEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00340">mouseReleaseEvent()</a>, <a class="el" href="clipboard_8cpp_source.html#l00065">ClipboardItem::paste()</a>, <a class="el" href="knotview_8cpp_source.html#l00595">readXML()</a>, and <a class="el" href="style__dialog_8cpp_source.html#l00031">StyleDialog::StyleDialog()</a>.</p>
 
 </div>
 </div>
@@ -365,9 +371,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00832">832</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00837">837</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l01007">merge_selected()</a>, <a class="el" href="knotview_8cpp_source.html#l00159">mousePressEvent()</a>, <a class="el" href="clipboard_8cpp_source.html#l00065">ClipboardItem::paste()</a>, <a class="el" href="knotview_8cpp_source.html#l00587">readXML()</a>, and <a class="el" href="style__dialog_8cpp_source.html#l00028">StyleDialog::StyleDialog()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l01012">merge_selected()</a>, <a class="el" href="knotview_8cpp_source.html#l00163">mousePressEvent()</a>, <a class="el" href="clipboard_8cpp_source.html#l00065">ClipboardItem::paste()</a>, <a class="el" href="knotview_8cpp_source.html#l00595">readXML()</a>, and <a class="el" href="style__dialog_8cpp_source.html#l00031">StyleDialog::StyleDialog()</a>.</p>
 
 </div>
 </div>
@@ -387,7 +393,7 @@ Protected Attributes</h2></td></tr>
 <div class="memdoc">
 <p>add existing node, undo command will takes ownership </p>
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00842">842</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00847">847</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 </div>
 </div>
@@ -405,7 +411,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00474">474</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00482">482</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00216">Knot_Window::open()</a>.</p>
 
@@ -525,7 +531,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00466">466</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00474">474</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="commands_8hpp_source.html#l00157">ToggleEdge::redo()</a>, and <a class="el" href="commands_8hpp_source.html#l00156">ToggleEdge::undo()</a>.</p>
 
@@ -546,9 +552,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00413">413</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00421">421</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00159">mousePressEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00385">wheelEvent()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00163">mousePressEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00393">wheelEvent()</a>.</p>
 
 </div>
 </div>
@@ -566,7 +572,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00976">976</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00981">981</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00173">Knot_Window::clear()</a>.</p>
 
@@ -586,9 +592,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00742">742</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00747">747</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="style__dialog_8cpp_source.html#l00085">StyleDialog::on_color_color_changed()</a>, <a class="el" href="knot__window_8cpp_source.html#l00296">Knot_Window::update_style_dialog()</a>, and <a class="el" href="knotview_8cpp_source.html#l00494">writeXML()</a>.</p>
+<p>Referenced by <a class="el" href="style__dialog_8cpp_source.html#l00088">StyleDialog::on_color_color_changed()</a>, <a class="el" href="knot__window_8cpp_source.html#l00296">Knot_Window::update_style_dialog()</a>, and <a class="el" href="knotview_8cpp_source.html#l00502">writeXML()</a>.</p>
 
 </div>
 </div>
@@ -606,7 +612,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00780">780</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00785">785</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00296">Knot_Window::update_style_dialog()</a>.</p>
 
@@ -626,7 +632,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00747">747</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00752">752</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00296">Knot_Window::update_style_dialog()</a>.</p>
 
@@ -646,7 +652,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00758">758</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00763">763</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00296">Knot_Window::update_style_dialog()</a>.</p>
 
@@ -666,7 +672,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00953">953</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00958">958</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00277">Knot_Window::configure_grid()</a>, and <a class="el" href="knot__window_8cpp_source.html#l00290">Knot_Window::enable_grid()</a>.</p>
 
@@ -686,7 +692,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00769">769</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00774">774</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00296">Knot_Window::update_style_dialog()</a>.</p>
 
@@ -706,7 +712,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00791">791</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00796">796</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00296">Knot_Window::update_style_dialog()</a>.</p>
 
@@ -732,7 +738,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00138">138</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00280">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00159">mousePressEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00332">mouseReleaseEvent()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00288">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00163">mousePressEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00340">mouseReleaseEvent()</a>.</p>
 
 </div>
 </div>
@@ -750,9 +756,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00731">731</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00736">736</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="style__dialog_8cpp_source.html#l00092">StyleDialog::on_outline_color_color_changed()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00078">StyleDialog::on_outline_width_spinner_valueChanged()</a>, <a class="el" href="knotview_8cpp_source.html#l00721">set_pen()</a>, <a class="el" href="knot__window_8cpp_source.html#l00296">Knot_Window::update_style_dialog()</a>, and <a class="el" href="knotview_8cpp_source.html#l00494">writeXML()</a>.</p>
+<p>Referenced by <a class="el" href="style__dialog_8cpp_source.html#l00095">StyleDialog::on_outline_color_color_changed()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00081">StyleDialog::on_outline_width_spinner_valueChanged()</a>, <a class="el" href="knot__window_8cpp_source.html#l00296">Knot_Window::update_style_dialog()</a>, and <a class="el" href="knotview_8cpp_source.html#l00502">writeXML()</a>.</p>
 
 </div>
 </div>
@@ -770,7 +776,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00079">79</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00080">80</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
 
 </div>
 </div>
@@ -788,7 +794,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00078">78</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00079">79</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
 
 <p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00173">Knot_Window::clear()</a>, <a class="el" href="knot__window_8cpp_source.html#l00154">Knot_Window::cut()</a>, <a class="el" href="knot__window_8cpp_source.html#l00032">Knot_Window::Knot_Window()</a>, <a class="el" href="knot__window_8cpp_source.html#l00216">Knot_Window::open()</a>, <a class="el" href="clipboard_8cpp_source.html#l00065">ClipboardItem::paste()</a>, and <a class="el" href="knot__window_8cpp_source.html#l00183">Knot_Window::save()</a>.</p>
 
@@ -808,9 +814,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00716">716</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00724">724</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00296">Knot_Window::update_style_dialog()</a>, and <a class="el" href="knotview_8cpp_source.html#l00494">writeXML()</a>.</p>
+<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00296">Knot_Window::update_style_dialog()</a>, and <a class="el" href="knotview_8cpp_source.html#l00502">writeXML()</a>.</p>
 
 </div>
 </div>
@@ -839,7 +845,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00418">418</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00426">426</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00057">do_add_node()</a>, <a class="el" href="commands_8hpp_source.html#l00096">AddEdge::redo()</a>, and <a class="el" href="commands_8hpp_source.html#l00113">RemoveEdge::undo()</a>.</p>
 
@@ -859,7 +865,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00989">989</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00994">994</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 </div>
 </div>
@@ -877,7 +883,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l01007">1007</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l01012">1012</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 </div>
 </div>
@@ -895,9 +901,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00824">824</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00829">829</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00474">clear()</a>, <a class="el" href="knotview_8cpp_source.html#l00970">mode_edge_chain()</a>, <a class="el" href="knotview_8cpp_source.html#l00958">mode_edit_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00964">mode_insert_edge()</a>, and <a class="el" href="knotview_8cpp_source.html#l00159">mousePressEvent()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00482">clear()</a>, <a class="el" href="knotview_8cpp_source.html#l00975">mode_edge_chain()</a>, <a class="el" href="knotview_8cpp_source.html#l00963">mode_edit_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00969">mode_insert_edge()</a>, and <a class="el" href="knotview_8cpp_source.html#l00163">mousePressEvent()</a>.</p>
 
 </div>
 </div>
@@ -915,7 +921,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00970">970</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00975">975</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00119">Knot_Window::mode_edge_list()</a>.</p>
 
@@ -935,7 +941,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00958">958</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00963">963</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00040">KnotView()</a>, and <a class="el" href="knot__window_8cpp_source.html#l00128">Knot_Window::mode_node()</a>.</p>
 
@@ -955,7 +961,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00964">964</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00969">969</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00136">Knot_Window::mode_edge()</a>.</p>
 
@@ -978,7 +984,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="moc__knotview_8cpp_source.html#l00127">127</a> of file <a class="el" href="moc__knotview_8cpp_source.html">moc_knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00280">mouseMoveEvent()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00288">mouseMoveEvent()</a>.</p>
 
 </div>
 </div>
@@ -997,10 +1003,10 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>option to turn on/off fluid knot refresh </dd></dl>
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>option to turn on/off fluid knot refresh </dd></dl>
 </p>
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00280">280</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00288">288</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 </div>
 </div>
@@ -1019,7 +1025,10 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00159">159</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>make auto-simmetry ( top-bottom left-right, quadrature, rotation ) </dd></dl>
+</p>
+
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00163">163</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 </div>
 </div>
@@ -1038,7 +1047,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00332">332</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00340">340</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 </div>
 </div>
@@ -1057,9 +1066,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00881">881</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00886">886</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00332">mouseReleaseEvent()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00340">mouseReleaseEvent()</a>.</p>
 
 </div>
 </div>
@@ -1078,9 +1087,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00408">408</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00416">416</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00159">mousePressEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00332">mouseReleaseEvent()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00163">mousePressEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00340">mouseReleaseEvent()</a>.</p>
 
 </div>
 </div>
@@ -1099,7 +1108,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00587">587</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00595">595</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00216">Knot_Window::open()</a>.</p>
 
@@ -1120,9 +1129,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l01063">1063</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l01068">1068</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00057">do_add_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00130">do_move_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00466">do_toggle_edge()</a>, <a class="el" href="knotview_8cpp_source.html#l00418">link()</a>, <a class="el" href="knotview_8cpp_source.html#l00280">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00332">mouseReleaseEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00736">set_brush()</a>, <a class="el" href="knotview_8cpp_source.html#l00785">set_crossing_distance()</a>, <a class="el" href="knotview_8cpp_source.html#l00752">set_curve_style()</a>, <a class="el" href="knotview_8cpp_source.html#l00763">set_cusp_angle()</a>, <a class="el" href="knotview_8cpp_source.html#l00774">set_handle_length()</a>, <a class="el" href="knotview_8cpp_source.html#l00796">set_join_style()</a>, <a class="el" href="knotview_8cpp_source.html#l00721">set_pen()</a>, <a class="el" href="knotview_8cpp_source.html#l00710">set_width()</a>, and <a class="el" href="knotview_8cpp_source.html#l00435">unlink()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00057">do_add_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00130">do_move_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00474">do_toggle_edge()</a>, <a class="el" href="knotview_8cpp_source.html#l00426">link()</a>, <a class="el" href="knotview_8cpp_source.html#l00288">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00340">mouseReleaseEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00741">set_brush()</a>, <a class="el" href="knotview_8cpp_source.html#l00790">set_crossing_distance()</a>, <a class="el" href="knotview_8cpp_source.html#l00757">set_curve_style()</a>, <a class="el" href="knotview_8cpp_source.html#l00768">set_cusp_angle()</a>, <a class="el" href="knotview_8cpp_source.html#l00779">set_handle_length()</a>, <a class="el" href="knotview_8cpp_source.html#l00801">set_join_style()</a>, <a class="el" href="knotview_8cpp_source.html#l00729">set_pen()</a>, <a class="el" href="knotview_8cpp_source.html#l00718">set_width()</a>, and <a class="el" href="knotview_8cpp_source.html#l00443">unlink()</a>.</p>
 
 </div>
 </div>
@@ -1151,9 +1160,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00875">875</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00880">880</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00159">mousePressEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00332">mouseReleaseEvent()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00163">mousePressEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00340">mouseReleaseEvent()</a>.</p>
 
 </div>
 </div>
@@ -1182,7 +1191,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00861">861</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00866">866</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 </div>
 </div>
@@ -1201,9 +1210,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00848">848</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00853">853</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00154">Knot_Window::cut()</a>, <a class="el" href="knotview_8cpp_source.html#l00976">erase_selected()</a>, and <a class="el" href="knotview_8cpp_source.html#l01007">merge_selected()</a>.</p>
+<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00154">Knot_Window::cut()</a>, <a class="el" href="knotview_8cpp_source.html#l00981">erase_selected()</a>, and <a class="el" href="knotview_8cpp_source.html#l01012">merge_selected()</a>.</p>
 
 </div>
 </div>
@@ -1221,7 +1230,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l01070">1070</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l01075">1075</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 </div>
 </div>
@@ -1239,9 +1248,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l01081">1081</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l01086">1086</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l01070">reset_view()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l01075">reset_view()</a>.</p>
 
 </div>
 </div>
@@ -1259,7 +1268,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l01050">1050</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l01055">1055</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00173">Knot_Window::clear()</a>.</p>
 
@@ -1279,7 +1288,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00941">941</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00946">946</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="clipboard_8cpp_source.html#l00088">ClipboardItem::copy()</a>, and <a class="el" href="knot__window_8cpp_source.html#l00154">Knot_Window::cut()</a>.</p>
 
@@ -1300,9 +1309,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00736">736</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00741">741</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00252">Knot_Window::apply_style()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00085">StyleDialog::on_color_color_changed()</a>, and <a class="el" href="knotview_8cpp_source.html#l00587">readXML()</a>.</p>
+<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00252">Knot_Window::apply_style()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00088">StyleDialog::on_color_color_changed()</a>, and <a class="el" href="knotview_8cpp_source.html#l00595">readXML()</a>.</p>
 
 </div>
 </div>
@@ -1321,9 +1330,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00785">785</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00790">790</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00252">Knot_Window::apply_style()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00116">StyleDialog::on_crossing_gap_spinner_valueChanged()</a>, and <a class="el" href="knotview_8cpp_source.html#l00587">readXML()</a>.</p>
+<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00252">Knot_Window::apply_style()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00119">StyleDialog::on_crossing_gap_spinner_valueChanged()</a>, and <a class="el" href="knotview_8cpp_source.html#l00595">readXML()</a>.</p>
 
 </div>
 </div>
@@ -1342,9 +1351,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00752">752</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00757">757</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00252">Knot_Window::apply_style()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00100">StyleDialog::on_style_combo_activated()</a>, <a class="el" href="knotview_8cpp_source.html#l00587">readXML()</a>, and <a class="el" href="style__dialog_8cpp_source.html#l00058">StyleDialog::set_style_id()</a>.</p>
+<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00252">Knot_Window::apply_style()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00103">StyleDialog::on_style_combo_activated()</a>, <a class="el" href="knotview_8cpp_source.html#l00595">readXML()</a>, and <a class="el" href="style__dialog_8cpp_source.html#l00061">StyleDialog::set_style_id()</a>.</p>
 
 </div>
 </div>
@@ -1363,9 +1372,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00763">763</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00768">768</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00252">Knot_Window::apply_style()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00106">StyleDialog::on_cusp_angle_spinner_valueChanged()</a>, and <a class="el" href="knotview_8cpp_source.html#l00587">readXML()</a>.</p>
+<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00252">Knot_Window::apply_style()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00109">StyleDialog::on_cusp_angle_spinner_valueChanged()</a>, and <a class="el" href="knotview_8cpp_source.html#l00595">readXML()</a>.</p>
 
 </div>
 </div>
@@ -1394,9 +1403,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00933">933</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00938">938</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00587">readXML()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00595">readXML()</a>.</p>
 
 </div>
 </div>
@@ -1425,9 +1434,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00804">804</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00809">809</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00280">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00159">mousePressEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00435">unlink()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00288">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00163">mousePressEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00443">unlink()</a>.</p>
 
 </div>
 </div>
@@ -1446,9 +1455,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00774">774</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00779">779</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00252">Knot_Window::apply_style()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00111">StyleDialog::on_handle_length_spinner_valueChanged()</a>, and <a class="el" href="knotview_8cpp_source.html#l00587">readXML()</a>.</p>
+<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00252">Knot_Window::apply_style()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00114">StyleDialog::on_handle_length_spinner_valueChanged()</a>, and <a class="el" href="knotview_8cpp_source.html#l00595">readXML()</a>.</p>
 
 </div>
 </div>
@@ -1467,9 +1476,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00796">796</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00801">801</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00252">Knot_Window::apply_style()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00121">StyleDialog::on_point_combo_activated()</a>, and <a class="el" href="knotview_8cpp_source.html#l00587">readXML()</a>.</p>
+<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00252">Knot_Window::apply_style()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00124">StyleDialog::on_point_combo_activated()</a>, and <a class="el" href="knotview_8cpp_source.html#l00595">readXML()</a>.</p>
 
 </div>
 </div>
@@ -1488,9 +1497,12 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00721">721</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p><dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd>pen width = 0 still renders outline (caused by Qt, width = 0 =&gt; 1px cosmetic ) </dd></dl>
+</p>
 
-<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00252">Knot_Window::apply_style()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00092">StyleDialog::on_outline_color_color_changed()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00078">StyleDialog::on_outline_width_spinner_valueChanged()</a>, and <a class="el" href="knotview_8cpp_source.html#l00587">readXML()</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00729">729</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+
+<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00252">Knot_Window::apply_style()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00095">StyleDialog::on_outline_color_color_changed()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00081">StyleDialog::on_outline_width_spinner_valueChanged()</a>, and <a class="el" href="knotview_8cpp_source.html#l00595">readXML()</a>.</p>
 
 </div>
 </div>
@@ -1509,9 +1521,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00710">710</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00718">718</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00252">Knot_Window::apply_style()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00073">StyleDialog::on_knot_width_spinner_valueChanged()</a>, and <a class="el" href="knotview_8cpp_source.html#l00587">readXML()</a>.</p>
+<p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00252">Knot_Window::apply_style()</a>, <a class="el" href="style__dialog_8cpp_source.html#l00076">StyleDialog::on_knot_width_spinner_valueChanged()</a>, and <a class="el" href="knotview_8cpp_source.html#l00595">readXML()</a>.</p>
 
 </div>
 </div>
@@ -1530,9 +1542,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00901">901</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00906">906</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00159">mousePressEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00385">wheelEvent()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00163">mousePressEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00393">wheelEvent()</a>.</p>
 
 </div>
 </div>
@@ -1551,9 +1563,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00917">917</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00922">922</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00385">wheelEvent()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00393">wheelEvent()</a>.</p>
 
 </div>
 </div>
@@ -1582,7 +1594,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00435">435</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00443">443</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="commands_8hpp_source.html#l00114">RemoveEdge::redo()</a>, and <a class="el" href="commands_8hpp_source.html#l00095">AddEdge::undo()</a>.</p>
 
@@ -1602,9 +1614,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00814">814</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00819">819</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00474">clear()</a>, <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00824">mode_change()</a>, <a class="el" href="knotview_8cpp_source.html#l00332">mouseReleaseEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00435">unlink()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00482">clear()</a>, <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00829">mode_change()</a>, <a class="el" href="knotview_8cpp_source.html#l00340">mouseReleaseEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00443">unlink()</a>.</p>
 
 </div>
 </div>
@@ -1623,7 +1635,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00385">385</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00393">393</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 </div>
 </div>
@@ -1642,11 +1654,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>export only path ( output of knot.build() ) </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>gen.setViewBox (?) </dd></dl>
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>export only path ( output of knot.build() ) </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>gen.setViewBox (?) </dd></dl>
 </p>
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00694">694</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00702">702</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00238">Knot_Window::exportSVG()</a>.</p>
 
@@ -1666,9 +1678,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Grid I/O </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>Grid I/O </dd></dl>
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00494">494</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l00502">502</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="knot__window_8cpp_source.html#l00183">Knot_Window::save()</a>.</p>
 
@@ -1689,9 +1701,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l01076">1076</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8cpp_source.html#l01081">1081</a> of file <a class="el" href="knotview_8cpp_source.html">knotview.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00385">wheelEvent()</a>, <a class="el" href="knot__window_8cpp_source.html#l00267">Knot_Window::zoom_in()</a>, and <a class="el" href="knot__window_8cpp_source.html#l00272">Knot_Window::zoom_out()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00393">wheelEvent()</a>, <a class="el" href="knot__window_8cpp_source.html#l00267">Knot_Window::zoom_in()</a>, and <a class="el" href="knot__window_8cpp_source.html#l00272">Knot_Window::zoom_out()</a>.</p>
 
 </div>
 </div>
@@ -1707,9 +1719,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00064">64</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00065">65</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00953">get_grid()</a>, and <a class="el" href="knotview_8cpp_source.html#l00138">get_mouse_point()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00958">get_grid()</a>, and <a class="el" href="knotview_8cpp_source.html#l00138">get_mouse_point()</a>.</p>
 
 </div>
 </div>
@@ -1724,9 +1736,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00060">60</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00061">61</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00280">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00804">set_guide()</a>, <a class="el" href="knotview_8cpp_source.html#l00435">unlink()</a>, and <a class="el" href="knotview_8cpp_source.html#l00814">unset_guide()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00288">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00809">set_guide()</a>, <a class="el" href="knotview_8cpp_source.html#l00443">unlink()</a>, and <a class="el" href="knotview_8cpp_source.html#l00819">unset_guide()</a>.</p>
 
 </div>
 </div>
@@ -1741,9 +1753,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00063">63</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00064">64</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00474">clear()</a>, <a class="el" href="knotview_8cpp_source.html#l00057">do_add_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00742">get_brush()</a>, <a class="el" href="knotview_8cpp_source.html#l00780">get_crossing_distance()</a>, <a class="el" href="knotview_8cpp_source.html#l00747">get_curve_style()</a>, <a class="el" href="knotview_8cpp_source.html#l00758">get_cusp_angle()</a>, <a class="el" href="knotview_8cpp_source.html#l00769">get_handle_length()</a>, <a class="el" href="knotview_8cpp_source.html#l00791">get_join_style()</a>, <a class="el" href="knotview_8cpp_source.html#l00731">get_pen()</a>, <a class="el" href="knotview_8cpp_source.html#l00716">get_width()</a>, <a class="el" href="knotview_8cpp_source.html#l00040">KnotView()</a>, <a class="el" href="knotview_8cpp_source.html#l00418">link()</a>, <a class="el" href="knotview_8cpp_source.html#l00280">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00587">readXML()</a>, <a class="el" href="knotview_8cpp_source.html#l01063">redraw()</a>, <a class="el" href="knotview_8cpp_source.html#l00736">set_brush()</a>, <a class="el" href="knotview_8cpp_source.html#l00785">set_crossing_distance()</a>, <a class="el" href="knotview_8cpp_source.html#l00752">set_curve_style()</a>, <a class="el" href="knotview_8cpp_source.html#l00763">set_cusp_angle()</a>, <a class="el" href="knotview_8cpp_source.html#l00774">set_handle_length()</a>, <a class="el" href="knotview_8cpp_source.html#l00796">set_join_style()</a>, <a class="el" href="knotview_8cpp_source.html#l00721">set_pen()</a>, <a class="el" href="knotview_8cpp_source.html#l00710">set_width()</a>, <a class="el" href="knotview_8cpp_source.html#l00435">unlink()</a>, <a class="el" href="knotview_8cpp_source.html#l00694">writeSVG()</a>, and <a class="el" href="knotview_8cpp_source.html#l00494">writeXML()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00482">clear()</a>, <a class="el" href="knotview_8cpp_source.html#l00057">do_add_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00747">get_brush()</a>, <a class="el" href="knotview_8cpp_source.html#l00785">get_crossing_distance()</a>, <a class="el" href="knotview_8cpp_source.html#l00752">get_curve_style()</a>, <a class="el" href="knotview_8cpp_source.html#l00763">get_cusp_angle()</a>, <a class="el" href="knotview_8cpp_source.html#l00774">get_handle_length()</a>, <a class="el" href="knotview_8cpp_source.html#l00796">get_join_style()</a>, <a class="el" href="knotview_8cpp_source.html#l00736">get_pen()</a>, <a class="el" href="knotview_8cpp_source.html#l00724">get_width()</a>, <a class="el" href="knotview_8cpp_source.html#l00040">KnotView()</a>, <a class="el" href="knotview_8cpp_source.html#l00426">link()</a>, <a class="el" href="knotview_8cpp_source.html#l00288">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00595">readXML()</a>, <a class="el" href="knotview_8cpp_source.html#l01068">redraw()</a>, <a class="el" href="knotview_8cpp_source.html#l00741">set_brush()</a>, <a class="el" href="knotview_8cpp_source.html#l00790">set_crossing_distance()</a>, <a class="el" href="knotview_8cpp_source.html#l00757">set_curve_style()</a>, <a class="el" href="knotview_8cpp_source.html#l00768">set_cusp_angle()</a>, <a class="el" href="knotview_8cpp_source.html#l00779">set_handle_length()</a>, <a class="el" href="knotview_8cpp_source.html#l00801">set_join_style()</a>, <a class="el" href="knotview_8cpp_source.html#l00729">set_pen()</a>, <a class="el" href="knotview_8cpp_source.html#l00718">set_width()</a>, <a class="el" href="knotview_8cpp_source.html#l00443">unlink()</a>, <a class="el" href="knotview_8cpp_source.html#l00702">writeSVG()</a>, and <a class="el" href="knotview_8cpp_source.html#l00502">writeXML()</a>.</p>
 
 </div>
 </div>
@@ -1758,9 +1770,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00054">54</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00055">55</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00474">clear()</a>, <a class="el" href="knotview_8cpp_source.html#l00057">do_add_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00138">get_mouse_point()</a>, <a class="el" href="knotview_8cpp_source.html#l01007">merge_selected()</a>, <a class="el" href="knotview_8cpp_source.html#l00824">mode_change()</a>, <a class="el" href="knotview_8cpp_source.html#l00280">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00159">mousePressEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00332">mouseReleaseEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00435">unlink()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00482">clear()</a>, <a class="el" href="knotview_8cpp_source.html#l00057">do_add_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00138">get_mouse_point()</a>, <a class="el" href="knotview_8cpp_source.html#l01012">merge_selected()</a>, <a class="el" href="knotview_8cpp_source.html#l00829">mode_change()</a>, <a class="el" href="knotview_8cpp_source.html#l00288">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00163">mousePressEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00340">mouseReleaseEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00443">unlink()</a>.</p>
 
 </div>
 </div>
@@ -1775,9 +1787,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00053">53</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00054">54</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00989">link_selected()</a>, <a class="el" href="knotview_8cpp_source.html#l01007">merge_selected()</a>, <a class="el" href="knotview_8cpp_source.html#l00970">mode_edge_chain()</a>, <a class="el" href="knotview_8cpp_source.html#l00958">mode_edit_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00964">mode_insert_edge()</a>, <a class="el" href="knotview_8cpp_source.html#l00280">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00159">mousePressEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00332">mouseReleaseEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00435">unlink()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00994">link_selected()</a>, <a class="el" href="knotview_8cpp_source.html#l01012">merge_selected()</a>, <a class="el" href="knotview_8cpp_source.html#l00975">mode_edge_chain()</a>, <a class="el" href="knotview_8cpp_source.html#l00963">mode_edit_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00969">mode_insert_edge()</a>, <a class="el" href="knotview_8cpp_source.html#l00288">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00163">mousePressEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00340">mouseReleaseEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00443">unlink()</a>.</p>
 
 </div>
 </div>
@@ -1792,9 +1804,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00055">55</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00056">56</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00280">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00159">mousePressEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00332">mouseReleaseEvent()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00138">get_mouse_point()</a>, <a class="el" href="knotview_8cpp_source.html#l00288">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00163">mousePressEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00340">mouseReleaseEvent()</a>.</p>
 
 </div>
 </div>
@@ -1809,9 +1821,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00059">59</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00060">60</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00159">mousePressEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00881">move_nodes()</a>, and <a class="el" href="knotview_8cpp_source.html#l00435">unlink()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00163">mousePressEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00886">move_nodes()</a>, and <a class="el" href="knotview_8cpp_source.html#l00443">unlink()</a>.</p>
 
 </div>
 </div>
@@ -1826,9 +1838,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00058">58</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00059">59</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00280">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00159">mousePressEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00332">mouseReleaseEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00881">move_nodes()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00288">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00163">mousePressEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00340">mouseReleaseEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00886">move_nodes()</a>.</p>
 
 </div>
 </div>
@@ -1843,9 +1855,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00061">61</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00062">62</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00280">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00159">mousePressEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00332">mouseReleaseEvent()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00288">mouseMoveEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00163">mousePressEvent()</a>, and <a class="el" href="knotview_8cpp_source.html#l00340">mouseReleaseEvent()</a>.</p>
 
 </div>
 </div>
@@ -1860,9 +1872,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00062">62</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
+<p>Definition at line <a class="el" href="knotview_8hpp_source.html#l00063">63</a> of file <a class="el" href="knotview_8hpp_source.html">knotview.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00869">add_edge()</a>, <a class="el" href="knotview_8cpp_source.html#l00832">add_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00474">clear()</a>, <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00976">erase_selected()</a>, <a class="el" href="knotview_8hpp_source.html#l00078">get_undo_stack()</a>, <a class="el" href="knotview_8cpp_source.html#l00989">link_selected()</a>, <a class="el" href="knotview_8cpp_source.html#l01007">merge_selected()</a>, <a class="el" href="knotview_8cpp_source.html#l00159">mousePressEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00881">move_nodes()</a>, <a class="el" href="knotview_8cpp_source.html#l00587">readXML()</a>, <a class="el" href="knotview_8cpp_source.html#l00875">remove_edge()</a>, <a class="el" href="knotview_8cpp_source.html#l00861">remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00933">set_edge_type()</a>, <a class="el" href="knotview_8cpp_source.html#l00901">toggle_edge()</a>, and <a class="el" href="knotview_8cpp_source.html#l00917">toggle_edge_inverted()</a>.</p>
+<p>Referenced by <a class="el" href="knotview_8cpp_source.html#l00874">add_edge()</a>, <a class="el" href="knotview_8cpp_source.html#l00837">add_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00482">clear()</a>, <a class="el" href="knotview_8cpp_source.html#l00069">do_remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00981">erase_selected()</a>, <a class="el" href="knotview_8hpp_source.html#l00079">get_undo_stack()</a>, <a class="el" href="knotview_8cpp_source.html#l00994">link_selected()</a>, <a class="el" href="knotview_8cpp_source.html#l01012">merge_selected()</a>, <a class="el" href="knotview_8cpp_source.html#l00163">mousePressEvent()</a>, <a class="el" href="knotview_8cpp_source.html#l00886">move_nodes()</a>, <a class="el" href="knotview_8cpp_source.html#l00595">readXML()</a>, <a class="el" href="knotview_8cpp_source.html#l00880">remove_edge()</a>, <a class="el" href="knotview_8cpp_source.html#l00866">remove_node()</a>, <a class="el" href="knotview_8cpp_source.html#l00938">set_edge_type()</a>, <a class="el" href="knotview_8cpp_source.html#l00906">toggle_edge()</a>, and <a class="el" href="knotview_8cpp_source.html#l00922">toggle_edge_inverted()</a>.</p>
 
 </div>
 </div>
@@ -1886,7 +1898,7 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 16 2012 22:20:35 for Knotter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 16 2012 23:29:56 for Knotter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

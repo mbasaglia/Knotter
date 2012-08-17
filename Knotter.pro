@@ -22,52 +22,26 @@ VERSION = 0.2.0
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        knot_window.cpp \
-    knotview.cpp \
-    node.cpp \
-    edge.cpp \
-    knotgraph.cpp \
-    style_dialog.cpp \
-    knot_curve_style.cpp \
-    clipboard.cpp \
-    config_dialog.cpp \
-    snapping_grid.cpp \
-    gridconfig.cpp
+SOURCES += main.cpp \
+        knot_window.cpp
 
-HEADERS  += knot_window.hpp \
-    knotview.hpp \
-    node.hpp \
-    edge.hpp \
-    commands.hpp \
-    custom_item.hpp \
-    knotgraph.hpp \
-    style_dialog.hpp \
-    color_widget.hpp \
-    knot_curve_style.hpp \
-    clipboard.hpp \
-    config_dialog.hpp \
-    snapping_grid.hpp \
-    gridconfig.hpp
+HEADERS  += knot_window.hpp  \
+    color_widget.hpp
 
-FORMS    += knot_window.ui \
-    style_dialog.ui \
-    config_dialog.ui \
-    gridconfig.ui
+FORMS    += knot_window.ui
 
-QMAKE_CXXFLAGS += -Werror
 
 OTHER_FILES += \
     COPYING \
     README \
     Doxyfile \
-    img/logo.svg \
-    img/link.svg \
-    img/icon.png \
-    img/edit_nodes.svg \
-    img/edit_edges.svg \
-    img/edge_list.svg \
-    img/merge.svg
+    NEWS
+
+include(dialogs/dialogs.pri)
+include(img/img.pri)
+include(graphics/graphics.pri)
+
+QMAKE_CXXFLAGS += -Werror
 
 RESOURCES += \
     icons.qrc

@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ui_gridconfig.h"
 
-#include "snapping_grid.hpp"
+#include "graphics/snapping_grid.hpp"
 
 class GridConfig : public QDialog, private Ui::GridConfig
 {

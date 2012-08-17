@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'knot_window.ui'
 **
-** Created: Thu Aug 16 22:16:15 2012
+** Created: Fri Aug 17 09:18:04 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -22,7 +22,7 @@
 #include <QtGui/QStatusBar>
 #include <QtGui/QToolBar>
 #include <QtGui/QWidget>
-#include "knotview.hpp"
+#include "graphics/knotview.hpp"
 
 QT_BEGIN_NAMESPACE
 

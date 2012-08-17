@@ -25,6 +25,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "style_dialog.hpp"
 
+/**
+    \todo PenStyle
+*/
 StyleDialog::StyleDialog(QWidget *parent) :
     QDialog(parent)
 {

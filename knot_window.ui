@@ -444,7 +444,7 @@
   <customwidget>
    <class>KnotView</class>
    <extends>QGraphicsView</extends>
-   <header>knotview.hpp</header>
+   <header>graphics/knotview.hpp</header>
    <slots>
     <signal>mouse_moved(QPointF)</signal>
     <slot>erase_selected()</slot>

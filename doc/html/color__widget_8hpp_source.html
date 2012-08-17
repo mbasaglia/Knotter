@@ -149,7 +149,7 @@ function toggleVisibility(linkObj) {
 <a name="l00047"></a>00047             this-&gt;connect(&amp;<a class="code" href="classColorWidget.html#a9c325a8ad3a5ee3d12ceef276dbd656a">color_dialog</a>,SIGNAL(colorSelected(QColor)),
 <a name="l00048"></a>00048                             SLOT(<a class="code" href="classColorWidget.html#ad876fba43f3ab8618ac87feec5dacdc9">update_color</a>(QColor)) );
 <a name="l00049"></a>00049             <span class="comment">//this-&gt;connect(this,SIGNAL(editingFinished()),SLOT(update_from_text()));</span>
-<a name="l00050"></a>00050 
+<a name="l00050"></a>00050             <a class="code" href="classColorWidget.html#a9c325a8ad3a5ee3d12ceef276dbd656a">color_dialog</a>.setOptions(QColorDialog::ShowAlphaChannel|QColorDialog::NoButtons);
 <a name="l00051"></a>00051             <a class="code" href="classColorWidget.html#ad876fba43f3ab8618ac87feec5dacdc9">update_color</a>(<a class="code" href="classColorWidget.html#a596610cdf749c5a2df62509e05a895a8">color</a>());
 <a name="l00052"></a>00052         }
 <a name="l00053"></a>00053 
@@ -217,7 +217,7 @@ function toggleVisibility(linkObj) {
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 16 2012 22:20:35 for Knotter by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 16 2012 23:29:56 for Knotter by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

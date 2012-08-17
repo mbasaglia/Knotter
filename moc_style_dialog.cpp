@@ -1,13 +1,13 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'style_dialog.hpp'
 **
-** Created: Thu Aug 16 21:33:13 2012
+** Created: Fri Aug 17 09:18:17 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "style_dialog.hpp"
+#include "dialogs/style_dialog.hpp"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'style_dialog.hpp' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 63
