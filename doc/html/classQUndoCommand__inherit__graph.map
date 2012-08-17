@@ -1,9 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classLastNodeCommand.html" title="LastNodeCommand" alt="" coords="23,83,161,112"/>
-<area shape="rect" id="node9" href="$classMoveNodes.html" title="MoveNodes" alt="" coords="185,83,276,112"/>
-<area shape="rect" id="node11" href="$classRemoveEdge.html" title="RemoveEdge" alt="" coords="300,83,401,112"/>
-<area shape="rect" id="node13" href="$classRemoveNode.html" title="RemoveNode" alt="" coords="425,83,527,112"/>
-<area shape="rect" id="node15" href="$classToggleEdge.html" title="ToggleEdge" alt="" coords="551,83,641,112"/>
-<area shape="rect" id="node5" href="$classAddEdge.html" title="AddEdge" alt="" coords="5,160,80,189"/>
-<area shape="rect" id="node7" href="$classAddNode.html" title="AddNode" alt="" coords="104,160,179,189"/>
-</map>

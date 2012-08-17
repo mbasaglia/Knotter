@@ -21,33 +21,22 @@ VERSION = 0.3.5
 
 TEMPLATE = app
 
-
-SOURCES += main.cpp \
-        knot_window.cpp \
-    error_recovery.cpp
-
-HEADERS  += knot_window.hpp  \
-    color_widget.hpp \
-    error_recovery.hpp
-
-FORMS    += knot_window.ui
-
-
 OTHER_FILES += \
     COPYING \
     README \
     Doxyfile \
     NEWS
 
-include(dialogs/dialogs.pri)
-include(graphics/graphics.pri)
+UI_DIR = src/generated
+MOC_DIR = src/generated
+RCC_DIR = src/generated
 
-QMAKE_CXXFLAGS += -Werror
+include(src/src.pri)
+include(include/include.pri)
+include(img/img.pri)
+include(translations/translations.pri)
 
-RESOURCES += \
-    icons.qrc
-
-TRANSLATIONS = knotter_it.ts
+# QMAKE_CXXFLAGS += -Werror
 
 
 MYDISTFILES =  COPYING README Doxyfile NEWS icons.qrc Makefile Knotter.pro \

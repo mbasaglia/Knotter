@@ -1,13 +1,13 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'knot_window.hpp'
 **
-** Created: Sat Aug 18 00:08:03 2012
+** Created: Sat Aug 18 00:11:06 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "src/dialogs/knot_window.hpp"
+#include "../dialogs/knot_window.hpp"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'knot_window.hpp' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 63

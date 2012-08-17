@@ -1,13 +1,13 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'gridconfig.hpp'
 **
-** Created: Sat Aug 18 00:08:04 2012
+** Created: Sat Aug 18 00:11:07 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "src/dialogs/gridconfig.hpp"
+#include "../dialogs/gridconfig.hpp"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'gridconfig.hpp' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 63

@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>StyleDialog</class>
+ <widget class="QDialog" name="StyleDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>399</width>
+    <height>420</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Knot Style</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="2" column="0">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Preview</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="KnotView" name="preview">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="interactive">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Brush</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Knot Width</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QDoubleSpinBox" name="outline_width_spinner">
+         <property name="suffix">
+          <string>px</string>
+         </property>
+         <property name="minimum">
+          <double>1.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>128.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>1.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QDoubleSpinBox" name="knot_width_spinner">
+         <property name="suffix">
+          <string>px</string>
+         </property>
+         <property name="minimum">
+          <double>1.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>5.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Outline Width</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="ColorWidget" name="color">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Knot Color</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Outline Color</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="ColorWidget" name="outline_color">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>Outline Pattern</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QComboBox" name="outline_pattern_combo">
+         <property name="iconSize">
+          <size>
+           <width>96</width>
+           <height>4</height>
+          </size>
+         </property>
+         <item>
+          <property name="text">
+           <string>Solid</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../img/icons.qrc">
+            <normaloff>:/img/line_solid.svg</normaloff>:/img/line_solid.svg</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>No Line</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../img/icons.qrc">
+            <normaloff>:/img/line_no.svg</normaloff>:/img/line_no.svg</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Dotted</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../img/icons.qrc">
+            <normaloff>:/img/line_dot.svg</normaloff>:/img/line_dot.svg</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Dashed</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../img/icons.qrc">
+            <normaloff>:/img/line_dash.svg</normaloff>:/img/line_dash.svg</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Dash Dot</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../img/icons.qrc">
+            <normaloff>:/img/line_dash_dot.svg</normaloff>:/img/line_dash_dot.svg</iconset>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Shape</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Curve Control Point Distance</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>Crossing Gap</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Curve Style</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Point Style</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QDoubleSpinBox" name="handle_length_spinner">
+         <property name="suffix">
+          <string>px</string>
+         </property>
+         <property name="value">
+          <double>32.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QDoubleSpinBox" name="crossing_gap_spinner">
+         <property name="suffix">
+          <string>px</string>
+         </property>
+         <property name="value">
+          <double>10.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QDoubleSpinBox" name="cusp_angle_spinner">
+         <property name="suffix">
+          <string>°</string>
+         </property>
+         <property name="maximum">
+          <double>360.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>15.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>225.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Minimum Cusp Angle</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QComboBox" name="style_combo">
+         <item>
+          <property name="text">
+           <string>Pointed Curve</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../img/icons.qrc">
+            <normaloff>:/img/pointcurve.svg</normaloff>:/img/pointcurve.svg</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Ogee</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../img/icons.qrc">
+            <normaloff>:/img/ogee.svg</normaloff>:/img/ogee.svg</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Pointed Polygonal</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../img/icons.qrc">
+            <normaloff>:/img/pointpoly.svg</normaloff>:/img/pointpoly.svg</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Polygonal</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../img/icons.qrc">
+            <normaloff>:/img/poly.svg</normaloff>:/img/poly.svg</iconset>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QComboBox" name="point_combo">
+         <item>
+          <property name="text">
+           <string>Bevel</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Miter</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Round</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KnotView</class>
+   <extends>QGraphicsView</extends>
+   <header>graphics/knotview.hpp</header>
+   <slots>
+    <signal>mouse_moved(QPointF)</signal>
+    <slot>erase_selected()</slot>
+    <slot>link_selected()</slot>
+    <slot>merge_selected()</slot>
+    <slot>select_all()</slot>
+    <slot>redraw()</slot>
+    <slot>reset_view()</slot>
+    <slot>reset_zoom()</slot>
+    <slot>flip_horizontal()</slot>
+    <slot>flip_vertical()</slot>
+    <slot>mode_move_grid()</slot>
+    <slot>toggle_knotline(bool)</slot>
+    <slot>toggle_graph(bool)</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>ColorWidget</class>
+   <extends>QLineEdit</extends>
+   <header>color_widget.hpp</header>
+   <slots>
+    <signal>color_changed(QColor)</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../../img/icons.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>StyleDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>252</x>
+     <y>295</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>StyleDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>320</x>
+     <y>295</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>clicked(QAbstractButton*)</signal>
+   <receiver>StyleDialog</receiver>
+   <slot>clicked(QAbstractButton*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>42</x>
+     <y>286</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>42</x>
+     <y>321</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>clicked(QAbstractButton*)</slot>
+ </slots>
+</ui>
