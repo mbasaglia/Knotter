@@ -117,11 +117,18 @@
     <addaction name="separator"/>
     <addaction name="actionRefresh_Path"/>
    </widget>
+   <widget class="QMenu" name="menu_Debug">
+    <property name="title">
+     <string>&amp;Debug</string>
+    </property>
+    <addaction name="actionForce_Crash"/>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
    <addaction name="menu_View"/>
    <addaction name="menuNo_des"/>
    <addaction name="menu_Knot"/>
+   <addaction name="menu_Debug"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="EditBar">
@@ -453,6 +460,11 @@
     <string>&amp;Move Grid</string>
    </property>
   </action>
+  <action name="actionForce_Crash">
+   <property name="text">
+    <string>Force &amp;Crash</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -472,6 +484,8 @@
     <slot>flip_horizontal()</slot>
     <slot>flip_vertical()</slot>
     <slot>mode_move_grid()</slot>
+    <slot>toggle_knotline(bool)</slot>
+    <slot>toggle_graph(bool)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -911,6 +925,54 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionShow_Graph</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>canvas</receiver>
+   <slot>toggle_graph(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionShow_Knot_line</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>canvas</receiver>
+   <slot>toggle_knotline(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionForce_Crash</sender>
+   <signal>triggered()</signal>
+   <receiver>Knot_Window</receiver>
+   <slot>cause_crash()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>mode_edge_list()</slot>
@@ -929,5 +991,6 @@
   <slot>paste()</slot>
   <slot>enable_grid(bool)</slot>
   <slot>configure_grid()</slot>
+  <slot>cause_crash()</slot>
  </slots>
 </ui>

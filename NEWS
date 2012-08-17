@@ -1,6 +1,13 @@
 This file contains a brief description of Knotter releases,
 showing when features have been added to the program.
 
+Knotter 0.4.0 (beta) - Current development
+--------------------
+* Hide/show graph/knot
+* Initial error recovery
+* Better Flip selection
+* Scale/Rotate selection
+
 Knotter 0.3.0 (beta)
 --------------------
 * Snap to Grid

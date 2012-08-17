@@ -53,6 +53,9 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
         void update_title(bool clean);
 
+        /// cause a segmentation fault, used to test error recovery
+        void cause_crash();
+
     public slots:
         void mode_edge_list();
         void mode_edge();

@@ -60,7 +60,11 @@ void Node::paint(QPainter *painter,
         painter->drawRect(boundingRect());
     }
 
-    if ( highlight )
+    if ( !is_visible() && !highlight)
+        return;
+
+
+    if ( highlight && is_visible() )
     {
         painter->setBrush(Qt::yellow);
         painter->drawEllipse(boundingRect());

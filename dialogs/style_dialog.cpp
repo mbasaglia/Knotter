@@ -178,6 +178,7 @@ void StyleDialog::set_pen_style(Qt::PenStyle ps)
             case Qt::DashDotLine:index = 4; break;
     }
     outline_pattern_combo->setCurrentIndex(index);
+    on_outline_pattern_combo_activated(index); /// \todo find better slot ( that get called progammatically )
 }
 
 void StyleDialog::on_outline_pattern_combo_activated(int index)

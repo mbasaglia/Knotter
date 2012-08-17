@@ -28,12 +28,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFileDialog>
 #include <QMessageBox>
 #include "dialogs/gridconfig.hpp"
+#include "error_recovery.hpp"
 
 Knot_Window::Knot_Window(QWidget *parent) :
     QMainWindow(parent)
 {
     setupUi(this);
 
+    ErrorRecovery::recover = canvas;
 
     action_New->setIcon(QIcon::fromTheme("document-new"));
     action_New->setShortcuts(QKeySequence::New);
@@ -307,5 +309,11 @@ void Knot_Window::update_style_dialog()
 void Knot_Window::update_title(bool clean)
 {
     setWindowTitle("Knotter - "+(filename.isEmpty()?"knot":filename)+(clean?"":"*"));
+}
+
+void Knot_Window::cause_crash()
+{
+    Node *nil = 0;
+    nil->~Node();
 }
 

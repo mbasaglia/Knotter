@@ -83,6 +83,8 @@ void ClipboardItem::paste(KnotView *kv, QPointF p) const
     }
 
     kv->get_undo_stack().endMacro();
+
+    kv->mode_moving_new();
 }
 
 void ClipboardItem::copy(KnotView *kv)

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'knot_window.ui'
 **
-** Created: Fri Aug 17 13:33:38 2012
+** Created: Fri Aug 17 17:27:48 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -64,6 +64,7 @@ public:
     QAction *action_Horizontal_Flip;
     QAction *action_Vertical_Flip;
     QAction *action_Move_Grid;
+    QAction *actionForce_Crash;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     KnotView *canvas;
@@ -75,6 +76,7 @@ public:
     QMenu *menu_Zoom;
     QMenu *menu_Toolbars;
     QMenu *menu_Knot;
+    QMenu *menu_Debug;
     QStatusBar *statusbar;
     QToolBar *EditBar;
     QToolBar *MainToolBar;
@@ -198,6 +200,8 @@ public:
         QIcon icon8;
         icon8.addFile(QString::fromUtf8(":/img/move_grid.svg"), QSize(), QIcon::Normal, QIcon::Off);
         action_Move_Grid->setIcon(icon8);
+        actionForce_Crash = new QAction(Knot_Window);
+        actionForce_Crash->setObjectName(QString::fromUtf8("actionForce_Crash"));
         centralWidget = new QWidget(Knot_Window);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -227,6 +231,8 @@ public:
         menu_Toolbars->setObjectName(QString::fromUtf8("menu_Toolbars"));
         menu_Knot = new QMenu(menuBar);
         menu_Knot->setObjectName(QString::fromUtf8("menu_Knot"));
+        menu_Debug = new QMenu(menuBar);
+        menu_Debug->setObjectName(QString::fromUtf8("menu_Debug"));
         Knot_Window->setMenuBar(menuBar);
         statusbar = new QStatusBar(Knot_Window);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -245,6 +251,7 @@ public:
         menuBar->addAction(menu_View->menuAction());
         menuBar->addAction(menuNo_des->menuAction());
         menuBar->addAction(menu_Knot->menuAction());
+        menuBar->addAction(menu_Debug->menuAction());
         menu_File->addAction(action_New);
         menu_File->addAction(action_Open);
         menu_File->addSeparator();
@@ -294,6 +301,7 @@ public:
         menu_Knot->addAction(actionEdge_List);
         menu_Knot->addSeparator();
         menu_Knot->addAction(actionRefresh_Path);
+        menu_Debug->addAction(actionForce_Crash);
         EditBar->addAction(actionInsert_Edges);
         EditBar->addAction(actionEdge_List);
         EditBar->addSeparator();
@@ -342,6 +350,9 @@ public:
         QObject::connect(action_Horizontal_Flip, SIGNAL(triggered()), canvas, SLOT(flip_horizontal()));
         QObject::connect(action_Vertical_Flip, SIGNAL(triggered()), canvas, SLOT(flip_vertical()));
         QObject::connect(action_Move_Grid, SIGNAL(triggered()), canvas, SLOT(mode_move_grid()));
+        QObject::connect(actionShow_Graph, SIGNAL(triggered(bool)), canvas, SLOT(toggle_graph(bool)));
+        QObject::connect(actionShow_Knot_line, SIGNAL(triggered(bool)), canvas, SLOT(toggle_knotline(bool)));
+        QObject::connect(actionForce_Crash, SIGNAL(triggered()), Knot_Window, SLOT(cause_crash()));
 
         QMetaObject::connectSlotsByName(Knot_Window);
     } // setupUi
@@ -399,6 +410,7 @@ public:
         action_Horizontal_Flip->setText(QApplication::translate("Knot_Window", "&Horizontal Flip", 0, QApplication::UnicodeUTF8));
         action_Vertical_Flip->setText(QApplication::translate("Knot_Window", "&Vertical Flip", 0, QApplication::UnicodeUTF8));
         action_Move_Grid->setText(QApplication::translate("Knot_Window", "&Move Grid", 0, QApplication::UnicodeUTF8));
+        actionForce_Crash->setText(QApplication::translate("Knot_Window", "Force &Crash", 0, QApplication::UnicodeUTF8));
         menu_File->setTitle(QApplication::translate("Knot_Window", "&File", 0, QApplication::UnicodeUTF8));
         menuNo_des->setTitle(QApplication::translate("Knot_Window", "No&des", 0, QApplication::UnicodeUTF8));
         menu_Edit->setTitle(QApplication::translate("Knot_Window", "&Edit", 0, QApplication::UnicodeUTF8));
@@ -406,6 +418,7 @@ public:
         menu_Zoom->setTitle(QApplication::translate("Knot_Window", "&Zoom", 0, QApplication::UnicodeUTF8));
         menu_Toolbars->setTitle(QApplication::translate("Knot_Window", "&Toolbars", 0, QApplication::UnicodeUTF8));
         menu_Knot->setTitle(QApplication::translate("Knot_Window", "&Knot", 0, QApplication::UnicodeUTF8));
+        menu_Debug->setTitle(QApplication::translate("Knot_Window", "&Debug", 0, QApplication::UnicodeUTF8));
         EditBar->setWindowTitle(QApplication::translate("Knot_Window", "EditBar", 0, QApplication::UnicodeUTF8));
         MainToolBar->setWindowTitle(QApplication::translate("Knot_Window", "MainToolBar", 0, QApplication::UnicodeUTF8));
     } // retranslateUi

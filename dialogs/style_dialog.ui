@@ -148,29 +148,55 @@
        </item>
        <item row="4" column="1">
         <widget class="QComboBox" name="outline_pattern_combo">
+         <property name="iconSize">
+          <size>
+           <width>96</width>
+           <height>4</height>
+          </size>
+         </property>
          <item>
           <property name="text">
            <string>Solid</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../icons.qrc">
+            <normaloff>:/img/line_solid.svg</normaloff>:/img/line_solid.svg</iconset>
           </property>
          </item>
          <item>
           <property name="text">
            <string>No Line</string>
           </property>
+          <property name="icon">
+           <iconset resource="../icons.qrc">
+            <normaloff>:/img/line_no.svg</normaloff>:/img/line_no.svg</iconset>
+          </property>
          </item>
          <item>
           <property name="text">
            <string>Dotted</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../icons.qrc">
+            <normaloff>:/img/line_dot.svg</normaloff>:/img/line_dot.svg</iconset>
           </property>
          </item>
          <item>
           <property name="text">
            <string>Dashed</string>
           </property>
+          <property name="icon">
+           <iconset resource="../icons.qrc">
+            <normaloff>:/img/line_dash.svg</normaloff>:/img/line_dash.svg</iconset>
+          </property>
          </item>
          <item>
           <property name="text">
            <string>Dash Dot</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../icons.qrc">
+            <normaloff>:/img/line_dash_dot.svg</normaloff>:/img/line_dash_dot.svg</iconset>
           </property>
          </item>
         </widget>
@@ -259,20 +285,36 @@
           <property name="text">
            <string>Pointed Curve</string>
           </property>
+          <property name="icon">
+           <iconset resource="../icons.qrc">
+            <normaloff>:/img/pointcurve.svg</normaloff>:/img/pointcurve.svg</iconset>
+          </property>
          </item>
          <item>
           <property name="text">
            <string>Ogee</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../icons.qrc">
+            <normaloff>:/img/ogee.svg</normaloff>:/img/ogee.svg</iconset>
           </property>
          </item>
          <item>
           <property name="text">
            <string>Pointed Polygonal</string>
           </property>
+          <property name="icon">
+           <iconset resource="../icons.qrc">
+            <normaloff>:/img/pointpoly.svg</normaloff>:/img/pointpoly.svg</iconset>
+          </property>
          </item>
          <item>
           <property name="text">
            <string>Polygonal</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../icons.qrc">
+            <normaloff>:/img/poly.svg</normaloff>:/img/poly.svg</iconset>
           </property>
          </item>
         </widget>
@@ -316,6 +358,11 @@
     <slot>redraw()</slot>
     <slot>reset_view()</slot>
     <slot>reset_zoom()</slot>
+    <slot>flip_horizontal()</slot>
+    <slot>flip_vertical()</slot>
+    <slot>mode_move_grid()</slot>
+    <slot>toggle_knotline(bool)</slot>
+    <slot>toggle_graph(bool)</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -327,7 +374,9 @@
    </slots>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../icons.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

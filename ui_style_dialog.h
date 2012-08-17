@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'style_dialog.ui'
 **
-** Created: Fri Aug 17 13:33:38 2012
+** Created: Fri Aug 17 17:27:48 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -161,7 +161,23 @@ public:
         gridLayout_3->addWidget(label_10, 4, 0, 1, 1);
 
         outline_pattern_combo = new QComboBox(tab);
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/img/line_solid.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        outline_pattern_combo->addItem(icon, QString());
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/img/line_no.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        outline_pattern_combo->addItem(icon1, QString());
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8(":/img/line_dot.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        outline_pattern_combo->addItem(icon2, QString());
+        QIcon icon3;
+        icon3.addFile(QString::fromUtf8(":/img/line_dash.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        outline_pattern_combo->addItem(icon3, QString());
+        QIcon icon4;
+        icon4.addFile(QString::fromUtf8(":/img/line_dash_dot.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        outline_pattern_combo->addItem(icon4, QString());
         outline_pattern_combo->setObjectName(QString::fromUtf8("outline_pattern_combo"));
+        outline_pattern_combo->setIconSize(QSize(96, 4));
 
         gridLayout_3->addWidget(outline_pattern_combo, 4, 1, 1, 1);
 
@@ -216,6 +232,18 @@ public:
         gridLayout_4->addWidget(label_6, 2, 0, 1, 1);
 
         style_combo = new QComboBox(tab_2);
+        QIcon icon5;
+        icon5.addFile(QString::fromUtf8(":/img/pointcurve.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        style_combo->addItem(icon5, QString());
+        QIcon icon6;
+        icon6.addFile(QString::fromUtf8(":/img/ogee.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        style_combo->addItem(icon6, QString());
+        QIcon icon7;
+        icon7.addFile(QString::fromUtf8(":/img/pointpoly.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        style_combo->addItem(icon7, QString());
+        QIcon icon8;
+        icon8.addFile(QString::fromUtf8(":/img/poly.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        style_combo->addItem(icon8, QString());
         style_combo->setObjectName(QString::fromUtf8("style_combo"));
 
         gridLayout_4->addWidget(style_combo, 4, 1, 1, 1);
@@ -252,14 +280,12 @@ public:
         label_3->setText(QApplication::translate("StyleDialog", "Knot Color", 0, QApplication::UnicodeUTF8));
         label_4->setText(QApplication::translate("StyleDialog", "Outline Color", 0, QApplication::UnicodeUTF8));
         label_10->setText(QApplication::translate("StyleDialog", "Outline Pattern", 0, QApplication::UnicodeUTF8));
-        outline_pattern_combo->clear();
-        outline_pattern_combo->insertItems(0, QStringList()
-         << QApplication::translate("StyleDialog", "Solid", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("StyleDialog", "No Line", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("StyleDialog", "Dotted", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("StyleDialog", "Dashed", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("StyleDialog", "Dash Dot", 0, QApplication::UnicodeUTF8)
-        );
+        outline_pattern_combo->setItemText(0, QApplication::translate("StyleDialog", "Solid", 0, QApplication::UnicodeUTF8));
+        outline_pattern_combo->setItemText(1, QApplication::translate("StyleDialog", "No Line", 0, QApplication::UnicodeUTF8));
+        outline_pattern_combo->setItemText(2, QApplication::translate("StyleDialog", "Dotted", 0, QApplication::UnicodeUTF8));
+        outline_pattern_combo->setItemText(3, QApplication::translate("StyleDialog", "Dashed", 0, QApplication::UnicodeUTF8));
+        outline_pattern_combo->setItemText(4, QApplication::translate("StyleDialog", "Dash Dot", 0, QApplication::UnicodeUTF8));
+
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("StyleDialog", "Brush", 0, QApplication::UnicodeUTF8));
         label_5->setText(QApplication::translate("StyleDialog", "Curve Control Point Distance", 0, QApplication::UnicodeUTF8));
         label_8->setText(QApplication::translate("StyleDialog", "Crossing Gap", 0, QApplication::UnicodeUTF8));
@@ -269,13 +295,11 @@ public:
         crossing_gap_spinner->setSuffix(QApplication::translate("StyleDialog", "px", 0, QApplication::UnicodeUTF8));
         cusp_angle_spinner->setSuffix(QApplication::translate("StyleDialog", "\302\260", 0, QApplication::UnicodeUTF8));
         label_6->setText(QApplication::translate("StyleDialog", "Minimum Cusp Angle", 0, QApplication::UnicodeUTF8));
-        style_combo->clear();
-        style_combo->insertItems(0, QStringList()
-         << QApplication::translate("StyleDialog", "Pointed Curve", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("StyleDialog", "Ogee", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("StyleDialog", "Pointed Polygonal", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("StyleDialog", "Polygonal", 0, QApplication::UnicodeUTF8)
-        );
+        style_combo->setItemText(0, QApplication::translate("StyleDialog", "Pointed Curve", 0, QApplication::UnicodeUTF8));
+        style_combo->setItemText(1, QApplication::translate("StyleDialog", "Ogee", 0, QApplication::UnicodeUTF8));
+        style_combo->setItemText(2, QApplication::translate("StyleDialog", "Pointed Polygonal", 0, QApplication::UnicodeUTF8));
+        style_combo->setItemText(3, QApplication::translate("StyleDialog", "Polygonal", 0, QApplication::UnicodeUTF8));
+
         point_combo->clear();
         point_combo->insertItems(0, QStringList()
          << QApplication::translate("StyleDialog", "Bevel", 0, QApplication::UnicodeUTF8)

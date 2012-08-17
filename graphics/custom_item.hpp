@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include <QGraphicsItem>
+#include "grid_scene.hpp"
 
 class Edge;
 class Node;
@@ -38,6 +39,12 @@ class CustomItem : public QGraphicsItem
     public:
         bool highlight;
         explicit CustomItem ( bool highlight = false ) : highlight ( highlight ) {}
+
+        bool is_visible() const
+        {
+            GridScene *gs = dynamic_cast<GridScene*>(scene());
+            return gs && gs->show_graph;
+        }
 };
 
 #endif // CUSTOM_ITEM_HPP

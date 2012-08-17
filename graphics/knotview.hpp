@@ -148,6 +148,7 @@ class KnotView : public QGraphicsView
         void mode_edit_node_edge();
         void mode_edge_chain();
         void mode_move_grid();
+        void mode_moving_new();
 
         void erase_selected();
         void link_selected();
@@ -163,6 +164,9 @@ class KnotView : public QGraphicsView
 
         void flip_horizontal();
         void flip_vertical();
+
+        void toggle_knotline(bool visible);
+        void toggle_graph ( bool visible );
 
     signals:
         void mouse_moved ( QPointF );

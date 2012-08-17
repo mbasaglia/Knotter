@@ -17,4 +17,5 @@ HEADERS  += \
     graphics/knotgraph.hpp \
     graphics/knot_curve_style.hpp \
     graphics/clipboard.hpp \
-    graphics/snapping_grid.hpp
+    graphics/snapping_grid.hpp \
+    graphics/grid_scene.hpp

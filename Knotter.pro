@@ -23,10 +23,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-        knot_window.cpp
+        knot_window.cpp \
+    error_recovery.cpp
 
 HEADERS  += knot_window.hpp  \
-    color_widget.hpp
+    color_widget.hpp \
+    error_recovery.hpp
 
 FORMS    += knot_window.ui
 
@@ -38,7 +40,6 @@ OTHER_FILES += \
     NEWS
 
 include(dialogs/dialogs.pri)
-include(img/img.pri)
 include(graphics/graphics.pri)
 
 QMAKE_CXXFLAGS += -Werror

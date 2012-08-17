@@ -32,25 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QXmlStreamWriter>
 #include <QDomDocument>
 #include <QSvgGenerator>
-
-/// \todo move to own file
-class GridScene : public QGraphicsScene
-{
-    public:
-        snapping_grid* grid;
-
-        GridScene ( snapping_grid* grid ) : grid ( grid ) {}
-
-    protected:
-        void drawBackground(QPainter *painter, const QRectF &rect)
-        {
-            if ( grid )
-                grid->render(painter,rect);
-        }
-};
-/**
-    \todo insert fixed shapes
-*/
+#include "grid_scene.hpp"
 
 KnotView::KnotView( QWidget* parent )
     : QGraphicsView(parent), mode(EDIT_NODE_EDGE),
@@ -176,8 +158,6 @@ void KnotView::mouseDoubleClickEvent(QMouseEvent * event)
 {
     if ( !isInteractive() ) return;
 
-    /// \todo make auto-simmetry ( top-bottom left-right, quadrature, rotation )
-
     if ( event->button() == Qt::LeftButton )
     {
         QPointF p = get_mouse_point ( event );
@@ -220,6 +200,10 @@ void KnotView::mousePressEvent(QMouseEvent *event)
                 node = node_at(p);
 
             Node* next_node = node;
+
+            if ( last_node && last_node == next_node )
+                return;
+
             if ( !next_node )
             {
                 node_list pl;
@@ -243,21 +227,51 @@ void KnotView::mousePressEvent(QMouseEvent *event)
             return;
         }
 
-
         if ( node )
         {
-            node->setSelected(true);
-            mouse_status = MOVING;
-            snap(p,event);
-            startpos = oldpos = p;
+            if ( !node->isSelected() )
+            {
+                if ( !( event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier) ) )
+                    scene()->clearSelection();
+                // not selected, select
+                node->setSelected(true);
+            }
+            else if ( event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier) )
+            {
+                // selected, toggling selection
+                node->setSelected(false);
+            }
+
+            if ( node->isSelected() )
+            {
+                mouse_status = MOVING;
+                snap(p,event);
+                startpos = oldpos = p;
+            }
         }
         else if ( edge )
         {
-            edge->vertex1()->setSelected(true);
-            edge->vertex2()->setSelected(true);
-            mouse_status = MOVING;
-            snap(p,event);
-            startpos = oldpos = p;
+            if ( ! (  edge->vertex1()->isSelected() && edge->vertex2()->isSelected() ) )
+            {
+                if ( !( event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier) ) )
+                    scene()->clearSelection();
+                // not selected, select
+                edge->vertex1()->setSelected(true);
+                edge->vertex2()->setSelected(true);
+            }
+            else if ( event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier) )
+            {
+                // selected, toggling selection
+                edge->vertex1()->setSelected(false);
+                edge->vertex2()->setSelected(false);
+            }
+
+            if ( edge->vertex1()->isSelected() )
+            {
+                mouse_status = MOVING;
+                snap(p,event);
+                startpos = oldpos = p;
+            }
         }
         else if ( !( event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier) ) )
             scene()->clearSelection();
@@ -388,25 +402,14 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
         return;
     }
 
-    Node* node = node_at(p);
-    Edge* edge = edge_at(p);
+    /*Node* node = node_at(p);
+    Edge* edge = edge_at(p);*/
 
     if ( mouse_status == MOVING )
     {
         snap(p,event);
         if ( p != startpos )
             move_nodes(p);
-
-        if ( !( event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier) ) )
-            scene()->clearSelection();
-
-        if ( node )
-            node->setSelected(!node->isSelected());
-        else if ( edge )
-        {
-            edge->vertex1()->setSelected(!edge->vertex1()->isSelected());
-            edge->vertex2()->setSelected(!edge->vertex1()->isSelected());
-        }
     }
     else if ( mouse_status == SELECTING )
     {
@@ -455,6 +458,38 @@ void KnotView::wheelEvent(QWheelEvent *event)
             zoom(0.8);
         else
             zoom(1.25);
+    }
+    else if ( mouse_status == MOVING )
+    {
+
+        node_list sel = selected_nodes();
+        if ( sel.size() > 1 )
+        {
+
+            if ( event->modifiers() & Qt::ShiftModifier )
+            {
+                double angle = ( event->delta() < 0 ? -15 : +15 );
+                QPointF origin = sel[0]->pos();
+                foreach ( Node* selnode, sel )
+                {
+                    QLineF vector ( origin, selnode->pos() );
+                    vector.setAngle(vector.angle()+angle);
+                    selnode->setPos(vector.p2());
+                }
+            }
+            else
+            {
+                double factor = ( event->delta() < 0 ? 0.5 : 2 );
+                QPointF origin = sel[0]->pos();
+                foreach ( Node* selnode, sel )
+                {
+                    QLineF vector ( origin, selnode->pos() );
+                    vector.setLength(vector.length()*factor);
+                    selnode->setPos(vector.p2());
+                }
+            }
+            redraw(true);
+        }
     }
     else // toggle egde type
     {
@@ -550,7 +585,7 @@ void KnotView::clear()
     mode_change();
 }
 
-/// \todo Grid I/O
+/// \todo Grid I/O (?)
 
 void KnotView::writeXML(QIODevice *device) const
 {
@@ -566,11 +601,25 @@ void KnotView::writeXML(QIODevice *device) const
             xml.writeStartElement("stroke");
                 xml.writeAttribute("width",QString::number(get_width()));
                 xml.writeAttribute("color",get_brush().color().name());
+                xml.writeAttribute("alpha",QString::number(get_brush().color().alpha()));
             xml.writeEndElement();
             xml.writeStartElement("outline");
                 QPen pen = get_pen();
                 xml.writeAttribute("width",QString::number(pen.widthF()));
                 xml.writeAttribute("color",pen.color().name());
+                xml.writeAttribute("alpha",QString::number(pen.color().alpha()));
+                QString penstyle;
+                switch ( pen.style() )
+                {
+                    default:
+                    case Qt::NoPen:         penstyle = "nothing";       break;
+                    case Qt::SolidLine:     penstyle = "solid";         break;
+                    case Qt::DotLine:       penstyle = "dot";           break;
+                    case Qt::DashLine:      penstyle = "dash";          break;
+                    case Qt::DashDotLine:   penstyle = "dash_dot";      break;
+                    case Qt::DashDotDotLine:penstyle = "dash_dot_dot";  break;
+                }
+                xml.writeAttribute("style",penstyle);
             xml.writeEndElement();
             xml.writeStartElement("cusp");
                 xml.writeTextElement("style",knot_curve_styler::name(knot.get_curve_style()));
@@ -714,12 +763,31 @@ bool KnotView::readXML(QIODevice *device)
     {
         QDomElement stroke = style.firstChildElement("stroke");
         set_width(stroke.attribute("width","5").toDouble());
-        set_brush(QColor(stroke.attribute("color","black")));
+        QColor stroke_col(stroke.attribute("color","black"));
+        stroke_col.setAlpha(stroke.attribute("alpha","255").toInt());
+        set_brush(stroke_col);
 
         QDomElement outline = style.firstChildElement("outline");
         QPen p;
-        p.setColor(QColor(outline.attribute("color","gray")));
+        QColor pen_col(outline.attribute("color","gray"));
+        pen_col.setAlpha(outline.attribute("alpha","255").toInt());
+        p.setColor(pen_col);
         p.setWidth(outline.attribute("width","1").toDouble());
+
+        QString pstyle_name = outline.attribute("style","solid");
+        if ( pstyle_name == "solid" )
+            p.setStyle ( Qt::SolidLine );
+        else if ( pstyle_name == "dot" )
+            p.setStyle ( Qt::DotLine );
+        else if ( pstyle_name == "dash" )
+            p.setStyle ( Qt::DashLine );
+        else if ( pstyle_name == "dash_dot" )
+            p.setStyle ( Qt::DashDotLine );
+        else if ( pstyle_name == "dash_dot_dot" )
+            p.setStyle ( Qt::DashDotDotLine );
+        else
+            p.setStyle ( Qt::NoPen );
+
         set_pen(p);
 
         QDomElement cusp = style.firstChildElement("cusp");
@@ -1057,6 +1125,23 @@ void KnotView::mode_move_grid()
     mode_change();
 }
 
+void KnotView::mode_moving_new()
+{
+    mode_edit_node_edge();
+
+    node_list sn = selected_nodes();
+
+    if ( sn.size() == 0 )
+        return;
+
+    mouse_status = MOVING;
+
+    if ( grid.is_enabled() )
+        QCursor::setPos( mapToGlobal( mapFromScene( sn[0]->pos() ) ) );
+
+    oldpos = mapToScene ( mapFromGlobal ( QCursor::pos() ) );
+}
+
 void KnotView::erase_selected()
 {
     //if ( mode == EDIT_NODE )
@@ -1162,15 +1247,55 @@ void KnotView::reset_zoom()
 
 void KnotView::flip_horizontal()
 {
-    foreach(Node* node,selected_nodes())
-        node->setX(-node->x());
+    node_list sel = selected_nodes();
+
+    if ( sel.size() < 2 )
+        return;
+
+    QPointF origin = sel[0]->pos();
+    foreach ( Node* selnode, sel )
+    {
+        QLineF vector ( origin, selnode->pos() );
+        vector.translate(-origin);
+        vector.setP2(QPointF(-vector.p2().x(),vector.p2().y()));
+        vector.translate(origin);
+        selnode->setPos(vector.p2());
+    }
+
     redraw(true);
 }
 
 void KnotView::flip_vertical()
 {
-    foreach(Node* node,selected_nodes())
-        node->setY(-node->y());
+    node_list sel = selected_nodes();
+
+    if ( sel.size() < 2 )
+        return;
+
+    QPointF origin = sel[0]->pos();
+    foreach ( Node* selnode, sel )
+    {
+        QLineF vector ( origin, selnode->pos() );
+        vector.translate(-origin);
+        vector.setP2(QPointF(vector.p2().x(),-vector.p2().y()));
+        vector.translate(origin);
+        selnode->setPos(vector.p2());
+    }
+
     redraw(true);
+}
+
+void KnotView::toggle_knotline(bool visible)
+{
+    if ( visible && !knot.scene() )
+        scene()->addItem(&knot);
+    else if ( !visible && knot.scene() )
+        scene()->removeItem(&knot);
+
+}
+
+void KnotView::toggle_graph(bool visible)
+{
+    dynamic_cast<GridScene*>(scene())->show_graph = visible;
 }
 

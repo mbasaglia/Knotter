@@ -33,8 +33,8 @@ Edge::Edge(Node *start, Node *end, type_type type)
 
 QRectF Edge::boundingRect() const
 {
-    return QRectF(start->pos(),end->pos()).normalized();
-    /*double x1 = std::min( start->pos().x(), end->pos().x() );
+    //return QRectF(start->pos(),end->pos()).normalized();
+    double x1 = std::min( start->pos().x(), end->pos().x() );
     double x2 = std::max( start->pos().x(), end->pos().x() );
     double y1 = std::min( start->pos().y(), end->pos().y() );
     double y2 = std::max( start->pos().y(), end->pos().y() );
@@ -50,17 +50,20 @@ QRectF Edge::boundingRect() const
         y1-=4;
         dy+=8;
     }
-    return QRectF ( x1, y1, dx, dy );*/
+    return QRectF ( x1, y1, dx, dy );
 }
 
 void Edge::paint(QPainter *painter,
                 const QStyleOptionGraphicsItem *,
                 QWidget *)
 {
+    if ( !is_visible() && !highlight)
+        return;
 
     QPen pen(Qt::blue,2);
 
-    if ( highlight )
+
+    if ( highlight && is_visible() )
     {
         pen.setColor(Qt::cyan);
         pen.setWidth(pen.width()*2);

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'knotview.hpp'
 **
-** Created: Fri Aug 17 13:34:12 2012
+** Created: Fri Aug 17 17:28:01 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_KnotView[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      15,   14, // methods
+      18,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -38,16 +38,19 @@ static const uint qt_meta_data_KnotView[] = {
       53,    9,    9,    9, 0x0a,
       71,    9,    9,    9, 0x0a,
       88,    9,    9,    9, 0x0a,
-     105,    9,    9,    9, 0x0a,
-     121,    9,    9,    9, 0x0a,
-     138,    9,    9,    9, 0x0a,
-     168,  151,    9,    9, 0x0a,
-     181,    9,    9,    9, 0x2a,
-     190,    9,    9,    9, 0x0a,
-     210,  203,    9,    9, 0x0a,
-     223,    9,    9,    9, 0x0a,
-     236,    9,    9,    9, 0x0a,
+     106,    9,    9,    9, 0x0a,
+     123,    9,    9,    9, 0x0a,
+     139,    9,    9,    9, 0x0a,
+     156,    9,    9,    9, 0x0a,
+     186,  169,    9,    9, 0x0a,
+     199,    9,    9,    9, 0x2a,
+     208,    9,    9,    9, 0x0a,
+     228,  221,    9,    9, 0x0a,
+     241,    9,    9,    9, 0x0a,
      254,    9,    9,    9, 0x0a,
+     272,    9,    9,    9, 0x0a,
+     296,  288,    9,    9, 0x0a,
+     318,  288,    9,    9, 0x0a,
 
        0        // eod
 };
@@ -55,12 +58,14 @@ static const uint qt_meta_data_KnotView[] = {
 static const char qt_meta_stringdata_KnotView[] = {
     "KnotView\0\0mouse_moved(QPointF)\0"
     "mode_edit_node_edge()\0mode_edge_chain()\0"
-    "mode_move_grid()\0erase_selected()\0"
-    "link_selected()\0merge_selected()\0"
-    "select_all()\0recalculate_node\0"
-    "redraw(bool)\0redraw()\0reset_view()\0"
-    "factor\0zoom(double)\0reset_zoom()\0"
-    "flip_horizontal()\0flip_vertical()\0"
+    "mode_move_grid()\0mode_moving_new()\0"
+    "erase_selected()\0link_selected()\0"
+    "merge_selected()\0select_all()\0"
+    "recalculate_node\0redraw(bool)\0redraw()\0"
+    "reset_view()\0factor\0zoom(double)\0"
+    "reset_zoom()\0flip_horizontal()\0"
+    "flip_vertical()\0visible\0toggle_knotline(bool)\0"
+    "toggle_graph(bool)\0"
 };
 
 void KnotView::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -73,17 +78,20 @@ void KnotView::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 1: _t->mode_edit_node_edge(); break;
         case 2: _t->mode_edge_chain(); break;
         case 3: _t->mode_move_grid(); break;
-        case 4: _t->erase_selected(); break;
-        case 5: _t->link_selected(); break;
-        case 6: _t->merge_selected(); break;
-        case 7: _t->select_all(); break;
-        case 8: _t->redraw((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 9: _t->redraw(); break;
-        case 10: _t->reset_view(); break;
-        case 11: _t->zoom((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 12: _t->reset_zoom(); break;
-        case 13: _t->flip_horizontal(); break;
-        case 14: _t->flip_vertical(); break;
+        case 4: _t->mode_moving_new(); break;
+        case 5: _t->erase_selected(); break;
+        case 6: _t->link_selected(); break;
+        case 7: _t->merge_selected(); break;
+        case 8: _t->select_all(); break;
+        case 9: _t->redraw((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 10: _t->redraw(); break;
+        case 11: _t->reset_view(); break;
+        case 12: _t->zoom((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 13: _t->reset_zoom(); break;
+        case 14: _t->flip_horizontal(); break;
+        case 15: _t->flip_vertical(); break;
+        case 16: _t->toggle_knotline((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 17: _t->toggle_graph((*reinterpret_cast< bool(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -121,9 +129,9 @@ int KnotView::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 15)
+        if (_id < 18)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 18;
     }
     return _id;
 }

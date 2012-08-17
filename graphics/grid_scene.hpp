@@ -23,24 +23,24 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
-#include <QtGui/QApplication>
-#include "knot_window.hpp"
-#include "error_recovery.hpp"
-
-#include <QTranslator>
-int main(int argc, char *argv[])
+#ifndef GRID_VIEW_HPP
+#define GRID_VIEW_HPP
+#include <QGraphicsScene>
+#include "snapping_grid.hpp"
+class GridScene : public QGraphicsScene
 {
-    ErrorRecovery::initialize();
+    public:
+        snapping_grid* grid;
+        bool           show_graph;
 
-    QApplication a(argc, argv);
+        GridScene ( snapping_grid* grid ) : grid ( grid ), show_graph(true) {}
 
-    /*QTranslator myappTranslator;
-    myappTranslator.load("knotter_it");
-    a.installTranslator(&myappTranslator);*/
+    protected:
+        void drawBackground(QPainter *painter, const QRectF &rect)
+        {
+            if ( grid )
+                grid->render(painter,rect);
+        }
+};
 
-    Knot_Window w;
-    w.show();
-
-    
-    return a.exec();
-}
+#endif // GRID_VIEW_HPP
