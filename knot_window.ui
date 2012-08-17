@@ -54,8 +54,6 @@
     <addaction name="action_Erase"/>
     <addaction name="action_Merge"/>
     <addaction name="separator"/>
-    <addaction name="actionInsert_S_quare"/>
-    <addaction name="actionInsert_Triangle"/>
     <addaction name="separator"/>
     <addaction name="action_Horizontal_Flip"/>
     <addaction name="action_Vertical_Flip"/>
@@ -369,22 +367,6 @@
   <action name="action_Style">
    <property name="text">
     <string>&amp;Style...</string>
-   </property>
-  </action>
-  <action name="actionInsert_S_quare">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Insert S&amp;quare</string>
-   </property>
-  </action>
-  <action name="actionInsert_Triangle">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Insert &amp;Triangle</string>
    </property>
   </action>
   <action name="actionCut">

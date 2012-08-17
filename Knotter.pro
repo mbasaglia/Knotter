@@ -17,7 +17,7 @@ QT       += core gui xml svg
 
 
 TARGET = knotter
-VERSION = 0.3.0
+VERSION = 0.3.5
 
 TEMPLATE = app
 
@@ -51,7 +51,7 @@ TRANSLATIONS = knotter_it.ts
 
 
 MYDISTFILES =  COPYING README Doxyfile NEWS icons.qrc Makefile Knotter.pro \
-                `ls *.hpp *.cpp ` dialogs img graphics
+                `ls *.hpp *.cpp *.ui ` dialogs img graphics
 MYDIST_NAME = "$$TARGET-$${VERSION}"
 MYDIST_TAR = "$${MYDIST_NAME}.tar"
 MYDIST_TAR_GZ = "$${MYDIST_TAR}.gz"
@@ -63,7 +63,7 @@ mydist.commands =                                                               
                     $(CHK_DIR_EXISTS) $$MYDIST_TMP ||                                       \
                     $(MKDIR) $$MYDIST_TMP                                                   \
                 ) &&                                                                        \
-                $(COPY_FILE) -r --parents $$MYDISTFILES  $$MYDIST_TMP &&                       \
+                $(COPY_FILE) -r --parents $$MYDISTFILES  $$MYDIST_TMP &&                    \
                 (                                                                           \
                     cd `dirname $$MYDIST_TMP`  &&                                           \
                     $(TAR) $$MYDIST_TAR $$MYDIST_NAME &&                                    \

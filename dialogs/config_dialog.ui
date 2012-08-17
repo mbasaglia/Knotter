@@ -126,7 +126,7 @@
       <string>Editing</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
-      <item row="1" column="0" colspan="2">
+      <item row="0" column="0" colspan="2">
        <widget class="QCheckBox" name="fluid_check">
         <property name="enabled">
          <bool>false</bool>
@@ -140,42 +140,6 @@
         <property name="checked">
          <bool>true</bool>
         </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>Symmetric Editing</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QComboBox" name="comboBox">
-        <item>
-         <property name="text">
-          <string>Disabled</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Horizontal</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Vertical</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Quadrant</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Central</string>
-         </property>
-        </item>
        </widget>
       </item>
      </layout>

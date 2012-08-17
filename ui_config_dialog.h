@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'config_dialog.ui'
 **
-** Created: Fri Aug 17 16:47:38 2012
-**      by: Qt User Interface Compiler version 4.8.0
+** Created: Fri Aug 17 19:24:07 2012
+**      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -41,8 +41,6 @@ public:
     QGroupBox *groupBox_2;
     QGridLayout *gridLayout_3;
     QCheckBox *fluid_check;
-    QLabel *label_4;
-    QComboBox *comboBox;
 
     void setupUi(QDialog *config_dialog)
     {
@@ -115,17 +113,7 @@ public:
         fluid_check->setEnabled(false);
         fluid_check->setChecked(true);
 
-        gridLayout_3->addWidget(fluid_check, 1, 0, 1, 2);
-
-        label_4 = new QLabel(groupBox_2);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
-
-        gridLayout_3->addWidget(label_4, 0, 0, 1, 1);
-
-        comboBox = new QComboBox(groupBox_2);
-        comboBox->setObjectName(QString::fromUtf8("comboBox"));
-
-        gridLayout_3->addWidget(comboBox, 0, 1, 1, 1);
+        gridLayout_3->addWidget(fluid_check, 0, 0, 1, 2);
 
 
         gridLayout_2->addWidget(groupBox_2, 2, 0, 1, 1);
@@ -164,15 +152,6 @@ public:
         fluid_check->setToolTip(QApplication::translate("config_dialog", "Enable Knot redraw while moving nodes", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         fluid_check->setText(QApplication::translate("config_dialog", "Fluid refresh", 0, QApplication::UnicodeUTF8));
-        label_4->setText(QApplication::translate("config_dialog", "Symmetric Editing", 0, QApplication::UnicodeUTF8));
-        comboBox->clear();
-        comboBox->insertItems(0, QStringList()
-         << QApplication::translate("config_dialog", "Disabled", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("config_dialog", "Horizontal", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("config_dialog", "Vertical", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("config_dialog", "Quadrant", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("config_dialog", "Central", 0, QApplication::UnicodeUTF8)
-        );
     } // retranslateUi
 
 };

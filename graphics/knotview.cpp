@@ -172,6 +172,8 @@ void KnotView::mouseDoubleClickEvent(QMouseEvent * event)
 
         if ( !node )
             add_node_or_break_edge(p);
+
+        redraw(true);
     }
 
 }
@@ -576,16 +578,10 @@ void KnotView::clear()
     scene()->clear();
     scene()->addItem(&knot);
     knot.clear();
-    /*foreach ( QGraphicsItem* itm, scene()->items() )
-    {
-        Node* nod = dynamic_cast<Node*>(itm);
-        if ( nod )
-            do_remove_node(nod);
-    }*/
+
     mode_change();
 }
 
-/// \todo Grid I/O (?)
 
 void KnotView::writeXML(QIODevice *device) const
 {

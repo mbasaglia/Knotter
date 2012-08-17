@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'knot_window.ui'
 **
-** Created: Fri Aug 17 17:27:48 2012
-**      by: Qt User Interface Compiler version 4.8.0
+** Created: Fri Aug 17 19:24:06 2012
+**      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -53,8 +53,6 @@ public:
     QAction *actionShow_Graph;
     QAction *actionShow_Knot_line;
     QAction *action_Style;
-    QAction *actionInsert_S_quare;
-    QAction *actionInsert_Triangle;
     QAction *actionCut;
     QAction *action_Copy;
     QAction *action_Paste;
@@ -160,12 +158,6 @@ public:
         actionShow_Knot_line->setChecked(true);
         action_Style = new QAction(Knot_Window);
         action_Style->setObjectName(QString::fromUtf8("action_Style"));
-        actionInsert_S_quare = new QAction(Knot_Window);
-        actionInsert_S_quare->setObjectName(QString::fromUtf8("actionInsert_S_quare"));
-        actionInsert_S_quare->setEnabled(false);
-        actionInsert_Triangle = new QAction(Knot_Window);
-        actionInsert_Triangle->setObjectName(QString::fromUtf8("actionInsert_Triangle"));
-        actionInsert_Triangle->setEnabled(false);
         actionCut = new QAction(Knot_Window);
         actionCut->setObjectName(QString::fromUtf8("actionCut"));
         action_Copy = new QAction(Knot_Window);
@@ -264,8 +256,6 @@ public:
         menuNo_des->addAction(action_Erase);
         menuNo_des->addAction(action_Merge);
         menuNo_des->addSeparator();
-        menuNo_des->addAction(actionInsert_S_quare);
-        menuNo_des->addAction(actionInsert_Triangle);
         menuNo_des->addSeparator();
         menuNo_des->addAction(action_Horizontal_Flip);
         menuNo_des->addAction(action_Vertical_Flip);
@@ -399,8 +389,6 @@ public:
         actionShow_Graph->setText(QApplication::translate("Knot_Window", "Show &Graph", 0, QApplication::UnicodeUTF8));
         actionShow_Knot_line->setText(QApplication::translate("Knot_Window", "Show Knot&line", 0, QApplication::UnicodeUTF8));
         action_Style->setText(QApplication::translate("Knot_Window", "&Style...", 0, QApplication::UnicodeUTF8));
-        actionInsert_S_quare->setText(QApplication::translate("Knot_Window", "Insert S&quare", 0, QApplication::UnicodeUTF8));
-        actionInsert_Triangle->setText(QApplication::translate("Knot_Window", "Insert &Triangle", 0, QApplication::UnicodeUTF8));
         actionCut->setText(QApplication::translate("Knot_Window", "Cu&t", 0, QApplication::UnicodeUTF8));
         action_Copy->setText(QApplication::translate("Knot_Window", "&Copy", 0, QApplication::UnicodeUTF8));
         action_Paste->setText(QApplication::translate("Knot_Window", "&Paste", 0, QApplication::UnicodeUTF8));

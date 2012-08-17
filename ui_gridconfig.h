@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'gridconfig.ui'
 **
-** Created: Fri Aug 17 16:47:38 2012
-**      by: Qt User Interface Compiler version 4.8.0
+** Created: Fri Aug 17 19:24:07 2012
+**      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
