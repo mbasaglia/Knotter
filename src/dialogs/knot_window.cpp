@@ -293,7 +293,7 @@ void Knot_Window::export_image()
     {
         // pixmap
         /// \todo Antialiasing, letting QPainter handle this is not enough... :^(
-        QImage pix(canvas->scene()->itemsBoundingRect().size().toSize(),QImage::Format_ARGB32);
+        QPixmap pix(canvas->scene()->itemsBoundingRect().size().toSize());
         pix.fill(QColor(255,255,255,0));
         canvas->paint_knot ( &pix, false );
         pix.save(&quf,0,100);
