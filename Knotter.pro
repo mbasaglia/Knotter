@@ -39,7 +39,7 @@ include(translations/translations.pri)
 
 DEFINES += "VERSION=\\\"$${VERSION}\\\""
 
-CONFIG(debug, debug|release) {
+CONFIG(debug, debug|release)  {
     QMAKE_CXXFLAGS += -Werror -Wall -Wextra
 }
 
