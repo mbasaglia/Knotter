@@ -38,8 +38,10 @@ include(img/img.pri)
 include(translations/translations.pri)
 
 DEFINES += "VERSION=\\\"$${VERSION}\\\""
-QMAKE_CXXFLAGS += -Werror
 
+CONFIG(debug, debug|release) {
+    QMAKE_CXXFLAGS += -Werror -Wall -Wextra -pedantic
+}
 
 MYDISTFILES =  COPYING README Doxyfile NEWS Makefile Knotter.pro
 MYDISTDIRS  =  src include img
@@ -74,3 +76,7 @@ Doxyfile.commands = doxygen -g
 doc.depends = $$TARGET Doxyfile
 doc.commands = sed s/KNOTTER_VERSION/$${VERSION}/ Doxyfile | doxygen -
 QMAKE_EXTRA_TARGETS += doc Doxyfile
+
+
+target.path = /bin
+INSTALLS += target

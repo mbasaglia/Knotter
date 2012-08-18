@@ -39,6 +39,8 @@ class knot_curve_style
                                     double threshold_angle,
                                     double handle_length,
                                     double crossing_distance ) = 0;
+
+        virtual ~knot_curve_style() {}
 };
 
 class knot_curve_ogee : public knot_curve_style

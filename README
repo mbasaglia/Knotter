@@ -13,6 +13,21 @@ at this point you can build the program using
 
     make
 
+If you want to regenerate the files created by the Qt build tools, run
+
+    make clean
+    make
+
+
+To install the binaries run
+
+    make INSTALL_ROOT=/your_path install
+
+That will install the knotter executable as /your_path/bin/knotter
+To uninstall it run
+
+    make INSTALL_ROOT=/your_path uninstall
+
 
 Other make targets
 ---------------------------------------
