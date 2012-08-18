@@ -83,6 +83,7 @@ QPainterPath KnotGraph::build()
 {
     knot_curve_style* pcs = knot_curve_styler::style(curve_style);
 
+    //path_builder path_b;
     QPainterPath path;
 
     foreach(Edge*e,edges)
@@ -93,6 +94,7 @@ QPainterPath KnotGraph::build()
         {
             path.moveTo(l.p1());
             path.lineTo(l.p2());
+            //path_b.add_line(l.p1(),l.p2());
         }
     }
 
@@ -124,6 +126,9 @@ QPainterPath KnotGraph::build()
             }
         }
     }
+
+    //path_b.sort();
+    //QPainterPath path = path_b.build();
 
 
     edges = traversed_edges;

@@ -17,7 +17,7 @@ QT       += core gui xml svg
 
 
 TARGET = knotter
-VERSION = 0.3.5
+VERSION = 0.4.0
 
 TEMPLATE = app
 
@@ -25,7 +25,8 @@ OTHER_FILES += \
     COPYING \
     README \
     Doxyfile \
-    NEWS
+    NEWS \
+    doc.dox
 
 UI_DIR = src/generated
 MOC_DIR = src/generated
@@ -36,7 +37,8 @@ include(include/include.pri)
 include(img/img.pri)
 include(translations/translations.pri)
 
-# QMAKE_CXXFLAGS += -Werror
+DEFINES += "VERSION=\\\"$${VERSION}\\\""
+QMAKE_CXXFLAGS += -Werror
 
 
 MYDISTFILES =  COPYING README Doxyfile NEWS Makefile Knotter.pro
@@ -70,5 +72,5 @@ QMAKE_EXTRA_TARGETS += mydist mydistclean
 
 Doxyfile.commands = doxygen -g
 doc.depends = $$TARGET Doxyfile
-doc.commands = doxygen
+doc.commands = sed s/KNOTTER_VERSION/$${VERSION}/ Doxyfile | doxygen -
 QMAKE_EXTRA_TARGETS += doc Doxyfile

@@ -29,9 +29,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMessageBox>
 #include "gridconfig.hpp"
 #include "error_recovery.hpp"
+#include <QSvgGenerator>
+#include <QSettings>
 
 Knot_Window::Knot_Window(QWidget *parent) :
-    QMainWindow(parent)
+    QMainWindow(parent), save_ui ( true ), max_recent_files(5)
 {
     setupUi(this);
 
@@ -115,6 +117,16 @@ Knot_Window::Knot_Window(QWidget *parent) :
     style_dialog.setAttribute(Qt::WA_QuitOnClose, false);
     update_style_dialog();
     this->connect(&style_dialog,SIGNAL(changed()),SLOT(apply_style()));
+
+    this->connect(config_dlg.clear_recent,SIGNAL(clicked()),SLOT(clear_recent_files()));
+
+    load_config();
+    update_recent_menu();
+}
+
+Knot_Window::~Knot_Window()
+{
+    save_config();
 }
 
 
@@ -177,14 +189,37 @@ void Knot_Window::save(QString file)
     QFile quf(file);
     if ( ! quf.open(QIODevice::WriteOnly | QIODevice::Text) )
     {
-        QMessageBox::warning(this,tr("File Error"),tr("Could not write to \"%1\".").arg(filename));
+        QMessageBox::warning(this,tr("File Error"),tr("Could not write to \"%1\".").arg(file));
         return;
     }
 
     canvas->writeXML(&quf);
     canvas->get_undo_stack().setClean();
 
+    push_recent_file(file);
+
     quf.close();
+}
+
+void Knot_Window::open(QString file)
+{
+
+    QFile quf(file);
+    if ( ! quf.open(QIODevice::ReadOnly | QIODevice::Text) )
+    {
+        QMessageBox::warning(this,tr("File Error"),tr("Could not read \"%1\".").arg(file));
+        return;
+    }
+    filename = file;
+
+    canvas->clear();
+    canvas->get_undo_stack().setClean();
+    if ( !canvas->readXML(&quf) )
+        QMessageBox::warning(this,tr("File Error"),tr("Error while reading \"%1\".").arg(filename));
+
+    update_style_dialog();
+
+    push_recent_file(filename);
 }
 
 
@@ -211,33 +246,67 @@ void Knot_Window::open()
                 "Knot files (*.knot);;XML files (*.xml);;All files (*)" );
     if ( fn.isNull() )
         return;
-    filename = fn;
-    QFile quf(filename);
-    if ( ! quf.open(QIODevice::ReadOnly | QIODevice::Text) )
-    {
-        QMessageBox::warning(this,tr("File Error"),tr("Could not read \"%1\".").arg(filename));
-        return;
-    }
-    canvas->clear();
-    canvas->get_undo_stack().setClean();
-    if ( !canvas->readXML(&quf) )
-        QMessageBox::warning(this,tr("File Error"),tr("Error while reading \"%1\".").arg(filename));
 
-    update_style_dialog();
+    open(fn);
 
 }
 
-void Knot_Window::exportSVG()
+
+void Knot_Window::export_image()
 {
-    QString exname = QFileDialog::getSaveFileName(this,tr("Export Knot as SVG"),filename,
-                "SVG Images (*.svg);;XML files (*.xml);;All files (*)" );
+
+    QStringList filters = QStringList()
+        << tr("SVG Images (*.svg)")         // 0
+        << tr("Minimal SVG (*.min.svg)")    // 1
+        << tr("PNG Images (*.png)")         // 2
+        << tr("Jpeg Images (*.jpg *.jpeg)") // 3
+        << tr("Bitmap (*.bmp)")             // 4
+        << tr("All files (*)")              // 5
+        ;
+    int first_pixmap_id = 2;
+    int last_pixmap_id = 4;
+
+    QFileDialog export_dialog(this,tr("Export Knot as SVG"),filename);
+    export_dialog.setAcceptMode ( QFileDialog::AcceptSave );
+    export_dialog.setNameFilters(filters);
+
+    if ( !export_dialog.exec() )
+        return;
+
+    QString exname = export_dialog.selectedFiles()[0];
+
+
+    /*QString exname = QFileDialog::getSaveFileName(this,tr("Export Knot as SVG"),filename,
+                "SVG Images (*.svg);;XML files (*.xml);;All files (*)" );*/
+
+
     QFile quf(exname);
     if ( ! quf.open(QIODevice::WriteOnly | QIODevice::Text) )
     {
         QMessageBox::warning(this,tr("File Error"),tr("Could not write to \"%1\".").arg(exname));
         return;
     }
-    canvas->writeSVG ( &quf );
+
+    int name_filter = filters.indexOf(export_dialog.selectedFilter());
+
+    if ( name_filter >= first_pixmap_id && name_filter <= last_pixmap_id )
+    {
+        // pixmap
+        /// \todo Antialiasing, letting QPainter handle this is not enough... :^(
+        QImage pix(canvas->scene()->itemsBoundingRect().size().toSize(),QImage::Format_ARGB32);
+        pix.fill(QColor(255,255,255,0));
+        canvas->paint_knot ( &pix, false );
+        pix.save(&quf,0,100);
+    }
+    else
+    {
+        // svg
+        QSvgGenerator gen;
+        gen.setOutputDevice(&quf);
+
+        canvas->paint_knot ( &gen, name_filter == 1 );
+    }
+
     quf.close();
 }
 
@@ -271,6 +340,28 @@ void Knot_Window::enable_grid(bool enabled)
 {
     canvas->get_grid().enable ( enabled );
     canvas->redraw(false);
+}
+
+void Knot_Window::config()
+{
+    config_dlg.set_icon_size(iconSize());
+    config_dlg.set_tool_button_style(toolButtonStyle());
+    config_dlg.saveui_check->setChecked(save_ui);
+    config_dlg.max_recent->setValue(max_recent_files);
+    if ( !config_dlg.exec() )
+        return;
+    setToolButtonStyle(config_dlg.get_tool_button_style());
+    setIconSize(config_dlg.get_icon_size());
+    save_ui = config_dlg.saveui_check->isChecked();
+    max_recent_files = config_dlg.max_recent->value();
+    if ( max_recent_files < recent_files.size() )
+        recent_files.erase ( recent_files.begin()+max_recent_files, recent_files.end() );
+}
+
+void Knot_Window::clear_recent_files()
+{
+    recent_files.clear();
+    update_recent_menu();
 }
 
 
@@ -316,4 +407,105 @@ void Knot_Window::cause_crash()
     Node *nil = 0;
     nil->~Node();
 }
+
+void Knot_Window::load_config()
+{
+    QSettings settings("knotter","knotter");
+
+
+    if ( settings.value("version",VERSION).toString() != VERSION )
+        return; // don't load settings from different version
+
+
+    settings.beginGroup("gui");
+    save_ui = settings.value("save",true).toBool();
+    if ( save_ui )
+    {
+        restoreGeometry(settings.value("geometry").toByteArray());
+        restoreState(settings.value("state").toByteArray());
+        int icon_size = settings.value("icon_size",iconSize().width()).toInt();
+        setIconSize(QSize(icon_size,icon_size));
+        setToolButtonStyle ( Qt::ToolButtonStyle (
+                     settings.value("buttons",toolButtonStyle()).toInt() ) );
+    }
+    settings.endGroup();
+
+    settings.beginGroup("recent_files");
+    recent_files = settings.value("list").toStringList();
+    max_recent_files = settings.value("max",max_recent_files).toInt();
+    settings.endGroup();
+
+    settings.beginGroup("grid");
+    canvas->get_grid().set_size(settings.value("size").toDouble());
+    canvas->get_grid().set_shape(snapping_grid::grid_shape(settings.value("type").toInt()));
+    settings.endGroup();
+
+    /// \todo save style?
+
+
+}
+
+void Knot_Window::save_config()
+{
+    QSettings settings("knotter","knotter");
+
+    settings.setValue("version",VERSION);
+
+
+    settings.beginGroup("gui");
+    if ( save_ui )
+    {
+        settings.setValue("geometry",saveGeometry());
+        settings.setValue("state",saveState());
+        settings.setValue("save",true);
+        settings.setValue("icon_size",iconSize().width());
+        settings.setValue("buttons",toolButtonStyle());
+    }
+    else
+        settings.setValue("save",false);
+    settings.endGroup();
+
+    settings.beginGroup("recent_files");
+    settings.setValue("list",recent_files);
+    settings.setValue("max",max_recent_files);
+    settings.endGroup();
+
+    settings.beginGroup("grid");
+    settings.setValue("size",canvas->get_grid().get_size());
+    settings.setValue("type",int(canvas->get_grid().get_shape()));
+    settings.endGroup();
+}
+
+
+
+void Knot_Window::push_recent_file(QString path)
+{
+    recent_files.push_front(path);
+    recent_files.removeDuplicates();
+    while ( recent_files.size() > max_recent_files )
+        recent_files.pop_back();
+    update_recent_menu();
+}
+
+void Knot_Window::update_recent_menu()
+{
+    menuOpen_Recent->clear();
+
+    if ( recent_files.empty() )
+        menuOpen_Recent->addAction(tr("No recent files"))->setEnabled(false);
+    else
+        foreach ( QString savefile, recent_files )
+        {
+            QAction *a = menuOpen_Recent->addAction(QIcon(":/img/logo.svg"), savefile);
+            connect(a, SIGNAL(triggered()), this, SLOT(click_recent()));
+        }
+}
+
+void Knot_Window::click_recent()
+{
+    QAction*a = dynamic_cast<QAction*>(sender());
+    if ( a )
+        open(a->text());
+}
+
 

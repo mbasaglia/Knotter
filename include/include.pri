@@ -15,6 +15,7 @@ HEADERS += \
     include/custom_item.hpp \
     include/commands.hpp \
     include/color_widget.hpp \
-    include/clipboard.hpp
+    include/clipboard.hpp \
+    include/path_builder.hpp
 
 INCLUDEPATH += include

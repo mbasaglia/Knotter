@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QUndoView>
 #include "style_dialog.hpp"
 #include "clipboard.hpp"
+#include "config_dialog.hpp"
 
 class Knot_Window : public QMainWindow, private Ui::Knot_Window
 {
@@ -40,12 +41,21 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         QUndoView       undoView;
         StyleDialog     style_dialog;
         ClipboardItem   clipboard;
+        bool            save_ui;
+        QStringList     recent_files;
+        int             max_recent_files;
+        config_dialog   config_dlg;
 
     public:
         explicit Knot_Window(QWidget *parent = 0);
+        ~Knot_Window();
 
     protected:
         void save ( QString file );
+        void open ( QString file );
+
+        void push_recent_file(QString path);
+        void update_recent_menu();
 
     protected slots:
         /// set dialog values from canvas settings
@@ -55,6 +65,12 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
         /// cause a segmentation fault, used to test error recovery
         void cause_crash();
+
+        void load_config();
+        void save_config();
+
+        void click_recent();
+
 
     public slots:
         void mode_edge_list();
@@ -71,7 +87,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void save();
         void saveAs();
         void open();
-        void exportSVG();
+        void export_image();
 
         /// set canvas style based on style dialog
         void apply_style();
@@ -82,6 +98,10 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void configure_grid();
 
         void enable_grid ( bool enabled );
+
+        void config();
+
+        void clear_recent_files();
 };
 
 #endif // KNOT_WINDOW_HPP

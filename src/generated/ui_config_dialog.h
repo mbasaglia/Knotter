@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'config_dialog.ui'
 **
-** Created: Sat Aug 18 00:34:37 2012
-**      by: Qt User Interface Compiler version 4.7.4
+** Created: Sat Aug 18 17:22:13 2012
+**      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -19,9 +19,10 @@
 #include <QtGui/QDialog>
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QGridLayout>
-#include <QtGui/QGroupBox>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
+#include <QtGui/QPushButton>
+#include <QtGui/QSpinBox>
 
 QT_BEGIN_NAMESPACE
 
@@ -29,24 +30,24 @@ class Ui_config_dialog
 {
 public:
     QGridLayout *gridLayout_2;
-    QGroupBox *groupBox;
-    QGridLayout *gridLayout;
+    QDialogButtonBox *buttonBox;
+    QCheckBox *fluid_check;
     QLabel *label;
-    QComboBox *icon_show_combo;
-    QLabel *label_2;
-    QComboBox *icon_size_combo;
     QLabel *label_3;
     QComboBox *language_combo;
-    QDialogButtonBox *buttonBox;
-    QGroupBox *groupBox_2;
-    QGridLayout *gridLayout_3;
-    QCheckBox *fluid_check;
+    QLabel *label_2;
+    QComboBox *icon_size_combo;
+    QLabel *label_4;
+    QSpinBox *max_recent;
+    QComboBox *icon_show_combo;
+    QCheckBox *saveui_check;
+    QPushButton *clear_recent;
 
     void setupUi(QDialog *config_dialog)
     {
         if (config_dialog->objectName().isEmpty())
             config_dialog->setObjectName(QString::fromUtf8("config_dialog"));
-        config_dialog->resize(400, 300);
+        config_dialog->resize(292, 222);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -54,69 +55,73 @@ public:
         config_dialog->setSizePolicy(sizePolicy);
         gridLayout_2 = new QGridLayout(config_dialog);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        groupBox = new QGroupBox(config_dialog);
-        groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
-        groupBox->setSizePolicy(sizePolicy1);
-        gridLayout = new QGridLayout(groupBox);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        label = new QLabel(groupBox);
-        label->setObjectName(QString::fromUtf8("label"));
-
-        gridLayout->addWidget(label, 0, 0, 1, 1);
-
-        icon_show_combo = new QComboBox(groupBox);
-        icon_show_combo->setObjectName(QString::fromUtf8("icon_show_combo"));
-
-        gridLayout->addWidget(icon_show_combo, 0, 1, 1, 1);
-
-        label_2 = new QLabel(groupBox);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-
-        gridLayout->addWidget(label_2, 1, 0, 1, 1);
-
-        icon_size_combo = new QComboBox(groupBox);
-        icon_size_combo->setObjectName(QString::fromUtf8("icon_size_combo"));
-
-        gridLayout->addWidget(icon_size_combo, 1, 1, 1, 1);
-
-        label_3 = new QLabel(groupBox);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setEnabled(false);
-
-        gridLayout->addWidget(label_3, 2, 0, 1, 1);
-
-        language_combo = new QComboBox(groupBox);
-        language_combo->setObjectName(QString::fromUtf8("language_combo"));
-
-        gridLayout->addWidget(language_combo, 2, 1, 1, 1);
-
-
-        gridLayout_2->addWidget(groupBox, 0, 0, 1, 1);
-
         buttonBox = new QDialogButtonBox(config_dialog);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
 
-        gridLayout_2->addWidget(buttonBox, 3, 0, 1, 1);
+        gridLayout_2->addWidget(buttonBox, 9, 0, 1, 3);
 
-        groupBox_2 = new QGroupBox(config_dialog);
-        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        gridLayout_3 = new QGridLayout(groupBox_2);
-        gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
-        fluid_check = new QCheckBox(groupBox_2);
+        fluid_check = new QCheckBox(config_dialog);
         fluid_check->setObjectName(QString::fromUtf8("fluid_check"));
         fluid_check->setEnabled(false);
         fluid_check->setChecked(true);
 
-        gridLayout_3->addWidget(fluid_check, 0, 0, 1, 2);
+        gridLayout_2->addWidget(fluid_check, 8, 0, 1, 3);
 
+        label = new QLabel(config_dialog);
+        label->setObjectName(QString::fromUtf8("label"));
 
-        gridLayout_2->addWidget(groupBox_2, 2, 0, 1, 1);
+        gridLayout_2->addWidget(label, 2, 0, 1, 1);
+
+        label_3 = new QLabel(config_dialog);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setEnabled(false);
+
+        gridLayout_2->addWidget(label_3, 6, 0, 1, 1);
+
+        language_combo = new QComboBox(config_dialog);
+        language_combo->setObjectName(QString::fromUtf8("language_combo"));
+
+        gridLayout_2->addWidget(language_combo, 6, 1, 1, 2);
+
+        label_2 = new QLabel(config_dialog);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+
+        gridLayout_2->addWidget(label_2, 0, 0, 1, 1);
+
+        icon_size_combo = new QComboBox(config_dialog);
+        icon_size_combo->setObjectName(QString::fromUtf8("icon_size_combo"));
+
+        gridLayout_2->addWidget(icon_size_combo, 0, 1, 1, 2);
+
+        label_4 = new QLabel(config_dialog);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+
+        gridLayout_2->addWidget(label_4, 4, 0, 1, 1);
+
+        max_recent = new QSpinBox(config_dialog);
+        max_recent->setObjectName(QString::fromUtf8("max_recent"));
+        max_recent->setMaximum(128);
+        max_recent->setValue(5);
+
+        gridLayout_2->addWidget(max_recent, 4, 1, 1, 1);
+
+        icon_show_combo = new QComboBox(config_dialog);
+        icon_show_combo->setObjectName(QString::fromUtf8("icon_show_combo"));
+
+        gridLayout_2->addWidget(icon_show_combo, 2, 1, 1, 2);
+
+        saveui_check = new QCheckBox(config_dialog);
+        saveui_check->setObjectName(QString::fromUtf8("saveui_check"));
+        saveui_check->setChecked(true);
+
+        gridLayout_2->addWidget(saveui_check, 7, 0, 1, 3);
+
+        clear_recent = new QPushButton(config_dialog);
+        clear_recent->setObjectName(QString::fromUtf8("clear_recent"));
+
+        gridLayout_2->addWidget(clear_recent, 4, 2, 1, 1);
 
 
         retranslateUi(config_dialog);
@@ -129,16 +134,13 @@ public:
     void retranslateUi(QDialog *config_dialog)
     {
         config_dialog->setWindowTitle(QApplication::translate("config_dialog", "Dialog", 0, QApplication::UnicodeUTF8));
-        groupBox->setTitle(QApplication::translate("config_dialog", "Interface", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("config_dialog", "Show", 0, QApplication::UnicodeUTF8));
-        icon_show_combo->clear();
-        icon_show_combo->insertItems(0, QStringList()
-         << QApplication::translate("config_dialog", "Icon only", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("config_dialog", "Text only", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("config_dialog", "Icon besides text", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("config_dialog", "Icon below text", 0, QApplication::UnicodeUTF8)
-        );
-        label_2->setText(QApplication::translate("config_dialog", "Icon Size", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_TOOLTIP
+        fluid_check->setToolTip(QApplication::translate("config_dialog", "Redraw the knot while moving nodes", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_TOOLTIP
+        fluid_check->setText(QApplication::translate("config_dialog", "Fluid refresh", 0, QApplication::UnicodeUTF8));
+        label->setText(QApplication::translate("config_dialog", "Toolbar Icons", 0, QApplication::UnicodeUTF8));
+        label_3->setText(QApplication::translate("config_dialog", "Language", 0, QApplication::UnicodeUTF8));
+        label_2->setText(QApplication::translate("config_dialog", "Toolbar Icon Size", 0, QApplication::UnicodeUTF8));
         icon_size_combo->clear();
         icon_size_combo->insertItems(0, QStringList()
          << QApplication::translate("config_dialog", "Small (16x16)", 0, QApplication::UnicodeUTF8)
@@ -146,12 +148,19 @@ public:
          << QApplication::translate("config_dialog", "Large (48x48)", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("config_dialog", "Huge (64x64)", 0, QApplication::UnicodeUTF8)
         );
-        label_3->setText(QApplication::translate("config_dialog", "Language", 0, QApplication::UnicodeUTF8));
-        groupBox_2->setTitle(QApplication::translate("config_dialog", "Editing", 0, QApplication::UnicodeUTF8));
+        label_4->setText(QApplication::translate("config_dialog", "Max recent files", 0, QApplication::UnicodeUTF8));
+        icon_show_combo->clear();
+        icon_show_combo->insertItems(0, QStringList()
+         << QApplication::translate("config_dialog", "Icon only", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("config_dialog", "Text only", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("config_dialog", "Icon besides text", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("config_dialog", "Icon below text", 0, QApplication::UnicodeUTF8)
+        );
+        saveui_check->setText(QApplication::translate("config_dialog", "Save interface on exit", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
-        fluid_check->setToolTip(QApplication::translate("config_dialog", "Enable Knot redraw while moving nodes", 0, QApplication::UnicodeUTF8));
+        clear_recent->setToolTip(QApplication::translate("config_dialog", "Clear recent file history", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
-        fluid_check->setText(QApplication::translate("config_dialog", "Fluid refresh", 0, QApplication::UnicodeUTF8));
+        clear_recent->setText(QApplication::translate("config_dialog", "Clear", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>292</width>
+    <height>222</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -20,97 +20,7 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="0" column="0">
-    <widget class="QGroupBox" name="groupBox">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="title">
-      <string>Interface</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Show</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QComboBox" name="icon_show_combo">
-        <item>
-         <property name="text">
-          <string>Icon only</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Text only</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Icon besides text</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Icon below text</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Icon Size</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QComboBox" name="icon_size_combo">
-        <item>
-         <property name="text">
-          <string>Small (16x16)</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Medium (24x24)</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Large (48x48)</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Huge (64x64)</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>Language</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QComboBox" name="language_combo"/>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="3" column="0">
+   <item row="9" column="0" colspan="3">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -120,29 +30,132 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QGroupBox" name="groupBox_2">
-     <property name="title">
-      <string>Editing</string>
+   <item row="8" column="0" colspan="3">
+    <widget class="QCheckBox" name="fluid_check">
+     <property name="enabled">
+      <bool>false</bool>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="0" colspan="2">
-       <widget class="QCheckBox" name="fluid_check">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="toolTip">
-         <string>Enable Knot redraw while moving nodes</string>
-        </property>
-        <property name="text">
-         <string>Fluid refresh</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <property name="toolTip">
+      <string>Redraw the knot while moving nodes</string>
+     </property>
+     <property name="text">
+      <string>Fluid refresh</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Toolbar Icons</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Language</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1" colspan="2">
+    <widget class="QComboBox" name="language_combo"/>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Toolbar Icon Size</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" colspan="2">
+    <widget class="QComboBox" name="icon_size_combo">
+     <item>
+      <property name="text">
+       <string>Small (16x16)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Medium (24x24)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Large (48x48)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Huge (64x64)</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Max recent files</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QSpinBox" name="max_recent">
+     <property name="maximum">
+      <number>128</number>
+     </property>
+     <property name="value">
+      <number>5</number>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" colspan="2">
+    <widget class="QComboBox" name="icon_show_combo">
+     <item>
+      <property name="text">
+       <string>Icon only</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Text only</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Icon besides text</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Icon below text</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="7" column="0" colspan="3">
+    <widget class="QCheckBox" name="saveui_check">
+     <property name="text">
+      <string>Save interface on exit</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="2">
+    <widget class="QPushButton" name="clear_recent">
+     <property name="toolTip">
+      <string>Clear recent file history</string>
+     </property>
+     <property name="text">
+      <string>Clear</string>
+     </property>
     </widget>
    </item>
   </layout>

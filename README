@@ -9,7 +9,6 @@ This program uses the Qt framework, to generate the Makefile run
 
     qmake Knotter.pro
 
-That will generate the Makefile and some additional source files,
 at this point you can build the program using
 
     make
@@ -32,8 +31,15 @@ To generate the source documentation run
 
     make doc
 
-( or just invoke doxygen if the Doxyfile is already present )
 There's no target to clean output from Doxygen.
+
+
+Getting the latest sources
+---------------------------------------
+The git repository is located at git://git.code.sf.net/p/knotter/code
+You can browse it online at https://sourceforge.net/p/knotter/code/
+
+Some tarballs can be downloaded from https://sourceforge.net/projects/knotter/files/
 
 
 License

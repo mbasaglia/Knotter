@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KNOT_CURVE_STYLE_HPP
 
 #include "node.hpp"
-#include <QPainterPath>
+//#include "path_builder.hpp"
 #include <QMap>
 
 class knot_curve_style

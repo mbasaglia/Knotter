@@ -7,11 +7,14 @@ Knotter 0.4.0 (beta) - Current development
 * Initial error recovery
 * Better Flip selection
 * Scale/Rotate selection
+* Export bitmap
+* Configuration
+* Save/restore status
 
 Knotter 0.3.0 (beta)
 --------------------
 * Snap to Grid
-* I8n setup
+* i18n setup
 * Pen Style
 * Better Mouse Input
 * Flip selection

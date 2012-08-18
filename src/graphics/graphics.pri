@@ -6,7 +6,8 @@ SOURCES += \
     src/graphics/knot_curve_style.cpp \
     src/graphics/edge.cpp \
     src/graphics/clipboard.cpp \
-    src/graphics/snapping_grid.cpp
+    src/graphics/snapping_grid.cpp \
+    src/graphics/path_builder.cpp
 
 
 OTHER_FILES += \

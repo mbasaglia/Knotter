@@ -31,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "knotgraph.hpp"
 #include <QXmlStreamWriter>
 #include <QDomDocument>
-#include <QSvgGenerator>
 #include "grid_scene.hpp"
 
 KnotView::KnotView( QWidget* parent )
@@ -816,19 +815,21 @@ bool KnotView::readXML(QIODevice *device)
 }
 
 #include <QStyleOptionGraphicsItem>
-void KnotView::writeSVG(QIODevice *device)
+void KnotView::paint_knot(QPaintDevice *device, bool minimal)
 {
-    /// \todo export only path ( output of knot.build() )
-    QSvgGenerator gen;
-    gen.setOutputDevice(device);
-    //gen.setSize(knot.boundingRect().size().toSize());
-    /// \todo gen.setViewBox (?)
     QPainter painter;
-    painter.begin(&gen);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setRenderHint(QPainter::SmoothPixmapTransform);
+    painter.begin(device);
         QStyleOptionGraphicsItem opt;
         QPointF off = knot.boundingRect().topLeft();
         painter.translate(-off.x(),-off.y()); // remove offset
-        knot.paint(&painter,&opt);
+
+        if ( minimal )
+            painter.drawPath(knot.build());
+        else
+            knot.paint(&painter,&opt);
+
     painter.end();
 }
 

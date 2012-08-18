@@ -37,8 +37,15 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <widget class="QMenu" name="menuOpen_Recent">
+     <property name="title">
+      <string>Open &amp;Recent</string>
+     </property>
+     <addaction name="actionNo_recent_files"/>
+    </widget>
     <addaction name="action_New"/>
     <addaction name="action_Open"/>
+    <addaction name="menuOpen_Recent"/>
     <addaction name="separator"/>
     <addaction name="action_Save"/>
     <addaction name="actionSave_As"/>
@@ -71,7 +78,7 @@
     <addaction name="separator"/>
     <addaction name="actionSelect_All"/>
     <addaction name="separator"/>
-    <addaction name="action_Configure_Knotter"/>
+    <addaction name="action_Preferences"/>
    </widget>
    <widget class="QMenu" name="menu_View">
     <property name="title">
@@ -115,18 +122,11 @@
     <addaction name="separator"/>
     <addaction name="actionRefresh_Path"/>
    </widget>
-   <widget class="QMenu" name="menu_Debug">
-    <property name="title">
-     <string>&amp;Debug</string>
-    </property>
-    <addaction name="actionForce_Crash"/>
-   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
    <addaction name="menu_View"/>
    <addaction name="menuNo_des"/>
    <addaction name="menu_Knot"/>
-   <addaction name="menu_Debug"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="EditBar">
@@ -384,10 +384,7 @@
     <string>&amp;Paste</string>
    </property>
   </action>
-  <action name="action_Configure_Knotter">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
+  <action name="action_Preferences">
    <property name="text">
     <string>Pre&amp;ferences...</string>
    </property>
@@ -442,9 +439,12 @@
     <string>&amp;Move Grid</string>
    </property>
   </action>
-  <action name="actionForce_Crash">
+  <action name="actionNo_recent_files">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
-    <string>Force &amp;Crash</string>
+    <string>No recent files</string>
    </property>
   </action>
  </widget>
@@ -671,7 +671,7 @@
    <sender>action_Export</sender>
    <signal>triggered()</signal>
    <receiver>Knot_Window</receiver>
-   <slot>exportSVG()</slot>
+   <slot>export_image()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -940,10 +940,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionForce_Crash</sender>
+   <sender>action_Preferences</sender>
    <signal>triggered()</signal>
    <receiver>Knot_Window</receiver>
-   <slot>cause_crash()</slot>
+   <slot>config()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -965,7 +965,7 @@
   <slot>save()</slot>
   <slot>saveAs()</slot>
   <slot>open()</slot>
-  <slot>exportSVG()</slot>
+  <slot>export_image()</slot>
   <slot>zoom_in()</slot>
   <slot>zoom_out()</slot>
   <slot>copy()</slot>
@@ -974,5 +974,6 @@
   <slot>enable_grid(bool)</slot>
   <slot>configure_grid()</slot>
   <slot>cause_crash()</slot>
+  <slot>config()</slot>
  </slots>
 </ui>
