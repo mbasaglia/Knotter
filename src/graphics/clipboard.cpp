@@ -54,9 +54,9 @@ ClipboardItem::ClipboardItem ( node_list insert_nodes )
                 // avoid redundancies
                 if ( id1 > id2 )
                     qSwap(id1,id2);
-                ClipboardEdge e ( id1, id2 );
-                if ( !edges.contains(e) )
-                    edges.push_back(e);
+                ClipboardEdge clipe ( id1, id2 );
+                if ( !edges.contains(clipe) )
+                    edges.push_back(clipe);
             }
         }
     }
