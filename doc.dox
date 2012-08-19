@@ -1,9 +1,9 @@
-
+/** */
 /**
 
 
-\todo Write a proper user guide
-
+\todo customizable toolbars
+\todo Qt += in pri files?
 
 */
 

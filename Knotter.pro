@@ -13,20 +13,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-QT       += core gui xml svg
+QT       += core gui xml
 
 
 TARGET = knotter
-VERSION = 0.5.0_devel
+VERSION = 0.4.6_devel
 
 TEMPLATE = app
 
 OTHER_FILES += \
     COPYING \
-    README \
     Doxyfile \
     NEWS \
-    doc.dox
+    doc.dox \
+    README
 
 UI_DIR = src/generated
 MOC_DIR = src/generated
@@ -36,21 +36,24 @@ include(src/src.pri)
 include(include/include.pri)
 include(img/img.pri)
 include(translations/translations.pri)
+include(user_guide/user_guide.pri)
 
 DEFINES += "VERSION=\\\"$${VERSION}\\\""
+
+DEFINES += "BUILD_INFO=\"\\\"Knotter $$VERSION\\nBuilt on $$_DATE_\\n$${QMAKE_HOST.os} \
+$${QMAKE_HOST.version} $${QMAKE_HOST.arch}\\nQt $${QT_VERSION}\\\""\"
 
 CONFIG(debug, debug|release) {
     QMAKE_CXXFLAGS += -Werror -Wall -Wextra
 }
 
 MYDISTFILES =  COPYING README Doxyfile NEWS Makefile Knotter.pro
-MYDISTDIRS  =  src include img
+MYDISTDIRS  =  src include img translations
 
 MYDIST_NAME = "$$TARGET-$${VERSION}"
 MYDIST_TAR = "$${MYDIST_NAME}.tar"
 MYDIST_TAR_GZ = "$${MYDIST_TAR}.gz"
 MYDIST_TMP = ".tmp/$${MYDIST_NAME}"
-mydist.depends = $$TARGET
                                                                             #
 mydist.commands =                                                           \
         (                                                                   \
@@ -73,7 +76,7 @@ mydistclean.commands = $(DEL_FILE) $$MYDIST_TAR_GZ Makefile
 QMAKE_EXTRA_TARGETS += mydist mydistclean
 
 Doxyfile.commands = doxygen -g
-doc.depends = $$TARGET Doxyfile
+doc.depends = $$TARGET Doxyfile FORCE
 doc.commands = sed s/KNOTTER_VERSION/$${VERSION}/ Doxyfile | doxygen -
 QMAKE_EXTRA_TARGETS += doc Doxyfile
 

@@ -178,6 +178,11 @@ void snapping_grid::enable(bool enabled)
 
 void snapping_grid::set_size(double size)
 {
+    if ( size < 0 )
+        size = -size;
+    if ( size < 1 )
+        return;
+
     this->size = size;
 }
 

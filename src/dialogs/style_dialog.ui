@@ -59,7 +59,7 @@
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>Brush</string>
+       <string>Display</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">

@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "clipboard.hpp"
 #include "config_dialog.hpp"
 #include "export_dialog.hpp"
-
+#include "help_view.hpp"
 class Knot_Window : public QMainWindow, private Ui::Knot_Window
 {
         Q_OBJECT
@@ -47,14 +47,18 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         int             max_recent_files;
         config_dialog   config_dlg;
         Export_Dialog   export_dialog;
+        Help_View       help_view;
 
     public:
         explicit Knot_Window(QWidget *parent = 0);
         ~Knot_Window();
 
+
+        bool open( QString file, bool silent = false );
+        KnotView& knotview();
+
     protected:
         void save ( QString file );
-        void open ( QString file );
 
         void push_recent_file(QString path);
         void update_recent_menu();
@@ -106,6 +110,10 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void config();
 
         void clear_recent_files();
+
+        void show_help();
+    private slots:
+        void on_action_About_triggered();
 };
 
 #endif // KNOT_WINDOW_HPP

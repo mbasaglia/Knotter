@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/help">
+        <file>img/style2.png</file>
+        <file>img/cusp_shapes.png</file>
+        <file>img/edge_types.png</file>
+        <file>img/export.png</file>
+        <file>img/grid.png</file>
+        <file>img/quran.jpg</file>
+        <file>img/style1.png</file>
+        <file>user_guide.htm</file>
+    </qresource>
+</RCC>

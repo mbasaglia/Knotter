@@ -40,7 +40,7 @@ class knot_curve_style
                                     double handle_length,
                                     double crossing_distance ) = 0;
 
-        virtual ~knot_curve_style() {}
+        //virtual ~knot_curve_style() {}
 };
 
 class knot_curve_ogee : public knot_curve_style

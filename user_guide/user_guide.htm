@@ -1,0 +1,138 @@
+<h1>Introduction</h1>
+
+<p>Interlace patterns are a kind of design hystorically used as a decorations in 
+many places and by different cultures.</p>
+
+<p>A good description of the algorithm used to render them and dsign tips can be 
+found at <a href="http://www.entrelacs.net/">Celtic Knotwork: the Ultimate Tutorial</a></p>
+
+<p><img src="img/quran.jpg" alt="An illumination on the cover of the Quran with an interlaced frame" title="An illumination on the cover of the Quran with an interlaced frame" /></p>
+
+<h1>Editing</h1>
+
+<p>A knot is produced from a graph where the edges define interactions between 
+two knot lines.</p>
+
+<h2>Adding nodes</h2>
+
+<p>Double clicking on an empty spot on the drawing area will add a node.
+If you double click on an edge, the new node will split that edge in two.</p>
+
+<h2>Adding edges</h2>
+
+<p>To toggle an edge between two nodes, drag the mouse from the first node to
+the second one while holding the right mouse button.</p>
+
+<p>To create a complete subgraph from the selected nodes, use the <em>Link selected</em>
+command.</p>
+
+<h2>Changing edge type</h2>
+
+<p>Knotter supports three types of edge:</p>
+
+<ul>
+<li>Default  - The two lines cross at the edge midpoint, one on top of the other</li>
+<li>Inverted - Like default but with the other line on top</li>
+<li>Hole     - The line turn back without crossing</li>
+<li>Wall     - The lines follow the edge without crossing</li>
+</ul>
+
+<p><img src="img/edge_types.png" alt="Screenshot showing the edge types" title="From left to right: Default, Inverted, Hole, Wall" /></p>
+
+<p>The type of an edge is changed with the mouse wheel.</p>
+
+<h2>Quick graph design</h2>
+
+<p>Adding nodes and edges one at the time can be very tedious, knotter provides
+the <em>Edge list</em> tool to make the process easier.</p>
+
+<p>When this is enabled, a single click will create a node and each new node is 
+connected to the previous one by an edge.</p>
+
+<p>To break the edge chain, click with the right button, you'll be able to start
+a new chain from the next node.</p>
+
+<h2>Selection and transformation</h2>
+
+<p>Only nodes can be selected and moved, the edges will follow their vertices.</p>
+
+<p>A single node is selected by left clicking it, multiple nodes can be selected
+by holding Shift or Control.</p>
+
+<p>Dragging the mouse from an empty spot will select the nodes within a 
+rectangual area.</p>
+
+<p>Dragging one of the selected nodes will move the selection, while moving 
+nodes can be transformed using the mouse wheel (will scale the selection)
+or Shift + mouse wheel (will rotate the selection around the node under the 
+cursor). These transformations are available when pasting nodes.</p>
+
+<p>Selected nodes can be mirrored using the horizontal and vertical flip commands.</p>
+
+<h2>Snapping </h2>
+
+<p>To allow precise designs knotter offers a grid that, when enabled, will snap
+nodes to the closest point.</p>
+
+<p>There are three types of grid:
+* Square      - A regular square grid.
+* Triangular1 - A grid where the elements are equilateral triangles with a horizontal base.
+* Triangular2 - A grid where the elements are equilateral triangles with a vertical side.</p>
+
+<p><img src="img/grid.png" alt="Screenshot showing some nodes on a grid" title="The grid allows precise editing" /></p>
+
+<h1>Style</h1>
+
+<p>The <em>Knot Style</em> dialog allows the configuration of display and shape options.
+Changes are visible in the preview area of the dialog.</p>
+
+<ul>
+<li>Curve Control Point Distance - How much the knot line follows its direction when 
+                             exiting from an edge.</li>
+<li>Crossing Gap - Distance between the end points when a lines are crossing.</li>
+<li>Minimum Cusp Angle - Minimum angle between two edge to make the knot line 
+                   display a cuspid rather than a smooth curve.</li>
+<li>Curve Style  - Various cuspid shapes
+<img src="img/cusp_shapes.png" alt="Screenshot showing the various curve shapes" title="Curve shapes avaliable in knotter" /></li>
+<li>Point Style  - How the sharp points are rendered
+<ul>
+<li>Bevel - Flat</li>
+<li>Miter - with a sharp point</li>
+<li>Round - Smooth</li>
+</ul></li>
+</ul>
+
+<p><img src="img/style1.png" alt="Screenshot of the display style settings" title="" />
+<img src="img/style2.png" alt="Screenshot of the shape style settings" title="" /></p>
+
+<h1>Save and Load</h1>
+
+<p>Knotter can save and load knots in its own human-readable format.</p>
+
+<h2>Export</h2>
+
+<p>The Export dialog gives many options to export the knot as Image</p>
+
+<h3>Vector</h3>
+
+<ul>
+<li>Only shape - Only export the shape of the knot as a thin line, discarding 
+            any other style option</li>
+</ul>
+
+<h3>Raster</h3>
+
+<ul>
+<li>Antialias   - If checked, the output image will be supersampled.</li>
+<li>Compression - The compression level, the result depends on the exported format.
+<ul>
+<li>0%   = Large files</li>
+<li>100% = Small files </li>
+</ul></li>
+<li>Width/Height - The resulting image size, if they are different from the 
+             actual knot it will be scaled to fit those.</li>
+<li>Keep Ratio   - When enabled, editing Width/Height will preserve their ratio.</li>
+<li>Reset Size   - Change Width and Height back to the default.</li>
+</ul>
+
+<p><img src="img/export.png" alt="Export dialog" title="" /></p>

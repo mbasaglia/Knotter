@@ -123,6 +123,12 @@ Knot_Window::Knot_Window(QWidget *parent) :
 
     this->connect(config_dlg.clear_recent,SIGNAL(clicked()),SLOT(clear_recent_files()));
 
+    action_Manual->setIcon(QIcon::fromTheme("help-contents"));
+    help_view.setWindowIcon(QIcon::fromTheme("help-contents"));
+    help_view.setAttribute(Qt::WA_QuitOnClose, false);
+
+    action_About->setIcon(QIcon::fromTheme("help-about"));
+
     load_config();
     update_recent_menu();
 }
@@ -204,25 +210,37 @@ void Knot_Window::save(QString file)
     quf.close();
 }
 
-void Knot_Window::open(QString file)
+bool Knot_Window::open(QString file, bool silent)
 {
 
     QFile quf(file);
     if ( ! quf.open(QIODevice::ReadOnly | QIODevice::Text) )
     {
-        QMessageBox::warning(this,tr("File Error"),tr("Could not read \"%1\".").arg(file));
-        return;
+        if ( !silent )
+            QMessageBox::warning(this,tr("File Error"),tr("Could not read \"%1\".").arg(file));
+        return false;
     }
     filename = file;
 
     canvas->clear();
     canvas->get_undo_stack().setClean();
-    if ( !canvas->readXML(&quf) )
+
+    if ( !canvas->readXML(&quf) && !silent )
+    {
         QMessageBox::warning(this,tr("File Error"),tr("Error while reading \"%1\".").arg(filename));
+        return false;
+    }
 
     update_style_dialog();
 
     push_recent_file(filename);
+
+    return true;
+}
+
+KnotView &Knot_Window::knotview()
+{
+    return *canvas;
 }
 
 
@@ -257,88 +275,6 @@ void Knot_Window::open()
 
 void Knot_Window::export_image()
 {
-
-    /*QStringList filters = QStringList()
-        << tr("SVG Images (*.svg)")         // 0
-        << tr("Minimal SVG (*.min.svg)")    // 1
-        << tr("PNG Images (*.png)")         // 2
-        << tr("Jpeg Images (*.jpg *.jpeg)") // 3
-        << tr("Bitmap (*.bmp)")             // 4
-        << tr("All files (*)")              // 5
-        ;
-    int first_pixmap_id = 2;
-    int last_pixmap_id = 4;
-
-    QFileDialog export_dialog(this,tr("Export Knot as SVG"),filename);
-    export_dialog.setAcceptMode ( QFileDialog::AcceptSave );
-    export_dialog.setNameFilters(filters);
-
-    if ( !export_dialog.exec() )
-        return;
-
-    QString exname = export_dialog.selectedFiles()[0];
-
-
-    QFile quf(exname);
-    if ( ! quf.open(QIODevice::WriteOnly | QIODevice::Text) )
-    {
-        QMessageBox::warning(this,tr("File Error"),tr("Could not write to \"%1\".").arg(exname));
-        return;
-    }
-
-    int name_filter = filters.indexOf(export_dialog.selectedFilter());
-
-    if ( name_filter >= first_pixmap_id && name_filter <= last_pixmap_id )
-    {
-        // pixmap
-        int back_alpha = name_filter == first_pixmap_id ? 0 : 255;
-
-        if ( export_antialias )
-        {
-            /// Letting QPainter handle antialiasing is not enough... :^(
-            //pix = pix.scaled(pix.size()/2,Qt::KeepAspectRatio,Qt::SmoothTransformation);
-            QImage original (canvas->scene()->itemsBoundingRect().size().toSize()*2,
-                             QImage::Format_ARGB32);
-            original.fill(QColor(255,255,255,back_alpha).rgba());
-            canvas->paint_knot ( &original, false, true);
-
-
-            QImage supersampled(canvas->scene()->itemsBoundingRect().size().toSize(),
-                                QImage::Format_ARGB32 );
-            for ( int y = 0; y < supersampled.height(); y++ )
-                for ( int x = 0; x < supersampled.width(); x++ )
-                {
-                    QColor p1 = QColor::fromRgba(original.pixel(2*x,2*y));
-                    QColor p2 = QColor::fromRgba(original.pixel(2*x+1,2*y));
-                    QColor p3 = QColor::fromRgba(original.pixel(2*x,2*y+1));
-                    QColor p4 = QColor::fromRgba(original.pixel(2*x+1,2*y+1));
-                    QColor color ( (p1.red()+p2.red()+p3.red()+p4.red())/4,
-                                    (p1.green()+p2.green()+p3.green()+p4.green())/4,
-                                    (p1.blue()+p2.blue()+p3.blue()+p4.blue())/4,
-                                    (p1.alpha()+p2.alpha()+p3.alpha()+p4.alpha())/4
-                                  );
-                    supersampled.setPixel(x,y,color.rgba());
-                }
-            supersampled.save(&quf,0,100);
-        }
-        else
-        {
-            QPixmap pix(canvas->scene()->itemsBoundingRect().size().toSize());
-            pix.fill(QColor(255,255,255,back_alpha));
-            canvas->paint_knot ( &pix, false, false);
-            pix.save(&quf,0,100);
-        }
-    }
-    else
-    {
-        // svg
-        QSvgGenerator gen;
-        gen.setOutputDevice(&quf);
-
-        canvas->paint_knot ( &gen, name_filter == 1, false );
-    }
-
-    quf.close();*/
     export_dialog.reset_size();
     export_dialog.show();
 }
@@ -390,6 +326,11 @@ void Knot_Window::clear_recent_files()
 {
     recent_files.clear();
     update_recent_menu();
+}
+
+void Knot_Window::show_help()
+{
+    help_view.show();
 }
 
 
@@ -550,3 +491,11 @@ void Knot_Window::click_recent()
 }
 
 
+
+void Knot_Window::on_action_About_triggered()
+{
+    QMessageBox mb(QMessageBox::Information, tr("About Knotter"), BUILD_INFO );
+    mb.setAttribute(Qt::WA_QuitOnClose, false);
+    mb.setWindowIcon(QIcon::fromTheme("help-about"));
+    mb.exec();
+}

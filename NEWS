@@ -4,7 +4,7 @@ showing when features have been added to the program.
 Knotter 0.5.0 (beta) - Current development
 --------------------
 * Advanced Export Options
-* Move Grid
+* Movable Grid
 
 Knotter 0.4.0 (beta)
 --------------------
@@ -28,7 +28,6 @@ Knotter 0.2.0 (beta)
 ---------------------
 * Zooming
 * Copy/Paste
-* Fixed some crashes
 
 Knotter 0.1.0 (alpha)
 ---------------------

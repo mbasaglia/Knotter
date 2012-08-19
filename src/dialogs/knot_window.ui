@@ -122,11 +122,20 @@
     <addaction name="separator"/>
     <addaction name="actionRefresh_Path"/>
    </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="action_Manual"/>
+    <addaction name="separator"/>
+    <addaction name="action_About"/>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
    <addaction name="menu_View"/>
    <addaction name="menuNo_des"/>
    <addaction name="menu_Knot"/>
+   <addaction name="menu_Help"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="EditBar">
@@ -442,6 +451,16 @@
    </property>
    <property name="text">
     <string>No recent files</string>
+   </property>
+  </action>
+  <action name="action_Manual">
+   <property name="text">
+    <string>&amp;Manual</string>
+   </property>
+  </action>
+  <action name="action_About">
+   <property name="text">
+    <string>&amp;About...</string>
    </property>
   </action>
  </widget>
@@ -952,6 +971,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>action_Manual</sender>
+   <signal>triggered()</signal>
+   <receiver>Knot_Window</receiver>
+   <slot>show_help()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>mode_edge_list()</slot>
@@ -972,5 +1007,6 @@
   <slot>configure_grid()</slot>
   <slot>cause_crash()</slot>
   <slot>config()</slot>
+  <slot>show_help()</slot>
  </slots>
 </ui>
