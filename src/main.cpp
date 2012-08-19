@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "error_recovery.hpp"
 #include <iostream>
 #include <QSvgGenerator>
+#include <QFile>
 
 std::ostream& operator<< ( std::ostream&os, QString str )
 {
