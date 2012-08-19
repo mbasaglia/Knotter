@@ -83,7 +83,8 @@ class KnotView : public QGraphicsView
 
         void writeXML( QIODevice* device ) const ;
         bool readXML( QIODevice* device );
-        void paint_knot ( QPaintDevice* device, bool minimal );
+        void paint_knot ( QPaintDevice* device, QRectF area, bool minimal );
+        void paint_knot ( QPainter* painter, QRectF area, bool minimal );
 
         // style setup
 

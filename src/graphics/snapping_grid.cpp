@@ -42,6 +42,7 @@ void snapping_grid::snap(QPointF &p) const
         /**
             Square grid, simple enough
         */
+        p -= origin;
         p /= size;
         p.setX(qRound64(p.x()));
         p.setY(qRound64(p.y()));
@@ -62,20 +63,27 @@ void snapping_grid::snap(QPointF &p) const
             if you think of p as (x,y)+offset, you can get the expressions used
             below to get (x,y) from (p.x,p.y).
             The rounding p/size removes the offset as |offset.x| < size
+
+            the p -= origin, p += origin is to transform the coordinates
+            relative to the grid origin
         */
+        p -= origin;
         double y_factor = size * sqrt(3.0)/2.0;
         qint64 n2 = qRound64(p.y()/y_factor);
-        p.setY(n2*y_factor+origin.y());
+        p.setY(n2*y_factor);
         qint64 n1 = qRound64 ( p.x()/size - n2/2.0 );
-        p.setX(size*(n2/2.0+n1)+origin.y());
+        p.setX(size*(n2/2.0+n1));
+        p+=origin;
     }
     else if ( shape == TRIANGLE2 )
     {
+        p -= origin;
         double x_factor = size * sqrt(3.0)/2.0;
         qint64 n2 = qRound64(p.x()/x_factor);
-        p.setX(n2*x_factor+origin.x());
+        p.setX(n2*x_factor);
         qint64 n1 = qRound64 ( p.y()/size - n2/2.0 );
-        p.setY(size*(n2/2.0+n1)+origin.x());
+        p.setY(size*(n2/2.0+n1));
+        p+=origin;
     }
 }
 
@@ -84,6 +92,7 @@ void snapping_grid::render(QPainter *painter, const QRectF &rect) const
     if ( !enabled )
         return;
     painter->setPen(QPen(Qt::lightGray,0));
+    painter->drawEllipse(origin,5,5);
     QPointF topleft = nearest(rect.left()-size,rect.top()-size);
 
     QVarLengthArray<QLineF, 128> lines;
@@ -179,6 +188,5 @@ void snapping_grid::set_shape(snapping_grid::grid_shape shape)
 
 void snapping_grid::set_origin(QPointF origin)
 {
-    /// \todo normalize origin
     this->origin = origin;
 }

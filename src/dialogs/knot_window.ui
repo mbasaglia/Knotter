@@ -428,9 +428,6 @@
    </property>
   </action>
   <action name="action_Move_Grid">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
    <property name="icon">
     <iconset resource="../../img/icons.qrc">
      <normaloff>:/img/move_grid.svg</normaloff>:/img/move_grid.svg</iconset>

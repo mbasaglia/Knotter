@@ -37,6 +37,9 @@ Knot_Window::Knot_Window(QWidget *parent) :
 {
     setupUi(this);
 
+    export_dialog.set_knot_view(canvas);
+    export_dialog.setAttribute(Qt::WA_QuitOnClose, false);
+
     ErrorRecovery::recover = canvas;
 
     action_New->setIcon(QIcon::fromTheme("document-new"));
@@ -255,7 +258,7 @@ void Knot_Window::open()
 void Knot_Window::export_image()
 {
 
-    QStringList filters = QStringList()
+    /*QStringList filters = QStringList()
         << tr("SVG Images (*.svg)")         // 0
         << tr("Minimal SVG (*.min.svg)")    // 1
         << tr("PNG Images (*.png)")         // 2
@@ -276,10 +279,6 @@ void Knot_Window::export_image()
     QString exname = export_dialog.selectedFiles()[0];
 
 
-    /*QString exname = QFileDialog::getSaveFileName(this,tr("Export Knot as SVG"),filename,
-                "SVG Images (*.svg);;XML files (*.xml);;All files (*)" );*/
-
-
     QFile quf(exname);
     if ( ! quf.open(QIODevice::WriteOnly | QIODevice::Text) )
     {
@@ -292,11 +291,43 @@ void Knot_Window::export_image()
     if ( name_filter >= first_pixmap_id && name_filter <= last_pixmap_id )
     {
         // pixmap
-        /// \todo Antialiasing, letting QPainter handle this is not enough... :^(
-        QPixmap pix(canvas->scene()->itemsBoundingRect().size().toSize());
-        pix.fill(QColor(255,255,255,0));
-        canvas->paint_knot ( &pix, false );
-        pix.save(&quf,0,100);
+        int back_alpha = name_filter == first_pixmap_id ? 0 : 255;
+
+        if ( export_antialias )
+        {
+            /// Letting QPainter handle antialiasing is not enough... :^(
+            //pix = pix.scaled(pix.size()/2,Qt::KeepAspectRatio,Qt::SmoothTransformation);
+            QImage original (canvas->scene()->itemsBoundingRect().size().toSize()*2,
+                             QImage::Format_ARGB32);
+            original.fill(QColor(255,255,255,back_alpha).rgba());
+            canvas->paint_knot ( &original, false, true);
+
+
+            QImage supersampled(canvas->scene()->itemsBoundingRect().size().toSize(),
+                                QImage::Format_ARGB32 );
+            for ( int y = 0; y < supersampled.height(); y++ )
+                for ( int x = 0; x < supersampled.width(); x++ )
+                {
+                    QColor p1 = QColor::fromRgba(original.pixel(2*x,2*y));
+                    QColor p2 = QColor::fromRgba(original.pixel(2*x+1,2*y));
+                    QColor p3 = QColor::fromRgba(original.pixel(2*x,2*y+1));
+                    QColor p4 = QColor::fromRgba(original.pixel(2*x+1,2*y+1));
+                    QColor color ( (p1.red()+p2.red()+p3.red()+p4.red())/4,
+                                    (p1.green()+p2.green()+p3.green()+p4.green())/4,
+                                    (p1.blue()+p2.blue()+p3.blue()+p4.blue())/4,
+                                    (p1.alpha()+p2.alpha()+p3.alpha()+p4.alpha())/4
+                                  );
+                    supersampled.setPixel(x,y,color.rgba());
+                }
+            supersampled.save(&quf,0,100);
+        }
+        else
+        {
+            QPixmap pix(canvas->scene()->itemsBoundingRect().size().toSize());
+            pix.fill(QColor(255,255,255,back_alpha));
+            canvas->paint_knot ( &pix, false, false);
+            pix.save(&quf,0,100);
+        }
     }
     else
     {
@@ -304,10 +335,12 @@ void Knot_Window::export_image()
         QSvgGenerator gen;
         gen.setOutputDevice(&quf);
 
-        canvas->paint_knot ( &gen, name_filter == 1 );
+        canvas->paint_knot ( &gen, name_filter == 1, false );
     }
 
-    quf.close();
+    quf.close();*/
+    export_dialog.reset_size();
+    export_dialog.show();
 }
 
 void Knot_Window::zoom_in()
@@ -326,12 +359,7 @@ void Knot_Window::configure_grid()
     GridConfig(&grid,this).exec();
 
     actionEnable_Grid->setChecked(grid.is_enabled());
-    if ( grid.get_shape() == snapping_grid::TRIANGLE1 )
-        actionEnable_Grid->setIcon(QIcon(":/img/triangular_grid.svg"));
-    else if ( grid.get_shape() == snapping_grid::TRIANGLE2 )
-        actionEnable_Grid->setIcon(QIcon(":/img/triangular_grid2.svg"));
-    else
-        actionEnable_Grid->setIcon(QIcon(":/img/square_grid.svg"));
+    update_grid_icon();
     canvas->redraw(false);
 
 }
@@ -416,7 +444,6 @@ void Knot_Window::load_config()
     if ( settings.value("version",VERSION).toString() != VERSION )
         return; // don't load settings from different version
 
-
     settings.beginGroup("gui");
     save_ui = settings.value("save",true).toBool();
     if ( save_ui )
@@ -438,7 +465,9 @@ void Knot_Window::load_config()
     settings.beginGroup("grid");
     canvas->get_grid().set_size(settings.value("size").toDouble());
     canvas->get_grid().set_shape(snapping_grid::grid_shape(settings.value("type").toInt()));
+    update_grid_icon();
     settings.endGroup();
+
 
     /// \todo save style?
 
@@ -450,7 +479,6 @@ void Knot_Window::save_config()
     QSettings settings("knotter","knotter");
 
     settings.setValue("version",VERSION);
-
 
     settings.beginGroup("gui");
     if ( save_ui )
@@ -499,6 +527,17 @@ void Knot_Window::update_recent_menu()
             QAction *a = menuOpen_Recent->addAction(QIcon(":/img/logo.svg"), savefile);
             connect(a, SIGNAL(triggered()), this, SLOT(click_recent()));
         }
+}
+
+void Knot_Window::update_grid_icon()
+{
+    snapping_grid::grid_shape gs = canvas->get_grid().get_shape();
+    if ( gs == snapping_grid::TRIANGLE1 )
+        actionEnable_Grid->setIcon(QIcon(":/img/triangular_grid.svg"));
+    else if ( gs == snapping_grid::TRIANGLE2 )
+        actionEnable_Grid->setIcon(QIcon(":/img/triangular_grid2.svg"));
+    else
+        actionEnable_Grid->setIcon(QIcon(":/img/square_grid.svg"));
 }
 
 void Knot_Window::click_recent()

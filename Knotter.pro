@@ -17,7 +17,7 @@ QT       += core gui xml svg
 
 
 TARGET = knotter
-VERSION = 0.4.0
+VERSION = 0.5.0_devel
 
 TEMPLATE = app
 

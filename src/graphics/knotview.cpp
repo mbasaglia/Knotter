@@ -322,6 +322,9 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
 
     if ( mode == MOVE_GRID )
     {
+        Node *node=node_at(p);
+        if ( node )
+            p = node->pos();
         grid.set_origin(p);
         redraw(false);
         return;
@@ -396,6 +399,9 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
 
     if ( mode == MOVE_GRID )
     {
+        Node *node=node_at(p);
+        if ( node )
+            p = node->pos();
         grid.set_origin(p);
         redraw(false);
         mode_edit_node_edge();
@@ -815,22 +821,33 @@ bool KnotView::readXML(QIODevice *device)
 }
 
 #include <QStyleOptionGraphicsItem>
-void KnotView::paint_knot(QPaintDevice *device, bool minimal)
+void KnotView::paint_knot(QPaintDevice *device, QRectF area, bool minimal )
 {
     QPainter painter;
-    painter.setRenderHint(QPainter::Antialiasing);
-    painter.setRenderHint(QPainter::SmoothPixmapTransform);
     painter.begin(device);
-        QStyleOptionGraphicsItem opt;
-        QPointF off = knot.boundingRect().topLeft();
-        painter.translate(-off.x(),-off.y()); // remove offset
 
-        if ( minimal )
-            painter.drawPath(knot.build());
-        else
-            knot.paint(&painter,&opt);
+    paint_knot ( &painter, area, minimal );
 
     painter.end();
+}
+
+void KnotView::paint_knot(QPainter *painter, QRectF area, bool minimal)
+{
+    /// \todo find out how to draw only area
+    QStyleOptionGraphicsItem opt;
+    //opt.exposedRect = area; NOOP?
+    //painter->setClipRect(area); Uh?
+    //opt.rect = area.toRect(); NOOP?
+    Q_UNUSED(area)
+
+    QPointF off = knot.boundingRect().topLeft();
+    painter->translate(-off.x(),-off.y()); // remove offset
+
+
+    if ( minimal )
+        painter->drawPath(knot.build());
+    else
+        knot.paint(painter,&opt);
 }
 
 void KnotView::set_width(double w)

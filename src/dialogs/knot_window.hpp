@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "style_dialog.hpp"
 #include "clipboard.hpp"
 #include "config_dialog.hpp"
+#include "export_dialog.hpp"
 
 class Knot_Window : public QMainWindow, private Ui::Knot_Window
 {
@@ -45,6 +46,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         QStringList     recent_files;
         int             max_recent_files;
         config_dialog   config_dlg;
+        Export_Dialog   export_dialog;
 
     public:
         explicit Knot_Window(QWidget *parent = 0);
@@ -56,6 +58,8 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
         void push_recent_file(QString path);
         void update_recent_menu();
+
+        void update_grid_icon();
 
     protected slots:
         /// set dialog values from canvas settings

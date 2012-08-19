@@ -84,9 +84,6 @@
       </item>
       <item row="2" column="0" colspan="2">
        <widget class="QGroupBox" name="groupBox">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
         <property name="title">
          <string>Origin</string>
         </property>
@@ -167,8 +164,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>252</x>
-     <y>171</y>
+     <x>256</x>
+     <y>244</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -183,8 +180,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>320</x>
-     <y>171</y>
+     <x>324</x>
+     <y>244</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
