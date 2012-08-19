@@ -463,8 +463,10 @@ void Knot_Window::load_config()
     settings.endGroup();
 
     settings.beginGroup("grid");
-    canvas->get_grid().set_size(settings.value("size").toDouble());
-    canvas->get_grid().set_shape(snapping_grid::grid_shape(settings.value("type").toInt()));
+    snapping_grid &grid = canvas->get_grid();
+    grid.set_size(settings.value("size",grid.get_size()).toDouble());
+    grid.set_shape(snapping_grid::grid_shape(
+                    settings.value("type",int(grid.get_shape())).toInt() ));
     update_grid_icon();
     settings.endGroup();
 
