@@ -529,6 +529,7 @@
     <slot>mode_move_grid()</slot>
     <slot>toggle_knotline(bool)</slot>
     <slot>toggle_graph(bool)</slot>
+    <slot>unlink_selected()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -1029,6 +1030,22 @@
     <hint type="destinationlabel">
      <x>319</x>
      <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Unlink</sender>
+   <signal>triggered()</signal>
+   <receiver>canvas</receiver>
+   <slot>unlink_selected()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>266</y>
     </hint>
    </hints>
   </connection>
