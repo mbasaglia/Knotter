@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QBrush>
 #include <QPen>
 KnotGraph::KnotGraph()
-    : cusp_angle ( 225 ), handle_length(32), crossing_distance(10)
+    : default_style ( knot_curve_styler::idof("pointed"), 225, 32, 10)
 {
     setBrush(QBrush(Qt::black));
     setPen(QPen(Qt::gray));
@@ -38,7 +38,6 @@ KnotGraph::KnotGraph()
     stroker.setJoinStyle(Qt::MiterJoin);
 
     /// \todo allow per-node style: if NULL use default else use node setup (?)
-    curve_style = knot_curve_styler::idof("pointed");
 }
 
 KnotGraph::~KnotGraph()
@@ -81,7 +80,7 @@ void KnotGraph::clear()
 
 QPainterPath KnotGraph::build()
 {
-    knot_curve_style* pcs = knot_curve_styler::style(curve_style);
+    knot_curve_style* pcs = knot_curve_styler::style(default_style.curve_style);
 
     //path_builder path_b;
     QPainterPath path;
@@ -89,7 +88,8 @@ QPainterPath KnotGraph::build()
     foreach(Edge*e,edges)
     {
         e->reset();
-        QList<QLineF> connected = e->connected(handle_length,crossing_distance);
+        QList<QLineF> connected = e->connected(default_style.handle_length,
+                                                default_style.crossing_distance);
         foreach ( QLineF l, connected )
         {
             path.moveTo(l.p1());
@@ -120,7 +120,20 @@ QPainterPath KnotGraph::build()
 
                 TraversalInfo ti = n->next_edge(e,handle);
 
-                pcs->draw_joint(path,n,ti,cusp_angle,handle_length,crossing_distance);
+                if ( n->has_custom_style() )
+                {
+                    const styleinfo& csi = n->style_info();
+                    knot_curve_style* customcs = knot_curve_styler::style(csi.curve_style);
+                    customcs->draw_joint(path,n,ti,csi.cusp_angle,
+                                             csi.handle_length,
+                                             csi.crossing_distance);
+                }
+                else
+                {
+                    pcs->draw_joint(path,n,ti,default_style.cusp_angle,
+                                             default_style.handle_length,
+                                             default_style.crossing_distance);
+                }
 
                 ti.edge_out->traverse(ti.handle_out);
             }
@@ -149,6 +162,16 @@ double KnotGraph::get_width() const
     return stroker.width();
 }
 
+void KnotGraph::set_style_info(styleinfo new_style)
+{
+    default_style = new_style;
+}
+
+styleinfo KnotGraph::get_style_info() const
+{
+    return default_style;
+}
+/*
 knot_curve_styler::style_id KnotGraph::get_curve_style() const
 {
     return curve_style;
@@ -187,7 +210,7 @@ double KnotGraph::get_crossing_distance() const
 void KnotGraph::set_crossing_distance(double cd)
 {
     crossing_distance = cd;
-}
+}*/
 
 Qt::PenJoinStyle KnotGraph::get_join_style() const
 {

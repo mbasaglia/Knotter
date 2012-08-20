@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QUndoStack>
 #include <QUndoView>
 #include "closable_dock.hpp"
-#include "style_dialog.hpp"
 #include "clipboard.hpp"
 #include "config_dialog.hpp"
 #include "export_dialog.hpp"
@@ -45,7 +44,6 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
     protected:
         QString         filename;           ///< current/last file name used on open or save
         closable_dock*  undoDock;          ///< Little window showing undoable/redoable actions
-        StyleDialog     style_dialog;       ///< Knot style dialog
         ClipboardItem   clipboard;          ///< Part of the graph copied to clipboard
         bool            save_ui;            ///< Whether to save geometry and toolbars on exit
         QStringList     recent_files;       ///< List of recently used files
@@ -53,6 +51,8 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         config_dialog   config_dlg;         ///< Knotter preferences dialog
         Export_Dialog   export_dialog;      ///< Export SVG/Bitmap dialog
         Help_View       help_view;          ///< Window showing the user guide
+        closable_dock*  default_node_style_dock;
+        closable_dock*  global_style_dock;
 
     public:
         explicit Knot_Window(QWidget *parent = 0);
@@ -81,8 +81,6 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void update_grid_icon();
 
     protected slots:
-        /// set dialog values from canvas settings
-        void update_style_dialog();
 
         /**
             \brief Change the window title to "Knotter - filename*"
@@ -125,9 +123,6 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void open();
         /// Show export dialog
         void export_image();
-
-        /// set canvas style based on style dialog
-        void apply_style();
 
         void zoom_in();
         void zoom_out();

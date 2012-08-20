@@ -31,6 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "error_recovery.hpp"
 #include <QSvgGenerator>
 #include <QSettings>
+#include "node_style_form.hpp"
+#include "global_style_form.hpp"
 
 Knot_Window::Knot_Window(QWidget *parent) :
     QMainWindow(parent), save_ui ( true ), max_recent_files(5)
@@ -80,6 +82,8 @@ Knot_Window::Knot_Window(QWidget *parent) :
     actionSelect_All->setIcon(QIcon::fromTheme("edit-select-all"));
     actionSelect_All->setShortcuts(QKeySequence::SelectAll);
 
+    action_Preferences->setIcon(QIcon::fromTheme("preferences-other"));
+
 
     action_Erase->setIcon(QIcon::fromTheme("edit-delete"));
     //action_Link->setIcon(QIcon::fromTheme("insert-link"));
@@ -93,9 +97,6 @@ Knot_Window::Knot_Window(QWidget *parent) :
     actionRefresh_Path->setIcon(QIcon::fromTheme("view-refresh"));
     actionRefresh_Path->setShortcuts(QKeySequence::Refresh);
     action_Reset_View->setIcon(QIcon::fromTheme("view-restore"));
-
-    action_Style->setIcon(QIcon::fromTheme("preferences-other"));
-
 
     // overcome bug in code generator from ui file
     removeToolBar(EditBar);
@@ -119,15 +120,42 @@ Knot_Window::Knot_Window(QWidget *parent) :
     actionAction_History->connect(undoDock,SIGNAL(openChanged(bool)),SLOT(setChecked(bool)));
     undoDock->connect(actionAction_History,SIGNAL(triggered(bool)),SLOT(setVisible(bool)));
 
+    node_style_form* default_node_style_form = new node_style_form;
+    canvas->connect(default_node_style_form,SIGNAL(style_changed(styleinfo)),
+                    SLOT(set_default_style(styleinfo)));
+    default_node_style_dock = new closable_dock(this);
+    default_node_style_dock->setWidget(default_node_style_form);
+    default_node_style_dock->setObjectName("Default_Node_Style");
+    default_node_style_dock->setWindowTitle(tr("Default Node Style"));
+    actionDefault_Node_Style->connect(default_node_style_dock,
+                            SIGNAL(openChanged(bool)),SLOT(setChecked(bool)));
+    default_node_style_dock->connect(actionDefault_Node_Style,
+                            SIGNAL(triggered(bool)),SLOT(setVisible(bool)));
 
-    style_dialog.connect(action_Style,SIGNAL(triggered()),SLOT(show()));
-    style_dialog.connect(action_Style,SIGNAL(triggered()),SLOT(raise()));
-    this->connect(action_Style,SIGNAL(triggered()),SLOT(update_style_dialog()));
-    style_dialog.setWindowIcon(QIcon::fromTheme("preferences-other"));
 
-    style_dialog.setAttribute(Qt::WA_QuitOnClose, false);
-    update_style_dialog();
-    this->connect(&style_dialog,SIGNAL(changed()),SLOT(apply_style()));
+
+    global_style_form* global_style_frm = new global_style_form;
+    global_style_frm->set_join_style(canvas->get_join_style());
+    global_style_frm->set_knot_color(canvas->get_brush().color());
+    global_style_frm->set_knot_width(canvas->get_width());
+    global_style_frm->set_pen(canvas->get_pen());
+    canvas->connect(global_style_frm,SIGNAL(knot_color_changed(QColor)),
+                    SLOT(set_brush_color(QColor)));
+    canvas->connect(global_style_frm,SIGNAL(join_style_changed(Qt::PenJoinStyle)),
+                    SLOT(set_join_style(Qt::PenJoinStyle)));
+    canvas->connect(global_style_frm,SIGNAL(knot_width_changed(double)),
+                    SLOT(set_width(double)));
+    canvas->connect(global_style_frm,SIGNAL(pen_changed(QPen)),
+                    SLOT(set_pen(QPen)));
+    global_style_dock = new closable_dock(this);
+    global_style_dock->setWidget(global_style_frm);
+    global_style_dock->setObjectName("Knot_Style");
+    global_style_dock->setWindowTitle(tr("Knot Style"));
+    actionKnot_Style->connect(global_style_dock,
+                            SIGNAL(openChanged(bool)),SLOT(setChecked(bool)));
+    global_style_dock->connect(actionKnot_Style,
+                            SIGNAL(triggered(bool)),SLOT(setVisible(bool)));
+
 
     this->connect(config_dlg.clear_recent,SIGNAL(clicked()),SLOT(clear_recent_files()));
 
@@ -163,6 +191,8 @@ void Knot_Window::load_config()
         restoreState(settings.value("state").toByteArray());
 
         actionAction_History->setChecked(undoDock->isVisible());
+        actionDefault_Node_Style->setChecked(default_node_style_dock->isVisible());
+        actionKnot_Style->setChecked(global_style_dock->isVisible());
 
         int icon_size = settings.value("icon_size",iconSize().width()).toInt();
         setIconSize(QSize(icon_size,icon_size));
@@ -228,7 +258,6 @@ void Knot_Window::mode_edge_list()
     actionInsert_Edges->setChecked(false);
     actionEdge_List->setChecked(true);
     canvas->mode_edge_chain();
-    style_dialog.connect(action_Style,SIGNAL(triggered()),SLOT(setFocus()));
 }
 
 void Knot_Window::mode_edge()
@@ -315,7 +344,6 @@ bool Knot_Window::open(QString file, bool silent)
         return false;
     }
 
-    update_style_dialog();
 
     push_recent_file(filename);
 
@@ -418,37 +446,7 @@ void Knot_Window::show_help()
 }
 
 
-void Knot_Window::apply_style()
-{
-    canvas->set_width ( style_dialog.knot_width_spinner->value() );
-    canvas->set_brush ( QBrush ( style_dialog.color->color() ) );
-    canvas->set_pen ( QPen ( style_dialog.outline_color->color(),
-                             style_dialog.outline_width_spinner->value(),
-                             style_dialog.get_pen_style()
-                            ) );
-    canvas->set_curve_style ( style_dialog.get_style_id() );
-    canvas->set_cusp_angle ( style_dialog.cusp_angle_spinner->value() );
-    canvas->set_handle_length ( style_dialog.handle_length_spinner->value() );
-    canvas->set_crossing_distance ( style_dialog.crossing_gap_spinner->value() );
-    canvas->set_join_style ( style_dialog.get_join_style() );
 
-}
-
-void Knot_Window::update_style_dialog()
-{
-    style_dialog.knot_width_spinner->setValue(canvas->get_width());
-    style_dialog.color->set_color ( canvas->get_brush().color() );
-    QPen pen = canvas->get_pen();
-    style_dialog.outline_color->set_color ( pen.color() );
-    style_dialog.outline_width_spinner->setValue ( pen.width() );
-    style_dialog.set_pen_style(pen.style());
-    style_dialog.set_join_style ( pen.joinStyle() );
-    style_dialog.set_style_id(canvas->get_curve_style() );
-    style_dialog.cusp_angle_spinner->setValue ( canvas->get_cusp_angle() );
-    style_dialog.handle_length_spinner->setValue ( canvas->get_handle_length() );
-    style_dialog.crossing_gap_spinner->setValue ( canvas->get_crossing_distance() );
-    style_dialog.set_join_style( canvas->get_join_style() );
-}
 
 void Knot_Window::update_title(bool clean)
 {

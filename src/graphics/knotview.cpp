@@ -636,8 +636,9 @@ void KnotView::writeXML(QIODevice *device) const
                 xml.writeAttribute("style",penstyle);
             xml.writeEndElement();
             xml.writeStartElement("cusp");
-                xml.writeTextElement("style",knot_curve_styler::name(knot.get_curve_style()));
-                xml.writeTextElement("min-angle",QString::number(knot.get_cusp_angle()));
+                styleinfo si = knot.get_style_info();
+                xml.writeTextElement("style",knot_curve_styler::name(si.curve_style));
+                xml.writeTextElement("min-angle",QString::number(si.cusp_angle));
                 QString point;
                 switch ( knot.get_join_style() )
                 {
@@ -649,8 +650,8 @@ void KnotView::writeXML(QIODevice *device) const
                 xml.writeTextElement("point",point);
             xml.writeEndElement();
             xml.writeStartElement("crossing");
-                xml.writeTextElement("gap",QString::number(knot.get_crossing_distance()));
-                xml.writeTextElement("handle-length",QString::number(knot.get_handle_length()));
+                xml.writeTextElement("gap",QString::number(si.crossing_distance));
+                xml.writeTextElement("handle-length",QString::number(si.handle_length));
             xml.writeEndElement();
         xml.writeEndElement();
 
@@ -805,12 +806,13 @@ bool KnotView::readXML(QIODevice *device)
         set_pen(p);
 
         QDomElement cusp = style.firstChildElement("cusp");
+            styleinfo cusp_style_info;
             QDomElement cusp_style = cusp.firstChildElement("style");
             QString stylename =  cusp_style.isNull() ? "pointed" : cusp_style.text();
-            set_curve_style(knot_curve_styler::idof(stylename));
+            cusp_style_info.curve_style = knot_curve_styler::idof(stylename);
             QDomElement cusp_angle = cusp.firstChildElement("min-angle");
             double angle = cusp_angle.isNull() ? 225 : cusp_angle.text().toDouble();
-            set_cusp_angle(angle);
+            cusp_style_info.cusp_angle = angle;
             QDomElement cusp_point = cusp.firstChildElement("point");
             QString point_name =  cusp_point.isNull() ? "miter" : cusp_point.text();
             if ( point_name == "bevel" )
@@ -822,11 +824,11 @@ bool KnotView::readXML(QIODevice *device)
 
         QDomElement crossing = style.firstChildElement("crossing");
             QDomElement egap = crossing.firstChildElement("gap");
-            double dgap = egap.isNull() ? 10 : egap.text().toDouble();
-            set_crossing_distance(dgap);
+            cusp_style_info.crossing_distance = egap.isNull() ? 10 : egap.text().toDouble();
             QDomElement handle_length = crossing.firstChildElement("handle-length");
-            double hl = handle_length.isNull() ? 10 : handle_length.text().toDouble();
-            set_handle_length(hl);
+            cusp_style_info.handle_length = handle_length.isNull() ? 10 : handle_length.text().toDouble();
+
+            set_default_style(cusp_style_info);
 
     }
 
@@ -892,11 +894,28 @@ void KnotView::set_brush(QBrush b)
     redraw(false);
 }
 
+void KnotView::set_brush_color(QColor c)
+{
+    knot.setBrush(c);
+    redraw(false);
+}
+
 QBrush KnotView::get_brush() const
 {
     return knot.brush();
 }
 
+styleinfo KnotView::get_default_style() const
+{
+    return knot.get_style_info();
+}
+
+void KnotView::set_default_style(styleinfo si)
+{
+    knot.set_style_info ( si );
+    redraw(true);
+}
+/*
 knot_curve_styler::style_id KnotView::get_curve_style() const
 {
     return knot.get_curve_style();
@@ -940,7 +959,7 @@ void KnotView::set_crossing_distance(double cd)
     knot.set_crossing_distance(cd);
     redraw(true);
 }
-
+*/
 Qt::PenJoinStyle KnotView::get_join_style() const
 {
     return knot.get_join_style();
@@ -1221,13 +1240,27 @@ void KnotView::erase_selected()
 void KnotView::link_selected()
 {
     undo_stack.beginMacro(tr("Link Nodes"));
-    typedef QList<QGraphicsItem*>::iterator iter;
-    QList<QGraphicsItem*> sel = scene()->selectedItems();
+    typedef node_list::iterator iter;
+    node_list sel = selected_nodes();
     for ( iter i = sel.begin(); i != sel.end(); ++i )
     {
         iter j = i;
         for ( ++j; j != sel.end(); ++j )
-            add_edge(dynamic_cast<Node*>(*i),dynamic_cast<Node*>(*j));
+            add_edge(*i,*j);
+    }
+    undo_stack.endMacro();
+}
+
+void KnotView::unlink_selected()
+{
+    undo_stack.beginMacro(tr("Unlink Nodes"));
+    typedef node_list::iterator iter;
+    node_list sel = selected_nodes();
+    for ( iter i = sel.begin(); i != sel.end(); ++i )
+    {
+        iter j = i;
+        for ( ++j; j != sel.end(); ++j )
+            remove_edge(*i,*j);
     }
     undo_stack.endMacro();
 }

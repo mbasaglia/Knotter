@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "custom_item.hpp"
 #include "edge.hpp"
-
+#include "knot_curve_style.hpp"
 /**
     \brief Information of the way an edge has be traversed
 */
@@ -75,6 +75,8 @@ class Node : public CustomItem
     protected:
         static const int radius = 5; ///< Radius of the circle used to represent the node
         QList<Edge*> edges;          ///< Edges connected to the node
+        bool        custom_style_enabled;
+        styleinfo   custom_style;
 
     public:
 
@@ -108,6 +110,11 @@ class Node : public CustomItem
         */
         TraversalInfo next_edge ( Edge* edge, Edge::handle_type handle ) const;
 
+        bool has_custom_style() const { return custom_style_enabled; }
+        const styleinfo& style_info() const { return custom_style; }
+
+        void set_style_info ( styleinfo si );
+        void unset_style_info ();
 };
 
 /// Used very often

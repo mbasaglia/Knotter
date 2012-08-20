@@ -29,11 +29,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <algorithm>
 
 Node::Node(QPointF position)
-    : CustomItem(true)
+    : CustomItem(true), custom_style_enabled (false)
 {
     setPos(position);
     setFlag(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemIsSelectable);
+    setFlag(QGraphicsItem::ItemIgnoresTransformations);
     setZValue(1);
 }
 
@@ -55,10 +56,10 @@ void Node::paint(QPainter *painter,
                 const QStyleOptionGraphicsItem *,
                 QWidget *)
 {
-    painter->setPen(Qt::black);
 
     if ( isSelected() )
     {
+        painter->setPen(QPen(Qt::darkGray,2));
         painter->setBrush(Qt::white);
         painter->drawRect(boundingRect());
     }
@@ -66,15 +67,16 @@ void Node::paint(QPainter *painter,
     if ( !is_visible() && !highlight)
         return;
 
+    painter->setPen(Qt::black);
 
     if ( highlight && is_visible() )
     {
-        painter->setBrush(Qt::yellow);
+        painter->setBrush(QColor("#ffcc00"));
         painter->drawEllipse(boundingRect());
     }
     else
     {
-        painter->setBrush(Qt::red);
+        painter->setBrush(QColor("#ff4400"));
         painter->drawEllipse(actualRect());
     }
 }
@@ -177,6 +179,17 @@ TraversalInfo Node::next_edge(Edge *edge, Edge::handle_type handle) const
     }
     ti.success = true;
     return ti;
+}
+
+void Node::set_style_info(styleinfo si)
+{
+    custom_style_enabled = true;
+    custom_style = si;
+}
+
+void Node::unset_style_info()
+{
+    custom_style_enabled = false;
 }
 
 

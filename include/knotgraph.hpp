@@ -43,10 +43,11 @@ class KnotGraph : public QGraphicsPathItem
         QList<Edge*> edges;                     ///< List of edges (to be traversed)
         QList<Edge*> traversed_edges;           ///< List of edges (already fully traversed)
         QPainterPathStroker stroker;            ///< Knot style
-        knot_curve_styler::style_id curve_style;///< Knot shape
+        styleinfo default_style;
+        /*knot_curve_styler::style_id curve_style;///< Knot shape
         double cusp_angle;                      ///< Min cusp angle
         double handle_length;                   ///< Length of handles (line from start point to control point in SVG curves )
-        double crossing_distance;               ///< Crossing gap value
+        double crossing_distance;               ///< Crossing gap value*/
 
     public:
         KnotGraph();
@@ -72,7 +73,10 @@ class KnotGraph : public QGraphicsPathItem
         /// get knot path width
         double get_width ( ) const;
 
-        knot_curve_styler::style_id get_curve_style() const;
+
+        void set_style_info( styleinfo new_style );
+        styleinfo get_style_info() const;
+        /*knot_curve_styler::style_id get_curve_style() const;
         void set_curve_style(knot_curve_styler::style_id);
 
 
@@ -83,7 +87,7 @@ class KnotGraph : public QGraphicsPathItem
         void set_handle_length(double hl);
 
         double get_crossing_distance() const;
-        void set_crossing_distance(double cd);
+        void set_crossing_distance(double cd);*/
 
         Qt::PenJoinStyle get_join_style() const;
         void set_join_style(Qt::PenJoinStyle);

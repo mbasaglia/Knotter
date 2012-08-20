@@ -24,10 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 #include "knot_curve_style.hpp"
+#include "node.hpp"
 
 void knot_curve_ogee::draw_joint ( QPainterPath& path,
                     Node* node,
-                    TraversalInfo ti,
+                    const TraversalInfo& ti,
                     double threshold_angle,
                     double handle_length,
                     double crossing_distance )
@@ -64,7 +65,7 @@ void knot_curve_ogee::draw_joint ( QPainterPath& path,
 
 void knot_curve_pointed::draw_joint ( QPainterPath& path,
                     Node *node,
-                    TraversalInfo ti,
+                    const TraversalInfo& ti,
                     double threshold_angle,
                     double handle_length,
                     double crossing_distance )
@@ -95,7 +96,7 @@ void knot_curve_pointed::draw_joint ( QPainterPath& path,
 
 void knot_curve_simple_poly::draw_joint ( QPainterPath& path,
                     Node *node,
-                    TraversalInfo ti,
+                    const TraversalInfo& ti,
                     double threshold_angle,
                     double handle_length,
                     double crossing_distance )
@@ -133,7 +134,7 @@ void knot_curve_simple_poly::draw_joint ( QPainterPath& path,
 
 void knot_curve_advanced_poly::draw_joint ( QPainterPath& path,
                     Node *node,
-                    TraversalInfo ti,
+                    const TraversalInfo& ti,
                     double threshold_angle,
                     double handle_length,
                     double crossing_distance )

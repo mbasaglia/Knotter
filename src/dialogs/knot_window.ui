@@ -58,9 +58,9 @@
      <string>No&amp;des</string>
     </property>
     <addaction name="action_Link"/>
+    <addaction name="action_Unlink"/>
     <addaction name="action_Erase"/>
     <addaction name="action_Merge"/>
-    <addaction name="separator"/>
     <addaction name="separator"/>
     <addaction name="action_Horizontal_Flip"/>
     <addaction name="action_Vertical_Flip"/>
@@ -104,6 +104,8 @@
       <string>&amp;Docks</string>
      </property>
      <addaction name="actionAction_History"/>
+     <addaction name="actionDefault_Node_Style"/>
+     <addaction name="actionKnot_Style"/>
     </widget>
     <addaction name="menu_Toolbars"/>
     <addaction name="menu_Docks"/>
@@ -120,10 +122,8 @@
    </widget>
    <widget class="QMenu" name="menu_Knot">
     <property name="title">
-     <string>&amp;Knot</string>
+     <string>&amp;Tools</string>
     </property>
-    <addaction name="action_Style"/>
-    <addaction name="separator"/>
     <addaction name="actionInsert_Edges"/>
     <addaction name="actionEdge_List"/>
     <addaction name="separator"/>
@@ -162,6 +162,7 @@
    <addaction name="actionEdge_List"/>
    <addaction name="separator"/>
    <addaction name="action_Link"/>
+   <addaction name="action_Unlink"/>
    <addaction name="action_Erase"/>
    <addaction name="action_Merge"/>
    <addaction name="separator"/>
@@ -380,11 +381,6 @@
     <string>Show Knot&amp;line</string>
    </property>
   </action>
-  <action name="action_Style">
-   <property name="text">
-    <string>&amp;Style...</string>
-   </property>
-  </action>
   <action name="actionCut">
    <property name="text">
     <string>Cu&amp;t</string>
@@ -479,6 +475,37 @@
    </property>
    <property name="text">
     <string>Action History</string>
+   </property>
+  </action>
+  <action name="action_Unlink">
+   <property name="icon">
+    <iconset resource="../../img/icons.qrc">
+     <normaloff>:/img/unlink.svg</normaloff>:/img/unlink.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Unlink</string>
+   </property>
+  </action>
+  <action name="actionDefault_Node_Style">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Default Node Style</string>
+   </property>
+  </action>
+  <action name="actionKnot_Style">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Knot Style</string>
    </property>
   </action>
  </widget>

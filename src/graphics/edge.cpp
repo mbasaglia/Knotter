@@ -60,12 +60,12 @@ void Edge::paint(QPainter *painter,
     if ( !is_visible() && !highlight)
         return;
 
-    QPen pen(Qt::blue,2);
-
+    QPen pen(QColor("#0088ff"),2);
+    pen.setCosmetic(true);
 
     if ( highlight && is_visible() )
     {
-        pen.setColor(Qt::cyan);
+        pen.setColor(QColor("#00ccff"));
         pen.setWidth(pen.width()*2);
     }
 

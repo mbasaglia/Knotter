@@ -23,5 +23,6 @@
         <file>triangular_grid.svg</file>
         <file>hflip.svg</file>
         <file>icon.png</file>
+        <file>unlink.svg</file>
     </qresource>
 </RCC>

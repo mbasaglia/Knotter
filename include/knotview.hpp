@@ -119,30 +119,20 @@ class KnotView : public QGraphicsView
          @{
     */
 
-        void set_width ( double w );
         double get_width ( ) const;
-
-        void set_pen ( QPen p );
         QPen get_pen() const;
-
-        void set_brush ( QBrush b );
         QBrush get_brush ( ) const;
-
-        knot_curve_styler::style_id get_curve_style() const;
-        void set_curve_style(knot_curve_styler::style_id);
-
-        double get_cusp_angle() const;
-        void set_cusp_angle(double ca);
-
-        double get_handle_length() const;
-        void set_handle_length(double hl);
-
-        double get_crossing_distance() const;
-        void set_crossing_distance(double cd);
-
+        styleinfo get_default_style() const;
         Qt::PenJoinStyle get_join_style() const;
-        void set_join_style(Qt::PenJoinStyle);
 
+    public slots:
+        void set_join_style(Qt::PenJoinStyle);
+        void set_default_style ( styleinfo si );
+        void set_brush ( QBrush b );
+        void set_brush_color ( QColor c );
+        void set_pen ( QPen p );
+        void set_width ( double w );
+    public:
     /// @}
 
     /**
@@ -198,6 +188,7 @@ class KnotView : public QGraphicsView
 
         void erase_selected();
         void link_selected();
+        void unlink_selected();
         void merge_selected();
 
         void select_all();
