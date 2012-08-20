@@ -79,6 +79,7 @@ class Node : public CustomItem
     public:
 
         Node(QPointF position);
+        ~Node();
 
         QRectF boundingRect() const;
 

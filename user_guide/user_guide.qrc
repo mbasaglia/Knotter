@@ -8,5 +8,7 @@
         <file>img/quran.jpg</file>
         <file>img/style1.png</file>
         <file>user_guide.htm</file>
+        <file>style.css</file>
+        <file>img/background.svg</file>
     </qresource>
 </RCC>

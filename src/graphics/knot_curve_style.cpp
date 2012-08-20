@@ -145,7 +145,7 @@ void knot_curve_advanced_poly::draw_joint ( QPainterPath& path,
     {
         QLineF join(start.p1(),finish.p1());
         QLineF bisect((join.p1()+join.p2())/2,node->pos());
-        bisect.setLength(bisect.length()+24);
+        bisect.setLength(bisect.length()+handle_length/2);
 
         QLineF handlebs1(start.p2(),bisect.p2());
         QLineF handlebs2(finish.p2(),bisect.p2());
@@ -159,6 +159,7 @@ void knot_curve_advanced_poly::draw_joint ( QPainterPath& path,
         handlebs2.setLength(32);
 
 
+
         /*pathb.add_line(start.p1(),start.p2());
         pathb.add_line(start.p2(),handlebs1.p2());
         pathb.add_line(handlebs1.p2(),intersect);
@@ -168,9 +169,9 @@ void knot_curve_advanced_poly::draw_joint ( QPainterPath& path,
 
         path.moveTo(start.p1());
         path.lineTo(start.p2());
-        path.lineTo(handlebs1.p2());
+        //path.lineTo(handlebs1.p2());
         path.lineTo(intersect);
-        path.lineTo(handlebs2.p2());
+        //path.lineTo(handlebs2.p2());
         path.lineTo(finish.p2());
         path.lineTo(finish.p1());
 

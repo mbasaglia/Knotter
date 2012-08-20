@@ -12,7 +12,8 @@ HEADERS += \
     src/dialogs/gridconfig.hpp \
     src/dialogs/config_dialog.hpp \
     src/dialogs/export_dialog.hpp \
-    src/dialogs/help_view.hpp
+    src/dialogs/help_view.hpp \
+    src/dialogs/style_display_dock.hpp
 
 SOURCES += \
     src/dialogs/style_dialog.cpp \
@@ -20,7 +21,8 @@ SOURCES += \
     src/dialogs/gridconfig.cpp \
     src/dialogs/config_dialog.cpp \
     src/dialogs/export_dialog.cpp \
-    src/dialogs/help_view.cpp
+    src/dialogs/help_view.cpp \
+    src/dialogs/style_display_dock.cpp
 
 FORMS += \
     src/dialogs/knot_window.ui \
@@ -28,7 +30,8 @@ FORMS += \
     src/dialogs/config_dialog.ui \
     src/dialogs/style_dialog.ui \
     src/dialogs/export_dialog.ui \
-    src/dialogs/help_view.ui
+    src/dialogs/help_view.ui \
+    src/dialogs/style_display_dock.ui
 
 
 INCLUDEPATH += src/dialogs

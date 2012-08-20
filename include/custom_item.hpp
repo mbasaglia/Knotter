@@ -42,7 +42,10 @@ class CustomItem : public QGraphicsItem
     public:
         bool highlight;///< whether the mouse is over the item
 
-        explicit CustomItem ( bool highlight = false ) : highlight ( highlight ) {}
+        explicit CustomItem ( bool highlight = false ) : highlight ( highlight )
+        {
+            setParentItem(0);
+        }
 
         /// Whether it has to be shown or hidden
         bool is_visible() const

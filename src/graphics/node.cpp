@@ -37,6 +37,9 @@ Node::Node(QPointF position)
     setZValue(1);
 }
 
+Node::~Node()
+{}
+
 
 QRectF Node::boundingRect() const
 {

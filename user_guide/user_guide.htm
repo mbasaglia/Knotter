@@ -1,24 +1,37 @@
-<h1>Introduction</h1>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Knotter User Guide</title>
+         <link rel="stylesheet" href="style.css" type="text/css">
+    </head>
+<body>
+
+<h1><img src="../img/logo_big.svg" class="logo" /> Knotter User Guide</h1>
+
+<h2>Introduction</h2>
 
 <p>Interlace patterns are a kind of design hystorically used as a decorations in 
 many places and by different cultures.</p>
 
-<p>A good description of the algorithm used to render them and dsign tips can be 
+<p>A good description of the algorithm used to render them and design tips can be 
 found at <a href="http://www.entrelacs.net/">Celtic Knotwork: the Ultimate Tutorial</a></p>
 
-<p><img src="img/quran.jpg" alt="An illumination on the cover of the Quran with an interlaced frame" title="An illumination on the cover of the Quran with an interlaced frame" /></p>
+<div class="figure">
+    <img src="img/quran.jpg" alt="An illumination on the cover of the Quran with an interlaced frame" />
+    <p class="caption">An illumination on the cover of the Quran with an interlaced frame</p>
+</div>
 
-<h1>Editing</h1>
+<h2>Editing</h2>
 
 <p>A knot is produced from a graph where the edges define interactions between 
 two knot lines.</p>
 
-<h2>Adding nodes</h2>
+<h3>Adding nodes</h3>
 
 <p>Double clicking on an empty spot on the drawing area will add a node.
 If you double click on an edge, the new node will split that edge in two.</p>
 
-<h2>Adding edges</h2>
+<h3>Adding edges</h3>
 
 <p>To toggle an edge between two nodes, drag the mouse from the first node to
 the second one while holding the right mouse button.</p>
@@ -26,7 +39,7 @@ the second one while holding the right mouse button.</p>
 <p>To create a complete subgraph from the selected nodes, use the <em>Link selected</em>
 command.</p>
 
-<h2>Changing edge type</h2>
+<h3>Changing edge type</h3>
 
 <p>Knotter supports three types of edge:</p>
 
@@ -37,11 +50,14 @@ command.</p>
 <li>Wall     - The lines follow the edge without crossing</li>
 </ul>
 
-<p><img src="img/edge_types.png" alt="Screenshot showing the edge types" title="From left to right: Default, Inverted, Hole, Wall" /></p>
+<div class="figure">
+    <img src="img/edge_types.png" alt="Screenshot showing the edge types"  />
+    <p class="caption">From left to right: Default, Inverted, Hole, Wall</p>
+</div>
 
 <p>The type of an edge is changed with the mouse wheel.</p>
 
-<h2>Quick graph design</h2>
+<h3>Quick graph design</h3>
 
 <p>Adding nodes and edges one at the time can be very tedious, knotter provides
 the <em>Edge list</em> tool to make the process easier.</p>
@@ -52,7 +68,7 @@ connected to the previous one by an edge.</p>
 <p>To break the edge chain, click with the right button, you'll be able to start
 a new chain from the next node.</p>
 
-<h2>Selection and transformation</h2>
+<h3>Selection and transformation</h3>
 
 <p>Only nodes can be selected and moved, the edges will follow their vertices.</p>
 
@@ -69,7 +85,7 @@ cursor). These transformations are available when pasting nodes.</p>
 
 <p>Selected nodes can be mirrored using the horizontal and vertical flip commands.</p>
 
-<h2>Snapping </h2>
+<h3>Snapping </h3>
 
 <p>To allow precise designs knotter offers a grid that, when enabled, will snap
 nodes to the closest point.</p>
@@ -79,9 +95,13 @@ nodes to the closest point.</p>
 * Triangular1 - A grid where the elements are equilateral triangles with a horizontal base.
 * Triangular2 - A grid where the elements are equilateral triangles with a vertical side.</p>
 
-<p><img src="img/grid.png" alt="Screenshot showing some nodes on a grid" title="The grid allows precise editing" /></p>
+<div class="figure">
+    <img src="img/grid.png" alt="Screenshot showing some nodes on a grid" />
+    <p class="caption">The grid allows precise editing</p>
+</div>
 
-<h1>Style</h1>
+<h2>Style</h2>
+
 
 <p>The <em>Knot Style</em> dialog allows the configuration of display and shape options.
 Changes are visible in the preview area of the dialog.</p>
@@ -92,8 +112,7 @@ Changes are visible in the preview area of the dialog.</p>
 <li>Crossing Gap - Distance between the end points when a lines are crossing.</li>
 <li>Minimum Cusp Angle - Minimum angle between two edge to make the knot line 
                    display a cuspid rather than a smooth curve.</li>
-<li>Curve Style  - Various cuspid shapes
-<img src="img/cusp_shapes.png" alt="Screenshot showing the various curve shapes" title="Curve shapes avaliable in knotter" /></li>
+<li>Curve Style  - Various cuspid shapes</li>
 <li>Point Style  - How the sharp points are rendered
 <ul>
 <li>Bevel - Flat</li>
@@ -102,25 +121,35 @@ Changes are visible in the preview area of the dialog.</p>
 </ul></li>
 </ul>
 
-<p><img src="img/style1.png" alt="Screenshot of the display style settings" title="" />
-<img src="img/style2.png" alt="Screenshot of the shape style settings" title="" /></p>
 
-<h1>Save and Load</h1>
+<div class="figure">
+    <img src="img/cusp_shapes.png" alt="Screenshot showing the various curve shapes" />
+    <p class="caption">Curve shapes avaliable in knotter</p>
+</div>
+
+<div class="figure seq">
+    <img src="img/style1.png" alt="Screenshot of the display style settings"  width="300" />
+    <img src="img/style2.png" alt="Screenshot of the shape style settings"  width="300" />
+    <p class="caption">Style settings dialog</p>
+</div>
+
+<h2>Save and Load</h2>
 
 <p>Knotter can save and load knots in its own human-readable format.</p>
 
-<h2>Export</h2>
+<h3>Export</h3>
 
 <p>The Export dialog gives many options to export the knot as Image</p>
 
-<h3>Vector</h3>
+
+<h4>Vector</h4>
 
 <ul>
 <li>Only shape - Only export the shape of the knot as a thin line, discarding 
             any other style option</li>
 </ul>
 
-<h3>Raster</h3>
+<h4>Raster</h4>
 
 <ul>
 <li>Antialias   - If checked, the output image will be supersampled.</li>
@@ -135,4 +164,9 @@ Changes are visible in the preview area of the dialog.</p>
 <li>Reset Size   - Change Width and Height back to the default.</li>
 </ul>
 
-<p><img src="img/export.png" alt="Export dialog" title="" /></p>
+<div class="figure"><img src="img/export.png" alt="Export dialog" title="" /></div>
+
+
+</body>
+
+</html>

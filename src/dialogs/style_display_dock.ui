@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>style_display_dock</class>
+ <widget class="QDockWidget" name="style_display_dock">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>166</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Display style</string>
+  </property>
+  <widget class="QWidget" name="dockWidgetContents">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Knot Width</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1" rowspan="2">
+     <widget class="QDoubleSpinBox" name="knot_width_spinner">
+      <property name="suffix">
+       <string>px</string>
+      </property>
+      <property name="minimum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>5.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" rowspan="2">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Knot Color</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="ColorWidget" name="color">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1" rowspan="2">
+     <widget class="QDoubleSpinBox" name="outline_width_spinner">
+      <property name="suffix">
+       <string>px</string>
+      </property>
+      <property name="minimum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>128.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Outline Width</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0" rowspan="2">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Outline Color</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="ColorWidget" name="outline_color">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0" rowspan="2" colspan="2">
+     <widget class="QLabel" name="label_10">
+      <property name="text">
+       <string>Outline Pattern</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="QComboBox" name="outline_pattern_combo">
+      <property name="iconSize">
+       <size>
+        <width>96</width>
+        <height>4</height>
+       </size>
+      </property>
+      <item>
+       <property name="text">
+        <string>Solid</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../img/icons.qrc">
+         <normaloff>:/img/line_solid.svg</normaloff>:/img/line_solid.svg</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>No Line</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../img/icons.qrc">
+         <normaloff>:/img/line_no.svg</normaloff>:/img/line_no.svg</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Dotted</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../img/icons.qrc">
+         <normaloff>:/img/line_dot.svg</normaloff>:/img/line_dot.svg</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Dashed</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../img/icons.qrc">
+         <normaloff>:/img/line_dash.svg</normaloff>:/img/line_dash.svg</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Dash Dot</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../img/icons.qrc">
+         <normaloff>:/img/line_dash_dot.svg</normaloff>:/img/line_dash_dot.svg</iconset>
+       </property>
+      </item>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ColorWidget</class>
+   <extends>QLineEdit</extends>
+   <header>color_widget.hpp</header>
+   <slots>
+    <signal>color_changed(QColor)</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../../img/icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

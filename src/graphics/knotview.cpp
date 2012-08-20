@@ -115,7 +115,7 @@ void KnotView::do_remove_node(Node *node)
     scene()->removeItem(node);
     foreach ( Edge* e, node->links() )
     {
-        scene()->removeItem(e);
+        //scene()->removeItem(e);
         node->remove_link(e);
         e->other(node)->remove_link(e);
         knot.remove_edge(e);
@@ -127,6 +127,7 @@ void KnotView::do_remove_node(Node *node)
 
 void KnotView::do_move_node(Node* node, QPointF pos)
 {
+    (void)node;(void)pos;
     node->setPos(pos);
     redraw(true);
 }
@@ -248,6 +249,7 @@ void KnotView::mousePressEvent(QMouseEvent *event)
                 mouse_status = MOVING;
                 snap(p,event);
                 startpos = oldpos = node->pos();
+                initialize_movement(node);
             }
         }
         else if ( edge )
@@ -272,6 +274,7 @@ void KnotView::mousePressEvent(QMouseEvent *event)
                 mouse_status = MOVING;
                 snap(p,event);
                 startpos = oldpos = p;
+                initialize_movement(edge->vertex1());
             }
         }
         else if ( !( event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier) ) )
@@ -417,6 +420,7 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
         snap(p,event);
         if ( p != startpos )
             move_nodes(p);
+        sel_offset.clear();
     }
     else if ( mouse_status == SELECTING )
     {
@@ -486,12 +490,21 @@ void KnotView::wheelEvent(QWheelEvent *event)
             }
             else
             {
-                double factor = ( event->delta() < 0 ? 0.5 : 2 );
+                /*double factor = ( event->delta() < 0 ? 0.5 : 2 );
                 QPointF origin = sel[0]->pos();
                 foreach ( Node* selnode, sel )
                 {
                     QLineF vector ( origin, selnode->pos() );
                     vector.setLength(vector.length()*factor);
+                    selnode->setPos(vector.p2());
+                }*/
+                QPointF origin = sel[0]->pos();
+                sel_size += event->delta() < 0 ? -1 : 1;
+                foreach ( Node* selnode, sel )
+                {
+                    QLineF vector ( QPointF(0,0), sel_offset[selnode] );
+                    vector.setLength(vector.length()*sel_size);
+                    vector.translate(origin);
                     selnode->setPos(vector.p2());
                 }
             }
@@ -968,6 +981,40 @@ void KnotView::mode_change()
     //scene()->clearSelection();
 }
 
+void KnotView::initialize_movement(Node *main)
+{
+    node_list selection = selected_nodes();
+    if ( selection.size() < 2 )
+        return;
+    sel_offset.clear();
+    last_node = main;
+    QRectF boundbox;
+    foreach(Node* n, selection)
+    {
+        QPointF off = n->pos()-main->pos();
+        sel_offset[n] = off;
+
+        if ( off.x() < boundbox.left() )
+            boundbox.setLeft(off.x());
+        else if ( off.x() > boundbox.right() )
+            boundbox.setRight(off.x());
+
+        if ( off.y() < boundbox.top() )
+            boundbox.setTop(off.y());
+        else if ( off.y() > boundbox.bottom() )
+            boundbox.setBottom(off.y());
+    }
+
+    if ( grid.is_enabled() )
+        sel_size = boundbox.width() / grid.get_size();
+    else
+        sel_size = 4;
+
+    for ( QMap<Node*,QPointF>::iterator it = sel_offset.begin();
+            it != sel_offset.end(); ++it )
+        it.value() /= sel_size;
+}
+
 
 Node *KnotView::add_node(QPointF pos, node_list adjl)
 {
@@ -1154,6 +1201,8 @@ void KnotView::mode_moving_new()
         QCursor::setPos( mapToGlobal( mapFromScene( sn[0]->pos() ) ) );
 
     oldpos = mapToScene ( mapFromGlobal ( QCursor::pos() ) );
+
+    initialize_movement ( sn[0] );
 }
 
 void KnotView::erase_selected()
