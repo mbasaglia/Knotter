@@ -3,6 +3,9 @@
 
 #include "knotview.hpp"
 
+/**
+    \brief Quick and dirty class used to save a backup file on error
+*/
 class ErrorRecovery
 {
     private:

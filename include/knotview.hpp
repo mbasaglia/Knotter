@@ -33,14 +33,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "knotgraph.hpp"
 #include "snapping_grid.hpp"
 
-
+/**
+    \brief Area used to manipulate and render the Knot
+*/
 class KnotView : public QGraphicsView
 {
         Q_OBJECT
 
     protected:
-        enum mode_type { EDIT_NODE_EDGE, INSERT_EDGE_CHAIN, MOVE_GRID };
+        /// Editing modes, changing this will alter the avaliable mouse actions
+        enum mode_type {
+                EDIT_NODE_EDGE,     ///< Alter nodes and edges (move etc)
+                INSERT_EDGE_CHAIN,  ///< Insert a chain of nodes and edges
+                MOVE_GRID           ///< Move grid origin
+        };
 
+        /// Current mouse action
         enum mouse_status_type {
                 DEFAULT, ///< default, mouse actions depend on mode_type
                 MOVING,  ///< moving existing nodes around
@@ -51,42 +59,63 @@ class KnotView : public QGraphicsView
         };
 
 
-        mode_type mode;
-        Node* last_node;
-        mouse_status_type mouse_status;
-        QPointF oldpos;
-        QPointF startpos;
-        node_list node_chain;
-        QGraphicsLineItem* guide;
-        QGraphicsRectItem* rubberband;
-        QUndoStack undo_stack;
-        KnotGraph knot;
-        snapping_grid grid;
+        mode_type mode;                 ///< Editing mode
+        Node* last_node;                ///< Last meaningful node or NULL
+        mouse_status_type mouse_status; ///< What the mouse is doing (make mouse events stateful)
+        QPointF oldpos;                 ///< Previous position in moving actions
+        QPointF startpos;               ///< Starting position in moving actions
+        node_list node_chain;           ///< List of nodes used in INSERT_EDGE_CHAIN
+        QGraphicsLineItem* guide;       ///< Tiny line showing the edge being edited
+        QGraphicsRectItem* rubberband;  ///< Draggable selection rectangle
+        QUndoStack undo_stack;          ///< Actions perfomed by the view
+        KnotGraph knot;                 ///< Knot logic and graphics item
+        snapping_grid grid;             ///< Grid setup
 
     public:
         KnotView(QWidget *parent);
 
-        void do_add_node ( Node* node, node_list adjl );
-        void do_remove_node ( Node* node );
-        void do_move_node ( Node* node, QPointF pos );
 
+    /**
+        \defgroup do_command  Alter graph
+        These functions do exactly what they say
+        \see request_command
+        @{
+    */
+
+        /// Add a node
+        void do_add_node ( Node* node, node_list adjl );
+        /// Remove a node
+        void do_remove_node ( Node* node );
+        /// Move a node
+        void do_move_node ( Node* node, QPointF pos );
+        /// Create an edge between a and b
         void link ( Node*a, Node*b );
+        /// Remove the edge between a and b
         void unlink ( Node*a, Node*b );
+        /// Change the edge type between a and b
         void do_toggle_edge ( Node*a, Node*b, Edge::type_type type );
 
+    /// @}
 
         const QUndoStack& get_undo_stack() const { return undo_stack; }
         QUndoStack& get_undo_stack() { return undo_stack; }
 
-
+        /// Remove all nodes and edges
         void clear();
 
+        /// Output knot as XML
         void writeXML( QIODevice* device ) const ;
+        /// Add sub-knot from XML
         bool readXML( QIODevice* device );
+        /// Draw the knot to device
         void paint_knot ( QPaintDevice* device, QRectF area, bool minimal );
+        /// Draw the knot
         void paint_knot ( QPainter* painter, QRectF area, bool minimal );
 
-        // style setup
+    /**
+         \defgroup knotview_style  Style setup
+         @{
+    */
 
         void set_width ( double w );
         double get_width ( ) const;
@@ -112,8 +141,16 @@ class KnotView : public QGraphicsView
         Qt::PenJoinStyle get_join_style() const;
         void set_join_style(Qt::PenJoinStyle);
 
+    /// @}
 
-        // push new undo command
+    /**
+             \defgroup request_command  Request action
+             These function create and undo command and delegate the actual
+             execution to that.
+             \see do_command
+             @{
+    */
+
         Node* add_node(QPointF pos,node_list adjl=node_list());
         Node *add_node_or_break_edge(QPointF p,node_list adjl=node_list());
         void add_node(Node* n);
@@ -126,8 +163,12 @@ class KnotView : public QGraphicsView
         void cycle_edge_inverted(Edge *e);
         void set_edge_type ( Edge* e, Edge::type_type type );
 
+    /// @}
+
+        /// get list of selected nodes
         node_list selected_nodes() const;
 
+        /// get reference to the grid
         snapping_grid& get_grid();
 
     protected:

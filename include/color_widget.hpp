@@ -31,6 +31,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPainter>
 #include <QStyleOptionFrameV3>
 
+/**
+    \brief Widget to select and preview colors
+
+    Too bad Qt doesn't provide one by default.
+
+    Used QLineEdit as base because it's easy to change its background and keep nice formatting.
+
+    This class is short enough so it's kept in a header with no source file.
+
+*/
 class ColorWidget : public QLineEdit
 {
         Q_OBJECT
@@ -95,6 +105,7 @@ class ColorWidget : public QLineEdit
         }*/
 
     signals:
+        /// emitted each time the user alters the color shown in the dialog
         void color_changed ( QColor );
 
 };

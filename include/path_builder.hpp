@@ -29,8 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPainterPath>
 
 /**
-\file
-attempt to create a signle stroke out of consecutive lines, right now it fails in some cases
+    \file
+    \brief attempt to create a signle stroke out of consecutive lines, right now it fails in some cases
 */
 
 namespace path_item {

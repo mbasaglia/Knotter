@@ -31,18 +31,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QGraphicsPathItem>
 #include "knot_curve_style.hpp"
 
+/**
+    \brief Class representing the knot line
+
+    This class will both evaluate the shape and render the knot
+*/
 class KnotGraph : public QGraphicsPathItem
 {
     protected:
-        QPainterPath knot;
-        QList<Node*> nodes;
-        QList<Edge*> edges;
-        QList<Edge*> traversed_edges;
-        QPainterPathStroker stroker;
-        knot_curve_styler::style_id curve_style;
-        double cusp_angle;
-        double handle_length;
-        double crossing_distance;
+        QList<Node*> nodes;                     ///< List of nodes
+        QList<Edge*> edges;                     ///< List of edges (to be traversed)
+        QList<Edge*> traversed_edges;           ///< List of edges (already fully traversed)
+        QPainterPathStroker stroker;            ///< Knot style
+        knot_curve_styler::style_id curve_style;///< Knot shape
+        double cusp_angle;                      ///< Min cusp angle
+        double handle_length;                   ///< Length of handles (line from start point to control point in SVG curves )
+        double crossing_distance;               ///< Crossing gap value
 
     public:
         KnotGraph();
@@ -52,8 +56,15 @@ class KnotGraph : public QGraphicsPathItem
         void remove_node(Node* which);
         void remove_edge ( Edge* which );
         void add ( CustomItem* what );
-        void clear();
+        void clear();   ///< remove all edges and nodes
 
+        /**
+            \brief Update the path
+
+            This function traverses the graph and contructs the knot line.
+
+            \return the thin resulting path, without any style
+        */
         QPainterPath build();
 
         /// set knot path width

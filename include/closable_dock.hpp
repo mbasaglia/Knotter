@@ -23,33 +23,31 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
-#ifndef CUSTOM_ITEM_HPP
-#define CUSTOM_ITEM_HPP
+#ifndef CLOSABLE_DOCK_HPP
+#define CLOSABLE_DOCK_HPP
 
-
-#include <QGraphicsItem>
-#include "grid_scene.hpp"
-
-class Edge;
-class Node;
-
+#include <QDockWidget>
 /**
-    \brief base class for graph element in the scene
+    \brief DockWidget with some extra signals
+
+    Reimplements QDockWidget to make synch with checkable menu items possible
 */
-class CustomItem : public QGraphicsItem
+class closable_dock : public QDockWidget
 {
-
-    public:
-        bool highlight;///< whether the mouse is over the item
-
-        explicit CustomItem ( bool highlight = false ) : highlight ( highlight ) {}
-
-        /// Whether it has to be shown or hidden
-        bool is_visible() const
-        {
-            GridScene *gs = dynamic_cast<GridScene*>(scene());
-            return gs && gs->show_graph;
-        }
+    Q_OBJECT
+public:
+    closable_dock ( QWidget* parent ) : QDockWidget (parent) {}
+signals:
+    void closed();
+    void openChanged(bool);
+protected:
+    void closeEvent(QCloseEvent *event)
+    {
+        emit openChanged(false);
+        emit closed();
+        QDockWidget::closeEvent(event);
+    }
 };
 
-#endif // CUSTOM_ITEM_HPP
+
+#endif // CLOSABLE_DOCK_HPP

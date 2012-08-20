@@ -23,6 +23,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
+/**
+    \file
+    \brief Classes that define and handle knot curve styles
+*/
 #ifndef KNOT_CURVE_STYLE_HPP
 #define KNOT_CURVE_STYLE_HPP
 
@@ -30,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#include "path_builder.hpp"
 #include <QMap>
 
+/// Abstract class
 class knot_curve_style
 {
     public:
@@ -40,7 +45,7 @@ class knot_curve_style
                                     double handle_length,
                                     double crossing_distance ) = 0;
 
-        //virtual ~knot_curve_style() {}
+        virtual ~knot_curve_style() {}
 };
 
 class knot_curve_ogee : public knot_curve_style
@@ -88,7 +93,9 @@ class knot_curve_advanced_poly : public knot_curve_style
 };
 
 
-
+/**
+    \brief slightly dirty class that registers knot curve styles, used to allow extensibility
+*/
 struct knot_curve_styler
 {
     typedef long style_id;

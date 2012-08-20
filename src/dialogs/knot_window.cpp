@@ -107,10 +107,18 @@ Knot_Window::Knot_Window(QWidget *parent) :
 
 
     this->connect(&canvas->get_undo_stack(),SIGNAL(cleanChanged(bool)),SLOT(update_title(bool)));
-    undoView.setStack(&canvas->get_undo_stack());
-    undoView.setWindowTitle("Action History");
-    undoView.show();
-    undoView.setAttribute(Qt::WA_QuitOnClose, false);
+
+    QUndoView *undoView = new QUndoView(&canvas->get_undo_stack());
+    undoDock = new closable_dock(this);
+    undoDock->setFloating(true);
+    undoDock->setWidget(undoView);
+    undoDock->setObjectName("Action_History");
+    undoDock->setWindowTitle(tr("Action History"));
+    undoDock->show();
+    addDockWidget(static_cast<Qt::DockWidgetArea>(2), undoDock);
+    actionAction_History->connect(undoDock,SIGNAL(openChanged(bool)),SLOT(setChecked(bool)));
+    undoDock->connect(actionAction_History,SIGNAL(triggered(bool)),SLOT(setVisible(bool)));
+
 
     style_dialog.connect(action_Style,SIGNAL(triggered()),SLOT(show()));
     style_dialog.connect(action_Style,SIGNAL(triggered()),SLOT(raise()));
@@ -137,6 +145,82 @@ Knot_Window::~Knot_Window()
 {
     save_config();
 }
+
+
+void Knot_Window::load_config()
+{
+    QSettings settings("knotter","knotter");
+
+
+    if ( settings.value("version",VERSION).toString() != VERSION )
+        return; // don't load settings from different version
+
+    settings.beginGroup("gui");
+    save_ui = settings.value("save",true).toBool();
+    if ( save_ui )
+    {
+        restoreGeometry(settings.value("geometry").toByteArray());
+        restoreState(settings.value("state").toByteArray());
+
+        actionAction_History->setChecked(undoDock->isVisible());
+
+        int icon_size = settings.value("icon_size",iconSize().width()).toInt();
+        setIconSize(QSize(icon_size,icon_size));
+        setToolButtonStyle ( Qt::ToolButtonStyle (
+                     settings.value("buttons",toolButtonStyle()).toInt() ) );
+    }
+    settings.endGroup();
+
+    settings.beginGroup("recent_files");
+    recent_files = settings.value("list").toStringList();
+    max_recent_files = settings.value("max",max_recent_files).toInt();
+    settings.endGroup();
+
+    settings.beginGroup("grid");
+    snapping_grid &grid = canvas->get_grid();
+    grid.set_size(settings.value("size",grid.get_size()).toDouble());
+    grid.set_shape(snapping_grid::grid_shape(
+                    settings.value("type",int(grid.get_shape())).toInt() ));
+    update_grid_icon();
+    settings.endGroup();
+
+
+    /// \todo save style?
+
+
+}
+
+void Knot_Window::save_config()
+{
+    QSettings settings("knotter","knotter");
+
+    settings.setValue("version",VERSION);
+
+    settings.beginGroup("gui");
+    if ( save_ui )
+    {
+        settings.setValue("geometry",saveGeometry());
+        settings.setValue("state",saveState());
+        settings.setValue("save",true);
+        settings.setValue("icon_size",iconSize().width());
+        settings.setValue("buttons",toolButtonStyle());
+    }
+    else
+        settings.setValue("save",false);
+    settings.endGroup();
+
+    settings.beginGroup("recent_files");
+    settings.setValue("list",recent_files);
+    settings.setValue("max",max_recent_files);
+    settings.endGroup();
+
+    settings.beginGroup("grid");
+    settings.setValue("size",canvas->get_grid().get_size());
+    settings.setValue("type",int(canvas->get_grid().get_shape()));
+    settings.endGroup();
+}
+
+
 
 
 void Knot_Window::mode_edge_list()
@@ -376,77 +460,6 @@ void Knot_Window::cause_crash()
     Node *nil = 0;
     nil->~Node();
 }
-
-void Knot_Window::load_config()
-{
-    QSettings settings("knotter","knotter");
-
-
-    if ( settings.value("version",VERSION).toString() != VERSION )
-        return; // don't load settings from different version
-
-    settings.beginGroup("gui");
-    save_ui = settings.value("save",true).toBool();
-    if ( save_ui )
-    {
-        restoreGeometry(settings.value("geometry").toByteArray());
-        restoreState(settings.value("state").toByteArray());
-        int icon_size = settings.value("icon_size",iconSize().width()).toInt();
-        setIconSize(QSize(icon_size,icon_size));
-        setToolButtonStyle ( Qt::ToolButtonStyle (
-                     settings.value("buttons",toolButtonStyle()).toInt() ) );
-    }
-    settings.endGroup();
-
-    settings.beginGroup("recent_files");
-    recent_files = settings.value("list").toStringList();
-    max_recent_files = settings.value("max",max_recent_files).toInt();
-    settings.endGroup();
-
-    settings.beginGroup("grid");
-    snapping_grid &grid = canvas->get_grid();
-    grid.set_size(settings.value("size",grid.get_size()).toDouble());
-    grid.set_shape(snapping_grid::grid_shape(
-                    settings.value("type",int(grid.get_shape())).toInt() ));
-    update_grid_icon();
-    settings.endGroup();
-
-
-    /// \todo save style?
-
-
-}
-
-void Knot_Window::save_config()
-{
-    QSettings settings("knotter","knotter");
-
-    settings.setValue("version",VERSION);
-
-    settings.beginGroup("gui");
-    if ( save_ui )
-    {
-        settings.setValue("geometry",saveGeometry());
-        settings.setValue("state",saveState());
-        settings.setValue("save",true);
-        settings.setValue("icon_size",iconSize().width());
-        settings.setValue("buttons",toolButtonStyle());
-    }
-    else
-        settings.setValue("save",false);
-    settings.endGroup();
-
-    settings.beginGroup("recent_files");
-    settings.setValue("list",recent_files);
-    settings.setValue("max",max_recent_files);
-    settings.endGroup();
-
-    settings.beginGroup("grid");
-    settings.setValue("size",canvas->get_grid().get_size());
-    settings.setValue("type",int(canvas->get_grid().get_shape()));
-    settings.endGroup();
-}
-
 
 
 void Knot_Window::push_recent_file(QString path)

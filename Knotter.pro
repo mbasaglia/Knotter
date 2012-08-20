@@ -17,7 +17,7 @@ QT       += core gui xml
 
 
 TARGET = knotter
-VERSION = 0.4.6_devel
+VERSION = 0.4.7_devel
 
 TEMPLATE = app
 
@@ -76,7 +76,7 @@ mydistclean.commands = $(DEL_FILE) $$MYDIST_TAR_GZ Makefile
 QMAKE_EXTRA_TARGETS += mydist mydistclean
 
 Doxyfile.commands = doxygen -g
-doc.depends = $$TARGET Doxyfile FORCE
+doc.depends = Doxyfile FORCE
 doc.commands = sed s/KNOTTER_VERSION/$${VERSION}/ Doxyfile | doxygen -
 QMAKE_EXTRA_TARGETS += doc Doxyfile
 

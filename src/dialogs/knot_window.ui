@@ -99,7 +99,14 @@
      <addaction name="action_Main"/>
      <addaction name="action_Knot_Editing"/>
     </widget>
+    <widget class="QMenu" name="menu_Docks">
+     <property name="title">
+      <string>&amp;Docks</string>
+     </property>
+     <addaction name="actionAction_History"/>
+    </widget>
     <addaction name="menu_Toolbars"/>
+    <addaction name="menu_Docks"/>
     <addaction name="separator"/>
     <addaction name="menu_Zoom"/>
     <addaction name="action_Reset_View"/>
@@ -461,6 +468,17 @@
   <action name="action_About">
    <property name="text">
     <string>&amp;About...</string>
+   </property>
+  </action>
+  <action name="actionAction_History">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Action History</string>
    </property>
   </action>
  </widget>

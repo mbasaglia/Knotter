@@ -115,7 +115,7 @@ void KnotView::do_remove_node(Node *node)
     scene()->removeItem(node);
     foreach ( Edge* e, node->links() )
     {
-        //scene()->removeItem(e);
+        scene()->removeItem(e);
         node->remove_link(e);
         e->other(node)->remove_link(e);
         knot.remove_edge(e);

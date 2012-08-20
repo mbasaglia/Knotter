@@ -29,20 +29,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "custom_item.hpp"
 #include "edge.hpp"
 
+/**
+    \brief Information of the way an edge has be traversed
+*/
 struct TraversalInfo
 {
     enum handside_type { LEFT, RIGHT };
 
-    Edge* edge_in;
-    Edge::handle_type handle_in;
-    Edge* edge_out;
-    Edge::handle_type handle_out;
-    handside_type handside;
-    double angle_in;
-    double angle_out;
-    double angle_delta;
-    bool success;
-    QString error_message;
+    Edge* edge_in;                  ///< Input Edge
+    Edge::handle_type handle_in;    ///< Input Handle
+    Edge* edge_out;                 ///< Output Edge
+    Edge::handle_type handle_out;   ///< Output Handle
+    handside_type handside;         ///< Side of the input handle relative to the input edge
+    double angle_in;                ///< Angle of the input edge relative to the vertex bewteen the two edges
+    double angle_out;               ///< Angle of the output edge relative to the vertex bewteen the two edges
+    double angle_delta;             ///< Difference between angle_in and angle_out (clock or counter depends on handside)
+    bool success;                   ///< Input parameters were OK
+    QString error_message;          ///< If !success, error message
 
     TraversalInfo ( QString error_message )
         : edge_in ( NULL ), handle_in ( Edge::NOHANDLE ),
@@ -61,11 +64,17 @@ struct TraversalInfo
 
 };
 
+/**
+\brief Edge between two nodes
+
+This class is responsible to draw the node in the KnotView
+and to perform the logic of the node, in particular is responsible for the graph traversal
+*/
 class Node : public CustomItem
 {
     protected:
-        static const int radius = 5;
-        QList<Edge*> edges;
+        static const int radius = 5; ///< Radius of the circle used to represent the node
+        QList<Edge*> edges;          ///< Edges connected to the node
 
     public:
 
@@ -79,25 +88,28 @@ class Node : public CustomItem
                     const QStyleOptionGraphicsItem *option,
                     QWidget *widget);
 
+        /// Get edge connecting this to other or NULL
         Edge* get_link(Node* other) const;
         void add_link ( Edge* edge );
         void remove_link ( Edge* which );
+        /// List of edges connected to the node
         QList<Edge*> links() const { return edges; }
+        /// Adjacency list
         QList<Node*> linked_to() const;
 
 
         // curve-building functions:
 
         /**
-            \brief find next edge end handle in traversal
-            \details Modifies the parameters so that the restult will be the
-            next edge/handle pair.
+            \brief find next edge in traversal
+
+            If edge is connected to this node, finds out the next edge depending on handle
         */
         TraversalInfo next_edge ( Edge* edge, Edge::handle_type handle ) const;
 
 };
 
-
+/// Used very often
 typedef QList<Node*> node_list;
 
 #endif // NODE_HPP

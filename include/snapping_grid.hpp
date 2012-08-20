@@ -29,6 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPointF>
 #include <QPainter>
 
+/**
+    \brief Triangular or Square grid
+*/
 class snapping_grid
 {
     public:

@@ -27,11 +27,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define GRID_VIEW_HPP
 #include <QGraphicsScene>
 #include "snapping_grid.hpp"
+
+/**
+    \brief GraphicsScene which shows a snapping_grid on the background
+*/
 class GridScene : public QGraphicsScene
 {
     public:
-        snapping_grid* grid;
-        bool           show_graph;
+        snapping_grid* grid;        ///< Grid object
+        bool           show_graph;  ///< Whether the graph is to be shown (bad encapsulation)
 
         GridScene ( snapping_grid* grid ) : grid ( grid ), show_graph(true) {}
 

@@ -29,6 +29,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "custom_item.hpp"
 
 /**
+\brief Edge between two nodes
+
+This class is responsible to draw the edge in the KnotView
+and to perform the logic of the edge
+
+
+Handle layout:
 <pre>
            TOPLEFT    TOPRIGHT
                   \  /
@@ -58,7 +65,10 @@ class Edge : public CustomItem
                 const QStyleOptionGraphicsItem *,
                 QWidget *);
 
-        bool is_vertex ( const Node* ) const;
+        /// Whether node is one of its vetices
+        bool is_vertex ( const Node* node ) const;
+
+        /// Return the vertex that is not which
         Node* other ( const Node *which ) const;
 
         Node* vertex1() const;
@@ -73,14 +83,17 @@ class Edge : public CustomItem
                             TOPRIGHT=1,
                             TOPLEFT=2,
                             BOTTOMLEFT=4,
-                            BOTTOMRIGHT=8,
+                            BOTTOMRIGHT=8
                          };
     protected:
         long traversed_handles; ///< made up by or-ing handle_type constants
 
     public:
+        /// Mark handle as traversed
         void traverse ( handle_type handle );
+        /// Whether handle has been traversed
         bool traversed ( handle_type handle ) const;
+
         /// \return lines to be connected in the path
         QList<QLineF> connected( double handle_length,
                                  double crossing_distance) const;

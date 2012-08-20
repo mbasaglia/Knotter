@@ -23,18 +23,36 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
+/**
+    \file
+    Here are located the Undo/Redo commands.
+
+    Note that when KnotView needs to alter the graph it creates one of these,
+    which then calls KnotView backto perform the action
+*/
 #ifndef COMMANDS_HPP
 #define COMMANDS_HPP
 
 #include "knotview.hpp"
 #include <QUndoCommand>
 
+/**
+    \brief command that alters last_node
+
+    Used to backtrack when in edge list mode
+*/
 class LastNodeCommand : public QUndoCommand
 {
     public:
         virtual Node* get_node() const { return NULL; }
 };
 
+/**
+    \brief Inserts the node specified
+
+    This class takes ownership of the node pointer, when destructed it will
+    delete the node if that is not owned by a scene.
+*/
 class AddNode : public LastNodeCommand
 {
     Node*     node;
@@ -61,7 +79,9 @@ class AddNode : public LastNodeCommand
 
 };
 
-
+/**
+    \brief Removes a node from the scene (doesn't delete it)
+*/
 class RemoveNode : public QUndoCommand
 {
     Node*     node;
@@ -80,6 +100,9 @@ class RemoveNode : public QUndoCommand
 
 };
 
+/**
+    \brief adds an edge between two nodes
+*/
 class AddEdge : public LastNodeCommand
 {
     Node *n1, *n2;
@@ -98,6 +121,9 @@ class AddEdge : public LastNodeCommand
         Node* get_node() const { return n2; }
 };
 
+/**
+    \brief removes an edge between two nodes
+*/
 class RemoveEdge : public QUndoCommand
 {
     Node *n1, *n2;
@@ -114,6 +140,9 @@ class RemoveEdge : public QUndoCommand
         void redo() { kv->unlink(n1,n2); }
 };
 
+/**
+    \brief Move a node from start_pos to end_pos
+*/
 class MoveNode : public QUndoCommand
 {
     Node* node;
@@ -138,6 +167,9 @@ class MoveNode : public QUndoCommand
         }
 };
 
+/**
+    \brief Changes edge type
+*/
 class ToggleEdge : public QUndoCommand
 {
     Node *n1, *n2;
