@@ -28,11 +28,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ui_knot_window.h"
 #include <QUndoStack>
 #include <QUndoView>
-#include "closable_dock.hpp"
 #include "clipboard.hpp"
 #include "config_dialog.hpp"
 #include "export_dialog.hpp"
 #include "help_view.hpp"
+#include "context_menu.hpp"
 
 /**
     Main knot window
@@ -43,7 +43,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
     protected:
         QString         filename;           ///< current/last file name used on open or save
-        closable_dock*  undoDock;          ///< Little window showing undoable/redoable actions
+        QDockWidget*    undoDock;          ///< Little window showing undoable/redoable actions
         ClipboardItem   clipboard;          ///< Part of the graph copied to clipboard
         bool            save_ui;            ///< Whether to save geometry and toolbars on exit
         QStringList     recent_files;       ///< List of recently used files
@@ -51,8 +51,9 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         config_dialog   config_dlg;         ///< Knotter preferences dialog
         Export_Dialog   export_dialog;      ///< Export SVG/Bitmap dialog
         Help_View       help_view;          ///< Window showing the user guide
-        closable_dock*  default_node_style_dock;
-        closable_dock*  global_style_dock;
+        QDockWidget*    default_node_style_dock;
+        QDockWidget*    global_style_dock;
+        node_cxmn       node_context_menu;
 
     public:
         explicit Knot_Window(QWidget *parent = 0);
@@ -98,6 +99,8 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
         /// called when one of the Open recent entrieas has been clicked
         void click_recent();
+
+        void show_node_prefs(Node*);
 
 
     public slots:

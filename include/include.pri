@@ -17,6 +17,6 @@ HEADERS += \
     include/color_widget.hpp \
     include/clipboard.hpp \
     include/path_builder.hpp \
-    include/closable_dock.hpp
+    include/context_menu.hpp
 
 INCLUDEPATH += include

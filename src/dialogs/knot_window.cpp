@@ -33,17 +33,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QSettings>
 #include "node_style_form.hpp"
 #include "global_style_form.hpp"
+#include <QDockWidget>
+#include "node_pref_dialog.hpp"
 
 Knot_Window::Knot_Window(QWidget *parent) :
     QMainWindow(parent), save_ui ( true ), max_recent_files(5)
 {
+
+// UI from designer
     setupUi(this);
 
+// export dialog
     export_dialog.set_knot_view(canvas);
     export_dialog.setAttribute(Qt::WA_QuitOnClose, false);
 
+// enable error recovery
     ErrorRecovery::recover = canvas;
 
+// File menu icons/shortcuts
     action_New->setIcon(QIcon::fromTheme("document-new"));
     action_New->setShortcuts(QKeySequence::New);
     action_Save->setIcon(QIcon::fromTheme("document-save"));
@@ -56,7 +63,7 @@ Knot_Window::Knot_Window(QWidget *parent) :
     action_Quit->setShortcuts(QKeySequence::Quit);
     action_Export->setIcon(QIcon::fromTheme("image-x-generic"));
 
-
+// undo/redo
     QAction *undos = canvas->get_undo_stack().createUndoAction(this, tr("&Undo"));
     menu_Edit->insertAction(action_Undo,undos);
     MainToolBar->insertAction(action_Undo,undos);
@@ -68,6 +75,13 @@ Knot_Window::Knot_Window(QWidget *parent) :
     delete action_Redo;
     action_Redo = redos;
 
+// KnotView signals / context menus
+    connect(&canvas->get_undo_stack(),SIGNAL(cleanChanged(bool)),SLOT(update_title(bool)));
+    node_context_menu.set_view(canvas);
+    node_context_menu.connect(canvas,SIGNAL(context_menu(Node*)),SLOT(activate(Node*)));
+    connect(&node_context_menu,SIGNAL(request_properties(Node*)),SLOT(show_node_prefs(Node*)));
+
+// Edit menu icons/shortcuts
     action_Copy->setIcon(QIcon::fromTheme("edit-copy"));
     action_Copy->setShortcuts(QKeySequence::Copy);
     action_Paste->setIcon(QIcon::fromTheme("edit-paste"));
@@ -84,19 +98,10 @@ Knot_Window::Knot_Window(QWidget *parent) :
 
     action_Preferences->setIcon(QIcon::fromTheme("preferences-other"));
 
-
-    action_Erase->setIcon(QIcon::fromTheme("edit-delete"));
-    //action_Link->setIcon(QIcon::fromTheme("insert-link"));
-
-
-    actionZoom_In->setIcon(QIcon::fromTheme("zoom-in"));
-    actionZoom_In->setShortcuts(QKeySequence::ZoomIn);
-    actionZoom_Out->setIcon(QIcon::fromTheme("zoom-out"));
-    actionZoom_Out->setShortcuts(QKeySequence::ZoomOut);
-    action_Reset_Zoom->setIcon(QIcon::fromTheme("zoom-original"));
-    actionRefresh_Path->setIcon(QIcon::fromTheme("view-refresh"));
-    actionRefresh_Path->setShortcuts(QKeySequence::Refresh);
-    action_Reset_View->setIcon(QIcon::fromTheme("view-restore"));
+// Toolbar toggle actions/setup
+    menu_Toolbars->clear();
+    menu_Toolbars->addAction(MainToolBar->toggleViewAction());
+    menu_Toolbars->addAction(EditBar->toggleViewAction());
 
     // overcome bug in code generator from ui file
     removeToolBar(EditBar);
@@ -106,32 +111,37 @@ Knot_Window::Knot_Window(QWidget *parent) :
     MainToolBar->show();
     EditBar->show();
 
+// View menu icons/shortcuts
+    actionZoom_In->setIcon(QIcon::fromTheme("zoom-in"));
+    actionZoom_In->setShortcuts(QKeySequence::ZoomIn);
+    actionZoom_Out->setIcon(QIcon::fromTheme("zoom-out"));
+    actionZoom_Out->setShortcuts(QKeySequence::ZoomOut);
+    action_Reset_Zoom->setIcon(QIcon::fromTheme("zoom-original"));
+    actionRefresh_Path->setIcon(QIcon::fromTheme("view-refresh"));
+    actionRefresh_Path->setShortcuts(QKeySequence::Refresh);
+    action_Reset_View->setIcon(QIcon::fromTheme("view-restore"));
 
-    this->connect(&canvas->get_undo_stack(),SIGNAL(cleanChanged(bool)),SLOT(update_title(bool)));
+// Node menu icons
+    action_Erase->setIcon(QIcon::fromTheme("edit-delete"));
 
+// Action History Dock
     QUndoView *undoView = new QUndoView(&canvas->get_undo_stack());
-    undoDock = new closable_dock(this);
+    undoDock = new QDockWidget;
     undoDock->setWidget(undoView);
     undoDock->setObjectName("Action_History");
     undoDock->setWindowTitle(tr("Action History"));
     undoDock->show();
-    addDockWidget(static_cast<Qt::DockWidgetArea>(2), undoDock);
-    actionAction_History->connect(undoDock,SIGNAL(openChanged(bool)),SLOT(setChecked(bool)));
-    undoDock->connect(actionAction_History,SIGNAL(triggered(bool)),SLOT(setVisible(bool)));
 
+// Default Node Style Dock
     node_style_form* default_node_style_form = new node_style_form;
     canvas->connect(default_node_style_form,SIGNAL(style_changed(styleinfo)),
                     SLOT(set_default_style(styleinfo)));
-    default_node_style_dock = new closable_dock(this);
+    default_node_style_dock = new QDockWidget;
     default_node_style_dock->setWidget(default_node_style_form);
     default_node_style_dock->setObjectName("Default_Node_Style");
     default_node_style_dock->setWindowTitle(tr("Default Node Style"));
-    actionDefault_Node_Style->connect(default_node_style_dock,
-                            SIGNAL(openChanged(bool)),SLOT(setChecked(bool)));
-    default_node_style_dock->connect(actionDefault_Node_Style,
-                            SIGNAL(triggered(bool)),SLOT(setVisible(bool)));
 
-
+// Knot Style Dock
     global_style_form* global_style_frm = new global_style_form;
     global_style_frm->set_join_style(canvas->get_join_style());
     global_style_frm->set_knot_color(canvas->get_brush().color());
@@ -145,31 +155,41 @@ Knot_Window::Knot_Window(QWidget *parent) :
                     SLOT(set_width(double)));
     canvas->connect(global_style_frm,SIGNAL(pen_changed(QPen)),
                     SLOT(set_pen(QPen)));
-    global_style_dock = new closable_dock(this);
+    global_style_dock = new QDockWidget;
     global_style_dock->setWidget(global_style_frm);
     global_style_dock->setObjectName("Knot_Style");
     global_style_dock->setWindowTitle(tr("Knot Style"));
-    actionKnot_Style->connect(global_style_dock,
-                            SIGNAL(openChanged(bool)),SLOT(setChecked(bool)));
-    global_style_dock->connect(actionKnot_Style,
-                            SIGNAL(triggered(bool)),SLOT(setVisible(bool)));
-    global_style_dock->show();
 
-
+// Dock default positioning
     addDockWidget(Qt::RightDockWidgetArea,global_style_dock);
     addDockWidget(Qt::RightDockWidgetArea,default_node_style_dock);
-    addDockWidget(Qt::RightDockWidgetArea,undoDock);
-    tabifyDockWidget(global_style_dock,default_node_style_dock);
-    global_style_dock->raise();
 
+    //undoDock->setFloating(true);
+    undoView->setGeometry(0,0,128,128);
+    undoView->resize(128,128);
+    undoDock->resize(128,128);
+    undoView->setMinimumHeight(16);
+    addDockWidget(Qt::RightDockWidgetArea,undoDock);
+    //undoDock->setFloating(false);
+
+// Dock toogle actions
+    menu_Docks->clear();
+    menu_Docks->addAction(undoDock->toggleViewAction());
+    menu_Docks->addAction(global_style_dock->toggleViewAction());
+    menu_Docks->addAction(default_node_style_dock->toggleViewAction());
+
+// Cofig actions
     this->connect(config_dlg.clear_recent,SIGNAL(clicked()),SLOT(clear_recent_files()));
 
+// Manual + Help icon/shortcuts
     action_Manual->setIcon(QIcon::fromTheme("help-contents"));
+    action_Manual->setShortcuts(QKeySequence::HelpContents);
     help_view.setWindowIcon(QIcon::fromTheme("help-contents"));
     help_view.setAttribute(Qt::WA_QuitOnClose, false);
 
     action_About->setIcon(QIcon::fromTheme("help-about"));
 
+// Load config
     load_config();
     update_recent_menu();
 }
@@ -504,6 +524,11 @@ void Knot_Window::click_recent()
     QAction*a = dynamic_cast<QAction*>(sender());
     if ( a )
         open(a->text());
+}
+
+void Knot_Window::show_node_prefs(Node *node)
+{
+    node_pref_dialog(canvas,node).exec();
 }
 
 

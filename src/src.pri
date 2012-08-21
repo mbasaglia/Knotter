@@ -1,6 +1,7 @@
 
 SOURCES += src/main.cpp \
-    src/error_recovery.cpp
+    src/error_recovery.cpp \
+    src/context_menu.cpp
 
 
 include(dialogs/dialogs.pri)

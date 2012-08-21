@@ -13,7 +13,8 @@ HEADERS += \
     src/dialogs/export_dialog.hpp \
     src/dialogs/help_view.hpp \
     src/dialogs/node_style_form.hpp \
-    src/dialogs/global_style_form.hpp
+    src/dialogs/global_style_form.hpp \
+    src/dialogs/node_pref_dialog.hpp
 
 SOURCES += \
     src/dialogs/knot_window.cpp \
@@ -22,7 +23,8 @@ SOURCES += \
     src/dialogs/export_dialog.cpp \
     src/dialogs/help_view.cpp \
     src/dialogs/node_style_form.cpp \
-    src/dialogs/global_style_form.cpp
+    src/dialogs/global_style_form.cpp \
+    src/dialogs/node_pref_dialog.cpp
 
 FORMS += \
     src/dialogs/knot_window.ui \
@@ -31,7 +33,8 @@ FORMS += \
     src/dialogs/export_dialog.ui \
     src/dialogs/help_view.ui \
     src/dialogs/node_style_form.ui \
-    src/dialogs/global_style_form.ui
+    src/dialogs/global_style_form.ui \
+    src/dialogs/node_pref_dialog.ui
 
 
 INCLUDEPATH += src/dialogs

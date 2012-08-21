@@ -23,31 +23,37 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
-#ifndef CLOSABLE_DOCK_HPP
-#define CLOSABLE_DOCK_HPP
+#ifndef CONTEXT_MENU_HPP
+#define CONTEXT_MENU_HPP
 
-#include <QDockWidget>
-/**
-    \brief DockWidget with some extra signals
+#include <QMenu>
+class Node;
+class Edge;
+class KnotView;
 
-    Reimplements QDockWidget to make synch with checkable menu items possible
-*/
-class closable_dock : public QDockWidget
+class node_cxmn : public QMenu
 {
-    Q_OBJECT
-public:
-    closable_dock ( QWidget* parent ) : QDockWidget (parent) {}
-signals:
-    void closed();
-    void openChanged(bool);
-protected:
-    void closeEvent(QCloseEvent *event)
-    {
-        emit openChanged(false);
-        emit closed();
-        QDockWidget::closeEvent(event);
-    }
+        Q_OBJECT
+
+    protected:
+        Node* n;
+        KnotView* kv;
+        QAction* snap_grid;
+        QAction* unset_style;
+    public:
+        node_cxmn ( QWidget * parent = 0 );
+
+        void set_view ( KnotView* k_v );
+
+    public slots:
+        void activate ( Node* node );
+
+    private slots:
+        void snap();
+        void properties();
+        void no_custom_style();
+    signals:
+        void request_properties(Node*);
 };
 
-
-#endif // CLOSABLE_DOCK_HPP
+#endif // CONTEXT_MENU_HPP

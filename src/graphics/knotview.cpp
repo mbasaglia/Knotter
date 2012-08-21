@@ -294,12 +294,23 @@ void KnotView::mousePressEvent(QMouseEvent *event)
 
         if ( node )
         {
+            emit context_menu(node);
+            return;
+        }
+        else if ( edge )
+        {
+            emit context_menu(edge);
+            return;
+        }
+
+        /*if ( node )
+        {
             last_node = node;
             set_guide(last_node->pos(),p);
             mouse_status = EDGING;
         }
         else if ( edge )
-            cycle_edge(edge);
+            cycle_edge(edge);*/
     }
 
     if ( mouse_status == DEFAULT )
@@ -358,13 +369,13 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
         oldpos = event->pos();
         return;
     }
-    else if ( mouse_status == EDGING )
+    /*else if ( mouse_status == EDGING )
     {
         if ( guide && last_node )
         {
             set_guide ( last_node->pos(), p );
         }
-    }
+    }*/
     else if ( mode == INSERT_EDGE_CHAIN )
     {
         QPointF q = p;
@@ -412,9 +423,6 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
         return;
     }
 
-    /*Node* node = node_at(p);
-    Edge* edge = edge_at(p);*/
-
     if ( mouse_status == MOVING )
     {
         snap(p,event);
@@ -440,7 +448,7 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
         delete rubberband;
         rubberband = NULL;
     }
-    else if ( mouse_status == EDGING )
+    /*else if ( mouse_status == EDGING )
     {
         unset_guide();
 
@@ -452,7 +460,7 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
             else
                 add_edge ( last_node, itm );
         }
-    }
+    }*/
 
     mouse_status = DEFAULT;
 }
@@ -1109,6 +1117,11 @@ void KnotView::remove_edge(Node *p1, Node *p2)
 {
     if ( p1 && p2 && p1->get_link(p2) )
         undo_stack.push(new RemoveEdge(p1,p2,this));
+}
+
+void KnotView::move_node(Node *n, QPointF dest)
+{
+    undo_stack.push(new MoveNode(n,n->pos(),dest,this));
 }
 
 void KnotView::move_nodes ( QPointF dest )

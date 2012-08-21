@@ -54,8 +54,8 @@ class KnotView : public QGraphicsView
                 MOVING,  ///< moving existing nodes around
                 DRAGGING,///< dragging the view
                 PLACING, ///< placing new items
-                SELECTING,///< dragging the rubberband
-                EDGING   ///< toggling an edge
+                SELECTING///< dragging the rubberband
+                //EDGING   ///< toggling an edge
         };
 
 
@@ -150,7 +150,11 @@ class KnotView : public QGraphicsView
         void remove_node(Node* node,node_list adjl);
         void add_edge ( Node* p1, Node* p2 );
         void remove_edge ( Node* p1, Node* p2 );
+        void move_node ( Node* n, QPointF dest );
+    protected:
+        /// Used after dragging nodes
         void move_nodes ( QPointF dest );
+    public:
         void cycle_edge(Edge *e);
         void cycle_edge_inverted(Edge *e);
         void set_edge_type ( Edge* e, Edge::type_type type );
@@ -207,6 +211,8 @@ class KnotView : public QGraphicsView
 
     signals:
         void mouse_moved ( QPointF );
+        void context_menu(Node*);
+        void context_menu(Edge*);
 };
 
 #endif // KNOTVIEW_HPP
