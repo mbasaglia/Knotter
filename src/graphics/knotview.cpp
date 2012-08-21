@@ -1183,6 +1183,13 @@ void KnotView::set_edge_type(Edge *e, Edge::type_type type)
     }
 }
 
+void KnotView::set_edge_type(Node *n1, Node *n2, Edge::type_type type)
+{
+    Edge* e = n1->get_link(n2);
+    if ( n1 && n2 && e )
+        undo_stack.push(new ToggleEdge(n1,n2,e->type,type,this));
+}
+
 node_list KnotView::selected_nodes() const
 {
     node_list nl;

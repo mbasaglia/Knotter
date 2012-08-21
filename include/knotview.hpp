@@ -158,6 +158,7 @@ class KnotView : public QGraphicsView
         void cycle_edge(Edge *e);
         void cycle_edge_inverted(Edge *e);
         void set_edge_type ( Edge* e, Edge::type_type type );
+        void set_edge_type ( Node* n1, Node* n2, Edge::type_type type );
 
     /// @}
 

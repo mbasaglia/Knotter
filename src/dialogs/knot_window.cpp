@@ -80,6 +80,8 @@ Knot_Window::Knot_Window(QWidget *parent) :
     node_context_menu.set_view(canvas);
     node_context_menu.connect(canvas,SIGNAL(context_menu(Node*)),SLOT(activate(Node*)));
     connect(&node_context_menu,SIGNAL(request_properties(Node*)),SLOT(show_node_prefs(Node*)));
+    edge_context_menu.set_view(canvas);
+    edge_context_menu.connect(canvas,SIGNAL(context_menu(Edge*)),SLOT(activate(Edge*)));
 
 // Edit menu icons/shortcuts
     action_Copy->setIcon(QIcon::fromTheme("edit-copy"));

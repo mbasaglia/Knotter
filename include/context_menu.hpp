@@ -56,4 +56,37 @@ class node_cxmn : public QMenu
         void request_properties(Node*);
 };
 
+class edge_cxmn : public QMenu
+{
+        Q_OBJECT
+
+    protected:
+        Node* n1;
+        Node* n2;
+        KnotView* kv;
+        QAction* snap_grid;
+        QMap<int,QAction*> type_action;
+
+    public:
+        edge_cxmn ( QWidget * parent = 0 );
+
+        void set_view ( KnotView* k_v );
+
+    public slots:
+        void activate ( Edge* edge );
+
+    private slots:
+        void snap();
+        void properties();
+        void remove();
+        void set_regular();
+        void set_inverted();
+        void set_wall();
+        void set_hole();
+
+    signals:
+        void request_properties(Edge*);
+
+};
+
 #endif // CONTEXT_MENU_HPP

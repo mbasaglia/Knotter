@@ -54,7 +54,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         QDockWidget*    default_node_style_dock;
         QDockWidget*    global_style_dock;
         node_cxmn       node_context_menu;
-
+        edge_cxmn       edge_context_menu;
     public:
         explicit Knot_Window(QWidget *parent = 0);
         ~Knot_Window();
