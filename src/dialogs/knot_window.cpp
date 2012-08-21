@@ -111,7 +111,6 @@ Knot_Window::Knot_Window(QWidget *parent) :
 
     QUndoView *undoView = new QUndoView(&canvas->get_undo_stack());
     undoDock = new closable_dock(this);
-    undoDock->setFloating(true);
     undoDock->setWidget(undoView);
     undoDock->setObjectName("Action_History");
     undoDock->setWindowTitle(tr("Action History"));
@@ -131,7 +130,6 @@ Knot_Window::Knot_Window(QWidget *parent) :
                             SIGNAL(openChanged(bool)),SLOT(setChecked(bool)));
     default_node_style_dock->connect(actionDefault_Node_Style,
                             SIGNAL(triggered(bool)),SLOT(setVisible(bool)));
-
 
 
     global_style_form* global_style_frm = new global_style_form;
@@ -155,7 +153,14 @@ Knot_Window::Knot_Window(QWidget *parent) :
                             SIGNAL(openChanged(bool)),SLOT(setChecked(bool)));
     global_style_dock->connect(actionKnot_Style,
                             SIGNAL(triggered(bool)),SLOT(setVisible(bool)));
+    global_style_dock->show();
 
+
+    addDockWidget(Qt::RightDockWidgetArea,global_style_dock);
+    addDockWidget(Qt::RightDockWidgetArea,default_node_style_dock);
+    addDockWidget(Qt::RightDockWidgetArea,undoDock);
+    tabifyDockWidget(global_style_dock,default_node_style_dock);
+    global_style_dock->raise();
 
     this->connect(config_dlg.clear_recent,SIGNAL(clicked()),SLOT(clear_recent_files()));
 
