@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>345</width>
-    <height>404</height>
+    <height>411</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -55,6 +55,9 @@
    </item>
    <item row="0" column="0">
     <widget class="QGroupBox" name="verticalGroupBox">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="title">
       <string>Exported Area</string>
      </property>

@@ -70,7 +70,7 @@ void node_cxmn::no_custom_style()
 {
     if ( n && kv )
     {
-        n->unset_style_info();
+        n->unset_custom_style();
         kv->redraw(true);
     }
 }

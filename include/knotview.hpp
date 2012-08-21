@@ -76,7 +76,7 @@ class KnotView : public QGraphicsView
     public:
         KnotView(QWidget *parent);
 
-
+// do_ functions
     /**
         \defgroup do_command  Alter graph
         These functions do exactly what they say
@@ -98,9 +98,7 @@ class KnotView : public QGraphicsView
         void do_toggle_edge ( Node*a, Node*b, Edge::type_type type );
 
     /// @}
-
-        const QUndoStack& get_undo_stack() const { return undo_stack; }
-        QUndoStack& get_undo_stack() { return undo_stack; }
+// misc actions
 
         /// Remove all nodes and edges
         void clear();
@@ -113,7 +111,7 @@ class KnotView : public QGraphicsView
         void paint_knot ( QPaintDevice* device, QRectF area, bool minimal );
         /// Draw the knot
         void paint_knot ( QPainter* painter, QRectF area, bool minimal );
-
+// style
     /**
          \defgroup knotview_style  Style setup
          @{
@@ -125,6 +123,8 @@ class KnotView : public QGraphicsView
         styleinfo get_default_style() const;
         Qt::PenJoinStyle get_join_style() const;
 
+        QGraphicsItem::CacheMode get_cache_mode() const;
+
     public slots:
         void set_join_style(Qt::PenJoinStyle);
         void set_default_style ( styleinfo si );
@@ -132,9 +132,11 @@ class KnotView : public QGraphicsView
         void set_brush_color ( QColor c );
         void set_pen ( QPen p );
         void set_width ( double w );
+
+        void set_cache_mode(QGraphicsItem::CacheMode cm);
     public:
     /// @}
-
+// undo requests
     /**
              \defgroup request_command  Request action
              These function create and undo command and delegate the actual
@@ -161,12 +163,15 @@ class KnotView : public QGraphicsView
         void set_edge_type ( Node* n1, Node* n2, Edge::type_type type );
 
     /// @}
-
+// misc getters
         /// get list of selected nodes
         node_list selected_nodes() const;
 
         /// get reference to the grid
         snapping_grid& get_grid();
+
+        const QUndoStack& get_undo_stack() const { return undo_stack; }
+        QUndoStack& get_undo_stack() { return undo_stack; }
 
     protected:
         QPointF get_mouse_point ( QMouseEvent *event );

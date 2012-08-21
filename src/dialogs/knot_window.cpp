@@ -209,6 +209,11 @@ void Knot_Window::load_config()
     if ( settings.value("version",VERSION).toString() != VERSION )
         return; // don't load settings from different version
 
+    canvas->set_cache_mode ( QGraphicsItem::CacheMode (
+                                settings.value("performance/cache",
+                                    canvas->get_cache_mode()).toInt()
+                            ) );
+
     settings.beginGroup("gui");
     save_ui = settings.value("save",true).toBool();
     if ( save_ui )
@@ -234,6 +239,7 @@ void Knot_Window::load_config()
 
     settings.beginGroup("grid");
     snapping_grid &grid = canvas->get_grid();
+    grid.enable ( settings.value("enable",grid.is_enabled()).toBool() );
     grid.set_size(settings.value("size",grid.get_size()).toDouble());
     grid.set_shape(snapping_grid::grid_shape(
                     settings.value("type",int(grid.get_shape())).toInt() ));
@@ -251,6 +257,8 @@ void Knot_Window::save_config()
     QSettings settings("knotter","knotter");
 
     settings.setValue("version",VERSION);
+
+    settings.setValue("performance/cache",canvas->get_cache_mode());
 
     settings.beginGroup("gui");
     if ( save_ui )
@@ -271,6 +279,7 @@ void Knot_Window::save_config()
     settings.endGroup();
 
     settings.beginGroup("grid");
+    settings.setValue("enable",canvas->get_grid().is_enabled());
     settings.setValue("size",canvas->get_grid().get_size());
     settings.setValue("type",int(canvas->get_grid().get_shape()));
     settings.endGroup();
@@ -456,6 +465,7 @@ void Knot_Window::config()
     config_dlg.set_tool_button_style(toolButtonStyle());
     config_dlg.saveui_check->setChecked(save_ui);
     config_dlg.max_recent->setValue(max_recent_files);
+    config_dlg.cache_mode->setCurrentIndex(canvas->get_cache_mode());
     if ( !config_dlg.exec() )
         return;
     setToolButtonStyle(config_dlg.get_tool_button_style());
@@ -464,6 +474,8 @@ void Knot_Window::config()
     max_recent_files = config_dlg.max_recent->value();
     if ( max_recent_files < recent_files.size() )
         recent_files.erase ( recent_files.begin()+max_recent_files, recent_files.end() );
+    canvas->set_cache_mode( QGraphicsItem::CacheMode(
+                            config_dlg.cache_mode->currentIndex() ) );
 }
 
 void Knot_Window::clear_recent_files()

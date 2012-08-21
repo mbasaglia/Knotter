@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QBrush>
 #include <QPen>
 KnotGraph::KnotGraph()
-    : default_style ( knot_curve_styler::idof("pointed"), 225, 32, 10, 42)
+    : default_style ( knot_curve_styler::idof("pointed"), 225, 32, 10, 24)
 {
     setBrush(QBrush(Qt::black));
     setPen(QPen(Qt::gray));
@@ -37,7 +37,9 @@ KnotGraph::KnotGraph()
     /// \todo configure miter limit
     stroker.setJoinStyle(Qt::MiterJoin);
 
-    /// \todo allow per-node style: if NULL use default else use node setup (?)
+    setCacheMode(QGraphicsItem::DeviceCoordinateCache);
+    //setCacheMode(QGraphicsItem::ItemCoordinateCache);
+
 }
 
 KnotGraph::~KnotGraph()
@@ -122,7 +124,7 @@ QPainterPath KnotGraph::build()
 
                 if ( n->has_custom_style() )
                 {
-                    const styleinfo& csi = n->style_info();
+                    const styleinfo& csi = n->get_custom_style();
                     knot_curve_style* customcs = knot_curve_styler::style(csi.curve_style);
                     customcs->draw_joint(path,n,ti,csi);
                 }

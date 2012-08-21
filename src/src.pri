@@ -1,7 +1,8 @@
 
 SOURCES += src/main.cpp \
     src/error_recovery.cpp \
-    src/context_menu.cpp
+    src/context_menu.cpp \
+    src/xml_saver.cpp
 
 
 include(dialogs/dialogs.pri)

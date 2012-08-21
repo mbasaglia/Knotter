@@ -29,8 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QApplication>
 #include "commands.hpp"
 #include "knotgraph.hpp"
-#include <QXmlStreamWriter>
-#include <QDomDocument>
 #include "grid_scene.hpp"
 
 KnotView::KnotView( QWidget* parent )
@@ -608,10 +606,36 @@ void KnotView::clear()
     mode_change();
 }
 
-
+#include "xml_saver.hpp"
 void KnotView::writeXML(QIODevice *device) const
 {
-    QXmlStreamWriter xml(device);
+
+    xml_saver xml(device);
+    xml.begin();
+
+    xml.start_element("style");
+        QPen stroke(get_brush(),get_width());
+        stroke.setJoinStyle(get_join_style());
+        xml.save_pen ( "stroke", stroke, false, true );
+        xml.save_pen ( "outline", get_pen(), true, false );
+        xml.save_cusp ( "cusp", get_default_style() );
+    xml.end_element();
+
+    node_list nodes;
+    foreach(QGraphicsItem* it, scene()->items())
+    {
+        Node* n = dynamic_cast<Node*>(it);
+        if ( n )
+            nodes.push_back(n);
+    }
+    xml.save_graph("graph",nodes);
+
+
+    xml.end();
+
+
+
+    /*QXmlStreamWriter xml(device);
     xml.setAutoFormatting(true);
     xml.setAutoFormattingIndent(4);
     xml.writeStartDocument("1.0");
@@ -715,12 +739,45 @@ void KnotView::writeXML(QIODevice *device) const
         xml.writeEndElement(); // graph
     xml.writeEndElement();// knot
 
-    xml.writeEndDocument();
+    xml.writeEndDocument();*/
 }
 
 bool KnotView::readXML(QIODevice *device)
 {
-    QDomDocument xml;
+
+    xml_loader xml;
+
+    if ( !xml.load(device) )
+        return false;
+
+    undo_stack.beginMacro(tr("Load Knot"));
+
+    if ( xml.enter("style") )
+    {
+        QPen stroke(get_brush(),get_width());
+        stroke.setJoinStyle(get_join_style());
+        stroke = xml.get_pen("stroke",stroke);
+        set_brush(stroke.color());
+        set_width(stroke.widthF());
+        set_join_style(stroke.joinStyle());
+
+        set_pen ( xml.get_pen("outline", get_pen() ) );
+
+        set_default_style ( xml.get_cusp( "cusp", get_default_style() ) );
+
+        xml.leave();
+    }
+
+
+    xml.get_graph(this);
+
+
+    undo_stack.endMacro();
+    undo_stack.setClean();
+
+
+
+    /*QDomDocument xml;
     if ( !xml.setContent(device) ) // could retrieve error details
         return false; // xml error
 
@@ -822,7 +879,7 @@ bool KnotView::readXML(QIODevice *device)
             QDomElement cusp_angle = cusp.firstChildElement("min-angle");
             cusp_style_info.cusp_angle = cusp_angle.isNull() ? 225 : cusp_angle.text().toDouble();
             QDomElement cusp_dist = cusp.firstChildElement("distance");
-            cusp_style_info.cusp_distance = cusp_angle.isNull() ? 24 : cusp_dist.text().toDouble();
+            cusp_style_info.cusp_distance = cusp_dist.isNull() ? 24 : cusp_dist.text().toDouble();
             QDomElement cusp_point = cusp.firstChildElement("point");
             QString point_name =  cusp_point.isNull() ? "miter" : cusp_point.text();
             if ( point_name == "bevel" )
@@ -840,7 +897,7 @@ bool KnotView::readXML(QIODevice *device)
 
             set_default_style(cusp_style_info);
 
-    }
+    }*/
 
     return true;
 }
@@ -858,6 +915,9 @@ void KnotView::paint_knot(QPaintDevice *device, QRectF area, bool minimal )
 
 void KnotView::paint_knot(QPainter *painter, QRectF area, bool minimal)
 {
+    QGraphicsItem::CacheMode backup_cache = knot.cacheMode();
+    knot.setCacheMode(QGraphicsItem::NoCache);
+
     /// \todo find out how to draw only area
     QStyleOptionGraphicsItem opt;
     //opt.exposedRect = area; NOOP?
@@ -873,12 +933,19 @@ void KnotView::paint_knot(QPainter *painter, QRectF area, bool minimal)
         painter->drawPath(knot.build());
     else
         knot.paint(painter,&opt);
+
+    knot.setCacheMode(backup_cache);
 }
 
 void KnotView::set_width(double w)
 {
     knot.set_width(w);
     redraw(true);
+}
+
+void KnotView::set_cache_mode(QGraphicsItem::CacheMode cm)
+{
+    knot.setCacheMode(cm);
 }
 
 double KnotView::get_width() const
@@ -973,6 +1040,11 @@ void KnotView::set_crossing_distance(double cd)
 Qt::PenJoinStyle KnotView::get_join_style() const
 {
     return knot.get_join_style();
+}
+
+QGraphicsItem::CacheMode KnotView::get_cache_mode() const
+{
+    return knot.cacheMode();
 }
 
 void KnotView::set_join_style(Qt::PenJoinStyle pjs)

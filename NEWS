@@ -3,12 +3,17 @@ showing when features have been added to the program.
 
 Knotter 0.5.0 (beta) - Current development
 --------------------
+### NOTE ###
+Knotter 0.5.0 introduces some incompatibility with old .knot files!
+Old files will still be loaded but you have to adjust a few style settings
+
 * Advanced Export Options
 * Movable Grid
 * User Manual
 * Dockable dialogs
 * Per-node settings
 * New shape algorithm
+* Option to enable knot caching
 
 Knotter 0.4.0 (beta)
 --------------------

@@ -111,10 +111,10 @@ class Node : public CustomItem
         TraversalInfo next_edge ( Edge* edge, Edge::handle_type handle ) const;
 
         bool has_custom_style() const { return custom_style_enabled; }
-        const styleinfo& style_info() const { return custom_style; }
+        const styleinfo& get_custom_style() const { return custom_style; }
 
-        void set_style_info ( styleinfo si );
-        void unset_style_info ();
+        void set_custom_style ( styleinfo si );
+        void unset_custom_style ();
 };
 
 /// Used very often

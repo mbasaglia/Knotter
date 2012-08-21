@@ -181,13 +181,13 @@ TraversalInfo Node::next_edge(Edge *edge, Edge::handle_type handle) const
     return ti;
 }
 
-void Node::set_style_info(styleinfo si)
+void Node::set_custom_style(styleinfo si)
 {
     custom_style_enabled = true;
     custom_style = si;
 }
 
-void Node::unset_style_info()
+void Node::unset_custom_style()
 {
     custom_style_enabled = false;
 }
