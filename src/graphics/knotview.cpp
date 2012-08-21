@@ -617,7 +617,7 @@ void KnotView::writeXML(QIODevice *device) const
     xml.writeStartDocument("1.0");
 
     xml.writeStartElement("knot");
-        xml.writeAttribute("version","1"); // note: version MUST be an integer
+        xml.writeAttribute("version","2"); // note: version MUST be an integer
 
         xml.writeStartElement("style");
             xml.writeStartElement("stroke");
@@ -647,6 +647,7 @@ void KnotView::writeXML(QIODevice *device) const
                 styleinfo si = knot.get_style_info();
                 xml.writeTextElement("style",knot_curve_styler::name(si.curve_style));
                 xml.writeTextElement("min-angle",QString::number(si.cusp_angle));
+                xml.writeTextElement("distance",QString::number(si.cusp_distance));
                 QString point;
                 switch ( knot.get_join_style() )
                 {
@@ -726,7 +727,7 @@ bool KnotView::readXML(QIODevice *device)
     QDomElement knot = xml.firstChildElement("knot");
     if ( knot.isNull() )
         return false; // XML does not contain a knot
-    if ( knot.attribute("version").toInt() != 1 )
+    if ( knot.attribute("version").toInt() > 2 )
         return false; // unknown version
 
     QDomElement graph = knot.firstChildElement("graph");
@@ -819,8 +820,9 @@ bool KnotView::readXML(QIODevice *device)
             QString stylename =  cusp_style.isNull() ? "pointed" : cusp_style.text();
             cusp_style_info.curve_style = knot_curve_styler::idof(stylename);
             QDomElement cusp_angle = cusp.firstChildElement("min-angle");
-            double angle = cusp_angle.isNull() ? 225 : cusp_angle.text().toDouble();
-            cusp_style_info.cusp_angle = angle;
+            cusp_style_info.cusp_angle = cusp_angle.isNull() ? 225 : cusp_angle.text().toDouble();
+            QDomElement cusp_dist = cusp.firstChildElement("distance");
+            cusp_style_info.cusp_distance = cusp_angle.isNull() ? 24 : cusp_dist.text().toDouble();
             QDomElement cusp_point = cusp.firstChildElement("point");
             QString point_name =  cusp_point.isNull() ? "miter" : cusp_point.text();
             if ( point_name == "bevel" )

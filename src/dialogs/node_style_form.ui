@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>212</width>
-    <height>114</height>
+    <height>141</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,6 +21,16 @@
      </property>
     </widget>
    </item>
+   <item row="0" column="1">
+    <widget class="QDoubleSpinBox" name="handle_length_spinner">
+     <property name="suffix">
+      <string>px</string>
+     </property>
+     <property name="value">
+      <double>32.000000000000000</double>
+     </property>
+    </widget>
+   </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label_8">
      <property name="text">
@@ -28,21 +38,67 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="label_7">
-     <property name="text">
-      <string>Curve Style</string>
+   <item row="1" column="1">
+    <widget class="QDoubleSpinBox" name="crossing_gap_spinner">
+     <property name="suffix">
+      <string>px</string>
+     </property>
+     <property name="value">
+      <double>10.000000000000000</double>
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
+   <item row="2" column="0">
     <widget class="QLabel" name="label_6">
      <property name="text">
       <string>Min Cusp Angle</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="1">
+   <item row="2" column="1">
+    <widget class="QDoubleSpinBox" name="cusp_angle_spinner">
+     <property name="suffix">
+      <string>°</string>
+     </property>
+     <property name="maximum">
+      <double>360.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>15.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>225.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Cusp Distance</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QDoubleSpinBox" name="cusp_distance_spinner">
+     <property name="suffix">
+      <string>px</string>
+     </property>
+     <property name="maximum">
+      <double>8129.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>24.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_7">
+     <property name="text">
+      <string>Curve Style</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
     <widget class="QComboBox" name="style_combo">
      <item>
       <property name="text">
@@ -64,58 +120,13 @@
      </item>
      <item>
       <property name="text">
-       <string>Polygonal1</string>
+       <string>Polygonal</string>
       </property>
       <property name="icon">
        <iconset resource="../../img/icons.qrc">
         <normaloff>:/img/pointpoly.svg</normaloff>:/img/pointpoly.svg</iconset>
       </property>
      </item>
-     <item>
-      <property name="text">
-       <string>Polygonal2</string>
-      </property>
-      <property name="icon">
-       <iconset resource="../../img/icons.qrc">
-        <normaloff>:/img/poly.svg</normaloff>:/img/poly.svg</iconset>
-      </property>
-     </item>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="QDoubleSpinBox" name="cusp_angle_spinner">
-     <property name="suffix">
-      <string>°</string>
-     </property>
-     <property name="maximum">
-      <double>360.000000000000000</double>
-     </property>
-     <property name="singleStep">
-      <double>15.000000000000000</double>
-     </property>
-     <property name="value">
-      <double>225.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QDoubleSpinBox" name="crossing_gap_spinner">
-     <property name="suffix">
-      <string>px</string>
-     </property>
-     <property name="value">
-      <double>10.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QDoubleSpinBox" name="handle_length_spinner">
-     <property name="suffix">
-      <string>px</string>
-     </property>
-     <property name="value">
-      <double>32.000000000000000</double>
-     </property>
     </widget>
    </item>
   </layout>
@@ -131,11 +142,11 @@
    <slot>anything_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>327</x>
-     <y>53</y>
+     <x>207</x>
+     <y>26</y>
     </hint>
     <hint type="destinationlabel">
-     <x>476</x>
+     <x>211</x>
      <y>52</y>
     </hint>
    </hints>
@@ -147,12 +158,12 @@
    <slot>anything_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>368</x>
-     <y>116</y>
+     <x>207</x>
+     <y>53</y>
     </hint>
     <hint type="destinationlabel">
-     <x>466</x>
-     <y>126</y>
+     <x>211</x>
+     <y>113</y>
     </hint>
    </hints>
   </connection>
@@ -163,12 +174,28 @@
    <slot>anything_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>371</x>
-     <y>188</y>
+     <x>207</x>
+     <y>80</y>
     </hint>
     <hint type="destinationlabel">
-     <x>502</x>
-     <y>180</y>
+     <x>211</x>
+     <y>113</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cusp_distance_spinner</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>node_style_form</receiver>
+   <slot>anything_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>163</x>
+     <y>101</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>312</x>
+     <y>96</y>
     </hint>
    </hints>
   </connection>

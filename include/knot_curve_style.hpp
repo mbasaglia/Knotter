@@ -36,66 +36,7 @@ class TraversalInfo;
 #include <QMap>
 #include <QPainterPath>
 
-/// Abstract class
-class knot_curve_style
-{
-    public:
-        virtual void draw_joint ( QPainterPath& path,
-                                    Node *node,
-                                    const TraversalInfo& ti,
-                                    double threshold_angle,
-                                    double handle_length,
-                                    double crossing_distance ) = 0;
-
-        virtual ~knot_curve_style() {}
-};
-
-class knot_curve_ogee : public knot_curve_style
-{
-    public:
-        void draw_joint ( QPainterPath& path,
-                            Node *node,
-                            const TraversalInfo& ti,
-                            double threshold_angle,
-                            double handle_length,
-                            double crossing_distance );
-};
-
-class knot_curve_pointed : public knot_curve_style
-{
-    public:
-        void draw_joint ( QPainterPath& path,
-                            Node *node,
-                            const TraversalInfo& ti,
-                            double threshold_angle,
-                            double handle_length,
-                            double crossing_distance );
-};
-
-class knot_curve_simple_poly : public knot_curve_style
-{
-    public:
-        void draw_joint ( QPainterPath& path,
-                            Node *node,
-                            const TraversalInfo& ti,
-                            double threshold_angle,
-                            double handle_length,
-                            double crossing_distance );
-};
-
-class knot_curve_advanced_poly : public knot_curve_style
-{
-    public:
-        void draw_joint ( QPainterPath& path,
-                            Node *node,
-                            const TraversalInfo& ti,
-                            double threshold_angle,
-                            double handle_length,
-                            double crossing_distance );
-};
-
-
-
+class knot_curve_style;
 /**
     \brief slightly dirty class that registers knot curve styles, used to allow extensibility
 */
@@ -128,14 +69,73 @@ struct styleinfo
     double cusp_angle;                      ///< Min cusp angle
     double handle_length;                   ///< Length of handles (line from start point to control point in SVG curves )
     double crossing_distance;               ///< Crossing gap value
-
+    double cusp_distance;                   ///< Distance from the node to the cusp point
     styleinfo ( knot_curve_styler::style_id curve_style = 0,
                double cusp_angle = 0,
                double handle_length = 0,
-               double crossing_distance = 0 )
+               double crossing_distance = 0,
+               double cusp_distance = 0 )
         : curve_style(curve_style), cusp_angle(cusp_angle),
-            handle_length(handle_length), crossing_distance(crossing_distance)
+            handle_length(handle_length), crossing_distance(crossing_distance),
+            cusp_distance ( cusp_distance )
     {}
 };
+
+/// Abstract class
+class knot_curve_style
+{
+    public:
+        virtual void draw_joint ( QPainterPath& path,
+                                    Node *node,
+                                    const TraversalInfo& ti,
+                                    styleinfo style ) = 0;
+
+        virtual ~knot_curve_style() {}
+
+    protected:
+        /**
+            \brief get line pointing to the cusp endpoint
+            \param start        starning handle line
+            \param finish       ending handle line
+            \param node         node
+            \param ti           traversal info
+            \param def_dist     default distance from node (only if delta ~ 360)
+        */
+        QPointF get_cusp_point ( QLineF start,
+                                 QLineF finish,
+                                 Node *node,
+                                 const TraversalInfo& ti,
+                                 double def_dist ) const;
+};
+
+class knot_curve_ogee : public knot_curve_style
+{
+    public:
+        void draw_joint ( QPainterPath& path,
+                            Node *node,
+                            const TraversalInfo& ti,
+                            styleinfo style );
+};
+
+class knot_curve_pointed : public knot_curve_style
+{
+    public:
+        void draw_joint ( QPainterPath& path,
+                            Node *node,
+                            const TraversalInfo& ti,
+                            styleinfo style );
+};
+
+class knot_curve_polygonal : public knot_curve_style
+{
+    public:
+        void draw_joint ( QPainterPath& path,
+                            Node *node,
+                            const TraversalInfo& ti,
+                            styleinfo style );
+};
+
+
+
 
 #endif // KNOT_CURVE_STYLE_HPP

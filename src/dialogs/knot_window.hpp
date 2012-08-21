@@ -33,6 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "export_dialog.hpp"
 #include "help_view.hpp"
 #include "context_menu.hpp"
+#include "node_style_form.hpp"
+#include "global_style_form.hpp"
 
 /**
     Main knot window
@@ -55,6 +57,8 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         QDockWidget*    global_style_dock;
         node_cxmn       node_context_menu;
         edge_cxmn       edge_context_menu;
+        node_style_form* default_node_style_form;
+        global_style_form* global_style_frm;
     public:
         explicit Knot_Window(QWidget *parent = 0);
         ~Knot_Window();

@@ -31,8 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "error_recovery.hpp"
 #include <QSvgGenerator>
 #include <QSettings>
-#include "node_style_form.hpp"
-#include "global_style_form.hpp"
 #include <QDockWidget>
 #include "node_pref_dialog.hpp"
 
@@ -135,7 +133,8 @@ Knot_Window::Knot_Window(QWidget *parent) :
     undoDock->show();
 
 // Default Node Style Dock
-    node_style_form* default_node_style_form = new node_style_form;
+    default_node_style_form = new node_style_form;
+    default_node_style_form->set_style_info(canvas->get_default_style());
     canvas->connect(default_node_style_form,SIGNAL(style_changed(styleinfo)),
                     SLOT(set_default_style(styleinfo)));
     default_node_style_dock = new QDockWidget;
@@ -144,7 +143,7 @@ Knot_Window::Knot_Window(QWidget *parent) :
     default_node_style_dock->setWindowTitle(tr("Default Node Style"));
 
 // Knot Style Dock
-    global_style_form* global_style_frm = new global_style_form;
+    global_style_frm = new global_style_form;
     global_style_frm->set_join_style(canvas->get_join_style());
     global_style_frm->set_knot_color(canvas->get_brush().color());
     global_style_frm->set_knot_width(canvas->get_width());
@@ -371,6 +370,12 @@ bool Knot_Window::open(QString file, bool silent)
         return false;
     }
 
+
+    default_node_style_form->set_style_info(canvas->get_default_style());
+    global_style_frm->set_join_style(canvas->get_join_style());
+    global_style_frm->set_knot_color(canvas->get_brush().color());
+    global_style_frm->set_pen(canvas->get_pen());
+    global_style_frm->set_knot_width(canvas->get_width());
 
     push_recent_file(filename);
 

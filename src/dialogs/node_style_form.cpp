@@ -32,8 +32,8 @@ node_style_form::node_style_form(QWidget *parent) :
 
     combo_style[knot_curve_styler::idof("pointed")]=0;
     combo_style[knot_curve_styler::idof("ogee")]=1;
-    combo_style[knot_curve_styler::idof("advanced_poly")]=2;
-    combo_style[knot_curve_styler::idof("simple_poly")]=3;
+    combo_style[knot_curve_styler::idof("polygonal")]=2;
+    curstyle_id = knot_curve_styler::idof("pointed");
 }
 
 void node_style_form::set_style_info(styleinfo si)
@@ -41,7 +41,7 @@ void node_style_form::set_style_info(styleinfo si)
     handle_length_spinner->setValue ( si.handle_length );
     crossing_gap_spinner->setValue ( si.crossing_distance );
     cusp_angle_spinner->setValue ( si.cusp_angle );
-
+    cusp_distance_spinner->setValue ( si.cusp_distance );
 
     curstyle_id = si.curve_style;
     style_combo->setCurrentIndex(combo_style[curstyle_id]);
@@ -51,7 +51,8 @@ styleinfo node_style_form::get_style_info() const
 {
     return styleinfo(curstyle_id,cusp_angle_spinner->value(),
                     handle_length_spinner->value(),
-                    crossing_gap_spinner->value());
+                    crossing_gap_spinner->value(),
+                    cusp_distance_spinner->value() );
 }
 
 

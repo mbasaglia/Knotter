@@ -90,7 +90,7 @@ edge_cxmn::edge_cxmn(QWidget *parent)
         a->setCheckable(true);
     addMenu ( type );
 
-    addAction(QIcon(":/img/edit_edges.svg"),tr("Properties..."),this,SLOT(properties()));
+    //addAction(QIcon(":/img/edit_edges.svg"),tr("Properties..."),this,SLOT(properties()));
 
 }
 
