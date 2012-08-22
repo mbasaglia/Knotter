@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QSettings>
 #include <QDockWidget>
 #include "node_pref_dialog.hpp"
+#include <QInputDialog>
 
 Knot_Window::Knot_Window(QWidget *parent) :
     QMainWindow(parent), save_ui ( true ), max_recent_files(5)
@@ -102,11 +103,13 @@ Knot_Window::Knot_Window(QWidget *parent) :
     menu_Toolbars->clear();
     menu_Toolbars->addAction(MainToolBar->toggleViewAction());
     menu_Toolbars->addAction(EditBar->toggleViewAction());
+    menu_Toolbars->addAction(ViewBar->toggleViewAction());
 
     // overcome bug in code generator from ui file
     removeToolBar(EditBar);
     removeToolBar(MainToolBar);
     addToolBar(Qt::TopToolBarArea, MainToolBar);
+    addToolBar(Qt::TopToolBarArea, ViewBar);
     addToolBar(Qt::TopToolBarArea, EditBar);
     MainToolBar->show();
     EditBar->show();
@@ -123,6 +126,8 @@ Knot_Window::Knot_Window(QWidget *parent) :
 
 // Node menu icons
     action_Erase->setIcon(QIcon::fromTheme("edit-delete"));
+    action_Horizontal_Flip->setIcon(QIcon::fromTheme("object-flip-horizontal"));
+    action_Vertical_Flip->setIcon(QIcon::fromTheme("object-flip-vertical"));
 
 // Action History Dock
     QUndoView *undoView = new QUndoView(&canvas->get_undo_stack());
@@ -220,10 +225,6 @@ void Knot_Window::load_config()
     {
         restoreGeometry(settings.value("geometry").toByteArray());
         restoreState(settings.value("state").toByteArray());
-
-        actionAction_History->setChecked(undoDock->isVisible());
-        actionDefault_Node_Style->setChecked(default_node_style_dock->isVisible());
-        actionKnot_Style->setChecked(global_style_dock->isVisible());
 
         int icon_size = settings.value("icon_size",iconSize().width()).toInt();
         setIconSize(QSize(icon_size,icon_size));
@@ -558,4 +559,44 @@ void Knot_Window::on_action_About_triggered()
     mb.setAttribute(Qt::WA_QuitOnClose, false);
     mb.setWindowIcon(QIcon::fromTheme("help-about"));
     mb.exec();
+}
+
+void Knot_Window::on_actionShow_Graph_triggered(bool checked)
+{
+    if ( checked )
+        actionShow_Graph->setIcon(QIcon(":/img/toggle_graph_on.svg"));
+    else
+        actionShow_Graph->setIcon(QIcon(":/img/toggle_graph_off.svg"));
+    canvas->toggle_graph(checked);
+}
+
+void Knot_Window::on_actionInsert_Polygon_triggered()
+{
+    int n = QInputDialog::getInt(this,tr("Insert Polygon"),tr("Sides"),4,3,32);
+    canvas->get_undo_stack().beginMacro("Insert Polygon");
+
+
+    canvas->scene()->clearSelection();
+
+    double radius = canvas->get_grid().is_enabled() ? canvas->get_grid().get_size() : 32;
+    QLineF rad ( 0, 0, radius, 0 );
+    rad.translate ( canvas->mapToScene(
+                                canvas->mapFromGlobal(QCursor::pos()) ) );
+    Node *first = canvas->add_node( rad.p2() );
+    first->setSelected(true);
+    Node* prev = first;
+    Node *last = NULL;
+    for( int i = 1; i < n; i++)
+    {
+        rad.setAngle ( rad.angle()+360./n );
+        last = canvas->add_node ( rad.p2() );
+        last->setSelected(true);
+        canvas->add_edge(last,prev);
+        prev = last;
+    }
+    canvas->add_edge(last,first);
+
+    canvas->get_undo_stack().endMacro();
+
+    canvas->mode_moving_new(first->pos());//rad.p1());
 }

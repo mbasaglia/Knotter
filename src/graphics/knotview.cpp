@@ -247,7 +247,7 @@ void KnotView::mousePressEvent(QMouseEvent *event)
                 mouse_status = MOVING;
                 snap(p,event);
                 startpos = oldpos = node->pos();
-                initialize_movement(node);
+                initialize_movement(node->pos());
             }
         }
         else if ( edge )
@@ -272,7 +272,7 @@ void KnotView::mousePressEvent(QMouseEvent *event)
                 mouse_status = MOVING;
                 snap(p,event);
                 startpos = oldpos = p;
-                initialize_movement(edge->vertex1());
+                initialize_movement(edge->vertex1()->pos());
             }
         }
         else if ( !( event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier) ) )
@@ -349,6 +349,7 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
         {
             n->setPos(n->pos()+p-oldpos);
         }
+        move_center+=p-oldpos;
         oldpos = p;
 
         knot.build();/// \todo option to turn on/off fluid knot refresh
@@ -486,10 +487,10 @@ void KnotView::wheelEvent(QWheelEvent *event)
             if ( event->modifiers() & Qt::ShiftModifier )
             {
                 double angle = ( event->delta() < 0 ? -15 : +15 );
-                QPointF origin = sel[0]->pos();
+                //QPointF origin = sel[0]->pos();
                 foreach ( Node* selnode, sel )
                 {
-                    QLineF vector ( origin, selnode->pos() );
+                    QLineF vector ( move_center, selnode->pos() );
                     vector.setAngle(vector.angle()+angle);
                     selnode->setPos(vector.p2());
                 }
@@ -504,13 +505,12 @@ void KnotView::wheelEvent(QWheelEvent *event)
                     vector.setLength(vector.length()*factor);
                     selnode->setPos(vector.p2());
                 }*/
-                QPointF origin = sel[0]->pos();
                 sel_size += event->delta() < 0 ? -1 : 1;
                 foreach ( Node* selnode, sel )
                 {
                     QLineF vector ( QPointF(0,0), sel_offset[selnode] );
                     vector.setLength(vector.length()*sel_size);
-                    vector.translate(origin);
+                    vector.translate(move_center);
                     selnode->setPos(vector.p2());
                 }
             }
@@ -578,7 +578,7 @@ void KnotView::unlink(Node *a, Node *b)
         }
         a->remove_link(already_there);
         b->remove_link(already_there);
-        scene()->removeItem(already_there);
+        //scene()->removeItem(already_there);
         knot.remove_edge(already_there);
         delete already_there;
         redraw(true);
@@ -1082,17 +1082,17 @@ void KnotView::mode_change()
     //scene()->clearSelection();
 }
 
-void KnotView::initialize_movement(Node *main)
+void KnotView::initialize_movement(QPointF center)
 {
     node_list selection = selected_nodes();
     if ( selection.size() < 2 )
         return;
     sel_offset.clear();
-    last_node = main;
+    move_center = center;
     QRectF boundbox;
     foreach(Node* n, selection)
     {
-        QPointF off = n->pos()-main->pos();
+        QPointF off = n->pos()-center;
         sel_offset[n] = off;
 
         if ( off.x() < boundbox.left() )
@@ -1299,7 +1299,7 @@ void KnotView::mode_move_grid()
     mode_change();
 }
 
-void KnotView::mode_moving_new()
+void KnotView::mode_moving_new(QPointF center)
 {
     mode_edit_node_edge();
 
@@ -1311,11 +1311,17 @@ void KnotView::mode_moving_new()
     mouse_status = MOVING;
 
     if ( grid.is_enabled() )
-        QCursor::setPos( mapToGlobal( mapFromScene( sn[0]->pos() ) ) );
+        QCursor::setPos( mapToGlobal( mapFromScene( center ) ) );
+
+    /*QPointF mousepos = mapToScene ( mapFromGlobal ( QCursor::pos() ) );
+    center = grid.nearest ( mousepos );*/
+
+    /*foreach(Node* n, sn)
+        n->setPos ( n->pos() - mousepos );*/
 
     oldpos = mapToScene ( mapFromGlobal ( QCursor::pos() ) );
 
-    initialize_movement ( sn[0] );
+    initialize_movement ( center  );
 }
 
 void KnotView::erase_selected()
@@ -1487,5 +1493,6 @@ void KnotView::toggle_knotline(bool visible)
 void KnotView::toggle_graph(bool visible)
 {
     dynamic_cast<GridScene*>(scene())->show_graph = visible;
+    redraw(false);
 }
 

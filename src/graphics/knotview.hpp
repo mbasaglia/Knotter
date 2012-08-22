@@ -70,8 +70,9 @@ class KnotView : public QGraphicsView
         QUndoStack undo_stack;          ///< Actions perfomed by the view
         KnotGraph knot;                 ///< Knot logic and graphics item
         snapping_grid grid;             ///< Grid setup
-        QMap<Node*,QPointF> sel_offset; ///< Offset of selected nodes from first selected node
+        QMap<Node*,QPointF> sel_offset; ///< Offset of selected nodes from move_center
         int sel_size;                   ///< Selection scale factor
+        QPointF move_center;            ///< Point aligned to the cursor during movement
 
     public:
         KnotView(QWidget *parent);
@@ -188,13 +189,13 @@ class KnotView : public QGraphicsView
         void unset_guide();
         void mode_change();
 
-        void initialize_movement(Node*main);
+        void initialize_movement(QPointF center);
 
     public slots:
         void mode_edit_node_edge();
         void mode_edge_chain();
         void mode_move_grid();
-        void mode_moving_new();
+        void mode_moving_new(QPointF center);
 
         void erase_selected();
         void link_selected();

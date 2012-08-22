@@ -1,7 +1,9 @@
 This file contains a brief description of Knotter releases,
 showing when features have been added to the program.
 
-Knotter 0.5.0 (beta) - Current development
+Knotter 0.6.0  - Current development
+
+Knotter 0.5.0
 --------------------
 ### NOTE ###
 Knotter 0.5.0 introduces some incompatibility with old .knot files!
@@ -15,7 +17,7 @@ Old files will still be loaded but you have to adjust a few style settings
 * New shape algorithm
 * Option to enable knot caching
 
-Knotter 0.4.0 (beta)
+Knotter 0.4.0
 --------------------
 * Hide/show graph/knot
 * Initial error recovery
@@ -25,7 +27,7 @@ Knotter 0.4.0 (beta)
 * Configuration
 * Save/restore status
 
-Knotter 0.3.0 (beta)
+Knotter 0.3.0
 --------------------
 * Snap to Grid
 * i18n setup
@@ -33,12 +35,12 @@ Knotter 0.3.0 (beta)
 * Better Mouse Input
 * Flip selection
 
-Knotter 0.2.0 (beta)
+Knotter 0.2.0
 ---------------------
 * Zooming
 * Copy/Paste
 
-Knotter 0.1.0 (alpha)
+Knotter 0.1.0
 ---------------------
 First public release
 * Basic Editing

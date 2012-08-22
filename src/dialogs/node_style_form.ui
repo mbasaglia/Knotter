@@ -83,6 +83,9 @@
      <property name="suffix">
       <string>px</string>
      </property>
+     <property name="minimum">
+      <double>-8192.000000000000000</double>
+     </property>
      <property name="maximum">
       <double>8129.000000000000000</double>
      </property>

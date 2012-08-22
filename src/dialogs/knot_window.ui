@@ -122,6 +122,8 @@
     <addaction name="actionInsert_Edges"/>
     <addaction name="actionEdge_List"/>
     <addaction name="separator"/>
+    <addaction name="actionInsert_Polygon"/>
+    <addaction name="separator"/>
     <addaction name="actionRefresh_Path"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
@@ -161,8 +163,6 @@
    <addaction name="action_Erase"/>
    <addaction name="action_Merge"/>
    <addaction name="separator"/>
-   <addaction name="actionEnable_Grid"/>
-   <addaction name="separator"/>
    <addaction name="action_Horizontal_Flip"/>
    <addaction name="action_Vertical_Flip"/>
   </widget>
@@ -184,6 +184,23 @@
    <addaction name="separator"/>
    <addaction name="action_Undo"/>
    <addaction name="action_Redo"/>
+  </widget>
+  <widget class="QToolBar" name="ViewBar">
+   <property name="windowTitle">
+    <string>View</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>true</bool>
+   </attribute>
+   <addaction name="actionZoom_In"/>
+   <addaction name="actionZoom_Out"/>
+   <addaction name="separator"/>
+   <addaction name="actionShow_Graph"/>
+   <addaction name="actionEnable_Grid"/>
+   <addaction name="action_Move_Grid"/>
   </widget>
   <action name="action_Save">
    <property name="text">
@@ -309,28 +326,6 @@
     <string>Refresh &amp;Path</string>
    </property>
   </action>
-  <action name="action_Main">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>&amp;Main</string>
-   </property>
-  </action>
-  <action name="action_Knot_Editing">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>&amp;Knot Editing</string>
-   </property>
-  </action>
   <action name="actionZoom_In">
    <property name="text">
     <string>Zoom &amp;In</string>
@@ -360,6 +355,10 @@
    </property>
    <property name="checked">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../img/icons.qrc">
+     <normaloff>:/img/toggle_graph_on.svg</normaloff>:/img/toggle_graph_on.svg</iconset>
    </property>
    <property name="text">
     <string>Show &amp;Graph</string>
@@ -461,17 +460,6 @@
     <string>&amp;About...</string>
    </property>
   </action>
-  <action name="actionAction_History">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Action History</string>
-   </property>
-  </action>
   <action name="action_Unlink">
    <property name="icon">
     <iconset resource="../../img/icons.qrc">
@@ -481,26 +469,9 @@
     <string>&amp;Unlink</string>
    </property>
   </action>
-  <action name="actionDefault_Node_Style">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
+  <action name="actionInsert_Polygon">
    <property name="text">
-    <string>Default Node Style</string>
-   </property>
-  </action>
-  <action name="actionKnot_Style">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Knot Style</string>
+    <string>Insert Pol&amp;ygon...</string>
    </property>
   </action>
  </widget>
@@ -757,38 +728,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>action_Main</sender>
-   <signal>triggered(bool)</signal>
-   <receiver>MainToolBar</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>55</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>action_Knot_Editing</sender>
-   <signal>triggered(bool)</signal>
-   <receiver>EditBar</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>32</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>action_Reset_Zoom</sender>
    <signal>triggered()</signal>
    <receiver>canvas</receiver>
@@ -953,22 +892,6 @@
    <signal>triggered()</signal>
    <receiver>canvas</receiver>
    <slot>mode_move_grid()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>266</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionShow_Graph</sender>
-   <signal>triggered(bool)</signal>
-   <receiver>canvas</receiver>
-   <slot>toggle_graph(bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>

@@ -64,7 +64,7 @@ ClipboardItem::ClipboardItem ( node_list insert_nodes )
 
 void ClipboardItem::paste(KnotView *kv, QPointF p) const
 {
-    if ( !kv ) return;
+    if ( !kv || nodes.size() < 1 ) return;
 
     kv->get_undo_stack().beginMacro(KnotView::tr("Paste"));
 
@@ -84,7 +84,7 @@ void ClipboardItem::paste(KnotView *kv, QPointF p) const
 
     kv->get_undo_stack().endMacro();
 
-    kv->mode_moving_new();
+    kv->mode_moving_new(nodes[0].pos+p);
 }
 
 void ClipboardItem::copy(KnotView *kv)

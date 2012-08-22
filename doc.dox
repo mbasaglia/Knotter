@@ -10,8 +10,8 @@ Ignore this, see the main todo page
 \todo Document every class and function
 \todo Better user guide
 \todo Undo/Redo Style
-\todo Save Node style
-\todo if the segfault shows up again, check if node_list destructor takes ownership
+\todo check QGraphicsView/QGraphicsScene::render
+\todo use some default icon theme as fallback in case icons are not present
 */
 
 /**

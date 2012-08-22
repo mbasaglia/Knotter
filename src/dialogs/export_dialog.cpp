@@ -56,6 +56,12 @@ void Export_Dialog::on_export_svg_button_clicked()
     QSvgGenerator gen;
     gen.setOutputDevice(&quf);
 
+    /*QPainter painter;
+    painter.begin(&gen);
+    canvas->set_cache_mode(QGraphicsItem::NoCache);
+    canvas->render ( &painter, QRectF(0,0,1024,1024) );
+    painter.end();*/
+
     canvas->paint_knot ( &gen, get_area(), only_shape_check->isChecked() );
 
     quf.close();

@@ -148,6 +148,8 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
     private slots:
         /// show about dialog
         void on_action_About_triggered();
+        void on_actionShow_Graph_triggered(bool checked);
+        void on_actionInsert_Polygon_triggered();
 };
 
 #endif // KNOT_WINDOW_HPP

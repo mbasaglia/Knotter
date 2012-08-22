@@ -24,5 +24,7 @@
         <file>hflip.svg</file>
         <file>icon.png</file>
         <file>unlink.svg</file>
+        <file>toggle_graph_off.svg</file>
+        <file>toggle_graph_on.svg</file>
     </qresource>
 </RCC>
