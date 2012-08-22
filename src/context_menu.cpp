@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "context_menu.hpp"
 #include "knotview.hpp"
+#include <QInputDialog>
 
 node_cxmn::node_cxmn ( QWidget *parent )
     : QMenu(parent), n(NULL), kv ( NULL )
@@ -89,6 +90,10 @@ edge_cxmn::edge_cxmn(QWidget *parent)
     foreach(QAction*a,type_action.values())
         a->setCheckable(true);
     addMenu ( type );
+
+
+    addAction(tr("Break on intersections"),this,SLOT(break_edge_intersections()));
+    addAction(tr("Break..."),this,SLOT(break_edge_equal()));
 
     //addAction(QIcon(":/img/edit_edges.svg"),tr("Properties..."),this,SLOT(properties()));
 
@@ -158,4 +163,17 @@ void edge_cxmn::set_hole()
 {
     if ( n1 && n2 && kv )
         kv->set_edge_type(n1,n2,Edge::HOLE);
+}
+
+void edge_cxmn::break_edge_intersections()
+{
+    if ( n1 && n2 && kv )
+        kv->break_edge_intersections(n1->get_link(n2));
+}
+
+void edge_cxmn::break_edge_equal()
+{
+    if ( n1 && n2 && kv )
+        kv->break_edge_equal(n1->get_link(n2),
+            QInputDialog::getInt(0,tr("Break edge"),tr("Number of segments"),2,2,32) );
 }

@@ -16,6 +16,7 @@ HEADERS += \
     src/color_widget.hpp \
     src/error_recovery.hpp \
     src/context_menu.hpp \
-    src/xml_saver.hpp
+    src/xml_saver.hpp \
+    src/icon_loader.hpp
 
 INCLUDEPATH += src

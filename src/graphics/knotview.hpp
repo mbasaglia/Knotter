@@ -154,6 +154,10 @@ class KnotView : public QGraphicsView
         void add_edge ( Node* p1, Node* p2 );
         void remove_edge ( Node* p1, Node* p2 );
         void move_node ( Node* n, QPointF dest );
+        /// add nodes on intersections with other edges
+        void break_edge_intersections(Edge* e);
+        /// subdivide in equal parts
+        void break_edge_equal(Edge* e,int segments);
     protected:
         /// Used after dragging nodes
         void move_nodes ( QPointF dest );

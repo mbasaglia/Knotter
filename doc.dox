@@ -12,6 +12,7 @@ Ignore this, see the main todo page
 \todo Undo/Redo Style
 \todo check QGraphicsView/QGraphicsScene::render
 \todo use some default icon theme as fallback in case icons are not present
+\todo action to split an edge on intersections (in edge context menu?)
 */
 
 /**

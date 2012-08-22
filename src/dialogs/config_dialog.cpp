@@ -24,11 +24,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 #include "config_dialog.hpp"
+#include "icon_loader.hpp"
 
 config_dialog::config_dialog(QWidget *parent) :
     QDialog(parent)
 {
     setupUi(this);
+    // Bad Designer... >:^(
+    stackedWidget->connect(tableWidget,SIGNAL(cellClicked(int,int)),SLOT(setCurrentIndex(int)));
+
+    /// \warning Icons are in Oxygen theme but not in freedesktop std
+    tableWidget->item(0,0)->setIcon(icon::theme("configure-toolbars"));
+    tableWidget->item(1,0)->setIcon(icon::theme("configure"));
+    tableWidget->item(2,0)->setIcon(icon::theme("preferences-system-performance"));
+
 }
 
 void config_dialog::set_icon_size(QSize size)

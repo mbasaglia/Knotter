@@ -34,6 +34,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDockWidget>
 #include "node_pref_dialog.hpp"
 #include <QInputDialog>
+#include "icon_loader.hpp"
+
+/// \todo function to update docks and icons
 
 Knot_Window::Knot_Window(QWidget *parent) :
     QMainWindow(parent), save_ui ( true ), max_recent_files(5)
@@ -50,17 +53,18 @@ Knot_Window::Knot_Window(QWidget *parent) :
     ErrorRecovery::recover = canvas;
 
 // File menu icons/shortcuts
-    action_New->setIcon(QIcon::fromTheme("document-new"));
+    action_New->setIcon(icon::theme("document-new"));
     action_New->setShortcuts(QKeySequence::New);
-    action_Save->setIcon(QIcon::fromTheme("document-save"));
+    action_Save->setIcon(icon::theme("document-save"));
     action_Save->setShortcuts(QKeySequence::Save);
-    actionSave_As->setIcon(QIcon::fromTheme("document-save-as"));
+    actionSave_As->setIcon(icon::theme("document-save-as"));
     actionSave_As->setShortcuts(QKeySequence::SaveAs);
-    action_Open->setIcon(QIcon::fromTheme("document-open"));
+    action_Open->setIcon(icon::theme("document-open"));
     action_Open->setShortcuts(QKeySequence::Open);
-    action_Quit->setIcon(QIcon::fromTheme("application-exit"));
+    action_Quit->setIcon(icon::theme("application-exit"));
     action_Quit->setShortcuts(QKeySequence::Quit);
-    action_Export->setIcon(QIcon::fromTheme("image-x-generic"));
+    action_Export->setIcon(icon::theme("image-x-generic"));
+    menuOpen_Recent->setIcon(icon::theme("document-open-recent"));
 
 // undo/redo
     QAction *undos = canvas->get_undo_stack().createUndoAction(this, tr("&Undo"));
@@ -83,21 +87,21 @@ Knot_Window::Knot_Window(QWidget *parent) :
     edge_context_menu.connect(canvas,SIGNAL(context_menu(Edge*)),SLOT(activate(Edge*)));
 
 // Edit menu icons/shortcuts
-    action_Copy->setIcon(QIcon::fromTheme("edit-copy"));
+    action_Copy->setIcon(icon::theme("edit-copy"));
     action_Copy->setShortcuts(QKeySequence::Copy);
-    action_Paste->setIcon(QIcon::fromTheme("edit-paste"));
+    action_Paste->setIcon(icon::theme("edit-paste"));
     action_Paste->setShortcuts(QKeySequence::Paste);
-    actionCut->setIcon(QIcon::fromTheme("edit-cut"));
+    actionCut->setIcon(icon::theme("edit-cut"));
     actionCut->setShortcuts(QKeySequence::Cut);
 
-    action_Undo->setIcon(QIcon::fromTheme("edit-undo"));
+    action_Undo->setIcon(icon::theme("edit-undo"));
     action_Undo->setShortcuts(QKeySequence::Undo);
-    action_Redo->setIcon(QIcon::fromTheme("edit-redo"));
+    action_Redo->setIcon(icon::theme("edit-redo"));
     action_Redo->setShortcuts(QKeySequence::Redo);
-    actionSelect_All->setIcon(QIcon::fromTheme("edit-select-all"));
+    actionSelect_All->setIcon(icon::theme("edit-select-all"));
     actionSelect_All->setShortcuts(QKeySequence::SelectAll);
 
-    action_Preferences->setIcon(QIcon::fromTheme("preferences-other"));
+    action_Preferences->setIcon(icon::theme("preferences-other"));
 
 // Toolbar toggle actions/setup
     menu_Toolbars->clear();
@@ -115,19 +119,18 @@ Knot_Window::Knot_Window(QWidget *parent) :
     EditBar->show();
 
 // View menu icons/shortcuts
-    actionZoom_In->setIcon(QIcon::fromTheme("zoom-in"));
+    actionZoom_In->setIcon(icon::theme("zoom-in"));
     actionZoom_In->setShortcuts(QKeySequence::ZoomIn);
-    actionZoom_Out->setIcon(QIcon::fromTheme("zoom-out"));
+    actionZoom_Out->setIcon(icon::theme("zoom-out"));
     actionZoom_Out->setShortcuts(QKeySequence::ZoomOut);
-    action_Reset_Zoom->setIcon(QIcon::fromTheme("zoom-original"));
-    actionRefresh_Path->setIcon(QIcon::fromTheme("view-refresh"));
+    action_Reset_Zoom->setIcon(icon::theme("zoom-original"));
+    actionRefresh_Path->setIcon(icon::theme("view-refresh"));
     actionRefresh_Path->setShortcuts(QKeySequence::Refresh);
-    action_Reset_View->setIcon(QIcon::fromTheme("view-restore"));
+    action_Reset_View->setIcon(icon::theme("view-restore"));
 
 // Node menu icons
-    action_Erase->setIcon(QIcon::fromTheme("edit-delete"));
-    action_Horizontal_Flip->setIcon(QIcon::fromTheme("object-flip-horizontal"));
-    action_Vertical_Flip->setIcon(QIcon::fromTheme("object-flip-vertical"));
+    action_Horizontal_Flip->setIcon(icon::theme("object-flip-horizontal"));
+    action_Vertical_Flip->setIcon(icon::theme("object-flip-vertical"));
 
 // Action History Dock
     QUndoView *undoView = new QUndoView(&canvas->get_undo_stack());
@@ -188,12 +191,12 @@ Knot_Window::Knot_Window(QWidget *parent) :
     this->connect(config_dlg.clear_recent,SIGNAL(clicked()),SLOT(clear_recent_files()));
 
 // Manual + Help icon/shortcuts
-    action_Manual->setIcon(QIcon::fromTheme("help-contents"));
+    action_Manual->setIcon(icon::theme("help-contents"));
     action_Manual->setShortcuts(QKeySequence::HelpContents);
-    help_view.setWindowIcon(QIcon::fromTheme("help-contents"));
+    help_view.setWindowIcon(icon::theme("help-contents"));
     help_view.setAttribute(Qt::WA_QuitOnClose, false);
 
-    action_About->setIcon(QIcon::fromTheme("help-about"));
+    action_About->setIcon(icon::theme("help-about"));
 
 // Load config
     load_config();
@@ -555,9 +558,10 @@ void Knot_Window::show_node_prefs(Node *node)
 
 void Knot_Window::on_action_About_triggered()
 {
+    //QMessageBox::about(this,tr("About Knotter"), BUILD_INFO );
     QMessageBox mb(QMessageBox::Information, tr("About Knotter"), BUILD_INFO );
-    mb.setAttribute(Qt::WA_QuitOnClose, false);
-    mb.setWindowIcon(QIcon::fromTheme("help-about"));
+    //mb.setAttribute(Qt::WA_QuitOnClose, false);
+    mb.setWindowIcon(icon::theme("help-about"));
     mb.exec();
 }
 
@@ -582,17 +586,19 @@ void Knot_Window::on_actionInsert_Polygon_triggered()
     QLineF rad ( 0, 0, radius, 0 );
     rad.translate ( canvas->mapToScene(
                                 canvas->mapFromGlobal(QCursor::pos()) ) );
-    Node *first = canvas->add_node( rad.p2() );
-    first->setSelected(true);
-    Node* prev = first;
+    Node *first = NULL;
+    Node* prev = NULL;
     Node *last = NULL;
-    for( int i = 1; i < n; i++)
+    for( int i = 0; i < n; i++)
     {
-        rad.setAngle ( rad.angle()+360./n );
-        last = canvas->add_node ( rad.p2() );
+        last = canvas->add_node ( QPointF( rad.p2().x()-radius, rad.p2().y() ) );
         last->setSelected(true);
-        canvas->add_edge(last,prev);
+        if ( !first )
+            first = last;
+        else
+            canvas->add_edge(last,prev);
         prev = last;
+        rad.setAngle ( rad.angle()+360./n );
     }
     canvas->add_edge(last,first);
 

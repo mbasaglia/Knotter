@@ -83,6 +83,8 @@ class edge_cxmn : public QMenu
         void set_inverted();
         void set_wall();
         void set_hole();
+        void break_edge_intersections();
+        void break_edge_equal();
 
     signals:
         void request_properties(Edge*);

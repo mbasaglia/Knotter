@@ -493,19 +493,18 @@ void KnotView::wheelEvent(QWheelEvent *event)
                     QLineF vector ( move_center, selnode->pos() );
                     vector.setAngle(vector.angle()+angle);
                     selnode->setPos(vector.p2());
+
+                    QLineF base_vector ( QPointF(0,0), sel_offset[selnode] );
+                    base_vector.setAngle(vector.angle());
+                    sel_offset[selnode] = base_vector.p2();
                 }
             }
             else
             {
-                /*double factor = ( event->delta() < 0 ? 0.5 : 2 );
-                QPointF origin = sel[0]->pos();
-                foreach ( Node* selnode, sel )
-                {
-                    QLineF vector ( origin, selnode->pos() );
-                    vector.setLength(vector.length()*factor);
-                    selnode->setPos(vector.p2());
-                }*/
-                sel_size += event->delta() < 0 ? -1 : 1;
+                int zdelta = event->delta() < 0 ? -1 : 1;
+                sel_size += zdelta;
+                if ( sel_size == 0 )
+                    sel_size = zdelta;
                 foreach ( Node* selnode, sel )
                 {
                     QLineF vector ( QPointF(0,0), sel_offset[selnode] );
@@ -1196,6 +1195,77 @@ void KnotView::remove_edge(Node *p1, Node *p2)
 void KnotView::move_node(Node *n, QPointF dest)
 {
     undo_stack.push(new MoveNode(n,n->pos(),dest,this));
+}
+
+void KnotView::break_edge_intersections(Edge *e)
+{
+    if ( !e ) return;
+
+    QList<QGraphicsItem *> intersected_raw = e->collidingItems();
+    QList<Edge*> intersected;
+
+    Node* v1 = e->vertex1();
+    Node* v2 = e->vertex2();
+
+    foreach ( QGraphicsItem* itm, intersected_raw )
+    {
+        Edge* edg = dynamic_cast<Edge*>(itm);
+        if ( edg && !edg->is_vertex(v1) && !edg->is_vertex(v2) )
+            intersected.push_back(edg);
+    }
+
+    if ( intersected.empty() )
+        return;
+
+    undo_stack.beginMacro("Break edge");
+
+    Node* last = v1;
+
+    QLineF start_line ( v1->pos(), v2->pos() );
+    remove_edge ( v1, v2 );
+
+    foreach ( Edge*o, intersected )
+    {
+        Node* o1 = o->vertex1();
+        Node* o2 = o->vertex2();
+        QLineF intersect_line ( o1->pos(), o2->pos() );
+        QPointF intersect_point;
+        start_line.intersect(intersect_line,&intersect_point);
+        remove_edge(o1,o2);
+        node_list nadj = node_list() << last << o1 << o2;
+        last = add_node(intersect_point,nadj);
+    }
+    add_edge(last,v2);
+
+
+    undo_stack.endMacro();
+
+}
+
+void KnotView::break_edge_equal(Edge *e, int segments)
+{
+    if ( !e || segments < 2 ) return;
+
+    undo_stack.beginMacro("Break edge");
+
+    Node* v1 = e->vertex1();
+    Node* v2 = e->vertex2();
+
+    QLineF line ( v1->pos(), v2->pos() );
+
+    remove_edge ( v1, v2 );
+
+    line.setLength(line.length()/segments);
+    Node* last = v1;
+    for ( int i = 1; i < segments; i++ )
+    {
+        last = add_node(line.p2(),node_list()<<last);
+        line.translate(line.p2()-line.p1());
+    }
+    add_edge(last,v2);
+
+    undo_stack.endMacro();
+
 }
 
 void KnotView::move_nodes ( QPointF dest )

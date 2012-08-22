@@ -15,7 +15,7 @@
    id="svg4778"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="edit_nodes.svg">
+   sodipodi:docname="edit_edges.svg">
   <defs
      id="defs4780">
     <linearGradient
@@ -108,7 +108,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.75"
-     inkscape:cx="76.551477"
+     inkscape:cx="15.642386"
      inkscape:cy="36.932621"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -163,7 +163,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -172,13 +172,13 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <path
-       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:url(#linearGradient5378);fill-opacity:1;fill-rule:nonzero;stroke:#171827;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:url(#linearGradient5378);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 51.96875,8.75 48.25,10.25 9.4375,25.9375 5.71875,27.4375 8.71875,34.84375 12.4375,33.34375 51.25,17.65625 54.96875,16.15625 51.96875,8.75 z"
        id="path5366"
        inkscape:connector-curvature="0" />
     <path
        sodipodi:type="arc"
-       style="color:#000000;fill:url(#radialGradient4776);fill-opacity:1;stroke:#271717;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="color:#000000;fill:url(#radialGradient4776);fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="use4359"
        sodipodi:cx="2.7713685"
        sodipodi:cy="2.9713824"
@@ -199,6 +199,7 @@
        id="use5364"
        transform="translate(38.826591,-15.684914)"
        width="64"
-       height="64" />
+       height="64"
+       style="stroke:none" />
   </g>
 </svg>

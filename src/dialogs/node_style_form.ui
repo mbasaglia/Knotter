@@ -127,7 +127,7 @@
       </property>
       <property name="icon">
        <iconset resource="../../img/icons.qrc">
-        <normaloff>:/img/pointpoly.svg</normaloff>:/img/pointpoly.svg</iconset>
+        <normaloff>:/img/poly.svg</normaloff>:/img/poly.svg</iconset>
       </property>
      </item>
     </widget>

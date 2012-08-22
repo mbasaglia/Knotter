@@ -281,6 +281,10 @@
    </property>
   </action>
   <action name="action_Erase">
+   <property name="icon">
+    <iconset resource="../../img/icons.qrc">
+     <normaloff>:/img/remove_node.svg</normaloff>:/img/remove_node.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Erase</string>
    </property>
@@ -416,19 +420,11 @@
    </property>
   </action>
   <action name="action_Horizontal_Flip">
-   <property name="icon">
-    <iconset resource="../../img/icons.qrc">
-     <normaloff>:/img/hflip.svg</normaloff>:/img/hflip.svg</iconset>
-   </property>
    <property name="text">
     <string>&amp;Horizontal Flip</string>
    </property>
   </action>
   <action name="action_Vertical_Flip">
-   <property name="icon">
-    <iconset resource="../../img/icons.qrc">
-     <normaloff>:/img/vflip.svg</normaloff>:/img/vflip.svg</iconset>
-   </property>
    <property name="text">
     <string>&amp;Vertical Flip</string>
    </property>

@@ -10,21 +10,19 @@
         <file>line_dash.svg</file>
         <file>line_dash_dot.svg</file>
         <file>line_solid.svg</file>
-        <file>vflip.svg</file>
         <file>triangular_grid2.svg</file>
         <file>logo_big.svg</file>
         <file>merge.svg</file>
         <file>move_grid.svg</file>
         <file>ogee.svg</file>
         <file>pointcurve.svg</file>
-        <file>pointpoly.svg</file>
         <file>poly.svg</file>
         <file>square_grid.svg</file>
         <file>triangular_grid.svg</file>
-        <file>hflip.svg</file>
         <file>icon.png</file>
         <file>unlink.svg</file>
         <file>toggle_graph_off.svg</file>
         <file>toggle_graph_on.svg</file>
+        <file>remove_node.svg</file>
     </qresource>
 </RCC>

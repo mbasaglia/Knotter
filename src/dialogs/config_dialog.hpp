@@ -25,8 +25,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef CONFIG_DIALOG_HPP
 #define CONFIG_DIALOG_HPP
+/*
+    Sorry for this hack but I'm not willing to get too much overhead just to change a few options
+*/
+#include <QTableWidget>
+struct mytablewidget : QTableWidget
+{
+    mytablewidget ( QWidget* parent ) : QTableWidget ( parent ) {}
+    protected:
+        QStyleOptionViewItem viewOptions() const
+        {
+            QStyleOptionViewItem option = QTableWidget::viewOptions();
+            option.decorationAlignment = Qt::AlignHCenter | Qt::AlignCenter;
+            option.decorationPosition = QStyleOptionViewItem::Top;
+            option.displayAlignment = Qt::AlignCenter;
+            return option;
+        }
+
+};
+#define QTableWidget mytablewidget
 
 #include "ui_config_dialog.h"
+
+#undef QTableWidget
 
 class config_dialog : public QDialog, private Ui::config_dialog
 {

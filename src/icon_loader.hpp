@@ -23,22 +23,24 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
-#ifndef ERROR_RECOVERY_HPP
-#define ERROR_RECOVERY_HPP
+#ifndef ICON_LOADER_HPP
+#define ICON_LOADER_HPP
 
-#include "knotview.hpp"
+#include <QIcon>
 
-/**
-    \brief Quick and dirty class used to save a backup file on error
-*/
-class ErrorRecovery
+namespace icon {
+
+inline QIcon custom ( QString name )
 {
-    private:
-        static void sigsegv(int sig);
+    return QIcon(":/img/"+name+".svg");
+}
 
-    public:
-        static KnotView* recover;
-        static void initialize();
-};
+inline QIcon theme ( QString name )
+{
+    /// \todo fallback icons
+    return QIcon::fromTheme(name);
+}
 
-#endif // ERROR_RECOVERY_HPP
+
+} // namespace icon
+#endif // ICON_LOADER_HPP
