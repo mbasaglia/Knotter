@@ -34,9 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDockWidget>
 #include "node_pref_dialog.hpp"
 #include <QInputDialog>
-#include "icon_loader.hpp"
-
-/// \todo function to update docks and icons
+#include "resource_loader.hpp"
 
 Knot_Window::Knot_Window(QWidget *parent) :
     QMainWindow(parent), save_ui ( true ), max_recent_files(5)
@@ -44,27 +42,66 @@ Knot_Window::Knot_Window(QWidget *parent) :
 
 // UI from designer
     setupUi(this);
-
-// export dialog
-    export_dialog.set_knot_view(canvas);
-    export_dialog.setAttribute(Qt::WA_QuitOnClose, false);
+    setWindowIcon(load::icon("logo"));
 
 // enable error recovery
     ErrorRecovery::recover = canvas;
 
+// KnotView signals / context menus
+    connect(&canvas->get_undo_stack(),SIGNAL(cleanChanged(bool)),SLOT(update_title(bool)));
+    node_context_menu.set_view(canvas);
+    node_context_menu.connect(canvas,SIGNAL(context_menu(Node*)),SLOT(activate(Node*)));
+    connect(&node_context_menu,SIGNAL(request_properties(Node*)),SLOT(show_node_prefs(Node*)));
+    edge_context_menu.set_view(canvas);
+    edge_context_menu.connect(canvas,SIGNAL(context_menu(Edge*)),SLOT(activate(Edge*)));
+
+    init_menus();
+    init_toolbars();
+    init_docks();
+    init_dialogs();
+
+
+// Load config
+    load_config();
+    update_ui();
+}
+
+Knot_Window::~Knot_Window()
+{
+    save_config();
+}
+
+
+void Knot_Window::update_ui()
+{
+    default_node_style_form->set_style_info(canvas->get_default_style());
+
+    global_style_frm->set_join_style(canvas->get_join_style());
+    global_style_frm->set_knot_color(canvas->get_brush().color());
+    global_style_frm->set_knot_width(canvas->get_width());
+    global_style_frm->set_pen(canvas->get_pen());
+
+    update_grid_icon();
+
+    update_recent_menu();
+}
+
+void Knot_Window::init_menus()
+{
+
 // File menu icons/shortcuts
-    action_New->setIcon(icon::theme("document-new"));
+    action_New->setIcon(load::icon("document-new"));
     action_New->setShortcuts(QKeySequence::New);
-    action_Save->setIcon(icon::theme("document-save"));
+    action_Save->setIcon(load::icon("document-save"));
     action_Save->setShortcuts(QKeySequence::Save);
-    actionSave_As->setIcon(icon::theme("document-save-as"));
+    actionSave_As->setIcon(load::icon("document-save-as"));
     actionSave_As->setShortcuts(QKeySequence::SaveAs);
-    action_Open->setIcon(icon::theme("document-open"));
+    action_Open->setIcon(load::icon("document-open"));
     action_Open->setShortcuts(QKeySequence::Open);
-    action_Quit->setIcon(icon::theme("application-exit"));
+    action_Quit->setIcon(load::icon("application-exit"));
     action_Quit->setShortcuts(QKeySequence::Quit);
-    action_Export->setIcon(icon::theme("image-x-generic"));
-    menuOpen_Recent->setIcon(icon::theme("document-open-recent"));
+    action_Export->setIcon(load::icon("document-export"));
+    menuOpen_Recent->setIcon(load::icon("document-open-recent"));
 
 // undo/redo
     QAction *undos = canvas->get_undo_stack().createUndoAction(this, tr("&Undo"));
@@ -78,71 +115,66 @@ Knot_Window::Knot_Window(QWidget *parent) :
     delete action_Redo;
     action_Redo = redos;
 
-// KnotView signals / context menus
-    connect(&canvas->get_undo_stack(),SIGNAL(cleanChanged(bool)),SLOT(update_title(bool)));
-    node_context_menu.set_view(canvas);
-    node_context_menu.connect(canvas,SIGNAL(context_menu(Node*)),SLOT(activate(Node*)));
-    connect(&node_context_menu,SIGNAL(request_properties(Node*)),SLOT(show_node_prefs(Node*)));
-    edge_context_menu.set_view(canvas);
-    edge_context_menu.connect(canvas,SIGNAL(context_menu(Edge*)),SLOT(activate(Edge*)));
-
 // Edit menu icons/shortcuts
-    action_Copy->setIcon(icon::theme("edit-copy"));
+    action_Copy->setIcon(load::icon("edit-copy"));
     action_Copy->setShortcuts(QKeySequence::Copy);
-    action_Paste->setIcon(icon::theme("edit-paste"));
+    action_Paste->setIcon(load::icon("edit-paste"));
     action_Paste->setShortcuts(QKeySequence::Paste);
-    actionCut->setIcon(icon::theme("edit-cut"));
+    actionCut->setIcon(load::icon("edit-cut"));
     actionCut->setShortcuts(QKeySequence::Cut);
 
-    action_Undo->setIcon(icon::theme("edit-undo"));
+    action_Undo->setIcon(load::icon("edit-undo"));
     action_Undo->setShortcuts(QKeySequence::Undo);
-    action_Redo->setIcon(icon::theme("edit-redo"));
+    action_Redo->setIcon(load::icon("edit-redo"));
     action_Redo->setShortcuts(QKeySequence::Redo);
-    actionSelect_All->setIcon(icon::theme("edit-select-all"));
+    actionSelect_All->setIcon(load::icon("edit-select-all"));
     actionSelect_All->setShortcuts(QKeySequence::SelectAll);
 
-    action_Preferences->setIcon(icon::theme("preferences-other"));
-
-// Toolbar toggle actions/setup
-    menu_Toolbars->clear();
-    menu_Toolbars->addAction(MainToolBar->toggleViewAction());
-    menu_Toolbars->addAction(EditBar->toggleViewAction());
-    menu_Toolbars->addAction(ViewBar->toggleViewAction());
-
-    // overcome bug in code generator from ui file
-    removeToolBar(EditBar);
-    removeToolBar(MainToolBar);
-    addToolBar(Qt::TopToolBarArea, MainToolBar);
-    addToolBar(Qt::TopToolBarArea, ViewBar);
-    addToolBar(Qt::TopToolBarArea, EditBar);
-    MainToolBar->show();
-    EditBar->show();
+    action_Preferences->setIcon(load::icon("preferences-other"));
 
 // View menu icons/shortcuts
-    actionZoom_In->setIcon(icon::theme("zoom-in"));
+    actionZoom_In->setIcon(load::icon("zoom-in"));
     actionZoom_In->setShortcuts(QKeySequence::ZoomIn);
-    actionZoom_Out->setIcon(icon::theme("zoom-out"));
+    actionZoom_Out->setIcon(load::icon("zoom-out"));
     actionZoom_Out->setShortcuts(QKeySequence::ZoomOut);
-    action_Reset_Zoom->setIcon(icon::theme("zoom-original"));
-    actionRefresh_Path->setIcon(icon::theme("view-refresh"));
+    action_Reset_Zoom->setIcon(load::icon("zoom-original"));
+    actionRefresh_Path->setIcon(load::icon("view-refresh"));
     actionRefresh_Path->setShortcuts(QKeySequence::Refresh);
-    action_Reset_View->setIcon(icon::theme("view-restore"));
+    action_Reset_View->setIcon(load::icon("view-restore"));
+    actionShow_Graph->setIcon(load::icon("toggle_graph_on"));
+    action_Move_Grid->setIcon(load::icon("move_grid"));
 
 // Node menu icons
-    action_Horizontal_Flip->setIcon(icon::theme("object-flip-horizontal"));
-    action_Vertical_Flip->setIcon(icon::theme("object-flip-vertical"));
+    action_Horizontal_Flip->setIcon(load::icon("object-flip-horizontal"));
+    action_Vertical_Flip->setIcon(load::icon("object-flip-vertical"));
+    action_Link->setIcon(load::icon("format-connect-node"));
+    action_Unlink->setIcon(load::icon("format-disconnect-node"));
+    action_Erase->setIcon(load::icon("format-remove-node"));
+    action_Merge->setIcon(load::icon("format-join-node"));
+
+    actionInsert_Edges->setIcon(load::icon("edit_edges"));
+    actionEdge_List->setIcon(load::icon("edge_list"));
+
+// Help menu icons
+    action_Manual->setIcon(load::icon("help-contents"));
+    action_Manual->setShortcuts(QKeySequence::HelpContents);
+
+}
+
+void Knot_Window::init_docks()
+{
 
 // Action History Dock
     QUndoView *undoView = new QUndoView(&canvas->get_undo_stack());
-    undoDock = new QDockWidget;
+    QDockWidget* undoDock  = new QDockWidget;
     undoDock->setWidget(undoView);
     undoDock->setObjectName("Action_History");
     undoDock->setWindowTitle(tr("Action History"));
     undoDock->show();
 
 // Default Node Style Dock
+    QDockWidget*    default_node_style_dock;
     default_node_style_form = new node_style_form;
-    default_node_style_form->set_style_info(canvas->get_default_style());
     canvas->connect(default_node_style_form,SIGNAL(style_changed(styleinfo)),
                     SLOT(set_default_style(styleinfo)));
     default_node_style_dock = new QDockWidget;
@@ -151,11 +183,8 @@ Knot_Window::Knot_Window(QWidget *parent) :
     default_node_style_dock->setWindowTitle(tr("Default Node Style"));
 
 // Knot Style Dock
+    QDockWidget*    global_style_dock;
     global_style_frm = new global_style_form;
-    global_style_frm->set_join_style(canvas->get_join_style());
-    global_style_frm->set_knot_color(canvas->get_brush().color());
-    global_style_frm->set_knot_width(canvas->get_width());
-    global_style_frm->set_pen(canvas->get_pen());
     canvas->connect(global_style_frm,SIGNAL(knot_color_changed(QColor)),
                     SLOT(set_brush_color(QColor)));
     canvas->connect(global_style_frm,SIGNAL(join_style_changed(Qt::PenJoinStyle)),
@@ -187,27 +216,46 @@ Knot_Window::Knot_Window(QWidget *parent) :
     menu_Docks->addAction(global_style_dock->toggleViewAction());
     menu_Docks->addAction(default_node_style_dock->toggleViewAction());
 
+}
+
+void Knot_Window::init_toolbars()
+{
+
+// Toolbar toggle actions/setup
+    menu_Toolbars->clear();
+    menu_Toolbars->addAction(MainToolBar->toggleViewAction());
+    menu_Toolbars->addAction(EditBar->toggleViewAction());
+    menu_Toolbars->addAction(ViewBar->toggleViewAction());
+
+    // overcome bug in code generator from ui file
+    removeToolBar(EditBar);
+    removeToolBar(MainToolBar);
+    addToolBar(Qt::TopToolBarArea, MainToolBar);
+    addToolBar(Qt::TopToolBarArea, ViewBar);
+    addToolBar(Qt::TopToolBarArea, EditBar);
+    MainToolBar->show();
+    EditBar->show();
+
+}
+
+void Knot_Window::init_dialogs()
+{
+
+// export dialog
+    export_dialog.set_knot_view(canvas);
+    export_dialog.setAttribute(Qt::WA_QuitOnClose, false);
+
 // Cofig actions
     this->connect(config_dlg.clear_recent,SIGNAL(clicked()),SLOT(clear_recent_files()));
 
 // Manual + Help icon/shortcuts
-    action_Manual->setIcon(icon::theme("help-contents"));
-    action_Manual->setShortcuts(QKeySequence::HelpContents);
-    help_view.setWindowIcon(icon::theme("help-contents"));
+    help_view.setWindowIcon(load::icon("help-contents"));
     help_view.setAttribute(Qt::WA_QuitOnClose, false);
 
-    action_About->setIcon(icon::theme("help-about"));
+    action_About->setIcon(load::icon("help-about"));
 
-// Load config
-    load_config();
-    update_recent_menu();
+
 }
-
-Knot_Window::~Knot_Window()
-{
-    save_config();
-}
-
 
 void Knot_Window::load_config()
 {
@@ -247,7 +295,6 @@ void Knot_Window::load_config()
     grid.set_size(settings.value("size",grid.get_size()).toDouble());
     grid.set_shape(snapping_grid::grid_shape(
                     settings.value("type",int(grid.get_shape())).toInt() ));
-    update_grid_icon();
     settings.endGroup();
 
 
@@ -383,14 +430,8 @@ bool Knot_Window::open(QString file, bool silent)
         return false;
     }
 
-
-    default_node_style_form->set_style_info(canvas->get_default_style());
-    global_style_frm->set_join_style(canvas->get_join_style());
-    global_style_frm->set_knot_color(canvas->get_brush().color());
-    global_style_frm->set_pen(canvas->get_pen());
-    global_style_frm->set_knot_width(canvas->get_width());
-
     push_recent_file(filename);
+    update_ui();
 
     return true;
 }
@@ -526,7 +567,7 @@ void Knot_Window::update_recent_menu()
     else
         foreach ( QString savefile, recent_files )
         {
-            QAction *a = menuOpen_Recent->addAction(QIcon(":/img/logo.svg"), savefile);
+            QAction *a = menuOpen_Recent->addAction(load::icon("logo"), savefile);
             connect(a, SIGNAL(triggered()), this, SLOT(click_recent()));
         }
 }
@@ -535,12 +576,14 @@ void Knot_Window::update_grid_icon()
 {
     snapping_grid::grid_shape gs = canvas->get_grid().get_shape();
     if ( gs == snapping_grid::TRIANGLE1 )
-        actionEnable_Grid->setIcon(QIcon(":/img/triangular_grid.svg"));
+        actionEnable_Grid->setIcon(load::icon("triangular_grid"));
     else if ( gs == snapping_grid::TRIANGLE2 )
-        actionEnable_Grid->setIcon(QIcon(":/img/triangular_grid2.svg"));
+        actionEnable_Grid->setIcon(load::icon("triangular_grid2"));
     else
-        actionEnable_Grid->setIcon(QIcon(":/img/square_grid.svg"));
+        actionEnable_Grid->setIcon(load::icon("square_grid"));
+    actionEnable_Grid->setChecked ( canvas->get_grid().is_enabled() );
 }
+
 
 void Knot_Window::click_recent()
 {
@@ -561,22 +604,26 @@ void Knot_Window::on_action_About_triggered()
     //QMessageBox::about(this,tr("About Knotter"), BUILD_INFO );
     QMessageBox mb(QMessageBox::Information, tr("About Knotter"), BUILD_INFO );
     //mb.setAttribute(Qt::WA_QuitOnClose, false);
-    mb.setWindowIcon(icon::theme("help-about"));
+    mb.setWindowIcon(load::icon("help-about"));
     mb.exec();
 }
 
 void Knot_Window::on_actionShow_Graph_triggered(bool checked)
 {
     if ( checked )
-        actionShow_Graph->setIcon(QIcon(":/img/toggle_graph_on.svg"));
+        actionShow_Graph->setIcon(load::icon("toggle_graph_on"));
     else
-        actionShow_Graph->setIcon(QIcon(":/img/toggle_graph_off.svg"));
+        actionShow_Graph->setIcon(load::icon("toggle_graph_off"));
     canvas->toggle_graph(checked);
 }
 
 void Knot_Window::on_actionInsert_Polygon_triggered()
 {
-    int n = QInputDialog::getInt(this,tr("Insert Polygon"),tr("Sides"),4,3,32);
+    bool ok;
+    int n = QInputDialog::getInt(this,tr("Insert Polygon"),tr("Sides"),4,3,32,1,&ok);
+    if ( !ok )
+        return;
+
     canvas->get_undo_stack().beginMacro("Insert Polygon");
 
 

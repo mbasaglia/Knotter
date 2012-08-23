@@ -27,10 +27,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QSvgGenerator>
+#include "resource_loader.hpp"
+
 Export_Dialog::Export_Dialog(QWidget *parent) :
     QDialog(parent), canvas ( 0 )
 {
     setupUi(this);
+    setWindowIcon(load::icon("document-export"));
 }
 
 void Export_Dialog::set_knot_view(KnotView *kn)
@@ -41,7 +44,7 @@ void Export_Dialog::set_knot_view(KnotView *kn)
 void Export_Dialog::on_export_svg_button_clicked()
 {
     QString exname = QFileDialog::getSaveFileName(this,tr("Export Knot as SVG"),filename,
-                "SVG Images (*.svg);;XML files (*.xml);;All files (*)" );
+                "SVG Images (*);;XML files (*.xml);;All files (*)" );
 
 
     QFile quf(exname);
@@ -90,7 +93,7 @@ void Export_Dialog::on_export_raster_button_clicked()
 
 
     /*QString exname = QFileDialog::getSaveFileName(this,tr("Export Knot as SVG"),filename,
-                "SVG Images (*.svg);;XML files (*.xml);;All files (*)" );*/
+                "SVG Images (*);;XML files (*.xml);;All files (*)" );*/
 
 
     QFile quf(exname);

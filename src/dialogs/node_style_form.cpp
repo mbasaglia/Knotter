@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 #include "node_style_form.hpp"
+#include "resource_loader.hpp"
 
 node_style_form::node_style_form(QWidget *parent) :
     QWidget(parent)
@@ -34,6 +35,10 @@ node_style_form::node_style_form(QWidget *parent) :
     combo_style[knot_curve_styler::idof("ogee")]=1;
     combo_style[knot_curve_styler::idof("polygonal")]=2;
     curstyle_id = knot_curve_styler::idof("pointed");
+
+    style_combo->setItemIcon(0,load::icon("pointcurve"));
+    style_combo->setItemIcon(1,load::icon("ogee"));
+    style_combo->setItemIcon(2,load::icon("poly"));
 }
 
 void node_style_form::set_style_info(styleinfo si)

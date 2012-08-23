@@ -13,10 +13,6 @@
   <property name="windowTitle">
    <string>Knotter</string>
   </property>
-  <property name="windowIcon">
-   <iconset resource="../../img/icons.qrc">
-    <normaloff>:/img/logo.svg</normaloff>:/img/logo.svg</iconset>
-  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
@@ -239,10 +235,6 @@
    <property name="checked">
     <bool>true</bool>
    </property>
-   <property name="icon">
-    <iconset resource="../../img/icons.qrc">
-     <normaloff>:/img/edit_edges.svg</normaloff>:/img/edit_edges.svg</iconset>
-   </property>
    <property name="text">
     <string>&amp;Edges and Nodes</string>
    </property>
@@ -254,10 +246,6 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon">
-    <iconset resource="../../img/icons.qrc">
-     <normaloff>:/img/edge_list.svg</normaloff>:/img/edge_list.svg</iconset>
-   </property>
    <property name="text">
     <string>Edge &amp;List</string>
    </property>
@@ -266,10 +254,6 @@
    </property>
   </action>
   <action name="action_Link">
-   <property name="icon">
-    <iconset resource="../../img/icons.qrc">
-     <normaloff>:/img/link.svg</normaloff>:/img/link.svg</iconset>
-   </property>
    <property name="text">
     <string>&amp;Link</string>
    </property>
@@ -281,10 +265,6 @@
    </property>
   </action>
   <action name="action_Erase">
-   <property name="icon">
-    <iconset resource="../../img/icons.qrc">
-     <normaloff>:/img/remove_node.svg</normaloff>:/img/remove_node.svg</iconset>
-   </property>
    <property name="text">
     <string>&amp;Erase</string>
    </property>
@@ -296,10 +276,6 @@
    </property>
   </action>
   <action name="action_Merge">
-   <property name="icon">
-    <iconset resource="../../img/icons.qrc">
-     <normaloff>:/img/merge.svg</normaloff>:/img/merge.svg</iconset>
-   </property>
    <property name="text">
     <string>&amp;Merge</string>
    </property>
@@ -360,10 +336,6 @@
    <property name="checked">
     <bool>true</bool>
    </property>
-   <property name="icon">
-    <iconset resource="../../img/icons.qrc">
-     <normaloff>:/img/toggle_graph_on.svg</normaloff>:/img/toggle_graph_on.svg</iconset>
-   </property>
    <property name="text">
     <string>Show &amp;Graph</string>
    </property>
@@ -406,10 +378,6 @@
    <property name="checked">
     <bool>true</bool>
    </property>
-   <property name="icon">
-    <iconset resource="../../img/icons.qrc">
-     <normaloff>:/img/square_grid.svg</normaloff>:/img/square_grid.svg</iconset>
-   </property>
    <property name="text">
     <string>&amp;Enable Grid</string>
    </property>
@@ -430,10 +398,6 @@
    </property>
   </action>
   <action name="action_Move_Grid">
-   <property name="icon">
-    <iconset resource="../../img/icons.qrc">
-     <normaloff>:/img/move_grid.svg</normaloff>:/img/move_grid.svg</iconset>
-   </property>
    <property name="text">
     <string>&amp;Move Grid</string>
    </property>
@@ -457,12 +421,11 @@
    </property>
   </action>
   <action name="action_Unlink">
-   <property name="icon">
-    <iconset resource="../../img/icons.qrc">
-     <normaloff>:/img/unlink.svg</normaloff>:/img/unlink.svg</iconset>
-   </property>
    <property name="text">
     <string>&amp;Unlink</string>
+   </property>
+   <property name="toolTip">
+    <string>Unlink selected nodes</string>
    </property>
   </action>
   <action name="actionInsert_Polygon">
@@ -495,9 +458,7 @@
    </slots>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../../img/icons.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>action_Erase</sender>

@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 #include "gridconfig.hpp"
+#include "resource_loader.hpp"
 
 GridConfig::GridConfig(snapping_grid *target_grid, QWidget *parent) :
     QDialog(parent), target(target_grid)
@@ -38,6 +39,8 @@ GridConfig::GridConfig(snapping_grid *target_grid, QWidget *parent) :
         origin_x_spin->setValue(target->get_origin().x());
         origin_y_spin->setValue(target->get_origin().y());
     }
+
+    setWindowIcon(load::icon("move_grid"));
 }
 
 

@@ -23,24 +23,21 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
-#ifndef ICON_LOADER_HPP
-#define ICON_LOADER_HPP
+#ifndef resource_loader_HPP
+#define resource_loader_HPP
 
 #include <QIcon>
 
-namespace icon {
+namespace load {
 
-inline QIcon custom ( QString name )
-{
-    return QIcon(":/img/"+name+".svg");
-}
+QIcon icon ( QString name );
 
-inline QIcon theme ( QString name )
-{
-    /// \todo fallback icons
-    return QIcon::fromTheme(name);
-}
-
+/**
+    \brief Search resource path
+    \param base_dir  exprected installation directory with trailing /
+    \param name      resource file name relative to base_dir
+*/
+QString resource_name ( QString base_dir, QString name );
 
 } // namespace icon
-#endif // ICON_LOADER_HPP
+#endif // resource_loader_HPP

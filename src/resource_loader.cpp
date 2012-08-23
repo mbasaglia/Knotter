@@ -23,21 +23,29 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
-#include "help_view.hpp"
-#include <QDesktopServices>
 #include "resource_loader.hpp"
+#include <QFile>
 
-Help_View::Help_View(QWidget *parent) :
-    QDialog(parent)
+QIcon load::icon ( QString name )
 {
-    setupUi(this);
+    if ( QIcon::hasThemeIcon(name) ) // check theme first
+        return QIcon::fromTheme(name);
+
+    QString fallbackname = "img/"+name+".svg";
+    if ( QFile::exists(DATA_DIR+fallbackname) ) // check install datadir
+        return QIcon(DATA_DIR+fallbackname);
+    else if ( QFile::exists(fallbackname) ) // check current dir
+        return QIcon(fallbackname);
 
 
-    web_view->load(load::resource_name(DOC_DIR,"user_guide/user_guide.htm"));
-    web_view->page()->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
+    return QIcon(); // no icon found
 }
 
-void Help_View::on_web_view_linkClicked(const QUrl &arg1)
+
+QString load::resource_name ( QString base_dir, QString name )
 {
-    QDesktopServices::openUrl(arg1);
+    if ( QFile::exists(base_dir+name) )
+        return base_dir+name;
+    else
+        return name;
 }

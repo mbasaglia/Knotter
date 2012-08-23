@@ -2,7 +2,8 @@
 SOURCES += src/main.cpp \
     src/error_recovery.cpp \
     src/context_menu.cpp \
-    src/xml_saver.cpp
+    src/xml_saver.cpp \
+    src/resource_loader.cpp
 
 
 include(dialogs/dialogs.pri)
@@ -17,6 +18,6 @@ HEADERS += \
     src/error_recovery.hpp \
     src/context_menu.hpp \
     src/xml_saver.hpp \
-    src/icon_loader.hpp
+    src/resource_loader.hpp
 
 INCLUDEPATH += src

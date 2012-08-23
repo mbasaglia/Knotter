@@ -26,12 +26,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "context_menu.hpp"
 #include "knotview.hpp"
 #include <QInputDialog>
-
+#include "resource_loader.hpp"
 node_cxmn::node_cxmn ( QWidget *parent )
     : QMenu(parent), n(NULL), kv ( NULL )
 {
-    snap_grid = addAction(QIcon(":/img/square_grid.svg"),tr("Snap to grid"),this,SLOT(snap()));
-    addAction(QIcon(":/img/edit_nodes.svg"),tr("Properties..."),this,SLOT(properties()));
+    snap_grid = addAction(load::icon("square_grid"),tr("Snap to grid"),this,SLOT(snap()));
+    addAction(load::icon("edit_nodes"),tr("Properties..."),this,SLOT(properties()));
     unset_style = addAction(tr("Reset custom style"),this,SLOT(no_custom_style()));
 }
 
@@ -79,7 +79,7 @@ void node_cxmn::no_custom_style()
 edge_cxmn::edge_cxmn(QWidget *parent)
     : QMenu(parent), n1(NULL), n2(NULL), kv(NULL)
 {
-    snap_grid = addAction(QIcon(":/img/square_grid.svg"),tr("Snap to grid"),this,SLOT(snap()));
+    snap_grid = addAction(load::icon("square_grid"),tr("Snap to grid"),this,SLOT(snap()));
     addAction(tr("Remove"),this,SLOT(remove()));
 
     QMenu *type = new QMenu(tr("Edge type"));
@@ -95,7 +95,7 @@ edge_cxmn::edge_cxmn(QWidget *parent)
     addAction(tr("Break on intersections"),this,SLOT(break_edge_intersections()));
     addAction(tr("Break..."),this,SLOT(break_edge_equal()));
 
-    //addAction(QIcon(":/img/edit_edges.svg"),tr("Properties..."),this,SLOT(properties()));
+    //addAction(load::icon("edit_edges"),tr("Properties..."),this,SLOT(properties()));
 
 }
 
@@ -174,6 +174,10 @@ void edge_cxmn::break_edge_intersections()
 void edge_cxmn::break_edge_equal()
 {
     if ( n1 && n2 && kv )
-        kv->break_edge_equal(n1->get_link(n2),
-            QInputDialog::getInt(0,tr("Break edge"),tr("Number of segments"),2,2,32) );
+    {
+        bool ok;
+        int segments = QInputDialog::getInt(0,tr("Break edge"),
+                                    tr("Number of segments"),2,2,32,1,&ok);
+        kv->break_edge_equal(n1->get_link(n2),segments);
+    }
 }

@@ -13,10 +13,6 @@
   <property name="windowTitle">
    <string>Configure Grid</string>
   </property>
-  <property name="windowIcon">
-   <iconset resource="../../img/icons.qrc">
-    <normaloff>:/img/move_grid.svg</normaloff>:/img/move_grid.svg</iconset>
-  </property>
   <property name="modal">
    <bool>true</bool>
   </property>
@@ -153,9 +149,7 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../../img/icons.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>buttonBox</sender>

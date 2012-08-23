@@ -17,16 +17,11 @@ QT       += core gui xml
 
 
 TARGET = knotter
-VERSION = 0.5.2_devel
+VERSION = 0.5.3_devel
+
 
 TEMPLATE = app
 
-OTHER_FILES += \
-    COPYING \
-    Doxyfile \
-    NEWS \
-    doc.dox \
-    README
 
 UI_DIR = src/generated
 MOC_DIR = src/generated
@@ -34,9 +29,15 @@ RCC_DIR = src/generated
 
 include(src/src.pri)
 include(include/include.pri)
-include(img/img.pri)
 include(translations/translations.pri)
-include(user_guide/user_guide.pri)
+
+OTHER_FILES = \
+    COPYING \
+    Doxyfile \
+    NEWS \
+    doc.dox \
+    README \
+    configure.sh
 
 DEFINES += "VERSION=\\\"$${VERSION}\\\""
 
@@ -47,8 +48,8 @@ CONFIG(debug, debug|release) {
     QMAKE_CXXFLAGS += -Werror -Wall -Wextra
 }
 
-MYDISTFILES =  COPYING README Doxyfile NEWS Makefile Knotter.pro
-MYDISTDIRS  =  src include img translations
+MYDISTFILES =  $$OTHER_FILES knotter.pro
+MYDISTDIRS  =  src include img translations user_guide
 
 MYDIST_NAME = "$$TARGET-$${VERSION}"
 MYDIST_TAR = "$${MYDIST_NAME}.tar"
@@ -72,14 +73,34 @@ mydist.commands =                                                           \
 
 
 mydistclean.depends = clean
-mydistclean.commands = $(DEL_FILE) $$MYDIST_TAR_GZ Makefile
+mydistclean.commands = $(DEL_FILE) $$MYDIST_TAR_GZ Makefile $(TARGET)
 QMAKE_EXTRA_TARGETS += mydist mydistclean
 
 Doxyfile.commands = doxygen -g
-doc.depends = Doxyfile FORCE
-doc.commands = sed s/KNOTTER_VERSION/$${VERSION}/ Doxyfile | doxygen -
-QMAKE_EXTRA_TARGETS += doc Doxyfile
+src_doc.depends = Doxyfile FORCE
+src_doc.commands = sed s/KNOTTER_VERSION/$${VERSION}/ Doxyfile | doxygen -
+QMAKE_EXTRA_TARGETS += src_doc Doxyfile
 
 
-target.path = /bin
-INSTALLS += target
+#check directories from configure.sh
+isEmpty(BINDIR){
+    BINDIR=.
+}
+
+isEmpty(DATADIR){
+    DATADIR=.
+}
+DEFINES += "DATA_DIR=\\\"$${DATADIR}/\\\""
+
+isEmpty(DOCDIR){
+    DOCDIR=.
+}
+DEFINES += "DOC_DIR=\\\"$${DOCDIR}/\\\""
+
+
+target.path = $$BINDIR
+img.files = img/*
+img.path = $${DATADIR}/img
+doc.files = user_guide/*
+doc.path = $${DOCDIR}/user_guide
+INSTALLS += target img doc

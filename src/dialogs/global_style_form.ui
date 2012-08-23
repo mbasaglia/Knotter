@@ -151,45 +151,25 @@
          <property name="text">
           <string>Solid</string>
          </property>
-         <property name="icon">
-          <iconset resource="../../img/icons.qrc">
-           <normaloff>:/img/line_solid.svg</normaloff>:/img/line_solid.svg</iconset>
-         </property>
         </item>
         <item>
          <property name="text">
           <string>No Line</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../../img/icons.qrc">
-           <normaloff>:/img/line_no.svg</normaloff>:/img/line_no.svg</iconset>
          </property>
         </item>
         <item>
          <property name="text">
           <string>Dotted</string>
          </property>
-         <property name="icon">
-          <iconset resource="../../img/icons.qrc">
-           <normaloff>:/img/line_dot.svg</normaloff>:/img/line_dot.svg</iconset>
-         </property>
         </item>
         <item>
          <property name="text">
           <string>Dashed</string>
          </property>
-         <property name="icon">
-          <iconset resource="../../img/icons.qrc">
-           <normaloff>:/img/line_dash.svg</normaloff>:/img/line_dash.svg</iconset>
-         </property>
         </item>
         <item>
          <property name="text">
           <string>Dash Dot</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../../img/icons.qrc">
-           <normaloff>:/img/line_dash_dot.svg</normaloff>:/img/line_dash_dot.svg</iconset>
          </property>
         </item>
        </widget>
@@ -209,9 +189,7 @@
    </slots>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../../img/icons.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>outline_color</sender>

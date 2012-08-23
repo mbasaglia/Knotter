@@ -45,7 +45,6 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
     protected:
         QString         filename;           ///< current/last file name used on open or save
-        QDockWidget*    undoDock;          ///< Little window showing undoable/redoable actions
         ClipboardItem   clipboard;          ///< Part of the graph copied to clipboard
         bool            save_ui;            ///< Whether to save geometry and toolbars on exit
         QStringList     recent_files;       ///< List of recently used files
@@ -53,8 +52,6 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         config_dialog   config_dlg;         ///< Knotter preferences dialog
         Export_Dialog   export_dialog;      ///< Export SVG/Bitmap dialog
         Help_View       help_view;          ///< Window showing the user guide
-        QDockWidget*    default_node_style_dock;
-        QDockWidget*    global_style_dock;
         node_cxmn       node_context_menu;
         edge_cxmn       edge_context_menu;
         node_style_form* default_node_style_form;
@@ -79,11 +76,20 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
         /// make path the first item in the recent files menu
         void push_recent_file(QString path);
+
         /// synch the Open recent menu with the contents of recent_files
         void update_recent_menu();
 
         /// Update the grid icon in the toolbar/menu to the current grid shape
         void update_grid_icon();
+
+        /// update ui elements based on the actual values
+        void update_ui();
+
+        void init_menus();
+        void init_docks();
+        void init_toolbars();
+        void init_dialogs();
 
     protected slots:
 
@@ -104,6 +110,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         /// called when one of the Open recent entrieas has been clicked
         void click_recent();
 
+        /// show node-wise context menu
         void show_node_prefs(Node*);
 
 

@@ -107,36 +107,22 @@
       <property name="text">
        <string>Pointed</string>
       </property>
-      <property name="icon">
-       <iconset resource="../../img/icons.qrc">
-        <normaloff>:/img/pointcurve.svg</normaloff>:/img/pointcurve.svg</iconset>
-      </property>
      </item>
      <item>
       <property name="text">
        <string>Ogee</string>
-      </property>
-      <property name="icon">
-       <iconset resource="../../img/icons.qrc">
-        <normaloff>:/img/ogee.svg</normaloff>:/img/ogee.svg</iconset>
       </property>
      </item>
      <item>
       <property name="text">
        <string>Polygonal</string>
       </property>
-      <property name="icon">
-       <iconset resource="../../img/icons.qrc">
-        <normaloff>:/img/poly.svg</normaloff>:/img/poly.svg</iconset>
-      </property>
      </item>
     </widget>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../../img/icons.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>handle_length_spinner</sender>
