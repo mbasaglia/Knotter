@@ -25,27 +25,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "resource_loader.hpp"
 #include <QFile>
+#include <QCoreApplication>
+#include <iostream>
+#include <QDir>
 
-QIcon load::icon ( QString name )
+namespace load {
+
+
+QIcon icon ( QString name )
 {
     if ( QIcon::hasThemeIcon(name) ) // check theme first
         return QIcon::fromTheme(name);
 
-    QString fallbackname = "img/"+name+".svg";
-    if ( QFile::exists(DATA_DIR+fallbackname) ) // check install datadir
-        return QIcon(DATA_DIR+fallbackname);
-    else if ( QFile::exists(fallbackname) ) // check current dir
-        return QIcon(fallbackname);
-
-
-    return QIcon(); // no icon found
+    return QIcon( resource_name( DATA_DIR, "img/"+name+".svg") );
 }
 
 
-QString load::resource_name ( QString base_dir, QString name )
+QString resource_name ( QString base_dir, QString name )
 {
-    if ( QFile::exists(base_dir+name) )
-        return base_dir+name;
-    else
-        return name;
+    QDir path ( base_dir ); // install dir
+
+    if ( !path.exists(name) )
+        path.setPath( QCoreApplication::applicationDirPath() ); // executable dir
+
+    if ( !path.exists(name) )
+        path.setPath( QDir::currentPath() ); // current dir
+
+
+    if ( !path.exists(name) )
+    {
+        std::cerr << QObject::tr("Could not locate resource %1").arg(name).toStdString() << std::endl;
+        return QString(); // not found
+    }
+
+    return QDir::cleanPath(path.absoluteFilePath(name));
 }
+
+
+} // namespace load

@@ -38,6 +38,12 @@ config_dialog::config_dialog(QWidget *parent) :
     tableWidget->item(1,0)->setIcon(load::icon("configure"));
     tableWidget->item(2,0)->setIcon(load::icon("preferences-system-performance"));
 
+    butt_move_up->setIcon(load::icon("go-up"));
+    butt_move_down->setIcon(load::icon("go-down"));
+    butt_move_left->setIcon(load::icon("list-remove"));
+    butt_move_right->setIcon(load::icon("list-add"));
+    butt_separator->setIcon(load::icon("insert-horizontal-rule"));
+
 }
 
 void config_dialog::set_icon_size(QSize size)
@@ -88,4 +94,29 @@ void config_dialog::set_tool_button_style(Qt::ToolButtonStyle style)
         case Qt::ToolButtonTextUnderIcon:   index = 3; break;
     }
     icon_show_combo->setCurrentIndex(index);
+}
+
+void config_dialog::set_menu(QMenu *menu)
+{
+    menu_items->clear();
+    foreach(QAction*act,menu->actions())
+    {
+        if ( !act->text().isNull() ) // discard separators
+            menu_items->addItem(new QListWidgetItem(act->icon(),act->iconText()));
+    }
+}
+
+void config_dialog::set_toolbar(QToolBar* tb)
+{
+    toolbar_items->clear();
+    foreach(QAction*act,tb->actions())
+    {
+        if ( !act->text().isNull() )
+            toolbar_items->addItem(new QListWidgetItem(act->icon(),act->iconText()));
+        else
+        {
+            toolbar_items->addItem(new QListWidgetItem("--"));
+        }
+
+    }
 }

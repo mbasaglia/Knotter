@@ -58,7 +58,7 @@ Knot_Window::Knot_Window(QWidget *parent) :
     init_menus();
     init_toolbars();
     init_docks();
-    init_dialogs();
+    init_dialogs(); // keep this as last
 
 
 // Load config
@@ -152,8 +152,9 @@ void Knot_Window::init_menus()
     action_Erase->setIcon(load::icon("format-remove-node"));
     action_Merge->setIcon(load::icon("format-join-node"));
 
-    actionInsert_Edges->setIcon(load::icon("edit_edges"));
+    actionInsert_Edges->setIcon(load::icon("draw-line"));
     actionEdge_List->setIcon(load::icon("edge_list"));
+    actionInsert_Polygon->setIcon(load::icon("draw-polygon"));
 
 // Help menu icons
     action_Manual->setIcon(load::icon("help-contents"));
@@ -241,14 +242,16 @@ void Knot_Window::init_toolbars()
 void Knot_Window::init_dialogs()
 {
 
-// export dialog
+// Export
     export_dialog.set_knot_view(canvas);
     export_dialog.setAttribute(Qt::WA_QuitOnClose, false);
 
-// Cofig actions
-    this->connect(config_dlg.clear_recent,SIGNAL(clicked()),SLOT(clear_recent_files()));
+// Cofig
+    connect(config_dlg.clear_recent,SIGNAL(clicked()),SLOT(clear_recent_files()));
+    config_dlg.set_menu(menu_File);
+    config_dlg.set_toolbar(MainToolBar);
 
-// Manual + Help icon/shortcuts
+// Manual
     help_view.setWindowIcon(load::icon("help-contents"));
     help_view.setAttribute(Qt::WA_QuitOnClose, false);
 

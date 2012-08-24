@@ -32,8 +32,9 @@ Help_View::Help_View(QWidget *parent) :
 {
     setupUi(this);
 
-
-    web_view->load(load::resource_name(DOC_DIR,"user_guide/user_guide.htm"));
+    QString uri = load::resource_name(DOC_DIR,"user_guide/user_guide.htm");
+    QUrl url ("file://"+uri);
+    web_view->load(url);
     web_view->page()->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
 }
 

@@ -31,7 +31,7 @@ node_cxmn::node_cxmn ( QWidget *parent )
     : QMenu(parent), n(NULL), kv ( NULL )
 {
     snap_grid = addAction(load::icon("square_grid"),tr("Snap to grid"),this,SLOT(snap()));
-    addAction(load::icon("edit_nodes"),tr("Properties..."),this,SLOT(properties()));
+    addAction(load::icon("edit-node"),tr("Properties..."),this,SLOT(properties()));
     unset_style = addAction(tr("Reset custom style"),this,SLOT(no_custom_style()));
 }
 
@@ -95,7 +95,7 @@ edge_cxmn::edge_cxmn(QWidget *parent)
     addAction(tr("Break on intersections"),this,SLOT(break_edge_intersections()));
     addAction(tr("Break..."),this,SLOT(break_edge_equal()));
 
-    //addAction(load::icon("edit_edges"),tr("Properties..."),this,SLOT(properties()));
+    //addAction(load::icon("draw-line"),tr("Properties..."),this,SLOT(properties()));
 
 }
 

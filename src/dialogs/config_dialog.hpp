@@ -25,6 +25,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef CONFIG_DIALOG_HPP
 #define CONFIG_DIALOG_HPP
+#include <QToolBar>
+#include <QMenu>
+
 /*
     Sorry for this hack but I'm not willing to get too much overhead just to change a few options
 */
@@ -62,6 +65,9 @@ class config_dialog : public QDialog, private Ui::config_dialog
 
         Qt::ToolButtonStyle get_tool_button_style() const;
         void set_tool_button_style ( Qt::ToolButtonStyle style );
+
+        void set_menu(QMenu* menu);
+        void set_toolbar(QToolBar* tb);
 };
 
 #endif // CONFIG_DIALOG_HPP
