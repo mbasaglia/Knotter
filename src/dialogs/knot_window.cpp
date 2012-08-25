@@ -233,13 +233,9 @@ void Knot_Window::init_toolbars()
 {
 
     // overcome bug in code generator from ui file
-    removeToolBar(EditBar);
-    removeToolBar(MainToolBar);
-    removeToolBar(EditBar);
-    addToolBar(Qt::RightToolBarArea, MainToolBar);
+    addToolBar(Qt::LeftToolBarArea, EditBar);
+    addToolBar(Qt::TopToolBarArea, MainToolBar);
     addToolBar(Qt::TopToolBarArea, ViewBar);
-    addToolBar(Qt::TopToolBarArea, EditBar);
-
 }
 
 
