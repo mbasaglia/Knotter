@@ -44,6 +44,9 @@ config_dialog::config_dialog(QWidget *parent) :
     butt_insert->setIcon(load::icon("list-add"));
     butt_separator->setIcon(load::icon("insert-horizontal-rule"));
 
+    add_toolbar_btn->setIcon(load::icon("list-add"));
+    rm_toolbar_btn->setIcon(load::icon("list-remove"));
+
 }
 
 void config_dialog::set_icon_size(QSize size)
@@ -262,4 +265,26 @@ void config_dialog::on_butt_remove_clicked()
         }
     }
 
+}
+
+void config_dialog::on_add_toolbar_btn_clicked()
+{
+    QToolBar* ntb = new QToolBar;
+    QString name = tr("Toolbar%1").arg(toolbars.size());
+    ntb->setWindowTitle(name);
+    ntb->setObjectName(name);
+    emit insert_toolbar(ntb);
+    add_toolbar(ntb);
+    set_toolbar(ntb);
+}
+
+void config_dialog::on_rm_toolbar_btn_clicked()
+{
+    if ( current_toolbar )
+    {
+        int indx = toolbar_combo->findText(current_toolbar->windowTitle());
+        delete current_toolbar;
+        toolbar_items->clear();
+        toolbar_combo->removeItem(indx);
+    }
 }

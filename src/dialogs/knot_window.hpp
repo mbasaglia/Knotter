@@ -54,8 +54,10 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         Help_View       help_view;          ///< Window showing the user guide
         node_cxmn       node_context_menu;
         edge_cxmn       edge_context_menu;
-        node_style_form* default_node_style_form;
+        node_style_form*default_node_style_form;
         global_style_form* global_style_frm;
+        bool            save_toolbars;
+        bool            save_style;
     public:
         explicit Knot_Window(QWidget *parent = 0);
         ~Knot_Window();
@@ -112,6 +114,8 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
         /// show node-wise context menu
         void show_node_prefs(Node*);
+
+        void insert_toolbar(QToolBar*);
 
 
     public slots:

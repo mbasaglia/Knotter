@@ -83,6 +83,12 @@ class config_dialog : public QDialog, private Ui::config_dialog
         void on_butt_insert_clicked();
         void on_butt_separator_clicked();
         void on_butt_remove_clicked();
+        void on_add_toolbar_btn_clicked();
+
+        void on_rm_toolbar_btn_clicked();
+
+    signals:
+        void insert_toolbar(QToolBar*);
 };
 
 #endif // CONFIG_DIALOG_HPP

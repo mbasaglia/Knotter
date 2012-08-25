@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>496</width>
-    <height>321</height>
+    <width>508</width>
+    <height>358</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -168,12 +168,12 @@
         </widget>
        </item>
        <item row="2" column="0" colspan="2">
-        <widget class="QGroupBox" name="">
+        <widget class="QGroupBox" name="groupBox">
          <property name="title">
           <string>Toolbar Buttons</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_5">
-          <item row="1" column="0">
+          <item row="2" column="0">
            <widget class="QListWidget" name="menu_items">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
@@ -189,7 +189,7 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="1" rowspan="2">
+          <item row="2" column="1">
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
              <spacer name="verticalSpacer">
@@ -212,6 +212,9 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="toolTip">
+               <string>Move Up</string>
+              </property>
               <property name="text">
                <string>Move Up</string>
               </property>
@@ -230,6 +233,9 @@
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>Move Down</string>
               </property>
               <property name="text">
                <string>Move Down</string>
@@ -263,6 +269,9 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="toolTip">
+               <string>Insert</string>
+              </property>
               <property name="text">
                <string>Insert</string>
               </property>
@@ -281,6 +290,9 @@
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>Remove</string>
               </property>
               <property name="text">
                <string>Remove</string>
@@ -314,6 +326,9 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="toolTip">
+               <string>Add Separator</string>
+              </property>
               <property name="text">
                <string>Separator</string>
               </property>
@@ -340,7 +355,7 @@
             </item>
            </layout>
           </item>
-          <item row="1" column="2">
+          <item row="2" column="2">
            <widget class="QListWidget" name="toolbar_items">
             <property name="maximumSize">
              <size>
@@ -353,11 +368,35 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
+          <item row="1" column="0">
            <widget class="QComboBox" name="menu_combo"/>
           </item>
-          <item row="0" column="2">
+          <item row="1" column="2">
            <widget class="QComboBox" name="toolbar_combo"/>
+          </item>
+          <item row="1" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QToolButton" name="add_toolbar_btn">
+              <property name="toolTip">
+               <string>Add Toolbar</string>
+              </property>
+              <property name="text">
+               <string>Add</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="rm_toolbar_btn">
+              <property name="toolTip">
+               <string>Remove Toolbar</string>
+              </property>
+              <property name="text">
+               <string>Remove</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
@@ -403,18 +442,50 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0" colspan="3">
-        <widget class="QCheckBox" name="saveui_check">
-         <property name="text">
-          <string>Save interface on exit</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="1" colspan="2">
         <widget class="QComboBox" name="language_combo"/>
+       </item>
+       <item row="2" column="0" colspan="3">
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Save between sessions</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QCheckBox" name="saveui_check">
+            <property name="text">
+             <string>Window state</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="save_toolbars_check">
+            <property name="text">
+             <string>Toolbar buttons</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="save_style_check">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>Knot style</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </item>
       </layout>
      </widget>

@@ -180,6 +180,10 @@
    <addaction name="separator"/>
    <addaction name="action_Undo"/>
    <addaction name="action_Redo"/>
+   <addaction name="separator"/>
+   <addaction name="actionCut"/>
+   <addaction name="action_Copy"/>
+   <addaction name="action_Paste"/>
   </widget>
   <widget class="QToolBar" name="ViewBar">
    <property name="windowTitle">

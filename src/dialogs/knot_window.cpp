@@ -35,9 +35,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "node_pref_dialog.hpp"
 #include <QInputDialog>
 #include "resource_loader.hpp"
+#include <QtDebug>
 
 Knot_Window::Knot_Window(QWidget *parent) :
-    QMainWindow(parent), save_ui ( true ), max_recent_files(5)
+    QMainWindow(parent), save_ui ( true ), max_recent_files(5),
+    save_toolbars(true), save_style(false)
 {
 
 // UI from designer
@@ -58,12 +60,13 @@ Knot_Window::Knot_Window(QWidget *parent) :
     init_menus();
     init_toolbars();
     init_docks();
-    init_dialogs(); // keep this as last
 
 
 // Load config
     load_config();
     update_ui();
+
+    init_dialogs(); // keep this as last
 }
 
 Knot_Window::~Knot_Window()
@@ -80,6 +83,11 @@ void Knot_Window::update_ui()
     global_style_frm->set_knot_color(canvas->get_brush().color());
     global_style_frm->set_knot_width(canvas->get_width());
     global_style_frm->set_pen(canvas->get_pen());
+
+
+    menu_Toolbars->clear();
+    foreach(QToolBar *toolb,findChildren<QToolBar *>())
+        menu_Toolbars->addAction(toolb->toggleViewAction());
 
     update_grid_icon();
 
@@ -109,11 +117,13 @@ void Knot_Window::init_menus()
     MainToolBar->insertAction(action_Undo,undos);
     delete action_Undo;
     action_Undo = undos;
+    undos->setObjectName("action_Undo");
     QAction *redos =  canvas->get_undo_stack().createRedoAction(this, tr("&Redo"));
     menu_Edit->insertAction(action_Redo,redos);
     MainToolBar->insertAction(action_Redo,redos);
     delete action_Redo;
     action_Redo = redos;
+    redos->setObjectName("action_Redo");
 
 // Edit menu icons/shortcuts
     action_Copy->setIcon(load::icon("edit-copy"));
@@ -222,12 +232,6 @@ void Knot_Window::init_docks()
 void Knot_Window::init_toolbars()
 {
 
-// Toolbar toggle actions/setup
-    menu_Toolbars->clear();
-    menu_Toolbars->addAction(MainToolBar->toggleViewAction());
-    menu_Toolbars->addAction(EditBar->toggleViewAction());
-    menu_Toolbars->addAction(ViewBar->toggleViewAction());
-
     // overcome bug in code generator from ui file
     removeToolBar(EditBar);
     removeToolBar(MainToolBar);
@@ -235,10 +239,16 @@ void Knot_Window::init_toolbars()
     addToolBar(Qt::RightToolBarArea, MainToolBar);
     addToolBar(Qt::TopToolBarArea, ViewBar);
     addToolBar(Qt::TopToolBarArea, EditBar);
-    MainToolBar->show();
-    EditBar->show();
 
 }
+
+
+void Knot_Window::insert_toolbar(QToolBar *tbr)
+{
+    addToolBar(Qt::TopToolBarArea,tbr);
+    menu_Toolbars->addAction(tbr->toggleViewAction());
+}
+
 
 void Knot_Window::init_dialogs()
 {
@@ -249,6 +259,8 @@ void Knot_Window::init_dialogs()
 
 // Cofig
     connect(config_dlg.clear_recent,SIGNAL(clicked()),SLOT(clear_recent_files()));
+    connect(&config_dlg,SIGNAL(insert_toolbar(QToolBar*)),SLOT(insert_toolbar(QToolBar*)));
+
     foreach(QAction *menu,QMainWindow::menuBar()->actions())
         config_dlg.add_menu(menu);
     foreach(QToolBar *toolb,findChildren<QToolBar *>())
@@ -279,6 +291,66 @@ void Knot_Window::load_config()
                             ) );
 
     settings.beginGroup("gui");
+
+    save_toolbars = settings.value("save_toolbars",true).toBool();
+    if ( save_toolbars )
+    {
+        int ntoolbars = settings.beginReadArray("toolbar");
+        for ( int i = 0; i < ntoolbars; i++ )
+        {
+            settings.setArrayIndex(i);
+
+            QString name = settings.value("name").toString();
+            if ( name.isEmpty() )
+            {
+                 qWarning() << tr("Warning:")
+                            << tr("Not loading toolbar without name");
+                continue;
+            }
+
+            QToolBar *toolbar = findChild<QToolBar*>(name);
+            if ( !toolbar )
+            {
+                toolbar = new QToolBar(this);
+                toolbar->setObjectName(name);
+                addToolBar(Qt::TopToolBarArea,toolbar);
+            }
+
+            QString title = settings.value("title").toString();
+            if ( title.isEmpty() )
+                title = name;
+            toolbar->setWindowTitle(title);
+
+            /// \todo use this in config dialog as well instead of direct modification
+            QStringList items = settings.value("items").toStringList();
+            if ( !items.isEmpty() )
+            {
+                toolbar->clear();
+                foreach(const QString&item, items)
+                {
+                    if ( item.isEmpty() )
+                    {
+                         qWarning() << tr("Warning:")
+                                    << tr("Not loading action without name");
+                        continue;
+                    }
+                    else if ( item == "(separator)" )
+                        toolbar->addSeparator();
+                    else /// \warning exposing internal action names
+                    {
+                        QAction* act = findChild<QAction*>(item);
+                        if ( act )
+                            toolbar->addAction ( act );
+                        else
+                            qWarning() << tr("Warning:")
+                                      << tr("Unknown action %1").arg(item);
+                    }
+                }
+            }
+        }
+        settings.endArray();//toolbars
+    }
+
     save_ui = settings.value("save",true).toBool();
     if ( save_ui )
     {
@@ -290,12 +362,12 @@ void Knot_Window::load_config()
         setToolButtonStyle ( Qt::ToolButtonStyle (
                      settings.value("buttons",toolButtonStyle()).toInt() ) );
     }
-    settings.endGroup();
+    settings.endGroup();//gui
 
     settings.beginGroup("recent_files");
     recent_files = settings.value("list").toStringList();
     max_recent_files = settings.value("max",max_recent_files).toInt();
-    settings.endGroup();
+    settings.endGroup();// recent_files
 
     settings.beginGroup("grid");
     snapping_grid &grid = canvas->get_grid();
@@ -303,10 +375,10 @@ void Knot_Window::load_config()
     grid.set_size(settings.value("size",grid.get_size()).toDouble());
     grid.set_shape(snapping_grid::grid_shape(
                     settings.value("type",int(grid.get_shape())).toInt() ));
-    settings.endGroup();
+    settings.endGroup();// grid
 
 
-    /// \todo save style?
+    /// \todo save style
 
 
 }
@@ -330,7 +402,34 @@ void Knot_Window::save_config()
     }
     else
         settings.setValue("save",false);
-    settings.endGroup();
+
+    settings.setValue("save_toolbars",save_toolbars);
+    if ( save_toolbars )
+    {
+        settings.remove("toolbar");
+        settings.beginWriteArray("toolbar");
+        int i = 0;
+        foreach ( QToolBar *toolbar, findChildren<QToolBar*>() )
+        {
+            settings.setArrayIndex(i);
+            i++;
+
+            settings.setValue("name",toolbar->objectName());
+            settings.setValue("title",toolbar->windowTitle());
+
+            QStringList items;
+            foreach(QAction* act, toolbar->actions())
+            {
+                if ( act->isSeparator() )
+                    items.push_back("(separator)");
+                else
+                    items.push_back(act->objectName());
+            }
+            settings.setValue("items",items);
+        }
+        settings.endArray();//toolbars
+    }
+    settings.endGroup();// gui
 
     settings.beginGroup("recent_files");
     settings.setValue("list",recent_files);
@@ -517,13 +616,18 @@ void Knot_Window::config()
     config_dlg.set_icon_size(iconSize());
     config_dlg.set_tool_button_style(toolButtonStyle());
     config_dlg.saveui_check->setChecked(save_ui);
+    config_dlg.save_toolbars_check->setChecked(save_toolbars);
     config_dlg.max_recent->setValue(max_recent_files);
     config_dlg.cache_mode->setCurrentIndex(canvas->get_cache_mode());
     if ( !config_dlg.exec() )
         return;
+
     setToolButtonStyle(config_dlg.get_tool_button_style());
     setIconSize(config_dlg.get_icon_size());
+
     save_ui = config_dlg.saveui_check->isChecked();
+    save_toolbars = config_dlg.save_toolbars_check->isChecked();
+
     max_recent_files = config_dlg.max_recent->value();
     if ( max_recent_files < recent_files.size() )
         recent_files.erase ( recent_files.begin()+max_recent_files, recent_files.end() );
@@ -604,7 +708,6 @@ void Knot_Window::show_node_prefs(Node *node)
 {
     node_pref_dialog(canvas,node).exec();
 }
-
 
 
 void Knot_Window::on_action_About_triggered()
