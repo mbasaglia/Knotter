@@ -169,14 +169,11 @@
        </item>
        <item row="2" column="0" colspan="2">
         <widget class="QGroupBox" name="">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
          <property name="title">
           <string>Toolbar Buttons</string>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="1" column="0">
            <widget class="QListWidget" name="menu_items">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
@@ -192,7 +189,7 @@
             </property>
            </widget>
           </item>
-          <item>
+          <item row="0" column="1" rowspan="2">
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
              <spacer name="verticalSpacer">
@@ -259,7 +256,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QToolButton" name="butt_move_left">
+             <widget class="QToolButton" name="butt_insert">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -278,7 +275,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="butt_move_right">
+             <widget class="QToolButton" name="butt_remove">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -343,7 +340,7 @@
             </item>
            </layout>
           </item>
-          <item>
+          <item row="1" column="2">
            <widget class="QListWidget" name="toolbar_items">
             <property name="maximumSize">
              <size>
@@ -355,6 +352,12 @@
              <enum>QListView::Snap</enum>
             </property>
            </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QComboBox" name="menu_combo"/>
+          </item>
+          <item row="0" column="2">
+           <widget class="QComboBox" name="toolbar_combo"/>
           </item>
          </layout>
         </widget>

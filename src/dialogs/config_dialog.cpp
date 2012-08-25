@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_loader.hpp"
 
 config_dialog::config_dialog(QWidget *parent) :
-    QDialog(parent)
+    QDialog(parent), current_menu(NULL), current_toolbar(NULL)
 {
     setupUi(this);
     // Bad Designer... >:^(
@@ -40,8 +40,8 @@ config_dialog::config_dialog(QWidget *parent) :
 
     butt_move_up->setIcon(load::icon("go-up"));
     butt_move_down->setIcon(load::icon("go-down"));
-    butt_move_left->setIcon(load::icon("list-remove"));
-    butt_move_right->setIcon(load::icon("list-add"));
+    butt_remove->setIcon(load::icon("list-remove"));
+    butt_insert->setIcon(load::icon("list-add"));
     butt_separator->setIcon(load::icon("insert-horizontal-rule"));
 
 }
@@ -98,25 +98,168 @@ void config_dialog::set_tool_button_style(Qt::ToolButtonStyle style)
 
 void config_dialog::set_menu(QMenu *menu)
 {
-    menu_items->clear();
-    foreach(QAction*act,menu->actions())
+    if ( menu )
     {
-        if ( !act->text().isNull() ) // discard separators
-            menu_items->addItem(new QListWidgetItem(act->icon(),act->iconText()));
+        current_menu = menu;
+        menu_items->clear();
+        foreach(QAction*act,menu->actions())
+        {
+            if ( !act->isSeparator() )
+                menu_items->addItem(new QListWidgetItem(act->icon(),act->iconText()));
+            else
+            {
+                menu_items->addItem(new QListWidgetItem("--"));
+            }
+        }
+        menu_combo->setCurrentIndex(menu_combo->findText(menu->menuAction()->iconText()));
     }
 }
 
 void config_dialog::set_toolbar(QToolBar* tb)
 {
-    toolbar_items->clear();
-    foreach(QAction*act,tb->actions())
+    if ( tb )
     {
-        if ( !act->text().isNull() )
-            toolbar_items->addItem(new QListWidgetItem(act->icon(),act->iconText()));
-        else
+        current_toolbar = tb;
+        toolbar_items->clear();
+        foreach(QAction*act,tb->actions())
         {
-            toolbar_items->addItem(new QListWidgetItem("--"));
-        }
+            if ( !act->isSeparator() )
+                toolbar_items->addItem(new QListWidgetItem(act->icon(),act->iconText()));
+            else
+            {
+                toolbar_items->addItem(new QListWidgetItem("--"));
+            }
 
+        }
+        toolbar_combo->setCurrentIndex(toolbar_combo->findText(tb->windowTitle()));
     }
+}
+
+void config_dialog::add_menu(QAction *act)
+{
+    QMenu* menu = act->menu();
+    if ( menu && !menus.contains(menu) )
+    {
+        menus.push_back(menu);
+        menu_combo->addItem(menu->menuAction()->iconText());
+    }
+}
+
+void config_dialog::add_toolbar(QToolBar *tb)
+{
+    if ( tb && !toolbars.contains(tb) )
+    {
+        toolbars.push_back(tb);
+        toolbar_combo->addItem(tb->windowTitle());
+    }
+}
+
+void config_dialog::on_menu_combo_activated(const QString &arg1)
+{
+    foreach(QMenu* menu,menus)
+    {
+        if ( arg1 == menu->menuAction()->iconText() )
+        {
+            set_menu(menu);
+            return;
+        }
+    }
+}
+
+void config_dialog::on_toolbar_combo_activated(const QString &arg1)
+{
+    foreach(QToolBar* toolb,toolbars)
+    {
+        if ( arg1 == toolb->windowTitle() )
+        {
+            set_toolbar(toolb);
+            return;
+        }
+    }
+}
+
+void config_dialog::on_butt_move_up_clicked()
+{
+    if ( current_toolbar )
+    {
+        int curr_index = toolbar_items->currentIndex().row();
+        if ( curr_index <= 0 || curr_index >= current_toolbar->actions().size() )
+            return;
+        QAction* curr_act = current_toolbar->actions()[curr_index];
+        QAction* prev_act = current_toolbar->actions().value(curr_index-1,NULL);
+        current_toolbar->removeAction(curr_act);
+        current_toolbar->insertAction(prev_act,curr_act);
+
+        QListWidgetItem *curr_itm = toolbar_items->takeItem ( curr_index );
+        toolbar_items->insertItem(curr_index-1,curr_itm);
+        toolbar_items->setCurrentRow(curr_index-1);
+    }
+}
+
+void config_dialog::on_butt_move_down_clicked()
+{
+    if ( current_toolbar )
+    {
+        int curr_index = toolbar_items->currentIndex().row();
+        if ( curr_index < 0 || curr_index >= current_toolbar->actions().size()-1 )
+            return;
+        QAction* curr_act = current_toolbar->actions()[curr_index];
+        QAction* next_act = current_toolbar->actions().value(curr_index+2,NULL);
+        current_toolbar->removeAction(curr_act);
+        current_toolbar->insertAction(next_act,curr_act);
+
+        QListWidgetItem *curr_itm = toolbar_items->takeItem ( curr_index );
+        toolbar_items->insertItem(curr_index+1,curr_itm);
+        toolbar_items->setCurrentRow(curr_index+1);
+    }
+}
+
+void config_dialog::on_butt_insert_clicked()
+{
+    if ( current_toolbar && current_menu )
+    {
+        int curr_menu_index = menu_items->currentIndex().row();
+        int curr_toolbar_index = toolbar_items->currentIndex().row()+1;
+        if ( curr_menu_index < 0 || curr_menu_index >= current_menu->actions().size() )
+            return;
+
+        QAction* act = current_menu->actions()[curr_menu_index];
+        if ( act->isSeparator() )
+            on_butt_separator_clicked();
+        else if ( !current_toolbar->actions().contains(act) )
+        {
+            QAction* next = current_toolbar->actions().value(curr_toolbar_index,NULL);
+            current_toolbar->insertAction(next,act);
+            QListWidgetItem* newitem = new QListWidgetItem(act->icon(),act->iconText());
+            toolbar_items->insertItem(curr_toolbar_index,newitem);
+            toolbar_items->setCurrentRow(curr_toolbar_index);
+        }
+    }
+}
+
+void config_dialog::on_butt_separator_clicked()
+{
+    if ( current_toolbar )
+    {
+        int curr_index = toolbar_items->currentIndex().row()+1;
+        QAction* next_act = current_toolbar->actions().value(curr_index,NULL);
+        current_toolbar->insertSeparator(next_act);
+        toolbar_items->insertItem(curr_index,"--");
+        toolbar_items->setCurrentRow(curr_index);
+    }
+}
+
+void config_dialog::on_butt_remove_clicked()
+{
+    if ( current_toolbar )
+    {
+        int curr_index = toolbar_items->currentIndex().row();
+        QAction* act = current_toolbar->actions().value(curr_index,NULL);
+        if ( act )
+        {
+            current_toolbar->removeAction(act);
+            delete toolbar_items->takeItem(curr_index);
+        }
+    }
+
 }

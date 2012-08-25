@@ -231,7 +231,8 @@ void Knot_Window::init_toolbars()
     // overcome bug in code generator from ui file
     removeToolBar(EditBar);
     removeToolBar(MainToolBar);
-    addToolBar(Qt::TopToolBarArea, MainToolBar);
+    removeToolBar(EditBar);
+    addToolBar(Qt::RightToolBarArea, MainToolBar);
     addToolBar(Qt::TopToolBarArea, ViewBar);
     addToolBar(Qt::TopToolBarArea, EditBar);
     MainToolBar->show();
@@ -248,6 +249,10 @@ void Knot_Window::init_dialogs()
 
 // Cofig
     connect(config_dlg.clear_recent,SIGNAL(clicked()),SLOT(clear_recent_files()));
+    foreach(QAction *menu,QMainWindow::menuBar()->actions())
+        config_dlg.add_menu(menu);
+    foreach(QToolBar *toolb,findChildren<QToolBar *>())
+        config_dlg.add_toolbar(toolb);
     config_dlg.set_menu(menu_File);
     config_dlg.set_toolbar(MainToolBar);
 

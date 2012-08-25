@@ -57,6 +57,10 @@ class config_dialog : public QDialog, private Ui::config_dialog
         Q_OBJECT
 
         friend class Knot_Window;
+        QList<QToolBar*> toolbars;
+        QList<QMenu*> menus;
+        QMenu* current_menu;
+        QToolBar* current_toolbar;
     public:
         explicit config_dialog(QWidget *parent = 0);
 
@@ -68,6 +72,17 @@ class config_dialog : public QDialog, private Ui::config_dialog
 
         void set_menu(QMenu* menu);
         void set_toolbar(QToolBar* tb);
+
+        void add_menu(QAction *menu);
+        void add_toolbar(QToolBar* tb);
+    private slots:
+        void on_menu_combo_activated(const QString &arg1);
+        void on_toolbar_combo_activated(const QString &arg1);
+        void on_butt_move_up_clicked();
+        void on_butt_move_down_clicked();
+        void on_butt_insert_clicked();
+        void on_butt_separator_clicked();
+        void on_butt_remove_clicked();
 };
 
 #endif // CONFIG_DIALOG_HPP

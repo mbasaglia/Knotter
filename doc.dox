@@ -3,7 +3,7 @@
 \page misc Misc todos
 Ignore this, see the main todo page
 
-\todo customizable toolbars
+\todo save toolbar buttons
 \todo add knotter library, as much indipendent as possible from Qt (Node Edge multiple inheritance)
 \todo Document every class and function
 \todo Better user guide
