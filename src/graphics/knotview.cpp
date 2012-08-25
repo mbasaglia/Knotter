@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QApplication>
 #include "commands.hpp"
 #include "knotgraph.hpp"
-#include "grid_scene.hpp"
 
 KnotView::KnotView( QWidget* parent )
     : QGraphicsView(parent), mode(EDIT_NODE_EDGE),
@@ -37,7 +36,7 @@ KnotView::KnotView( QWidget* parent )
     mouse_status(DEFAULT),
     guide(NULL), rubberband(NULL)
 {
-    setScene ( new GridScene(&grid) );
+    setScene ( new QGraphicsScene );
     setSceneRect ( 0, 0, width(), height());
     mode_edit_node_edge();
     setMouseTracking(true);
@@ -389,6 +388,7 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
 
 
     // highlight item under cursor
+    // isUnderMouse?
     foreach ( QGraphicsItem* gi, scene()->items() )
     {
         CustomItem* ci = dynamic_cast<CustomItem*>(gi);
@@ -403,6 +403,7 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
     redraw(false);
 }
 
+#include <QtDebug>
 void KnotView::mouseReleaseEvent(QMouseEvent *event)
 {
     if ( !isInteractive() ) return;
@@ -428,6 +429,14 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
         if ( p != startpos )
             move_nodes(p);
         sel_offset.clear();
+
+        // ugly fix for a weird bug
+        foreach(Node*n,selected_nodes())
+            foreach(Edge*e,n->links())
+            {
+                scene()->removeItem(e);
+                scene()->addItem(e);
+            }
     }
     else if ( mouse_status == SELECTING )
     {
@@ -1115,6 +1124,11 @@ void KnotView::initialize_movement(QPointF center)
         it.value() /= sel_size;
 }
 
+void KnotView::drawBackground(QPainter *painter, const QRectF &rect)
+{
+    grid.render(painter,rect);
+}
+
 
 Node *KnotView::add_node(QPointF pos, node_list adjl)
 {
@@ -1562,7 +1576,7 @@ void KnotView::toggle_knotline(bool visible)
 
 void KnotView::toggle_graph(bool visible)
 {
-    dynamic_cast<GridScene*>(scene())->show_graph = visible;
+    CustomItem::show_graph = visible;
     redraw(false);
 }
 

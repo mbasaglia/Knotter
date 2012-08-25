@@ -195,6 +195,9 @@ class KnotView : public QGraphicsView
 
         void initialize_movement(QPointF center);
 
+
+        void drawBackground(QPainter *painter, const QRectF &rect);
+
     public slots:
         void mode_edit_node_edge();
         void mode_edge_chain();

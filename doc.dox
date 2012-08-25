@@ -4,7 +4,6 @@
 Ignore this, see the main todo page
 
 \todo customizable toolbars
-\todo Qt += in pri files?
 \todo add knotter library, as much indipendent as possible from Qt (Node Edge multiple inheritance)
 \todo Document every class and function
 \todo Better user guide

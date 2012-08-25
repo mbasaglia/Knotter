@@ -19,7 +19,6 @@ HEADERS += \
     src/graphics/node.hpp \
     src/graphics/knotgraph.hpp \
     src/graphics/knot_curve_style.hpp \
-    src/graphics/grid_scene.hpp \
     src/graphics/edge.hpp \
     src/graphics/custom_item.hpp \
     src/graphics/commands.hpp \

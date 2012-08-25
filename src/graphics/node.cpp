@@ -28,6 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "edge.hpp"
 #include <algorithm>
 
+bool CustomItem::show_graph = true;
+
 Node::Node(QPointF position)
     : CustomItem(true), custom_style_enabled (false)
 {
