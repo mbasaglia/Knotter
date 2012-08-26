@@ -36,6 +36,8 @@ datadir=${datarootdir}/$program_name
 docdir=${datarootdir}/doc/$program_name
 mandir=${datarootdir}/man/$program_name
 
+#initialize misc options
+single_file=no
 
 dirlist="prefix exec_prefix bindir libdir includedir datarootdir datadir docdir mandir"
 desclist="Non-binary files root:Binary files root:Executable files:Linkable files:\
@@ -45,7 +47,7 @@ Header files:Data root:Data:Documentation:Man pages:"
 #print directory option, description and current value
 help_dirs() {
     desctail=$desclist
-    echo "Option:Description:Value"
+    echo "Option:Description:Current Value"
     for key in $dirlist
     do
         desc=`echo $desctail | sed "s/:.*//" `
@@ -57,16 +59,19 @@ help_dirs() {
 
 #print the help message
 show_help() {
-cat <<_HELP
+cat <<_HELP_
 Configuration script for $program_name $program_version
 
 Usage: $0 [OPTION]... [VARIABLE=VALUE]...
 
 Options:
     --help -h           Show this help message and exit
+    --single-file       Enable compilation of data in the executable file.
+                        Will override installation directories to point to
+                        the internal resource location.
 
 Installation directories:
-_HELP
+_HELP_
     help_dirs | column -t -s :
 }
 
@@ -89,10 +94,11 @@ do
         *=*)
             val=`echo $arg | sed 's/.*=//'`
             ;;
-        --help)
+        --help | -h)
             show_help
             exit 0
             ;;
+        --single-file) single_file=yes;;
         *)
             echo "Ignoring option $arg"
     esac
@@ -140,7 +146,8 @@ then
     make -s distclean || rm Makefile
 fi
 
-qmake_command="$QMAKE BINDIR=$bindir DATADIR=$datadir DOCDIR=$docdir $qmake_pro_file"
+qmake_command="$QMAKE BINDIR=$bindir DATADIR=$datadir DOCDIR=$docdir \
+    SINGLE_FILE=$single_file $qmake_pro_file"
 echo $qmake_command
 if $qmake_command && [ -f Makefile ]
 then

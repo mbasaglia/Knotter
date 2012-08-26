@@ -82,25 +82,37 @@ src_doc.commands = sed s/KNOTTER_VERSION/$${VERSION}/ Doxyfile | doxygen -
 QMAKE_EXTRA_TARGETS += src_doc Doxyfile
 
 
-#check directories from configure.sh
+#check directories and options from configure.sh
+
+contains(SINGLE_FILE,yes) {
+    BINDIR=.
+    DATADIR=:/data
+    DOCDIR=:/doc
+    message("Compiling all data in a single executable file")
+    RESOURCES += data.qrc
+} else {
+    isEmpty(DATADIR){
+        DATADIR=.
+    }
+    isEmpty(DOCDIR){
+        DOCDIR=.
+    }
+    img.files = img/*
+    img.path = $${DATADIR}/img
+    doc.files = user_guide/*
+    doc.path = $${DOCDIR}/user_guide
+
+    INSTALLS += img doc
+
+}
+
 isEmpty(BINDIR){
     BINDIR=.
 }
 
-isEmpty(DATADIR){
-    DATADIR=.
-}
-DEFINES += "DATA_DIR=\\\"$${DATADIR}/\\\""
+DEFINES += "DATA_DIR=\\\"$${DATADIR}\\\""
 
-isEmpty(DOCDIR){
-    DOCDIR=.
-}
-DEFINES += "DOC_DIR=\\\"$${DOCDIR}/\\\""
-
+DEFINES += "DOC_DIR=\\\"$${DOCDIR}\\\""
 
 target.path = $$BINDIR
-img.files = img/*
-img.path = $${DATADIR}/img
-doc.files = user_guide/*
-doc.path = $${DOCDIR}/user_guide
-INSTALLS += target img doc
+INSTALLS += target

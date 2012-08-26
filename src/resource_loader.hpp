@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define resource_loader_HPP
 
 #include <QIcon>
+#include <QUrl>
 
 namespace load {
 
@@ -34,10 +35,12 @@ QIcon icon ( QString name );
 
 /**
     \brief Search resource path
-    \param base_dir  exprected installation directory with trailing /
+    \param base_dir  exprected installation directory
     \param name      resource file name relative to base_dir
 */
 QString resource_name ( QString base_dir, QString name );
+
+QUrl resource_url ( QString base_dir, QString name );
 
 } // namespace icon
 #endif // resource_loader_HPP

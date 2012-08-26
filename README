@@ -18,6 +18,10 @@ If the configure script fails despite being in a proper build environment you
 can run directly qmake  on knotter.pro. Be advised that this will make some
 make targets buggy or unavailable.
 
+By default knotter is configured to load resources from locations in the
+filesystem, to generate a single stand-alone file containing all the data
+pass the --single-file option to the configuration script
+
 If you want to regenerate the files created by the Qt build tools, run
 
     make clean
@@ -52,9 +56,10 @@ GPLv3 or later, see COPYING.
 
 About
 ---------------------------------------
-This program is a designer for Celtic knotworks, using the algorithm described
-at <http://www.entrelacs.net/>.
-The software is under development, some features may change without much
+This program is a designer for Celtic knotworks, using the mathematical
+correlation between knots and graphs.
+
+The software is under development, some features may change without
 notice and there may be some bugs.
 
 Contacts

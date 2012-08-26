@@ -1,0 +1,42 @@
+<RCC>
+    <qresource prefix="/data">
+        <file>img/document-export.svg</file>
+        <file>img/draw-line.svg</file>
+        <file>img/edge_list.svg</file>
+        <file>img/edit-node.svg</file>
+        <file>img/format-join-node.svg</file>
+        <file>img/icon.png</file>
+        <file>img/line_dash.svg</file>
+        <file>img/line_dash_dot.svg</file>
+        <file>img/line_dot.svg</file>
+        <file>img/line_no.svg</file>
+        <file>img/line_solid.svg</file>
+        <file>img/format-connect-node.svg</file>
+        <file>img/format-disconnect-node.svg</file>
+        <file>img/format-remove-node.svg</file>
+        <file>img/logo.svg</file>
+        <file>img/logo_big.svg</file>
+        <file>img/move_grid.svg</file>
+        <file>img/ogee.svg</file>
+        <file>img/pointcurve.svg</file>
+        <file>img/poly.svg</file>
+        <file>img/square_grid.svg</file>
+        <file>img/toggle_graph_off.svg</file>
+        <file>img/toggle_graph_on.svg</file>
+        <file>img/triangular_grid.svg</file>
+        <file>img/triangular_grid2.svg</file>
+    </qresource>
+    <qresource prefix="/doc">
+        <file>user_guide/img/style2.png</file>
+        <file>user_guide/img/background.svg</file>
+        <file>user_guide/img/cusp_shapes.png</file>
+        <file>user_guide/img/edge_types.png</file>
+        <file>user_guide/img/export.png</file>
+        <file>user_guide/img/grid.png</file>
+        <file>user_guide/img/logo_big.svg</file>
+        <file>user_guide/img/quran.jpg</file>
+        <file>user_guide/img/style1.png</file>
+        <file>user_guide/style.css</file>
+        <file>user_guide/user_guide.htm</file>
+    </qresource>
+</RCC>
