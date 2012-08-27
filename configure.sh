@@ -23,7 +23,6 @@ get_project_var() {
 }
 program_name=`get_project_var TARGET`
 program_version=`get_project_var VERSION`
-echo "Configuring $program_name $program_version"
 
 #initialize default directories
 prefix=/usr/local
@@ -38,6 +37,7 @@ mandir=${datarootdir}/man/$program_name
 
 #initialize misc options
 single_file=no
+qmake_opts=""
 
 dirlist="prefix exec_prefix bindir libdir includedir datarootdir datadir docdir mandir"
 desclist="Non-binary files root:Binary files root:Executable files:Linkable files:\
@@ -69,10 +69,24 @@ Options:
     --single-file       Enable compilation of data in the executable file.
                         Will override installation directories to point to
                         the internal resource location.
+    --name              Print the program name ($program_name) and exit.
+    --version           Print the program version ($program_version) and exit.
 
 Installation directories:
 _HELP_
     help_dirs | column -t -s :
+
+cat <<_HELP_
+
+Optional components:
+    --without-webkit    Remove the dependency on QtWebkit
+
+Environment variables:
+    QMAKE               Override qmake command
+    CXX                 Override C++ compiler
+    LINK                Override linker
+
+_HELP_
 }
 
 #print directory description and value
@@ -98,9 +112,24 @@ do
             show_help
             exit 0
             ;;
-        --single-file) single_file=yes;;
+        --single-file)
+            single_file=yes
+            qmake_opts="$qmake_opts SINGLE_FILE=yes"
+            ;;
+        --version)
+            echo $program_version
+            exit 0
+            ;;
+        --name)
+            echo $program_name
+            exit 0
+            ;;
+        --without-webkit)
+            qmake_opts="$qmake_opts WEBKIT=no"
+            ;;
         *)
             echo "Ignoring option $arg"
+            ;;
     esac
 
     case $arg in
@@ -115,6 +144,8 @@ do
     esac
 done
 
+echo "Configuring $program_name $program_version"
+
 echo "Using the following install directories:"
 dir_status | column -t -s :
 
@@ -122,6 +153,7 @@ dir_status | column -t -s :
 if [ -n "$QMAKE" ]; then
     if $QMAKE -v 2>/dev/null; then
         echo "Using $QMAKE"
+        qmake_opts="$qmake_opts QMAKE_QMAKE=$QMAKE"
     else
         echo >&2 "\$QMAKE is set to QMAKE but not working"
         exit 1
@@ -139,6 +171,17 @@ else
     exit 1
 fi
 
+#minc env vars
+if [ -n "$CXX" ]; then
+    qmake_opts="$qmake_opts QMAKE_CXX=$CXX"
+    echo "Using $CXX compiler"
+fi
+
+if [ -n "$LINK" ]; then
+    qmake_opts="$qmake_opts QMAKE_LINK=$LINK"
+    echo "Using $LINK linker"
+fi
+
 #clean old make output
 if [ -f Makefile ]
 then
@@ -146,8 +189,8 @@ then
     make -s distclean || rm Makefile
 fi
 
-qmake_command="$QMAKE BINDIR=$bindir DATADIR=$datadir DOCDIR=$docdir \
-    SINGLE_FILE=$single_file $qmake_pro_file"
+qmake_opts="$qmake_opts BINDIR=$bindir DATADIR=$datadir DOCDIR=$docdir"
+qmake_command="$QMAKE $qmake_opts $qmake_pro_file"
 echo $qmake_command
 if $qmake_command && [ -f Makefile ]
 then

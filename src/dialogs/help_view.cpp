@@ -27,16 +27,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDesktopServices>
 #include "resource_loader.hpp"
 
+
 Help_View::Help_View(QWidget *parent) :
     QDialog(parent)
 {
     setupUi(this);
 
-    web_view->load( load::resource_url(DOC_DIR,"user_guide/user_guide.htm") );
-    web_view->page()->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
+    QUrl manual = load::resource_url(DOC_DIR,"user_guide/user_guide.htm");
+
+    #ifndef NO_WEBKIT
+        web_view->load( manual );
+        web_view->page()->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
+        connect(web_view,SIGNAL(linkClicked(QUrl)),SLOT(link_clicked(QUrl)));
+    #else
+        web_view->setSource ( manual );
+        web_view->setOpenExternalLinks(true);
+        //connect(web_view,SIGNAL(anchorClicked(QUrl)),SLOT(link_clicked(QUrl)));
+    #endif
 }
 
-void Help_View::on_web_view_linkClicked(const QUrl &arg1)
+void Help_View::link_clicked(const QUrl &arg1)
 {
-    QDesktopServices::openUrl(arg1);
+    if ( arg1.scheme() != "qrc" && arg1.scheme() != "file" )
+        QDesktopServices::openUrl(arg1);
 }
+

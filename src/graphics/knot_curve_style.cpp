@@ -163,11 +163,8 @@ knot_curve_styler::knot_curve_styler()
     register_alias ( register_style(new knot_curve_pointed), "pointed" );
     register_alias ( register_style(new knot_curve_ogee), "ogee" );
     style_id poly = register_style(new knot_curve_polygonal);
-    register_alias ( poly, "polygonal" );
 
-    // back compat
-    register_alias (  poly, "simple_poly" );
-    register_alias (  poly, "advanced_poly" );
+    register_alias ( poly, "polygonal" );
 }
 
 knot_curve_styler::~knot_curve_styler()

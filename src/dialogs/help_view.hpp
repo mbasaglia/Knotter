@@ -26,16 +26,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef HELP_VIEW_HPP
 #define HELP_VIEW_HPP
 
+#ifdef NO_WEBKIT
+    #include <QTextBrowser>
+    typedef QTextBrowser WebView;
+#else
+    #include <QtWebKit/QWebView>
+    typedef QWebView WebView;
+#endif
+
 #include "ui_help_view.h"
+
 
 class Help_View : public QDialog, private Ui::Help_View
 {
         Q_OBJECT
-        
+
     public:
         explicit Help_View(QWidget *parent = 0);
     private slots:
-        void on_web_view_linkClicked(const QUrl &arg1);
+        void link_clicked(const QUrl &arg1);
 };
 
 #endif // HELP_VIEW_HPP

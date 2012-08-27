@@ -9,4 +9,5 @@ Ignore this, see the main todo page
 \todo Better user guide
 \todo Undo/Redo Style
 \todo check QGraphicsView/QGraphicsScene::render
+\todo proper copy paste ( save xml of selected node list )
 */

@@ -44,7 +44,7 @@ Knot_Window::Knot_Window(QWidget *parent) :
 
 // UI from designer
     setupUi(this);
-    setWindowIcon(load::icon("logo"));
+    setWindowIcon(load::icon("knotter-logo-small"));
 
 // enable error recovery
     ErrorRecovery::recover = canvas;
@@ -675,7 +675,7 @@ void Knot_Window::update_recent_menu()
     else
         foreach ( QString savefile, recent_files )
         {
-            QAction *a = menuOpen_Recent->addAction(load::icon("logo"), savefile);
+            QAction *a = menuOpen_Recent->addAction(load::icon("knotter-logo-small"), savefile);
             connect(a, SIGNAL(triggered()), this, SLOT(click_recent()));
         }
 }
