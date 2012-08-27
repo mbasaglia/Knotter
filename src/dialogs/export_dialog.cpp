@@ -28,12 +28,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMessageBox>
 #include <QSvgGenerator>
 #include "resource_loader.hpp"
+#include "translator.hpp"
 
 Export_Dialog::Export_Dialog(QWidget *parent) :
     QDialog(parent), canvas ( 0 )
 {
     setupUi(this);
     setWindowIcon(load::icon("document-export"));
+    connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
 }
 
 void Export_Dialog::set_knot_view(KnotView *kn)
@@ -231,4 +233,9 @@ void Export_Dialog::on_height_spin_valueChanged(int arg1)
 void Export_Dialog::on_ratio_check_toggled(bool)
 {
     ratio = double ( height_spin->value() ) / width_spin->value();
+}
+
+void Export_Dialog::retranslate()
+{
+    retranslateUi(this);
 }

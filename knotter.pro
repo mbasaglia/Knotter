@@ -37,7 +37,8 @@ OTHER_FILES = \
     NEWS \
     doc.dox \
     README \
-    configure.sh
+    configure.sh \
+    AUTHORS
 
 DEFINES += "VERSION=\\\"$${VERSION}\\\""
 

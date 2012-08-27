@@ -42,6 +42,7 @@ class GridConfig : public QDialog, private Ui::GridConfig
     private slots:
         void on_buttonBox_accepted();
         void on_pushButton_clicked();
+        void retranslate();
 };
 
 #endif // GRIDCONFIG_HPP

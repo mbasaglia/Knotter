@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "global_style_form.hpp"
 #include "resource_loader.hpp"
+#include "translator.hpp"
 
 global_style_form::global_style_form(QWidget *parent) :
     QWidget(parent)
@@ -39,6 +40,8 @@ global_style_form::global_style_form(QWidget *parent) :
     outline_pattern_combo->setItemIcon(2,load::icon("line_dot"));
     outline_pattern_combo->setItemIcon(3,load::icon("line_dash"));
     outline_pattern_combo->setItemIcon(4,load::icon("line_dash_dot"));
+
+    connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
 }
 
 double global_style_form::get_knot_width() const
@@ -102,6 +105,11 @@ void global_style_form::change_pen()
 void global_style_form::change_join_style(int)
 {
     emit join_style_changed(get_join_style());
+}
+
+void global_style_form::retranslate()
+{
+    retranslateUi(this);
 }
 
 void global_style_form::set_pen(QPen p)

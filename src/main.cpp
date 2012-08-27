@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <iostream>
 #include <QSvgGenerator>
 #include <QFile>
+#include "translator.hpp"
 
 std::ostream& operator<< ( std::ostream&os, QString str )
 {
@@ -39,8 +40,11 @@ int main(int argc, char *argv[])
 {
     ErrorRecovery::initialize();
 
-    QApplication a(argc, argv);
+    Translator::object.register_default_translation("English","en");
+    Translator::object.register_translation("Italiano", "it", "knotter_it.qm" );
+    Translator::object.register_translation(QString::fromUtf8("Čeština"), "cs", "knotter_cs.qm" );
 
+    QApplication a(argc, argv);
 
     Knot_Window w;
 
@@ -105,9 +109,3 @@ int main(int argc, char *argv[])
     
     return a.exec();
 }
-
-    /*
-    #include <QTranslator>
-    QTranslator myappTranslator;
-    myappTranslator.load("knotter_it");
-    a.installTranslator(&myappTranslator);*/

@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "help_view.hpp"
 #include <QDesktopServices>
 #include "resource_loader.hpp"
+#include "translator.hpp"
 
 
 Help_View::Help_View(QWidget *parent) :
@@ -44,11 +45,18 @@ Help_View::Help_View(QWidget *parent) :
         web_view->setOpenExternalLinks(true);
         //connect(web_view,SIGNAL(anchorClicked(QUrl)),SLOT(link_clicked(QUrl)));
     #endif
+
+    connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
 }
 
 void Help_View::link_clicked(const QUrl &arg1)
 {
     if ( arg1.scheme() != "qrc" && arg1.scheme() != "file" )
         QDesktopServices::openUrl(arg1);
+}
+
+void Help_View::retranslate()
+{
+    retranslateUi(this);
 }
 

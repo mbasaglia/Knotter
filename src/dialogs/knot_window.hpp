@@ -161,6 +161,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void on_action_About_triggered();
         void on_actionShow_Graph_triggered(bool checked);
         void on_actionInsert_Polygon_triggered();
+        void retranslate();
 };
 
 #endif // KNOT_WINDOW_HPP

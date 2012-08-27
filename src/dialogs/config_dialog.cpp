@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "config_dialog.hpp"
 #include "resource_loader.hpp"
+#include "translator.hpp"
 
 config_dialog::config_dialog(QWidget *parent) :
     QDialog(parent), current_menu(NULL), current_toolbar(NULL)
@@ -46,6 +47,11 @@ config_dialog::config_dialog(QWidget *parent) :
 
     add_toolbar_btn->setIcon(load::icon("list-add"));
     rm_toolbar_btn->setIcon(load::icon("list-remove"));
+
+    language_combo->addItems(Translator::object.available_languages());
+    language_combo->setCurrentIndex ( language_combo->findText(Translator::object.current_lang_name()) );
+    Translator::object.connect(language_combo,SIGNAL(activated(QString)),SLOT(change_lang_name(QString)));
+    connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
 
 }
 
@@ -155,6 +161,12 @@ void config_dialog::add_toolbar(QToolBar *tb)
         toolbars.push_back(tb);
         toolbar_combo->addItem(tb->windowTitle());
     }
+}
+
+
+void config_dialog::retranslate()
+{
+    retranslateUi(this);
 }
 
 void config_dialog::on_menu_combo_activated(const QString &arg1)

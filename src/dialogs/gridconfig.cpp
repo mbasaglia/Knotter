@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "gridconfig.hpp"
 #include "resource_loader.hpp"
+#include "translator.hpp"
 
 GridConfig::GridConfig(snapping_grid *target_grid, QWidget *parent) :
     QDialog(parent), target(target_grid)
@@ -41,6 +42,8 @@ GridConfig::GridConfig(snapping_grid *target_grid, QWidget *parent) :
     }
 
     setWindowIcon(load::icon("move_grid"));
+
+    connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
 }
 
 
@@ -59,4 +62,9 @@ void GridConfig::on_pushButton_clicked()
 {
     origin_x_spin->setValue(0);
     origin_y_spin->setValue(0);
+}
+
+void GridConfig::retranslate()
+{
+    retranslateUi(this);
 }

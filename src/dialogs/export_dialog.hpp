@@ -56,6 +56,7 @@ class Export_Dialog : public QDialog, private Ui::Export_Dialog
         void on_width_spin_valueChanged(int arg1);
         void on_height_spin_valueChanged(int arg1);
         void on_ratio_check_toggled(bool checked);
+        void retranslate();
 };
 
 #endif // EXPORT_DIALOG_HPP

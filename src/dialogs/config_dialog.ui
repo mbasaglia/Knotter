@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>508</width>
-    <height>358</height>
+    <width>529</width>
+    <height>386</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -101,7 +101,7 @@
    <item row="0" column="1">
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="stackedWidgetPage1">
       <layout class="QGridLayout" name="gridLayout_2">
@@ -428,16 +428,17 @@
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_3">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
          <property name="text">
           <string>Language</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1" colspan="2">
-        <widget class="QComboBox" name="language_combo"/>
+        <widget class="QComboBox" name="language_combo">
+         <property name="currentIndex">
+          <number>-1</number>
+         </property>
+        </widget>
        </item>
        <item row="2" column="0" colspan="3">
         <widget class="QGroupBox" name="groupBox_2">
@@ -561,8 +562,8 @@ p, li { white-space: pre-wrap; }
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>252</x>
+     <y>381</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -577,8 +578,8 @@ p, li { white-space: pre-wrap; }
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>320</x>
+     <y>381</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>

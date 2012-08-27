@@ -25,6 +25,8 @@
         <file>img/triangular_grid2.svg</file>
         <file>img/knotter-logo-big.svg</file>
         <file>img/knotter-logo-small.svg</file>
+        <file>translations/knotter_it.qm</file>
+        <file>translations/knotter_cs.qm</file>
     </qresource>
     <qresource prefix="/doc">
         <file>user_guide/img/style2.png</file>

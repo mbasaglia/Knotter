@@ -52,6 +52,7 @@ class node_style_form : public QWidget, private Ui::node_style_form
 
     private slots:
         void on_style_combo_activated(int index);
+        void retranslate();
 };
 
 #endif // NODE_STYLE_FORM_HPP

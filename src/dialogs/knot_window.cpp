@@ -36,6 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QInputDialog>
 #include "resource_loader.hpp"
 #include <QtDebug>
+#include "translator.hpp"
 
 Knot_Window::Knot_Window(QWidget *parent) :
     QMainWindow(parent), save_ui ( true ), max_recent_files(5),
@@ -67,6 +68,8 @@ Knot_Window::Knot_Window(QWidget *parent) :
     update_ui();
 
     init_dialogs(); // keep this as last
+
+    connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
 }
 
 Knot_Window::~Knot_Window()
@@ -279,7 +282,12 @@ void Knot_Window::load_config()
 
 
     if ( settings.value("version",VERSION).toString() != VERSION )
-        return; // don't load settings from different version
+        return; /// doesn't load settings from different version
+
+
+    Translator::object.change_lang_code (
+            settings.value("language",Translator::object.current_lang_code()).toString()
+        );
 
     canvas->set_cache_mode ( QGraphicsItem::CacheMode (
                                 settings.value("performance/cache",
@@ -384,6 +392,8 @@ void Knot_Window::save_config()
     QSettings settings("knotter","knotter");
 
     settings.setValue("version",VERSION);
+
+    settings.setValue("language",Translator::object.current_lang_code());
 
     settings.setValue("performance/cache",canvas->get_cache_mode());
 
@@ -759,4 +769,9 @@ void Knot_Window::on_actionInsert_Polygon_triggered()
     canvas->get_undo_stack().endMacro();
 
     canvas->mode_moving_new(first->pos());//rad.p1());
+}
+
+void Knot_Window::retranslate()
+{
+    retranslateUi(this);
 }

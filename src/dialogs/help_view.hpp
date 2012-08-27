@@ -45,6 +45,7 @@ class Help_View : public QDialog, private Ui::Help_View
         explicit Help_View(QWidget *parent = 0);
     private slots:
         void link_clicked(const QUrl &arg1);
+        void retranslate();
 };
 
 #endif // HELP_VIEW_HPP

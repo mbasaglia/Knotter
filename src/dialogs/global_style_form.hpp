@@ -59,6 +59,7 @@ class global_style_form : public QWidget, private Ui::global_style_form
     protected slots:
         void change_pen();
         void change_join_style(int);
+        void retranslate();
 };
 
 #endif // GLOBAL_STYLE_FORM_HPP

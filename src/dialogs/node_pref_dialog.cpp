@@ -1,4 +1,5 @@
 #include "node_pref_dialog.hpp"
+#include "translator.hpp"
 
 node_pref_dialog::node_pref_dialog(KnotView* knot_view, Node *node, QWidget *parent) :
     QDialog(parent), node ( node ), knot_view ( knot_view )
@@ -18,6 +19,8 @@ node_pref_dialog::node_pref_dialog(KnotView* knot_view, Node *node, QWidget *par
     }
 
     setModal(true);
+
+    connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
 }
 
 void node_pref_dialog::on_buttonBox_accepted()
@@ -28,4 +31,9 @@ void node_pref_dialog::on_buttonBox_accepted()
         node->set_custom_style ( style_form->get_style_info() );
 
     knot_view->redraw(true);
+}
+
+void node_pref_dialog::retranslate()
+{
+    retranslateUi(this);
 }

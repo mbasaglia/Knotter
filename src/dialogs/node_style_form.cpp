@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "node_style_form.hpp"
 #include "resource_loader.hpp"
+#include "translator.hpp"
 
 node_style_form::node_style_form(QWidget *parent) :
     QWidget(parent)
@@ -39,6 +40,8 @@ node_style_form::node_style_form(QWidget *parent) :
     style_combo->setItemIcon(0,load::icon("pointcurve"));
     style_combo->setItemIcon(1,load::icon("ogee"));
     style_combo->setItemIcon(2,load::icon("poly"));
+
+    connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
 }
 
 void node_style_form::set_style_info(styleinfo si)
@@ -66,6 +69,11 @@ void node_style_form::on_style_combo_activated(int index)
 {
     curstyle_id = combo_style.key( index );
     anything_changed();
+}
+
+void node_style_form::retranslate()
+{
+    retranslateUi(this);
 }
 
 void node_style_form::anything_changed()

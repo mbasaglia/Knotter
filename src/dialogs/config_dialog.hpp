@@ -75,6 +75,8 @@ class config_dialog : public QDialog, private Ui::config_dialog
 
         void add_menu(QAction *menu);
         void add_toolbar(QToolBar* tb);
+
+
     private slots:
         void on_menu_combo_activated(const QString &arg1);
         void on_toolbar_combo_activated(const QString &arg1);
@@ -86,6 +88,8 @@ class config_dialog : public QDialog, private Ui::config_dialog
         void on_add_toolbar_btn_clicked();
 
         void on_rm_toolbar_btn_clicked();
+
+        void retranslate();
 
     signals:
         void insert_toolbar(QToolBar*);
