@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     Translator::initialize("en");
+    Translator::load_system_default();
 
     Knot_Window w;
 

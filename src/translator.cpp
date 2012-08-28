@@ -78,6 +78,11 @@ QString Translator::language_name(QString lang_code, bool issue_warning)
     return name;
 }
 
+void Translator::load_system_default()
+{
+    object.change_lang_code(QLocale::system().name());
+}
+
 Translator::~Translator()
 {
     foreach ( QTranslator* tr, translators.values() )
@@ -125,7 +130,26 @@ QStringList Translator::available_languages() const
 
 void Translator::change_lang_code(QString code)
 {
-    /// \todo checking
+    if ( !translators.contains(code) )
+    {
+        QString base_code = code.left(code.lastIndexOf('_')); // en_US -> en
+        bool found = false;
+        foreach ( QString installed_code, translators.keys() )
+        {
+            if ( installed_code.left(installed_code.lastIndexOf('_')) == base_code )
+            {
+                code = installed_code;
+                found = true;
+                break;
+            }
+        }
+        if ( not found )
+        {
+            qWarning() << tr("Warning:") << tr("Language code %1 is not loaded").arg(code);
+            return;
+        }
+    }
+
     QCoreApplication* app = QCoreApplication::instance();
     app->removeTranslator(current);
     current = translators[code];

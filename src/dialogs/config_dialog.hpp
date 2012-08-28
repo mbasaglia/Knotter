@@ -76,6 +76,8 @@ class config_dialog : public QDialog, private Ui::config_dialog
         void add_menu(QAction *menu);
         void add_toolbar(QToolBar* tb);
 
+        void select_current_language();
+
 
     private slots:
         void on_menu_combo_activated(const QString &arg1);

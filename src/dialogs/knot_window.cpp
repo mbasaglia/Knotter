@@ -58,6 +58,10 @@ Knot_Window::Knot_Window(QWidget *parent) :
     edge_context_menu.set_view(canvas);
     edge_context_menu.connect(canvas,SIGNAL(context_menu(Edge*)),SLOT(activate(Edge*)));
 
+// translation
+    connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
+
+// Misc UI initialization
     init_menus();
     init_toolbars();
     init_docks();
@@ -69,7 +73,6 @@ Knot_Window::Knot_Window(QWidget *parent) :
 
     init_dialogs(); // keep this as last
 
-    connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
 }
 
 Knot_Window::~Knot_Window()
@@ -625,6 +628,9 @@ void Knot_Window::config()
     config_dlg.save_toolbars_check->setChecked(save_toolbars);
     config_dlg.max_recent->setValue(max_recent_files);
     config_dlg.cache_mode->setCurrentIndex(canvas->get_cache_mode());
+    config_dlg.select_current_language();
+
+
     if ( !config_dlg.exec() )
         return;
 

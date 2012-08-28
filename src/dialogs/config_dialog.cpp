@@ -163,10 +163,17 @@ void config_dialog::add_toolbar(QToolBar *tb)
     }
 }
 
+void config_dialog::select_current_language()
+{
+    language_combo->setCurrentIndex(language_combo->findText(Translator::object.current_lang_name()));
+}
+
 
 void config_dialog::retranslate()
 {
+    QSize sz = get_icon_size();
     retranslateUi(this);
+    set_icon_size(sz);
 }
 
 void config_dialog::on_menu_combo_activated(const QString &arg1)

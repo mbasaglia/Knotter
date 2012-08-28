@@ -50,6 +50,8 @@ class Translator : public QObject
 
         static QString language_name ( QString lang_code, bool issue_warning = false );
 
+        static void load_system_default();
+
         ~Translator();
 
         void register_default_translation ( QString name, QString code );
