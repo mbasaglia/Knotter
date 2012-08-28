@@ -68,7 +68,15 @@ void Translator::initialize(QString default_code)
 
 QString Translator::language_name(QString lang_code, bool issue_warning)
 {
-    QString name = QLocale(lang_code).nativeLanguageName();
+    QLocale lang_loc = QLocale(lang_code);
+    QString name;
+
+    #if HAS_QT_4_8
+        name = lang_loc.nativeLanguageName(); // native name
+    #else
+        name = QLocale::languageToString(lang_loc.language()); // English name
+    #endif
+
     if ( !name.isEmpty() )
         name[0] = name[0].toUpper();
     else if ( issue_warning )

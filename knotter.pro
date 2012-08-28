@@ -49,6 +49,11 @@ CONFIG(debug, debug|release) {
     QMAKE_CXXFLAGS += -Werror -Wall -Wextra
 }
 
+
+!lessThan(QT_VERSION,"4.8"){
+    DEFINES += HAS_QT_4_8
+}
+
 MYDISTFILES =  $$OTHER_FILES knotter.pro
 MYDISTDIRS  =  src include img translations user_guide
 
@@ -122,3 +127,4 @@ DEFINES += "DOC_DIR=\\\"$${DOCDIR}\\\""
 
 target.path = $$BINDIR
 INSTALLS += target
+
