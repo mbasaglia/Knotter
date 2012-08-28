@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFile>
 #include "translator.hpp"
 
+
 std::ostream& operator<< ( std::ostream&os, QString str )
 {
     return os << str.toStdString();
@@ -40,11 +41,9 @@ int main(int argc, char *argv[])
 {
     ErrorRecovery::initialize();
 
-    Translator::object.register_default_translation("English","en");
-    Translator::object.register_translation("Italiano", "it", "knotter_it.qm" );
-    Translator::object.register_translation(QString::fromUtf8("Čeština"), "cs", "knotter_cs.qm" );
-
     QApplication a(argc, argv);
+
+    Translator::initialize("en");
 
     Knot_Window w;
 

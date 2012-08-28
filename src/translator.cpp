@@ -27,12 +27,56 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QCoreApplication>
 #include "resource_loader.hpp"
 #include <algorithm>
+#include <QDir>
+#include <QDebug>
+#include <QLocale>
 
 Translator Translator::object;
 
 Translator::Translator()
     : current ( NULL )
 {}
+
+void Translator::initialize(QString default_code)
+{
+    if ( !default_code.isEmpty() )
+    {
+        QString name = language_name(default_code,true);
+        if ( !name.isEmpty() )
+            object.register_default_translation(name,default_code);
+    }
+
+    QDir translations = load::resource_name(DATA_DIR,"translations" );
+    QStringList translation_files = translations.entryList(QStringList()<<"*.qm");
+
+    QRegExp re("[^_]+_([^.]+)\\.qm");
+    foreach ( QString file, translation_files )
+    {
+        if ( re.exactMatch(file) )
+        {
+            QString code = re.cap(1);
+            QString name = language_name(code,true);
+            if ( !name.isEmpty() )
+                object.register_translation(name,code,file);
+        }
+        else
+            qWarning() << tr("Warning:")
+                       << tr("Unrecognised translation file name pattern: %1").arg(file);
+    }
+
+}
+
+QString Translator::language_name(QString lang_code, bool issue_warning)
+{
+    QString name = QLocale(lang_code).nativeLanguageName();
+    if ( !name.isEmpty() )
+        name[0] = name[0].toUpper();
+    else if ( issue_warning )
+        qWarning() << tr("Warning:")
+                   << tr("Unrecognised language code: %1").arg(lang_code);
+
+    return name;
+}
 
 Translator::~Translator()
 {
@@ -70,7 +114,7 @@ QTranslator *Translator::current_translator() const
 }
 static int cmpstr ( const QString & s1, const QString & s2 )
 {
-    return QString::localeAwareCompare(s1,s2);
+    return QString::localeAwareCompare(s1,s2) < 0;
 }
 QStringList Translator::available_languages() const
 {

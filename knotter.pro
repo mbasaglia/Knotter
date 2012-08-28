@@ -98,12 +98,17 @@ contains(SINGLE_FILE,yes) {
     isEmpty(DOCDIR){
         DOCDIR=.
     }
+
     img.files = img/*
     img.path = $${DATADIR}/img
+
     doc.files = user_guide/*
     doc.path = $${DOCDIR}/user_guide
 
-    INSTALLS += img doc
+    translations.files = translations/*.qm
+    translations.path = $${DATADIR}/translations
+
+    INSTALLS += img doc translations
 
 }
 

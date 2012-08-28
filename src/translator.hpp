@@ -38,12 +38,17 @@ class Translator : public QObject
         Translator(); // singleton
         Translator(const Translator&);
 
-        QMap<QString,QString> lang_names; // map lang_name -> lang_code
-        QMap<QString,QTranslator*> translators; // map lang_code -> translator
+        QMap<QString,QString> lang_names; ///< map lang_name -> lang_code
+        QMap<QString,QTranslator*> translators; ///< map lang_code -> translator
         QTranslator* current;
 
     public:
         static Translator object;
+
+        /// load translations files from DATA_DIR/translations
+        static void initialize(QString default_code=QString());
+
+        static QString language_name ( QString lang_code, bool issue_warning = false );
 
         ~Translator();
 
