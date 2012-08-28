@@ -189,9 +189,14 @@ void Node::set_custom_style(styleinfo si)
     custom_style = si;
 }
 
-void Node::unset_custom_style()
+void Node::disable_custom_style()
 {
     custom_style_enabled = false;
+}
+
+void Node::enable_custom_style()
+{
+    custom_style_enabled = true;
 }
 
 

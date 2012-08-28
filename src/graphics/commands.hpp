@@ -28,7 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     Here are located the Undo/Redo commands.
 
     Note that when KnotView needs to alter the graph it creates one of these,
-    which then calls KnotView backto perform the action
+    which then calls KnotView back to perform the action
+
+    \todo translatebale names
 */
 #ifndef COMMANDS_HPP
 #define COMMANDS_HPP
@@ -63,7 +65,7 @@ class AddNode : public LastNodeCommand
         AddNode ( Node* node, node_list links, KnotView* kv )
             : node ( node ), links (links), kv ( kv )
         {
-            setText("Insert Node");
+            setText(KnotView::tr("Insert Node"));
         }
 
         void undo() { kv->do_remove_node(node); }
@@ -92,7 +94,7 @@ class RemoveNode : public QUndoCommand
         RemoveNode ( Node* node, node_list links, KnotView* kv )
             : node ( node ), links (links), kv ( kv )
         {
-            setText("Remove Node");
+            setText(KnotView::tr("Remove Node"));
         }
 
         void undo() { kv->do_add_node(node,links); }
@@ -112,7 +114,7 @@ class AddEdge : public LastNodeCommand
         AddEdge ( Node* n1, Node* n2, KnotView* kv )
             : n1 ( n1 ), n2 ( n2 ), kv ( kv )
         {
-            setText("Insert Edge");
+            setText(KnotView::tr("Insert Edge"));
         }
 
         void undo() { kv->unlink(n1,n2); }
@@ -133,7 +135,7 @@ class RemoveEdge : public QUndoCommand
         RemoveEdge ( Node* n1, Node* n2, KnotView* kv )
             : n1 ( n1 ), n2 ( n2 ), kv ( kv )
         {
-            setText("Remove Edge");
+            setText(KnotView::tr("Remove Edge"));
         }
 
         void undo() { kv->link(n1,n2); }
@@ -154,7 +156,7 @@ class MoveNode : public QUndoCommand
         MoveNode ( Node* node, QPointF start_pos, QPointF end_pos, KnotView* kv )
             : node(node), start_pos ( start_pos ), end_pos ( end_pos ), kv ( kv )
         {
-            setText("Move Node");
+            setText(KnotView::tr("Move Node"));
         }
 
         void undo()
@@ -182,13 +184,13 @@ class ToggleEdge : public QUndoCommand
                     Edge::type_type to, KnotView* kv )
             : n1 ( n1 ), n2 ( n2 ), from ( from ), to ( to ), kv ( kv )
         {
-            setText("Change Edge Type");
+            setText(KnotView::tr("Change Edge Type"));
         }
 
         void undo() { kv->do_toggle_edge(n1,n2,from); }
         void redo() { kv->do_toggle_edge(n1,n2,to); }
 
-        int id() const {return 3*14159265;}
+        int id() const {return 0xD0C3D001;} // number: do cmd 001
 
         bool mergeWith(const QUndoCommand *other)
         {
@@ -202,6 +204,225 @@ class ToggleEdge : public QUndoCommand
         }
 
 
+};
+
+
+/**
+    \brief Change default node style
+*/
+class ChangeDefaultNodeStyle : public QUndoCommand
+{
+    styleinfo style_old, style_new;
+    KnotView* kv;
+
+    public:
+        ChangeDefaultNodeStyle ( styleinfo style_old, styleinfo  style_new, KnotView* kv )
+            : style_old(style_old), style_new(style_new), kv ( kv )
+        {
+            setText(KnotView::tr("Change default node style"));
+        }
+
+        void undo()
+        {
+            kv->do_set_default_style(style_old);
+        }
+        void redo()
+        {
+            kv->do_set_default_style(style_new);
+        }
+
+        int id() const {return 0xD0C3D002;} // number: do cmd 002
+
+        bool mergeWith(const QUndoCommand *other)
+        {
+            if (other->id() != id())
+                return false;
+            const ChangeDefaultNodeStyle* o = dynamic_cast<const ChangeDefaultNodeStyle*>(other);
+            if ( o )
+            {
+                style_new = o->style_new;
+                return true;
+            }
+            return false;
+        }
+};
+
+/**
+    \brief Change node style
+    \todo create commands on change
+*/
+class ChangeCustomNodeStyle : public QUndoCommand
+{
+    bool was_disabled;
+    Node *node;
+    styleinfo style_old, style_new;
+    KnotView* kv;
+
+    public:
+        ChangeCustomNodeStyle ( Node *node, styleinfo style_old, styleinfo  style_new, KnotView* kv )
+            : was_disabled(false), node(node),
+              style_old(style_old), style_new(style_new), kv ( kv )
+        {
+            was_disabled = !node->has_custom_style();
+            setText(KnotView::tr("Change node style"));
+        }
+
+        void undo()
+        {
+            if ( was_disabled )
+                node->disable_custom_style();
+            else
+                node->set_custom_style(style_old);
+            kv->redraw(true);
+        }
+        void redo()
+        {
+            node->set_custom_style(style_new);
+            kv->redraw(true);
+        }
+};
+/**
+    \brief Set node to follow default style
+*/
+class RemoveNodeStyle : public QUndoCommand
+{
+    Node *node;
+    KnotView* kv;
+    public:
+        RemoveNodeStyle ( Node *node, KnotView* kv )
+            : node(node), kv ( kv )
+        {
+            setText(KnotView::tr("Remove custom node style"));
+        }
+
+        void undo()
+        {
+            node->enable_custom_style();
+            kv->redraw(true);
+        }
+        void redo()
+        {
+            node->disable_custom_style();
+            kv->redraw(true);
+        }
+};
+
+/**
+    \brief Change knot width
+*/
+class ChangeKnotWidth : public QUndoCommand
+{
+    double old_width, new_width;
+    KnotView* kv;
+
+    public:
+        ChangeKnotWidth ( double old_width, double new_width, KnotView* kv )
+            : old_width(old_width), new_width(new_width), kv ( kv )
+        {
+            setText(KnotView::tr("Change knot width"));
+        }
+
+        void undo() { kv->do_set_width(old_width); }
+        void redo() { kv->do_set_width(new_width); }
+
+        int id() const {return 0xD0C3D003;} // number: do cmd 003
+
+        bool mergeWith(const QUndoCommand *other)
+        {
+            if (other->id() != id())
+                return false;
+            const ChangeKnotWidth* o = dynamic_cast<const ChangeKnotWidth*>(other);
+            if ( o )
+            {
+                new_width = o->new_width;
+                return true;
+            }
+            return false;
+        }
+};
+/**
+    \brief Change knot color
+*/
+class ChangeKnotBrush : public QUndoCommand
+{
+    QBrush old_brush, new_brush;
+    KnotView* kv;
+
+    public:
+        ChangeKnotBrush ( QBrush old_brush, QBrush new_brush, KnotView* kv )
+            : old_brush(old_brush), new_brush(new_brush), kv ( kv )
+        {
+            setText(KnotView::tr("Change knot color"));
+        }
+
+        void undo() { kv->do_set_brush(old_brush); }
+        void redo() { kv->do_set_brush(new_brush); }
+
+        int id() const {return 0xD0C3D004;} // number: do cmd 004
+
+        bool mergeWith(const QUndoCommand *other)
+        {
+            if (other->id() != id())
+                return false;
+            const ChangeKnotBrush* o = dynamic_cast<const ChangeKnotBrush*>(other);
+            if ( o )
+            {
+                new_brush = o->new_brush;
+                return true;
+            }
+            return false;
+        }
+};
+/**
+    \brief Change knot outline
+*/
+class ChangeKnotPen : public QUndoCommand
+{
+    QPen old_pen, new_pen;
+    KnotView* kv;
+
+    public:
+        ChangeKnotPen ( QPen old_pen, QPen new_pen, KnotView* kv )
+            : old_pen(old_pen), new_pen(new_pen), kv ( kv )
+        {
+            setText(KnotView::tr("Change knot outline"));
+        }
+
+        void undo() { kv->do_set_pen(old_pen); }
+        void redo() { kv->do_set_pen(new_pen); }
+
+        int id() const {return 0xD0C3D005;} // number: do cmd 005
+
+        bool mergeWith(const QUndoCommand *other)
+        {
+            if (other->id() != id())
+                return false;
+            const ChangeKnotPen* o = dynamic_cast<const ChangeKnotPen*>(other);
+            if ( o )
+            {
+                new_pen = o->new_pen;
+                return true;
+            }
+            return false;
+        }
+};
+/**
+    \brief Change knot join style
+*/
+class ChangeKnotJoinStyle : public QUndoCommand
+{
+    Qt::PenJoinStyle old_pjs, new_pjs;
+    KnotView* kv;
+
+    public:
+        ChangeKnotJoinStyle ( Qt::PenJoinStyle old_pjs, Qt::PenJoinStyle new_pjs, KnotView* kv )
+            : old_pjs(old_pjs), new_pjs(new_pjs), kv ( kv )
+        {
+            setText(KnotView::tr("Change knot point style"));
+        }
+
+        void undo() { kv->do_set_join_style(old_pjs); }
+        void redo() { kv->do_set_join_style(new_pjs); }
 };
 
 

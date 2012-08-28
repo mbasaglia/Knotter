@@ -81,7 +81,7 @@ class KnotView : public QGraphicsView
     /**
         \defgroup do_command  Alter graph
         These functions do exactly what they say
-        \see request_command
+        \see request_command knotview_style
         @{
     */
 
@@ -97,6 +97,14 @@ class KnotView : public QGraphicsView
         void unlink ( Node*a, Node*b );
         /// Change the edge type between a and b
         void do_toggle_edge ( Node*a, Node*b, Edge::type_type type );
+
+
+        void do_set_join_style(Qt::PenJoinStyle);
+        void do_set_default_style ( styleinfo si );
+        void do_set_brush ( QBrush b );
+        void do_set_brush_color ( QColor c );
+        void do_set_pen ( QPen p );
+        void do_set_width ( double w );
 
     /// @}
 // misc actions
@@ -125,6 +133,9 @@ class KnotView : public QGraphicsView
         Qt::PenJoinStyle get_join_style() const;
 
         QGraphicsItem::CacheMode get_cache_mode() const;
+
+        void disable_custom_style(Node*n);
+        void set_custom_style ( Node*n, styleinfo sty );
 
     public slots:
         void set_join_style(Qt::PenJoinStyle);

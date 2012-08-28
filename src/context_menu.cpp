@@ -71,8 +71,7 @@ void node_cxmn::no_custom_style()
 {
     if ( n && kv )
     {
-        n->unset_custom_style();
-        kv->redraw(true);
+        kv->disable_custom_style(n);
     }
 }
 

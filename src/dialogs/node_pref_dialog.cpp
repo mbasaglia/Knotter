@@ -26,9 +26,9 @@ node_pref_dialog::node_pref_dialog(KnotView* knot_view, Node *node, QWidget *par
 void node_pref_dialog::on_buttonBox_accepted()
 {
     if ( use_default->isChecked() )
-        node->unset_custom_style();
+        knot_view->disable_custom_style(node);
     else
-        node->set_custom_style ( style_form->get_style_info() );
+        knot_view->set_custom_style ( node, style_form->get_style_info() );
 
     knot_view->redraw(true);
 }

@@ -945,9 +945,33 @@ void KnotView::paint_knot(QPainter *painter, QRectF area, bool minimal)
     knot.setCacheMode(backup_cache);
 }
 
-void KnotView::set_width(double w)
+void KnotView::do_set_width(double w)
 {
     knot.set_width(w);
+    redraw(true);
+}
+
+void KnotView::do_set_pen(QPen p)
+{
+    knot.setPen(p);
+    redraw(false);
+}
+void KnotView::do_set_brush(QBrush b)
+{
+    knot.setBrush(b);
+    redraw(false);
+}
+
+void KnotView::do_set_default_style(styleinfo si)
+{
+    knot.set_style_info ( si );
+    redraw(true);
+}
+
+
+void KnotView::do_set_join_style(Qt::PenJoinStyle pjs)
+{
+    knot.set_join_style(pjs);
     redraw(true);
 }
 
@@ -961,29 +985,11 @@ double KnotView::get_width() const
     return knot.get_width();
 }
 
-void KnotView::set_pen(QPen p)
-{
-    /// \bug pen width = 0 still renders outline (caused by Qt, width = 0 => 1px cosmetic )
-    knot.setPen(p);
-    redraw(false);
-}
-
 QPen KnotView::get_pen() const
 {
     return knot.pen();
 }
 
-void KnotView::set_brush(QBrush b)
-{
-    knot.setBrush(b);
-    redraw(false);
-}
-
-void KnotView::set_brush_color(QColor c)
-{
-    knot.setBrush(c);
-    redraw(false);
-}
 
 QBrush KnotView::get_brush() const
 {
@@ -995,56 +1001,6 @@ styleinfo KnotView::get_default_style() const
     return knot.get_style_info();
 }
 
-void KnotView::set_default_style(styleinfo si)
-{
-    knot.set_style_info ( si );
-    redraw(true);
-}
-/*
-knot_curve_styler::style_id KnotView::get_curve_style() const
-{
-    return knot.get_curve_style();
-}
-
-void KnotView::set_curve_style(knot_curve_styler::style_id si)
-{
-    knot.set_curve_style ( si );
-    redraw(true);
-}
-
-double KnotView::get_cusp_angle() const
-{
-    return knot.get_cusp_angle();
-}
-
-void KnotView::set_cusp_angle(double ca)
-{
-    knot.set_cusp_angle ( ca );
-    redraw(true);
-}
-
-double KnotView::get_handle_length() const
-{
-    return knot.get_handle_length();
-}
-
-void KnotView::set_handle_length(double hl)
-{
-    knot.set_handle_length(hl);
-    redraw(true);
-}
-
-double KnotView::get_crossing_distance() const
-{
-    return knot.get_crossing_distance();
-}
-
-void KnotView::set_crossing_distance(double cd)
-{
-    knot.set_crossing_distance(cd);
-    redraw(true);
-}
-*/
 Qt::PenJoinStyle KnotView::get_join_style() const
 {
     return knot.get_join_style();
@@ -1055,10 +1011,44 @@ QGraphicsItem::CacheMode KnotView::get_cache_mode() const
     return knot.cacheMode();
 }
 
+void KnotView::disable_custom_style(Node *n)
+{
+    undo_stack.push(new RemoveNodeStyle(n,this) );
+}
+
+void KnotView::set_custom_style(Node *n, styleinfo sty)
+{
+    undo_stack.push(new ChangeCustomNodeStyle(n,n->get_custom_style(),sty,this) );
+}
+
 void KnotView::set_join_style(Qt::PenJoinStyle pjs)
 {
-    knot.set_join_style(pjs);
-    redraw(true);
+    undo_stack.push(new ChangeKnotJoinStyle(get_join_style(),pjs,this));
+}
+
+void KnotView::set_default_style(styleinfo si)
+{
+    undo_stack.push(new ChangeDefaultNodeStyle(get_default_style(),si,this));
+}
+
+void KnotView::set_brush(QBrush b)
+{
+    undo_stack.push(new ChangeKnotBrush(get_brush(),b,this));
+}
+
+void KnotView::set_brush_color(QColor c)
+{
+    set_brush(c);
+}
+
+void KnotView::set_pen(QPen p)
+{
+    undo_stack.push(new ChangeKnotPen(get_pen(),p,this));
+}
+
+void KnotView::set_width(double w)
+{
+    undo_stack.push(new ChangeKnotWidth(get_width(),w,this));
 }
 
 

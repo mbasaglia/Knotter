@@ -114,7 +114,8 @@ class Node : public CustomItem
         const styleinfo& get_custom_style() const { return custom_style; }
 
         void set_custom_style ( styleinfo si );
-        void unset_custom_style ();
+        void disable_custom_style ();
+        void enable_custom_style ();
 };
 
 /// Used very often
