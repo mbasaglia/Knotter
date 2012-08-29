@@ -37,12 +37,12 @@ void initialize_icon_theme()
     if ( !QIcon::hasThemeIcon("document-new") )
     {
         QIcon::setThemeSearchPaths( QIcon::themeSearchPaths()
-                                    << resource_url(DATA_DIR,"img").toString() );
+                                    << resource_url(DATA_DIR,"themes").toString() );
         QIcon::setThemeName("tango-icons");
     }
   #elif defined(TANGO_DEFAULT)
         QIcon::setThemeSearchPaths( QStringList()
-                                    << resource_name(DATA_DIR,"img") );
+                                    << resource_name(DATA_DIR,"themes") );
         QIcon::setThemeName("tango-icons");
   #endif
 }

@@ -107,7 +107,7 @@ contains(SINGLE_FILE,yes) {
     RESOURCES += data.qrc
 
     !isEmpty(TANGO){
-        RESOURCES += img/tango-icons/tango.qrc
+        RESOURCES += themes/tango-icons/tango.qrc
         message("Tango icons included in the executable as well")
     }
 
@@ -129,6 +129,13 @@ contains(SINGLE_FILE,yes) {
     translations.path = $${DATADIR}/translations
 
     INSTALLS += img doc translations
+
+
+    !isEmpty(TANGO){
+        tango_icons.files=themes/*
+        tango_icons.path = $${DATADIR}/themes
+        INSTALLS += tango_icons
+    }
 
 }
 
