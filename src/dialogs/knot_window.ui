@@ -159,6 +159,8 @@
    <addaction name="action_Erase"/>
    <addaction name="action_Merge"/>
    <addaction name="separator"/>
+   <addaction name="actionInsert_Polygon"/>
+   <addaction name="separator"/>
    <addaction name="action_Horizontal_Flip"/>
    <addaction name="action_Vertical_Flip"/>
   </widget>

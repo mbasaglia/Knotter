@@ -867,5 +867,19 @@
         <file>scalable/status/weather-storm.svg</file>
         <file>tango.qrc</file>
         <file>tango.qrcr</file>
+        <file>16x16/actions/document-open-recent.png</file>
+        <file>16x16/actions/help-contents.png</file>
+        <file>16x16/actions/help-about.png</file>
+        <file>16x16/actions/application-exit.png</file>
+        <file>scalable/actions/document-open-recent.svg</file>
+        <file>scalable/actions/application-exit.svg</file>
+        <file>scalable/actions/help-about.svg</file>
+        <file>scalable/actions/help-contents.svg</file>
+        <file>scalable/actions/view-restore.svg</file>
+        <file>scalable/actions/zoom-in.svg</file>
+        <file>scalable/actions/zoom-original.svg</file>
+        <file>scalable/actions/zoom-out.svg</file>
+        <file>scalable/categories/preferences-other.svg</file>
+        <file>16x16/categories/preferences-other.png</file>
     </qresource>
 </RCC>
