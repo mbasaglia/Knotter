@@ -83,6 +83,7 @@ Knot_Window::~Knot_Window()
 
 void Knot_Window::update_ui()
 {
+
     default_node_style_form->set_style_info(canvas->get_default_style());
 
     global_style_frm->set_join_style(canvas->get_join_style());

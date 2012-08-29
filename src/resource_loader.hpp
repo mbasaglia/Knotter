@@ -31,6 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace load {
 
+/// if no default theme is found, use tango as fallback
+void initialize_icon_theme();
+
 QIcon icon ( QString name );
 
 /**

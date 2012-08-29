@@ -73,7 +73,7 @@ QSize config_dialog::get_icon_size() const
     {
         case 0: return QSize(16,16);
         default:
-        case 1: return QSize(24,24);
+        case 1: return QSize(22,22);
         case 2: return QSize(32,32);
         case 3: return QSize(48,48);
     }

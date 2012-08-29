@@ -31,6 +31,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace load {
 
+void initialize_icon_theme()
+{
+  #ifdef TANGO_FALLBACK
+    if ( !QIcon::hasThemeIcon("document-new") )
+    {
+        QIcon::setThemeSearchPaths( QIcon::themeSearchPaths()
+                                    << resource_url(DATA_DIR,"img").toString() );
+        QIcon::setThemeName("tango-icons");
+    }
+  #elif defined(TANGO_DEFAULT)
+        QIcon::setThemeSearchPaths( QStringList()
+                                    << resource_name(DATA_DIR,"img") );
+        QIcon::setThemeName("tango-icons");
+  #endif
+}
 
 QIcon icon ( QString name )
 {

@@ -90,12 +90,27 @@ QMAKE_EXTRA_TARGETS += src_doc Doxyfile
 
 #check directories and options from configure.sh
 
+contains (TANGO,default){
+    DEFINES += TANGO_DEFAULT
+    message("Using Tango icons")
+}
+contains(TANGO,fallback){
+    DEFINES += TANGO_FALLBACK
+    message("Using Tango icons as fallback")
+}
+
 contains(SINGLE_FILE,yes) {
     BINDIR=.
     DATADIR=:/data
     DOCDIR=:/doc
     message("Compiling all data in a single executable file")
     RESOURCES += data.qrc
+
+    !isEmpty(TANGO){
+        RESOURCES += img/tango-icons/tango.qrc
+        message("Tango icons included in the executable as well")
+    }
+
 } else {
     isEmpty(DATADIR){
         DATADIR=.
@@ -121,10 +136,13 @@ isEmpty(BINDIR){
     BINDIR=.
 }
 
+
 DEFINES += "DATA_DIR=\\\"$${DATADIR}\\\""
 
 DEFINES += "DOC_DIR=\\\"$${DOCDIR}\\\""
 
 target.path = $$BINDIR
 INSTALLS += target
+
+RESOURCES +=
 

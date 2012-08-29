@@ -101,7 +101,7 @@
    <item row="0" column="1">
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="stackedWidgetPage1">
       <layout class="QGridLayout" name="gridLayout_2">
@@ -121,7 +121,7 @@
          </item>
          <item>
           <property name="text">
-           <string>Medium (24x24)</string>
+           <string>Medium (22x22)</string>
           </property>
          </item>
          <item>

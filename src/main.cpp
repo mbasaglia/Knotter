@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QSvgGenerator>
 #include <QFile>
 #include "translator.hpp"
+#include "resource_loader.hpp"
 
 
 std::ostream& operator<< ( std::ostream&os, QString str )
@@ -42,6 +43,8 @@ int main(int argc, char *argv[])
     ErrorRecovery::initialize();
 
     QApplication a(argc, argv);
+
+    load::initialize_icon_theme();
 
     Translator::initialize("en");
     Translator::load_system_default();

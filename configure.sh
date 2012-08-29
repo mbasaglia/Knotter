@@ -47,13 +47,13 @@ Header files:Data root:Data:Documentation:Man pages:"
 #print directory option, description and current value
 help_dirs() {
     desctail=$desclist
-    echo "Option:Description:Current Value"
+    echo "    Option:Description:Current Value"
     for key in $dirlist
     do
         desc=`echo $desctail | sed "s/:.*//" `
         desctail=`echo $desctail | sed "s/[^:]*://" `
         eval "val=\$$key"
-        echo "--$key=DIR:$desc:$val"
+        echo "    --$key=DIR:$desc:$val"
     done
 }
 
@@ -80,6 +80,8 @@ cat <<_HELP_
 
 Optional components:
     --without-webkit    Remove the dependency on QtWebkit
+    --with-tango        Use Tango icons as fallback if no system theme is found
+    --with-tango-default Use Tango icons as default icon theme
 
 Environment variables:
     QMAKE               Override qmake command
@@ -126,6 +128,12 @@ do
             ;;
         --without-webkit)
             qmake_opts="$qmake_opts WEBKIT=no"
+            ;;
+        --with-tango)
+            qmake_opts="$qmake_opts TANGO=fallback"
+            ;;
+        --with-tango-default)
+            qmake_opts="$qmake_opts TANGO=default"
             ;;
         *)
             echo "Ignoring option $arg"
@@ -189,7 +197,7 @@ then
     make -s distclean || rm Makefile
 fi
 
-qmake_opts="$qmake_opts BINDIR=$bindir DATADIR=$datadir DOCDIR=$docdir"
+qmake_opts="$qmake_opts BINDIR=$bindir DATADIR=$datadir DOCDIR=$docdir "
 qmake_command="$QMAKE $qmake_opts $qmake_pro_file"
 echo $qmake_command
 if $qmake_command && [ -f Makefile ]
