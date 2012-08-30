@@ -2,6 +2,70 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="cs_CZ">
 <context>
+    <name>AddEdge</name>
+    <message>
+        <location filename="../src/graphics/commands.cpp" line="124"/>
+        <source>Insert Edge</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AddNode</name>
+    <message>
+        <location filename="../src/graphics/commands.cpp" line="77"/>
+        <source>Insert Node</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeCustomNodeStyle</name>
+    <message>
+        <location filename="../src/graphics/commands.cpp" line="274"/>
+        <source>Change node style</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeDefaultNodeStyle</name>
+    <message>
+        <location filename="../src/graphics/commands.cpp" line="210"/>
+        <source>Change default node style</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeKnotBrush</name>
+    <message>
+        <location filename="../src/graphics/commands.cpp" line="387"/>
+        <source>Change knot color</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeKnotJoinStyle</name>
+    <message>
+        <location filename="../src/graphics/commands.cpp" line="450"/>
+        <source>Change knot point style</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeKnotPen</name>
+    <message>
+        <location filename="../src/graphics/commands.cpp" line="392"/>
+        <source>Change knot outline</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeKnotWidth</name>
+    <message>
+        <location filename="../src/graphics/commands.cpp" line="302"/>
+        <source>Change knot width</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Export_Dialog</name>
     <message>
         <location filename="../src/dialogs/export_dialog.ui" line="14"/>
@@ -90,44 +154,44 @@
         <translation>100%</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.cpp" line="46"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="48"/>
         <source>Export Knot as SVG</source>
         <translation>Vyvést uzel jako SVG</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.cpp" line="53"/>
-        <location filename="../src/dialogs/export_dialog.cpp" line="102"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="55"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="104"/>
         <source>File Error</source>
         <translation>Chyba souboru</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.cpp" line="53"/>
-        <location filename="../src/dialogs/export_dialog.cpp" line="102"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="55"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="104"/>
         <source>Could not write to &quot;%1&quot;.</source>
         <translation>Nepodařilo se zapsat do &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.cpp" line="78"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="80"/>
         <source>PNG Images (*.png)</source>
         <translation>Obrázky PNG (*.png)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.cpp" line="79"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="81"/>
         <source>Jpeg Images (*.jpg *.jpeg)</source>
         <translation>Obrázky JPEG (*.jpg *.jpeg)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.cpp" line="80"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="82"/>
         <source>Bitmap (*.bmp)</source>
         <translation>Bitmapa (*.bmp)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.cpp" line="81"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="83"/>
         <source>All files (*)</source>
         <translation>Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.cpp" line="85"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="87"/>
         <source>Export Knot as Image</source>
         <translation>Vyvést uzel jako obrázek</translation>
     </message>
@@ -205,9 +269,8 @@
         <translation>Příručka ke Knotteru</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/help_view.ui" line="21"/>
         <source>about:blank</source>
-        <translation>about:blank</translation>
+        <translation type="obsolete">about:blank</translation>
     </message>
 </context>
 <context>
@@ -223,32 +286,32 @@
         <translation>Nahrát uzel</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1152"/>
+        <location filename="../src/graphics/knotview.cpp" line="1147"/>
         <source>Break Edge</source>
         <translation>Přerušit okraj</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1290"/>
+        <location filename="../src/graphics/knotview.cpp" line="1285"/>
         <source>Move Nodes</source>
         <translation>Přesunout uzly</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1415"/>
+        <location filename="../src/graphics/knotview.cpp" line="1410"/>
         <source>Remove Nodes</source>
         <translation>Odstranit uzly</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1426"/>
+        <location filename="../src/graphics/knotview.cpp" line="1421"/>
         <source>Link Nodes</source>
         <translation>Propojit uzly</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1440"/>
+        <location filename="../src/graphics/knotview.cpp" line="1435"/>
         <source>Unlink Nodes</source>
         <translation>Rozpojit uzly</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1464"/>
+        <location filename="../src/graphics/knotview.cpp" line="1459"/>
         <source>Merge Nodes</source>
         <translation>Sloučit uzly</translation>
     </message>
@@ -316,394 +379,467 @@
         <translation>Úpravy uzlu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="167"/>
+        <location filename="../src/dialogs/knot_window.ui" line="169"/>
         <source>Main</source>
         <translation>Hlavní</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="190"/>
+        <location filename="../src/dialogs/knot_window.ui" line="192"/>
         <source>View</source>
         <translation>Pohled</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="207"/>
+        <location filename="../src/dialogs/knot_window.ui" line="209"/>
         <source>&amp;Save</source>
         <translation>&amp;Uložit</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="212"/>
+        <location filename="../src/dialogs/knot_window.ui" line="214"/>
         <source>Save &amp;As...</source>
         <translation>Uložit &amp;jako...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="217"/>
+        <location filename="../src/dialogs/knot_window.ui" line="219"/>
         <source>E&amp;xport...</source>
         <translation>&amp;Vyvést...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="222"/>
+        <location filename="../src/dialogs/knot_window.ui" line="224"/>
         <source>&amp;Open</source>
         <translation>&amp;Otevřít</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="227"/>
+        <location filename="../src/dialogs/knot_window.ui" line="229"/>
         <source>&amp;New</source>
         <translation>&amp;Nový</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="232"/>
+        <location filename="../src/dialogs/knot_window.ui" line="234"/>
         <source>&amp;Quit</source>
         <translation>&amp;Ukončit</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="243"/>
+        <location filename="../src/dialogs/knot_window.ui" line="245"/>
         <source>&amp;Edges and Nodes</source>
         <translation>O&amp;kraje a uzly</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="246"/>
+        <location filename="../src/dialogs/knot_window.ui" line="248"/>
         <source>Alt+Shift+E</source>
         <translation>Alt+Shift+E</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="254"/>
+        <location filename="../src/dialogs/knot_window.ui" line="256"/>
         <source>Edge &amp;List</source>
         <translation>&amp;Seznam uzlů</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="257"/>
+        <location filename="../src/dialogs/knot_window.ui" line="259"/>
         <source>Alt+Shift+L</source>
         <translation>Alt+Shift+L</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="262"/>
+        <location filename="../src/dialogs/knot_window.ui" line="264"/>
         <source>&amp;Link</source>
         <translation>Spo&amp;jit</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="265"/>
+        <location filename="../src/dialogs/knot_window.ui" line="267"/>
         <source>Link Selected Nodes</source>
         <translation>Spojit vybrané uzly</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="268"/>
+        <location filename="../src/dialogs/knot_window.ui" line="270"/>
         <source>Ctrl+L</source>
         <translation>Ctrl+L</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="273"/>
+        <location filename="../src/dialogs/knot_window.ui" line="275"/>
         <source>&amp;Erase</source>
         <translation>&amp;Vymazat</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="276"/>
+        <location filename="../src/dialogs/knot_window.ui" line="278"/>
         <source>Erase Selected Nodes</source>
         <translation>Vymazat vybrané uzly</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="279"/>
+        <location filename="../src/dialogs/knot_window.ui" line="281"/>
         <source>Del</source>
         <translation>Delete</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="284"/>
+        <location filename="../src/dialogs/knot_window.ui" line="286"/>
         <source>&amp;Merge</source>
         <translation>&amp;Sloučit</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="287"/>
+        <location filename="../src/dialogs/knot_window.ui" line="289"/>
         <source>Merge Selected Nodes</source>
         <translation>Sloučit vybrané uzly</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="290"/>
+        <location filename="../src/dialogs/knot_window.ui" line="292"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="295"/>
-        <location filename="../src/dialogs/knot_window.cpp" line="115"/>
+        <location filename="../src/dialogs/knot_window.ui" line="297"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="125"/>
         <source>&amp;Undo</source>
         <translation>&amp;Zpět</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="300"/>
-        <location filename="../src/dialogs/knot_window.cpp" line="121"/>
+        <location filename="../src/dialogs/knot_window.ui" line="302"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="131"/>
         <source>&amp;Redo</source>
         <translation>&amp;Znovu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="305"/>
+        <location filename="../src/dialogs/knot_window.ui" line="307"/>
         <source>Select &amp;All</source>
         <translation>Vybrat &amp;vše</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="310"/>
+        <location filename="../src/dialogs/knot_window.ui" line="312"/>
         <source>Refresh &amp;Path</source>
         <translation>Obnovit &amp;cestu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="315"/>
+        <location filename="../src/dialogs/knot_window.ui" line="317"/>
         <source>Zoom &amp;In</source>
         <translation>&amp;Přiblížit</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="320"/>
+        <location filename="../src/dialogs/knot_window.ui" line="322"/>
         <source>Zoom &amp;Out</source>
         <translation>&amp;Oddálit</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="325"/>
+        <location filename="../src/dialogs/knot_window.ui" line="327"/>
         <source>&amp;Reset Zoom</source>
         <translation>Nastavit &amp;zvětšení znovu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="328"/>
+        <location filename="../src/dialogs/knot_window.ui" line="330"/>
         <source>Ctrl+0</source>
         <translation>Ctrl+0</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="333"/>
+        <location filename="../src/dialogs/knot_window.ui" line="335"/>
         <source>&amp;Reset View</source>
         <translation>Nastavit po&amp;hled znovu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="344"/>
+        <location filename="../src/dialogs/knot_window.ui" line="346"/>
         <source>Show &amp;Graph</source>
         <translation>Ukázat o&amp;brazec</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="355"/>
+        <location filename="../src/dialogs/knot_window.ui" line="357"/>
         <source>Show Knot&amp;line</source>
         <translation>Ukázat šňů&amp;ru uzlu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="360"/>
+        <location filename="../src/dialogs/knot_window.ui" line="362"/>
         <source>Cu&amp;t</source>
         <translation>Vyj&amp;mout</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="365"/>
+        <location filename="../src/dialogs/knot_window.ui" line="367"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopírovat</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="370"/>
+        <location filename="../src/dialogs/knot_window.ui" line="372"/>
         <source>&amp;Paste</source>
         <translation>&amp;Vložit</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="375"/>
+        <location filename="../src/dialogs/knot_window.ui" line="377"/>
         <source>Pre&amp;ferences...</source>
         <translation>&amp;Nastavení...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="386"/>
+        <location filename="../src/dialogs/knot_window.ui" line="388"/>
         <source>&amp;Enable Grid</source>
         <translation>Povo&amp;lit mřížku</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="391"/>
+        <location filename="../src/dialogs/knot_window.ui" line="393"/>
         <source>Configure G&amp;rid...</source>
         <translation>Nastavit mřížk&amp;u...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="396"/>
+        <location filename="../src/dialogs/knot_window.ui" line="398"/>
         <source>&amp;Horizontal Flip</source>
         <translation>Vo&amp;dorovné převrácení</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="401"/>
+        <location filename="../src/dialogs/knot_window.ui" line="403"/>
         <source>&amp;Vertical Flip</source>
         <translation>Sv&amp;islé převrácení</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="406"/>
+        <location filename="../src/dialogs/knot_window.ui" line="408"/>
         <source>&amp;Move Grid</source>
         <translation>&amp;Posunout mřížku</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="414"/>
-        <location filename="../src/dialogs/knot_window.cpp" line="674"/>
+        <location filename="../src/dialogs/knot_window.ui" line="416"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="699"/>
         <source>No recent files</source>
         <translation>Žádné nedávné soubory</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="419"/>
+        <location filename="../src/dialogs/knot_window.ui" line="421"/>
         <source>&amp;Manual</source>
         <translation>Přír&amp;učka</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="424"/>
+        <location filename="../src/dialogs/knot_window.ui" line="426"/>
         <source>&amp;About...</source>
         <translation>&amp;O programu...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="429"/>
+        <location filename="../src/dialogs/knot_window.ui" line="431"/>
         <source>&amp;Unlink</source>
         <translation>&amp;Rozpojit</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="432"/>
+        <location filename="../src/dialogs/knot_window.ui" line="434"/>
         <source>Unlink selected nodes</source>
         <translation>Rozpojit vybrané uzly</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="437"/>
+        <location filename="../src/dialogs/knot_window.ui" line="439"/>
         <source>Insert Pol&amp;ygon...</source>
         <translation>Vložit mnohoú&amp;helník...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="183"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="193"/>
         <source>Action History</source>
         <translation>Historie činností</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="194"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="204"/>
         <source>Default Node Style</source>
         <translation>Výchozí styl uzlu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="210"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="225"/>
         <source>Knot Style</source>
         <translation>Styl uzlu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="302"/>
-        <location filename="../src/dialogs/knot_window.cpp" line="329"/>
-        <location filename="../src/dialogs/knot_window.cpp" line="341"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="322"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="349"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="361"/>
         <source>Warning:</source>
         <translation>Varování:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="303"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="323"/>
         <source>Not loading toolbar without name</source>
         <translation>Nástrojový panel bez názvu se nenahrává</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="330"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="350"/>
         <source>Not loading action without name</source>
         <translation>Činnost bez názvu se nenahrává</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="342"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="362"/>
         <source>Unknown action %1</source>
         <translation>Neznámá činnost %1</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="471"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="493"/>
         <source>Cut</source>
         <translation>Vyjmout</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="490"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="512"/>
         <source>Clear Document</source>
         <translation>Smazat dokument</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="503"/>
-        <location filename="../src/dialogs/knot_window.cpp" line="522"/>
-        <location filename="../src/dialogs/knot_window.cpp" line="532"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="525"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="544"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="554"/>
         <source>File Error</source>
         <translation>Chyba souboru</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="503"/>
-        <location filename="../src/main.cpp" line="67"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="525"/>
+        <location filename="../src/main.cpp" line="74"/>
         <source>Could not write to &quot;%1&quot;.</source>
         <translation>Nepodařilo se zapsat do &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="522"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="544"/>
         <source>Could not read &quot;%1&quot;.</source>
         <translation>Nepodařilo se přečíst &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="532"/>
-        <location filename="../src/main.cpp" line="98"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="554"/>
+        <location filename="../src/main.cpp" line="105"/>
         <source>Error while reading &quot;%1&quot;.</source>
         <translation>Chyba při čtení &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="557"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="579"/>
         <source>Save Knot</source>
         <translation>Uložit uzel</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="567"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="589"/>
         <source>Open Knot</source>
         <translation>Otevřít uzel</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="712"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="737"/>
         <source>About Knotter</source>
         <translation>O programu Knotter</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="730"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="755"/>
         <source>Insert Polygon</source>
         <translation>Vložit mnohoúhelník</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="730"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="755"/>
         <source>Sides</source>
         <translation>Strany</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="82"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="792"/>
+        <source>&lt;empty&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="89"/>
         <source>Usage: </source>
         <translation>Použití: </translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="84"/>
+        <location filename="../src/main.cpp" line="91"/>
         <source>Tell knotter to terminate when finished parsing the command-line arguments</source>
         <translation>Říct Knotteru, aby skončil, až skončí zpracování argumentů příkazového řádku</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="87"/>
+        <location filename="../src/main.cpp" line="94"/>
         <source>Convert currently loaded file into SVG</source>
         <translation>Převést nyní nahraný soubor na SVG</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="89"/>
+        <location filename="../src/main.cpp" line="96"/>
         <source>Show version info and exit</source>
         <translation>Ukázat intormace o převodu a ukončit</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="91"/>
+        <location filename="../src/main.cpp" line="98"/>
         <source>Show this message and exit</source>
         <translation>Ukázat tuto zprávu a ukončit</translation>
     </message>
 </context>
 <context>
+    <name>MoveNode</name>
+    <message>
+        <location filename="../src/graphics/commands.cpp" line="166"/>
+        <source>Move Node</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
-        <location filename="../src/error_recovery.cpp" line="45"/>
+        <location filename="../src/error_recovery.cpp" line="44"/>
         <source>A backup file has been saved at %1.</source>
         <translation>Soubor se zálohou byl uložen v %1.</translation>
     </message>
     <message>
-        <location filename="../src/error_recovery.cpp" line="50"/>
-        <source>Segmentation Fault</source>
-        <translation>Chyba rozdělení</translation>
+        <location filename="../src/error_recovery.cpp" line="49"/>
+        <source>Critical error</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/error_recovery.cpp" line="51"/>
+        <source>Segmentation Fault</source>
+        <translation type="obsolete">Chyba rozdělení</translation>
+    </message>
+    <message>
+        <location filename="../src/error_recovery.cpp" line="50"/>
         <source>A critical error has occurred, Knotter is about to crash.</source>
         <translation>Vyskytla se zásadní chyba. Knotter asi spadne.</translation>
     </message>
     <message>
-        <location filename="../src/resource_loader.cpp" line="57"/>
+        <location filename="../src/resource_loader.cpp" line="75"/>
         <source>Could not locate resource %1</source>
         <translation>Nepodařilo se najít zdroj %1</translation>
     </message>
 </context>
 <context>
+    <name>RemoveEdge</name>
+    <message>
+        <location filename="../src/graphics/commands.cpp" line="145"/>
+        <source>Remove Edge</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RemoveNode</name>
+    <message>
+        <location filename="../src/graphics/commands.cpp" line="98"/>
+        <source>Remove Node</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RemoveNodeStyle</name>
+    <message>
+        <location filename="../src/graphics/commands.cpp" line="297"/>
+        <source>Remove custom node style</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ToggleEdge</name>
+    <message>
+        <location filename="../src/graphics/commands.cpp" line="171"/>
+        <source>Change Edge Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Translator</name>
+    <message>
+        <location filename="../src/translator.cpp" line="63"/>
+        <location filename="../src/translator.cpp" line="83"/>
+        <location filename="../src/translator.cpp" line="156"/>
+        <source>Warning:</source>
+        <translation type="unfinished">Varování:</translation>
+    </message>
+    <message>
+        <location filename="../src/translator.cpp" line="64"/>
+        <source>Unrecognised translation file name pattern: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/translator.cpp" line="84"/>
+        <source>Unrecognised language code: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/translator.cpp" line="156"/>
+        <source>Language code %1 is not loaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>config_dialog</name>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="20"/>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation type="obsolete">Dialog</translation>
     </message>
     <message>
         <location filename="../src/dialogs/config_dialog.ui" line="86"/>
@@ -731,9 +867,18 @@
         <translation>Malá (16x16)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="124"/>
         <source>Medium (24x24)</source>
-        <translation>Střední (24x24)</translation>
+        <translation type="obsolete">Střední (24x24)</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/config_dialog.ui" line="20"/>
+        <source>Knotter Preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/config_dialog.ui" line="124"/>
+        <source>Medium (22x22)</source>
+        <translation type="unfinished">Střední (24x24) {22x?} {22)?}</translation>
     </message>
     <message>
         <location filename="../src/dialogs/config_dialog.ui" line="129"/>
@@ -776,102 +921,102 @@
         <translation>Tlačítka v nástrojovém panelu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="216"/>
-        <location filename="../src/dialogs/config_dialog.ui" line="219"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="210"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="213"/>
         <source>Move Up</source>
         <translation>Posunout nahoru</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="238"/>
-        <location filename="../src/dialogs/config_dialog.ui" line="241"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="232"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="235"/>
         <source>Move Down</source>
         <translation>Posunout dolů</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="273"/>
-        <location filename="../src/dialogs/config_dialog.ui" line="276"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="267"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="270"/>
         <source>Insert</source>
         <translation>Vložit</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="295"/>
-        <location filename="../src/dialogs/config_dialog.ui" line="298"/>
-        <location filename="../src/dialogs/config_dialog.ui" line="395"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="289"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="292"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="389"/>
         <source>Remove</source>
         <translation>Odstranit</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="330"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="324"/>
         <source>Add Separator</source>
         <translation>Přidat oddělovač</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="333"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="327"/>
         <source>Separator</source>
         <translation>Oddělovač</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="382"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="376"/>
         <source>Add Toolbar</source>
         <translation>Přidat nástrojový panel</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="385"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="379"/>
         <source>Add</source>
         <translation>Přidat</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="392"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="386"/>
         <source>Remove Toolbar</source>
         <translation>Odstranit nástrojový panel</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="411"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="405"/>
         <source>Max recent files</source>
         <translation>Největší počet naposledy otevřených souborů</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="428"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="422"/>
         <source>Clear recent file history</source>
         <translation>Vyprázdnit historii nedávných souborů</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="431"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="425"/>
         <source>Clear</source>
         <translation>Vyprázdnit</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="441"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="432"/>
         <source>Language</source>
         <translation>Jazyk</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="451"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="446"/>
         <source>Save between sessions</source>
         <translation>Uložit mezi sezeními</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="457"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="452"/>
         <source>Window state</source>
         <translation>Stav okna</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="467"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="462"/>
         <source>Toolbar buttons</source>
         <translation>Tlačítka v nástrojovém panelu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="480"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="475"/>
         <source>Knot style</source>
         <translation>Styl uzlu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="497"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="492"/>
         <source>Cache mode</source>
         <translation>Režim vyrovnávací paměti</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="504"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="499"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -888,32 +1033,32 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Silná vyrovnávací paměť&lt;/span&gt; - Uzlový vzor kreslen jako bitmapa, přiblížení sníží kvalitu&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="514"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="509"/>
         <source>No cache</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="519"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="514"/>
         <source>Heavy cache</source>
         <translation>Silná vyrovnávací paměť</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="524"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="519"/>
         <source>Mild cache</source>
         <translation>Slabá vyrovnávací paměť</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="535"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="530"/>
         <source>Redraw the knot while moving nodes</source>
         <translation>Překreslit uzel při přesunu uzlů</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="538"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="533"/>
         <source>Fluid refresh</source>
         <translation>Plynulá obnova</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.cpp" line="273"/>
+        <location filename="../src/dialogs/config_dialog.cpp" line="292"/>
         <source>Toolbar%1</source>
         <translation>Nástrojový panel %1</translation>
     </message>
@@ -921,57 +1066,57 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>edge_cxmn</name>
     <message>
-        <location filename="../src/context_menu.cpp" line="82"/>
+        <location filename="../src/context_menu.cpp" line="81"/>
         <source>Snap to grid</source>
         <translation>Přichytávat k mřížce</translation>
     </message>
     <message>
-        <location filename="../src/context_menu.cpp" line="83"/>
+        <location filename="../src/context_menu.cpp" line="82"/>
         <source>Remove</source>
         <translation>Odstranit</translation>
     </message>
     <message>
-        <location filename="../src/context_menu.cpp" line="85"/>
+        <location filename="../src/context_menu.cpp" line="84"/>
         <source>Edge type</source>
         <translation>Typ okraje</translation>
     </message>
     <message>
-        <location filename="../src/context_menu.cpp" line="86"/>
+        <location filename="../src/context_menu.cpp" line="85"/>
         <source>Regular</source>
         <translation>Pravidelný</translation>
     </message>
     <message>
-        <location filename="../src/context_menu.cpp" line="87"/>
+        <location filename="../src/context_menu.cpp" line="86"/>
         <source>Inverted</source>
         <translation>Obrácený</translation>
     </message>
     <message>
-        <location filename="../src/context_menu.cpp" line="88"/>
+        <location filename="../src/context_menu.cpp" line="87"/>
         <source>Wall</source>
         <translation>Hradba</translation>
     </message>
     <message>
-        <location filename="../src/context_menu.cpp" line="89"/>
+        <location filename="../src/context_menu.cpp" line="88"/>
         <source>Hole</source>
         <translation>Díra</translation>
     </message>
     <message>
-        <location filename="../src/context_menu.cpp" line="95"/>
+        <location filename="../src/context_menu.cpp" line="94"/>
         <source>Break on intersections</source>
         <translation>Přerušit při protnutí</translation>
     </message>
     <message>
-        <location filename="../src/context_menu.cpp" line="96"/>
+        <location filename="../src/context_menu.cpp" line="95"/>
         <source>Break...</source>
         <translation>Přerušit...</translation>
     </message>
     <message>
-        <location filename="../src/context_menu.cpp" line="179"/>
+        <location filename="../src/context_menu.cpp" line="178"/>
         <source>Break edge</source>
         <translation>Přerušit okraj</translation>
     </message>
     <message>
-        <location filename="../src/context_menu.cpp" line="180"/>
+        <location filename="../src/context_menu.cpp" line="179"/>
         <source>Number of segments</source>
         <translation>Počet částí</translation>
     </message>
@@ -979,85 +1124,84 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>global_style_form</name>
     <message>
-        <location filename="../src/dialogs/global_style_form.ui" line="14"/>
         <source>Form</source>
-        <translation>Formulář</translation>
+        <translation type="obsolete">Formulář</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/global_style_form.ui" line="20"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="17"/>
         <source>Knot</source>
         <translation>Uzel</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/global_style_form.ui" line="26"/>
-        <location filename="../src/dialogs/global_style_form.ui" line="98"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="23"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="95"/>
         <source>Width</source>
         <translation>Šířka</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/global_style_form.ui" line="33"/>
-        <location filename="../src/dialogs/global_style_form.ui" line="105"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="30"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="102"/>
         <source>px</source>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/global_style_form.ui" line="46"/>
-        <location filename="../src/dialogs/global_style_form.ui" line="121"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="43"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="118"/>
         <source>Color</source>
         <translation>Barva</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/global_style_form.ui" line="63"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="60"/>
         <source>Point Style</source>
         <translation>Styl bodu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/global_style_form.ui" line="71"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="68"/>
         <source>Bevel</source>
         <translation>Úkos</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/global_style_form.ui" line="76"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="73"/>
         <source>Miter</source>
         <translation>Pokos</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/global_style_form.ui" line="81"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="78"/>
         <source>Round</source>
         <translation>Kolo</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/global_style_form.ui" line="92"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="89"/>
         <source>Outline</source>
         <translation>Obrys</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/global_style_form.ui" line="138"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="135"/>
         <source>Pattern</source>
         <translation>Vzor</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/global_style_form.ui" line="152"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="149"/>
         <source>Solid</source>
         <translation>Plná čára</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/global_style_form.ui" line="157"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="154"/>
         <source>No Line</source>
         <translation>Žádná čára</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/global_style_form.ui" line="162"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="159"/>
         <source>Dotted</source>
         <translation>Tečkovaná čára</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/global_style_form.ui" line="167"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="164"/>
         <source>Dashed</source>
         <translation>Čárkovaná čára</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/global_style_form.ui" line="172"/>
+        <location filename="../src/dialogs/global_style_form.ui" line="169"/>
         <source>Dash Dot</source>
         <translation>Čárka tečka</translation>
     </message>
@@ -1083,9 +1227,13 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>node_pref_dialog</name>
     <message>
-        <location filename="../src/dialogs/node_pref_dialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation type="obsolete">Dialog</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/node_pref_dialog.ui" line="14"/>
+        <source>Node style</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/dialogs/node_pref_dialog.ui" line="20"/>
@@ -1096,59 +1244,58 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>node_style_form</name>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="14"/>
         <source>Form</source>
-        <translation>Formulář</translation>
+        <translation type="obsolete">Formulář</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="20"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="17"/>
         <source>Curve Control</source>
         <translation>Vedení křivky</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="27"/>
-        <location filename="../src/dialogs/node_style_form.ui" line="44"/>
-        <location filename="../src/dialogs/node_style_form.ui" line="84"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="24"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="41"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="81"/>
         <source>px</source>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="37"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="34"/>
         <source>Crossing Gap</source>
         <translation>Mezera křížení</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="54"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="51"/>
         <source>Min Cusp Angle</source>
         <translation>Nejmenší úhel špičky</translation>
     </message>
     <message utf8="true">
-        <location filename="../src/dialogs/node_style_form.ui" line="61"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="58"/>
         <source>°</source>
         <translation>°</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="77"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="74"/>
         <source>Cusp Distance</source>
         <translation>Vzdálenost špičky</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="100"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="97"/>
         <source>Curve Style</source>
         <translation>Styl křivky</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="108"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="105"/>
         <source>Pointed</source>
         <translation>Špičatý</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="113"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="110"/>
         <source>Ogee</source>
         <translation>Žlábkovnicový</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="118"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="115"/>
         <source>Polygonal</source>
         <translation>Mnohoúhelníkový</translation>
     </message>

@@ -26,6 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "knotgraph.hpp"
 #include <QBrush>
 #include <QPen>
+#include "path_builder.hpp"
+
 KnotGraph::KnotGraph()
     : default_style ( knot_curve_styler::idof("pointed"), 225, 32, 10, 24)
 {
@@ -84,8 +86,8 @@ QPainterPath KnotGraph::build()
 {
     knot_curve_style* pcs = knot_curve_styler::style(default_style.curve_style);
 
-    //path_builder path_b;
-    QPainterPath path;
+    path_builder path_b;
+    //QPainterPath path;
 
     foreach(Edge*e,edges)
     {
@@ -94,9 +96,9 @@ QPainterPath KnotGraph::build()
                                                 default_style.crossing_distance);
         foreach ( QLineF l, connected )
         {
-            path.moveTo(l.p1());
-            path.lineTo(l.p2());
-            //path_b.add_line(l.p1(),l.p2());
+            //path.moveTo(l.p1());
+            //path.lineTo(l.p2());
+            path_b.add_line(l.p1(),l.p2());
         }
     }
 
@@ -126,11 +128,11 @@ QPainterPath KnotGraph::build()
                 {
                     const styleinfo& csi = n->get_custom_style();
                     knot_curve_style* customcs = knot_curve_styler::style(csi.curve_style);
-                    customcs->draw_joint(path,n,ti,csi);
+                    customcs->draw_joint(path_b,n,ti,csi);
                 }
                 else
                 {
-                    pcs->draw_joint(path,n,ti,default_style);
+                    pcs->draw_joint(path_b,n,ti,default_style);
                 }
 
                 ti.edge_out->traverse(ti.handle_out);
@@ -138,13 +140,13 @@ QPainterPath KnotGraph::build()
         }
     }
 
-    //path_b.sort();
-    //QPainterPath path = path_b.build();
+    QPainterPath path = path_b.build();
 
 
     edges = traversed_edges;
     traversed_edges.clear();
 
+    /// \bug Qt? if not simplified weird artifacts on cusps
     QPainterPath styled = stroker.createStroke(path).simplified();
     styled.setFillRule(Qt::WindingFill);
     setPath(styled);

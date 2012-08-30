@@ -74,6 +74,10 @@ void node_style_form::on_style_combo_activated(int index)
 void node_style_form::retranslate()
 {
     retranslateUi(this);
+
+    style_combo->setItemIcon(0,load::icon("pointcurve"));
+    style_combo->setItemIcon(1,load::icon("ogee"));
+    style_combo->setItemIcon(2,load::icon("poly"));
 }
 
 void node_style_form::anything_changed()

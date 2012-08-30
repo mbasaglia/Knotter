@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Node;
 class TraversalInfo;
-//#include "path_builder.hpp"
+#include "path_builder.hpp"
 #include <QMap>
 #include <QPainterPath>
 
@@ -85,7 +85,7 @@ struct styleinfo
 class knot_curve_style
 {
     public:
-        virtual void draw_joint ( QPainterPath& path,
+        virtual void draw_joint ( path_builder& path,
                                     Node *node,
                                     const TraversalInfo& ti,
                                     styleinfo style ) = 0;
@@ -111,7 +111,7 @@ class knot_curve_style
 class knot_curve_ogee : public knot_curve_style
 {
     public:
-        void draw_joint ( QPainterPath& path,
+        void draw_joint ( path_builder& path,
                             Node *node,
                             const TraversalInfo& ti,
                             styleinfo style );
@@ -120,7 +120,7 @@ class knot_curve_ogee : public knot_curve_style
 class knot_curve_pointed : public knot_curve_style
 {
     public:
-        void draw_joint ( QPainterPath& path,
+        void draw_joint ( path_builder& path,
                             Node *node,
                             const TraversalInfo& ti,
                             styleinfo style );
@@ -129,7 +129,7 @@ class knot_curve_pointed : public knot_curve_style
 class knot_curve_polygonal : public knot_curve_style
 {
     public:
-        void draw_joint ( QPainterPath& path,
+        void draw_joint ( path_builder& path,
                             Node *node,
                             const TraversalInfo& ti,
                             styleinfo style );

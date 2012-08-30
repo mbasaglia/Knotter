@@ -113,6 +113,8 @@ void Export_Dialog::on_export_raster_button_clicked()
     // pixmap
     int back_alpha = name_filter == png ? 0 : 255;
 
+    /// \todo check QImageWriter::supportedImageFormats ()
+
     if ( antialias_check->isChecked() )
     {
         /// Letting QPainter handle antialiasing is not enough... :^(

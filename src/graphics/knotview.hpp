@@ -145,6 +145,9 @@ class KnotView : public QGraphicsView
         void set_pen ( QPen p );
         void set_width ( double w );
 
+        /// prevents next brush changes to be merged as a single undo command
+        void accept_brush();
+
         void set_cache_mode(QGraphicsItem::CacheMode cm);
     public:
     /// @}

@@ -54,6 +54,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         Help_View       help_view;          ///< Window showing the user guide
         node_cxmn       node_context_menu;
         edge_cxmn       edge_context_menu;
+        QUndoView *     undoView;
         node_style_form*default_node_style_form;
         global_style_form* global_style_frm;
         bool            save_toolbars;

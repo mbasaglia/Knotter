@@ -27,67 +27,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PATH_BUILDER_HPP
 
 #include <QPainterPath>
+#include "path_item.hpp"
 
 /**
     \file
     \brief attempt to create a signle stroke out of consecutive lines, right now it fails in some cases
 */
 
-namespace path_item {
-
-struct line
-{
-    QPointF begin;
-    QPointF end;
-
-    line ( QPointF begin, QPointF end );
-
-    virtual line* clone() const;
-
-    virtual void add_to ( bool move, QPainterPath& ppth ) const;
-
-    virtual ~line();
-};
-
-struct cubiccurve : public line
-{
-    QPointF control1;
-    QPointF control2;
-    cubiccurve ( QPointF begin, QPointF control1, QPointF control2, QPointF end );
-
-    void add_to ( bool move, QPainterPath& ppth ) const;
-};
-
-struct quadcurve : public line
-{
-    QPointF control;
-    quadcurve ( QPointF begin, QPointF control, QPointF end );
-
-    void add_to ( bool move, QPainterPath& ppth ) const;
-};
-
-
-} // namespace path_item
-
 class path_builder
 {
     protected:
-        QList<path_item::line*> strokes;
-        typedef QList<path_item::line*>::iterator iterator;
+        typedef QList<path_item::line*> line_list;
+        typedef line_list::iterator iterator;
+        line_list strokes;
+
+        path_builder(const path_builder&);
+        path_builder& operator= (const path_builder&);
 
     public:
         path_builder();
-        path_builder(const path_builder&);
-        path_builder& operator= (const path_builder&);
         ~path_builder();
 
         void add_line ( path_item::line* l );
         void add_line( QPointF begin, QPointF end );
         void add_cubic( QPointF begin, QPointF control1, QPointF control2, QPointF end );
         void add_quad ( QPointF begin, QPointF control, QPointF end );
-
-        /// arranges the stokes in a way that endpoints can be merged
-        void sort();
 
         QPainterPath build();
 };

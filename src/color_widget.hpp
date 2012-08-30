@@ -52,11 +52,12 @@ class ColorWidget : public QLineEdit
         ColorWidget ( QWidget* parent = NULL ) : QLineEdit(parent)
         {
             setReadOnly(true);
-            this->connect(&color_dialog,SIGNAL(currentColorChanged(QColor)),
+            connect(&color_dialog,SIGNAL(currentColorChanged(QColor)),
                             SLOT(update_color(QColor)) );
-            this->connect(&color_dialog,SIGNAL(colorSelected(QColor)),
+            connect(&color_dialog,SIGNAL(colorSelected(QColor)),
                             SLOT(update_color(QColor)) );
-            //this->connect(this,SIGNAL(editingFinished()),SLOT(update_from_text()));
+            //connect(this,SIGNAL(editingFinished()),SLOT(update_from_text()));
+            connect(&color_dialog,SIGNAL(finished(int)),SIGNAL(dialog_closed()));
             color_dialog.setOptions(QColorDialog::ShowAlphaChannel|QColorDialog::NoButtons);
             update_color(color());
         }
@@ -107,6 +108,8 @@ class ColorWidget : public QLineEdit
     signals:
         /// emitted each time the user alters the color shown in the dialog
         void color_changed ( QColor );
+        /// emitted when the user closes the dialog
+        void dialog_closed();
 
 };
 

@@ -83,13 +83,14 @@ Knot_Window::~Knot_Window()
 
 void Knot_Window::update_ui()
 {
-
     default_node_style_form->set_style_info(canvas->get_default_style());
 
+    global_style_frm->blockSignals(true);
     global_style_frm->set_join_style(canvas->get_join_style());
     global_style_frm->set_knot_color(canvas->get_brush().color());
     global_style_frm->set_knot_width(canvas->get_width());
     global_style_frm->set_pen(canvas->get_pen());
+    global_style_frm->blockSignals(false);
 
 
     menu_Toolbars->clear();
@@ -99,6 +100,8 @@ void Knot_Window::update_ui()
     update_grid_icon();
 
     update_recent_menu();
+
+
 }
 
 void Knot_Window::init_menus()
@@ -183,7 +186,7 @@ void Knot_Window::init_docks()
 {
 
 // Action History Dock
-    QUndoView *undoView = new QUndoView(&canvas->get_undo_stack());
+    undoView = new QUndoView(&canvas->get_undo_stack());
     QDockWidget* undoDock  = new QDockWidget;
     undoDock->setWidget(undoView);
     undoDock->setObjectName("Action_History");
@@ -203,8 +206,13 @@ void Knot_Window::init_docks()
 // Knot Style Dock
     QDockWidget*    global_style_dock;
     global_style_frm = new global_style_form;
+
     canvas->connect(global_style_frm,SIGNAL(knot_color_changed(QColor)),
                     SLOT(set_brush_color(QColor)));
+
+    canvas->connect(global_style_frm,SIGNAL(knot_color_accepted()),
+                    SLOT(accept_brush()));
+
     canvas->connect(global_style_frm,SIGNAL(join_style_changed(Qt::PenJoinStyle)),
                     SLOT(set_join_style(Qt::PenJoinStyle)));
     canvas->connect(global_style_frm,SIGNAL(knot_width_changed(double)),
@@ -781,4 +789,5 @@ void Knot_Window::on_actionInsert_Polygon_triggered()
 void Knot_Window::retranslate()
 {
     retranslateUi(this);
+    undoView->setEmptyLabel(tr("<empty>"));
 }

@@ -7,7 +7,9 @@ SOURCES += \
     src/graphics/edge.cpp \
     src/graphics/clipboard.cpp \
     src/graphics/snapping_grid.cpp \
-    src/graphics/path_builder.cpp
+    src/graphics/path_builder.cpp \
+    src/graphics/commands.cpp \
+    src/graphics/path_item.cpp
 
 
 OTHER_FILES += \
@@ -23,7 +25,8 @@ HEADERS += \
     src/graphics/custom_item.hpp \
     src/graphics/commands.hpp \
     src/graphics/clipboard.hpp \
-    src/graphics/path_builder.hpp
+    src/graphics/path_builder.hpp \
+    src/graphics/path_item.hpp
 
 INCLUDEPATH += src/graphics
 

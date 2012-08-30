@@ -30,10 +30,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 global_style_form::global_style_form(QWidget *parent) :
     QWidget(parent)
 {
+    /// \todo misc accepted stuff
     setupUi(this);
-    // meh, Qt Designer...
     connect(color,SIGNAL(color_changed(QColor)),SIGNAL(knot_color_changed(QColor)));
+    connect(color,SIGNAL(dialog_closed()),SIGNAL(knot_color_accepted()));
     connect(knot_width_spinner,SIGNAL(valueChanged(double)),SIGNAL(knot_width_changed(double)));
+    connect(knot_width_spinner,SIGNAL(editingFinished()),SIGNAL(knot_width_accepted()));
 
     outline_pattern_combo->setItemIcon(0,load::icon("line_solid"));
     outline_pattern_combo->setItemIcon(1,load::icon("line_no"));
@@ -110,6 +112,12 @@ void global_style_form::change_join_style(int)
 void global_style_form::retranslate()
 {
     retranslateUi(this);
+
+    outline_pattern_combo->setItemIcon(0,load::icon("line_solid"));
+    outline_pattern_combo->setItemIcon(1,load::icon("line_no"));
+    outline_pattern_combo->setItemIcon(2,load::icon("line_dot"));
+    outline_pattern_combo->setItemIcon(3,load::icon("line_dash"));
+    outline_pattern_combo->setItemIcon(4,load::icon("line_dash_dot"));
 }
 
 void global_style_form::set_pen(QPen p)

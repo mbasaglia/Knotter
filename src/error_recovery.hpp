@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class ErrorRecovery
 {
     private:
-        static void sigsegv(int sig);
+        static void sigdying(int sig);
 
     public:
         static KnotView* recover;

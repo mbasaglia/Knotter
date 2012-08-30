@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "knot_curve_style.hpp"
 #include "node.hpp"
 
-void knot_curve_ogee::draw_joint ( QPainterPath& path,
+void knot_curve_ogee::draw_joint ( path_builder& path,
                     Node* node,
                     const TraversalInfo& ti,
                     styleinfo style )
@@ -44,22 +44,22 @@ void knot_curve_ogee::draw_joint ( QPainterPath& path,
         handlebs1.setLength(32);
         handlebs2.setLength(32);
 
-        path.moveTo(start.p1());
+        /*path.moveTo(start.p1());
         path.cubicTo(start.p2(),handlebs1.p2(),handlebs1.p1());
-        path.cubicTo(handlebs2.p2(),finish.p2(),finish.p1());
-        /*pathb.add_cubic(start.p1(),start.p2(),handlebs1.p2(),handlebs1.p1());
-        pathb.add_cubic(handlebs1.p1(),handlebs2.p2(),finish.p2(),finish.p1());*/
+        path.cubicTo(handlebs2.p2(),finish.p2(),finish.p1());*/
+        path.add_cubic(start.p1(),start.p2(),handlebs1.p2(),handlebs1.p1());
+        path.add_cubic(handlebs1.p1(),handlebs2.p2(),finish.p2(),finish.p1());
 
     }
     else // draw cubic
     {
-        path.moveTo(start.p1());
-        path.cubicTo(start.p2(),finish.p2(),finish.p1());
-        //pathb.add_cubic(start.p1(),start.p2(),finish.p2(),finish.p1());
+        /*path.moveTo(start.p1());
+        path.cubicTo(start.p2(),finish.p2(),finish.p1());*/
+        path.add_cubic(start.p1(),start.p2(),finish.p2(),finish.p1());
     }
 }
 
-void knot_curve_pointed::draw_joint ( QPainterPath& path,
+void knot_curve_pointed::draw_joint ( path_builder& path,
                     Node *node,
                     const TraversalInfo& ti,
                     styleinfo style )
@@ -72,22 +72,22 @@ void knot_curve_pointed::draw_joint ( QPainterPath& path,
         QPointF cusp_point = get_cusp_point(start, finish,node,ti,style.cusp_distance);
 
 
-        /*pathb.add_quad(start.p1(),start.p2(),bisect.p2());
-        pathb.add_quad(bisect.p2(),finish.p2(),finish.p1());*/
-        path.moveTo(start.p1());
+        path.add_quad(start.p1(),start.p2(),cusp_point);
+        path.add_quad(cusp_point,finish.p2(),finish.p1());
+        /*path.moveTo(start.p1());
         path.quadTo(start.p2(),cusp_point);
-        path.quadTo(finish.p2(),finish.p1());
+        path.quadTo(finish.p2(),finish.p1());*/
 
     }
     else // draw cubic
     {
-        path.moveTo(start.p1());
-        path.cubicTo(start.p2(),finish.p2(),finish.p1());
-        //pathb.add_cubic(start.p1(),start.p2(),finish.p2(),finish.p1());
+        /*path.moveTo(start.p1());
+        path.cubicTo(start.p2(),finish.p2(),finish.p1());*/
+        path.add_cubic(start.p1(),start.p2(),finish.p2(),finish.p1());
     }
 }
 
-void knot_curve_polygonal::draw_joint ( QPainterPath& path,
+void knot_curve_polygonal::draw_joint ( path_builder& path,
                     Node *node,
                     const TraversalInfo& ti,
                     styleinfo style )
@@ -99,27 +99,25 @@ void knot_curve_polygonal::draw_joint ( QPainterPath& path,
     {
         QPointF cusp_point = get_cusp_point(start, finish,node,ti,style.cusp_distance);
 
-        /*pathb.add_line(start.p1(),start.p2());
-        pathb.add_line(start.p2(),handlebs1.p2());
-        pathb.add_line(handlebs1.p2(),intersect);
-        pathb.add_line(intersect,handlebs2.p2());
-        pathb.add_line(handlebs2.p2(),finish.p2());
-        pathb.add_line(finish.p2(),finish.p1());*/
+        path.add_line(start.p1(),start.p2());
+        path.add_line(start.p2(),cusp_point);
+        path.add_line(cusp_point,finish.p2());
+        path.add_line(finish.p2(),finish.p1());
 
-        path.moveTo(start.p1());
+        /*path.moveTo(start.p1());
         path.lineTo(start.p2());
         //path.lineTo(handlebs1.p2());
         path.lineTo(cusp_point);
         //path.lineTo(handlebs2.p2());
         path.lineTo(finish.p2());
-        path.lineTo(finish.p1());
+        path.lineTo(finish.p1());*/
 
     }
     else // draw cubic
     {
-        path.moveTo(start.p1());
-        path.cubicTo(start.p2(),finish.p2(),finish.p1());
-        //pathb.add_cubic(start.p1(),start.p2(),finish.p2(),finish.p1());
+        /*path.moveTo(start.p1());
+        path.cubicTo(start.p2(),finish.p2(),finish.p1());*/
+        path.add_cubic(start.p1(),start.p2(),finish.p2(),finish.p1());
     }
 }
 

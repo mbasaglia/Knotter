@@ -1051,6 +1051,11 @@ void KnotView::set_width(double w)
     undo_stack.push(new ChangeKnotWidth(get_width(),w,this));
 }
 
+void KnotView::accept_brush()
+{
+    undo_stack.push(new ChangeKnotBrush(get_brush(),get_brush(),true,this));
+}
+
 
 
 void KnotView::set_guide(QPointF from, QPointF to)

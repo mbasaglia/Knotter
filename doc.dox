@@ -6,7 +6,6 @@ Ignore this, see the main todo page
 \todo add knotter library, as much indipendent as possible from Qt (Node Edge multiple inheritance)
 \todo Document every class and function
 \todo Better user guide
-\todo Undo/Redo Style
 \todo check QGraphicsView/QGraphicsScene::render
 \todo proper copy paste ( save xml of selected node list )
 */

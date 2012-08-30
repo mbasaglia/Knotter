@@ -50,7 +50,9 @@ class global_style_form : public QWidget, private Ui::global_style_form
     signals:
         void pen_changed(QPen);
         void knot_width_changed(double);
+        void knot_width_accepted();
         void knot_color_changed(QColor);
+        void knot_color_accepted();
         void join_style_changed(Qt::PenJoinStyle);
 
     protected:
