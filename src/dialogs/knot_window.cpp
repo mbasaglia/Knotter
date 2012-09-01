@@ -163,6 +163,7 @@ void Knot_Window::init_menus()
     action_Reset_View->setIcon(load::icon("view-restore"));
     actionShow_Graph->setIcon(load::icon("toggle_graph_on"));
     action_Move_Grid->setIcon(load::icon("move_grid"));
+    actionConfigure_G_rid->setIcon(load::icon("configure-grid"));
 
 // Node menu icons
     action_Horizontal_Flip->setIcon(load::icon("object-flip-horizontal"));

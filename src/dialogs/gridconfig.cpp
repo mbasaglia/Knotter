@@ -41,7 +41,7 @@ GridConfig::GridConfig(snapping_grid *target_grid, QWidget *parent) :
         origin_y_spin->setValue(target->get_origin().y());
     }
 
-    setWindowIcon(load::icon("move_grid"));
+    setWindowIcon(load::icon("configure-grid"));
 
     connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
 }
