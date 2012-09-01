@@ -48,6 +48,8 @@ void Export_Dialog::on_export_svg_button_clicked()
     QString exname = QFileDialog::getSaveFileName(this,tr("Export Knot as SVG"),filename,
                 "SVG Images (*);;XML files (*.xml);;All files (*)" );
 
+    if ( exname.isNull() )
+        return;
 
     QFile quf(exname);
     if ( ! quf.open(QIODevice::WriteOnly | QIODevice::Text) )
@@ -112,8 +114,6 @@ void Export_Dialog::on_export_raster_button_clicked()
 
     // pixmap
     int back_alpha = name_filter == png ? 0 : 255;
-
-    /// \todo check QImageWriter::supportedImageFormats ()
 
     if ( antialias_check->isChecked() )
     {

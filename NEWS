@@ -9,10 +9,12 @@ Knotter 0.6.0  - Ongoing development
 * Czech translation
 * Italian translation
 * New "Round" cusp style
+* Optional fallback icon theme
+* Option to save style between sessions
 
 Knotter 0.5.0
 --------------------
-### NOTE ###
+NOTE:
 Knotter 0.5.0 introduces some incompatibility with old .knot files!
 Old files will still be loaded but you have to adjust a few style settings
 

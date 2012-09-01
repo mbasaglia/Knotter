@@ -46,19 +46,20 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
     protected:
         QString         filename;           ///< current/last file name used on open or save
         ClipboardItem   clipboard;          ///< Part of the graph copied to clipboard
-        bool            save_ui;            ///< Whether to save geometry and toolbars on exit
+        bool            save_ui;            ///< Whether to save geometry and docks on exit
         QStringList     recent_files;       ///< List of recently used files
         int             max_recent_files;   ///< Max number of entries in the Open recent menu
         config_dialog   config_dlg;         ///< Knotter preferences dialog
         Export_Dialog   export_dialog;      ///< Export SVG/Bitmap dialog
         Help_View       help_view;          ///< Window showing the user guide
-        node_cxmn       node_context_menu;
-        edge_cxmn       edge_context_menu;
-        QUndoView *     undoView;
+        node_cxmn       node_context_menu;  ///< Menu shown on right-clicking on a node
+        edge_cxmn       edge_context_menu;  ///< Menu shown on right-clicking on an edge
+        QUndoView *     undoView;           ///< Action history
         node_style_form*default_node_style_form;
         global_style_form* global_style_frm;
-        bool            save_toolbars;
-        bool            save_style;
+        bool            save_toolbars;      ///< Whether custom toolbar buttons shall be saved on exit
+        bool            save_style;         ///< Whether style shall be saved on exit
+        bool            save_anything;      ///< Whether the save config shall be performed on exit
     public:
         explicit Knot_Window(QWidget *parent = 0);
         ~Knot_Window();
@@ -156,6 +157,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void clear_recent_files();
 
         void show_help();
+
 
     private slots:
         /// show about dialog

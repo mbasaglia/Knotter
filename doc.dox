@@ -11,4 +11,5 @@ Ignore this, see the main todo page
 \todo load a background picture
 \todo extensible edge types
 \todo custom edge style (crossing distance + handle length)
+\todo per node/edge knot width (requires custom stroker)
 */

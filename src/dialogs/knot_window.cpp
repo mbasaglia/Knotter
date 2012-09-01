@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Knot_Window::Knot_Window(QWidget *parent) :
     QMainWindow(parent), save_ui ( true ), max_recent_files(5),
-    save_toolbars(true), save_style(false)
+    save_toolbars(true), save_style(false), save_anything(true)
 {
 
 // UI from designer
@@ -303,10 +303,15 @@ void Knot_Window::load_config()
                                 settings.value("performance/cache",
                                     canvas->get_cache_mode()).toInt()
                             ) );
+    canvas->enable_fluid_redraw ( QGraphicsItem::CacheMode (
+                                settings.value("performance/fluid_redraw",
+                                    canvas->fluid_redraw_enabled()).toBool()
+                            ) );
+
 
     settings.beginGroup("gui");
 
-    save_toolbars = settings.value("save_toolbars",true).toBool();
+    save_toolbars = settings.value("save_toolbars",save_toolbars).toBool();
     if ( save_toolbars )
     {
         int ntoolbars = settings.beginReadArray("toolbar");
@@ -365,7 +370,7 @@ void Knot_Window::load_config()
         settings.endArray();//toolbars
     }
 
-    save_ui = settings.value("save",true).toBool();
+    save_ui = settings.value("save",save_ui).toBool();
     if ( save_ui )
     {
         restoreGeometry(settings.value("geometry").toByteArray());
@@ -392,13 +397,44 @@ void Knot_Window::load_config()
     settings.endGroup();// grid
 
 
-    /// \todo save style
+
+    settings.beginGroup("style");
+    save_style = settings.value("save",save_style).toBool();
+    if ( save_style )
+    {
+        QPen stroke(canvas->get_brush(),canvas->get_width());
+        stroke.setJoinStyle(canvas->get_join_style());
+        stroke = settings.value("stroke",stroke).value<QPen>();
+        canvas->set_brush(stroke.brush());
+        canvas->set_width(stroke.widthF());
+        canvas->set_join_style(stroke.joinStyle());
+
+
+        canvas->set_pen ( settings.value("outline",canvas->get_pen()).value<QPen>() );
+
+        styleinfo si = canvas->get_default_style();
+        QString style_name = settings.value("cusp-style",
+                                knot_curve_styler::name(si.curve_style)
+                            ).toString();
+        si.curve_style = knot_curve_styler::idof(style_name);
+
+        si.cusp_angle = settings.value("cusp-min-angle",si.cusp_angle).toDouble();
+        si.cusp_distance = settings.value("cusp-distance",si.cusp_distance).toDouble();
+        si.crossing_distance = settings.value("gap",si.crossing_distance).toDouble();
+        si.handle_length = settings.value("handle-length",si.handle_length).toDouble();
+
+        canvas->set_default_style(si);
+    }
+    settings.endGroup();
 
 
 }
 
 void Knot_Window::save_config()
 {
+    if ( !save_anything )
+        return;
+
     QSettings settings("knotter","knotter");
 
     settings.setValue("version",VERSION);
@@ -406,6 +442,7 @@ void Knot_Window::save_config()
     settings.setValue("language",Translator::object.current_lang_code());
 
     settings.setValue("performance/cache",canvas->get_cache_mode());
+    settings.setValue("performance/fluid_redraw",canvas->fluid_redraw_enabled());
 
     settings.beginGroup("gui");
     if ( save_ui )
@@ -456,6 +493,24 @@ void Knot_Window::save_config()
     settings.setValue("enable",canvas->get_grid().is_enabled());
     settings.setValue("size",canvas->get_grid().get_size());
     settings.setValue("type",int(canvas->get_grid().get_shape()));
+    settings.endGroup();
+
+
+    settings.beginGroup("style");
+    settings.setValue("save",save_style);
+    if ( save_style )
+    {
+        QPen stroke(canvas->get_brush(),canvas->get_width());
+        stroke.setJoinStyle(canvas->get_join_style());
+        settings.setValue("stroke",stroke);
+        settings.setValue("outline",canvas->get_pen());
+        styleinfo si = canvas->get_default_style();
+        settings.setValue("cusp-style",knot_curve_styler::name(si.curve_style));
+        settings.setValue("cusp-min-angle",si.cusp_angle);
+        settings.setValue("cusp-distance",si.cusp_distance);
+        settings.setValue("gap",si.crossing_distance);
+        settings.setValue("handle-length",si.handle_length);
+    }
     settings.endGroup();
 }
 
@@ -633,9 +688,11 @@ void Knot_Window::config()
     config_dlg.set_tool_button_style(toolButtonStyle());
     config_dlg.saveui_check->setChecked(save_ui);
     config_dlg.save_toolbars_check->setChecked(save_toolbars);
+    config_dlg.save_style_check->setChecked(save_style);
     config_dlg.max_recent->setValue(max_recent_files);
     config_dlg.cache_mode->setCurrentIndex(canvas->get_cache_mode());
     config_dlg.select_current_language();
+    config_dlg.fluid_check->setChecked(canvas->fluid_redraw_enabled());
 
 
     if ( !config_dlg.exec() )
@@ -645,13 +702,17 @@ void Knot_Window::config()
     setIconSize(config_dlg.get_icon_size());
 
     save_ui = config_dlg.saveui_check->isChecked();
+    save_style = config_dlg.save_style_check->isChecked();
     save_toolbars = config_dlg.save_toolbars_check->isChecked();
+    save_anything = config_dlg.save_anything;
 
     max_recent_files = config_dlg.max_recent->value();
     if ( max_recent_files < recent_files.size() )
         recent_files.erase ( recent_files.begin()+max_recent_files, recent_files.end() );
-    canvas->set_cache_mode( QGraphicsItem::CacheMode(
-                            config_dlg.cache_mode->currentIndex() ) );
+    canvas->set_cache_mode( QGraphicsItem::CacheMode( config_dlg.cache_mode->currentIndex() ) );
+
+    canvas->enable_fluid_redraw(config_dlg.fluid_check->isChecked());
+
 }
 
 void Knot_Window::clear_recent_files()
@@ -664,8 +725,6 @@ void Knot_Window::show_help()
 {
     help_view.show();
 }
-
-
 
 
 void Knot_Window::update_title(bool clean)

@@ -26,15 +26,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_dialog.hpp"
 #include "resource_loader.hpp"
 #include "translator.hpp"
+#include <QSettings>
 
 config_dialog::config_dialog(QWidget *parent) :
-    QDialog(parent), current_menu(NULL), current_toolbar(NULL)
+    QDialog(parent), current_menu(NULL), current_toolbar(NULL), save_anything(true)
 {
     setupUi(this);
     // Bad Designer... >:^(
     stackedWidget->connect(tableWidget,SIGNAL(cellClicked(int,int)),SLOT(setCurrentIndex(int)));
 
-    /// \warning Icons are in Oxygen theme but not in freedesktop std
     tableWidget->item(0,0)->setIcon(load::icon("configure-toolbars"));
     tableWidget->item(1,0)->setIcon(load::icon("configure"));
     tableWidget->item(2,0)->setIcon(load::icon("preferences-system-performance"));
@@ -52,6 +52,8 @@ config_dialog::config_dialog(QWidget *parent) :
     language_combo->setCurrentIndex ( language_combo->findText(Translator::object.current_lang_name()) );
     Translator::object.connect(language_combo,SIGNAL(activated(QString)),SLOT(change_lang_name(QString)));
     connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
+
+    clear_settings->setIcon(load::icon("edit-clear"));
 
 }
 
@@ -306,4 +308,11 @@ void config_dialog::on_rm_toolbar_btn_clicked()
         toolbar_items->clear();
         toolbar_combo->removeItem(indx);
     }
+}
+
+void config_dialog::on_clear_settings_clicked()
+{
+    QSettings settings("knotter","knotter");
+    settings.remove("");
+    save_anything = false;
 }

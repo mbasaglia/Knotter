@@ -73,8 +73,10 @@ class KnotView : public QGraphicsView
         QMap<Node*,QPointF> sel_offset; ///< Offset of selected nodes from move_center
         int sel_size;                   ///< Selection scale factor
         QPointF move_center;            ///< Point aligned to the cursor during movement
+        bool fluid_redraw;              ///< Whether knot shall be redrawn when moving nodes
 
     public:
+        /// constructor
         KnotView(QWidget *parent);
 
 // do_ functions
@@ -193,6 +195,8 @@ class KnotView : public QGraphicsView
         const QUndoStack& get_undo_stack() const { return undo_stack; }
         QUndoStack& get_undo_stack() { return undo_stack; }
 
+        bool fluid_redraw_enabled() const { return fluid_redraw; }
+        void enable_fluid_redraw(bool frd) { fluid_redraw = frd; }
     protected:
         QPointF get_mouse_point ( QMouseEvent *event );
         void snap ( QPointF &p, QMouseEvent *event );

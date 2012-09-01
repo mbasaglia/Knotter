@@ -101,7 +101,7 @@
    <item row="0" column="1">
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="stackedWidgetPage1">
       <layout class="QGridLayout" name="gridLayout_2">
@@ -468,14 +468,21 @@
           </item>
           <item>
            <widget class="QCheckBox" name="save_style_check">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
             <property name="text">
              <string>Knot style</string>
             </property>
             <property name="checked">
              <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="clear_settings">
+            <property name="toolTip">
+             <string>Clear configuration and restore defaults next time Knotter is launched</string>
+            </property>
+            <property name="text">
+             <string>Clear saved configuration</string>
             </property>
            </widget>
           </item>
@@ -523,9 +530,6 @@ p, li { white-space: pre-wrap; }
        </item>
        <item row="1" column="0">
         <widget class="QCheckBox" name="fluid_check">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
          <property name="toolTip">
           <string>Redraw the knot while moving nodes</string>
          </property>

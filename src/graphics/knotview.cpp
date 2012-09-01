@@ -34,7 +34,8 @@ KnotView::KnotView( QWidget* parent )
     : QGraphicsView(parent), mode(EDIT_NODE_EDGE),
     last_node(NULL),
     mouse_status(DEFAULT),
-    guide(NULL), rubberband(NULL)
+    guide(NULL), rubberband(NULL),
+    fluid_redraw(true)
 {
     setScene ( new QGraphicsScene );
     setSceneRect ( 0, 0, width(), height());
@@ -351,7 +352,8 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
         move_center+=p-oldpos;
         oldpos = p;
 
-        knot.build();/// \todo option to turn on/off fluid knot refresh
+        if (fluid_redraw)
+            knot.build();
     }
     else if ( mouse_status == SELECTING )
     {
@@ -640,114 +642,6 @@ void KnotView::writeXML(QIODevice *device) const
 
 
     xml.end();
-
-
-
-    /*QXmlStreamWriter xml(device);
-    xml.setAutoFormatting(true);
-    xml.setAutoFormattingIndent(4);
-    xml.writeStartDocument("1.0");
-
-    xml.writeStartElement("knot");
-        xml.writeAttribute("version","2"); // note: version MUST be an integer
-
-        xml.writeStartElement("style");
-            xml.writeStartElement("stroke");
-                xml.writeAttribute("width",QString::number(get_width()));
-                xml.writeAttribute("color",get_brush().color().name());
-                xml.writeAttribute("alpha",QString::number(get_brush().color().alpha()));
-            xml.writeEndElement();
-            xml.writeStartElement("outline");
-                QPen pen = get_pen();
-                xml.writeAttribute("width",QString::number(pen.widthF()));
-                xml.writeAttribute("color",pen.color().name());
-                xml.writeAttribute("alpha",QString::number(pen.color().alpha()));
-                QString penstyle;
-                switch ( pen.style() )
-                {
-                    default:
-                    case Qt::NoPen:         penstyle = "nothing";       break;
-                    case Qt::SolidLine:     penstyle = "solid";         break;
-                    case Qt::DotLine:       penstyle = "dot";           break;
-                    case Qt::DashLine:      penstyle = "dash";          break;
-                    case Qt::DashDotLine:   penstyle = "dash_dot";      break;
-                    case Qt::DashDotDotLine:penstyle = "dash_dot_dot";  break;
-                }
-                xml.writeAttribute("style",penstyle);
-            xml.writeEndElement();
-            xml.writeStartElement("cusp");
-                styleinfo si = knot.get_style_info();
-                xml.writeTextElement("style",knot_curve_styler::name(si.curve_style));
-                xml.writeTextElement("min-angle",QString::number(si.cusp_angle));
-                xml.writeTextElement("distance",QString::number(si.cusp_distance));
-                QString point;
-                switch ( knot.get_join_style() )
-                {
-                    default:
-                    case Qt::BevelJoin: point = "bevel"; break;
-                    case Qt::MiterJoin: point = "miter"; break;
-                    case Qt::RoundJoin: point = "round"; break;
-                }
-                xml.writeTextElement("point",point);
-            xml.writeEndElement();
-            xml.writeStartElement("crossing");
-                xml.writeTextElement("gap",QString::number(si.crossing_distance));
-                xml.writeTextElement("handle-length",QString::number(si.handle_length));
-            xml.writeEndElement();
-        xml.writeEndElement();
-
-        xml.writeStartElement("graph");
-        QMap<Node*,int> node_ids;
-        foreach(QGraphicsItem* it, scene()->items())
-        {
-            Node* n = dynamic_cast<Node*>(it);
-            if ( !n )
-                continue;
-
-            int id;
-            if ( node_ids.contains(n) )
-                id = node_ids[n];
-            else
-            {
-                id = node_ids.size();
-                node_ids[n] = id;
-            }
-
-            xml.writeStartElement("node");
-                xml.writeAttribute("id",QString("node_%1").arg(id));
-                xml.writeAttribute("x",QString::number(n->pos().x()));
-                xml.writeAttribute("y",QString::number(n->pos().y()));
-                foreach(Edge* e, n->links())
-                {
-                    Node* o = e->other(n);
-                    int oid;
-                    if ( node_ids.contains(o) )
-                        oid = node_ids[o];
-                    else
-                    {
-                        oid = node_ids.size();
-                        node_ids[o] = oid;
-                    }
-                    xml.writeEmptyElement("edge");
-                        QString edge_type;
-                        switch ( e->type )
-                        {
-                            default:
-                            case Edge::CROSSING: edge_type = "regular"; break;
-                            case Edge::WALL:     edge_type = "wall"; break;
-                            case Edge::HOLE:     edge_type = "hole"; break;
-                            case Edge::INVERTED: edge_type = "inverted"; break;
-                        }
-                        xml.writeAttribute("type",edge_type);
-                        xml.writeAttribute("target",QString("node_%1").arg(oid));
-
-                }
-            xml.writeEndElement();
-        }
-        xml.writeEndElement(); // graph
-    xml.writeEndElement();// knot
-
-    xml.writeEndDocument();*/
 }
 
 bool KnotView::readXML(QIODevice *device)
@@ -782,131 +676,6 @@ bool KnotView::readXML(QIODevice *device)
 
     undo_stack.endMacro();
     undo_stack.setClean();
-
-
-
-    /*QDomDocument xml;
-    if ( !xml.setContent(device) ) // could retrieve error details
-        return false; // xml error
-
-    QDomElement knot = xml.firstChildElement("knot");
-    if ( knot.isNull() )
-        return false; // XML does not contain a knot
-    if ( knot.attribute("version").toInt() > 2 )
-        return false; // unknown version
-
-    QDomElement graph = knot.firstChildElement("graph");
-    if ( graph.isNull() )
-        return false; // XML does not contain a graph description
-
-    undo_stack.beginMacro(tr("Load Knot"));
-
-    QMap<QString,Node*> node_ids;
-    QDomElement node = graph.firstChildElement("node");
-    while ( !node.isNull() )
-    {
-        QString id = node.attribute("id");
-        Node* cur_node = 0;
-        if ( !node_ids.contains(id) )
-        {
-            cur_node = node_ids[id] = new Node(QPointF());
-        }
-        else
-            cur_node = node_ids[id];
-        add_node(cur_node);
-        cur_node->setPos(node.attribute("x").toDouble(),node.attribute("y").toDouble());
-
-        QDomElement edge = node.firstChildElement("edge");
-        while ( !edge.isNull() )
-        {
-            QString type_name = edge.attribute("type");
-            QString target = edge.attribute("target");
-            Edge::type_type type = Edge::CROSSING;
-            if ( type_name == "regular" )
-                type = Edge::CROSSING;
-            else if ( type_name == "wall" )
-                type = Edge::WALL;
-            else if ( type_name == "hole" )
-                type = Edge::HOLE;
-            else if ( type_name == "inverted" )
-                type = Edge::INVERTED;
-            Node* target_node = 0;
-            if ( !node_ids.contains(target) )
-            {
-                target_node = node_ids[target] = new Node(QPointF());
-            }
-            else
-                target_node = node_ids[target];
-            add_edge(cur_node,target_node);
-            set_edge_type( cur_node->get_link(target_node), type );
-            edge = edge.nextSiblingElement("edge");
-        }
-        node = node.nextSiblingElement("node");
-    }
-
-    undo_stack.endMacro();
-    undo_stack.setClean();
-
-    QDomElement style = knot.firstChildElement("style");
-    if ( !style.isNull() )
-    {
-        QDomElement stroke = style.firstChildElement("stroke");
-        set_width(stroke.attribute("width","5").toDouble());
-        QColor stroke_col(stroke.attribute("color","black"));
-        stroke_col.setAlpha(stroke.attribute("alpha","255").toInt());
-        set_brush(stroke_col);
-
-        QDomElement outline = style.firstChildElement("outline");
-        QPen p;
-        QColor pen_col(outline.attribute("color","gray"));
-        pen_col.setAlpha(outline.attribute("alpha","255").toInt());
-        p.setColor(pen_col);
-        p.setWidth(outline.attribute("width","1").toDouble());
-
-        QString pstyle_name = outline.attribute("style","solid");
-        if ( pstyle_name == "solid" )
-            p.setStyle ( Qt::SolidLine );
-        else if ( pstyle_name == "dot" )
-            p.setStyle ( Qt::DotLine );
-        else if ( pstyle_name == "dash" )
-            p.setStyle ( Qt::DashLine );
-        else if ( pstyle_name == "dash_dot" )
-            p.setStyle ( Qt::DashDotLine );
-        else if ( pstyle_name == "dash_dot_dot" )
-            p.setStyle ( Qt::DashDotDotLine );
-        else
-            p.setStyle ( Qt::NoPen );
-
-        set_pen(p);
-
-        QDomElement cusp = style.firstChildElement("cusp");
-            styleinfo cusp_style_info;
-            QDomElement cusp_style = cusp.firstChildElement("style");
-            QString stylename =  cusp_style.isNull() ? "pointed" : cusp_style.text();
-            cusp_style_info.curve_style = knot_curve_styler::idof(stylename);
-            QDomElement cusp_angle = cusp.firstChildElement("min-angle");
-            cusp_style_info.cusp_angle = cusp_angle.isNull() ? 225 : cusp_angle.text().toDouble();
-            QDomElement cusp_dist = cusp.firstChildElement("distance");
-            cusp_style_info.cusp_distance = cusp_dist.isNull() ? 24 : cusp_dist.text().toDouble();
-            QDomElement cusp_point = cusp.firstChildElement("point");
-            QString point_name =  cusp_point.isNull() ? "miter" : cusp_point.text();
-            if ( point_name == "bevel" )
-                set_join_style(Qt::BevelJoin);
-            else if ( point_name == "round" )
-                set_join_style ( Qt::RoundJoin );
-            else
-                set_join_style ( Qt::MiterJoin );
-
-        QDomElement crossing = style.firstChildElement("crossing");
-            QDomElement egap = crossing.firstChildElement("gap");
-            cusp_style_info.crossing_distance = egap.isNull() ? 10 : egap.text().toDouble();
-            QDomElement handle_length = crossing.firstChildElement("handle-length");
-            cusp_style_info.handle_length = handle_length.isNull() ? 10 : handle_length.text().toDouble();
-
-            set_default_style(cusp_style_info);
-
-    }*/
-
     return true;
 }
 
@@ -1507,7 +1276,7 @@ void KnotView::select_all()
 
 void KnotView::redraw(bool recalculate_node)
 {
-    if ( recalculate_node )
+    if ( recalculate_node && knot.scene() )
         knot.build();
     scene()->invalidate();
 }

@@ -61,6 +61,7 @@ class config_dialog : public QDialog, private Ui::config_dialog
         QList<QMenu*> menus;
         QMenu* current_menu;
         QToolBar* current_toolbar;
+        bool save_anything;
     public:
         explicit config_dialog(QWidget *parent = 0);
 
@@ -92,6 +93,8 @@ class config_dialog : public QDialog, private Ui::config_dialog
         void on_rm_toolbar_btn_clicked();
 
         void retranslate();
+
+        void on_clear_settings_clicked();
 
     signals:
         void insert_toolbar(QToolBar*);
