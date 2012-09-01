@@ -99,7 +99,7 @@ void Export_Dialog::on_export_raster_button_clicked()
 
 
     QFile quf(exname);
-    if ( ! quf.open(QIODevice::WriteOnly | QIODevice::Text) )
+    if ( ! quf.open(QIODevice::WriteOnly) )
     {
         QMessageBox::warning(this,tr("File Error"),tr("Could not write to \"%1\".").arg(exname));
         return;
