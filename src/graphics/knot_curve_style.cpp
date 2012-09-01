@@ -38,15 +38,25 @@ void knot_curve_ogee::draw_joint ( path_builder& path,
     {
         QPointF cusp_point = get_cusp_point(start, finish,node,ti,style.cusp_distance);
 
+
+        QLineF bar (start.p1(), finish.p1()); // join handle base
+        bar.setLength(bar.length()/5); // get 1 fifth
+        QLineF handlebs1(cusp_point,bar.p2()); // join to cusp
+        handlebs1.setLength(style.handle_length); // proper length
+
+        bar.setP1(finish.p1()); // move p1 to finish ( the other 4/5ths )
+        bar.setLength(bar.length()/4); // back to 1 fifth
+        QLineF handlebs2(cusp_point,bar.p2());
+        handlebs2.setLength(style.handle_length);
+
+        /*
+        old ogee algorithm
         QLineF handlebs1(cusp_point,start.p1());
         QLineF handlebs2(cusp_point,finish.p1());
 
-        handlebs1.setLength(32);
-        handlebs2.setLength(32);
+        handlebs1.setLength(style.handle_length);
+        handlebs2.setLength(style.handle_length);*/
 
-        /*path.moveTo(start.p1());
-        path.cubicTo(start.p2(),handlebs1.p2(),handlebs1.p1());
-        path.cubicTo(handlebs2.p2(),finish.p2(),finish.p1());*/
         path.add_cubic(start.p1(),start.p2(),handlebs1.p2(),handlebs1.p1());
         path.add_cubic(handlebs1.p1(),handlebs2.p2(),finish.p2(),finish.p1());
 
@@ -160,9 +170,9 @@ knot_curve_styler::knot_curve_styler()
 {
     register_alias ( register_style(new knot_curve_pointed), "pointed" );
     register_alias ( register_style(new knot_curve_ogee), "ogee" );
-    style_id poly = register_style(new knot_curve_polygonal);
+    register_alias ( register_style(new knot_curve_polygonal), "polygonal" );
+    register_alias ( register_style(new knot_curve_round), "round" );
 
-    register_alias ( poly, "polygonal" );
 }
 
 knot_curve_styler::~knot_curve_styler()
@@ -202,5 +212,31 @@ QPointF knot_curve_style:: get_cusp_point ( QLineF start,
 
 
     return bisect.p2();
+}
+
+void knot_curve_round::draw_joint(path_builder &path, Node *node, const TraversalInfo &ti, styleinfo style)
+{
+    QLineF start = ti.edge_in->handle_point(ti.handle_in,style.handle_length,style.crossing_distance);
+    QLineF finish = ti.edge_out->handle_point(ti.handle_out,style.handle_length,style.crossing_distance);
+
+    if ( ti.angle_delta > style.cusp_angle  ) // draw cusp
+    {
+        QPointF cusp_point = get_cusp_point(start, finish,node,ti,style.cusp_distance);
+
+        QLineF handle( start.p1(),finish.p1() );
+        handle.translate(cusp_point-start.p1());
+        handle.setLength(style.handle_length/2);
+        QPointF h2 = handle.p2();
+        handle.setLength(-style.handle_length/2);
+        QPointF h1 = handle.p2();
+
+        path.add_cubic(start.p1(),start.p2(),h1,cusp_point);
+        path.add_cubic(finish.p1(),finish.p2(),h2,cusp_point);
+
+    }
+    else // draw cubic
+    {
+        path.add_cubic(start.p1(),start.p2(),finish.p2(),finish.p1());
+    }
 }
 

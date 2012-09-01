@@ -207,18 +207,15 @@ void Knot_Window::init_docks()
     QDockWidget*    global_style_dock;
     global_style_frm = new global_style_form;
 
-    canvas->connect(global_style_frm,SIGNAL(knot_color_changed(QColor)),
-                    SLOT(set_brush_color(QColor)));
+    canvas->connect(global_style_frm,SIGNAL(knot_color_changed(QColor)), SLOT(set_brush_color(QColor)));
+    canvas->connect(global_style_frm,SIGNAL(knot_color_accepted()), SLOT(accept_brush()));
 
-    canvas->connect(global_style_frm,SIGNAL(knot_color_accepted()),
-                    SLOT(accept_brush()));
+    canvas->connect(global_style_frm,SIGNAL(join_style_changed(Qt::PenJoinStyle)), SLOT(set_join_style(Qt::PenJoinStyle)));
 
-    canvas->connect(global_style_frm,SIGNAL(join_style_changed(Qt::PenJoinStyle)),
-                    SLOT(set_join_style(Qt::PenJoinStyle)));
-    canvas->connect(global_style_frm,SIGNAL(knot_width_changed(double)),
-                    SLOT(set_width(double)));
-    canvas->connect(global_style_frm,SIGNAL(pen_changed(QPen)),
-                    SLOT(set_pen(QPen)));
+    canvas->connect(global_style_frm,SIGNAL(knot_width_changed(double)), SLOT(set_width(double)));
+    canvas->connect(global_style_frm,SIGNAL(knot_width_accepted()), SLOT(accept_width()));
+
+    canvas->connect(global_style_frm,SIGNAL(pen_changed(QPen)), SLOT(set_pen(QPen)));
     global_style_dock = new QDockWidget;
     global_style_dock->setWidget(global_style_frm);
     global_style_dock->setObjectName("Knot_Style");

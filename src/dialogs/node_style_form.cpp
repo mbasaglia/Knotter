@@ -33,13 +33,15 @@ node_style_form::node_style_form(QWidget *parent) :
     setupUi(this);
 
     combo_style[knot_curve_styler::idof("pointed")]=0;
-    combo_style[knot_curve_styler::idof("ogee")]=1;
-    combo_style[knot_curve_styler::idof("polygonal")]=2;
+    combo_style[knot_curve_styler::idof("round")]=1;
+    combo_style[knot_curve_styler::idof("ogee")]=2;
+    combo_style[knot_curve_styler::idof("polygonal")]=3;
     curstyle_id = knot_curve_styler::idof("pointed");
 
-    style_combo->setItemIcon(0,load::icon("pointcurve"));
-    style_combo->setItemIcon(1,load::icon("ogee"));
-    style_combo->setItemIcon(2,load::icon("poly"));
+    style_combo->setItemIcon(0,load::icon("cusp-point"));
+    style_combo->setItemIcon(1,load::icon("cusp-round"));
+    style_combo->setItemIcon(2,load::icon("cusp-ogee"));
+    style_combo->setItemIcon(3,load::icon("cusp-poly"));
 
     connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
 }
@@ -74,10 +76,11 @@ void node_style_form::on_style_combo_activated(int index)
 void node_style_form::retranslate()
 {
     retranslateUi(this);
-
-    style_combo->setItemIcon(0,load::icon("pointcurve"));
-    style_combo->setItemIcon(1,load::icon("ogee"));
-    style_combo->setItemIcon(2,load::icon("poly"));
+/// \todo update file names
+    style_combo->setItemIcon(0,load::icon("cusp-point"));
+    style_combo->setItemIcon(1,load::icon("cusp-round"));
+    style_combo->setItemIcon(2,load::icon("cusp-ogee"));
+    style_combo->setItemIcon(3,load::icon("cusp-poly"));
 }
 
 void node_style_form::anything_changed()

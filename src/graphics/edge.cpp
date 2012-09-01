@@ -190,6 +190,17 @@ QLineF Edge::handle_point(Edge::handle_type handle,
                             double handle_length,
                             double crossing_distance) const
 {
+    if (  ( handle == TOPRIGHT || handle == BOTTOMRIGHT ) &&
+            end && end->has_custom_style() )
+    {
+        handle_length = end->get_custom_style().handle_length;
+    }
+    else if ( ( handle == TOPLEFT || handle == BOTTOMLEFT ) &&
+            start && start->has_custom_style() )
+    {
+        handle_length = start->get_custom_style().handle_length;
+    }
+
     // get angle of handle point, relative to the line direction
     double handle_angle = 0;
     if ( handle == TOPRIGHT )

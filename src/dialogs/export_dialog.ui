@@ -22,6 +22,9 @@
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
        <widget class="QCheckBox" name="only_shape_check">
+        <property name="toolTip">
+         <string>Save the node as a simple path, discarding the outline</string>
+        </property>
         <property name="text">
          <string>Only shape</string>
         </property>

@@ -938,7 +938,12 @@ void KnotView::paint_knot(QPainter *painter, QRectF area, bool minimal)
 
 
     if ( minimal )
+    {
+        QPen stroke(get_brush(),get_width());
+        stroke.setJoinStyle(get_join_style());
+        painter->setPen(stroke);
         painter->drawPath(knot.build());
+    }
     else
         knot.paint(painter,&opt);
 
@@ -1054,6 +1059,11 @@ void KnotView::set_width(double w)
 void KnotView::accept_brush()
 {
     undo_stack.push(new ChangeKnotBrush(get_brush(),get_brush(),true,this));
+}
+
+void KnotView::accept_width()
+{
+    undo_stack.push(new ChangeKnotWidth(get_width(),get_width(),true,this));
 }
 
 

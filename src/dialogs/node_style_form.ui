@@ -107,6 +107,11 @@
      </item>
      <item>
       <property name="text">
+       <string>Round</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
        <string>Ogee</string>
       </property>
      </item>

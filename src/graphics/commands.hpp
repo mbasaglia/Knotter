@@ -284,9 +284,11 @@ class ChangeKnotWidth : public KnotViewUndoCommand
         Q_OBJECT
 
     double old_width, new_width;
+    bool accepted;
 
     public:
         ChangeKnotWidth ( double old_width, double new_width, KnotView* kv );
+        ChangeKnotWidth ( double old_width, double new_width, bool accepted, KnotView* kv );
 
         void undo();
         void redo();

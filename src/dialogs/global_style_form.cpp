@@ -35,7 +35,7 @@ global_style_form::global_style_form(QWidget *parent) :
     connect(color,SIGNAL(color_changed(QColor)),SIGNAL(knot_color_changed(QColor)));
     connect(color,SIGNAL(dialog_closed()),SIGNAL(knot_color_accepted()));
     connect(knot_width_spinner,SIGNAL(valueChanged(double)),SIGNAL(knot_width_changed(double)));
-    connect(knot_width_spinner,SIGNAL(editingFinished()),SIGNAL(knot_width_accepted()));
+    connect(knot_width_spinner,SIGNAL(editingFinished()),SIGNAL(accept_knot_width()));
 
     outline_pattern_combo->setItemIcon(0,load::icon("line_solid"));
     outline_pattern_combo->setItemIcon(1,load::icon("line_no"));

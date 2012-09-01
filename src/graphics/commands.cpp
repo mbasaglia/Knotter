@@ -305,10 +305,17 @@ void ChangeKnotWidth::retranslate()
 int ChangeKnotWidth::id_ = KnotViewUndoCommand::get_id();
 
 ChangeKnotWidth::ChangeKnotWidth(double old_width, double new_width, KnotView *kv)
-    : KnotViewUndoCommand(kv), old_width(old_width), new_width(new_width)
+    : KnotViewUndoCommand(kv), old_width(old_width), new_width(new_width), accepted ( false )
 {
     retranslate();
 }
+
+ChangeKnotWidth::ChangeKnotWidth(double old_width, double new_width, bool accepted, KnotView *kv)
+    : KnotViewUndoCommand(kv), old_width(old_width), new_width(new_width), accepted ( accepted )
+{
+    retranslate();
+}
+
 
 void ChangeKnotWidth::undo()
 {
@@ -327,14 +334,17 @@ int ChangeKnotWidth::id() const
 
 bool ChangeKnotWidth::mergeWith(const QUndoCommand *other)
 {
-    if (other->id() != id())
+    if (other->id() != id() )
         return false;
     const ChangeKnotWidth* o = dynamic_cast<const ChangeKnotWidth*>(other);
-    if ( o )
+    if ( o && !accepted )
     {
+        accepted = o->accepted;
         new_width = o->new_width;
         return true;
     }
+    else if ( o && accepted && qFuzzyCompare(new_width, o->new_width ) )
+        return true; // prevent enter + lose focus to cause multiple entries
     return false;
 }
 
@@ -370,7 +380,7 @@ int ChangeKnotBrush::id() const
 
 bool ChangeKnotBrush::mergeWith(const QUndoCommand *other)
 {
-    if (other->id() != id())
+    if (other->id() != id() )
         return false;
     const ChangeKnotBrush* o = dynamic_cast<const ChangeKnotBrush*>(other);
     if ( o && !accepted )

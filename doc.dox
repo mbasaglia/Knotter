@@ -8,4 +8,7 @@ Ignore this, see the main todo page
 \todo Better user guide
 \todo check QGraphicsView/QGraphicsScene::render
 \todo proper copy paste ( save xml of selected node list )
+\todo load a background picture
+\todo extensible edge types
+\todo custom edge style (crossing distance + handle length)
 */

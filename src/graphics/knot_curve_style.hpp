@@ -135,6 +135,14 @@ class knot_curve_polygonal : public knot_curve_style
                             styleinfo style );
 };
 
+class knot_curve_round : public knot_curve_style
+{
+    public:
+        void draw_joint ( path_builder& path,
+                            Node *node,
+                            const TraversalInfo& ti,
+                            styleinfo style );
+};
 
 
 
