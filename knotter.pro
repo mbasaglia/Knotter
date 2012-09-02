@@ -17,7 +17,7 @@ QT       += core gui xml
 
 
 TARGET = knotter
-VERSION = 0.5.8devel
+VERSION = 0.6.0devel
 
 
 TEMPLATE = app
@@ -153,3 +153,6 @@ INSTALLS += target
 
 RESOURCES +=
 
+win32 {
+    VERSION ~= s/[-_a-zA-Z]+//
+}

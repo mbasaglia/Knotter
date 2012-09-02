@@ -290,10 +290,19 @@ void Knot_Window::load_config()
 {
     QSettings settings("knotter","knotter");
 
-
-    if ( settings.value("version",VERSION).toString() != VERSION )
-        return; /// doesn't load settings from different version
-
+    QString config_version = settings.value("version",VERSION).toString();
+    if ( config_version != VERSION )
+    {
+        int load_old = QMessageBox::question(this,
+                tr("Load old configuration"),
+                tr("Knotter has detected configuration for version %1,\n"
+                    "this is version %2.\n"
+                    "Load old configurtion?").arg(config_version).arg(VERSION),
+            QMessageBox::Yes,QMessageBox::No
+            );
+        if ( load_old != QMessageBox::Yes)
+            return;
+    }
 
     Translator::object.change_lang_code (
             settings.value("language",Translator::object.current_lang_code()).toString()
