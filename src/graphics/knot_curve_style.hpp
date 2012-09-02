@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /**
     \file
     \brief Classes that define and handle knot curve styles
+    \todo move this in lib
 */
 #ifndef KNOT_CURVE_STYLE_HPP
 #define KNOT_CURVE_STYLE_HPP

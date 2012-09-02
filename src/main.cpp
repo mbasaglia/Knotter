@@ -33,21 +33,59 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_loader.hpp"
 
 
+std::ostream& operator<< ( std::ostream&os, QString str )
+{
+    return os << str.toStdString();
+}
 
-/// \todo boost program options
-/*#ifndef NO_BOOST
+/// \todo configure.sh boost
+#ifndef NO_BOOST
     #include <boost/program_options.hpp>
     void parse_cmd_args(int argc, char* argv[], QString& open_file)
     {
+        using namespace boost::program_options;
+        options_description opts("Command line arguments");
+        opts.add_options()
+            ("help,h", Knot_Window::tr("Show version info and exit").toStdString().c_str() )
+            ("version,v", Knot_Window::tr("Show version info and exit").toStdString().c_str() )
+            ("input-file", value<std::string>(), Knot_Window::tr("Knot file to be loaded").toStdString().c_str() )
+        ;
+
+        positional_options_description infile;
+        infile.add("input-file",-1);
+
+
+        /*variables_map vm;
+        store(parse_command_line(argc, argv, opts), vm);
+        notify(vm);*/
+
+        parsed_options parsed = command_line_parser ( argc, argv ).options ( opts )
+               .allow_unregistered().positional ( infile ). run();
+        variables_map vm;
+        store ( parsed, vm );
+        notify ( vm );
+
+        if (vm.count("help"))
+        {
+            std::cout << Knot_Window::tr("Usage: ") << "knotter [infile...]\n"
+                      << opts << "\n";
+            exit(0);
+        }
+        if ( vm.count("version") )
+        {
+            std::cout << BUILD_INFO << '\n';
+            exit(0);
+        }
+
+        if ( vm.count("input-file") )
+        {
+            std::string sof = vm["input-file"].as<std::string>();
+            open_file = QString::fromStdString(sof);
+        }
+
     }
 
-#else*/
-
-
-    std::ostream& operator<< ( std::ostream&os, QString str )
-    {
-        return os << str.toStdString();
-    }
+#else
 
     void parse_cmd_args(int, char*[], QString& open_file)
     {
@@ -81,7 +119,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             }
         }
     }
-/*#endif // NO_BOOST*/
+#endif // NO_BOOST
 
 int main(int argc, char *argv[])
 {

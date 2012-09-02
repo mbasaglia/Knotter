@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QPainterPath>
 #include "path_item.hpp"
+/// \todo move this in lib
 
 class path_builder
 {

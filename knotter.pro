@@ -28,7 +28,7 @@ MOC_DIR = src/generated
 RCC_DIR = src/generated
 
 include(src/src.pri)
-include(include/include.pri)
+include(lib/lib.pri)
 include(translations/translations.pri)
 
 OTHER_FILES = \
@@ -156,3 +156,6 @@ RESOURCES +=
 win32 {
     VERSION ~= s/[-_a-zA-Z]+//
 }
+
+#todo configure.sh boost
+LIBS += -lboost_program_options
