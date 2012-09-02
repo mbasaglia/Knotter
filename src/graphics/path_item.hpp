@@ -26,6 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef PATH_ITEM_HPP
 #define PATH_ITEM_HPP
 
+///    \todo move this in lib
+
 #include <QPainterPath>
 
 namespace path_item {

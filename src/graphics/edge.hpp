@@ -34,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 This class is responsible to draw the edge in the KnotView
 and to perform the logic of the edge
 
-
 Handle layout:
 <pre>
            TOPLEFT    TOPRIGHT
@@ -44,6 +43,9 @@ Handle layout:
         BOTTOMLEFT    BOTTOMRIGHT
 
 </pre>
+
+
+    \todo move logic in lib
 */
 class Edge : public CustomItem
 {
