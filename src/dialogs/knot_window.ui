@@ -242,7 +242,10 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>&amp;Edges and Nodes</string>
+    <string>&amp;Edit graph</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit edges and nodes</string>
    </property>
    <property name="shortcut">
     <string>Alt+Shift+E</string>

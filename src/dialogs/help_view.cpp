@@ -36,6 +36,8 @@ Help_View::Help_View(QWidget *parent) :
 
     QUrl manual = load::resource_url(DOC_DIR,"user_guide/user_guide.htm");
 
+    web_view->setHtml("<html><head><title></title><body>"+tr("Knotter manual not loaded")+"</body></html>");
+
     #ifndef NO_WEBKIT
         web_view->load( manual );
         web_view->page()->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);

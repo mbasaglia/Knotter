@@ -274,6 +274,11 @@
         <source>Knotter Manual</source>
         <translation>Manuale di Knotter</translation>
     </message>
+    <message>
+        <location filename="../src/dialogs/help_view.cpp" line="39"/>
+        <source>Knotter manual not loaded</source>
+        <translation>Manuale non caricato</translation>
+    </message>
 </context>
 <context>
     <name>KnotView</name>
@@ -391,7 +396,17 @@
         <translation>&amp;Esci</translation>
     </message>
     <message>
+        <location filename="../src/dialogs/knot_window.ui" line="245"/>
+        <source>&amp;Edit graph</source>
+        <translation>&amp;Modifica grafo</translation>
+    </message>
+    <message>
         <location filename="../src/dialogs/knot_window.ui" line="248"/>
+        <source>Edit edges and nodes</source>
+        <translation>Modifica archi e nodi</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/knot_window.ui" line="251"/>
         <source>Alt+Shift+E</source>
         <translation>Alt+Maiusc+E</translation>
     </message>
@@ -426,196 +441,195 @@
         <translation>Visualizzazione</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="245"/>
         <source>&amp;Edges and Nodes</source>
-        <translation>Archi &amp;e Nodi</translation>
+        <translation type="obsolete">Archi &amp;e Nodi</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="256"/>
+        <location filename="../src/dialogs/knot_window.ui" line="259"/>
         <source>Edge &amp;List</source>
         <oldsource>Edge List</oldsource>
         <translation>&amp;Sequeza di Archi</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="259"/>
+        <location filename="../src/dialogs/knot_window.ui" line="262"/>
         <source>Alt+Shift+L</source>
         <translation>Alt+Maiusc+L</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="264"/>
+        <location filename="../src/dialogs/knot_window.ui" line="267"/>
         <source>&amp;Link</source>
         <translation>Co&amp;llega</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="267"/>
+        <location filename="../src/dialogs/knot_window.ui" line="270"/>
         <source>Link Selected Nodes</source>
         <translation>Collega nodi selezionati</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="270"/>
+        <location filename="../src/dialogs/knot_window.ui" line="273"/>
         <source>Ctrl+L</source>
         <translation>Ctrl+L</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="275"/>
+        <location filename="../src/dialogs/knot_window.ui" line="278"/>
         <source>&amp;Erase</source>
         <translation>&amp;Elimina</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="278"/>
+        <location filename="../src/dialogs/knot_window.ui" line="281"/>
         <source>Erase Selected Nodes</source>
         <translation>Elimina nodi selezionati</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="281"/>
+        <location filename="../src/dialogs/knot_window.ui" line="284"/>
         <source>Del</source>
         <translation>Canc</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="286"/>
+        <location filename="../src/dialogs/knot_window.ui" line="289"/>
         <source>&amp;Merge</source>
         <translation>&amp;Unisci</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="289"/>
+        <location filename="../src/dialogs/knot_window.ui" line="292"/>
         <source>Merge Selected Nodes</source>
         <translation>Unisci i nodi selezionati</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="292"/>
+        <location filename="../src/dialogs/knot_window.ui" line="295"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="297"/>
+        <location filename="../src/dialogs/knot_window.ui" line="300"/>
         <location filename="../src/dialogs/knot_window.cpp" line="125"/>
         <source>&amp;Undo</source>
         <translation>&amp;Annulla</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="302"/>
+        <location filename="../src/dialogs/knot_window.ui" line="305"/>
         <location filename="../src/dialogs/knot_window.cpp" line="131"/>
         <source>&amp;Redo</source>
         <translation>&amp;Ripeti</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="307"/>
+        <location filename="../src/dialogs/knot_window.ui" line="310"/>
         <source>Select &amp;All</source>
         <translation>Seleziona t&amp;utto</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="312"/>
+        <location filename="../src/dialogs/knot_window.ui" line="315"/>
         <source>Refresh &amp;Path</source>
         <translation>A&amp;ggiorna Intreccio</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="377"/>
+        <location filename="../src/dialogs/knot_window.ui" line="380"/>
         <source>Pre&amp;ferences...</source>
         <translation>Op&amp;zioni...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="388"/>
+        <location filename="../src/dialogs/knot_window.ui" line="391"/>
         <source>&amp;Enable Grid</source>
         <translation>A&amp;bilita Griglia</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="398"/>
+        <location filename="../src/dialogs/knot_window.ui" line="401"/>
         <source>&amp;Horizontal Flip</source>
         <translation>Capovolgi in &amp;orizzontale</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="403"/>
+        <location filename="../src/dialogs/knot_window.ui" line="406"/>
         <source>&amp;Vertical Flip</source>
         <translation>Capovolgi in &amp;verticale</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="408"/>
+        <location filename="../src/dialogs/knot_window.ui" line="411"/>
         <source>&amp;Move Grid</source>
         <translation>Sp&amp;osta griglia</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="416"/>
+        <location filename="../src/dialogs/knot_window.ui" line="419"/>
         <location filename="../src/dialogs/knot_window.cpp" line="765"/>
         <source>No recent files</source>
         <translation>Nessun file recente</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="421"/>
+        <location filename="../src/dialogs/knot_window.ui" line="424"/>
         <source>&amp;Manual</source>
         <translation>&amp;Manuale</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="426"/>
+        <location filename="../src/dialogs/knot_window.ui" line="429"/>
         <source>&amp;About...</source>
         <translation>Inform&amp;azioni...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="431"/>
+        <location filename="../src/dialogs/knot_window.ui" line="434"/>
         <source>&amp;Unlink</source>
         <translation>&amp;Separa</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="434"/>
+        <location filename="../src/dialogs/knot_window.ui" line="437"/>
         <source>Unlink selected nodes</source>
         <translation>Rimuove gli archi tra i nodi selezionati</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="439"/>
+        <location filename="../src/dialogs/knot_window.ui" line="442"/>
         <source>Insert Pol&amp;ygon...</source>
         <translation>&amp;Inserisci Poligono...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="317"/>
+        <location filename="../src/dialogs/knot_window.ui" line="320"/>
         <source>Zoom &amp;In</source>
         <translation>&amp;Ingrandisci</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="322"/>
+        <location filename="../src/dialogs/knot_window.ui" line="325"/>
         <source>Zoom &amp;Out</source>
         <translation>Ri&amp;mpicciolisci</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="327"/>
+        <location filename="../src/dialogs/knot_window.ui" line="330"/>
         <source>&amp;Reset Zoom</source>
         <translation>&amp;Reimposta Zoom</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="330"/>
+        <location filename="../src/dialogs/knot_window.ui" line="333"/>
         <source>Ctrl+0</source>
         <translation>Ctrl+0</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="335"/>
+        <location filename="../src/dialogs/knot_window.ui" line="338"/>
         <source>&amp;Reset View</source>
         <translation>&amp;Reimposta Vista</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="346"/>
+        <location filename="../src/dialogs/knot_window.ui" line="349"/>
         <source>Show &amp;Graph</source>
         <translation>Mosta &amp;Grafo</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="357"/>
+        <location filename="../src/dialogs/knot_window.ui" line="360"/>
         <source>Show Knot&amp;line</source>
         <translation>Mostra I&amp;ntreccio</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="362"/>
+        <location filename="../src/dialogs/knot_window.ui" line="365"/>
         <source>Cu&amp;t</source>
         <translation>&amp;Taglia</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="367"/>
+        <location filename="../src/dialogs/knot_window.ui" line="370"/>
         <source>&amp;Copy</source>
         <translation>&amp;Copia</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="372"/>
+        <location filename="../src/dialogs/knot_window.ui" line="375"/>
         <source>&amp;Paste</source>
         <translation>&amp;Incolla</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.ui" line="393"/>
+        <location filename="../src/dialogs/knot_window.ui" line="396"/>
         <source>Configure G&amp;rid...</source>
         <translation>Configura g&amp;riglia...</translation>
     </message>
@@ -649,7 +663,6 @@
     </message>
     <message>
         <location filename="../src/dialogs/knot_window.cpp" line="587"/>
-        <location filename="../src/main.cpp" line="74"/>
         <source>Could not write to &quot;%1&quot;.</source>
         <translation>Impossibile scrivere su &quot;%1&quot;.</translation>
     </message>
@@ -711,7 +724,6 @@ Caricare le impostazioni?</translation>
     </message>
     <message>
         <location filename="../src/dialogs/knot_window.cpp" line="616"/>
-        <location filename="../src/main.cpp" line="105"/>
         <source>Error while reading &quot;%1&quot;.</source>
         <translation>Errore durante la lettura di &quot;%1&quot;.</translation>
     </message>
@@ -736,29 +748,32 @@ Caricare le impostazioni?</translation>
         <translation>&lt;vuoto&gt;</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="89"/>
+        <location filename="../src/main.cpp" line="67"/>
         <source>Usage: </source>
         <translation>Uso:</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="91"/>
         <source>Tell knotter to terminate when finished parsing the command-line arguments</source>
-        <translation>Knotter termina l&apos;esecuzione quando ha finito di interpretare i comandi di riga di comando</translation>
+        <translation type="obsolete">Knotter termina l&apos;esecuzione quando ha finito di interpretare i comandi di riga di comando</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="94"/>
         <source>Convert currently loaded file into SVG</source>
-        <translation>Converti il file caricato in SVG</translation>
+        <translation type="obsolete">Converti il file caricato in SVG</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="96"/>
+        <location filename="../src/main.cpp" line="69"/>
         <source>Show version info and exit</source>
         <translation>Mostra informazioni di versione ed esce</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="98"/>
+        <location filename="../src/main.cpp" line="71"/>
         <source>Show this message and exit</source>
         <translation>Mostra questo messaggio ed esce</translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="73"/>
+        <source>This build of Knotter has been compiled without command line support.</source>
+        <translation>Questa versione di Knotter ha l&apos;interfaccia da linea di comando disabilitata.</translation>
     </message>
 </context>
 <context>
@@ -875,9 +890,8 @@ Caricare le impostazioni?</translation>
         <translation>Icone in parte al testo</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="165"/>
         <source>Icon below text</source>
-        <translation>Icone sotto il testo</translation>
+        <translation type="obsolete">Icone sotto il testo</translation>
     </message>
     <message>
         <location filename="../src/dialogs/config_dialog.ui" line="86"/>
@@ -932,6 +946,11 @@ Caricare le impostazioni?</translation>
         <location filename="../src/dialogs/config_dialog.ui" line="142"/>
         <source>Toolbar Icons</source>
         <translation>Icone barre degli strumenti</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/config_dialog.ui" line="165"/>
+        <source>Icon above text</source>
+        <translation>Icone sopra al testo</translation>
     </message>
     <message>
         <location filename="../src/dialogs/config_dialog.ui" line="173"/>
