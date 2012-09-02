@@ -297,7 +297,7 @@ void Knot_Window::load_config()
                 tr("Load old configuration"),
                 tr("Knotter has detected configuration for version %1,\n"
                     "this is version %2.\n"
-                    "Load old configurtion?").arg(config_version).arg(VERSION),
+                    "Load old configuration?").arg(config_version).arg(VERSION),
             QMessageBox::Yes,QMessageBox::No
             );
         if ( load_old != QMessageBox::Yes)

@@ -36,7 +36,7 @@
 <context>
     <name>ChangeKnotBrush</name>
     <message>
-        <location filename="../src/graphics/commands.cpp" line="387"/>
+        <location filename="../src/graphics/commands.cpp" line="397"/>
         <source>Change knot color</source>
         <translation>Cambia colore intreccio</translation>
     </message>
@@ -44,7 +44,7 @@
 <context>
     <name>ChangeKnotJoinStyle</name>
     <message>
-        <location filename="../src/graphics/commands.cpp" line="450"/>
+        <location filename="../src/graphics/commands.cpp" line="460"/>
         <source>Change knot point style</source>
         <translation>Cambia stile punta</translation>
     </message>
@@ -52,7 +52,7 @@
 <context>
     <name>ChangeKnotPen</name>
     <message>
-        <location filename="../src/graphics/commands.cpp" line="392"/>
+        <location filename="../src/graphics/commands.cpp" line="402"/>
         <source>Change knot outline</source>
         <translation>Cambia bordo intreccio</translation>
     </message>
@@ -79,78 +79,83 @@
     </message>
     <message>
         <location filename="../src/dialogs/export_dialog.ui" line="26"/>
+        <source>Save the knot as a simple path, discarding the outline</source>
+        <translation>Salva l&apos;interccio come una semplice linea, ignorando lo stile del bordo</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/export_dialog.ui" line="29"/>
         <source>Only shape</source>
         <translation>Solo forma di base</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.ui" line="33"/>
+        <location filename="../src/dialogs/export_dialog.ui" line="36"/>
         <source>Export &amp;SVG...</source>
         <translation>Esporta &amp;SVG...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.ui" line="62"/>
+        <location filename="../src/dialogs/export_dialog.ui" line="65"/>
         <source>Exported Area</source>
         <translation>Area da esportare</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.ui" line="68"/>
+        <location filename="../src/dialogs/export_dialog.ui" line="71"/>
         <source>Everything</source>
         <translation>Tutto</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.ui" line="78"/>
+        <location filename="../src/dialogs/export_dialog.ui" line="81"/>
         <source>Visible</source>
         <translation>Visibile</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.ui" line="88"/>
+        <location filename="../src/dialogs/export_dialog.ui" line="91"/>
         <source>Raster</source>
         <translation>Raster</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.ui" line="94"/>
+        <location filename="../src/dialogs/export_dialog.ui" line="97"/>
         <source>Antialias</source>
         <translation>Antialias</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.ui" line="104"/>
+        <location filename="../src/dialogs/export_dialog.ui" line="107"/>
         <source>Export &amp;Image...</source>
         <translation>Esporta &amp;Immagine...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.ui" line="111"/>
+        <location filename="../src/dialogs/export_dialog.ui" line="114"/>
         <source>Compression</source>
         <translation>Compressione</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.ui" line="118"/>
+        <location filename="../src/dialogs/export_dialog.ui" line="121"/>
         <source>Width</source>
         <translation>Largezza</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.ui" line="125"/>
-        <location filename="../src/dialogs/export_dialog.ui" line="145"/>
+        <location filename="../src/dialogs/export_dialog.ui" line="128"/>
+        <location filename="../src/dialogs/export_dialog.ui" line="148"/>
         <source>px</source>
         <translatorcomment>px</translatorcomment>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.ui" line="138"/>
+        <location filename="../src/dialogs/export_dialog.ui" line="141"/>
         <source>Height</source>
         <translation>Altezza</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.ui" line="164"/>
+        <location filename="../src/dialogs/export_dialog.ui" line="167"/>
         <source>Keep &amp;Ratio</source>
         <translation>P&amp;roporzionato</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.ui" line="177"/>
+        <location filename="../src/dialogs/export_dialog.ui" line="180"/>
         <source>R&amp;eset Size</source>
         <translation>R&amp;eimposta dimensioni</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.ui" line="199"/>
+        <location filename="../src/dialogs/export_dialog.ui" line="202"/>
         <source>100%</source>
         <translation>100%</translation>
     </message>
@@ -160,39 +165,39 @@
         <translation>Esporta come SVG</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.cpp" line="55"/>
-        <location filename="../src/dialogs/export_dialog.cpp" line="104"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="57"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="106"/>
         <source>File Error</source>
         <translation>Errore</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.cpp" line="55"/>
-        <location filename="../src/dialogs/export_dialog.cpp" line="104"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="57"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="106"/>
         <source>Could not write to &quot;%1&quot;.</source>
         <translation>Impossibile scrivere su &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.cpp" line="80"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="82"/>
         <source>PNG Images (*.png)</source>
         <translation>Immagini PNG (*.png)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.cpp" line="81"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="83"/>
         <source>Jpeg Images (*.jpg *.jpeg)</source>
         <translation>Immagini Jpeg (*.jpg, *.jpeg)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.cpp" line="82"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="84"/>
         <source>Bitmap (*.bmp)</source>
         <translation>Bitmap (*.bmp)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.cpp" line="83"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="85"/>
         <source>All files (*)</source>
         <translation>Tutti i file (*)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/export_dialog.cpp" line="87"/>
+        <location filename="../src/dialogs/export_dialog.cpp" line="89"/>
         <source>Export Knot as Image</source>
         <translation>Esporta come immagine</translation>
     </message>
@@ -273,37 +278,37 @@
 <context>
     <name>KnotView</name>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1147"/>
+        <location filename="../src/graphics/knotview.cpp" line="926"/>
         <source>Break Edge</source>
         <translation>Spezza Arco</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="761"/>
+        <location filename="../src/graphics/knotview.cpp" line="655"/>
         <source>Load Knot</source>
         <translation>Carica Nodo</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1285"/>
+        <location filename="../src/graphics/knotview.cpp" line="1064"/>
         <source>Move Nodes</source>
         <translation>Sposta Nodi</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1410"/>
+        <location filename="../src/graphics/knotview.cpp" line="1189"/>
         <source>Remove Nodes</source>
         <translation>Elimina Nodi</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1421"/>
+        <location filename="../src/graphics/knotview.cpp" line="1200"/>
         <source>Link Nodes</source>
         <translation>Collega Nodi</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1435"/>
+        <location filename="../src/graphics/knotview.cpp" line="1214"/>
         <source>Unlink Nodes</source>
         <translation>Separa nodi</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1459"/>
+        <location filename="../src/graphics/knotview.cpp" line="1238"/>
         <source>Merge Nodes</source>
         <translation>Unisci Nodi</translation>
     </message>
@@ -530,7 +535,7 @@
     </message>
     <message>
         <location filename="../src/dialogs/knot_window.ui" line="416"/>
-        <location filename="../src/dialogs/knot_window.cpp" line="699"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="765"/>
         <source>No recent files</source>
         <translation>Nessun file recente</translation>
     </message>
@@ -615,104 +620,118 @@
         <translation>Configura g&amp;riglia...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="493"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="555"/>
         <source>Cut</source>
         <translation>Taglia</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="512"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="574"/>
         <source>Clear Document</source>
         <translation>Elimina Tutto</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="525"/>
-        <location filename="../src/dialogs/knot_window.cpp" line="544"/>
-        <location filename="../src/dialogs/knot_window.cpp" line="554"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="587"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="606"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="616"/>
         <source>File Error</source>
         <translatorcomment>Needs better translation...</translatorcomment>
         <translation>Errore</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="579"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="641"/>
         <source>Save Knot</source>
         <translation>Salva Intreccio</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="589"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="651"/>
         <source>Open Knot</source>
         <translation>Apri Intreccio</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="525"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="587"/>
         <location filename="../src/main.cpp" line="74"/>
         <source>Could not write to &quot;%1&quot;.</source>
         <translation>Impossibile scrivere su &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="193"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="194"/>
         <source>Action History</source>
         <translation>Cronologia Azioni</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="204"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="205"/>
         <source>Default Node Style</source>
         <translation>Stile nodi predefinito</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="225"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="223"/>
         <source>Knot Style</source>
         <translation>Stile Intreccio</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="322"/>
-        <location filename="../src/dialogs/knot_window.cpp" line="349"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="297"/>
+        <source>Load old configuration</source>
+        <translation>Carica vecchie impostazioni</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/knot_window.cpp" line="298"/>
+        <source>Knotter has detected configuration for version %1,
+this is version %2.
+Load old configuration?</source>
+        <translation>Knotter ha trovato impostazioni per la versione %1,
+la versione corrente è %2.
+Caricare le impostazioni?</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/knot_window.cpp" line="334"/>
         <location filename="../src/dialogs/knot_window.cpp" line="361"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="373"/>
         <source>Warning:</source>
         <translation>Attenzione:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="323"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="335"/>
         <source>Not loading toolbar without name</source>
         <translation>Impossibile caricare barra degli strumenti senza nome</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="350"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="362"/>
         <source>Not loading action without name</source>
         <translation>Impossibile caricare azione senza nome</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="362"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="374"/>
         <source>Unknown action %1</source>
         <translation>L&apos;azione %1 è sconosciuta</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="544"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="606"/>
         <source>Could not read &quot;%1&quot;.</source>
         <translation>Impossibile leggere &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="554"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="616"/>
         <location filename="../src/main.cpp" line="105"/>
         <source>Error while reading &quot;%1&quot;.</source>
         <translation>Errore durante la lettura di &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="737"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="803"/>
         <source>About Knotter</source>
         <translation>Informazioni su Knotter</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="755"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="821"/>
         <source>Insert Polygon</source>
         <translation>Inserisci poligono</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="755"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="821"/>
         <source>Sides</source>
         <translation>Lati</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="792"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="858"/>
         <source>&lt;empty&gt;</source>
         <translation>&lt;vuoto&gt;</translation>
     </message>
@@ -1005,17 +1024,27 @@
         <translation>Pulsanti barre degli strumenti</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="475"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="472"/>
         <source>Knot style</source>
         <translation>Stile nodo</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="492"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="482"/>
+        <source>Clear configuration and restore defaults next time Knotter is launched</source>
+        <translation>Cancella le impostazioni e ripristina i valori predefiniti alla prossima esecuzione di Knotter</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/config_dialog.ui" line="485"/>
+        <source>Clear saved configuration</source>
+        <translation>Cancella impostazioni</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/config_dialog.ui" line="499"/>
         <source>Cache mode</source>
         <translation>Cache</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="499"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="506"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -1032,32 +1061,32 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Pesante&lt;/span&gt; - Intreccio disagnato come immagine, ingrandendo si perde qualità&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="509"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="516"/>
         <source>No cache</source>
         <translation>Nessuna</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="514"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="521"/>
         <source>Heavy cache</source>
         <translation>Leggera</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="519"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="526"/>
         <source>Mild cache</source>
         <translation>Pesante</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="530"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="534"/>
         <source>Redraw the knot while moving nodes</source>
         <translation>Ridisegna intreccio mente si spostano i nodi</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.ui" line="533"/>
+        <location filename="../src/dialogs/config_dialog.ui" line="537"/>
         <source>Fluid refresh</source>
         <translation>Aggiornamento fluido</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/config_dialog.cpp" line="292"/>
+        <location filename="../src/dialogs/config_dialog.cpp" line="294"/>
         <source>Toolbar%1</source>
         <translation>Barra%1</translation>
     </message>
@@ -1290,11 +1319,16 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../src/dialogs/node_style_form.ui" line="110"/>
+        <source>Round</source>
+        <translation>Arrotondata</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/node_style_form.ui" line="115"/>
         <source>Ogee</source>
         <translation>Ogiva</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="115"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="120"/>
         <source>Polygonal</source>
         <translation>Poligonale</translation>
     </message>
