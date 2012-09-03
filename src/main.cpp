@@ -38,7 +38,6 @@ std::ostream& operator<< ( std::ostream&os, QString str )
     return os << str.toStdString();
 }
 
-/// \todo configure.sh boost
 #ifndef NO_BOOST
     #include <boost/program_options.hpp>
     void parse_cmd_args(int argc, char* argv[], QString& open_file)
@@ -46,18 +45,13 @@ std::ostream& operator<< ( std::ostream&os, QString str )
         using namespace boost::program_options;
         options_description opts("Command line arguments");
         opts.add_options()
-            ("help,h", Knot_Window::tr("Show version info and exit").toStdString().c_str() )
+            ("help,h", Knot_Window::tr("Show this message and exit").toStdString().c_str() )
             ("version,v", Knot_Window::tr("Show version info and exit").toStdString().c_str() )
             ("input-file", value<std::string>(), Knot_Window::tr("Knot file to be loaded").toStdString().c_str() )
         ;
 
         positional_options_description infile;
         infile.add("input-file",-1);
-
-
-        /*variables_map vm;
-        store(parse_command_line(argc, argv, opts), vm);
-        notify(vm);*/
 
         parsed_options parsed = command_line_parser ( argc, argv ).options ( opts )
                .allow_unregistered().positional ( infile ). run();
