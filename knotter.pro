@@ -17,7 +17,7 @@ QT       += core gui xml
 
 
 TARGET = knotter
-VERSION = 0.6.0
+VERSION = 0.6.1devel
 
 
 TEMPLATE = app
@@ -38,7 +38,10 @@ OTHER_FILES = \
     doc.dox \
     README \
     configure.sh \
-    AUTHORS
+    AUTHORS \
+    deb_builder.sh \
+    fix_makefile.sh \
+    man_builder.sh
 
 DEFINES += "VERSION=\\\"$${VERSION}\\\""
 
@@ -54,13 +57,23 @@ CONFIG(debug, debug|release) {
     DEFINES += HAS_QT_4_8
 }
 
+contains(BOOST,no) {
+    DEFINES += NO_BOOST
+} else {
+    LIBS += -lboost_program_options
+}
+
+#Extra make targets
+
+#dist
 MYDISTFILES =  $$OTHER_FILES knotter.pro
-MYDISTDIRS  =  src include img translations user_guide
+MYDISTDIRS  =  src lib img translations user_guide man
 
 MYDIST_NAME = "$$TARGET-$${VERSION}"
 MYDIST_TAR = "$${MYDIST_NAME}.tar"
 MYDIST_TAR_GZ = "$${MYDIST_TAR}.gz"
 MYDIST_TMP = ".tmp/$${MYDIST_NAME}"
+mydist.depends = man
                                                                             #
 mydist.commands =                                                           \
         (                                                                   \
@@ -77,15 +90,21 @@ mydist.commands =                                                           \
         $(MOVE) `dirname $$MYDIST_TMP`/$$MYDIST_TAR_GZ $$MYDIST_TAR_GZ &&   \
         $(DEL_FILE) -r $$MYDIST_TMP                                         #
 
-
+#distclean
 mydistclean.depends = clean
 mydistclean.commands = $(DEL_FILE) $$MYDIST_TAR_GZ Makefile $(TARGET)
 QMAKE_EXTRA_TARGETS += mydist mydistclean
 
+#src_doc
 Doxyfile.commands = doxygen -g
 src_doc.depends = Doxyfile FORCE
 src_doc.commands = sed s/KNOTTER_VERSION/$${VERSION}/ Doxyfile | doxygen -
-QMAKE_EXTRA_TARGETS += src_doc Doxyfile
+
+#man
+man.depends = man_builder.sh FORCE
+man.commands = ./man_builder.sh
+
+QMAKE_EXTRA_TARGETS += src_doc Doxyfile man
 
 
 #check directories and options from configure.sh
@@ -103,6 +122,7 @@ contains(SINGLE_FILE,yes) {
     BINDIR=.
     DATADIR=:/data
     DOCDIR=:/doc
+    MANDIR=man
     message("Compiling all data in a single executable file")
     RESOURCES += data.qrc
 
@@ -118,6 +138,10 @@ contains(SINGLE_FILE,yes) {
     isEmpty(DOCDIR){
         DOCDIR=.
     }
+    isEmpty(MANDIR){
+        MANDIR=man
+    }
+
 
     img.files = img/*
     img.path = $${DATADIR}/img
@@ -128,7 +152,10 @@ contains(SINGLE_FILE,yes) {
     translations.files = translations/*.qm
     translations.path = $${DATADIR}/translations
 
-    INSTALLS += img doc translations
+    man.files = man/$${TARGET}.1.gz
+    man.path = $${MANDIR}/man1
+
+    INSTALLS += img doc translations man
 
 
     !isEmpty(TANGO){
@@ -157,5 +184,3 @@ win32 {
     VERSION ~= s/[-_a-zA-Z]+//
 }
 
-#todo configure.sh boost
-LIBS += -lboost_program_options

@@ -1,6 +1,9 @@
 
 Mattia Basaglia <mattia.basagli@gmail.com>
-
+    Overall developer and maintainer
 
 Pavel Fric
     Czech translation
+
+holyguac
+    Fixed bug in configure.sh

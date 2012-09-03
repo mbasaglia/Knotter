@@ -26,40 +26,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef BASIC_KNOT_GRAPH_HPP
 #define BASIC_KNOT_GRAPH_HPP
 
-#include "node.hpp"
-#include "edge.hpp"
-#include "knot_curve_style.hpp"
 #include <list>
+#include "path_builder.hpp"
+#include "edge.hpp"
+#include "node.hpp"
+#include "knot_curve_style.hpp"
 
 class basic_knot_graph
 {
     protected:
-        std::list<Node*> nodes;             ///< List of nodes
-        std::list<Edge*> edges;             ///< List of edges (to be traversed)
-        std::list<Edge*> traversed_edges;   ///< List of edges (already fully traversed)
-        styleinfo default_style;        ///< Default style
+        std::list<Node*> nodes; ///< List of nodes
+        std::list<Edge*> edges; ///< List of edges (to be traversed)
+        std::list<Edge*> traversed_edges; ///< List of edges (already fully traversed)
+        styleinfo default_style; ///< Knot style
 
     public:
         basic_knot_graph();
         virtual ~basic_knot_graph() {}
-
         void add_node(Node* which);
         void add_edge ( Edge* which );
         void remove_node(Node* which);
         void remove_edge ( Edge* which );
-        void clear();   ///< remove all edges and nodes
-
-
+        void clear(); ///< remove all edges and nodes
         void set_style_info( styleinfo new_style );
         styleinfo get_style_info() const;
 
         /**
-            \brief build kotline on given path builder
-
+            \brief Build the knot path
             This function traverses the graph and contructs the knot line.
         */
-        void build_knotline ( path_builder& path );
+        void build_knotline(path_builder&path);
 
 };
+
 
 #endif // BASIC_KNOT_GRAPH_HPP

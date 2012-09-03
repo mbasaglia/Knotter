@@ -24,15 +24,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 #include "basic_knot_graph.hpp"
-#include <algorithm>
 
 basic_knot_graph::basic_knot_graph()
     : default_style ( knot_curve_styler::idof("pointed"), 225, 32, 10, 24)
 {
 }
 
-
-void basic_knot_graph::add_node(Node* which)
+void basic_knot_graph::add_node(Node *which)
 {
     if ( which )
         nodes.push_back(which);
@@ -41,7 +39,7 @@ void basic_knot_graph::add_node(Node* which)
 void basic_knot_graph::add_edge(Edge *which)
 {
     if ( which )
-        edges.push_back ( which );
+        edges.push_back(which);
 }
 
 void basic_knot_graph::remove_node(Node *which)
@@ -60,8 +58,6 @@ void basic_knot_graph::clear()
     edges.clear();
 }
 
-
-
 void basic_knot_graph::set_style_info(styleinfo new_style)
 {
     default_style = new_style;
@@ -74,7 +70,6 @@ styleinfo basic_knot_graph::get_style_info() const
 
 void basic_knot_graph::build_knotline(path_builder &path_b)
 {
-
     knot_curve_style* pcs = knot_curve_styler::style(default_style.curve_style);
 
     foreach(Edge*e,edges)
@@ -130,3 +125,4 @@ void basic_knot_graph::build_knotline(path_builder &path_b)
     edges = traversed_edges;
     traversed_edges.clear();
 }
+
