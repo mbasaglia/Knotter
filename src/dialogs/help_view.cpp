@@ -29,14 +29,60 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "translator.hpp"
 
 
+#include <QDir>
+QStringList test_manual ( QString base_dir, QString name )
+{
+    QStringList attempts;
+
+
+
+    if ( base_dir.startsWith(":/") ) // resource
+    {
+        attempts << "qrc"+base_dir+'/'+name + " (resource)";
+    }
+
+    QDir path ( base_dir ); // install dir
+
+    attempts << "file://"+QDir::cleanPath(path.absoluteFilePath(name)) + " (install dir)";
+
+    if ( !path.exists(name) )
+    {
+        path.setPath( QCoreApplication::applicationDirPath() ); // executable dir
+        attempts << "file://"+QDir::cleanPath(path.absoluteFilePath(name)) + " (executable dir)";
+    }
+
+    if ( !path.exists(name) )
+    {
+        path.setPath( QDir::currentPath() ); // current dir
+        attempts << "file://"+QDir::cleanPath(path.absoluteFilePath(name)) + " (current dir)";
+    }
+
+
+    if ( !path.exists(name) )
+    {
+        attempts << "(Not found)";
+    }
+
+    return attempts;
+}
+
 Help_View::Help_View(QWidget *parent) :
     QDialog(parent)
 {
     setupUi(this);
 
-    QUrl manual = load::resource_url(DOC_DIR,"user_guide/user_guide.htm");
+    QUrl manual = load::resource_url(DOC_DIR,"user_guide/user_guideff.htm");
 
-    web_view->setHtml("<html><head><title></title><body>"+tr("Knotter manual not loaded")+"</body></html>");
+    QStringList test = test_manual(DOC_DIR,"user_guide/user_guideff.htm");
+    QString test_string;
+    foreach(QString s, test)
+        test_string+="<li>"+s+"</li>";
+
+    web_view->setHtml("<html><head><title></title><body>"+
+                        tr("Knotter manual not loaded")+
+                        "<br/>Attempting to load manual from:<ul>"+
+                        test_string+
+                        "</ul></body></html>");
 
     #ifndef NO_WEBKIT
         web_view->load( manual );
