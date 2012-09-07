@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                   "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<refentry id="man_page" >
+
+    <refmeta>
+        <refentrytitle>__name__</refentrytitle>
+        <manvolnum>1</manvolnum>
+        <refmiscinfo class='source'>__version__</refmiscinfo>
+        <refmiscinfo class='manual'>User Commands</refmiscinfo>
+    </refmeta>
+
+    <refnamediv>
+        <refname>__name__</refname>
+        <refpurpose>__desc__</refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+        <cmdsynopsis>
+            <command>__name__</command>
+            <arg choice='opt' rep='repeat'><replaceable>OPTION</replaceable></arg>
+            <arg choice='opt'><replaceable>INFILE</replaceable></arg>
+        </cmdsynopsis>
+    </refsynopsisdiv>
+
+    <refsect1>
+        <title>DESCRIPTION</title>
+        <para>__long_desc__</para>
+    </refsect1>
+
+    <refsect1>
+        <title>OPTIONS</title>
+        <variablelist>
+            <varlistentry>
+                <term>--help</term>
+                <term>-h</term>
+                <listitem>
+                    <para>Show help message and exit</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>--version</term>
+                <term>-v</term>
+                <listitem>
+                    <para>Show version info and exit</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsect1>
+
+    <refsect1>
+        <title>AUTHOR</title>
+        <para>__author__ &lt;__email__&gt;</para>
+    </refsect1>
+
+    <refsect1>
+        <title>SEE ALSO</title>
+        <para>__title__ website <ulink url="__website__">__website__</ulink></para>
+    </refsect1>
+
+</refentry>

@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef XML_SAVER_HPP
 #define XML_SAVER_HPP
 #include "knot_curve_style.hpp"
-#include "knotview.hpp"
+#include "knotgraph.hpp"
 #include <QXmlStreamWriter>
 #include <QDomDocument>
 class xml_saver
@@ -71,7 +71,7 @@ class xml_loader
 
         bool load ( QIODevice* input );
 
-        void get_graph ( KnotView *view );
+        void get_graph ( KnotGraph &kv );
 
         Node* register_node ( QString id );
 

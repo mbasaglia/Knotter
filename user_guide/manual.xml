@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2012 Mattia Basaglia.
+  All documentation for Knotter is released under the terms of the
+  GNU Free Documentation License, version 1.3.
+  See fdl.xml or http://www.gnu.org/licenses/gfdl.html
+-->
+<book xmlns="http://docbook.org/ns/docbook"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      version="5.0">
+  <info>
+    <title><inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="img/logo_big.svg" />
+      </imageobject>
+    </inlinemediaobject> Knotter Manual</title>
+    <author>Mattia Basaglia</author>
+  </info>
+  
+  <chapter xml:id="user_guide">
+    <title>Knotter User Guide</title>
+
+    <section> <title>Introduction</title>
+      <para>Interlace patterns are a kind of design hystorically used as
+        a decorations in many places and by different cultures.</para>
+      <para>Knotter uses
+        <ulink url="http://en.wikipedia.org/wiki/Knots_and_graphs">graphs to represent knots</ulink>.
+      </para>
+      <para>A good description of the algorithm used to render them and design
+        tips can be found at
+        <ulink url="http://www.entrelacs.net/">Celtic Knotwork: the Ultimate Tutorial</ulink>
+      </para>
+      <informalfigure>
+        <mediaobject><imageobject><imagedata fileref="img/quran.jpg"/></imageobject></mediaobject>
+        <caption>
+          <para>An illumination on the cover of the Quran with an interlaced frame</para>
+        </caption>
+      </informalfigure>
+    </section>
+    
+    <section> <title>Command-line interface</title>
+      <para>See the <link linkend="man_page">Knotter man page</link></para>
+    </section>
+        
+    <section> <title>Editing</title>
+      <para>A knot is produced from a graph where the edges define
+      interactions between two knot lines.</para>
+  
+      <section> <title>Adding nodes</title>
+        <para>Double clicking on an empty spot on the drawing area will add a node.
+        If you double click on an edge, the new node will split that edge in two.</para>
+      </section>
+      
+      <section> <title>Adding edges</title>
+        <para>To toggle edges between nodes, the <guimenuitem>Link selected</guimenuitem>
+        and <guimenuitem>Unlink selected</guimenuitem> commands.</para>
+      </section>
+      
+      <section> <title>Changing edge type</title>
+        <para>Knotter supports three types of edge:</para>
+        <variablelist>
+          <varlistentry>
+            <term>Default</term>
+            <listitem>
+              <para>The two lines cross at the edge midpoint, one on top of the other</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>Inverted</term>
+            <listitem>
+              <para>Like default but with the other line on top</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>Hole</term>
+            <listitem>
+              <para>The lines turn back without crossing</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>Wall</term>
+            <listitem>
+              <para>The lines follow the edge without crossing</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+        
+        <informalfigure>
+          <mediaobject>
+              <imageobject><imagedata fileref="img/edge_types.png" /></imageobject>
+              <textobject><phrase>Screenshot showing the edge types</phrase></textobject>
+          </mediaobject>
+          <caption>
+            <para>From left to right: Default, Inverted, Hole, Wall</para>
+          </caption>
+        </informalfigure>
+
+        <tip><para>The type of an edge is changed with the mouse wheel or with the
+        edge context menu.</para></tip>
+          
+      </section><!--Changing edge type-->
+            
+      <section> <title>Quick graph design</title>
+        <para>Adding nodes and edges one at the time can be very tedious,
+        knotter provides the <guimenuitem>Edge list</guimenuitem> tool to make
+        this process easier.</para>
+        <para>When this is enabled, a single click will create a node and
+        each new node is connected to the previous one by an edge.</para>
+        <para>To break the edge chain, click with the right button,
+        you'll be able to start a new chain from the next node.</para>
+      </section>
+      
+      <section> <title>Selection and transformation</title>
+        <para>Only nodes can be selected and moved,
+        the edges will follow their vertices.</para>
+        <para>A single node is selected by left clicking it,
+        multiple nodes can be selected by holding Shift or Control.</para>
+        <para>Dragging the mouse from an empty spot will select the nodes within a 
+        rectangual area.</para>
+        <para>Dragging one of the selected nodes will move the selection, while
+        moving nodes can be transformed using the mouse wheel (will scale the
+        selection) or Shift + mouse wheel (will rotate the selection around the
+        node under the cursor). These transformations are available when pasting
+        nodes.</para>
+        <para>Selected nodes can be mirrored using the horizontal
+        and vertical flip commands.</para>
+      </section>
+      
+      <section> <title>Snapping</title>
+        <para>To allow precise designs knotter offers a grid that, when enabled,
+        will snap nodes to the closest point.</para>
+    
+        <para>There are three types of grid:</para>
+        <variablelist>
+          <varlistentry>
+            <term>Square</term>
+            <listitem><para>A regular square grid.</para></listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>Triangular1</term>
+            <listitem><para>A grid where the elements are equilateral triangles
+            with a horizontal base.</para></listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>Triangular2</term>
+            <listitem><para>A grid where the elements are equilateral triangles
+            with a vertical side.</para></listitem>
+          </varlistentry>
+        </variablelist>
+        
+        <screenshot>
+          <mediaobject>
+            <textobject><phrase>Screenshot showing some nodes on a grid</phrase></textobject>
+            <imageobject><imagedata fileref="img/grid.png" /></imageobject>
+            <caption>The grid allows precise editing</caption>
+          </mediaobject>
+        </screenshot>
+              
+      </section><!--Snapping-->
+
+    </section><!--Editing-->
+    
+    <section> <title>Style</title>
+      <para>The <guimenuitem>Knot Style</guimenuitem> docks allow the
+      configuration of display and shape options.</para>
+      <variablelist>
+        <varlistentry>
+          <term>Curve Control Point Distance</term>
+          <listitem><para>How much the knot line follows its direction
+          when exiting from an edge.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Crossing Gap</term>
+          <listitem><para>Distance between the end points when a
+          lines are crossing.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Minimum Cusp Angle</term>
+          <listitem><para>Minimum angle between two edge to make the knot line 
+          display a cuspid rather than a smooth curve.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Cusp Distance</term>
+          <listitem><para>Distance between the graph node and cusp tip</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Curve Style</term>
+          <listitem><para>Various cuspid shapes</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Point Style</term>
+          <listitem>
+            <para>How the sharp points are rendered</para>
+            <variablelist>
+              <varlistentry>
+                <term>Bevel</term>
+                <listitem><para>Flat</para></listitem>
+              </varlistentry>
+              <varlistentry>
+                <term>Miter</term>
+                <listitem><para>With a sharp point</para></listitem>
+              </varlistentry>
+              <varlistentry>
+                <term>Round</term>
+                <listitem><para>Smooth</para></listitem>
+              </varlistentry>
+            </variablelist>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      
+      <tip><para>Some style settings can be configured on individual nodes,
+      using the contect menu (right click on a node)</para></tip>
+      
+      <informalfigure>
+        <mediaobject>
+            <imageobject><imagedata fileref="img/cusp_shapes.png" /></imageobject>
+        </mediaobject>
+        <caption>
+          <para>Solomon's knots and trefoils rendered using various styles</para>
+        </caption>
+      </informalfigure>
+      
+      <screenshot>
+        <mediaobject>
+            <imageobject><imagedata fileref="img/style1.png" /></imageobject>
+            <textobject><phrase>Screenshot of the display style settings</phrase></textobject>
+        </mediaobject>
+        <mediaobject>
+            <imageobject><imagedata fileref="img/style2.png" /></imageobject>
+            <textobject><phrase>Screenshot of the shape style settings</phrase></textobject>
+        </mediaobject>
+        <caption>
+          <para>Style settings docks</para>
+        </caption>
+      </screenshot>
+      
+
+      
+    </section> <!-- Style -->
+    
+    <section> <title>Save and Load</title>
+      <para>Knotter can save and load knots in its own human-readable format.</para>
+
+      <section> <title>Export</title>
+        <para>The Export dialog gives many options to export the knot as Image</para>
+    
+        <section> <title>Vector</title>
+          <para>If <guibutton>Only shape</guibutton> is checked, Knotter will
+          export only the shape of the knot as a thin line, discarding 
+          some style option.
+          This is useful if you plan to edit the image with an external program
+          as it will give more control on shape changes</para>
+        </section>
+        
+        <section> <title>Raster</title>
+          <variablelist>
+            <varlistentry>
+              <term><guibutton>Antialias</guibutton></term>
+              <listitem><para>If checked, the output image will be supersampled.</para></listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>Compression</term>
+              <listitem>
+                <para>The compression level, the result depends on the exported format
+                  ( 0% will produce large, uncompressed files; 100% small files ).</para>
+                <para>When exporting to a JPEG image, heavy compression will
+                result in poor quality.</para>
+                <para>This option in only meaningful for export format that support compression</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>Width/Height</term>
+              <listitem><para>The resulting image size, if they are different
+              from the actual knot it will be scaled to fit those.</para></listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>Keep Ratio</term>
+              <listitem>
+                <para>When enabled, editing Width/Height will preserve their ratio.</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>Reset Size</term>
+              <listitem><para>Change Width and Height back to the default.</para></listitem>
+            </varlistentry>
+          </variablelist>
+        </section> <!-- Raster -->
+        
+        <screenshot>
+          <mediaobject>
+              <imageobject><imagedata fileref="img/export.png" /></imageobject>
+              <textobject><phrase>Export dialog</phrase></textobject>
+          </mediaobject>
+          <caption>
+            <para>Export dialog</para>
+          </caption>
+        </screenshot>
+        
+      </section> <!--Export-->
+      
+    </section> <!-- Save & Load -->
+      
+  </chapter>
+  
+  <chapter id="man"> <title>Man pages</title>
+    <xi:include href="man_page.xml" />
+  </chapter>
+  
+  <chapter id="contacts"> <title>Contacts and links</title>
+    <section> <title>Obtaining Knotter</title>
+      <para>Source packages and some compiled binaries can be found at
+        <ulink url="http://sourceforge.net/projects/knotter/files/">http://sourceforge.net/projects/knotter/files/</ulink>,
+        The latest sources can be obtained with git at
+        <uri>git://git.code.sf.net/p/knotter/code</uri> (
+        <ulink url="http://sourceforge.net/p/knotter/code">Online repository browser</ulink> ).
+      </para>
+    </section>
+    <section> <title>Reporting Bugs</title>
+      <para>To send bug reports, freature request and feedback you can use the
+      <ulink url="https://sourceforge.net/p/knotter/discussion/">forum on SourceForge</ulink>
+      or send me an email: <personname>Mattia Basaglia</personname>
+      <email>mattia.basaglia@gmail.com</email>
+      </para>
+    </section>
+  </chapter>
+  
+  <chapter id="license"> <title>License</title>
+    <para>Knotter is released under the terms of the
+      <link linkend="gpl">GNU General Public License, Version 3</link> or any
+      later version, as published by the Free Software Foundation.</para>
+    <para>The Tango icons are on the public domain.
+    This applies to all the files under <uri>themes/tango-icons</uri> directory in the
+    source tree, including custom icons.</para>
+    <para>Icons in the <uri>img</uri> subdirectory are covered by the
+    GLPv3 as the whole source</para>
+    <para>This documentation is released under the
+    <link linkend="fdl">GNU Free Documentation License, Version 1.3</link>.
+    </para>
+    
+    <tip> <title>Freedom</title>
+      <para>In a nutshell, the you have the following freedoms:</para>
+      <itemizedlist>
+        <listitem>The freedom to run Knotter for any purpose.</listitem>
+        <listitem>The freedom to study how Knotter works,
+            and change it to make it do what you wish.
+        </listitem>
+        <listitem>The freedom to redistribute copies so you can help your neighbor.</listitem>
+        <listitem>The freedom to distribute copies of your modified versions to others .</listitem>
+      </itemizedlist>
+    </tip>
+    
+    <xi:include href="gpl.xml"/>
+    <xi:include href="fdl.xml"/>
+  </chapter>
+  
+</book>

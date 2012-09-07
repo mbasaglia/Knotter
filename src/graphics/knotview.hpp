@@ -118,6 +118,10 @@ class KnotView : public QGraphicsView
         void writeXML( QIODevice* device ) const ;
         /// Add sub-knot from XML
         bool readXML( QIODevice* device );
+
+        /// update scene from graph
+        void reload_graph();
+
         /// Draw the knot to device
         void paint_knot ( QPaintDevice* device, QRectF area, bool minimal );
         /// Draw the knot

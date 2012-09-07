@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QBrush>
 #include <QPen>
 #include "path_builder.hpp"
+#include "xml_saver.hpp"
 
 KnotGraph::KnotGraph()
 {
@@ -61,10 +62,6 @@ QPainterPath KnotGraph::build()
 
     QPainterPath path = path_b.build();
 
-
-    edges = traversed_edges;
-    traversed_edges.clear();
-
     /// \bug Qt? if not simplified weird artifacts on cusps
     QPainterPath styled = stroker.createStroke(path).simplified();
     styled.setFillRule(Qt::WindingFill);
@@ -91,6 +88,42 @@ Qt::PenJoinStyle KnotGraph::get_join_style() const
 void KnotGraph::set_join_style(Qt::PenJoinStyle pjs)
 {
     stroker.setJoinStyle(pjs);
+}
+
+void KnotGraph::load_xml(xml_loader &xml)
+{
+
+    if ( xml.enter("style") )
+    {
+        QPen stroke(brush(),get_width());
+        stroke.setJoinStyle(get_join_style());
+        stroke = xml.get_pen("stroke",stroke);
+        setBrush(stroke.brush());
+        set_width(stroke.widthF());
+        set_join_style(stroke.joinStyle());
+
+        setPen ( xml.get_pen("outline", pen() ) );
+
+        set_style_info ( xml.get_cusp( "cusp", get_style_info() ) );
+
+        xml.leave();
+    }
+
+
+    xml.get_graph(*this);
+}
+
+void KnotGraph::save_xml(xml_saver &xml) const
+{
+    xml.start_element("style");
+        QPen stroke(brush(),get_width());
+        stroke.setJoinStyle(get_join_style());
+        xml.save_pen ( "stroke", stroke, false, true );
+        xml.save_pen ( "outline", pen(), true, false );
+        xml.save_cusp ( "cusp", get_style_info() );
+    xml.end_element();
+
+    xml.save_graph("graph",nodes);
 }
 
 

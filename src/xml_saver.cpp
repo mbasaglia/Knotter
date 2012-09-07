@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 #include "xml_saver.hpp"
+#include <QPen>
 
 xml_saver::xml_saver(QIODevice *output)
     : xml ( output )
@@ -188,7 +189,7 @@ bool xml_loader::load(QIODevice *input)
     return true;
 }
 
-void xml_loader::get_graph(KnotView *view)
+void xml_loader::get_graph(KnotGraph &kv)
 {
     QDomElement graph = current_elements.top().firstChildElement("graph");
     QDomElement node = graph.firstChildElement("node");
@@ -202,11 +203,11 @@ void xml_loader::get_graph(KnotView *view)
         {
             current_elements.push(node);
             cur_node->set_custom_style ( get_cusp ( "custom-style",
-                                        view->get_default_style() ) );
+                                        kv.get_style_info() ) );
             current_elements.pop();
         }
 
-        view->add_node(cur_node);
+        kv.add_node(cur_node);
 
         QDomElement edge = node.firstChildElement("edge");
         while ( !edge.isNull() )
@@ -223,8 +224,14 @@ void xml_loader::get_graph(KnotView *view)
             else if ( type_name == "inverted" )
                 type = Edge::INVERTED;
             Node* target_node = register_node(target);
-            view->add_edge(cur_node,target_node);
-            view->set_edge_type( cur_node->get_link(target_node), type );
+            Edge *e = cur_node->get_link(target_node);
+            if ( !e )
+            {
+                Edge* e = new Edge(cur_node,target_node,type);
+                cur_node->add_link(e);
+                target_node->add_link(e);
+                kv.add_edge(e);
+            }
             edge = edge.nextSiblingElement("edge");
         }
         node = node.nextSiblingElement("node");

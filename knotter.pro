@@ -41,7 +41,9 @@ OTHER_FILES = \
     AUTHORS \
     deb_builder.sh \
     fix_makefile.sh \
-    man_builder.sh
+    man_builder.sh \
+    doc_builder.sh \
+    info_preprocessor.sh
 
 DEFINES += "VERSION=\\\"$${VERSION}\\\""
 
@@ -73,7 +75,7 @@ MYDIST_NAME = "$$TARGET-$${VERSION}"
 MYDIST_TAR = "$${MYDIST_NAME}.tar"
 MYDIST_TAR_GZ = "$${MYDIST_TAR}.gz"
 MYDIST_TMP = ".tmp/$${MYDIST_NAME}"
-mydist.depends = man
+mydist.depends = doc
                                                                             #
 mydist.commands =                                                           \
         (                                                                   \
@@ -100,11 +102,14 @@ Doxyfile.commands = doxygen -g
 src_doc.depends = Doxyfile FORCE
 src_doc.commands = sed s/KNOTTER_VERSION/$${VERSION}/ Doxyfile | doxygen -
 
-#man
-man.depends = man_builder.sh FORCE
-man.commands = ./man_builder.sh
+#doc
+doc.depends = doc_builder.sh user_guide/*.xml
+doc.commands = ./doc_builder.sh
+doc_clean.commands = ./doc_builder.sh clean
 
-QMAKE_EXTRA_TARGETS += src_doc Doxyfile man
+man/$${TARGET}.1.gz.depends = doc
+
+QMAKE_EXTRA_TARGETS += src_doc Doxyfile doc doc_clean
 
 
 #check directories and options from configure.sh
@@ -124,7 +129,8 @@ contains(SINGLE_FILE,yes) {
     DOCDIR=:/doc
     MANDIR=man
     message("Compiling all data in a single executable file")
-    RESOURCES += data.qrc
+    RESOURCES += data.qrc \
+                 user_guide/doc.qrc
 
     !isEmpty(TANGO){
         RESOURCES += themes/tango-icons/tango.qrc
@@ -177,8 +183,6 @@ DEFINES += "DOC_DIR=\\\"$${DOCDIR}\\\""
 
 target.path = $$BINDIR
 INSTALLS += target
-
-RESOURCES +=
 
 win32 {
     VERSION ~= s/[-_a-zA-Z]+//

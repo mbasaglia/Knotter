@@ -1,0 +1,25 @@
+body {
+    background: white right bottom no-repeat fixed url("img/background.svg")
+}
+
+.logo {
+    vertical-align: middle;
+    width:128px;
+}
+
+h1 {
+    border-bottom: 5px groove #43A;
+}
+
+.figure {
+    border: 1px solid gray;
+    margin: 1em;
+    display: inline-block;
+    padding: 1em;
+    text-align: center;
+}
+
+.caption {
+    border-top: 1px solid gray;
+    margin-bottom: 0;
+}

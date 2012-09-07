@@ -36,17 +36,4 @@
         <file>img/object-flip-vertical.svg</file>
         <file>img/preferences-system-performance.svg</file>
     </qresource>
-    <qresource prefix="/doc">
-        <file>user_guide/img/style2.png</file>
-        <file>user_guide/img/background.svg</file>
-        <file>user_guide/img/cusp_shapes.png</file>
-        <file>user_guide/img/edge_types.png</file>
-        <file>user_guide/img/export.png</file>
-        <file>user_guide/img/grid.png</file>
-        <file>user_guide/img/logo_big.svg</file>
-        <file>user_guide/img/quran.jpg</file>
-        <file>user_guide/img/style1.png</file>
-        <file>user_guide/style.css</file>
-        <file>user_guide/user_guide.htm</file>
-    </qresource>
 </RCC>

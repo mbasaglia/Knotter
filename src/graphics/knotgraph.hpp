@@ -37,11 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class KnotGraph : public QGraphicsPathItem, public basic_knot_graph
 {
     protected:
-        QList<Node*> nodes;                     ///< List of nodes
-        QList<Edge*> edges;                     ///< List of edges (to be traversed)
-        QList<Edge*> traversed_edges;           ///< List of edges (already fully traversed)
         QPainterPathStroker stroker;            ///< Knot style
-        styleinfo default_style;
 
     public:
         KnotGraph();
@@ -64,6 +60,10 @@ class KnotGraph : public QGraphicsPathItem, public basic_knot_graph
 
         Qt::PenJoinStyle get_join_style() const;
         void set_join_style(Qt::PenJoinStyle);
+
+        void load_xml(class xml_loader&xml);
+
+        void save_xml(class xml_saver&xml) const;
 
 };
 

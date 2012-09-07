@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                   "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<refentry id="man_page" >
+
+    <refmeta>
+        <refentrytitle>knotter</refentrytitle>
+        <manvolnum>1</manvolnum>
+        <refmiscinfo class='source'>0.6.1debug</refmiscinfo>
+        <refmiscinfo class='manual'>User Commands</refmiscinfo>
+    </refmeta>
+
+    <refnamediv>
+        <refname>knotter</refname>
+        <refpurpose>Celtic knot editor</refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+        <cmdsynopsis>
+            <command>knotter</command>
+            <arg choice='opt' rep='repeat'><replaceable>OPTION</replaceable></arg>
+            <arg choice='opt'><replaceable>INFILE</replaceable></arg>
+        </cmdsynopsis>
+    </refsynopsisdiv>
+
+    <refsect1>
+        <title>DESCRIPTION</title>
+        <para>Knotter is an editor for interlace patterns.
+ Knots drawn with Knotter can be exported as SVG or raster images.</para>
+    </refsect1>
+
+    <refsect1>
+        <title>OPTIONS</title>
+        <variablelist>
+            <varlistentry>
+                <term>--help</term>
+                <term>-h</term>
+                <listitem>
+                    <para>Show help message and exit</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>--version</term>
+                <term>-v</term>
+                <listitem>
+                    <para>Show version info and exit</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsect1>
+
+    <refsect1>
+        <title>AUTHOR</title>
+        <para>Mattia Basaglia &lt;mattia.basaglia@gmail.com&gt;</para>
+    </refsect1>
+
+    <refsect1>
+        <title>SEE ALSO</title>
+        <para>Knotter website <ulink url="https://sourceforge.net/projects/knotter/">https://sourceforge.net/projects/knotter/</ulink></para>
+    </refsect1>
+
+</refentry>

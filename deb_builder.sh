@@ -82,7 +82,7 @@ Package: $package
 Version: $version-$revision
 Homepage: $website
 Maintainer: $DEBFULLNAME <$DEBEMAIL>
-Depends: libqt4-svg, libqt4-xml, libqt4-webkit, libqtcore4, libqtgui4, libstdc++6, libc6
+Depends: libqt4-svg, libqt4-xml, libqtwebkit4, libqtcore4, libqtgui4, libstdc++6, libc6
 Section: graphics
 Priority: optional
 Architecture: $architecture
@@ -194,7 +194,6 @@ gzip -9 $changelog_file
 cd debian
 
 dpkg-deb --build $package
-
 
 echo "You can find the package as debian/$package.deb"
 

@@ -2,16 +2,8 @@ body {
     background: white right bottom no-repeat fixed url("img/background.svg")
 }
 
-.logo {
-    vertical-align: middle;
-    width:128px;
-}
 
-h1 {
-    border-bottom: 5px groove #43A;
-}
-
-.figure {
+.figure, .informalfigure, .screenshot {
     border: 1px solid gray;
     margin: 1em;
     display: inline-block;
@@ -21,5 +13,80 @@ h1 {
 
 .caption {
     border-top: 1px solid gray;
+    margin-top: 1em;
     margin-bottom: 0;
+}
+
+.caption p {
+    margin: 0;
+}
+
+.mediaobject {
+    display: inline-block;
+}
+
+.variablelist dt {
+    font-weight: bold;
+}
+    
+
+/*.variablelist dt {
+    float: left;
+    font-weight: bold;
+    width:30%;
+    text-align:right;
+}
+.variablelist dt:after {
+    content: " — ";
+}
+.variablelist dd {
+    margin-left: 0;
+    padding-left: 30%;
+}
+dd .variablelist dt {
+    float: left;
+    font-weight: bold;
+    width:auto;
+    text-align:right;
+}
+dd .variablelist dt:after {
+    content: " — ";
+}
+dd .variablelist dd {
+    margin-left: 0;
+    padding-left: 0;
+}*/
+
+.inlinemediaobject img {    
+    vertical-align: middle;
+}
+
+h1 .inlinemediaobject img {
+    width:128px;
+}
+
+table .inlinemediaobject {
+    background: url("img/logo_small.svg") no-repeat scroll center center white;
+}
+
+table .inlinemediaobject img {
+    width: 0;
+    height: 0;
+    padding: 8px;
+}
+
+.tip {
+    border: 1px solid gray;
+    border-radius: 16px;
+    padding: 1em 1em 1em 2em;
+}
+.tip .title {
+    margin:0 0 0.25em 0;
+}
+.tip p {
+    margin: 0 0 0 1em;
+}
+
+.guimenuitem, .guibutton {
+    font-style: oblique;
 }

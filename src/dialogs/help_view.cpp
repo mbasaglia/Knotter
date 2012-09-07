@@ -71,9 +71,9 @@ Help_View::Help_View(QWidget *parent) :
 {
     setupUi(this);
 
-    QUrl manual = load::resource_url(DOC_DIR,"user_guide/index.htm");
+    QUrl manual = load::resource_url(DOC_DIR,"user_guide/index.html");
 
-    QStringList test = test_manual(DOC_DIR,"user_guide/index.htm");
+    QStringList test = test_manual(DOC_DIR,"user_guide/index.html");
     QString test_string;
     foreach(QString s, test)
         test_string+="<li>"+s+"</li>";

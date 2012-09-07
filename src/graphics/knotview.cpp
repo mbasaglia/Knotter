@@ -623,23 +623,7 @@ void KnotView::writeXML(QIODevice *device) const
     xml_saver xml(device);
     xml.begin();
 
-    xml.start_element("style");
-        QPen stroke(get_brush(),get_width());
-        stroke.setJoinStyle(get_join_style());
-        xml.save_pen ( "stroke", stroke, false, true );
-        xml.save_pen ( "outline", get_pen(), true, false );
-        xml.save_cusp ( "cusp", get_default_style() );
-    xml.end_element();
-
-    node_list nodes;
-    foreach(QGraphicsItem* it, scene()->items())
-    {
-        Node* n = dynamic_cast<Node*>(it);
-        if ( n )
-            nodes.push_back(n);
-    }
-    xml.save_graph("graph",nodes);
-
+    knot.save_xml(xml);
 
     xml.end();
 }
@@ -652,31 +636,34 @@ bool KnotView::readXML(QIODevice *device)
     if ( !xml.load(device) )
         return false;
 
+    knot.load_xml(xml);
+
+    reload_graph();
+
+
+    return true;
+}
+
+void KnotView::reload_graph()
+{
     undo_stack.beginMacro(tr("Load Knot"));
 
-    if ( xml.enter("style") )
+    foreach(Node* n,knot.get_nodes())
     {
-        QPen stroke(get_brush(),get_width());
-        stroke.setJoinStyle(get_join_style());
-        stroke = xml.get_pen("stroke",stroke);
-        set_brush(stroke.color());
-        set_width(stroke.widthF());
-        set_join_style(stroke.joinStyle());
-
-        set_pen ( xml.get_pen("outline", get_pen() ) );
-
-        set_default_style ( xml.get_cusp( "cusp", get_default_style() ) );
-
-        xml.leave();
+        if ( n->scene() != scene() )
+            add_node(n);
     }
-
-
-    xml.get_graph(this);
-
-
+    foreach(Edge* e,knot.get_edges())
+    {
+        if ( e->scene() != scene() )
+        {
+            scene()->addItem(e);
+            add_edge(e->vertex1(),e->vertex2());
+        }
+        set_edge_type(e,e->type);
+    }
     undo_stack.endMacro();
     undo_stack.setClean();
-    return true;
 }
 
 #include <QStyleOptionGraphicsItem>

@@ -32,24 +32,24 @@ basic_knot_graph::basic_knot_graph()
 
 void basic_knot_graph::add_node(Node *which)
 {
-    if ( which )
+    if ( which && !nodes.contains(which) )
         nodes.push_back(which);
 }
 
 void basic_knot_graph::add_edge(Edge *which)
 {
-    if ( which )
+    if ( which && !edges.contains(which) )
         edges.push_back(which);
 }
 
 void basic_knot_graph::remove_node(Node *which)
 {
-    nodes.remove(which);
+    nodes.removeAll(which);
 }
 
 void basic_knot_graph::remove_edge(Edge *which)
 {
-    edges.remove(which);
+    edges.removeAll(which);
 }
 
 void basic_knot_graph::clear()

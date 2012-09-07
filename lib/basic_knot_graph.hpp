@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef BASIC_KNOT_GRAPH_HPP
 #define BASIC_KNOT_GRAPH_HPP
 
-#include <list>
+#include <QList>
 #include "path_builder.hpp"
 #include "edge.hpp"
 #include "node.hpp"
@@ -35,9 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class basic_knot_graph
 {
     protected:
-        std::list<Node*> nodes; ///< List of nodes
-        std::list<Edge*> edges; ///< List of edges (to be traversed)
-        std::list<Edge*> traversed_edges; ///< List of edges (already fully traversed)
+        QList<Node*> nodes; ///< List of nodes
+        QList<Edge*> edges; ///< List of edges (to be traversed)
+        QList<Edge*> traversed_edges; ///< List of edges (already fully traversed)
         styleinfo default_style; ///< Knot style
 
     public:
@@ -56,6 +56,9 @@ class basic_knot_graph
             This function traverses the graph and contructs the knot line.
         */
         void build_knotline(path_builder&path);
+
+        const QList<Node*> get_nodes() const { return nodes; }
+        const QList<Edge*> get_edges() const { return edges; }
 
 };
 
