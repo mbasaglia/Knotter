@@ -38,7 +38,7 @@ void ErrorRecovery::sigdying(int)
         QFile tempfile( QDir::tempPath()+"/knotter_crash.knot");
         if ( tempfile.open(QIODevice::WriteOnly | QIODevice::Text) )
         {
-            recover->writeXML(&tempfile);
+            recover->graph().save_xml(&tempfile);
             if ( !tempfile.error() )
                 moreinfo = '\n'+
                     QObject::tr("A backup file has been saved at %1.").

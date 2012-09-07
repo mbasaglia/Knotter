@@ -588,7 +588,7 @@ void Knot_Window::save(QString file)
         return;
     }
 
-    canvas->writeXML(&quf);
+    canvas->graph().save_xml(&quf);
     canvas->get_undo_stack().setClean();
 
     push_recent_file(file);
@@ -611,12 +611,12 @@ bool Knot_Window::open(QString file, bool silent)
     canvas->clear();
     canvas->get_undo_stack().setClean();
 
-    if ( !canvas->readXML(&quf) && !silent )
+    if ( !canvas->graph().load_xml(&quf) && !silent )
     {
         QMessageBox::warning(this,tr("File Error"),tr("Error while reading \"%1\".").arg(filename));
         return false;
     }
-
+    canvas->reload_graph();
     push_recent_file(filename);
     update_ui();
 

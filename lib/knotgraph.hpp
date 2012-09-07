@@ -65,6 +65,20 @@ class KnotGraph : public QGraphicsPathItem, public basic_knot_graph
 
         void save_xml(class xml_saver&xml) const;
 
+        bool load_xml(QIODevice* file);
+        void save_xml(QIODevice* file) const;
+
+
+        /// Draw the knot to device
+        void paint_knot ( QPaintDevice* device, bool minimal );
+        /// Draw the knot
+        void paint_knot ( QPainter* painter, bool minimal );
+
+        void export_svg(QIODevice &file, bool minimal);
+
+        void export_raster(QIODevice &file, bool minimal,
+            QColor background, bool antialias, QSize img_size, int quality);
+
 };
 
 #endif // KNOTGRAPH_HPP

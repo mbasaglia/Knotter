@@ -125,7 +125,7 @@ void AddEdge::retranslate()
 }
 
 RemoveEdge::RemoveEdge(Node *n1, Node *n2, KnotView *kv)
-    : KnotViewUndoCommand(kv), n1 ( n1 ), n2 ( n2 )
+    : KnotViewUndoCommand(kv), n1 ( n1 ), n2 ( n2 ), type(n1->get_link(n2)->type)
 {
     retranslate();
 }
@@ -133,6 +133,7 @@ RemoveEdge::RemoveEdge(Node *n1, Node *n2, KnotView *kv)
 void RemoveEdge::undo()
 {
     kv->link(n1,n2);
+    kv->do_toggle_edge(n1,n2,type);
 }
 
 void RemoveEdge::redo()

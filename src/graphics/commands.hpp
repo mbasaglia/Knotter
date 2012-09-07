@@ -148,6 +148,7 @@ class RemoveEdge : public KnotViewUndoCommand
         Q_OBJECT
 
     Node *n1, *n2;
+    Edge::type_type type;
 
     public:
         RemoveEdge ( Node* n1, Node* n2, KnotView* kv );

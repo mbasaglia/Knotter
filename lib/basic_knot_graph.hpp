@@ -45,6 +45,16 @@ class basic_knot_graph
         virtual ~basic_knot_graph() {}
         void add_node(Node* which);
         void add_edge ( Edge* which );
+        /**
+            \brief creates new edge and inserts it
+            The edge is created only if a and b are not already linked
+            \return The newly created Edge or NULL
+            \note returns NULL if the edge was already there
+        */
+        Edge* add_edge(Node* a, Node* b);
+
+        void set_edge_type(Node *a, Node *b, Edge::type_type type);
+
         void remove_node(Node* which);
         void remove_edge ( Edge* which );
         void clear(); ///< remove all edges and nodes

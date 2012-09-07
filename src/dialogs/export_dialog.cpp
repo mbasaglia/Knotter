@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "export_dialog.hpp"
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QSvgGenerator>
 #include "resource_loader.hpp"
 #include "translator.hpp"
 
@@ -60,16 +59,8 @@ void Export_Dialog::on_export_svg_button_clicked()
 
     filename = exname;
 
-    QSvgGenerator gen;
-    gen.setOutputDevice(&quf);
 
-    /*QPainter painter;
-    painter.begin(&gen);
-    canvas->set_cache_mode(QGraphicsItem::NoCache);
-    canvas->render ( &painter, QRectF(0,0,1024,1024) );
-    painter.end();*/
-
-    canvas->paint_knot ( &gen, get_area(), only_shape_check->isChecked() );
+    canvas->graph().export_svg( quf, only_shape_check->isChecked() );
 
     quf.close();
 }
@@ -113,67 +104,12 @@ void Export_Dialog::on_export_raster_button_clicked()
 
 
     // pixmap
-    int back_alpha = name_filter == png ? 0 : 255;
+    QColor back = Qt::white;
+    if ( name_filter == png )
+        back = Qt::transparent;
 
-    if ( antialias_check->isChecked() )
-    {
-        /// Letting QPainter handle antialiasing is not enough... :^(
-        QImage original (get_size()*2, QImage::Format_ARGB32);
-        original.fill(QColor(255,255,255,back_alpha).rgba());
-
-
-        QPainter painter;
-        painter.begin(&original);
-
-        QSizeF actual_size = get_area().size();
-        double scale_x = 2 * get_size().width() / actual_size.width();
-        double scale_y = 2 * get_size().height() / actual_size.height();
-
-        painter.scale(scale_x,scale_y);
-
-        canvas->paint_knot ( &painter, get_area(), false );
-
-        painter.end();
-
-
-        QImage supersampled(get_size(), QImage::Format_ARGB32 );
-        for ( int y = 0; y < supersampled.height(); y++ )
-            for ( int x = 0; x < supersampled.width(); x++ )
-            {
-                QColor p1 = QColor::fromRgba(original.pixel(2*x,2*y));
-                QColor p2 = QColor::fromRgba(original.pixel(2*x+1,2*y));
-                QColor p3 = QColor::fromRgba(original.pixel(2*x,2*y+1));
-                QColor p4 = QColor::fromRgba(original.pixel(2*x+1,2*y+1));
-                QColor color ( (p1.red()+p2.red()+p3.red()+p4.red())/4,
-                                (p1.green()+p2.green()+p3.green()+p4.green())/4,
-                                (p1.blue()+p2.blue()+p3.blue()+p4.blue())/4,
-                                (p1.alpha()+p2.alpha()+p3.alpha()+p4.alpha())/4
-                              );
-                supersampled.setPixel(x,y,color.rgba());
-            }
-        supersampled.save(&quf,0,100-quality_slider->value());
-    }
-    else
-    {
-        QPixmap pix (get_size());
-        pix.fill(QColor(255,255,255,back_alpha));
-
-        //canvas->paint_knot ( &pix, get_area(), false );
-        QPainter painter;
-        painter.begin(&pix);
-
-        QSizeF actual_size = get_area().size();
-        double scale_x = get_size().width() / actual_size.width();
-        double scale_y = get_size().height() / actual_size.height();
-
-        painter.scale(scale_x,scale_y);
-
-        canvas->paint_knot ( &painter, get_area(), false );
-
-        painter.end();
-
-        pix.save(&quf,0,100-quality_slider->value());
-    }
+    canvas->graph().export_raster(quf,false,back,antialias_check->isChecked(),
+            get_size(),100-quality_slider->value());
 
     quf.close();
 }

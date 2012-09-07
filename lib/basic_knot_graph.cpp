@@ -42,6 +42,31 @@ void basic_knot_graph::add_edge(Edge *which)
         edges.push_back(which);
 }
 
+Edge *basic_knot_graph::add_edge(Node *a, Node *b)
+{
+    if ( !a || !b )
+        return NULL;
+
+    Edge* already_there = a->get_link ( b );
+    if ( !already_there )
+    {
+        Edge *brand_new = new Edge(a,b);
+        a->add_link(brand_new);
+        b->add_link(brand_new);
+        add_edge(brand_new);
+        return brand_new;
+    }
+
+    return NULL; /// \todo try to return already_there
+}
+
+void basic_knot_graph::set_edge_type(Node *a, Node *b, Edge::type_type type)
+{
+    Edge* edge = a->get_link ( b );
+    if ( edge )
+        edge->type = type;
+}
+
 void basic_knot_graph::remove_node(Node *which)
 {
     nodes.removeAll(which);

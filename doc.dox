@@ -3,7 +3,6 @@
 \page misc Misc todos
 Ignore this, see the main todo page
 
-\todo add knotter library, as much indipendent as possible from Qt (Node Edge multiple inheritance)
 \todo Document every class and function
 \todo Better user guide
 \todo check QGraphicsView/QGraphicsScene::render
@@ -14,5 +13,4 @@ Ignore this, see the main todo page
 \todo per node/edge knot width (requires custom stroker)
 \todo Qt translation files \see http://qt-project.org/faq/answer/does_qt_provide_translations_for_the_user_visible_strings_of_the_widgets
 \todo Debian changelog to NEWS (or NEWS to CHANGELOG?)
-\todo move export functions and XMK I/O to knotgraph, add a function to load graph into KnotView
 */

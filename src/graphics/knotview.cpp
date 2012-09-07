@@ -125,7 +125,6 @@ void KnotView::do_remove_node(Node *node)
 
 void KnotView::do_move_node(Node* node, QPointF pos)
 {
-    (void)node;(void)pos;
     node->setPos(pos);
     redraw(true);
 }
@@ -549,19 +548,10 @@ Edge *KnotView::edge_at(QPointF p)
 
 void KnotView::link(Node *a, Node *b )
 {
-    if ( !a || !b )
-        return;
-
-    Edge* already_there = a->get_link ( b );
-    if ( !already_there )
-    {
-        Edge *brand_new = new Edge(a,b);
-        scene()->addItem ( brand_new );
-        a->add_link(brand_new);
-        b->add_link(brand_new);
-        knot.add_edge(brand_new);
-        redraw(true);
-    }
+    Edge* e = knot.add_edge(a,b);
+    if ( e )
+        scene()->addItem ( e );
+    redraw(true);
 }
 
 void KnotView::unlink(Node *a, Node *b)
@@ -597,9 +587,7 @@ void KnotView::unlink(Node *a, Node *b)
 
 void KnotView::do_toggle_edge(Node *a, Node *b, Edge::type_type type)
 {
-    Edge* edge = a->get_link ( b );
-    if ( edge )
-        edge->type = type;
+    knot.set_edge_type(a,b,type);
     redraw(true);
 }
 
@@ -614,34 +602,6 @@ void KnotView::clear()
     knot.clear();
 
     mode_change();
-}
-
-#include "xml_saver.hpp"
-void KnotView::writeXML(QIODevice *device) const
-{
-
-    xml_saver xml(device);
-    xml.begin();
-
-    knot.save_xml(xml);
-
-    xml.end();
-}
-
-bool KnotView::readXML(QIODevice *device)
-{
-
-    xml_loader xml;
-
-    if ( !xml.load(device) )
-        return false;
-
-    knot.load_xml(xml);
-
-    reload_graph();
-
-
-    return true;
 }
 
 void KnotView::reload_graph()
@@ -666,45 +626,6 @@ void KnotView::reload_graph()
     undo_stack.setClean();
 }
 
-#include <QStyleOptionGraphicsItem>
-void KnotView::paint_knot(QPaintDevice *device, QRectF area, bool minimal )
-{
-    QPainter painter;
-    painter.begin(device);
-
-    paint_knot ( &painter, area, minimal );
-
-    painter.end();
-}
-
-void KnotView::paint_knot(QPainter *painter, QRectF area, bool minimal)
-{
-    QGraphicsItem::CacheMode backup_cache = knot.cacheMode();
-    knot.setCacheMode(QGraphicsItem::NoCache);
-
-    /// \todo find out how to draw only area
-    QStyleOptionGraphicsItem opt;
-    //opt.exposedRect = area; NOOP?
-    //painter->setClipRect(area); Uh?
-    //opt.rect = area.toRect(); NOOP?
-    Q_UNUSED(area)
-
-    QPointF off = knot.boundingRect().topLeft();
-    painter->translate(-off.x(),-off.y()); // remove offset
-
-
-    if ( minimal )
-    {
-        QPen stroke(get_brush(),get_width());
-        stroke.setJoinStyle(get_join_style());
-        painter->setPen(stroke);
-        painter->drawPath(knot.build());
-    }
-    else
-        knot.paint(painter,&opt);
-
-    knot.setCacheMode(backup_cache);
-}
 
 void KnotView::do_set_width(double w)
 {

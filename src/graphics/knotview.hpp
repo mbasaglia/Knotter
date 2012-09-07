@@ -79,6 +79,14 @@ class KnotView : public QGraphicsView
         /// constructor
         KnotView(QWidget *parent);
 
+        /// Get current graph
+        KnotGraph& graph() { return knot; }
+        /// Get current graph
+        const KnotGraph& graph() const { return knot; }
+
+        /// update scene from graph
+        void reload_graph();
+
 // do_ functions
     /**
         \defgroup do_command  Alter graph
@@ -114,18 +122,7 @@ class KnotView : public QGraphicsView
         /// Remove all nodes and edges
         void clear();
 
-        /// Output knot as XML
-        void writeXML( QIODevice* device ) const ;
-        /// Add sub-knot from XML
-        bool readXML( QIODevice* device );
 
-        /// update scene from graph
-        void reload_graph();
-
-        /// Draw the knot to device
-        void paint_knot ( QPaintDevice* device, QRectF area, bool minimal );
-        /// Draw the knot
-        void paint_knot ( QPainter* painter, QRectF area, bool minimal );
 // style
     /**
          \defgroup knotview_style  Style setup
