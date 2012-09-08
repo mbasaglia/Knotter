@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtDebug>
 #include "translator.hpp"
 
-Knot_Window::Knot_Window(QWidget *parent) :
+Knot_Window::Knot_Window(KnotGraph *graph, QWidget *parent) :
     QMainWindow(parent), save_ui ( true ), max_recent_files(5),
     save_toolbars(true), save_style(false), save_anything(true)
 {
@@ -58,6 +58,7 @@ Knot_Window::Knot_Window(QWidget *parent) :
     edge_context_menu.set_view(canvas);
     edge_context_menu.connect(canvas,SIGNAL(context_menu(Edge*)),SLOT(activate(Edge*)));
 
+
 // translation
     connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
 
@@ -73,6 +74,12 @@ Knot_Window::Knot_Window(QWidget *parent) :
 
     init_dialogs(); // keep this as last
 
+
+    if(graph)
+    {
+        canvas->load_graph(*graph);
+        update_ui();
+    }
 }
 
 Knot_Window::~Knot_Window()
@@ -596,14 +603,13 @@ void Knot_Window::save(QString file)
     quf.close();
 }
 
-bool Knot_Window::open(QString file, bool silent)
+bool Knot_Window::open(QString file)
 {
 
     QFile quf(file);
     if ( ! quf.open(QIODevice::ReadOnly | QIODevice::Text) )
     {
-        if ( !silent )
-            QMessageBox::warning(this,tr("File Error"),tr("Could not read \"%1\".").arg(file));
+        QMessageBox::warning(this,tr("File Error"),tr("Could not read \"%1\".").arg(file));
         return false;
     }
     filename = file;
@@ -611,7 +617,7 @@ bool Knot_Window::open(QString file, bool silent)
     canvas->clear();
     canvas->get_undo_stack().setClean();
 
-    if ( !canvas->graph().load_xml(&quf) && !silent )
+    if ( !canvas->graph().load_xml(&quf) )
     {
         QMessageBox::warning(this,tr("File Error"),tr("Error while reading \"%1\".").arg(filename));
         return false;

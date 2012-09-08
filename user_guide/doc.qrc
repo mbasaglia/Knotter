@@ -28,8 +28,6 @@
 <file>./man_page.in.xml</file>
 <file>./man_page.xml</file>
 <file>./manual.xml</file>
-<file>./old/index.htm</file>
-<file>./old/style.css</file>
 <file>./style.css</file>
 <file>./user_guide.html</file>
 </qresource>

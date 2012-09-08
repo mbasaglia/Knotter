@@ -61,16 +61,15 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         bool            save_style;         ///< Whether style shall be saved on exit
         bool            save_anything;      ///< Whether the save config shall be performed on exit
     public:
-        explicit Knot_Window(QWidget *parent = 0);
+        explicit Knot_Window(KnotGraph* graph = 0, QWidget *parent = 0);
         ~Knot_Window();
 
         /**
             \brief Open the given file
             \param file     The name of the file to be open
-            \param silent   Whether messagebox on error is disabled
             \return Whether the file was loaded without problem
         */
-        bool open( QString file, bool silent = false );
+        bool open( QString file);
         /// get the KnotView used by the window
         KnotView& knotview();
 

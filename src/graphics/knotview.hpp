@@ -87,6 +87,9 @@ class KnotView : public QGraphicsView
         /// update scene from graph
         void reload_graph();
 
+        /// load an external graph
+        void load_graph(const KnotGraph& knot_graph);
+
 // do_ functions
     /**
         \defgroup do_command  Alter graph

@@ -42,6 +42,8 @@ class KnotGraph : public QGraphicsPathItem, public basic_knot_graph
     public:
         KnotGraph();
         ~KnotGraph();
+        KnotGraph& operator= ( const KnotGraph& o );
+
         void add ( CustomItem* what );
 
         /**

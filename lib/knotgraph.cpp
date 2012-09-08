@@ -51,6 +51,20 @@ KnotGraph::~KnotGraph()
 {
 }
 
+KnotGraph &KnotGraph::operator= (const KnotGraph &o)
+{
+    basic_knot_graph::operator= (o);
+    stroker.setCapStyle(o.stroker.capStyle());
+    stroker.setCurveThreshold(o.stroker.curveThreshold());
+    stroker.setJoinStyle(o.stroker.joinStyle());
+    stroker.setMiterLimit(o.stroker.miterLimit());
+    stroker.setWidth(o.stroker.width());
+    setBrush(o.brush());
+    setPen(o.pen());
+
+    return *this;
+}
+
 void KnotGraph::add(CustomItem *what)
 {
     add_node ( dynamic_cast<Node*>(what) );
@@ -143,6 +157,7 @@ void KnotGraph::save_xml(QIODevice *device) const
 
 bool KnotGraph::load_xml(QIODevice *device)
 {
+    clear();
 
     xml_loader xml;
 

@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMessageBox>
 #include "resource_loader.hpp"
 #include "translator.hpp"
+#include <QImageWriter>
 
 Export_Dialog::Export_Dialog(QWidget *parent) :
     QDialog(parent), canvas ( 0 )
@@ -68,12 +69,16 @@ void Export_Dialog::on_export_svg_button_clicked()
 void Export_Dialog::on_export_raster_button_clicked()
 {
 
+    QString supported;
+    foreach(QByteArray ba, QImageWriter::supportedImageFormats())
+        supported += " *."+QString(ba);
 
     QStringList filters = QStringList()
         << tr("PNG Images (*.png)")         // 0
         << tr("Jpeg Images (*.jpg *.jpeg)") // 1
         << tr("Bitmap (*.bmp)")             // 2
-        << tr("All files (*)")              // 3
+        << tr("All supported images (%1)").arg(supported) // 3
+        << tr("All files (*)")              // 4
         ;
     static const int png = 0;
 

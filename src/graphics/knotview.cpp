@@ -626,6 +626,12 @@ void KnotView::reload_graph()
     undo_stack.setClean();
 }
 
+void KnotView::load_graph(const KnotGraph &knot_graph)
+{
+    knot = knot_graph;
+    reload_graph();
+}
+
 
 void KnotView::do_set_width(double w)
 {

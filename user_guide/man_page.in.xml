@@ -18,44 +18,144 @@
     <refsynopsisdiv>
         <cmdsynopsis>
             <command>__name__</command>
-            <arg choice='opt' rep='repeat'><replaceable>OPTION</replaceable></arg>
-            <arg choice='opt'><replaceable>INFILE</replaceable></arg>
+            <arg choice='opt'><option>--no-gui</option></arg>
+            <arg choice='opt' rep='repeat'><arg choice='plain' rep='repeat'><replaceable>OPTION</replaceable></arg> <replaceable>INFILE</replaceable></arg>
+        </cmdsynopsis>
+        <cmdsynopsis>
+            <command>__name__</command>
+                <group>
+                    <arg choice='plain'><option>--help</option></arg>
+                    <arg choice='plain'><option>--version</option></arg>
+                    <arg choice='plain'><option>--list-formats</option></arg>
+                </group>
         </cmdsynopsis>
     </refsynopsisdiv>
 
-    <refsect1>
+    <refsection>
         <title>DESCRIPTION</title>
         <para>__long_desc__</para>
-    </refsect1>
+    </refsection>
 
-    <refsect1>
+    <refsection>
         <title>OPTIONS</title>
+        
+        <refsection> <title>Information</title>
+            <variablelist>
+                <varlistentry>
+                    <term>--help</term>
+                    <term>-h</term>
+                    <listitem>
+                        <para>Show help message and exit</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>--version</term>
+                    <term>-v</term>
+                    <listitem>
+                        <para>Show version info and exit</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>--list-formats</term>
+                    <listitem>
+                        <para>Display a list of available export formats and exit</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+        </refsection>
+            
+        <refsection> <title>Load and export</title>
+            <variablelist>
+                <varlistentry>
+                    <term>--output=<replaceable>file</replaceable></term>
+                    <term>-o <replaceable>file</replaceable></term>
+                    <listitem>
+                        <para>Export last loaded knot to <replaceable>file</replaceable></para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>--antialias</term>
+                    <term>--no-antialias</term>
+                    <listitem>
+                        <para>Toggle antialias for raster export (default enabled)</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>--minimal</term>
+                    <term>--no-minimal</term>
+                    <listitem>
+                        <para>Export only path or full shape to SVG (default disabled)</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>--background=<replaceable>color</replaceable></term>
+                    <term>-b <replaceable>color</replaceable></term>
+                    <listitem>
+                        <para>Set the background color for raster export.</para>
+                        <para><replaceable>color</replaceable> can be a color name (eg: red), 
+                        in hex notation (eg: #ff0000) or function-like notation (eg: rgb(255,0,0) rgba(255,0,0,0) ).</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>--format=<replaceable>format</replaceable></term>
+                    <term>-f<replaceable>format</replaceable></term>
+                    <listitem>
+                        <para>Set export format. See <option>--list-formats</option> for full list of accepted values</para>
+                        <para><replaceable>format</replaceable> is not case sensitive.</para>
+                        <para>If <replaceable>format</replaceable> is <option>auto</option> the correct format will be deduced from the file name.</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+        </refsection>
+        
+        <refsection> <title>Other</title>
+            <variablelist>
+                <varlistentry>
+                    <term>--no-gui</term>
+                    <listitem>
+                        <para>Don't start the gui after parsing the command line</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+        </refsection>
+        
+    </refsection>
+    
+    <refsection>
+        <title>EXAMPLES</title>
         <variablelist>
             <varlistentry>
-                <term>--help</term>
-                <term>-h</term>
+                <term><command>__name__</command> <option>--no-gui</option>
+                    <replaceable>file.knot</replaceable> 
+                    <option>-b</option> <literal>"rgba(0,255,0,150)"</literal>
+                    <option>-f</option><replaceable>png</replaceable> 
+                    <option>-o</option> <replaceable>file.png</replaceable>
+                </term>
                 <listitem>
-                    <para>Show help message and exit</para>
+                    <para>Export <replaceable>file.knot</replaceable> to
+                    <replaceable>file.png</replaceable> with a slightly
+                    transparent blue background and exit.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>--version</term>
-                <term>-v</term>
+                <term>
+                    <command>__name__</command> <replaceable>file.knot</replaceable>
+                </term>
                 <listitem>
-                    <para>Show version info and exit</para>
+                    <para>Open the GUI with <replaceable>file.knot</replaceable>.</para>
                 </listitem>
             </varlistentry>
         </variablelist>
-    </refsect1>
+    </refsection>
 
-    <refsect1>
+    <refsection>
         <title>AUTHOR</title>
         <para>__author__ &lt;__email__&gt;</para>
-    </refsect1>
+    </refsection>
 
-    <refsect1>
+    <refsection>
         <title>SEE ALSO</title>
         <para>__title__ website <ulink url="__website__">__website__</ulink></para>
-    </refsect1>
+    </refsection>
 
 </refentry>
