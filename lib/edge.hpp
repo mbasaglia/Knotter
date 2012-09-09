@@ -44,8 +44,6 @@ Handle layout:
 
 </pre>
 
-
-    \todo move logic in lib
 */
 class Edge : public CustomItem
 {

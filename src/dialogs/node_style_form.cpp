@@ -76,7 +76,6 @@ void node_style_form::on_style_combo_activated(int index)
 void node_style_form::retranslate()
 {
     retranslateUi(this);
-/// \todo update file names
     style_combo->setItemIcon(0,load::icon("cusp-point"));
     style_combo->setItemIcon(1,load::icon("cusp-round"));
     style_combo->setItemIcon(2,load::icon("cusp-ogee"));

@@ -43,9 +43,6 @@ std::ostream& operator<< ( std::ostream&os, QString str )
     #include <boost/program_options.hpp>
     void parse_cmd_args(int argc, char* argv[], KnotGraph& graph)
     {
-    /// \todo pass KnotGraph, open, close export etc. (needs a function in Knot_View to load external graph)
-    // remember to update function below as well
-    //  knotter file.knot --format=svg -o file.svg --antialias --format=png -o file.png
 
         using namespace boost::program_options;
 

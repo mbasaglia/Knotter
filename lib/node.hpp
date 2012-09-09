@@ -70,7 +70,6 @@ struct TraversalInfo
 This class is responsible to draw the node in the KnotView
 and to perform the logic of the node, in particular is responsible for the graph traversal
 
-    \todo move logic in lib
 */
 class Node : public CustomItem
 {

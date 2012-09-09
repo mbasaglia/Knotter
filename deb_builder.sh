@@ -16,7 +16,6 @@
 
 
 # Script to generate binary deb package
-# Usage: deb_bulder.sh [architecture]
 # env vars DEBFULLNAME and DEBEMAIL are used, if empty set to upstream maintainer info
 # NOTE You  should run this script as root (or you'll have wrong install file permission)
 
@@ -40,6 +39,8 @@ desc=`./get_info.sh desc`
 longdesc=`./get_info.sh long-desc`
 website=`./get_info.sh website`
 
+architecture=`dpkg-architecture -qDEB_BUILD_ARCH`
+
 copyright_years=2012
 maintainer=`./get_info.sh author`
 maintainer_email=`./get_info.sh email`
@@ -52,15 +53,6 @@ elif [ -z "$DEBEMAIL"  ] ; then
     exit 1;
 fi
 
-if  [ -n "$1" ] ; then
-    architecture=$1
-else
-    architecture=`uname -m`
-    # TODO how to do this properly?
-    if  [ $architecture = x86_64 ] ; then
-        architecture=amd64
-    fi
-fi
 
 rm -rf debian
 mkdir -p debian/$package/DEBIAN
@@ -194,7 +186,9 @@ gzip -9 $changelog_file
 cd debian
 
 dpkg-deb --build $package
+debname="${package}_${version}-${revision}_${architecture}.deb"
+mv "debian/$package.deb" "debian/$debname";
 
-echo "You can find the package as debian/$package.deb"
+echo "You can find the package as debian/$debname"
 
-echo "Run \"lintian debian/$package.deb\" for quality check" # see http://lintian.debian.org/tags.html
+echo "Run \"lintian debian/$debname\" for quality check" # see http://lintian.debian.org/tags.html

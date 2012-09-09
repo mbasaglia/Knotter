@@ -593,7 +593,6 @@ void Knot_Window::copy()
             }
         }
 
-        /// \todo add Pixmap/SVG to data
         QMimeData *data = new QMimeData;
 
         QByteArray knot_xml;
