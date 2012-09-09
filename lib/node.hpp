@@ -97,6 +97,7 @@ class Node : public CustomItem
         Edge* get_link(Node* other) const;
         void add_link ( Edge* edge );
         void remove_link ( Edge* which );
+        void clear_links();
         /// List of edges connected to the node
         QList<Edge*> links() const { return edges; }
         /// Adjacency list

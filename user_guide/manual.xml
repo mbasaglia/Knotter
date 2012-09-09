@@ -58,6 +58,7 @@
       
       <section> <title>Changing edge type</title>
         <para>Knotter supports three types of edge:</para>
+        
         <variablelist>
           <varlistentry>
             <term>Default</term>

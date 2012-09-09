@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ui_knot_window.h"
 #include <QUndoStack>
 #include <QUndoView>
-#include "clipboard.hpp"
 #include "config_dialog.hpp"
 #include "export_dialog.hpp"
 #include "help_view.hpp"
@@ -45,7 +44,6 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
     protected:
         QString         filename;           ///< current/last file name used on open or save
-        ClipboardItem   clipboard;          ///< Part of the graph copied to clipboard
         bool            save_ui;            ///< Whether to save geometry and docks on exit
         QStringList     recent_files;       ///< List of recently used files
         int             max_recent_files;   ///< Max number of entries in the Open recent menu

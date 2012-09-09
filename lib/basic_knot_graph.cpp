@@ -56,8 +56,12 @@ Edge *basic_knot_graph::add_edge(Node *a, Node *b)
         add_edge(brand_new);
         return brand_new;
     }
+    else if ( !edges.contains(already_there) )
+    {
+        add_edge(already_there);
+    }
 
-    return NULL; /// \todo try to return already_there
+    return already_there;
 }
 
 void basic_knot_graph::set_edge_type(Node *a, Node *b, Edge::type_type type)

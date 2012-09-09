@@ -54,6 +54,13 @@ KnotGraph::~KnotGraph()
 KnotGraph &KnotGraph::operator= (const KnotGraph &o)
 {
     basic_knot_graph::operator= (o);
+    copy_style(o);
+
+    return *this;
+}
+
+void KnotGraph::copy_style(const KnotGraph &o)
+{
     stroker.setCapStyle(o.stroker.capStyle());
     stroker.setCurveThreshold(o.stroker.curveThreshold());
     stroker.setJoinStyle(o.stroker.joinStyle());
@@ -61,8 +68,6 @@ KnotGraph &KnotGraph::operator= (const KnotGraph &o)
     stroker.setWidth(o.stroker.width());
     setBrush(o.brush());
     setPen(o.pen());
-
-    return *this;
 }
 
 void KnotGraph::add(CustomItem *what)

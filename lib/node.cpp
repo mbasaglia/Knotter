@@ -103,6 +103,11 @@ void Node::remove_link(Edge *which)
     edges.erase ( std::find ( edges.begin(), edges.end(), which ) );
 }
 
+void Node::clear_links()
+{
+    edges.clear();
+}
+
 QList<Node *> Node::linked_to() const
 {
     QList<Node *> r;

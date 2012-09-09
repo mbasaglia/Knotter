@@ -37,6 +37,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_loader.hpp"
 #include <QtDebug>
 #include "translator.hpp"
+#include <QClipboard>
+#include <QBuffer>
 
 Knot_Window::Knot_Window(KnotGraph *graph, QWidget *parent) :
     QMainWindow(parent), save_ui ( true ), max_recent_files(5),
@@ -554,14 +556,76 @@ void Knot_Window::mouse_moved(QPointF p)
 
 void Knot_Window::copy()
 {
-    clipboard.copy ( canvas );
+    node_list insert_nodes = canvas->selected_nodes();
+
+    if ( !insert_nodes.empty() )
+    {
+        KnotGraph graph;
+        graph.copy_style(canvas->graph());
+
+        QPointF center;
+        foreach(Node* n, insert_nodes)
+            center += n->pos();
+        center /= insert_nodes.size();
+
+        QMap<Node*,Node*> ids;
+        foreach(Node* n, insert_nodes)
+        {
+            Node* clone = new Node(n->pos()-center);
+            if ( n->has_custom_style() )
+                clone->set_custom_style(n->get_custom_style());
+            ids[n] = clone;
+            graph.add_node(clone);
+        }
+
+        foreach(Node* n, insert_nodes)
+        {
+            foreach ( Edge* e, n->links() )
+            {
+                Node* clone1 = ids.value(e->vertex1(),NULL);
+                Node* clone2 = ids.value(e->vertex2(),NULL);
+                if ( clone1 == 0 || clone2 == 0 )
+                {
+                    continue; // edge with a vertex outside the selection
+                }
+                graph.add_edge(clone1,clone2);
+                graph.set_edge_type(clone1,clone2,e->type);
+            }
+        }
+
+        /// \todo add Pixmap/SVG to data
+        QMimeData *data = new QMimeData;
+
+        QByteArray knot_xml;
+        QBuffer xml_stream(&knot_xml);
+        xml_stream.open(QIODevice::WriteOnly|QIODevice::Text);
+        graph.save_xml(&xml_stream);
+
+        data->setData("application/x-knotter",knot_xml);
+        data->setData("text/xml",knot_xml);
+
+        QByteArray knot_svg;
+        QBuffer svg_stream(&knot_svg);
+        graph.export_svg(svg_stream,true);
+        data->setData("image/svg+xml",knot_svg);
+
+        QApplication::clipboard()->setMimeData(data);
+
+
+        foreach(Node* n, graph.get_nodes())
+            delete n;
+        foreach(Edge* e, graph.get_edges())
+            delete e;
+    }
+
+    //clipboard.copy ( canvas );
 }
 
 void Knot_Window::cut()
 {
     canvas->get_undo_stack().beginMacro(tr("Cut"));
 
-    clipboard.copy ( canvas );
+    copy();
 
     node_list sel = canvas->selected_nodes();
     foreach ( Node* n, sel )
@@ -572,8 +636,55 @@ void Knot_Window::cut()
 
 void Knot_Window::paste()
 {
-    clipboard.paste ( canvas, canvas->mapToScene(
-                                canvas->mapFromGlobal(QCursor::pos()) ) );
+    const QMimeData *mimeData = QApplication::clipboard()->mimeData();
+
+    KnotGraph graph;
+
+    QByteArray clip_data;
+
+    if ( mimeData->hasFormat("application/x-knotter") )
+    {
+        clip_data = mimeData->data("application/x-knotter");
+    }
+    else if ( mimeData->hasFormat("text/xml") )
+    {
+        clip_data = mimeData->data("text/xml");
+    }
+    else
+        return; // invalid data MIME type
+
+    QBuffer read_data(&clip_data);
+    read_data.open(QIODevice::ReadOnly|QIODevice::Text);
+    if ( !graph.load_xml(&read_data) )
+        return; // invalid data
+
+    if ( graph.get_nodes().size() < 1 )
+        return; // empty graph
+
+    QPointF p = canvas->mapToScene( canvas->mapFromGlobal(QCursor::pos()) );
+
+    canvas->get_undo_stack().beginMacro(KnotView::tr("Paste"));
+
+    canvas->scene()->clearSelection();
+
+    foreach(Node* n, graph.get_nodes())
+    {
+        n->setPos(n->pos()+p);
+        canvas->add_node(n);
+        n->setSelected(true);
+    }
+
+    foreach(Edge* e, graph.get_edges())
+    {
+        canvas->add_edge(e->vertex1(),e->vertex2());
+    }
+
+    canvas->get_undo_stack().endMacro();
+
+    canvas->mode_moving_new(graph.get_nodes()[0]->pos()+p);
+
+    /*clipboard.paste ( canvas, canvas->mapToScene(
+                                canvas->mapFromGlobal(QCursor::pos()) ) );*/
 }
 
 void Knot_Window::clear()

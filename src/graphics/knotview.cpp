@@ -1082,8 +1082,8 @@ void KnotView::mode_moving_new(QPointF center)
 
     mouse_status = MOVING;
 
-    if ( grid.is_enabled() )
-        QCursor::setPos( mapToGlobal( mapFromScene( center ) ) );
+    /*if ( grid.is_enabled() )
+        QCursor::setPos( mapToGlobal( mapFromScene( center ) ) );*/
 
     /*QPointF mousepos = mapToScene ( mapFromGlobal ( QCursor::pos() ) );
     center = grid.nearest ( mousepos );*/

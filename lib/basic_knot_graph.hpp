@@ -32,6 +32,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "node.hpp"
 #include "knot_curve_style.hpp"
 
+/**
+    \note This class does NOT take ownership over anything!
+*/
 class basic_knot_graph
 {
     protected:
