@@ -23,6 +23,9 @@
      <property name="suffix">
       <string>px</string>
      </property>
+     <property name="maximum">
+      <double>8192.000000000000000</double>
+     </property>
      <property name="value">
       <double>32.000000000000000</double>
      </property>
@@ -39,6 +42,9 @@
     <widget class="QDoubleSpinBox" name="crossing_gap_spinner">
      <property name="suffix">
       <string>px</string>
+     </property>
+     <property name="maximum">
+      <double>8192.000000000000000</double>
      </property>
      <property name="value">
       <double>10.000000000000000</double>

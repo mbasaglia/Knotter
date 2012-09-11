@@ -49,5 +49,8 @@ xmlto --skip-validation  \
 
 rcc -project | sed 's|<qresource|\0 prefix="/doc" |' >doc.qrc
 
+# pdf manual
+dblatex -P latex.output.revhistory=0 manual.xml
+
 
 set +x

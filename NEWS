@@ -4,7 +4,8 @@ showing when features have been added to the program.
 Knotter 0.7.0  - Ongoing development
 --------------------
 * Command Line Interface
-* System clipboard for copy/pase (copy SVG as well)
+* Use system-wide clipboard for copy/pase (copy SVG as well)
+* Friendlier scaling interaction
 
 Knotter 0.6.0
 --------------------

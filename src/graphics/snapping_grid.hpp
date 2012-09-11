@@ -44,7 +44,7 @@ class snapping_grid
         bool enabled;
 
     public:
-        explicit snapping_grid ( double size = 64,
+        explicit snapping_grid ( double size = 32,
                                  grid_shape shape = SQUARE,
                                  QPointF origin=QPointF(0,0),
                                  bool enabled = true );

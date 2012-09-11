@@ -56,22 +56,13 @@ dd .variablelist dd {
     padding-left: 0;
 }*/
 
-.inlinemediaobject img {    
+
+h1.title a{    
     vertical-align: middle;
-}
-
-h1 .inlinemediaobject img {
     width:128px;
-}
-
-table .inlinemediaobject {
-    background: url("img/logo_small.svg") no-repeat scroll center center white;
-}
-
-table .inlinemediaobject img {
-    width: 0;
-    height: 0;
-    padding: 8px;
+    height:128px;
+    display: inline-block;
+    background: url('img/logo_big.svg') no-repeat scroll center center transparent
 }
 
 .tip {

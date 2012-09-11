@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                   "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
 <!--
   Copyright (C) 2012 Mattia Basaglia.
   All documentation for Knotter is released under the terms of the
@@ -9,12 +11,14 @@
       xmlns:xi="http://www.w3.org/2001/XInclude"
       version="5.0">
   <info>
-    <title><inlinemediaobject>
-      <imageobject>
-        <imagedata fileref="img/logo_big.svg" />
-      </imageobject>
-    </inlinemediaobject> Knotter Manual</title>
-    <author>Mattia Basaglia</author>
+    <title>Knotter Manual</title>
+    <author>
+      <firstname>Mattia</firstname>
+      <surname>Basaglia</surname>
+      <email>mattia.basaglia@gmail.com</email>
+    </author>
+
+ 
   </info>
   
   <chapter xml:id="user_guide">

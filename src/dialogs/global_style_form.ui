@@ -32,6 +32,9 @@
         <property name="minimum">
          <double>1.000000000000000</double>
         </property>
+        <property name="maximum">
+         <double>128.000000000000000</double>
+        </property>
         <property name="value">
          <double>5.000000000000000</double>
         </property>

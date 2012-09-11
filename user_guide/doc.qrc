@@ -8,6 +8,7 @@
 <file>./gpl.xml</file>
 <file>./img/background.svg</file>
 <file>./img/cusp_shapes.png</file>
+<file>./img/deco.jpg</file>
 <file>./img/edge_types.png</file>
 <file>./img/export.png</file>
 <file>./img/grid.png</file>
@@ -27,8 +28,10 @@
 <file>./man_page.html</file>
 <file>./man_page.in.xml</file>
 <file>./man_page.xml</file>
+<file>./manual.pdf</file>
 <file>./manual.xml</file>
 <file>./style.css</file>
+<file>./test</file>
 <file>./user_guide.html</file>
 </qresource>
 </RCC>

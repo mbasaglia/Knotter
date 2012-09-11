@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QUndoStack>
 #include "knotgraph.hpp"
 #include "snapping_grid.hpp"
+#include "transform_handle.hpp"
 
 /**
     \brief Area used to manipulate and render the Knot
@@ -54,8 +55,9 @@ class KnotView : public QGraphicsView
                 MOVING,  ///< moving existing nodes around
                 DRAGGING,///< dragging the view
                 PLACING, ///< placing new items
-                SELECTING///< dragging the rubberband
+                SELECTING,///< dragging the rubberband
                 //EDGING   ///< toggling an edge
+                TRANSFORMING///< dragging a transform handle
         };
 
 
@@ -71,9 +73,11 @@ class KnotView : public QGraphicsView
         KnotGraph knot;                 ///< Knot logic and graphics item
         snapping_grid grid;             ///< Grid setup
         QMap<Node*,QPointF> sel_offset; ///< Offset of selected nodes from move_center
-        int sel_size;                   ///< Selection scale factor
+        double sel_size;                ///< Selection scale factor
         QPointF move_center;            ///< Point aligned to the cursor during movement
         bool fluid_redraw;              ///< Whether knot shall be redrawn when moving nodes
+        Transform_Handle h_tl,h_bl,h_tr,h_br; ///< Transform handles to interact with selection
+        Transform_Handle* dragged;      ///< The transform handle currently being dragged (if any)
 
     public:
         /// constructor
@@ -181,7 +185,7 @@ class KnotView : public QGraphicsView
         void break_edge_equal(Edge* e,int segments);
     protected:
         /// Used after dragging nodes
-        void move_nodes ( QPointF dest );
+        void move_nodes (  );
     public:
         void cycle_edge(Edge *e);
         void cycle_edge_inverted(Edge *e);
@@ -211,12 +215,14 @@ class KnotView : public QGraphicsView
         void wheelEvent(QWheelEvent *event);
         Node* node_at ( QPointF p );
         Edge* edge_at ( QPointF p );
+        Transform_Handle* th_at( QPointF p );
 
         void set_guide(QPointF from, QPointF to);
         void unset_guide();
         void mode_change();
 
         void initialize_movement(QPointF center);
+        void fixed_scale ( bool grow );
 
 
         void drawBackground(QPainter *painter, const QRectF &rect);
@@ -245,6 +251,9 @@ class KnotView : public QGraphicsView
 
         void toggle_knotline(bool visible);
         void toggle_graph ( bool visible );
+
+    protected slots:
+        void update_transform_handles();
 
     signals:
         void mouse_moved ( QPointF );

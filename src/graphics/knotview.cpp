@@ -35,7 +35,12 @@ KnotView::KnotView( QWidget* parent )
     last_node(NULL),
     mouse_status(DEFAULT),
     guide(NULL), rubberband(NULL),
-    fluid_redraw(true)
+    fluid_redraw(true),
+    h_tl(TH::TOP|TH::LEFT),
+    h_bl(TH::BOTTOM|TH::LEFT),
+    h_tr(TH::TOP|TH::RIGHT),
+    h_br(TH::BOTTOM|TH::RIGHT),
+    dragged(NULL)
 {
     setScene ( new QGraphicsScene );
     setSceneRect ( 0, 0, width(), height());
@@ -47,6 +52,7 @@ KnotView::KnotView( QWidget* parent )
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     //setCacheMode(CacheBackground);
+    connect(scene(),SIGNAL(selectionChanged()),SLOT(update_transform_handles()));
 }
 
 void KnotView::do_add_node(Node *node, node_list adjl)
@@ -126,6 +132,8 @@ void KnotView::do_remove_node(Node *node)
 void KnotView::do_move_node(Node* node, QPointF pos)
 {
     node->setPos(pos);
+    if ( node->isSelected() )
+        update_transform_handles();
     redraw(true);
 }
 
@@ -226,7 +234,47 @@ void KnotView::mousePressEvent(QMouseEvent *event)
             return;
         }
 
-        if ( node )
+        if ( (dragged=th_at(p)) )
+        {
+            mouse_status = TRANSFORMING;
+            QPointF midpoint;
+            node_list selection = selected_nodes();
+            if ( event->modifiers() & Qt::ShiftModifier )
+            {
+                foreach(Node*n,selection)
+                    midpoint += n->pos();
+                midpoint /= selection.size();
+            }
+            else
+            {
+                QRectF boundbox;
+                boundbox.setTop(INT_MIN);
+                boundbox.setLeft(INT_MIN);
+                boundbox.setBottom(INT_MAX);
+                boundbox.setRight(INT_MAX);
+                foreach ( Node* n, selection )
+                {
+                    if ( n->x() > boundbox.left() )
+                        boundbox.setLeft(n->x());
+                    if ( n->x() < boundbox.right() )
+                        boundbox.setRight(n->x());
+                    if ( n->y() > boundbox.top() )
+                        boundbox.setTop(n->y());
+                    if ( n->y() < boundbox.bottom() )
+                        boundbox.setBottom(n->y());
+                }
+                if ( dragged->position == (TH::TOP|TH::LEFT) )
+                    midpoint = boundbox.bottomRight();
+                else if ( dragged->position == (TH::TOP|TH::RIGHT) )
+                    midpoint = boundbox.bottomLeft();
+                else if ( dragged->position == (TH::BOTTOM|TH::LEFT) )
+                    midpoint = boundbox.topRight();
+                else if ( dragged->position == (TH::BOTTOM|TH::RIGHT) )
+                    midpoint = boundbox.topLeft();
+            }
+            initialize_movement(midpoint);
+        }
+        else if ( node )
         {
             if ( !node->isSelected() )
             {
@@ -320,8 +368,10 @@ void KnotView::mousePressEvent(QMouseEvent *event)
         rubberband->setPos(p);
         rubberband->setZValue(100);
     }
-}
 
+    redraw(false);
+}
+#include <cmath>
 void KnotView::mouseMoveEvent(QMouseEvent *event)
 {
     if ( !isInteractive() ) return;
@@ -352,7 +402,10 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
         oldpos = p;
 
         if (fluid_redraw)
+        {
+            update_transform_handles();
             knot.build();
+        }
     }
     else if ( mouse_status == SELECTING )
     {
@@ -385,11 +438,43 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
             set_guide ( last_node->pos(), q );
         }
     }
+    else if ( mouse_status == TRANSFORMING && dragged )
+    {
+        dragged->highlight = true;
+        QLineF newl(move_center,p);
+        QLineF oldl(move_center,dragged->pos());
 
 
+        if ( grid.is_enabled() )
+        {
+            if ( abs(newl.length()-oldl.length()) < grid.get_size() )
+                return;
+            else
+                 fixed_scale ( newl.length() > oldl.length() );
+        }
+        else
+        {
+
+            double scale = newl.length() / oldl.length();
+
+            if ( newl.length() < 1 )
+                scale = -1;
+
+            foreach ( Node* selnode, selected_nodes() )
+            {
+                QLineF oldln(move_center,selnode->pos());
+                oldln.setLength(oldln.length()*scale);
+                selnode->setPos(oldln.p2());
+            }
+        }
+        if (fluid_redraw)
+        {
+            update_transform_handles();
+            knot.build();
+        }
+    }
 
     // highlight item under cursor
-    // isUnderMouse?
     foreach ( QGraphicsItem* gi, scene()->items() )
     {
         CustomItem* ci = dynamic_cast<CustomItem*>(gi);
@@ -404,7 +489,7 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
     redraw(false);
 }
 
-#include <QtDebug>
+//#include <QtDebug>
 void KnotView::mouseReleaseEvent(QMouseEvent *event)
 {
     if ( !isInteractive() ) return;
@@ -428,7 +513,7 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
     {
         snap(p,event);
         if ( p != startpos )
-            move_nodes(p);
+            move_nodes();
         sel_offset.clear();
 
         // ugly fix for a weird bug
@@ -457,6 +542,10 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
         delete rubberband;
         rubberband = NULL;
     }
+    else if ( mouse_status == TRANSFORMING )
+    {
+        move_nodes();
+    }
     /*else if ( mouse_status == EDGING )
     {
         unset_guide();
@@ -472,6 +561,8 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
     }*/
 
     mouse_status = DEFAULT;
+
+    redraw(false);
 }
 
 void KnotView::wheelEvent(QWheelEvent *event)
@@ -503,26 +594,14 @@ void KnotView::wheelEvent(QWheelEvent *event)
                     QLineF vector ( move_center, selnode->pos() );
                     vector.setAngle(vector.angle()+angle);
                     selnode->setPos(vector.p2());
-
-                    QLineF base_vector ( QPointF(0,0), sel_offset[selnode] );
-                    base_vector.setAngle(vector.angle());
-                    sel_offset[selnode] = base_vector.p2();
                 }
             }
             else
             {
-                int zdelta = event->delta() < 0 ? -1 : 1;
-                sel_size += zdelta;
-                if ( sel_size == 0 )
-                    sel_size = zdelta;
-                foreach ( Node* selnode, sel )
-                {
-                    QLineF vector ( QPointF(0,0), sel_offset[selnode] );
-                    vector.setLength(vector.length()*sel_size);
-                    vector.translate(move_center);
-                    selnode->setPos(vector.p2());
-                }
+                fixed_scale ( event->delta() > 0 );
             }
+            update_transform_handles();
+
             redraw(true);
         }
     }
@@ -535,6 +614,52 @@ void KnotView::wheelEvent(QWheelEvent *event)
     }
 }
 
+/**
+    scale selection up or down by 1 grid unit (based on sel_size)
+*/
+void KnotView::fixed_scale(bool grow)
+{
+    int delta = grow ? 1 : -1;
+    sel_size += delta / 2.0;
+    if ( qFuzzyCompare(sel_size+1,1) )
+        sel_size = delta;
+
+    foreach ( Node* selnode, selected_nodes() )
+    {
+        QLineF vector ( move_center, sel_offset[selnode] );
+        vector.setLength(vector.length()*sel_size);
+        selnode->setPos(vector.p2());
+    }
+}
+
+void KnotView::initialize_movement(QPointF center)
+{
+
+    node_list selection = selected_nodes();
+    sel_offset.clear();
+    move_center = center;
+    QRectF boundbox;
+    foreach(Node* n, selection)
+    {
+        QPointF off = n->pos();
+        sel_offset[n] = off;
+
+        if ( off.x() < boundbox.left() )
+            boundbox.setLeft(off.x());
+        else if ( off.x() > boundbox.right() )
+            boundbox.setRight(off.x());
+
+        if ( off.y() < boundbox.top() )
+            boundbox.setTop(off.y());
+        else if ( off.y() > boundbox.bottom() )
+            boundbox.setBottom(off.y());
+    }
+
+    if ( grid.is_enabled() )
+        sel_size = 1.0 / grid.get_size() + 1;
+    else
+        sel_size = 4;
+}
 
 Node *KnotView::node_at(QPointF p)
 {
@@ -544,6 +669,11 @@ Node *KnotView::node_at(QPointF p)
 Edge *KnotView::edge_at(QPointF p)
 {
     return dynamic_cast<Edge*>(scene()->itemAt(p));
+}
+
+Transform_Handle *KnotView::th_at(QPointF p)
+{
+    return dynamic_cast<Transform_Handle*>(scene()->itemAt(p));
 }
 
 void KnotView::link(Node *a, Node *b )
@@ -778,40 +908,6 @@ void KnotView::mode_change()
     //scene()->clearSelection();
 }
 
-void KnotView::initialize_movement(QPointF center)
-{
-    node_list selection = selected_nodes();
-    if ( selection.size() < 2 )
-        return;
-    sel_offset.clear();
-    move_center = center;
-    QRectF boundbox;
-    foreach(Node* n, selection)
-    {
-        QPointF off = n->pos()-center;
-        sel_offset[n] = off;
-
-        if ( off.x() < boundbox.left() )
-            boundbox.setLeft(off.x());
-        else if ( off.x() > boundbox.right() )
-            boundbox.setRight(off.x());
-
-        if ( off.y() < boundbox.top() )
-            boundbox.setTop(off.y());
-        else if ( off.y() > boundbox.bottom() )
-            boundbox.setBottom(off.y());
-    }
-
-    if ( grid.is_enabled() )
-        sel_size = boundbox.width() / grid.get_size();
-    else
-        sel_size = 4;
-
-    for ( QMap<Node*,QPointF>::iterator it = sel_offset.begin();
-            it != sel_offset.end(); ++it )
-        it.value() /= sel_size;
-}
-
 void KnotView::drawBackground(QPainter *painter, const QRectF &rect)
 {
     grid.render(painter,rect);
@@ -970,22 +1066,21 @@ void KnotView::break_edge_equal(Edge *e, int segments)
 
 }
 
-void KnotView::move_nodes ( QPointF dest )
+void KnotView::move_nodes ( )
 {
-    QPointF delta = dest-startpos;
     if ( selected_nodes().size() > 1 )
     {
         undo_stack.beginMacro(tr("Move Nodes"));
         foreach ( Node* n, selected_nodes() )
         {
-            undo_stack.push(new MoveNode(n,n->pos()-delta,n->pos(),this));
+            undo_stack.push(new MoveNode(n,sel_offset[n],n->pos(),this));
         }
         undo_stack.endMacro();
     }
     else if ( selected_nodes().size() == 1 )
     {
-        undo_stack.push(new MoveNode(selected_nodes()[0],selected_nodes()[0]->pos()-delta,
-                                     selected_nodes()[0]->pos(),this));
+        Node* n = selected_nodes()[0];
+        undo_stack.push(new MoveNode(n,sel_offset[n],n->pos(),this));
     }
 }
 
@@ -1266,5 +1361,52 @@ void KnotView::toggle_graph(bool visible)
 {
     CustomItem::show_graph = visible;
     redraw(false);
+}
+
+void KnotView::update_transform_handles()
+{
+    if ( scene()->selectedItems().count() < 3 )
+    {
+        if ( h_tl.scene() )
+        {
+            scene()->removeItem(&h_tl);
+            scene()->removeItem(&h_bl);
+            scene()->removeItem(&h_tr);
+            scene()->removeItem(&h_br);
+        }
+        return;
+    }
+
+    if ( !h_tl.scene() )
+    {
+        scene()->addItem(&h_tl);
+        scene()->addItem(&h_bl);
+        scene()->addItem(&h_tr);
+        scene()->addItem(&h_br);
+    }
+    QRectF boundbox;
+    boundbox.setTop(INT_MIN);
+    boundbox.setLeft(INT_MIN);
+    boundbox.setBottom(INT_MAX);
+    boundbox.setRight(INT_MAX);
+    foreach ( Node* n, selected_nodes() )
+    {
+        if ( n->x() > boundbox.left() )
+            boundbox.setLeft(n->x());
+        if ( n->x() < boundbox.right() )
+            boundbox.setRight(n->x());
+        if ( n->y() > boundbox.top() )
+            boundbox.setTop(n->y());
+        if ( n->y() < boundbox.bottom() )
+            boundbox.setBottom(n->y());
+    }
+    boundbox.setTop(boundbox.top()+16);
+    boundbox.setLeft(boundbox.left()+16);
+    boundbox.setBottom(boundbox.bottom()-16);
+    boundbox.setRight(boundbox.right()-16);
+    h_tl.setPos(boundbox.topLeft());
+    h_tr.setPos(boundbox.topRight());
+    h_bl.setPos(boundbox.bottomLeft());
+    h_br.setPos(boundbox.bottomRight());
 }
 

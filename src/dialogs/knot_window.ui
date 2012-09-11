@@ -60,6 +60,8 @@
     <addaction name="separator"/>
     <addaction name="action_Horizontal_Flip"/>
     <addaction name="action_Vertical_Flip"/>
+    <addaction name="action_Rotate"/>
+    <addaction name="action_Scale"/>
    </widget>
    <widget class="QMenu" name="menu_Edit">
     <property name="title">
@@ -442,6 +444,16 @@
     <string>Insert Pol&amp;ygon...</string>
    </property>
   </action>
+  <action name="action_Rotate">
+   <property name="text">
+    <string>&amp;Rotate</string>
+   </property>
+  </action>
+  <action name="action_Scale">
+   <property name="text">
+    <string>&amp;Scale</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -464,6 +476,8 @@
     <slot>toggle_knotline(bool)</slot>
     <slot>toggle_graph(bool)</slot>
     <slot>unlink_selected()</slot>
+    <slot>mode_edge_chain()</slot>
+    <slot>mode_edit_node_edge()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -536,32 +550,32 @@
   <connection>
    <sender>actionEdge_List</sender>
    <signal>triggered()</signal>
-   <receiver>Knot_Window</receiver>
-   <slot>mode_edge_list()</slot>
+   <receiver>canvas</receiver>
+   <slot>mode_edge_chain()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
     <hint type="destinationlabel">
-     <x>319</x>
-     <y>239</y>
+     <x>399</x>
+     <y>334</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>actionInsert_Edges</sender>
    <signal>triggered()</signal>
-   <receiver>Knot_Window</receiver>
-   <slot>mode_edge()</slot>
+   <receiver>canvas</receiver>
+   <slot>mode_edit_node_edge()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
     <hint type="destinationlabel">
-     <x>319</x>
-     <y>239</y>
+     <x>399</x>
+     <y>334</y>
     </hint>
    </hints>
   </connection>

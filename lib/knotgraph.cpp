@@ -42,8 +42,8 @@ KnotGraph::KnotGraph()
     /// \todo configure miter limit
     stroker.setJoinStyle(Qt::MiterJoin);
 
-    setCacheMode(QGraphicsItem::DeviceCoordinateCache);
-    //setCacheMode(QGraphicsItem::ItemCoordinateCache);
+    //setCacheMode(QGraphicsItem::DeviceCoordinateCache); mild
+    //setCacheMode(QGraphicsItem::ItemCoordinateCache); heavy
 
 }
 

@@ -118,10 +118,6 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
 
     public slots:
-        /// Change editing mode to edge list
-        void mode_edge_list();
-        /// Change editing mode to edge/node manipulation
-        void mode_edge();
 
         /// Update the statusbar to show the mouse position
         void mouse_moved(QPointF);

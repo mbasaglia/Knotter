@@ -182,6 +182,10 @@ void Knot_Window::init_menus()
     action_Erase->setIcon(load::icon("format-remove-node"));
     action_Merge->setIcon(load::icon("format-join-node"));
 
+// Tools menu
+    QActionGroup* edit_mode = new QActionGroup(this);
+    edit_mode->addAction(actionInsert_Edges);
+    edit_mode->addAction(actionEdge_List);
     actionInsert_Edges->setIcon(load::icon("draw-line"));
     actionEdge_List->setIcon(load::icon("edge_list"));
     actionInsert_Polygon->setIcon(load::icon("draw-polygon"));
@@ -530,23 +534,6 @@ void Knot_Window::save_config()
         settings.setValue("handle-length",si.handle_length);
     }
     settings.endGroup();
-}
-
-
-
-
-void Knot_Window::mode_edge_list()
-{
-    actionInsert_Edges->setChecked(false);
-    actionEdge_List->setChecked(true);
-    canvas->mode_edge_chain();
-}
-
-void Knot_Window::mode_edge()
-{
-    actionInsert_Edges->setChecked(true);
-    actionEdge_List->setChecked(false);
-    canvas->mode_edit_node_edge();
 }
 
 void Knot_Window::mouse_moved(QPointF p)

@@ -264,6 +264,9 @@ int main(int argc, char *argv[])
     Translator::initialize("en");
     Translator::load_system_default();
 
+    Transform_Handle::scale_rest.load(load::resource_name(DATA_DIR,"img/handle_scale_rest.svg"));
+    Transform_Handle::scale_active.load(load::resource_name(DATA_DIR,"img/handle_scale_active.svg"));
+
     KnotGraph graph;
     parse_cmd_args(argc,argv,graph);
 
