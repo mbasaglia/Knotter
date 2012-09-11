@@ -247,6 +247,7 @@ void KnotView::mousePressEvent(QMouseEvent *event)
             }
             else
             {
+                /// \todo boundbox function
                 QRectF boundbox;
                 boundbox.setTop(INT_MIN);
                 boundbox.setLeft(INT_MIN);
@@ -293,7 +294,6 @@ void KnotView::mousePressEvent(QMouseEvent *event)
             {
                 mouse_status = MOVING;
                 snap(p,event);
-                startpos = oldpos = node->pos();
                 initialize_movement(node->pos());
             }
         }
@@ -598,7 +598,7 @@ void KnotView::wheelEvent(QWheelEvent *event)
             }
             else
             {
-                fixed_scale ( event->delta() > 0 );
+                fixed_scale ( event->delta() >  0 );
             }
             update_transform_handles();
 
@@ -626,8 +626,9 @@ void KnotView::fixed_scale(bool grow)
 
     foreach ( Node* selnode, selected_nodes() )
     {
-        QLineF vector ( move_center, sel_offset[selnode] );
+        QLineF vector ( QPointF(0,0), sel_offset[selnode] );
         vector.setLength(vector.length()*sel_size);
+        vector.translate(move_center);
         selnode->setPos(vector.p2());
     }
 }
@@ -637,11 +638,11 @@ void KnotView::initialize_movement(QPointF center)
 
     node_list selection = selected_nodes();
     sel_offset.clear();
-    move_center = center;
+    startpos = oldpos = move_center = center;
     QRectF boundbox;
     foreach(Node* n, selection)
     {
-        QPointF off = n->pos();
+        QPointF off = n->pos() - move_center;
         sel_offset[n] = off;
 
         if ( off.x() < boundbox.left() )
@@ -1073,14 +1074,14 @@ void KnotView::move_nodes ( )
         undo_stack.beginMacro(tr("Move Nodes"));
         foreach ( Node* n, selected_nodes() )
         {
-            undo_stack.push(new MoveNode(n,sel_offset[n],n->pos(),this));
+            undo_stack.push(new MoveNode(n,sel_offset[n]+startpos,n->pos(),this));
         }
         undo_stack.endMacro();
     }
     else if ( selected_nodes().size() == 1 )
     {
         Node* n = selected_nodes()[0];
-        undo_stack.push(new MoveNode(n,sel_offset[n],n->pos(),this));
+        undo_stack.push(new MoveNode(n,sel_offset[n]+startpos,n->pos(),this));
     }
 }
 
