@@ -43,7 +43,8 @@ OTHER_FILES = \
     fix_makefile.sh \
     man_builder.sh \
     doc_builder.sh \
-    info_preprocessor.sh
+    info_preprocessor.sh \
+    rpm_builder.sh
 
 DEFINES += "VERSION=\\\"$${VERSION}\\\""
 
@@ -75,7 +76,7 @@ MYDIST_NAME = "$$TARGET-$${VERSION}"
 MYDIST_TAR = "$${MYDIST_NAME}.tar"
 MYDIST_TAR_GZ = "$${MYDIST_TAR}.gz"
 MYDIST_TMP = ".tmp/$${MYDIST_NAME}"
-mydist.depends = doc
+mydist.depends = doc man
                                                                             #
 mydist.commands =                                                           \
         (                                                                   \
@@ -103,7 +104,7 @@ src_doc.depends = Doxyfile FORCE
 src_doc.commands = sed s/KNOTTER_VERSION/$${VERSION}/ Doxyfile | doxygen -
 
 #doc
-doc.depends = doc_builder.sh user_guide/*.xml
+doc.depends = doc_builder.sh user_guide/manual.xml user_guide/man_page.in.xml
 doc.commands = ./doc_builder.sh
 doc_clean.commands = ./doc_builder.sh clean
 

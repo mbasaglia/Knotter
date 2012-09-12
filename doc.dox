@@ -4,7 +4,6 @@
 Ignore this, see the main todo page
 
 \todo Document every class and function
-\todo Better user guide
 \todo load a background picture
 \todo extensible edge types (?)
 \todo custom edge style (crossing distance + handle length)
@@ -12,3 +11,10 @@ Ignore this, see the main todo page
 \todo Qt translation files - http://qt-project.org/faq/answer/does_qt_provide_translations_for_the_user_visible_strings_of_the_widgets
 \todo Debian changelog to NEWS (or NEWS to CHANGELOG?)
 \todo Option to skip WALL edges ( handle as if chain of edges are a single edge )
+\todo Move desktop file in it's own script (IE: not in deb_builder.sh)
+\todo use `find` ad add md5 to deb
+
+Todocument:
+* new Rotate/scale !! Mention Shift/Ctrl !!
+* List of all actions + various shortcuts
+* Ctrl+edge list

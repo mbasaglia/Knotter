@@ -379,10 +379,11 @@ case \$1 in
     email) echo "mattia.basaglia@gmail.com" ;;
     title) echo Knotter ;;
     desc) echo "Celtic knot editor" ;;
-    long-desc) echo "Knotter is an editor for interlace patterns.\n" \
-                    "Knots drawn with Knotter can be exported as SVG or raster images."
+    long-desc) echo "Knotter is an editor for interlace patterns."
+               echo "Knots drawn with Knotter can be exported as SVG or raster images."
     ;;
     website) echo "https://sourceforge.net/projects/knotter/" ;;
+    download) echo "http://sourceforge.net/projects/knotter/files/latest/download" ;;
 _GET_DIR_
 
 for key in $dirlist

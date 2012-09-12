@@ -5,7 +5,8 @@ Knotter 0.7.0  - Ongoing development
 --------------------
 * Command Line Interface
 * Use system-wide clipboard for copy/pase (copy SVG as well)
-* Friendlier scaling interaction
+* Friendly rotate/scale user interaction
+* RPM packaging script
 
 Knotter 0.6.0
 --------------------
@@ -17,6 +18,7 @@ Knotter 0.6.0
 * New "Round" cusp style
 * Optional fallback icon theme
 * Option to save style between sessions
+* Deb packaging script
 
 Knotter 0.5.0
 --------------------

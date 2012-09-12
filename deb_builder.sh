@@ -19,6 +19,7 @@
 # env vars DEBFULLNAME and DEBEMAIL are used, if empty set to upstream maintainer info
 # NOTE You  should run this script as root (or you'll have wrong install file permission)
 
+set -e
 
 user_name=`whoami`
 user_id=`id -u $user_name`

@@ -16,22 +16,23 @@
 
 # This script generates the user guide html and man page from the docbook sources
 # WARNING this script may not be very portable
+# Usage: doc_builder.sh [clean]
 
 
 package=`./get_info.sh name`
 
-echo "Removing old files..."
-set -x
-rm -f user_guide/*.html user_guide/man_page.xml man/$package.1.gz
 
 if  [ "$1" = "clean" ] ; then
+    echo "Removing old files..."
+    set -x
+    rm -f user_guide/*.html user_guide/man_page.xml man/$package.1.gz
     exit 0
 fi
 
 # man page
 ./info_preprocessor.sh user_guide/man_page.in.xml >user_guide/man_page.xml
 xmlto -o man --skip-validation man user_guide/man_page.xml 
-gzip -9 man/$package.1
+gzip -9f man/$package.1
 
 # html manual
 cd user_guide
