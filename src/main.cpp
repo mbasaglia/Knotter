@@ -266,6 +266,8 @@ int main(int argc, char *argv[])
 
     Transform_Handle::scale_rest.load(load::resource_name(DATA_DIR,"img/handle_scale_rest.svg"));
     Transform_Handle::scale_active.load(load::resource_name(DATA_DIR,"img/handle_scale_active.svg"));
+    Transform_Handle::rotate_rest.load(load::resource_name(DATA_DIR,"img/handle_rotate_rest.svg"));
+    Transform_Handle::rotate_active.load(load::resource_name(DATA_DIR,"img/handle_rotate_active.svg"));
 
     KnotGraph graph;
     parse_cmd_args(argc,argv,graph);

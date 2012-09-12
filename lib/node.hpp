@@ -50,6 +50,7 @@ struct TraversalInfo
     TraversalInfo ( QString error_message )
         : edge_in ( NULL ), handle_in ( Edge::NOHANDLE ),
             edge_out ( NULL ), handle_out ( Edge::NOHANDLE ),
+            handside ( LEFT ),
             angle_in(0), angle_out(0), angle_delta(0),
             success(false), error_message ( error_message )
     {}
@@ -57,6 +58,7 @@ struct TraversalInfo
     TraversalInfo()
         : edge_in ( NULL ), handle_in ( Edge::NOHANDLE ),
             edge_out ( NULL ), handle_out ( Edge::NOHANDLE ),
+            handside ( LEFT ),
             angle_in(0), angle_out(0), angle_delta(0),
             success(false), error_message ()
     {}

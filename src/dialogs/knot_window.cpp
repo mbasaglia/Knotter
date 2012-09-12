@@ -182,6 +182,12 @@ void Knot_Window::init_menus()
     action_Erase->setIcon(load::icon("format-remove-node"));
     action_Merge->setIcon(load::icon("format-join-node"));
 
+    action_Scale->setIcon(load::icon("transform-scale"));
+    action_Rotate->setIcon(load::icon("transform-rotate"));
+    QActionGroup* transform_mode = new QActionGroup(this);
+    transform_mode->addAction(action_Scale);
+    transform_mode->addAction(action_Rotate);
+
 // Tools menu
     QActionGroup* edit_mode = new QActionGroup(this);
     edit_mode->addAction(actionInsert_Edges);
@@ -262,6 +268,7 @@ void Knot_Window::init_toolbars()
     addToolBar(Qt::LeftToolBarArea, EditBar);
     addToolBar(Qt::TopToolBarArea, MainToolBar);
     addToolBar(Qt::TopToolBarArea, ViewBar);
+    addToolBar(Qt::TopToolBarArea, TransformBar);
 }
 
 
@@ -400,6 +407,7 @@ void Knot_Window::load_config()
 
         int icon_size = settings.value("icon_size",iconSize().width()).toInt();
         setIconSize(QSize(icon_size,icon_size));
+        Transform_Handle::size = icon_size;
         setToolButtonStyle ( Qt::ToolButtonStyle (
                      settings.value("buttons",toolButtonStyle()).toInt() ) );
     }
@@ -824,6 +832,8 @@ void Knot_Window::config()
     canvas->set_cache_mode( QGraphicsItem::CacheMode( config_dlg.cache_mode->currentIndex() ) );
 
     canvas->enable_fluid_redraw(config_dlg.fluid_check->isChecked());
+
+    Transform_Handle::size = config_dlg.get_icon_size().width();
 
 }
 

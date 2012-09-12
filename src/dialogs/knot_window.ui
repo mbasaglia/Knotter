@@ -162,9 +162,6 @@
    <addaction name="action_Merge"/>
    <addaction name="separator"/>
    <addaction name="actionInsert_Polygon"/>
-   <addaction name="separator"/>
-   <addaction name="action_Horizontal_Flip"/>
-   <addaction name="action_Vertical_Flip"/>
   </widget>
   <widget class="QToolBar" name="MainToolBar">
    <property name="windowTitle">
@@ -205,6 +202,22 @@
    <addaction name="actionShow_Graph"/>
    <addaction name="actionEnable_Grid"/>
    <addaction name="action_Move_Grid"/>
+  </widget>
+  <widget class="QToolBar" name="TransformBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_Horizontal_Flip"/>
+   <addaction name="action_Vertical_Flip"/>
+   <addaction name="separator"/>
+   <addaction name="action_Rotate"/>
+   <addaction name="action_Scale"/>
   </widget>
   <action name="action_Save">
    <property name="text">
@@ -445,11 +458,20 @@
    </property>
   </action>
   <action name="action_Rotate">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>&amp;Rotate</string>
    </property>
   </action>
   <action name="action_Scale">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>&amp;Scale</string>
    </property>
@@ -478,6 +500,8 @@
     <slot>unlink_selected()</slot>
     <slot>mode_edge_chain()</slot>
     <slot>mode_edit_node_edge()</slot>
+    <slot>transform_mode_scale()</slot>
+    <slot>transform_mode_rotate()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -944,6 +968,38 @@
     <hint type="destinationlabel">
      <x>319</x>
      <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Rotate</sender>
+   <signal>triggered()</signal>
+   <receiver>canvas</receiver>
+   <slot>transform_mode_rotate()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>334</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Scale</sender>
+   <signal>triggered()</signal>
+   <receiver>canvas</receiver>
+   <slot>transform_mode_scale()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>334</y>
     </hint>
    </hints>
   </connection>

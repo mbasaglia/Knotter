@@ -64,20 +64,20 @@ class KnotView : public QGraphicsView
         mode_type mode;                 ///< Editing mode
         Node* last_node;                ///< Last meaningful node or NULL
         mouse_status_type mouse_status; ///< What the mouse is doing (make mouse events stateful)
-        QPointF oldpos;                 ///< Previous position in moving actions
-        QPointF startpos;               ///< Starting position in moving actions
         node_list node_chain;           ///< List of nodes used in INSERT_EDGE_CHAIN
         QGraphicsLineItem* guide;       ///< Tiny line showing the edge being edited
         QGraphicsRectItem* rubberband;  ///< Draggable selection rectangle
         QUndoStack undo_stack;          ///< Actions perfomed by the view
         KnotGraph knot;                 ///< Knot logic and graphics item
         snapping_grid grid;             ///< Grid setup
-        QMap<Node*,QPointF> sel_offset; ///< Offset of selected nodes from move_center
         double sel_size;                ///< Selection scale factor
-        QPointF move_center;            ///< Point aligned to the cursor during movement
         bool fluid_redraw;              ///< Whether knot shall be redrawn when moving nodes
         Transform_Handle h_tl,h_bl,h_tr,h_br; ///< Transform handles to interact with selection
         Transform_Handle* dragged;      ///< The transform handle currently being dragged (if any)
+
+        QPointF startpos;               ///< Starting position in moving actions
+        QPointF move_center;            ///< Point aligned to the cursor during movement
+        QMap<Node*,QPointF> sel_offset; ///< Offset of selected nodes from move_center
 
     public:
         /// constructor
@@ -222,7 +222,9 @@ class KnotView : public QGraphicsView
         void mode_change();
 
         void initialize_movement(QPointF center);
-        void fixed_scale ( bool grow );
+        bool fixed_scale( bool grow );
+        /// \return Bounding box of selected nodes
+        QRectF bound_box() const;
 
 
         void drawBackground(QPainter *painter, const QRectF &rect);
@@ -232,6 +234,10 @@ class KnotView : public QGraphicsView
         void mode_edge_chain();
         void mode_move_grid();
         void mode_moving_new(QPointF center);
+
+        void transform_mode_scale();
+        void transform_mode_rotate();
+
 
         void erase_selected();
         void link_selected();

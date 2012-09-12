@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "basic_knot_graph.hpp"
 
 basic_knot_graph::basic_knot_graph()
-    : default_style ( knot_curve_styler::idof("pointed"), 225, 32, 10, 24)
+    : default_style ( knot_curve_styler::idof("pointed"), 225, 24, 10, 32)
 {
 }
 
