@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=__title__
+Comment=__desc__
+Exec=__name__
+TryExec=__name__
+Icon=__icon__
+Terminal=false
+Categories=Graphics;VectorGraphics;Qt;

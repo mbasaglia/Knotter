@@ -95,7 +95,7 @@ _CONTROL_
 dataroot=`./get_info.sh datarootdir`
 bindir=`./get_info.sh bindir`
 datadir=`./get_info.sh datadir`
-icon=$datadir/img/knotter-logo-big.svg
+icon=`./get_info.sh icon`
 docdir=`./get_info.sh docdir`
 
 
@@ -117,22 +117,6 @@ set -e
 if [ -x \`which update-menus\` ] ; then update-menus ; fi
 _POST_INST_
 chmod a+x $postinst_file
-
-mkdir -p debian/$package/$dataroot/applications
-desktop_file=debian/$package/$dataroot/applications/$package.desktop
-echo Creating $desktop_file
-cat >$desktop_file <<_DESKTOP_
-[Desktop Entry]
-Version=$version
-Type=Application
-Name=$title
-Comment=$desc
-Exec=$package
-TryExec=$package
-Icon=$icon
-Terminal=false
-Categories=Graphics;VectorGraphics;Qt
-_DESKTOP_
 
 copyright_file=debian/$package/usr/share/doc/$package/copyright
 mkdir -p debian/$package/usr/share/doc/$package
@@ -184,12 +168,9 @@ cp $changelog_temp_file $changelog_file
 gzip -9 $changelog_file
 
 
-cd debian
+debname="debian/${package}_${version}-${revision}_${architecture}.deb"
+dpkg-deb --build debian/$package $debname
 
-dpkg-deb --build $package
-debname="${package}_${version}-${revision}_${architecture}.deb"
-mv "debian/$package.deb" "debian/$debname";
+echo "You can find the package as $debname"
 
-echo "You can find the package as debian/$debname"
-
-echo "Run \"lintian debian/$debname\" for quality check" # see http://lintian.debian.org/tags.html
+echo "Run \"lintian $debname\" for quality check" # see http://lintian.debian.org/tags.html

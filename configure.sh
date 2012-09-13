@@ -209,7 +209,16 @@ do
     fi
 done
 
-
+#create a temporary file with given extension
+mk_tempfile() {
+    if [ -x "`which tempfile`" ] ; then
+        tempfile -s $1
+    else
+        name=/tmp/file-`date +%s%N`$1
+        touch $name
+        echo $name;
+    fi
+}
 
 #run a test on whether a library is found (using the C++ compiler)
 #usage check_cxx_library name header [binary]
@@ -230,8 +239,8 @@ check_cxx_library() {
         fi
     fi
 
-    tempcxx=`tempfile -s .cpp`
-    tempobj=`tempfile -s .o`
+    tempcxx=`mk_tempfile .cpp`
+    tempobj=`mk_tempfile .o`
 
     cat >$tempcxx <<_HEADER_
 #include <$header>
@@ -251,7 +260,7 @@ _HEADER_
 
     if [ -n "$binary" ] ; then
 
-        tempbin=`tempfile -s .out`
+        tempbin=`mk_tempfile .out`
 
         if [ -z "$LINK" ]; then
             ld_test=$cxx_test
@@ -344,7 +353,7 @@ then
     make -s distclean || rm Makefile
 fi
 
-qmake_opts="$qmake_opts BINDIR=$bindir DATADIR=$datadir DOCDIR=$docdir MANDIR=$mandir"
+qmake_opts="$qmake_opts BINDIR=$bindir DATADIR=$datadir DOCDIR=$docdir MANDIR=$mandir DATAROOTDIR=$datarootdir"
 qmake_command="$QMAKE $qmake_opts $qmake_pro_file"
 echo $qmake_command
 if $qmake_command && [ -f Makefile ]
@@ -380,10 +389,11 @@ case \$1 in
     title) echo Knotter ;;
     desc) echo "Celtic knot editor" ;;
     long-desc) echo "Knotter is an editor for interlace patterns."
-               echo "Knots drawn with Knotter can be exported as SVG or raster images."
+               echo " Knots drawn with Knotter can be exported as SVG or raster images."
     ;;
     website) echo "https://sourceforge.net/projects/knotter/" ;;
     download) echo "http://sourceforge.net/projects/knotter/files/latest/download" ;;
+    icon) echo "$datadir/img/$program_name-logo-big.svg" ;;
 _GET_DIR_
 
 for key in $dirlist

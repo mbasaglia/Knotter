@@ -242,7 +242,14 @@ void KnotView::mousePressEvent(QMouseEvent *event)
             QPointF midpoint;
             QRectF boundbox = bound_box();
 
-            if ( dragged->mode == TH::ROTATE || event->modifiers() & Qt::ShiftModifier )
+            if ( dragged->mode == TH::ROTATE )
+            {
+                node_list sel = selected_nodes();
+                foreach(Node*n,sel)
+                    midpoint += n->pos();
+                midpoint /= sel.size();
+            }
+            else if ( event->modifiers() & Qt::ShiftModifier )
                 midpoint = boundbox.center();
             else if ( dragged->position == (TH::TOP|TH::LEFT) )
                 midpoint = boundbox.topLeft();

@@ -87,6 +87,7 @@ make install INSTALL_ROOT=\$RPM_BUILD_ROOT
 
 %files
 %{_mandir}/man1/$package.1.gz
+%{_datadir}/applications/$package.desktop
 %{_datadir}/$package
 %{_bindir}/$package
 %{_defaultdocdir}/$package
@@ -99,6 +100,6 @@ _SPECS_
 rpmbuild -ba $specs_file
 
 echo "You can find the packages as:"
-find $rpmbuild/RPMS -name "$package*$version*.rpm"
+find $rpmbuild -name "$package*$version*.rpm"
 
 echo "Run rpmlint on them for quality check"

@@ -17,7 +17,7 @@ QT       += core gui xml
 
 
 TARGET = knotter
-VERSION = 0.6.5devel
+VERSION = 0.6.6devel
 
 
 TEMPLATE = app
@@ -31,6 +31,7 @@ include(src/src.pri)
 include(lib/lib.pri)
 include(translations/translations.pri)
 
+
 OTHER_FILES = \
     COPYING \
     Doxyfile \
@@ -41,10 +42,11 @@ OTHER_FILES = \
     AUTHORS \
     deb_builder.sh \
     fix_makefile.sh \
-    man_builder.sh \
     doc_builder.sh \
     info_preprocessor.sh \
-    rpm_builder.sh
+    rpm_builder.sh \
+    knotter.desktop.in \
+    knotter.desktop
 
 DEFINES += "VERSION=\\\"$${VERSION}\\\""
 
@@ -73,10 +75,9 @@ MYDISTFILES =  $$OTHER_FILES knotter.pro
 MYDISTDIRS  =  src lib img translations user_guide man
 
 MYDIST_NAME = "$$TARGET-$${VERSION}"
-MYDIST_TAR = "$${MYDIST_NAME}.tar"
-MYDIST_TAR_GZ = "$${MYDIST_TAR}.gz"
+MYDIST_TAR_GZ = "$${MYDIST_NAME}.tar.gz"
 MYDIST_TMP = ".tmp/$${MYDIST_NAME}"
-mydist.depends = doc man
+mydist.depends = doc man desktop_file
                                                                             #
 mydist.commands =                                                           \
         (                                                                   \
@@ -85,10 +86,11 @@ mydist.commands =                                                           \
         ) &&                                                                \
         $(COPY_FILE) --parents $$MYDISTFILES  $$MYDIST_TMP &&               \
         $(COPY_DIR)  --parents $$MYDISTDIRS   $$MYDIST_TMP &&               \
+        $(DEL_FILE) -f $$MYDIST_TMP/src/generated/*.h                       \
+                       $$MYDIST_TMP/src/generated/*.cpp &&                  \
         (                                                                   \
             cd `dirname $$MYDIST_TMP`  &&                                   \
-            $(TAR) $$MYDIST_TAR $$MYDIST_NAME &&                            \
-            $(COMPRESS) $$MYDIST_TAR                                        \
+            $(TAR) $$MYDIST_TAR_GZ -a $$MYDIST_NAME                         \
         ) &&                                                                \
         $(MOVE) `dirname $$MYDIST_TMP`/$$MYDIST_TAR_GZ $$MYDIST_TAR_GZ &&   \
         $(DEL_FILE) -r $$MYDIST_TMP                                         #
@@ -101,7 +103,7 @@ QMAKE_EXTRA_TARGETS += mydist mydistclean
 #src_doc
 Doxyfile.commands = doxygen -g
 src_doc.depends = Doxyfile FORCE
-src_doc.commands = sed s/KNOTTER_VERSION/$${VERSION}/ Doxyfile | doxygen -
+src_doc.commands = ./info_preprocessor.sh Doxyfile | doxygen -
 
 #doc
 doc.depends = doc_builder.sh user_guide/manual.xml user_guide/man_page.in.xml
@@ -110,7 +112,11 @@ doc_clean.commands = ./doc_builder.sh clean
 
 man/$${TARGET}.1.gz.depends = doc
 
-QMAKE_EXTRA_TARGETS += src_doc Doxyfile doc doc_clean
+#desktop
+desktop_file.depends=$${TARGET}.desktop.in
+desktop_file.commands=./info_preprocessor.sh $${TARGET}.desktop.in > $${TARGET}.desktop
+
+QMAKE_EXTRA_TARGETS += src_doc Doxyfile doc doc_clean man/$${TARGET}.1.gz desktop_file
 
 
 #check directories and options from configure.sh
@@ -148,6 +154,9 @@ contains(SINGLE_FILE,yes) {
     isEmpty(MANDIR){
         MANDIR=man
     }
+    isEmpty(DATAROOTDIR){
+        DATAROOTDIR=.
+    }
 
 
     img.files = img/*
@@ -162,7 +171,10 @@ contains(SINGLE_FILE,yes) {
     man.files = man/$${TARGET}.1.gz
     man.path = $${MANDIR}/man1
 
-    INSTALLS += img doc translations man
+    desktop_file.files=$${TARGET}.desktop
+    desktop_file.path=$${DATAROOTDIR}/applications
+
+    INSTALLS += img doc translations man desktop_file
 
 
     !isEmpty(TANGO){

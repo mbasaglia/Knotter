@@ -35,6 +35,7 @@ title=`get_info title`
 desc=`get_info desc`
 long_desc=`get_info long-desc`
 website=`get_info website`
+icon=`get_info icon`
 
 
 if  [ ! -f "$1" ] ; then
@@ -42,6 +43,7 @@ if  [ ! -f "$1" ] ; then
     exit 1
 else
     sed -e "s/__name__/$name/g" \
+        -e "s/__package__/$name/g" \
         -e "s/__version__/$version/g" \
         -e "s/__author__/$author/g" \
         -e "s/__email__/$email/g" \
@@ -49,5 +51,6 @@ else
         -e "s/__desc__/$desc/g" \
         -e "s/__long_desc__/$long_desc/g" \
         -e "s/__website__/$website/g" \
+        -e "s/__icon__/$icon/g" \
         $1
 fi
