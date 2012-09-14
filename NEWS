@@ -7,6 +7,8 @@ Knotter 0.7.0  - Ongoing development
 * Use system-wide clipboard for copy/pase (copy SVG as well)
 * Friendly rotate/scale user interaction
 * RPM packaging script
+* Statusbar zoomer
+* Background configuration
 
 Knotter 0.6.0
 --------------------

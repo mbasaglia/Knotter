@@ -242,7 +242,7 @@ void KnotView::mousePressEvent(QMouseEvent *event)
             QPointF midpoint;
             QRectF boundbox = bound_box();
 
-            if ( dragged->mode == TH::ROTATE )
+            if ( dragged->get_mode() == TH::ROTATE )
             {
                 node_list sel = selected_nodes();
                 foreach(Node*n,sel)
@@ -251,13 +251,13 @@ void KnotView::mousePressEvent(QMouseEvent *event)
             }
             else if ( event->modifiers() & Qt::ShiftModifier )
                 midpoint = boundbox.center();
-            else if ( dragged->position == (TH::TOP|TH::LEFT) )
+            else if ( dragged->get_position() == (TH::TOP|TH::LEFT) )
                 midpoint = boundbox.topLeft();
-            else if ( dragged->position == (TH::TOP|TH::RIGHT) )
+            else if ( dragged->get_position() == (TH::TOP|TH::RIGHT) )
                 midpoint = boundbox.topRight();
-            else if ( dragged->position == (TH::BOTTOM|TH::LEFT) )
+            else if ( dragged->get_position() == (TH::BOTTOM|TH::LEFT) )
                 midpoint = boundbox.bottomLeft();
-            else if ( dragged->position == (TH::BOTTOM|TH::RIGHT) )
+            else if ( dragged->get_position() == (TH::BOTTOM|TH::RIGHT) )
                 midpoint = boundbox.bottomRight();
 
             initialize_movement(midpoint);
@@ -406,6 +406,7 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
         r.translate(delta);
         setSceneRect ( r );
         move_center = event->pos();
+        setCursor(Qt::SizeAllCursor);
         return;
     }
     /*else if ( mouse_status == EDGING )
@@ -427,7 +428,7 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
     }
     else if ( mouse_status == TRANSFORMING && dragged )
     {
-        if ( dragged->mode == TH::ROTATE )
+        if ( dragged->get_mode() == TH::ROTATE )
         {
             double angle = QLineF(move_center,p).angle() - QLineF(move_center,dragged->pos()).angle();
             if ( event->modifiers() & Qt::ControlModifier )
@@ -483,13 +484,13 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
 
                 if ( flipped )
                 {
-                    if ( dragged->position == (TH::TOP|TH::LEFT) )
+                    if ( dragged->get_position() == (TH::TOP|TH::LEFT) )
                         dragged = &h_br;
-                    else if ( dragged->position == (TH::TOP|TH::RIGHT) )
+                    else if ( dragged->get_position() == (TH::TOP|TH::RIGHT) )
                         dragged = &h_bl;
-                    else if ( dragged->position == (TH::BOTTOM|TH::LEFT) )
+                    else if ( dragged->get_position() == (TH::BOTTOM|TH::LEFT) )
                         dragged = &h_tr;
-                    else if ( dragged->position == (TH::BOTTOM|TH::RIGHT) )
+                    else if ( dragged->get_position() == (TH::BOTTOM|TH::RIGHT) )
                         dragged = &h_tl;
                 }
 
@@ -506,6 +507,8 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
                 knot.build();
             }
         }
+
+        setCursor(dragged->cursor());
     }
 
     // highlight item under cursor
@@ -541,11 +544,8 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
         grid.set_origin(p);
         redraw(false);
         mode_edit_node_edge();
-        mouse_status = DEFAULT;
-        return;
     }
-
-    if ( mouse_status == MOVING )
+    else if ( mouse_status == MOVING )
     {
         snap(p,event);
         if ( p != startpos )
@@ -598,6 +598,11 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
     }*/
 
     mouse_status = DEFAULT;
+
+    if ( mode == INSERT_EDGE_CHAIN )
+        setCursor(Qt::CrossCursor);
+    else
+        setCursor(Qt::ArrowCursor);
 
     redraw(false);
 }
@@ -966,6 +971,8 @@ void KnotView::mode_change()
 
 void KnotView::drawBackground(QPainter *painter, const QRectF &rect)
 {
+    painter->fillRect(rect,backgroundBrush());
+    backimg.render(painter);
     grid.render(painter,rect);
 }
 
@@ -1204,22 +1211,30 @@ snapping_grid &KnotView::get_grid()
     return grid;
 }
 
+background_image &KnotView::background()
+{
+    return backimg;
+}
+
 void KnotView::mode_edit_node_edge()
 {
     mode = EDIT_NODE_EDGE;
     mode_change();
+    setCursor(Qt::ArrowCursor);
 }
 
 void KnotView::mode_edge_chain()
 {
     mode = INSERT_EDGE_CHAIN;
     mode_change();
+    setCursor(Qt::CrossCursor);
 }
 
 void KnotView::mode_move_grid()
 {
     mode = MOVE_GRID;
     mode_change();
+    setCursor(Qt::CrossCursor);
 }
 
 void KnotView::mode_moving_new(QPointF center)
@@ -1236,23 +1251,25 @@ void KnotView::mode_moving_new(QPointF center)
     move_center = mapToScene ( mapFromGlobal ( QCursor::pos() ) );
 
     initialize_movement ( center  );
+
+    setCursor(Qt::DragCopyCursor);
 }
 
 void KnotView::transform_mode_scale()
 {
-    h_tl.mode = TH::SCALE;
-    h_tr.mode = TH::SCALE;
-    h_bl.mode = TH::SCALE;
-    h_br.mode = TH::SCALE;
+    h_tl.set_mode(TH::SCALE);
+    h_tr.set_mode(TH::SCALE);
+    h_bl.set_mode(TH::SCALE);
+    h_br.set_mode(TH::SCALE);
     redraw(false);
 }
 
 void KnotView::transform_mode_rotate()
 {
-    h_tl.mode = TH::ROTATE;
-    h_tr.mode = TH::ROTATE;
-    h_bl.mode = TH::ROTATE;
-    h_br.mode = TH::ROTATE;
+    h_tl.set_mode(TH::ROTATE);
+    h_tr.set_mode(TH::ROTATE);
+    h_bl.set_mode(TH::ROTATE);
+    h_br.set_mode(TH::ROTATE);
     redraw(false);
 }
 
@@ -1364,12 +1381,20 @@ void KnotView::reset_view()
 void KnotView::zoom(double factor)
 {
     scale(factor,factor);
+    emit zoom_changed(matrix().m11()*100);
 }
 
 void KnotView::reset_zoom()
 {
     QMatrix trans = matrix();
     trans.setMatrix(1,trans.m12(),trans.m21(),1,trans.dx(),trans.dy());
+    setMatrix(trans);
+}
+
+void KnotView::set_zoom(double percent)
+{
+    QMatrix trans = matrix();
+    trans.setMatrix(percent/100,trans.m12(),trans.m21(),percent/100,trans.dx(),trans.dy());
     setMatrix(trans);
 }
 

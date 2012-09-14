@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "transform_handle.hpp"
 #include <QPainter>
+#include <QCursor>
 
 using namespace TH;
 
@@ -38,6 +39,7 @@ Transform_Handle::Transform_Handle(TH::Position position, Mode mode ) :
     position(position), mode ( mode )
 {
     setFlag(QGraphicsItem::ItemIgnoresTransformations);
+    update_cursor();
 }
 
 QRectF Transform_Handle::boundingRect() const
@@ -73,4 +75,31 @@ void Transform_Handle::paint(QPainter *painter, const QStyleOptionGraphicsItem *
 
         rend.render(painter,boundingRect());
     }
+}
+
+void Transform_Handle::update_cursor()
+{
+    if ( mode == ROTATE )
+        setCursor(Qt::ArrowCursor); /// \todo custom cursor?
+    else if ( position == TOP || position == BOTTOM )
+        setCursor(Qt::SizeVerCursor);
+    else if ( position == LEFT || position == RIGHT )
+        setCursor(Qt::SizeHorCursor);
+    else if ( position == (TOP|RIGHT) || position == (BOTTOM|LEFT) )
+        setCursor(Qt::SizeBDiagCursor);
+    else if ( position == (TOP|LEFT) || position == (BOTTOM|RIGHT) )
+        setCursor(Qt::SizeFDiagCursor);
+
+}
+
+void Transform_Handle::set_position(TH::Position pos)
+{
+    position = pos;
+    update_cursor();
+}
+
+void Transform_Handle::set_mode(Mode mod)
+{
+    mode = mod;
+    update_cursor();
 }

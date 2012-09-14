@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "knotgraph.hpp"
 #include "snapping_grid.hpp"
 #include "transform_handle.hpp"
+#include "background_image.hpp"
 
 /**
     \brief Area used to manipulate and render the Knot
@@ -74,6 +75,7 @@ class KnotView : public QGraphicsView
         bool fluid_redraw;              ///< Whether knot shall be redrawn when moving nodes
         Transform_Handle h_tl,h_bl,h_tr,h_br; ///< Transform handles to interact with selection
         Transform_Handle* dragged;      ///< The transform handle currently being dragged (if any)
+        background_image backimg;
 
         QPointF startpos;               ///< Starting position in moving actions
         QPointF move_center;            ///< Point aligned to the cursor during movement
@@ -205,6 +207,9 @@ class KnotView : public QGraphicsView
 
         bool fluid_redraw_enabled() const { return fluid_redraw; }
         void enable_fluid_redraw(bool frd) { fluid_redraw = frd; }
+
+        background_image& background();
+
     protected:
         QPointF get_mouse_point ( QMouseEvent *event );
         void snap ( QPointF &p, QMouseEvent *event );
@@ -251,6 +256,7 @@ class KnotView : public QGraphicsView
         void reset_view();
         void zoom ( double factor );
         void reset_zoom();
+        void set_zoom(double percent);
 
         void flip_horizontal();
         void flip_vertical();
@@ -265,6 +271,7 @@ class KnotView : public QGraphicsView
         void mouse_moved ( QPointF );
         void context_menu(Node*);
         void context_menu(Edge*);
+        void zoom_changed(double);
 };
 
 #endif // KNOTVIEW_HPP

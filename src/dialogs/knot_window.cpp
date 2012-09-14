@@ -173,6 +173,7 @@ void Knot_Window::init_menus()
     actionShow_Graph->setIcon(load::icon("toggle_graph_on"));
     action_Move_Grid->setIcon(load::icon("move_grid"));
     actionConfigure_G_rid->setIcon(load::icon("configure-grid"));
+    action_Background->setIcon(load::icon("preferences-desktop-wallpaper"));
 
 // Node menu icons
     action_Horizontal_Flip->setIcon(load::icon("object-flip-horizontal"));
@@ -269,6 +270,17 @@ void Knot_Window::init_toolbars()
     addToolBar(Qt::TopToolBarArea, MainToolBar);
     addToolBar(Qt::TopToolBarArea, ViewBar);
     addToolBar(Qt::TopToolBarArea, TransformBar);
+
+    // Statusbar...
+    QDoubleSpinBox *zoomer = new QDoubleSpinBox;
+    zoomer->setMinimum(0.01);
+    zoomer->setMaximum(800);
+    zoomer->setSuffix("%");
+    zoomer->setValue(100);
+    zoomer->connect(canvas,SIGNAL(zoom_changed(double)),SLOT(setValue(double)));
+    canvas->connect(zoomer,SIGNAL(valueChanged(double)),SLOT(set_zoom(double)));
+    statusBar()->addPermanentWidget(new QLabel(tr("Zoom")));
+    statusBar()->addPermanentWidget(zoomer);
 }
 
 
@@ -302,6 +314,9 @@ void Knot_Window::init_dialogs()
     help_view.setAttribute(Qt::WA_QuitOnClose, false);
 
     action_About->setIcon(load::icon("help-about"));
+
+// Background
+    back_config.set_view(canvas);
 
 
 }
@@ -773,6 +788,7 @@ void Knot_Window::export_image()
 {
     export_dialog.reset_size();
     export_dialog.show();
+    export_dialog.raise();
 }
 
 void Knot_Window::zoom_in()
@@ -969,4 +985,10 @@ void Knot_Window::retranslate()
 {
     retranslateUi(this);
     undoView->setEmptyLabel(tr("<empty>"));
+}
+
+void Knot_Window::on_action_Background_triggered()
+{
+    back_config.show();
+    back_config.raise();
 }

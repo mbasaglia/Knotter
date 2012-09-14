@@ -56,8 +56,8 @@
       </section>
       
       <section> <title>Adding edges</title>
-        <para>To toggle edges between nodes, the <guimenuitem>Link selected</guimenuitem>
-        and <guimenuitem>Unlink selected</guimenuitem> commands.</para>
+        <para>To toggle edges between nodes, the <action>Link selected</action>
+        and <action>Unlink selected</action> commands.</para>
       </section>
       
       <section> <title>Changing edge type</title>
@@ -107,7 +107,7 @@
             
       <section> <title>Quick graph design</title>
         <para>Adding nodes and edges one at the time can be very tedious,
-        knotter provides the <guimenuitem>Edge list</guimenuitem> tool to make
+        knotter provides the <action>Edge list</action> tool to make
         this process easier.</para>
         <para>When this is enabled, a single click will create a node and
         each new node is connected to the previous one by an edge.</para>
@@ -166,7 +166,7 @@
     </section><!--Editing-->
     
     <section> <title>Style</title>
-      <para>The <guimenuitem>Knot Style</guimenuitem> docks allow the
+      <para>The <action>Knot Style</action> docks allow the
       configuration of display and shape options.</para>
       <variablelist>
         <varlistentry>
@@ -251,7 +251,7 @@
         <para>The Export dialog gives many options to export the knot as Image</para>
     
         <section> <title>Vector</title>
-          <para>If <guibutton>Only shape</guibutton> is checked, Knotter will
+          <para>If <action>Only shape</action> is checked, Knotter will
           export only the shape of the knot as a thin line, discarding 
           some style option.
           This is useful if you plan to edit the image with an external program
@@ -328,6 +328,162 @@
       <email>mattia.basaglia@gmail.com</email>
       </para>
     </section>
+  </chapter>
+  
+  <chapter id="howto"> <title>HowTo</title>
+    <para>This section shows how most common operations are performed in Knotter.
+    Multiple items represent multiple ways to perform the same task</para>
+    <qandaset>
+      <qandadiv> <title>Editing</title>
+        <qandaentry>
+          <question><para>Insert a node</para></question>
+          <answer><para>When in <emphasis>Edges and nodes</emphasis> mode,
+          double click on the canvas.</para></answer> 
+          <answer><para>When in <emphasis>Edge list</emphasis> mode,
+          left click on the canvas.</para></answer> 
+        </qandaentry>
+        <qandaentry>
+          <question><para>Insert edges</para></question>
+          <answer><para>When in <emphasis>Edges and nodes</emphasis> mode,
+          select some nodes and click <action>Link selected nodes</action>
+          (<keycombo><keycap>Ctrl</keycap><keycap>L</keycap></keycombo>).</para></answer> 
+          <answer><para>When in <emphasis>edge list</emphasis> mode,
+          subsequent nodes are connected automatically with an edge.</para></answer> 
+        </qandaentry>
+        <qandaentry>
+          <question><para>Remove nodes</para></question>
+          <answer><para>Select some nodes and press <keycap>Del</keycap>.</para></answer> 
+          <answer><para>Select some nodes and click <action>Erase selected nodes</action>.</para></answer> 
+        </qandaentry>
+        <qandaentry>
+          <question><para>Remove edges</para></question>
+          <answer><para>Select the edges (or their vertices) and click
+            <action>Unlink selected nodes</action>.</para></answer>
+          <answer><para>Bring the edge context menu and click
+            <guimenuitem>Remove</guimenuitem>.</para></answer>
+        </qandaentry>
+        <qandaentry>
+          <question><para>Break an edge</para></question>
+          <answer><para>Insert a node when the edge is highlighted</para></answer>
+          <answer><para>Bring the edge context menu and click
+            <guimenuitem>Break on intersections</guimenuitem> to add nodes
+            where the edge intersects with others.</para></answer>
+          <answer><para>Bring the edge context menu and click
+            <guimenuitem>Break...</guimenuitem> to break it in even-length pieces.</para></answer>
+        </qandaentry>
+        <qandaentry>
+          <question><para>Insert a regular polygon</para></question>
+          <answer><para>Click on <action>Insert polygon</action></para></answer> 
+        </qandaentry>
+        <qandaentry>
+          <question><para>Scale part of the graph</para></question>
+          <answer><para>Select some nodes and use the handles when
+            <emphasis>Scale</emphasis> mode is active.</para>
+            <para>By default, dragging a handle will set the anchor point to the
+            opposing handle, if you hold <keycap>Shift</keycap> the anchor point
+            will be the bounding box center.
+          </para></answer>
+          <answer><para>While dragging or pasting a part of the graph, use the
+            <mousebutton>mouse wheel</mousebutton>.</para></answer>
+        </qandaentry>
+        <qandaentry>
+          <question><para>Rotate part of the graph</para></question>
+          <answer><para>Select some nodes and use the handles when
+            <emphasis>Rotate</emphasis> mode is active.
+            Holding <keycap>Ctrl</keycap> will snap the rotation to steps of 15°
+          </para></answer>
+          <answer><para>While dragging or pasting a part of the graph, use the
+            <mousebutton>mouse wheel</mousebutton>.</para></answer>
+        </qandaentry>
+        <qandaentry>
+          <question><para>Flip part of the graph</para></question>
+          <answer><para>Select some nodes and click on <action>Horizontal flip</action>
+            or <action>Vertical flip</action>.</para></answer>
+        </qandaentry>
+        <qandaentry>
+          <question><para>Merge nodes</para></question>
+          <answer><para>Select some nodes and click <action>Merge selected nodes</action>
+            (<keycombo><keycap>Ctrl</keycap><keycap>M</keycap></keycombo>).</para></answer>
+        <qandaentry>
+          <question><para>Snap to the grid or to a fixed line</para></question>
+          <answer><para>To grid snapping is performed automatically for new
+            items when the grid is active</para></answer>
+          <answer><para>Nodes will snap to the grid when are moved
+            (if the grid is active)</para></answer>
+          <answer><para>Both nodes and edges can be snapped to the grid with
+           the context menu</para></answer>
+          <answer><para>Holding <keycap>Ctrl</keycap> in
+            <emphasis>Edge list</emphasis> mode, will snap vertices on a line
+            with a fixed angle. The angle changes with a step of 15°</para></answer>
+        </qandaentry>
+        </qandaentry>
+      </qandadiv> <!-- Editing -->
+      <qandadiv> <title>Style</title>
+      <qandaentry>
+        <question><para>Change knot style globally</para></question>
+      </qandaentry>
+      <qandaentry>
+        <question><para>Change the style for a specific node</para></question>
+      </qandaentry>
+      </qandadiv> <!-- Style -->
+      <qandadiv> <title>Configuration</title>
+        <qandaentry>
+          <question><para>Configure the grid</para></question>
+        </qandaentry>
+        <qandaentry>
+          <question><para>View only the knot line</para></question>
+        </qandaentry>
+        <qandaentry>
+          <question><para>Improve performace</para></question>
+        </qandaentry>
+      </qandadiv><!-- Configuration -->
+    </qandaset>
+  </chapter>
+  
+  <chapter id="menus"> <title>Menu actions</title>
+    <note>
+      <para>Most keyboard shortcuts are loaded from the system settings and may
+        differ from those listed here</para>
+    </note>
+    <variablelist>
+      <varlistentry>
+        <term><menuchoice>
+          <shortcut><keycombo><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut>
+          <guimenu>File</guimenu>
+          <guimenuitem>New</guimenuitem>
+        </menuchoice></term>
+        <listitem><para>Clear the current document</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><menuchoice>
+          <shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut>
+          <guimenu>File</guimenu>
+          <guimenuitem>Open</guimenuitem>
+        </menuchoice></term>
+        <listitem><para>Select a file to open</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><menuchoice>
+          <guimenu>File</guimenu>
+          <guisubmenu>Open recent</guisubmenu>
+        </menuchoice></term>
+        <listitem><para>Lists recently used files</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><menuchoice>
+          <shortcut><keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut>
+          <guimenu>File</guimenu>
+          <guimenuitem>Save</guimenuitem>
+        </menuchoice></term>
+        <listitem><para>Save current file</para></listitem>
+      </varlistentry>
+    </variablelist>
+  </chapter>
+  
+  <chapter id="knotfile"> <title>Knotter file formats</title>
+    <warning>
+      <para>TODO</para>
+    </warning>
   </chapter>
   
   <chapter id="license"> <title>License</title>

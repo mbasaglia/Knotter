@@ -70,9 +70,18 @@ class Transform_Handle : public CustomItem
 
         static double size; ///< Size of the image, could be better
 
+    protected:
         TH::Position position; ///< Position in the bounding box ( affect how the arrow is oriented )
         TH::Mode mode;
+
+        void update_cursor();
+
     public:
+
+        void set_position(TH::Position pos);
+        TH::Position get_position() const { return position; }
+        void set_mode(TH::Mode mod);
+        TH::Mode get_mode() const { return mode; }
 
         explicit Transform_Handle(TH::Position position, TH::Mode mode = TH::SCALE );
 

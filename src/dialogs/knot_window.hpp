@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "context_menu.hpp"
 #include "node_style_form.hpp"
 #include "global_style_form.hpp"
+#include "background_config.hpp"
 
 /**
     Main knot window
@@ -58,6 +59,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         bool            save_toolbars;      ///< Whether custom toolbar buttons shall be saved on exit
         bool            save_style;         ///< Whether style shall be saved on exit
         bool            save_anything;      ///< Whether the save config shall be performed on exit
+        Background_Config back_config;
     public:
         explicit Knot_Window(KnotGraph* graph = 0, QWidget *parent = 0);
         ~Knot_Window();
@@ -158,6 +160,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void on_actionShow_Graph_triggered(bool checked);
         void on_actionInsert_Polygon_triggered();
         void retranslate();
+        void on_action_Background_triggered();
 };
 
 #endif // KNOT_WINDOW_HPP

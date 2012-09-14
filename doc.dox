@@ -4,7 +4,6 @@
 Ignore this, see the main todo page
 
 \todo Document every class and function
-\todo load a background picture
 \todo extensible edge types (?)
 \todo custom edge style (crossing distance + handle length)
 \todo per node/edge knot width (requires custom stroker)
@@ -12,8 +11,3 @@ Ignore this, see the main todo page
 \todo Debian changelog to NEWS (or NEWS to CHANGELOG?)
 \todo Option to skip WALL edges ( handle as if chain of edges are a single edge )
 \todo use `find` ad add md5 to deb
-
-Todocument:
-* new Rotate/scale !! Mention Shift/Ctrl !!
-* List of all actions + various shortcuts
-* Ctrl+edge list

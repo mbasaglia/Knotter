@@ -65,18 +65,23 @@ h1.title a{
     background: url('img/logo_big.svg') no-repeat scroll center center transparent
 }
 
-.tip {
+.tip, .note, .warning {
     border: 1px solid gray;
     border-radius: 16px;
     padding: 1em 1em 1em 2em;
 }
-.tip .title {
+.tip .title, .note .title, .warning .title {
     margin:0 0 0.25em 0;
 }
-.tip p {
+.tip p, .note p, .warning p {
     margin: 0 0 0 1em;
 }
 
-.guimenuitem, .guibutton {
+.action, .guimenuitem, .guibutton {
     font-style: oblique;
+}
+
+.answer p:first-child {
+    display: list-item;
+    margin: 0.25em;
 }

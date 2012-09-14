@@ -112,6 +112,8 @@
     <addaction name="actionEnable_Grid"/>
     <addaction name="actionConfigure_G_rid"/>
     <addaction name="action_Move_Grid"/>
+    <addaction name="separator"/>
+    <addaction name="action_Background"/>
    </widget>
    <widget class="QMenu" name="menu_Knot">
     <property name="title">
@@ -474,6 +476,11 @@
    </property>
    <property name="text">
     <string>&amp;Scale</string>
+   </property>
+  </action>
+  <action name="action_Background">
+   <property name="text">
+    <string>&amp;Background...</string>
    </property>
   </action>
  </widget>
