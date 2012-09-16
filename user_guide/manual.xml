@@ -37,7 +37,7 @@
       <informalfigure>
         <mediaobject><imageobject><imagedata fileref="img/quran.jpg"/></imageobject></mediaobject>
         <caption>
-          <para>An illumination on the cover of the Quran with an interlaced frame</para>
+          <para>An illumination on the cover of the Quran with an interlaced frame.</para>
         </caption>
       </informalfigure>
     </section>
@@ -67,25 +67,25 @@
           <varlistentry>
             <term>Default</term>
             <listitem>
-              <para>The two lines cross at the edge midpoint, one on top of the other</para>
+              <para>The two lines cross at the edge midpoint, one on top of the other.</para>
             </listitem>
           </varlistentry>
           <varlistentry>
             <term>Inverted</term>
             <listitem>
-              <para>Like default but with the other line on top</para>
+              <para>Like default but with the other line on top.</para>
             </listitem>
           </varlistentry>
           <varlistentry>
             <term>Hole</term>
             <listitem>
-              <para>The lines turn back without crossing</para>
+              <para>The lines turn back without crossing.</para>
             </listitem>
           </varlistentry>
           <varlistentry>
             <term>Wall</term>
             <listitem>
-              <para>The lines follow the edge without crossing</para>
+              <para>The lines follow the edge without crossing.</para>
             </listitem>
           </varlistentry>
         </variablelist>
@@ -96,7 +96,7 @@
               <textobject><phrase>Screenshot showing the edge types</phrase></textobject>
           </mediaobject>
           <caption>
-            <para>From left to right: Default, Inverted, Hole, Wall</para>
+            <para>From left to right: Default, Inverted, Hole, Wall.</para>
           </caption>
         </informalfigure>
 
@@ -186,28 +186,28 @@
         </varlistentry>
         <varlistentry>
           <term>Cusp Distance</term>
-          <listitem><para>Distance between the graph node and cusp tip</para></listitem>
+          <listitem><para>Distance between the graph node and cusp tip.</para></listitem>
         </varlistentry>
         <varlistentry>
           <term>Curve Style</term>
-          <listitem><para>Various cuspid shapes</para></listitem>
+          <listitem><para>Various cuspid shapes.</para></listitem>
         </varlistentry>
         <varlistentry>
           <term>Point Style</term>
           <listitem>
-            <para>How the sharp points are rendered</para>
+            <para>How the sharp points are rendered.</para>
             <variablelist>
               <varlistentry>
                 <term>Bevel</term>
-                <listitem><para>Flat</para></listitem>
+                <listitem><para>Flat.</para></listitem>
               </varlistentry>
               <varlistentry>
                 <term>Miter</term>
-                <listitem><para>With a sharp point</para></listitem>
+                <listitem><para>With a sharp point.</para></listitem>
               </varlistentry>
               <varlistentry>
                 <term>Round</term>
-                <listitem><para>Smooth</para></listitem>
+                <listitem><para>Smooth.</para></listitem>
               </varlistentry>
             </variablelist>
           </listitem>
@@ -222,7 +222,7 @@
             <imageobject><imagedata fileref="img/cusp_shapes.png" /></imageobject>
         </mediaobject>
         <caption>
-          <para>Solomon's knots and trefoils rendered using various styles</para>
+          <para>Solomon's knots and trefoils rendered using various styles.</para>
         </caption>
       </informalfigure>
       
@@ -236,7 +236,7 @@
             <textobject><phrase>Screenshot of the shape style settings</phrase></textobject>
         </mediaobject>
         <caption>
-          <para>Style settings docks</para>
+          <para>Style settings docks.</para>
         </caption>
       </screenshot>
       
@@ -248,14 +248,14 @@
       <para>Knotter can save and load knots in its own human-readable format.</para>
 
       <section> <title>Export</title>
-        <para>The Export dialog gives many options to export the knot as Image</para>
+        <para>The Export dialog gives many options to export the knot as Image.</para>
     
         <section> <title>Vector</title>
           <para>If <action>Only shape</action> is checked, Knotter will
           export only the shape of the knot as a thin line, discarding 
           some style option.
           This is useful if you plan to edit the image with an external program
-          as it will give more control on shape changes</para>
+          as it will give more control on shape changes.</para>
         </section>
         
         <section> <title>Raster</title>
@@ -271,7 +271,7 @@
                   ( 0% will produce large, uncompressed files; 100% small files ).</para>
                 <para>When exporting to a JPEG image, heavy compression will
                 result in poor quality.</para>
-                <para>This option in only meaningful for export format that support compression</para>
+                <para>This option in only meaningful for export format that support compression.</para>
               </listitem>
             </varlistentry>
             <varlistentry>
@@ -298,7 +298,7 @@
               <textobject><phrase>Export dialog</phrase></textobject>
           </mediaobject>
           <caption>
-            <para>Export dialog</para>
+            <para>Export dialog.</para>
           </caption>
         </screenshot>
         
@@ -321,7 +321,7 @@
         <ulink url="http://sourceforge.net/p/knotter/code">Online repository browser</ulink> ).
       </para>
     </section>
-    <section> <title>Reporting Bugs</title>
+    <section> <title id="report_bug">Reporting Bugs</title>
       <para>To send bug reports, freature request and feedback you can use the
       <ulink url="https://sourceforge.net/p/knotter/discussion/">forum on SourceForge</ulink>
       or send me an email: <personname>Mattia Basaglia</personname>
@@ -332,18 +332,18 @@
   
   <chapter id="howto"> <title>HowTo</title>
     <para>This section shows how most common operations are performed in Knotter.
-    Multiple items represent multiple ways to perform the same task</para>
+    Multiple items represent multiple ways to perform the same task.</para>
     <qandaset>
       <qandadiv> <title>Editing</title>
         <qandaentry>
-          <question><para>Insert a node</para></question>
+          <question><para>Insert a node.</para></question>
           <answer><para>When in <emphasis>Edges and nodes</emphasis> mode,
           double click on the canvas.</para></answer> 
           <answer><para>When in <emphasis>Edge list</emphasis> mode,
           left click on the canvas.</para></answer> 
         </qandaentry>
         <qandaentry>
-          <question><para>Insert edges</para></question>
+          <question><para>Insert edges.</para></question>
           <answer><para>When in <emphasis>Edges and nodes</emphasis> mode,
           select some nodes and click <action>Link selected nodes</action>
           (<keycombo><keycap>Ctrl</keycap><keycap>L</keycap></keycombo>).</para></answer> 
@@ -351,20 +351,20 @@
           subsequent nodes are connected automatically with an edge.</para></answer> 
         </qandaentry>
         <qandaentry>
-          <question><para>Remove nodes</para></question>
+          <question><para>Remove nodes.</para></question>
           <answer><para>Select some nodes and press <keycap>Del</keycap>.</para></answer> 
           <answer><para>Select some nodes and click <action>Erase selected nodes</action>.</para></answer> 
         </qandaentry>
         <qandaentry>
-          <question><para>Remove edges</para></question>
+          <question><para>Remove edges.</para></question>
           <answer><para>Select the edges (or their vertices) and click
             <action>Unlink selected nodes</action>.</para></answer>
           <answer><para>Bring the edge context menu and click
             <guimenuitem>Remove</guimenuitem>.</para></answer>
         </qandaentry>
         <qandaentry>
-          <question><para>Break an edge</para></question>
-          <answer><para>Insert a node when the edge is highlighted</para></answer>
+          <question><para>Break an edge.</para></question>
+          <answer><para>Insert a node when the edge is highlighted.</para></answer>
           <answer><para>Bring the edge context menu and click
             <guimenuitem>Break on intersections</guimenuitem> to add nodes
             where the edge intersects with others.</para></answer>
@@ -372,11 +372,11 @@
             <guimenuitem>Break...</guimenuitem> to break it in even-length pieces.</para></answer>
         </qandaentry>
         <qandaentry>
-          <question><para>Insert a regular polygon</para></question>
+          <question><para>Insert a regular polygon.</para></question>
           <answer><para>Click on <action>Insert polygon</action></para></answer> 
         </qandaentry>
         <qandaentry>
-          <question><para>Scale part of the graph</para></question>
+          <question><para>Scale part of the graph.</para></question>
           <answer><para>Select some nodes and use the handles when
             <emphasis>Scale</emphasis> mode is active.</para>
             <para>By default, dragging a handle will set the anchor point to the
@@ -387,7 +387,7 @@
             <mousebutton>mouse wheel</mousebutton>.</para></answer>
         </qandaentry>
         <qandaentry>
-          <question><para>Rotate part of the graph</para></question>
+          <question><para>Rotate part of the graph.</para></question>
           <answer><para>Select some nodes and use the handles when
             <emphasis>Rotate</emphasis> mode is active.
             Holding <keycap>Ctrl</keycap> will snap the rotation to steps of 15°
@@ -396,22 +396,22 @@
             <mousebutton>mouse wheel</mousebutton>.</para></answer>
         </qandaentry>
         <qandaentry>
-          <question><para>Flip part of the graph</para></question>
+          <question><para>Flip part of the graph.</para></question>
           <answer><para>Select some nodes and click on <action>Horizontal flip</action>
             or <action>Vertical flip</action>.</para></answer>
         </qandaentry>
         <qandaentry>
-          <question><para>Merge nodes</para></question>
+          <question><para>Merge nodes.</para></question>
           <answer><para>Select some nodes and click <action>Merge selected nodes</action>
             (<keycombo><keycap>Ctrl</keycap><keycap>M</keycap></keycombo>).</para></answer>
         <qandaentry>
-          <question><para>Snap to the grid or to a fixed line</para></question>
+          <question><para>Snap to the grid or to a fixed line.</para></question>
           <answer><para>To grid snapping is performed automatically for new
-            items when the grid is active</para></answer>
+            items when the grid is active.</para></answer>
           <answer><para>Nodes will snap to the grid when are moved
             (if the grid is active)</para></answer>
           <answer><para>Both nodes and edges can be snapped to the grid with
-           the context menu</para></answer>
+           the context menu.</para></answer>
           <answer><para>Holding <keycap>Ctrl</keycap> in
             <emphasis>Edge list</emphasis> mode, will snap vertices on a line
             with a fixed angle. The angle changes with a step of 15°</para></answer>
@@ -419,22 +419,61 @@
         </qandaentry>
       </qandadiv> <!-- Editing -->
       <qandadiv> <title>Style</title>
-      <qandaentry>
-        <question><para>Change knot style globally</para></question>
-      </qandaentry>
-      <qandaentry>
-        <question><para>Change the style for a specific node</para></question>
-      </qandaentry>
+        <qandaentry>
+          <question><para>Change knot style globally.</para></question>
+          <answer><para>Use the <emphasis>Knot style</emphasis> settings to change
+            overall knot appearance, <emphasis>Default node style</emphasis>
+            settings to change style features that can be overridden node-wise
+          </para></answer>
+        </qandaentry>
+        <qandaentry>
+          <question><para>Change the style for a specific node.</para></question>
+          <answer><para>Click on
+            <menuchoice>
+              <guimenu>Context menu</guimenu>
+              <guimenuitem>Preferences...</guimenuitem>
+            </menuchoice>
+            and the <emphasis>Node style</emphasis> dialog will be shown.
+          </para></answer>
+        </qandaentry>
+        <qandaentry>
+          <question><para>Remove node specific settings</para></question>
+          <answer><para>Click on
+            <menuchoice>
+              <guimenu>Context menu</guimenu>
+              <guimenuitem>Reset custom style</guimenuitem>
+            </menuchoice>.
+          </para></answer>
+          <answer><para>On the <emphasis>Node style</emphasis> dialog, check
+            <guibutton>Use default</guibutton>.
+          </para></answer>
+        </qandaentry>
       </qandadiv> <!-- Style -->
       <qandadiv> <title>Configuration</title>
         <qandaentry>
-          <question><para>Configure the grid</para></question>
+          <question><para>Configure the grid.</para></question>
+          <answer><para>
+            To set up grid size and shape click on <action>Configure grid...</action>
+          </para></answer>
+          <answer><para>
+            To move the grid origin, click on <action>Move grid</action>
+            and click on the canvas to select the new origin.
+          </para></answer>
         </qandaentry>
         <qandaentry>
-          <question><para>View only the knot line</para></question>
+          <question><para>View only the knot line.</para></question>
+          <answer>
+            <para>The grid can be toggled with <action>Enable grid</action>,
+              the graph with <action>Show graph</action>.</para>
+            <para>The knot can be still be edited when the graph is disabled as
+              the node or edge under the cursor will be displayed.
+            </para>
+          </answer>
         </qandaentry>
         <qandaentry>
           <question><para>Improve performace</para></question>
+          <answer><para>Change settings on the preferences dialog.</para></answer>
+          <answer><para>Uncheck <action>Show Knotline</action>.</para></answer>
         </qandaentry>
       </qandadiv><!-- Configuration -->
     </qandaset>
@@ -443,46 +482,224 @@
   <chapter id="menus"> <title>Menu actions</title>
     <note>
       <para>Most keyboard shortcuts are loaded from the system settings and may
-        differ from those listed here</para>
+        differ from those listed here.</para>
     </note>
-    <variablelist>
-      <varlistentry>
-        <term><menuchoice>
-          <shortcut><keycombo><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut>
-          <guimenu>File</guimenu>
-          <guimenuitem>New</guimenuitem>
-        </menuchoice></term>
-        <listitem><para>Clear the current document</para></listitem>
-      </varlistentry>
-      <varlistentry>
-        <term><menuchoice>
-          <shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut>
-          <guimenu>File</guimenu>
-          <guimenuitem>Open</guimenuitem>
-        </menuchoice></term>
-        <listitem><para>Select a file to open</para></listitem>
-      </varlistentry>
-      <varlistentry>
-        <term><menuchoice>
-          <guimenu>File</guimenu>
-          <guisubmenu>Open recent</guisubmenu>
-        </menuchoice></term>
-        <listitem><para>Lists recently used files</para></listitem>
-      </varlistentry>
-      <varlistentry>
-        <term><menuchoice>
-          <shortcut><keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut>
-          <guimenu>File</guimenu>
-          <guimenuitem>Save</guimenuitem>
-        </menuchoice></term>
-        <listitem><para>Save current file</para></listitem>
-      </varlistentry>
-    </variablelist>
+    <section> <title>File Menu</title>
+      <variablelist>
+        <varlistentry>
+          <term><anchor id="new"/><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut>
+            <guimenu>File</guimenu>
+            <guimenuitem>New</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Clear the current document.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut>
+            <guimenu>File</guimenu>
+            <guimenuitem>Open</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Select a file to open.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><menuchoice>
+            <guimenu>File</guimenu>
+            <guisubmenu>Open recent</guisubmenu>
+          </menuchoice></term>
+          <listitem><para>Lists recently used files.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut>
+            <guimenu>File</guimenu>
+            <guimenuitem>Save</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Save current file.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut>
+            <guimenu>File</guimenu>
+            <guimenuitem>Save As..</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Save current file, always shows a dialog to select the
+            file name.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><menuchoice>
+            <guimenu>File</guimenu>
+            <guimenuitem>Export</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Show the export dialog, this allows SVG and raster
+          export of the knot.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>Q</keycap></keycombo></shortcut>
+            <guimenu>File</guimenu>
+            <guimenuitem>Quit</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Quits Knotter.</para></listitem>
+        </varlistentry>
+      </variablelist>
+    </section><!--File-->
+    <section> <title>Edit Menu</title>
+      <variablelist>
+        
+        <varlistentry>
+          <term><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>Z</keycap></keycombo></shortcut>
+            <guimenu>Edit</guimenu>
+            <guimenuitem>Undo</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Undo last action.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Z</keycap></keycombo></shortcut>
+            <guimenu>Edit</guimenu>
+            <guimenuitem>Redo</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Redo next action.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo></shortcut>
+            <guimenu>Edit</guimenu>
+            <guimenuitem>Copy</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Copy selected subgraph, this will copy data for 
+            Knotter internals and a SVG image</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>X</keycap></keycombo></shortcut>
+            <guimenu>Edit</guimenu>
+            <guimenuitem>Cut</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Move selected subgraph to clipboard,
+            outgoing edges are removed.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>V</keycap></keycombo></shortcut>
+            <guimenu>Edit</guimenu>
+            <guimenuitem>Paste</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Paste clipboard contents.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>A</keycap></keycombo></shortcut>
+            <guimenu>Edit</guimenu>
+            <guimenuitem>Select All</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Select all nodes.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term><menuchoice>
+            <guimenu>Edit</guimenu>
+            <guimenuitem>Preferences...</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Show configuration dialog.</para></listitem>
+        </varlistentry>
+        
+      </variablelist>
+    </section><!--Edit-->
+    
+    <section> <title>View Menu</title>
+      TODO
+    </section> <!--View-->
+    
+    <section> <title>Nodes Menu</title>
+      TODO
+    </section> <!--Nodes-->
+    
+    <section> <title>Tools Menu</title>
+      <variablelist>
+        
+        <varlistentry>
+          <term><menuchoice>
+            <shortcut><keycombo><keycap>Alt</keycap><keycap>Shift</keycap><keycap>E</keycap></keycombo></shortcut>
+            <guimenu>Tools</guimenu>
+            <guimenuitem>Edit graph</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Changes the editing mode, when this is enabled the
+           user can interact with every aspect of the graph.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term><menuchoice>
+            <shortcut><keycombo><keycap>Alt</keycap><keycap>Shift</keycap><keycap>L</keycap></keycombo></shortcut>
+            <guimenu>Tools</guimenu>
+            <guimenuitem>Edge list</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Changes the editing mode, when this is enabled the
+           user can insert nodes and edges quickly but other operations are
+           somewhat limited</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term><menuchoice>
+            <guimenu>Tools</guimenu>
+            <guimenuitem>Insert polygon...</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Show a dialog to insert a regular polygon</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term><menuchoice>
+            <shortcut><keycombo><keycap>F5</keycap></keycombo></shortcut>
+            <guimenu>Tools</guimenu>
+            <guimenuitem>Refresh path</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Forces Knotter to redraw the knot if it missed some edit.
+          If you need to use this item, you may have encoutered a bug.
+          See <xref linkend="report_bug" />.</para></listitem>
+        </varlistentry>
+        
+      </variablelist>
+    </section> <!--Tools-->
+    
+    <section> <title>Help Menu</title>
+      <variablelist>
+        
+        <varlistentry>
+          <term><menuchoice>
+            <shortcut><keycombo><keycap>F1</keycap></keycombo></shortcut>
+            <guimenu>Help</guimenu>
+            <guimenuitem>Manual</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Shows a window with the displaying the HTML
+            version of this manual.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term><menuchoice>
+            <guimenu>Help</guimenu>
+            <guimenuitem>About...</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Shows a dialog with information on Knotter version and
+          build environment.</para></listitem>
+        </varlistentry>
+        
+      </variablelist>
+    </section> <!--Tools-->
+    
+    
   </chapter>
   
   <chapter id="knotfile"> <title>Knotter file formats</title>
     <warning>
-      <para>TODO</para>
+      <title>To Do</title>
+      <para>This section has not been written yet.</para>
     </warning>
   </chapter>
   

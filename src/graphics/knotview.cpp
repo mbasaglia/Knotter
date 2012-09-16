@@ -40,7 +40,8 @@ KnotView::KnotView( QWidget* parent )
     h_bl(TH::BOTTOM|TH::LEFT),
     h_tr(TH::TOP|TH::RIGHT),
     h_br(TH::BOTTOM|TH::RIGHT),
-    dragged(NULL)
+    dragged(NULL),
+    saved(false)
 {
     setScene ( new QGraphicsScene );
     setSceneRect ( 0, 0, width(), height());
@@ -581,7 +582,12 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
     else if ( mouse_status == TRANSFORMING )
     {
         dragged = NULL;
+        if ( h_tl.get_mode() == TH::ROTATE )
+            undo_stack.beginMacro(tr("Rotate"));
+        else
+            undo_stack.beginMacro(tr("Scale"));
         move_nodes();
+        undo_stack.endMacro();
     }
     /*else if ( mouse_status == EDGING )
     {
@@ -799,6 +805,17 @@ void KnotView::reload_graph()
 {
     undo_stack.beginMacro(tr("Load Knot"));
 
+    load_graph(knot);
+
+    undo_stack.endMacro();
+    undo_stack.setClean();
+}
+
+void KnotView::load_graph(const KnotGraph &knot_graph)
+{
+    if ( &knot_graph != &knot )
+        knot = knot_graph;
+
     foreach(Node* n,knot.get_nodes())
     {
         if ( n->scene() != scene() )
@@ -813,14 +830,21 @@ void KnotView::reload_graph()
         }
         set_edge_type(e,e->type);
     }
-    undo_stack.endMacro();
-    undo_stack.setClean();
+
 }
 
-void KnotView::load_graph(const KnotGraph &knot_graph)
+void KnotView::same_mode(const KnotView &other)
 {
-    knot = knot_graph;
-    reload_graph();
+    mode = other.mode;
+    h_tl.set_mode(other.h_tl.get_mode());
+    h_tr.set_mode(other.h_tr.get_mode());
+    h_bl.set_mode(other.h_bl.get_mode());
+    h_br.set_mode(other.h_br.get_mode());
+    grid.enable(other.grid.is_enabled());
+    set_cache_mode(other.get_cache_mode());
+    fluid_redraw = other.fluid_redraw;
+
+    toggle_knotline ( other.knot.scene() != NULL );
 }
 
 
@@ -1405,6 +1429,8 @@ void KnotView::flip_horizontal()
     if ( sel.size() < 2 )
         return;
 
+    undo_stack.beginMacro(tr("Horizontal Flip"));
+
     QPointF origin = bound_box().center();
     foreach ( Node* selnode, sel )
     {
@@ -1412,8 +1438,10 @@ void KnotView::flip_horizontal()
         vector.translate(-origin);
         vector.setP2(QPointF(-vector.p2().x(),vector.p2().y()));
         vector.translate(origin);
-        selnode->setPos(vector.p2());
+        undo_stack.push ( new MoveNode(selnode, selnode->pos(),vector.p2(),this) );
     }
+
+    undo_stack.endMacro();
 
     redraw(true);
 }
@@ -1425,6 +1453,8 @@ void KnotView::flip_vertical()
     if ( sel.size() < 2 )
         return;
 
+    undo_stack.beginMacro(tr("Vertical Flip"));
+
     QPointF origin = bound_box().center();
     foreach ( Node* selnode, sel )
     {
@@ -1432,8 +1462,10 @@ void KnotView::flip_vertical()
         vector.translate(-origin);
         vector.setP2(QPointF(vector.p2().x(),-vector.p2().y()));
         vector.translate(origin);
-        selnode->setPos(vector.p2());
+        undo_stack.push ( new MoveNode(selnode, selnode->pos(),vector.p2(),this) );
     }
+
+    undo_stack.endMacro();
 
     redraw(true);
 }

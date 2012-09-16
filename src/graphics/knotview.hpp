@@ -76,14 +76,18 @@ class KnotView : public QGraphicsView
         Transform_Handle h_tl,h_bl,h_tr,h_br; ///< Transform handles to interact with selection
         Transform_Handle* dragged;      ///< The transform handle currently being dragged (if any)
         background_image backimg;
+        bool saved;                     ///< Whether it has an associated file name
 
         QPointF startpos;               ///< Starting position in moving actions
         QPointF move_center;            ///< Point aligned to the cursor during movement
         QMap<Node*,QPointF> sel_offset; ///< Offset of selected nodes from move_center
 
     public:
+        void set_saved(bool save) { saved=save;}
+        bool get_saved() const { return saved;}
+
         /// constructor
-        KnotView(QWidget *parent);
+        KnotView(QWidget *parent=NULL);
 
         /// Get current graph
         KnotGraph& graph() { return knot; }
@@ -95,6 +99,9 @@ class KnotView : public QGraphicsView
 
         /// load an external graph
         void load_graph(const KnotGraph& knot_graph);
+
+        /// copy mode from other
+        void same_mode ( const KnotView& other );
 
 // do_ functions
     /**

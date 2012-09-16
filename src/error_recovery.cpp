@@ -33,18 +33,23 @@ void ErrorRecovery::sigdying(int)
 
     QString moreinfo;
 
-    if ( recover )
+    QString file_names;
+    int n = 0;
+    foreach ( KnotGraph * graph, recover )
     {
-        QFile tempfile( QDir::tempPath()+"/knotter_crash.knot");
+        n++;
+        QFile tempfile( QDir::tempPath()+"/knotter_crash/tab_"+QString::number(n)+".knot");
         if ( tempfile.open(QIODevice::WriteOnly | QIODevice::Text) )
         {
-            recover->graph().save_xml(&tempfile);
+            graph->save_xml(&tempfile);
             if ( !tempfile.error() )
-                moreinfo = '\n'+
-                    QObject::tr("A backup file has been saved at %1.").
-                        arg(tempfile.fileName());
+                file_names += '\n' + tempfile.fileName();
         }
     }
+    if ( !file_names.isEmpty() )
+        moreinfo = '\n'+
+            QObject::tr("The following backup files have been saved:").
+                arg(file_names);
 
     QMessageBox::critical(0,QObject::tr("Critical error"),
         QObject::tr("A critical error has occurred, Knotter is about to crash.")
@@ -60,5 +65,17 @@ void ErrorRecovery::initialize()
     std::signal(SIGABRT,ErrorRecovery::sigdying);
 }
 
+void ErrorRecovery::insert(KnotGraph * graph)
+{
+    if ( graph && !recover.contains(graph) )
+        recover.push_back(graph);
 
-KnotView* ErrorRecovery::recover;
+}
+
+void ErrorRecovery::remove(KnotGraph *graph)
+{
+    recover.removeAll(graph);
+}
+
+
+QList<KnotGraph*> ErrorRecovery::recover;

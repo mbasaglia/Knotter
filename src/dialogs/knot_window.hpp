@@ -44,7 +44,6 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         Q_OBJECT
 
     protected:
-        QString         filename;           ///< current/last file name used on open or save
         bool            save_ui;            ///< Whether to save geometry and docks on exit
         QStringList     recent_files;       ///< List of recently used files
         int             max_recent_files;   ///< Max number of entries in the Open recent menu
@@ -60,6 +59,9 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         bool            save_style;         ///< Whether style shall be saved on exit
         bool            save_anything;      ///< Whether the save config shall be performed on exit
         Background_Config back_config;
+        QDoubleSpinBox* zoomer;             ///< Zomm spinner on statusbar
+        KnotView*       canvas;             ///< Current tab widget
+
     public:
         explicit Knot_Window(KnotGraph* graph = 0, QWidget *parent = 0);
         ~Knot_Window();
@@ -71,7 +73,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         */
         bool open( QString file);
         /// get the KnotView used by the window
-        KnotView& knotview();
+        KnotView* knotview();
 
     protected:
         /// Save current knot to file
@@ -94,16 +96,17 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void init_toolbars();
         void init_dialogs();
 
+        void connect_view();
+        void disconnect_view();
+        void new_tab(QString file = QString());
+
     protected slots:
 
         /**
             \brief Change the window title to "Knotter - filename*"
             \param clean Whether the file is unedited
         */
-        void update_title(bool clean);
-
-        /// cause a segmentation fault, used to test error recovery
-        void cause_crash();
+        void update_title();
 
         /// load configuration
         void load_config();
@@ -161,6 +164,32 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void on_actionInsert_Polygon_triggered();
         void retranslate();
         void on_action_Background_triggered();
+
+        void set_clean_icon(bool);
+        void set_undo_text(QString);
+        void set_redo_text(QString);
+
+
+        void on_action_Undo_triggered();
+        void on_action_Redo_triggered();
+        void on_action_Erase_triggered();
+        void on_action_Merge_triggered();
+        void on_action_Link_triggered();
+        void on_actionSelect_All_triggered();
+        void on_actionInsert_Edges_triggered();
+        void on_actionRefresh_Path_triggered();
+        void on_action_Reset_View_triggered();
+        void on_action_Reset_Zoom_triggered();
+        void on_action_Horizontal_Flip_triggered();
+        void on_action_Vertical_Flip_triggered();
+        void on_action_Move_Grid_triggered();
+        void on_actionShow_Knot_line_triggered(bool checked);
+        void on_action_Unlink_triggered();
+        void on_action_Rotate_triggered();
+        void on_action_Scale_triggered();
+        void on_actionEdge_List_triggered();
+        void on_tabWidget_currentChanged(QWidget *arg1);
+        void on_tabWidget_tabCloseRequested(int index);
 };
 
 #endif // KNOT_WINDOW_HPP

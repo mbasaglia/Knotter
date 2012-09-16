@@ -42,46 +42,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Knot_Window::Knot_Window(KnotGraph *graph, QWidget *parent) :
     QMainWindow(parent), save_ui ( true ), max_recent_files(5),
-    save_toolbars(true), save_style(false), save_anything(true)
+    save_toolbars(true), save_style(false), save_anything(true), canvas(0)
 {
 
 // UI from designer
     setupUi(this);
     setWindowIcon(load::icon("knotter-logo-small"));
 
-// enable error recovery
-    ErrorRecovery::recover = canvas;
-
-// KnotView signals / context menus
-    connect(&canvas->get_undo_stack(),SIGNAL(cleanChanged(bool)),SLOT(update_title(bool)));
-    node_context_menu.set_view(canvas);
-    node_context_menu.connect(canvas,SIGNAL(context_menu(Node*)),SLOT(activate(Node*)));
-    connect(&node_context_menu,SIGNAL(request_properties(Node*)),SLOT(show_node_prefs(Node*)));
-    edge_context_menu.set_view(canvas);
-    edge_context_menu.connect(canvas,SIGNAL(context_menu(Edge*)),SLOT(activate(Edge*)));
-
-
 // translation
     connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
 
+    tabWidget->blockSignals(true);
+    new_tab();
+    canvas=dynamic_cast<KnotView*>(tabWidget->currentWidget());
+    tabWidget->blockSignals(false);
+
 // Misc UI initialization
+
     init_menus();
     init_toolbars();
     init_docks();
 
+    connect(&node_context_menu,SIGNAL(request_properties(Node*)),SLOT(show_node_prefs(Node*)));
 
 // Load config
+
     load_config();
-    update_ui();
 
     init_dialogs(); // keep this as last
 
 
     if(graph)
     {
-        canvas->load_graph(*graph);
-        update_ui();
+        knotview()->load_graph(*graph);
     }
+
+
+    update_ui();
+    connect_view();
 }
 
 Knot_Window::~Knot_Window()
@@ -89,17 +87,98 @@ Knot_Window::~Knot_Window()
     save_config();
 }
 
+void Knot_Window::connect_view()
+{
+
+    connect(&knotview()->get_undo_stack(),SIGNAL(cleanChanged(bool)),SLOT(set_clean_icon(bool)));
+    connect(&knotview()->get_undo_stack(),SIGNAL(undoTextChanged(QString)),SLOT(set_undo_text(QString)));
+    connect(&knotview()->get_undo_stack(),SIGNAL(redoTextChanged(QString)),SLOT(set_redo_text(QString)));
+    action_Undo->connect(&(knotview()->get_undo_stack()),SIGNAL(canUndoChanged(bool)),SLOT(setEnabled(bool)));
+    action_Redo->connect(&(knotview()->get_undo_stack()),SIGNAL(canRedoChanged(bool)),SLOT(setEnabled(bool)));
+
+    node_context_menu.connect(knotview(),SIGNAL(context_menu(Node*)),SLOT(activate(Node*)));
+
+    edge_context_menu.connect(knotview(),SIGNAL(context_menu(Edge*)),SLOT(activate(Edge*)));
+
+    knotview()->connect(default_node_style_form,SIGNAL(style_changed(styleinfo)),
+                    SLOT(set_default_style(styleinfo)));
+
+    knotview()->connect(global_style_frm,SIGNAL(knot_color_changed(QColor)), SLOT(set_brush_color(QColor)));
+    knotview()->connect(global_style_frm,SIGNAL(knot_color_accepted()), SLOT(accept_brush()));
+
+    knotview()->connect(global_style_frm,SIGNAL(join_style_changed(Qt::PenJoinStyle)), SLOT(set_join_style(Qt::PenJoinStyle)));
+
+    knotview()->connect(global_style_frm,SIGNAL(knot_width_changed(double)), SLOT(set_width(double)));
+    knotview()->connect(global_style_frm,SIGNAL(knot_width_accepted()), SLOT(accept_width()));
+
+    knotview()->connect(global_style_frm,SIGNAL(pen_changed(QPen)), SLOT(set_pen(QPen)));
+
+    zoomer->connect(knotview(),SIGNAL(zoom_changed(double)),SLOT(setValue(double)));
+    knotview()->connect(zoomer,SIGNAL(valueChanged(double)),SLOT(set_zoom(double)));
+
+    connect(knotview(),SIGNAL(mouse_moved(QPointF)),SLOT(mouse_moved(QPointF)));
+
+    /// \todo performance settings
+}
+
+void Knot_Window::disconnect_view()
+{
+    if ( knotview() )
+    {
+        knotview()->get_undo_stack().disconnect(this);
+        knotview()->disconnect(&node_context_menu);
+        knotview()->disconnect(&edge_context_menu);
+        default_node_style_form->disconnect(knotview());
+        global_style_frm->disconnect(knotview());
+        zoomer->disconnect(knotview());
+        knotview()->disconnect(zoomer);
+        knotview()->disconnect(this);
+    }
+}
+
+
+void Knot_Window::new_tab( QString file )
+{
+    int tabindex;
+    KnotView *kv = new KnotView(tabWidget);
+    if ( file.isEmpty() )
+        tabindex = tabWidget->addTab(kv,load::icon("document-save"),tr("New Knot"));
+    else
+    {
+
+        kv->set_saved(true);
+        tabindex = tabWidget->addTab(kv,file);
+    }
+    ErrorRecovery::insert(&kv->graph());
+    tabWidget->setCurrentIndex(tabindex);
+    kv->reset_view();
+}
+
+
 
 void Knot_Window::update_ui()
 {
-    default_node_style_form->set_style_info(canvas->get_default_style());
+
+    undoView->setStack(&knotview()->get_undo_stack());
+
+    node_context_menu.set_view(knotview());
+    edge_context_menu.set_view(knotview());
+
+    default_node_style_form->blockSignals(true);
+    default_node_style_form->set_style_info(knotview()->get_default_style());
+    default_node_style_form->blockSignals(false);
 
     global_style_frm->blockSignals(true);
-    global_style_frm->set_join_style(canvas->get_join_style());
-    global_style_frm->set_knot_color(canvas->get_brush().color());
-    global_style_frm->set_knot_width(canvas->get_width());
-    global_style_frm->set_pen(canvas->get_pen());
+    global_style_frm->set_join_style(knotview()->get_join_style());
+    global_style_frm->set_knot_color(knotview()->get_brush().color());
+    global_style_frm->set_knot_width(knotview()->get_width());
+    global_style_frm->set_pen(knotview()->get_pen());
     global_style_frm->blockSignals(false);
+
+
+    export_dialog.set_knot_view(knotview());
+
+    back_config.set_view(knotview());
 
 
     menu_Toolbars->clear();
@@ -110,7 +189,7 @@ void Knot_Window::update_ui()
 
     update_recent_menu();
 
-
+    update_title();
 }
 
 void Knot_Window::init_menus()
@@ -130,19 +209,7 @@ void Knot_Window::init_menus()
     action_Export->setIcon(load::icon("document-export"));
     menuOpen_Recent->setIcon(load::icon("document-open-recent"));
 
-// undo/redo
-    QAction *undos = canvas->get_undo_stack().createUndoAction(this, tr("&Undo"));
-    menu_Edit->insertAction(action_Undo,undos);
-    MainToolBar->insertAction(action_Undo,undos);
-    delete action_Undo;
-    action_Undo = undos;
-    undos->setObjectName("action_Undo");
-    QAction *redos =  canvas->get_undo_stack().createRedoAction(this, tr("&Redo"));
-    menu_Edit->insertAction(action_Redo,redos);
-    MainToolBar->insertAction(action_Redo,redos);
-    delete action_Redo;
-    action_Redo = redos;
-    redos->setObjectName("action_Redo");
+
 
 // Edit menu icons/shortcuts
     action_Copy->setIcon(load::icon("edit-copy"));
@@ -207,7 +274,7 @@ void Knot_Window::init_docks()
 {
 
 // Action History Dock
-    undoView = new QUndoView(&canvas->get_undo_stack());
+    undoView = new QUndoView(&knotview()->get_undo_stack());
     QDockWidget* undoDock  = new QDockWidget;
     undoDock->setWidget(undoView);
     undoDock->setObjectName("Action_History");
@@ -217,8 +284,6 @@ void Knot_Window::init_docks()
 // Default Node Style Dock
     QDockWidget*    default_node_style_dock;
     default_node_style_form = new node_style_form;
-    canvas->connect(default_node_style_form,SIGNAL(style_changed(styleinfo)),
-                    SLOT(set_default_style(styleinfo)));
     default_node_style_dock = new QDockWidget;
     default_node_style_dock->setWidget(default_node_style_form);
     default_node_style_dock->setObjectName("Default_Node_Style");
@@ -228,15 +293,6 @@ void Knot_Window::init_docks()
     QDockWidget*    global_style_dock;
     global_style_frm = new global_style_form;
 
-    canvas->connect(global_style_frm,SIGNAL(knot_color_changed(QColor)), SLOT(set_brush_color(QColor)));
-    canvas->connect(global_style_frm,SIGNAL(knot_color_accepted()), SLOT(accept_brush()));
-
-    canvas->connect(global_style_frm,SIGNAL(join_style_changed(Qt::PenJoinStyle)), SLOT(set_join_style(Qt::PenJoinStyle)));
-
-    canvas->connect(global_style_frm,SIGNAL(knot_width_changed(double)), SLOT(set_width(double)));
-    canvas->connect(global_style_frm,SIGNAL(knot_width_accepted()), SLOT(accept_width()));
-
-    canvas->connect(global_style_frm,SIGNAL(pen_changed(QPen)), SLOT(set_pen(QPen)));
     global_style_dock = new QDockWidget;
     global_style_dock->setWidget(global_style_frm);
     global_style_dock->setObjectName("Knot_Style");
@@ -272,13 +328,11 @@ void Knot_Window::init_toolbars()
     addToolBar(Qt::TopToolBarArea, TransformBar);
 
     // Statusbar...
-    QDoubleSpinBox *zoomer = new QDoubleSpinBox;
+    zoomer = new QDoubleSpinBox;
     zoomer->setMinimum(0.01);
     zoomer->setMaximum(800);
     zoomer->setSuffix("%");
     zoomer->setValue(100);
-    zoomer->connect(canvas,SIGNAL(zoom_changed(double)),SLOT(setValue(double)));
-    canvas->connect(zoomer,SIGNAL(valueChanged(double)),SLOT(set_zoom(double)));
     statusBar()->addPermanentWidget(new QLabel(tr("Zoom")));
     statusBar()->addPermanentWidget(zoomer);
 }
@@ -295,7 +349,6 @@ void Knot_Window::init_dialogs()
 {
 
 // Export
-    export_dialog.set_knot_view(canvas);
     export_dialog.setAttribute(Qt::WA_QuitOnClose, false);
 
 // Cofig
@@ -314,10 +367,6 @@ void Knot_Window::init_dialogs()
     help_view.setAttribute(Qt::WA_QuitOnClose, false);
 
     action_About->setIcon(load::icon("help-about"));
-
-// Background
-    back_config.set_view(canvas);
-
 
 }
 
@@ -343,13 +392,13 @@ void Knot_Window::load_config()
             settings.value("language",Translator::object.current_lang_code()).toString()
         );
 
-    canvas->set_cache_mode ( QGraphicsItem::CacheMode (
+    knotview()->set_cache_mode ( QGraphicsItem::CacheMode (
                                 settings.value("performance/cache",
-                                    canvas->get_cache_mode()).toInt()
+                                    knotview()->get_cache_mode()).toInt()
                             ) );
-    canvas->enable_fluid_redraw ( QGraphicsItem::CacheMode (
+    knotview()->enable_fluid_redraw ( QGraphicsItem::CacheMode (
                                 settings.value("performance/fluid_redraw",
-                                    canvas->fluid_redraw_enabled()).toBool()
+                                    knotview()->fluid_redraw_enabled()).toBool()
                             ) );
 
 
@@ -434,7 +483,7 @@ void Knot_Window::load_config()
     settings.endGroup();// recent_files
 
     settings.beginGroup("grid");
-    snapping_grid &grid = canvas->get_grid();
+    snapping_grid &grid = knotview()->get_grid();
     grid.enable ( settings.value("enable",grid.is_enabled()).toBool() );
     grid.set_size(settings.value("size",grid.get_size()).toDouble());
     grid.set_shape(snapping_grid::grid_shape(
@@ -447,17 +496,17 @@ void Knot_Window::load_config()
     save_style = settings.value("save",save_style).toBool();
     if ( save_style )
     {
-        QPen stroke(canvas->get_brush(),canvas->get_width());
-        stroke.setJoinStyle(canvas->get_join_style());
+        QPen stroke(knotview()->get_brush(),knotview()->get_width());
+        stroke.setJoinStyle(knotview()->get_join_style());
         stroke = settings.value("stroke",stroke).value<QPen>();
-        canvas->set_brush(stroke.brush());
-        canvas->set_width(stroke.widthF());
-        canvas->set_join_style(stroke.joinStyle());
+        knotview()->set_brush(stroke.brush());
+        knotview()->set_width(stroke.widthF());
+        knotview()->set_join_style(stroke.joinStyle());
 
 
-        canvas->set_pen ( settings.value("outline",canvas->get_pen()).value<QPen>() );
+        knotview()->set_pen ( settings.value("outline",knotview()->get_pen()).value<QPen>() );
 
-        styleinfo si = canvas->get_default_style();
+        styleinfo si = knotview()->get_default_style();
         QString style_name = settings.value("cusp-style",
                                 knot_curve_styler::name(si.curve_style)
                             ).toString();
@@ -468,7 +517,7 @@ void Knot_Window::load_config()
         si.crossing_distance = settings.value("gap",si.crossing_distance).toDouble();
         si.handle_length = settings.value("handle-length",si.handle_length).toDouble();
 
-        canvas->set_default_style(si);
+        knotview()->set_default_style(si);
     }
     settings.endGroup();
 
@@ -486,8 +535,8 @@ void Knot_Window::save_config()
 
     settings.setValue("language",Translator::object.current_lang_code());
 
-    settings.setValue("performance/cache",canvas->get_cache_mode());
-    settings.setValue("performance/fluid_redraw",canvas->fluid_redraw_enabled());
+    settings.setValue("performance/cache",knotview()->get_cache_mode());
+    settings.setValue("performance/fluid_redraw",knotview()->fluid_redraw_enabled());
 
     settings.beginGroup("gui");
     if ( save_ui )
@@ -535,9 +584,9 @@ void Knot_Window::save_config()
     settings.endGroup();
 
     settings.beginGroup("grid");
-    settings.setValue("enable",canvas->get_grid().is_enabled());
-    settings.setValue("size",canvas->get_grid().get_size());
-    settings.setValue("type",int(canvas->get_grid().get_shape()));
+    settings.setValue("enable",knotview()->get_grid().is_enabled());
+    settings.setValue("size",knotview()->get_grid().get_size());
+    settings.setValue("type",int(knotview()->get_grid().get_shape()));
     settings.endGroup();
 
 
@@ -545,11 +594,11 @@ void Knot_Window::save_config()
     settings.setValue("save",save_style);
     if ( save_style )
     {
-        QPen stroke(canvas->get_brush(),canvas->get_width());
-        stroke.setJoinStyle(canvas->get_join_style());
+        QPen stroke(knotview()->get_brush(),knotview()->get_width());
+        stroke.setJoinStyle(knotview()->get_join_style());
         settings.setValue("stroke",stroke);
-        settings.setValue("outline",canvas->get_pen());
-        styleinfo si = canvas->get_default_style();
+        settings.setValue("outline",knotview()->get_pen());
+        styleinfo si = knotview()->get_default_style();
         settings.setValue("cusp-style",knot_curve_styler::name(si.curve_style));
         settings.setValue("cusp-min-angle",si.cusp_angle);
         settings.setValue("cusp-distance",si.cusp_distance);
@@ -559,6 +608,17 @@ void Knot_Window::save_config()
     settings.endGroup();
 }
 
+
+void Knot_Window::set_undo_text(QString txt)
+{
+    action_Undo->setText(tr("Undo %1").arg(txt));
+}
+
+void Knot_Window::set_redo_text(QString txt)
+{
+    action_Redo->setText(tr("Redo %1").arg(txt));
+}
+
 void Knot_Window::mouse_moved(QPointF p)
 {
     statusBar()->showMessage(QString("%1,%2").arg(p.x()).arg(p.y()));
@@ -566,12 +626,12 @@ void Knot_Window::mouse_moved(QPointF p)
 
 void Knot_Window::copy()
 {
-    node_list insert_nodes = canvas->selected_nodes();
+    node_list insert_nodes = knotview()->selected_nodes();
 
     if ( !insert_nodes.empty() )
     {
         KnotGraph graph;
-        graph.copy_style(canvas->graph());
+        graph.copy_style(knotview()->graph());
 
         QPointF center;
         foreach(Node* n, insert_nodes)
@@ -627,20 +687,19 @@ void Knot_Window::copy()
             delete e;
     }
 
-    //clipboard.copy ( canvas );
 }
 
 void Knot_Window::cut()
 {
-    canvas->get_undo_stack().beginMacro(tr("Cut"));
+    knotview()->get_undo_stack().beginMacro(tr("Cut"));
 
     copy();
 
-    node_list sel = canvas->selected_nodes();
+    node_list sel = knotview()->selected_nodes();
     foreach ( Node* n, sel )
-        canvas->remove_node(n);
+        knotview()->remove_node(n);
 
-    canvas->get_undo_stack().endMacro();
+    knotview()->get_undo_stack().endMacro();
 }
 
 void Knot_Window::paste()
@@ -670,39 +729,33 @@ void Knot_Window::paste()
     if ( graph.get_nodes().size() < 1 )
         return; // empty graph
 
-    QPointF p = canvas->mapToScene( canvas->mapFromGlobal(QCursor::pos()) );
+    QPointF p = knotview()->mapToScene( knotview()->mapFromGlobal(QCursor::pos()) );
 
-    canvas->get_undo_stack().beginMacro(KnotView::tr("Paste"));
+    knotview()->get_undo_stack().beginMacro(KnotView::tr("Paste"));
 
-    canvas->scene()->clearSelection();
+    knotview()->scene()->clearSelection();
 
     foreach(Node* n, graph.get_nodes())
     {
         n->setPos(n->pos()+p);
-        canvas->add_node(n);
+        knotview()->add_node(n);
         n->setSelected(true);
     }
 
     foreach(Edge* e, graph.get_edges())
     {
-        canvas->add_edge(e->vertex1(),e->vertex2());
+        knotview()->add_edge(e->vertex1(),e->vertex2());
     }
 
-    canvas->get_undo_stack().endMacro();
+    knotview()->get_undo_stack().endMacro();
 
-    canvas->mode_moving_new(graph.get_nodes()[0]->pos()+p);
+    knotview()->mode_moving_new(graph.get_nodes()[0]->pos());
 
-    /*clipboard.paste ( canvas, canvas->mapToScene(
-                                canvas->mapFromGlobal(QCursor::pos()) ) );*/
 }
 
 void Knot_Window::clear()
 {
-    canvas->get_undo_stack().beginMacro(tr("Clear Document"));
-    filename = "";
-    canvas->select_all();
-    canvas->erase_selected();
-    canvas->get_undo_stack().endMacro();
+    new_tab();
 }
 
 
@@ -715,12 +768,18 @@ void Knot_Window::save(QString file)
         return;
     }
 
-    canvas->graph().save_xml(&quf);
-    canvas->get_undo_stack().setClean();
+    knotview()->graph().save_xml(&quf);
+    knotview()->get_undo_stack().setClean();
+    knotview()->set_saved(true);
 
     push_recent_file(file);
 
     quf.close();
+
+    tabWidget->setTabText(tabWidget->currentIndex(),file);
+    tabWidget->setTabIcon(tabWidget->currentIndex(),QIcon());
+
+    update_title();
 }
 
 bool Knot_Window::open(QString file)
@@ -732,49 +791,61 @@ bool Knot_Window::open(QString file)
         QMessageBox::warning(this,tr("File Error"),tr("Could not read \"%1\".").arg(file));
         return false;
     }
-    filename = file;
 
-    canvas->clear();
-    canvas->get_undo_stack().setClean();
-
-    if ( !canvas->graph().load_xml(&quf) )
+    if ( knotview()->get_undo_stack().canRedo() || knotview()->get_undo_stack().canUndo() )
+        new_tab(file);
+    else
     {
-        QMessageBox::warning(this,tr("File Error"),tr("Error while reading \"%1\".").arg(filename));
+        knotview()->set_saved(true);
+        tabWidget->setTabText(tabWidget->currentIndex(),file);
+    }
+
+    knotview()->clear();
+    knotview()->get_undo_stack().setClean();
+
+    if ( !knotview()->graph().load_xml(&quf) )
+    {
+        QMessageBox::warning(this,tr("File Error"),tr("Error while reading \"%1\".").arg(file));
         return false;
     }
-    canvas->reload_graph();
-    push_recent_file(filename);
+
+    knotview()->reload_graph();
+    push_recent_file(file);
     update_ui();
 
     return true;
 }
 
-KnotView &Knot_Window::knotview()
+KnotView *Knot_Window::knotview()
 {
-    return *canvas;
+    return canvas;
 }
 
 
 void Knot_Window::save()
 {
-    if ( filename == "" )
+    if ( !knotview()->get_saved() )
         return saveAs();
-    save(filename);
+    save(tabWidget->tabText(tabWidget->currentIndex()));
 }
 
 void Knot_Window::saveAs()
 {
-    QString fn = QFileDialog::getSaveFileName(this,tr("Save Knot"),filename,
+
+    QString fn = tabWidget->tabText(tabWidget->currentIndex());
+
+    fn = QFileDialog::getSaveFileName(this,tr("Save Knot"),fn,
                 "Knot files (*.knot);;XML files (*.xml);;All files (*)" );
     if ( fn.isNull() )
         return;
-    filename = fn;
-    save(filename);
+    save(fn);
 }
 
 void Knot_Window::open()
 {
-    QString fn = QFileDialog::getOpenFileName(this,tr("Open Knot"),filename,
+    QString fn = tabWidget->tabText(tabWidget->currentIndex());
+
+    fn = QFileDialog::getOpenFileName(this,tr("Open Knot"),fn,
                 "Knot files (*.knot);;XML files (*.xml);;All files (*)" );
     if ( fn.isNull() )
         return;
@@ -793,29 +864,29 @@ void Knot_Window::export_image()
 
 void Knot_Window::zoom_in()
 {
-    canvas->zoom(2);
+    knotview()->zoom(2);
 }
 
 void Knot_Window::zoom_out()
 {
-    canvas->zoom(0.5);
+    knotview()->zoom(0.5);
 }
 
 void Knot_Window::configure_grid()
 {
-    snapping_grid &grid = canvas->get_grid();
+    snapping_grid &grid = knotview()->get_grid();
     GridConfig(&grid,this).exec();
 
     actionEnable_Grid->setChecked(grid.is_enabled());
     update_grid_icon();
-    canvas->redraw(false);
+    knotview()->redraw(false);
 
 }
 
 void Knot_Window::enable_grid(bool enabled)
 {
-    canvas->get_grid().enable ( enabled );
-    canvas->redraw(false);
+    knotview()->get_grid().enable ( enabled );
+    knotview()->redraw(false);
 }
 
 void Knot_Window::config()
@@ -826,9 +897,9 @@ void Knot_Window::config()
     config_dlg.save_toolbars_check->setChecked(save_toolbars);
     config_dlg.save_style_check->setChecked(save_style);
     config_dlg.max_recent->setValue(max_recent_files);
-    config_dlg.cache_mode->setCurrentIndex(canvas->get_cache_mode());
+    config_dlg.cache_mode->setCurrentIndex(knotview()->get_cache_mode());
     config_dlg.select_current_language();
-    config_dlg.fluid_check->setChecked(canvas->fluid_redraw_enabled());
+    config_dlg.fluid_check->setChecked(knotview()->fluid_redraw_enabled());
 
 
     if ( !config_dlg.exec() )
@@ -845,9 +916,9 @@ void Knot_Window::config()
     max_recent_files = config_dlg.max_recent->value();
     if ( max_recent_files < recent_files.size() )
         recent_files.erase ( recent_files.begin()+max_recent_files, recent_files.end() );
-    canvas->set_cache_mode( QGraphicsItem::CacheMode( config_dlg.cache_mode->currentIndex() ) );
+    knotview()->set_cache_mode( QGraphicsItem::CacheMode( config_dlg.cache_mode->currentIndex() ) );
 
-    canvas->enable_fluid_redraw(config_dlg.fluid_check->isChecked());
+    knotview()->enable_fluid_redraw(config_dlg.fluid_check->isChecked());
 
     Transform_Handle::size = config_dlg.get_icon_size().width();
 
@@ -865,17 +936,12 @@ void Knot_Window::show_help()
 }
 
 
-void Knot_Window::update_title(bool clean)
+void Knot_Window::update_title()
 {
-    setWindowTitle("Knotter - "+(filename.isEmpty()?"knot":filename)+(clean?"":"*"));
+    bool clean = knotview()->get_undo_stack().isClean();
+    QString filename = tabWidget->tabText(tabWidget->currentIndex());
+    setWindowTitle("Knotter - "+filename+(clean?"":"*"));
 }
-
-void Knot_Window::cause_crash()
-{
-    Node *nil = 0;
-    nil->~Node();
-}
-
 
 void Knot_Window::push_recent_file(QString path)
 {
@@ -902,14 +968,14 @@ void Knot_Window::update_recent_menu()
 
 void Knot_Window::update_grid_icon()
 {
-    snapping_grid::grid_shape gs = canvas->get_grid().get_shape();
+    snapping_grid::grid_shape gs = knotview()->get_grid().get_shape();
     if ( gs == snapping_grid::TRIANGLE1 )
         actionEnable_Grid->setIcon(load::icon("triangular_grid"));
     else if ( gs == snapping_grid::TRIANGLE2 )
         actionEnable_Grid->setIcon(load::icon("triangular_grid2"));
     else
         actionEnable_Grid->setIcon(load::icon("square_grid"));
-    actionEnable_Grid->setChecked ( canvas->get_grid().is_enabled() );
+    actionEnable_Grid->setChecked ( knotview()->get_grid().is_enabled() );
 }
 
 
@@ -922,7 +988,7 @@ void Knot_Window::click_recent()
 
 void Knot_Window::show_node_prefs(Node *node)
 {
-    node_pref_dialog(canvas,node).exec();
+    node_pref_dialog(knotview(),node).exec();
 }
 
 
@@ -941,7 +1007,7 @@ void Knot_Window::on_actionShow_Graph_triggered(bool checked)
         actionShow_Graph->setIcon(load::icon("toggle_graph_on"));
     else
         actionShow_Graph->setIcon(load::icon("toggle_graph_off"));
-    canvas->toggle_graph(checked);
+    knotview()->toggle_graph(checked);
 }
 
 void Knot_Window::on_actionInsert_Polygon_triggered()
@@ -951,34 +1017,34 @@ void Knot_Window::on_actionInsert_Polygon_triggered()
     if ( !ok )
         return;
 
-    canvas->get_undo_stack().beginMacro("Insert Polygon");
+    knotview()->get_undo_stack().beginMacro("Insert Polygon");
 
 
-    canvas->scene()->clearSelection();
+    knotview()->scene()->clearSelection();
 
-    double radius = canvas->get_grid().is_enabled() ? canvas->get_grid().get_size() : 32;
+    double radius = knotview()->get_grid().is_enabled() ? knotview()->get_grid().get_size() : 32;
     QLineF rad ( 0, 0, radius, 0 );
-    rad.translate ( canvas->mapToScene(
-                                canvas->mapFromGlobal(QCursor::pos()) ) );
+    rad.translate ( knotview()->mapToScene(
+                                knotview()->mapFromGlobal(QCursor::pos()) ) );
     Node *first = NULL;
     Node* prev = NULL;
     Node *last = NULL;
     for( int i = 0; i < n; i++)
     {
-        last = canvas->add_node ( QPointF( rad.p2().x()-radius, rad.p2().y() ) );
+        last = knotview()->add_node ( QPointF( rad.p2().x()-radius, rad.p2().y() ) );
         last->setSelected(true);
         if ( !first )
             first = last;
         else
-            canvas->add_edge(last,prev);
+            knotview()->add_edge(last,prev);
         prev = last;
         rad.setAngle ( rad.angle()+360./n );
     }
-    canvas->add_edge(last,first);
+    knotview()->add_edge(last,first);
 
-    canvas->get_undo_stack().endMacro();
+    knotview()->get_undo_stack().endMacro();
 
-    canvas->mode_moving_new(first->pos());//rad.p1());
+    knotview()->mode_moving_new(first->pos());//rad.p1());
 }
 
 void Knot_Window::retranslate()
@@ -991,4 +1057,138 @@ void Knot_Window::on_action_Background_triggered()
 {
     back_config.show();
     back_config.raise();
+}
+
+void Knot_Window::set_clean_icon(bool clean)
+{
+    tabWidget->setTabIcon(tabWidget->currentIndex(),clean?QIcon():load::icon("document-save"));
+    update_title();
+}
+
+void Knot_Window::on_action_Undo_triggered()
+{
+    knotview()->get_undo_stack().undo();
+}
+
+void Knot_Window::on_action_Redo_triggered()
+{
+    knotview()->get_undo_stack().redo();
+}
+
+void Knot_Window::on_action_Erase_triggered()
+{
+    knotview()->erase_selected();
+}
+
+void Knot_Window::on_action_Merge_triggered()
+{
+    knotview()->merge_selected();
+}
+
+void Knot_Window::on_action_Link_triggered()
+{
+    knotview()->link_selected();
+}
+
+void Knot_Window::on_actionSelect_All_triggered()
+{
+    knotview()->select_all();
+}
+
+void Knot_Window::on_actionInsert_Edges_triggered()
+{
+    knotview()->mode_edit_node_edge();
+}
+
+void Knot_Window::on_actionRefresh_Path_triggered()
+{
+    knotview()->redraw(true);
+}
+
+void Knot_Window::on_action_Reset_View_triggered()
+{
+    knotview()->reset_view();
+}
+
+void Knot_Window::on_action_Reset_Zoom_triggered()
+{
+    knotview()->reset_zoom();
+}
+
+void Knot_Window::on_action_Horizontal_Flip_triggered()
+{
+    knotview()->flip_horizontal();
+}
+
+void Knot_Window::on_action_Vertical_Flip_triggered()
+{
+    knotview()->flip_vertical();
+}
+
+void Knot_Window::on_action_Move_Grid_triggered()
+{
+    knotview()->mode_move_grid();
+}
+
+void Knot_Window::on_actionShow_Knot_line_triggered(bool checked)
+{
+    knotview()->toggle_knotline(checked);
+}
+
+void Knot_Window::on_action_Unlink_triggered()
+{
+    knotview()->unlink_selected();
+}
+
+void Knot_Window::on_action_Rotate_triggered()
+{
+    knotview()->transform_mode_rotate();
+}
+
+void Knot_Window::on_action_Scale_triggered()
+{
+    knotview()->transform_mode_scale();
+}
+
+void Knot_Window::on_actionEdge_List_triggered()
+{
+    knotview()->mode_edge_chain();
+}
+
+void Knot_Window::on_tabWidget_currentChanged(QWidget *arg1)
+{
+    KnotView* next_canvas = dynamic_cast<KnotView*>(arg1);
+    if ( next_canvas )
+    {
+        if ( canvas )
+        {
+            disconnect_view();
+            next_canvas->same_mode(*canvas);
+        }
+        canvas = next_canvas;
+        update_ui();
+        connect_view();
+    }
+}
+
+void Knot_Window::on_tabWidget_tabCloseRequested(int index)
+{
+    KnotView* view = dynamic_cast<KnotView*>(tabWidget->widget(index));
+
+    ErrorRecovery::remove(&view->graph());
+
+    if ( index == tabWidget->currentIndex() )
+    {
+        if ( tabWidget->count() == 1 )
+        {
+            new_tab();
+            update_ui();
+        }
+        else
+            tabWidget->setCurrentIndex((index+1)%tabWidget->count());
+    }
+
+    delete view;
+
+
 }

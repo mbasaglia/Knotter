@@ -16,7 +16,23 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="KnotView" name="canvas"/>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>-1</number>
+      </property>
+      <property name="elideMode">
+       <enum>Qt::ElideLeft</enum>
+      </property>
+      <property name="documentMode">
+       <bool>true</bool>
+      </property>
+      <property name="tabsClosable">
+       <bool>true</bool>
+      </property>
+      <property name="movable">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -485,163 +501,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>KnotView</class>
-   <extends>QGraphicsView</extends>
-   <header>knotview.hpp</header>
-   <slots>
-    <signal>mouse_moved(QPointF)</signal>
-    <slot>erase_selected()</slot>
-    <slot>link_selected()</slot>
-    <slot>merge_selected()</slot>
-    <slot>select_all()</slot>
-    <slot>redraw()</slot>
-    <slot>reset_view()</slot>
-    <slot>reset_zoom()</slot>
-    <slot>flip_horizontal()</slot>
-    <slot>flip_vertical()</slot>
-    <slot>mode_move_grid()</slot>
-    <slot>toggle_knotline(bool)</slot>
-    <slot>toggle_graph(bool)</slot>
-    <slot>unlink_selected()</slot>
-    <slot>mode_edge_chain()</slot>
-    <slot>mode_edit_node_edge()</slot>
-    <slot>transform_mode_scale()</slot>
-    <slot>transform_mode_rotate()</slot>
-   </slots>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections>
-  <connection>
-   <sender>action_Erase</sender>
-   <signal>triggered()</signal>
-   <receiver>canvas</receiver>
-   <slot>erase_selected()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>252</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>action_Merge</sender>
-   <signal>triggered()</signal>
-   <receiver>canvas</receiver>
-   <slot>merge_selected()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>252</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>action_Link</sender>
-   <signal>triggered()</signal>
-   <receiver>canvas</receiver>
-   <slot>link_selected()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>252</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionSelect_All</sender>
-   <signal>triggered()</signal>
-   <receiver>canvas</receiver>
-   <slot>select_all()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>265</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionEdge_List</sender>
-   <signal>triggered()</signal>
-   <receiver>canvas</receiver>
-   <slot>mode_edge_chain()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>334</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionInsert_Edges</sender>
-   <signal>triggered()</signal>
-   <receiver>canvas</receiver>
-   <slot>mode_edit_node_edge()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>334</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>canvas</sender>
-   <signal>mouse_moved(QPointF)</signal>
-   <receiver>Knot_Window</receiver>
-   <slot>mouse_moved(QPointF)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>324</x>
-     <y>380</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>470</x>
-     <y>495</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionRefresh_Path</sender>
-   <signal>triggered()</signal>
-   <receiver>canvas</receiver>
-   <slot>redraw()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>263</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>action_New</sender>
    <signal>triggered()</signal>
@@ -719,38 +580,6 @@
     <hint type="destinationlabel">
      <x>319</x>
      <y>239</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>action_Reset_View</sender>
-   <signal>triggered()</signal>
-   <receiver>canvas</receiver>
-   <slot>reset_view()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>263</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>action_Reset_Zoom</sender>
-   <signal>triggered()</signal>
-   <receiver>canvas</receiver>
-   <slot>reset_zoom()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>266</y>
     </hint>
    </hints>
   </connection>
@@ -867,70 +696,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>action_Horizontal_Flip</sender>
-   <signal>triggered()</signal>
-   <receiver>canvas</receiver>
-   <slot>flip_horizontal()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>266</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>action_Vertical_Flip</sender>
-   <signal>triggered()</signal>
-   <receiver>canvas</receiver>
-   <slot>flip_vertical()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>266</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>action_Move_Grid</sender>
-   <signal>triggered()</signal>
-   <receiver>canvas</receiver>
-   <slot>mode_move_grid()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>266</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionShow_Knot_line</sender>
-   <signal>triggered(bool)</signal>
-   <receiver>canvas</receiver>
-   <slot>toggle_knotline(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>266</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>action_Preferences</sender>
    <signal>triggered()</signal>
    <receiver>Knot_Window</receiver>
@@ -959,54 +724,6 @@
     <hint type="destinationlabel">
      <x>319</x>
      <y>239</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>action_Unlink</sender>
-   <signal>triggered()</signal>
-   <receiver>canvas</receiver>
-   <slot>unlink_selected()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>266</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>action_Rotate</sender>
-   <signal>triggered()</signal>
-   <receiver>canvas</receiver>
-   <slot>transform_mode_rotate()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>334</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>action_Scale</sender>
-   <signal>triggered()</signal>
-   <receiver>canvas</receiver>
-   <slot>transform_mode_scale()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>334</y>
     </hint>
    </hints>
   </connection>

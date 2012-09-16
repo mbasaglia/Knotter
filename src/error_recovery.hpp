@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef ERROR_RECOVERY_HPP
 #define ERROR_RECOVERY_HPP
 
-#include "knotview.hpp"
+#include "knotgraph.hpp"
 
 /**
     \brief Quick and dirty class used to save a backup file on error
@@ -37,8 +37,10 @@ class ErrorRecovery
         static void sigdying(int sig);
 
     public:
-        static KnotView* recover;
+        static QList<KnotGraph*> recover;
         static void initialize();
+        static void insert(KnotGraph*);
+        static void remove(KnotGraph*);
 };
 
 #endif // ERROR_RECOVERY_HPP
