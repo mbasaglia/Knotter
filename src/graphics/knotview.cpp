@@ -433,7 +433,7 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
         {
             double angle = QLineF(move_center,p).angle() - QLineF(move_center,dragged->pos()).angle();
             if ( event->modifiers() & Qt::ControlModifier )
-                angle = long ( angle / 15 ) * 15;
+                angle = qRound64 ( angle / 15 ) * 15;
             foreach ( Node* selnode, selected_nodes() )
             {
 
@@ -443,14 +443,6 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
                 vector.setAngle(vectorbase.angle()+angle);
                 selnode->setPos(vector.p2());
             }
-
-            /*Transform_Handle* ths[4] = { &h_tl, &h_tr, &h_bl, &h_br };
-            for(Transform_Handle** pth=ths; pth!=ths+4; pth++)
-            {
-                QLineF vector ( move_center, (*pth)->pos() );
-                vector.setAngle(vector.angle()+angle);
-                (*pth)->setPos(vector.p2());
-            }*/
 
             if (fluid_redraw)
             {
@@ -529,7 +521,6 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
     redraw(false);
 }
 
-//#include <QtDebug>
 void KnotView::mouseReleaseEvent(QMouseEvent *event)
 {
     if ( !isInteractive() ) return;
