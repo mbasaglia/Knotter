@@ -39,6 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "translator.hpp"
 #include <QClipboard>
 #include <QBuffer>
+#include <QDropEvent>
 
 Knot_Window::Knot_Window(KnotGraph *graph, QWidget *parent) :
     QMainWindow(parent), save_ui ( true ), max_recent_files(5),
@@ -48,7 +49,6 @@ Knot_Window::Knot_Window(KnotGraph *graph, QWidget *parent) :
 // UI from designer
     setupUi(this);
     setWindowIcon(load::icon("knotter-logo-small"));
-
 // translation
     connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
 
@@ -152,6 +152,34 @@ void Knot_Window::new_tab( QString file )
     ErrorRecovery::insert(&kv->graph());
     tabWidget->setCurrentIndex(tabindex);
     kv->reset_view();
+}
+
+void Knot_Window::dropEvent(QDropEvent *event)
+{
+    /*if ( event->mimeData()->hasFormat("text/plain") ||
+         event->mimeData()->hasFormat("text/xml")   ||
+         event->mimeData()->hasFormat("application/xml") ||
+         event->mimeData()->hasFormat("application/x-knotter") )
+    {
+        /// \todo load as text
+    }
+    else*/ if ( event->mimeData()->hasUrls() )
+    {
+        foreach ( QUrl url, event->mimeData()->urls() )
+        {
+            if ( url.isLocalFile() )
+            {
+                open(url.toLocalFile());
+            }
+        }
+    }
+}
+
+void Knot_Window::dragEnterEvent(QDragEnterEvent *event)
+{
+
+     if (event->mimeData()->hasFormat("text/uri-list"))
+         event->acceptProposedAction();
 }
 
 

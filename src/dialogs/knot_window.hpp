@@ -141,6 +141,9 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void disconnect_view();
         void new_tab(QString file = QString());
 
+        void dropEvent(QDropEvent *event);
+        void dragEnterEvent(QDragEnterEvent *event);
+
     protected slots:
 
         /**
