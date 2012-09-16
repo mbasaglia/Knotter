@@ -1,23 +1,28 @@
 <?xml version="1.0"?>
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
                    "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<!--
+    This file has to be preprocessed to genarate the actual docbook file,
+    You should not edit man_page.xml as that will be overwritten, edit man_page.in.xml instead.
+-->
 <refentry id="man_page" >
 
     <refmeta>
-        <refentrytitle>__name__</refentrytitle>
+        <refentrytitle><command>__name__</command></refentrytitle>
         <manvolnum>1</manvolnum>
         <refmiscinfo class='source'>__version__</refmiscinfo>
         <refmiscinfo class='manual'>User Commands</refmiscinfo>
     </refmeta>
 
     <refnamediv>
-        <refname>__name__</refname>
+        <refname><command>__name__</command></refname>
         <refpurpose>__desc__</refpurpose>
     </refnamediv>
 
     <refsynopsisdiv>
         <cmdsynopsis>
             <command>__name__</command>
+            <arg choice='opt'><replaceable>Qt generic options</replaceable></arg>
             <arg choice='opt'><option>--no-gui</option></arg>
             <arg choice='opt' rep='repeat'><arg choice='plain' rep='repeat'><replaceable>OPTION</replaceable></arg> <replaceable>INFILE</replaceable></arg>
         </cmdsynopsis>
@@ -127,7 +132,7 @@
             <varlistentry>
                 <term><command>__name__</command> <option>--no-gui</option>
                     <replaceable>file.knot</replaceable> 
-                    <option>-b</option> <literal>"rgba(0,255,0,150)"</literal>
+                    <option>-b</option> <replaceable>"rgba(0,255,0,150)"</replaceable>
                     <option>-f</option><replaceable>png</replaceable> 
                     <option>-o</option> <replaceable>file.png</replaceable>
                 </term>
@@ -156,6 +161,9 @@
     <refsection>
         <title>SEE ALSO</title>
         <para>__title__ website <ulink url="__website__">__website__</ulink></para>
+        <para><citerefentry><refentrytitle>qtoptions</refentrytitle><manvolnum>7</manvolnum></citerefentry>,
+              <citerefentry><refentrytitle>X</refentrytitle><manvolnum>7</manvolnum></citerefentry>
+        </para>
     </refsection>
 
 </refentry>
