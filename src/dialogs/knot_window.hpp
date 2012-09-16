@@ -234,6 +234,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void on_actionEdge_List_triggered();
         void on_tabWidget_currentChanged(QWidget *arg1);
         void on_tabWidget_tabCloseRequested(int index);
+        void on_actionSave_A_ll_triggered();
 };
 
 #endif // KNOT_WINDOW_HPP

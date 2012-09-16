@@ -133,7 +133,7 @@
             <varlistentry>
                 <term><command>knotter</command> <option>--no-gui</option>
                     <replaceable>file.knot</replaceable> 
-                    <option>-b</option> <literal>"rgba(0,255,0,150)"</literal>
+                    <option>-b</option> <replaceable>"rgba(0,255,0,150)"</replaceable>
                     <option>-f</option><replaceable>png</replaceable> 
                     <option>-o</option> <replaceable>file.png</replaceable>
                 </term>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -10,13 +11,13 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    sodipodi:docname="document-save.svg"
-   sodipodi:docbase="/home/jimmac/src/cvs/tango-icon-theme/scalable/actions"
-   inkscape:version="0.46"
+   inkscape:version="0.48.2 r9819"
    sodipodi:version="0.32"
    id="svg2913"
    height="48px"
    width="48px"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.1">
   <defs
      id="defs3">
     <inkscape:perspective
@@ -382,16 +383,16 @@
   </defs>
   <sodipodi:namedview
      inkscape:window-y="30"
-     inkscape:window-x="0"
-     inkscape:window-height="818"
+     inkscape:window-x="45"
+     inkscape:window-height="741"
      inkscape:window-width="999"
      inkscape:document-units="px"
      inkscape:grid-bbox="true"
      showgrid="false"
-     inkscape:current-layer="layer2"
-     inkscape:cy="11.891468"
-     inkscape:cx="-133.68151"
-     inkscape:zoom="1"
+     inkscape:current-layer="layer1"
+     inkscape:cy="2.7792643"
+     inkscape:cx="-10.962784"
+     inkscape:zoom="2"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="0.22745098"
@@ -400,7 +401,8 @@
      id="base"
      inkscape:showpageshadow="false"
      fill="#3465a4"
-     stroke="#204a87" />
+     stroke="#204a87"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata4">
     <rdf:RDF>

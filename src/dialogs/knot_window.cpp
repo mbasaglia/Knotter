@@ -156,14 +156,7 @@ void Knot_Window::new_tab( QString file )
 
 void Knot_Window::dropEvent(QDropEvent *event)
 {
-    /*if ( event->mimeData()->hasFormat("text/plain") ||
-         event->mimeData()->hasFormat("text/xml")   ||
-         event->mimeData()->hasFormat("application/xml") ||
-         event->mimeData()->hasFormat("application/x-knotter") )
-    {
-        /// \todo load as text
-    }
-    else*/ if ( event->mimeData()->hasUrls() )
+    if ( event->mimeData()->hasUrls() )
     {
         foreach ( QUrl url, event->mimeData()->urls() )
         {
@@ -230,6 +223,7 @@ void Knot_Window::init_menus()
     action_Save->setShortcuts(QKeySequence::Save);
     actionSave_As->setIcon(load::icon("document-save-as"));
     actionSave_As->setShortcuts(QKeySequence::SaveAs);
+    actionSave_A_ll->setIcon(load::icon("document-save-all"));
     action_Open->setIcon(load::icon("document-open"));
     action_Open->setShortcuts(QKeySequence::Open);
     action_Quit->setIcon(load::icon("application-exit"));
@@ -1219,4 +1213,15 @@ void Knot_Window::on_tabWidget_tabCloseRequested(int index)
     delete view;
 
 
+}
+
+void Knot_Window::on_actionSave_A_ll_triggered()
+{
+    int curr = tabWidget->currentIndex();
+    for ( int i = 0; i < tabWidget->count(); i++ )
+    {
+        tabWidget->setCurrentIndex(i);
+        save();
+    }
+    tabWidget->setCurrentIndex(curr);
 }

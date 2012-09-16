@@ -14,3 +14,5 @@ Ignore this, see the main todo page
 \todo Debian changelog to NEWS (or NEWS to CHANGELOG?)
 \todo Option to skip WALL edges ( handle as if chain of edges are a single edge )
 \todo use `find` ad add md5 to deb
+
+\todo Warn unsaved documents

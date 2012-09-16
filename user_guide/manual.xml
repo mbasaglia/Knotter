@@ -373,7 +373,7 @@
         </qandaentry>
         <qandaentry>
           <question><para>Insert a regular polygon.</para></question>
-          <answer><para>Click on <action>Insert polygon</action></para></answer> 
+          <answer><para>Click on <xref linkend="tools_polygon" /></para></answer> 
         </qandaentry>
         <qandaentry>
           <question><para>Scale part of the graph.</para></question>
@@ -487,15 +487,15 @@
     <section> <title>File Menu</title>
       <variablelist>
         <varlistentry>
-          <term><anchor id="new"/><menuchoice>
+          <term id="file_new"><menuchoice>
             <shortcut><keycombo><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut>
             <guimenu>File</guimenu>
             <guimenuitem>New</guimenuitem>
           </menuchoice></term>
-          <listitem><para>Clear the current document.</para></listitem>
+          <listitem><para>Open a new tab.</para></listitem>
         </varlistentry>
         <varlistentry>
-          <term><menuchoice>
+          <term id="file_open"><menuchoice>
             <shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut>
             <guimenu>File</guimenu>
             <guimenuitem>Open</guimenuitem>
@@ -503,14 +503,14 @@
           <listitem><para>Select a file to open.</para></listitem>
         </varlistentry>
         <varlistentry>
-          <term><menuchoice>
+          <term id="file_open_recent"><menuchoice>
             <guimenu>File</guimenu>
             <guisubmenu>Open recent</guisubmenu>
           </menuchoice></term>
           <listitem><para>Lists recently used files.</para></listitem>
         </varlistentry>
         <varlistentry>
-          <term><menuchoice>
+          <term id="file_save"><menuchoice>
             <shortcut><keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut>
             <guimenu>File</guimenu>
             <guimenuitem>Save</guimenuitem>
@@ -518,7 +518,7 @@
           <listitem><para>Save current file.</para></listitem>
         </varlistentry>
         <varlistentry>
-          <term><menuchoice>
+          <term id="file_save_as"><menuchoice>
             <shortcut><keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut>
             <guimenu>File</guimenu>
             <guimenuitem>Save As..</guimenuitem>
@@ -527,7 +527,15 @@
             file name.</para></listitem>
         </varlistentry>
         <varlistentry>
-          <term><menuchoice>
+          <term id="file_save_all"><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>S</keycap></keycombo></shortcut>
+            <guimenu>File</guimenu>
+            <guimenuitem>Save All</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Save all open files.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term id="file_export"><menuchoice>
             <guimenu>File</guimenu>
             <guimenuitem>Export</guimenuitem>
           </menuchoice></term>
@@ -535,7 +543,7 @@
           export of the knot.</para></listitem>
         </varlistentry>
         <varlistentry>
-          <term><menuchoice>
+          <term id="file_quit"><menuchoice>
             <shortcut><keycombo><keycap>Ctrl</keycap><keycap>Q</keycap></keycombo></shortcut>
             <guimenu>File</guimenu>
             <guimenuitem>Quit</guimenuitem>
@@ -548,7 +556,7 @@
       <variablelist>
         
         <varlistentry>
-          <term><menuchoice>
+          <term id="edit_undo"><menuchoice>
             <shortcut><keycombo><keycap>Ctrl</keycap><keycap>Z</keycap></keycombo></shortcut>
             <guimenu>Edit</guimenu>
             <guimenuitem>Undo</guimenuitem>
@@ -557,7 +565,7 @@
         </varlistentry>
         
         <varlistentry>
-          <term><menuchoice>
+          <term id="edit_redo"><menuchoice>
             <shortcut><keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Z</keycap></keycombo></shortcut>
             <guimenu>Edit</guimenu>
             <guimenuitem>Redo</guimenuitem>
@@ -566,7 +574,7 @@
         </varlistentry>
         
         <varlistentry>
-          <term><menuchoice>
+          <term id="edit_copy"><menuchoice>
             <shortcut><keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo></shortcut>
             <guimenu>Edit</guimenu>
             <guimenuitem>Copy</guimenuitem>
@@ -576,7 +584,7 @@
         </varlistentry>
         
         <varlistentry>
-          <term><menuchoice>
+          <term id="edit_cut"><menuchoice>
             <shortcut><keycombo><keycap>Ctrl</keycap><keycap>X</keycap></keycombo></shortcut>
             <guimenu>Edit</guimenu>
             <guimenuitem>Cut</guimenuitem>
@@ -586,7 +594,7 @@
         </varlistentry>
         
         <varlistentry>
-          <term><menuchoice>
+          <term id="edit_paste"><menuchoice>
             <shortcut><keycombo><keycap>Ctrl</keycap><keycap>V</keycap></keycombo></shortcut>
             <guimenu>Edit</guimenu>
             <guimenuitem>Paste</guimenuitem>
@@ -595,7 +603,7 @@
         </varlistentry>
         
         <varlistentry>
-          <term><menuchoice>
+          <term id="edit_select_all"><menuchoice>
             <shortcut><keycombo><keycap>Ctrl</keycap><keycap>A</keycap></keycombo></shortcut>
             <guimenu>Edit</guimenu>
             <guimenuitem>Select All</guimenuitem>
@@ -604,7 +612,7 @@
         </varlistentry>
         
         <varlistentry>
-          <term><menuchoice>
+          <term id="edit_preferences"><menuchoice>
             <guimenu>Edit</guimenu>
             <guimenuitem>Preferences...</guimenuitem>
           </menuchoice></term>
@@ -626,7 +634,7 @@
       <variablelist>
         
         <varlistentry>
-          <term><menuchoice>
+          <term id="tools_edit"><menuchoice>
             <shortcut><keycombo><keycap>Alt</keycap><keycap>Shift</keycap><keycap>E</keycap></keycombo></shortcut>
             <guimenu>Tools</guimenu>
             <guimenuitem>Edit graph</guimenuitem>
@@ -636,7 +644,7 @@
         </varlistentry>
         
         <varlistentry>
-          <term><menuchoice>
+          <term id="tools_edge_list"><menuchoice>
             <shortcut><keycombo><keycap>Alt</keycap><keycap>Shift</keycap><keycap>L</keycap></keycombo></shortcut>
             <guimenu>Tools</guimenu>
             <guimenuitem>Edge list</guimenuitem>
@@ -647,7 +655,7 @@
         </varlistentry>
         
         <varlistentry>
-          <term><menuchoice>
+          <term id="tools_polygon"><menuchoice>
             <guimenu>Tools</guimenu>
             <guimenuitem>Insert polygon...</guimenuitem>
           </menuchoice></term>
@@ -655,7 +663,7 @@
         </varlistentry>
         
         <varlistentry>
-          <term><menuchoice>
+          <term id="tools_refresh"><menuchoice>
             <shortcut><keycombo><keycap>F5</keycap></keycombo></shortcut>
             <guimenu>Tools</guimenu>
             <guimenuitem>Refresh path</guimenuitem>
@@ -672,7 +680,7 @@
       <variablelist>
         
         <varlistentry>
-          <term><menuchoice>
+          <term id="help_manual"><menuchoice>
             <shortcut><keycombo><keycap>F1</keycap></keycombo></shortcut>
             <guimenu>Help</guimenu>
             <guimenuitem>Manual</guimenuitem>
@@ -682,7 +690,7 @@
         </varlistentry>
         
         <varlistentry>
-          <term><menuchoice>
+          <term id="help_about"><menuchoice>
             <guimenu>Help</guimenu>
             <guimenuitem>About...</guimenuitem>
           </menuchoice></term>

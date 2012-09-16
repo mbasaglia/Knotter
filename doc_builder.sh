@@ -16,7 +16,7 @@
 
 # This script generates the user guide html and man page from the docbook sources
 # WARNING this script may not be very portable
-# Usage: doc_builder.sh [clean]
+# Usage: doc_builder.sh [clean|pdf]
 
 
 package=`./get_info.sh name`
@@ -27,6 +27,8 @@ if  [ "$1" = "clean" ] ; then
     set -x
     rm -f user_guide/*.html user_guide/man_page.xml man/$package.1.gz
     exit 0
+elif [ "$1" = "pdf" ] ; then
+    dblatex -P latex.output.revhistory=0 manual.xml
 fi
 
 # man page
@@ -49,9 +51,5 @@ xmlto --skip-validation  \
     xhtml manual.xml
 
 rcc -project | sed 's|<qresource|\0 prefix="/doc" |' >doc.qrc
-
-# pdf manual
-dblatex -P latex.output.revhistory=0 manual.xml
-
 
 set +x
