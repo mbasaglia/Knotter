@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPainterPath>
 #include <QGraphicsPathItem>
 #include "basic_knot_graph.hpp"
+#include <QMimeData>
 
 /**
     \brief Class representing the knot line
@@ -82,6 +83,9 @@ class KnotGraph : public QGraphicsPathItem, public basic_knot_graph
 
         void export_raster(QIODevice &file, bool minimal,
             QColor background, bool antialias, QSize img_size, int quality);
+
+
+        void to_mime ( QMimeData* data );
 
 };
 

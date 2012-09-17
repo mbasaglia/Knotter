@@ -166,16 +166,53 @@ void Knot_Window::dropEvent(QDropEvent *event)
             }
         }
     }
+    if ( event->mimeData()->hasFormat("application/x-knotter") )
+    {
+        new_tab();
+
+        QByteArray clip_data = event->mimeData()->data("application/x-knotter");
+        QBuffer read_data(&clip_data);
+        read_data.open(QIODevice::ReadOnly|QIODevice::Text);
+        KnotView* kv = knotview();
+        kv->graph().load_xml(&read_data);
+        kv->reload_graph();
+    }
 }
 
 void Knot_Window::dragEnterEvent(QDragEnterEvent *event)
 {
 
-     if (event->mimeData()->hasFormat("text/uri-list"))
+     if (event->mimeData()->hasFormat("text/uri-list") ||
+         event->mimeData()->hasFormat("application/x-knotter") )
          event->acceptProposedAction();
 }
 
+KnotView *Knot_Window::canvas_at(int index)
+{
+    return dynamic_cast<KnotView*>(tabWidget->widget(index));
+}
 
+
+
+void Knot_Window::drag_tab_away(int tab)
+{
+
+    KnotView* kv = canvas_at(tab);
+
+    if ( kv )
+    {
+        KnotGraph& graph = kv->graph();
+        QMimeData *data = new QMimeData;
+
+        graph.to_mime(data);
+
+        QDrag* drag = new QDrag(this);
+        drag->setMimeData(data);
+        drag->exec();
+
+        //on_tabWidget_tabCloseRequested(tab);
+    }
+}
 
 void Knot_Window::update_ui()
 {
@@ -686,20 +723,7 @@ void Knot_Window::copy()
         }
 
         QMimeData *data = new QMimeData;
-
-        QByteArray knot_xml;
-        QBuffer xml_stream(&knot_xml);
-        xml_stream.open(QIODevice::WriteOnly|QIODevice::Text);
-        graph.save_xml(&xml_stream);
-
-        data->setData("application/x-knotter",knot_xml);
-        data->setData("text/xml",knot_xml);
-
-        QByteArray knot_svg;
-        QBuffer svg_stream(&knot_svg);
-        graph.export_svg(svg_stream,true);
-        data->setData("image/svg+xml",knot_svg);
-
+        graph.to_mime(data);
         QApplication::clipboard()->setMimeData(data);
 
 
@@ -1195,7 +1219,7 @@ void Knot_Window::on_tabWidget_currentChanged(QWidget *arg1)
 
 void Knot_Window::on_tabWidget_tabCloseRequested(int index)
 {
-    KnotView* view = dynamic_cast<KnotView*>(tabWidget->widget(index));
+    KnotView* view = canvas_at(index);
 
     ErrorRecovery::remove(&view->graph());
 

@@ -39,6 +39,7 @@ program_version=`get_project_var VERSION`
 single_file=no
 qmake_opts=""
 with_boost=yes
+tango=no
 
 
 dirlist="prefix
@@ -167,10 +168,10 @@ do
             qmake_opts="$qmake_opts WEBKIT=no"
             ;;
         --with-tango)
-            qmake_opts="$qmake_opts TANGO=fallback"
+            tango=fallback
             ;;
         --with-tango-default)
-            qmake_opts="$qmake_opts TANGO=default"
+            tango=default
             ;;
         --without-boost)
             with_boost=no
@@ -353,7 +354,8 @@ then
     make -s distclean || rm Makefile
 fi
 
-qmake_opts="$qmake_opts BINDIR=$bindir DATADIR=$datadir DOCDIR=$docdir MANDIR=$mandir DATAROOTDIR=$datarootdir"
+qmake_opts="$qmake_opts BINDIR=$bindir DATADIR=$datadir DOCDIR=$docdir \
+            MANDIR=$mandir DATAROOTDIR=$datarootdir TANGO=$tango"
 qmake_command="$QMAKE $qmake_opts $qmake_pro_file"
 echo $qmake_command
 if $qmake_command && [ -f Makefile ]

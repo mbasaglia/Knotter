@@ -2,9 +2,9 @@
 SOURCES += src/main.cpp \
     src/error_recovery.cpp \
     src/context_menu.cpp \
-    src/xml_saver.cpp \
     src/resource_loader.cpp \
-    src/translator.cpp
+    src/translator.cpp \
+    src/extended_tabwidget.cpp
 
 
 include(dialogs/dialogs.pri)
@@ -18,8 +18,8 @@ HEADERS += \
     src/color_widget.hpp \
     src/error_recovery.hpp \
     src/context_menu.hpp \
-    src/xml_saver.hpp \
     src/resource_loader.hpp \
-    src/translator.hpp
+    src/translator.hpp \
+    src/extended_tabwidget.hpp
 
 INCLUDEPATH += src

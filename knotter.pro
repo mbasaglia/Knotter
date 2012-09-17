@@ -121,6 +121,10 @@ QMAKE_EXTRA_TARGETS += src_doc Doxyfile doc doc_clean man/$${TARGET}.1.gz deskto
 
 #check directories and options from configure.sh
 
+isEmpty(TANGO) { #let tango be fallback for those who don't use configure.sh (eg: Win users)
+    TANGO=fallback
+}
+
 contains (TANGO,default){
     DEFINES += TANGO_DEFAULT
     message("Using Tango icons")
@@ -139,7 +143,7 @@ contains(SINGLE_FILE,yes) {
     RESOURCES += data.qrc \
                  user_guide/doc.qrc
 
-    !isEmpty(TANGO){
+    !contains(TANGO,no){
         RESOURCES += themes/tango-icons/tango.qrc
         message("Tango icons included in the executable as well")
     }

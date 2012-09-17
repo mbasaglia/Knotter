@@ -26,45 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include <QTabWidget>
-#include <QTabBar>
-#include <QMouseEvent>
-/**
-    Quick hack class to allow closing tabs with middle mouse button
-*/
-class QTabBar_hack : public QTabBar
-{
-    Q_OBJECT
-
-    protected:
-        void mouseReleaseEvent(QMouseEvent *qme)
-        {
-            if ( qme->button() == Qt::MiddleButton )
-            {
-                int tab = tabAt(qme->pos());
-                if ( tab != -1 )
-                    emit tabCloseRequested(tab);
-            }
-        }
-
-};
-/**
-    Quick hack class to allow closing tabs with middle mouse button
-*/
-class QTabWidget_hack : public QTabWidget
-{
-    Q_OBJECT
-
-    public:
-        QTabWidget_hack(QWidget* parent=NULL)
-            : QTabWidget ( parent )
-        {
-            setTabBar(new QTabBar_hack);
-        }
-};
-#define QTabWidget QTabWidget_hack
 #include "ui_knot_window.h"
-#undef QTabWidget
 
 
 #include <QUndoStack>
@@ -144,6 +106,8 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void dropEvent(QDropEvent *event);
         void dragEnterEvent(QDragEnterEvent *event);
 
+        KnotView* canvas_at(int index);
+
     protected slots:
 
         /**
@@ -164,6 +128,8 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void show_node_prefs(Node*);
 
         void insert_toolbar(QToolBar*);
+
+        void drag_tab_away(int tab);
 
 
     public slots:

@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QStyleOptionGraphicsItem>
 #include <QSvgGenerator>
 #include <QPainter>
+#include <QBuffer>
 
 KnotGraph::KnotGraph()
 {
@@ -199,6 +200,7 @@ void KnotGraph::paint_knot(QPainter *painter, bool minimal)
     {
         QPen stroke(brush(),stroker.width());
         stroke.setJoinStyle(stroker.joinStyle());
+        stroke.setCapStyle(Qt::FlatCap);
         painter->setPen(stroke);
         painter->drawPath(build());
     }
@@ -276,6 +278,24 @@ void KnotGraph::export_raster(QIODevice &file, bool minimal,
 
         pix.save(&file,0,quality);
     }
+}
+
+void KnotGraph::to_mime(QMimeData *data)
+{
+
+        QByteArray knot_xml;
+        QBuffer xml_stream(&knot_xml);
+        xml_stream.open(QIODevice::WriteOnly|QIODevice::Text);
+        save_xml(&xml_stream);
+
+        data->setData("application/x-knotter",knot_xml);
+        data->setData("text/xml",knot_xml);
+
+        QByteArray knot_svg;
+        QBuffer svg_stream(&knot_svg);
+        svg_stream.open(QIODevice::WriteOnly|QIODevice::Text);
+        export_svg(svg_stream,true);
+        data->setData("image/svg",knot_svg);
 }
 
 

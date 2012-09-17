@@ -19,7 +19,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="QTabWidget" name="tabWidget">
+     <widget class="extended_TabWidget" name="tabWidget">
       <property name="currentIndex">
        <number>-1</number>
       </property>
@@ -513,6 +513,17 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>extended_TabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>extended_tabwidget.hpp</header>
+   <container>1</container>
+   <slots>
+    <signal>drag_away(int)</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -739,6 +750,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>tabWidget</sender>
+   <signal>drag_away(int)</signal>
+   <receiver>Knot_Window</receiver>
+   <slot>drag_tab_away(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>110</x>
+     <y>147</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-9</x>
+     <y>164</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>mode_edge_list()</slot>
@@ -760,5 +787,6 @@
   <slot>cause_crash()</slot>
   <slot>config()</slot>
   <slot>show_help()</slot>
+  <slot>drag_tab_away(int)</slot>
  </slots>
 </ui>
