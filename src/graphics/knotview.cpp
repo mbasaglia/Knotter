@@ -458,6 +458,7 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
 
             if ( grid.is_enabled() )
             {
+                /// \bug works properly only if starting size is small
                 if ( abs(newl.length()-oldl.length()) < grid.get_size() )
                     return;
                 else

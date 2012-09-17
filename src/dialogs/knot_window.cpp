@@ -160,7 +160,9 @@ void Knot_Window::dropEvent(QDropEvent *event)
     {
         foreach ( QUrl url, event->mimeData()->urls() )
         {
+#ifdef HAS_QT_4_8
             if ( url.isLocalFile() )
+#endif
             {
                 open(url.toLocalFile());
             }
