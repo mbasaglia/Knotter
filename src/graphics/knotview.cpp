@@ -454,11 +454,12 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
             QLineF newl(move_center,p);
             QLineF oldl(move_center,dragged->pos());
 
+            /// \todo fix flipping
+
             bool flipped = false;
 
             if ( grid.is_enabled() )
             {
-                /// \bug works properly only if starting size is small
                 if ( abs(newl.length()-oldl.length()) < grid.get_size() )
                     return;
                 else
@@ -469,23 +470,10 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
 
                 double scale = newl.length() / oldl.length();
 
-                if ( newl.length() < 16 )
+                if ( newl.length() < 32 )
                 {
                     flipped = true;
-
                     scale = -1;
-                }
-
-                if ( flipped )
-                {
-                    if ( dragged->get_position() == (TH::TOP|TH::LEFT) )
-                        dragged = &h_br;
-                    else if ( dragged->get_position() == (TH::TOP|TH::RIGHT) )
-                        dragged = &h_bl;
-                    else if ( dragged->get_position() == (TH::BOTTOM|TH::LEFT) )
-                        dragged = &h_tr;
-                    else if ( dragged->get_position() == (TH::BOTTOM|TH::RIGHT) )
-                        dragged = &h_tl;
                 }
 
                 foreach ( Node* selnode, selected_nodes() )
@@ -495,6 +483,19 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
                     selnode->setPos(oldln.p2());
                 }
             }
+
+            if ( flipped )
+            {
+                if ( dragged->get_position() == (TH::TOP|TH::LEFT) )
+                    dragged = &h_br;
+                else if ( dragged->get_position() == (TH::TOP|TH::RIGHT) )
+                    dragged = &h_bl;
+                else if ( dragged->get_position() == (TH::BOTTOM|TH::LEFT) )
+                    dragged = &h_tr;
+                else if ( dragged->get_position() == (TH::BOTTOM|TH::RIGHT) )
+                    dragged = &h_tl;
+            }
+
             if (fluid_redraw)
             {
                 update_transform_handles();
@@ -664,7 +665,7 @@ bool KnotView::fixed_scale(bool grow)
     bool flipped = false;
 
     int delta = grow ? 1 : -1;
-    sel_size += delta / 2.0;
+    sel_size += delta;
     if ( qFuzzyCompare(sel_size+1,1) )
     {
         sel_size = delta;
@@ -673,7 +674,7 @@ bool KnotView::fixed_scale(bool grow)
     foreach ( Node* selnode, selected_nodes() )
     {
         QLineF vector ( QPointF(0,0), sel_offset[selnode] );
-        vector.setLength(vector.length()*sel_size);
+        vector.setLength(vector.length()*sel_size/initial_sel_size);
         vector.translate(move_center);
         selnode->setPos(vector.p2());
     }
@@ -699,7 +700,7 @@ QRectF KnotView::bound_box() const
         if ( n->y() < boundbox.bottom() )
             boundbox.setBottom(n->y());
     }
-    return boundbox;
+    return boundbox.normalized();
 }
 
 void KnotView::initialize_movement(QPointF center)
@@ -715,9 +716,11 @@ void KnotView::initialize_movement(QPointF center)
     }
 
     if ( grid.is_enabled() )
-        sel_size = 1.0 / grid.get_size() + 1;
+        sel_size = bound_box().width() / grid.get_size();
     else
         sel_size = 4;
+
+    initial_sel_size = sel_size;
 }
 
 Node *KnotView::node_at(QPointF p)
@@ -1499,10 +1502,10 @@ void KnotView::update_transform_handles()
         scene()->addItem(&h_br);
     }
     QRectF boundbox = bound_box();
-    boundbox.setTop(boundbox.top()+16);
-    boundbox.setLeft(boundbox.left()+16);
-    boundbox.setBottom(boundbox.bottom()-16);
-    boundbox.setRight(boundbox.right()-16);
+    boundbox.setTop(boundbox.top()-16);
+    boundbox.setLeft(boundbox.left()-16);
+    boundbox.setBottom(boundbox.bottom()+16);
+    boundbox.setRight(boundbox.right()+16);
     h_tl.setPos(boundbox.bottomRight());
     h_tr.setPos(boundbox.bottomLeft());
     h_bl.setPos(boundbox.topRight());

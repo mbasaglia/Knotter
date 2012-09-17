@@ -17,7 +17,7 @@ QT       += core gui xml
 
 
 TARGET = knotter
-VERSION = 0.6.8devel
+VERSION = 0.6.9devel
 
 
 TEMPLATE = app

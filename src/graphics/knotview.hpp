@@ -72,6 +72,7 @@ class KnotView : public QGraphicsView
         KnotGraph knot;                 ///< Knot logic and graphics item
         snapping_grid grid;             ///< Grid setup
         double sel_size;                ///< Selection scale factor
+        double initial_sel_size;        ///< Selection scale factor at the beginning of transformations
         bool fluid_redraw;              ///< Whether knot shall be redrawn when moving nodes
         Transform_Handle h_tl,h_bl,h_tr,h_br; ///< Transform handles to interact with selection
         Transform_Handle* dragged;      ///< The transform handle currently being dragged (if any)
