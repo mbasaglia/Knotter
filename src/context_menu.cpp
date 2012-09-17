@@ -30,7 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 node_cxmn::node_cxmn ( QWidget *parent )
     : QMenu(parent), n(NULL), kv ( NULL )
 {
-    snap_grid = addAction(load::icon("square_grid"),tr("Snap to grid"),this,SLOT(snap()));
+    snap_grid = addAction(load::icon("snap-grid"),tr("Snap to grid"),this,SLOT(snap()));
+    addAction(load::icon("format-remove-node"),tr("Remove"),this,SLOT(remove()));
     addAction(load::icon("edit-node"),tr("Properties..."),this,SLOT(properties()));
     unset_style = addAction(tr("Reset custom style"),this,SLOT(no_custom_style()));
 }
@@ -55,7 +56,7 @@ void node_cxmn::snap()
 {
     if ( n && kv )
     {
-        kv->get_undo_stack().beginMacro("Snap Node");
+        kv->get_undo_stack().beginMacro(tr("Snap Node"));
         kv->move_node(n, kv->get_grid().nearest(n->pos()) );
         kv->get_undo_stack().endMacro();
     }
@@ -75,11 +76,19 @@ void node_cxmn::no_custom_style()
     }
 }
 
+void node_cxmn::remove()
+{
+    if ( n && kv )
+    {
+        kv->remove_node(n);
+    }
+}
+
 edge_cxmn::edge_cxmn(QWidget *parent)
     : QMenu(parent), n1(NULL), n2(NULL), kv(NULL)
 {
     snap_grid = addAction(load::icon("square_grid"),tr("Snap to grid"),this,SLOT(snap()));
-    addAction(tr("Remove"),this,SLOT(remove()));
+    addAction(load::icon("format-disconnect-node"),tr("Remove"),this,SLOT(remove()));
 
     QMenu *type = new QMenu(tr("Edge type"));
     type_action[Edge::CROSSING] = type->addAction(tr("Regular"),this,SLOT(set_regular()));
@@ -121,7 +130,7 @@ void edge_cxmn::snap()
 {
     if ( n1 && n2 && kv )
     {
-        kv->get_undo_stack().beginMacro("Snap Edge");
+        kv->get_undo_stack().beginMacro(tr("Snap Edge"));
         kv->move_node(n1, kv->get_grid().nearest(n1->pos()) );
         kv->move_node(n2, kv->get_grid().nearest(n2->pos()) );
         kv->get_undo_stack().endMacro();

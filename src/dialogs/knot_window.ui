@@ -82,6 +82,8 @@
     <addaction name="action_Vertical_Flip"/>
     <addaction name="action_Rotate"/>
     <addaction name="action_Scale"/>
+    <addaction name="separator"/>
+    <addaction name="actionS_nap_to_grid"/>
    </widget>
    <widget class="QMenu" name="menu_Edit">
     <property name="title">
@@ -224,6 +226,7 @@
    <addaction name="actionShow_Graph"/>
    <addaction name="actionEnable_Grid"/>
    <addaction name="action_Move_Grid"/>
+   <addaction name="actionS_nap_to_grid"/>
   </widget>
   <widget class="QToolBar" name="TransformBar">
    <property name="windowTitle">
@@ -509,6 +512,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="actionS_nap_to_grid">
+   <property name="text">
+    <string>S&amp;nap to grid</string>
    </property>
   </action>
  </widget>

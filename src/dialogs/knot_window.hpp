@@ -179,6 +179,9 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void set_undo_text(QString);
         void set_redo_text(QString);
 
+        /// enable/disable widgets that act on selection within current canvas
+        void enable_selection_action();
+
 
         void on_action_Undo_triggered();
         void on_action_Redo_triggered();
@@ -201,6 +204,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void on_tabWidget_currentChanged(QWidget *arg1);
         void on_tabWidget_tabCloseRequested(int index);
         void on_actionSave_A_ll_triggered();
+        void on_actionS_nap_to_grid_triggered();
 };
 
 #endif // KNOT_WINDOW_HPP

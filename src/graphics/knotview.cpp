@@ -54,6 +54,7 @@ KnotView::KnotView( QWidget* parent )
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     //setCacheMode(CacheBackground);
     connect(scene(),SIGNAL(selectionChanged()),SLOT(update_transform_handles()));
+    connect(scene(),SIGNAL(selectionChanged()),SIGNAL(selectionChanged()));
 
     grid.enable(false);
 }
@@ -1223,6 +1224,11 @@ node_list KnotView::selected_nodes() const
             nl.push_back(n);
     }
     return nl;
+}
+
+bool KnotView::has_selection()
+{
+    return !scene()->selectedItems().isEmpty();
 }
 
 snapping_grid &KnotView::get_grid()

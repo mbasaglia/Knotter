@@ -206,6 +206,8 @@ class KnotView : public QGraphicsView
 // misc getters
         /// get list of selected nodes
         node_list selected_nodes() const;
+        /// \return true <=> scene selection is not empty
+        bool has_selection();
 
         /// get reference to the grid
         snapping_grid& get_grid();
@@ -280,6 +282,7 @@ class KnotView : public QGraphicsView
         void context_menu(Node*);
         void context_menu(Edge*);
         void zoom_changed(double);
+        void selectionChanged();
 };
 
 #endif // KNOTVIEW_HPP

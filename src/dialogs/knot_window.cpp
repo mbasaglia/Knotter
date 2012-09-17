@@ -117,8 +117,8 @@ void Knot_Window::connect_view()
     knotview()->connect(zoomer,SIGNAL(valueChanged(double)),SLOT(set_zoom(double)));
 
     connect(knotview(),SIGNAL(mouse_moved(QPointF)),SLOT(mouse_moved(QPointF)));
+    connect(knotview(),SIGNAL(selectionChanged()),SLOT(enable_selection_action()));
 
-    /// \todo performance settings
 }
 
 void Knot_Window::disconnect_view()
@@ -245,6 +245,8 @@ void Knot_Window::update_ui()
     foreach(QToolBar *toolb,findChildren<QToolBar *>())
         menu_Toolbars->addAction(toolb->toggleViewAction());
 
+    enable_selection_action();
+
     update_grid_icon();
 
     update_recent_menu();
@@ -316,6 +318,9 @@ void Knot_Window::init_menus()
     QActionGroup* transform_mode = new QActionGroup(this);
     transform_mode->addAction(action_Scale);
     transform_mode->addAction(action_Rotate);
+
+    actionS_nap_to_grid->setIcon(load::icon("snap-grid"));
+
 
 // Tools menu
     QActionGroup* edit_mode = new QActionGroup(this);
@@ -680,6 +685,13 @@ void Knot_Window::set_redo_text(QString txt)
     action_Redo->setText(tr("Redo %1").arg(txt));
 }
 
+void Knot_Window::enable_selection_action()
+{
+    action_Horizontal_Flip->setEnabled ( knotview()->has_selection() );
+    action_Vertical_Flip->setEnabled ( knotview()->has_selection() );
+    actionS_nap_to_grid->setEnabled ( knotview()->get_grid().is_enabled() && knotview()->has_selection() );
+}
+
 void Knot_Window::mouse_moved(QPointF p)
 {
     statusBar()->showMessage(QString("%1,%2").arg(p.x()).arg(p.y()));
@@ -925,9 +937,7 @@ void Knot_Window::configure_grid()
     snapping_grid &grid = knotview()->get_grid();
     GridConfig(&grid,this).exec();
 
-    actionEnable_Grid->setChecked(grid.is_enabled());
     update_grid_icon();
-    knotview()->redraw(false);
 
 }
 
@@ -935,6 +945,7 @@ void Knot_Window::enable_grid(bool enabled)
 {
     knotview()->get_grid().enable ( enabled );
     knotview()->redraw(false);
+    update_grid_icon();
 }
 
 void Knot_Window::config()
@@ -1024,6 +1035,8 @@ void Knot_Window::update_grid_icon()
     else
         actionEnable_Grid->setIcon(load::icon("square_grid"));
     actionEnable_Grid->setChecked ( knotview()->get_grid().is_enabled() );
+
+    actionS_nap_to_grid->setEnabled ( knotview()->get_grid().is_enabled() && knotview()->has_selection() );
 }
 
 
@@ -1250,4 +1263,21 @@ void Knot_Window::on_actionSave_A_ll_triggered()
         save();
     }
     tabWidget->setCurrentIndex(curr);
+}
+
+void Knot_Window::on_actionS_nap_to_grid_triggered()
+{
+    KnotView* kv = knotview();
+
+    node_list sel =  kv->selected_nodes();
+    if ( !sel.empty() )
+    {
+        kv->get_undo_stack().beginMacro(tr("Snap Nodes"));
+
+
+        foreach (Node* n, sel )
+            kv->move_node(n, kv->get_grid().nearest(n->pos()) );
+
+        kv->get_undo_stack().endMacro();
+    }
 }

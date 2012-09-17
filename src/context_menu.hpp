@@ -52,6 +52,7 @@ class node_cxmn : public QMenu
         void snap();
         void properties();
         void no_custom_style();
+        void remove();
     signals:
         void request_properties(Node*);
 };
