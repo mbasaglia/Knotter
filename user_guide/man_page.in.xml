@@ -6,6 +6,17 @@
     You should not edit man_page.xml as that will be overwritten, edit man_page.in.xml instead.
 -->
 <refentry id="man_page" >
+    
+    
+  <info>
+    <title>Knotter Manual</title>
+    <author>
+      <personname>__author__</personname>
+      <email>__email__</email>
+      <personblurb><para>Project maintainer</para></personblurb>
+    </author>
+ 
+  </info>
 
     <refmeta>
         <refentrytitle><command>__name__</command></refentrytitle>
@@ -153,10 +164,10 @@
         </variablelist>
     </refsection>
 
-    <refsection>
+    <!--refsection>
         <title>AUTHOR</title>
-        <para>__author__ &lt;__email__&gt;</para>
-    </refsection>
+        <para><personname>__author__</personname> <email>__email__</email></para>
+    </refsection-->
 
     <refsection>
         <title>SEE ALSO</title>
