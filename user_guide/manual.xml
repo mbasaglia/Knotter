@@ -21,7 +21,7 @@
  
   </info>
   
-  <chapter xml:id="user_guide">
+  <chapter id="user_guide">
     <title>Knotter User Guide</title>
 
     <section> <title>Introduction</title>
@@ -56,8 +56,8 @@
       </section>
       
       <section> <title>Adding edges</title>
-        <para>To toggle edges between nodes, the <action>Link selected</action>
-        and <action>Unlink selected</action> commands.</para>
+        <para>To toggle edges between nodes, the <xref linkend="nodes_link" />
+        and <xref linkend="nodes_unlink" /> commands.</para>
       </section>
       
       <section> <title>Changing edge type</title>
@@ -107,7 +107,7 @@
             
       <section> <title>Quick graph design</title>
         <para>Adding nodes and edges one at the time can be very tedious,
-        knotter provides the <action>Edge list</action> tool to make
+        knotter provides the <xref linkend="tools_edge_list" /> tool to make
         this process easier.</para>
         <para>When this is enabled, a single click will create a node and
         each new node is connected to the previous one by an edge.</para>
@@ -127,8 +127,8 @@
         selection) or Shift + mouse wheel (will rotate the selection around the
         node under the cursor). These transformations are available when pasting
         nodes.</para>
-        <para>Selected nodes can be mirrored using the horizontal
-        and vertical flip commands.</para>
+        <para>Selected nodes can be mirrored using <xref linkend="nodes_hflip" />
+        and <xref linkend="nodes_vflip" />.</para>
       </section>
       
       <section> <title>Snapping</title>
@@ -312,23 +312,6 @@
     <xi:include href="man_page.xml" />
   </chapter>
   
-  <chapter id="contacts"> <title>Contacts and links</title>
-    <section> <title>Obtaining Knotter</title>
-      <para>Source packages and some compiled binaries can be found at
-        <ulink url="http://sourceforge.net/projects/knotter/files/">http://sourceforge.net/projects/knotter/files/</ulink>,
-        The latest sources can be obtained with git at
-        <uri>git://git.code.sf.net/p/knotter/code</uri> (
-        <ulink url="http://sourceforge.net/p/knotter/code">Online repository browser</ulink> ).
-      </para>
-    </section>
-    <section> <title id="report_bug">Reporting Bugs</title>
-      <para>To send bug reports, freature request and feedback you can use the
-      <ulink url="https://sourceforge.net/p/knotter/discussion/">forum on SourceForge</ulink>
-      or send me an email: <personname>Mattia Basaglia</personname>
-      <email>mattia.basaglia@gmail.com</email>
-      </para>
-    </section>
-  </chapter>
   
   <chapter id="howto"> <title>HowTo</title>
     <para>This section shows how most common operations are performed in Knotter.
@@ -345,20 +328,18 @@
         <qandaentry>
           <question><para>Insert edges.</para></question>
           <answer><para>When in <emphasis>Edges and nodes</emphasis> mode,
-          select some nodes and click <action>Link selected nodes</action>
-          (<keycombo><keycap>Ctrl</keycap><keycap>L</keycap></keycombo>).</para></answer> 
-          <answer><para>When in <emphasis>edge list</emphasis> mode,
+          select some nodes and click <xref linkend="nodes_link" />.</para></answer> 
+          <answer><para>When in <xref linkend="tools_edge_list" /> mode,
           subsequent nodes are connected automatically with an edge.</para></answer> 
         </qandaentry>
         <qandaentry>
           <question><para>Remove nodes.</para></question>
-          <answer><para>Select some nodes and press <keycap>Del</keycap>.</para></answer> 
-          <answer><para>Select some nodes and click <action>Erase selected nodes</action>.</para></answer> 
+          <answer><para>Select some nodes and click <xref linkend="nodes_erase" />.</para></answer> 
         </qandaentry>
         <qandaentry>
           <question><para>Remove edges.</para></question>
           <answer><para>Select the edges (or their vertices) and click
-            <action>Unlink selected nodes</action>.</para></answer>
+            <xref linkend="nodes_unlink" />.</para></answer>
           <answer><para>Bring the edge context menu and click
             <guimenuitem>Remove</guimenuitem>.</para></answer>
         </qandaentry>
@@ -397,13 +378,13 @@
         </qandaentry>
         <qandaentry>
           <question><para>Flip part of the graph.</para></question>
-          <answer><para>Select some nodes and click on <action>Horizontal flip</action>
-            or <action>Vertical flip</action>.</para></answer>
+          <answer><para>Select some nodes and click on <xref linkend="nodes_hflip" />
+            or <xref linkend="nodes_vflip" />.</para></answer>
         </qandaentry>
         <qandaentry>
           <question><para>Merge nodes.</para></question>
-          <answer><para>Select some nodes and click <action>Merge selected nodes</action>
-            (<keycombo><keycap>Ctrl</keycap><keycap>M</keycap></keycombo>).</para></answer>
+          <answer><para>Select some nodes and click
+          <xref linkend="nodes_merge" />.</para></answer>
         <qandaentry>
           <question><para>Snap to the grid or to a fixed line.</para></question>
           <answer><para>To grid snapping is performed automatically for new
@@ -453,18 +434,18 @@
         <qandaentry>
           <question><para>Configure the grid.</para></question>
           <answer><para>
-            To set up grid size and shape click on <action>Configure grid...</action>
+            To set up grid size and shape click on <xref linkend="view_configure_grid" />
           </para></answer>
           <answer><para>
-            To move the grid origin, click on <action>Move grid</action>
+            To move the grid origin, click on <xref linkend="view_move_grid" />
             and click on the canvas to select the new origin.
           </para></answer>
         </qandaentry>
         <qandaentry>
           <question><para>View only the knot line.</para></question>
           <answer>
-            <para>The grid can be toggled with <action>Enable grid</action>,
-              the graph with <action>Show graph</action>.</para>
+            <para>The grid can be toggled with <xref linkend="view_enable_grid" />,
+              the graph with <xref linkend="view_graph" />.</para>
             <para>The knot can be still be edited when the graph is disabled as
               the node or edge under the cursor will be displayed.
             </para>
@@ -473,7 +454,7 @@
         <qandaentry>
           <question><para>Improve performace</para></question>
           <answer><para>Change settings on the preferences dialog.</para></answer>
-          <answer><para>Uncheck <action>Show Knotline</action>.</para></answer>
+          <answer><para>Uncheck <xref linkend="view_knotline" />.</para></answer>
         </qandaentry>
       </qandadiv><!-- Configuration -->
     </qandaset>
@@ -623,11 +604,191 @@
     </section><!--Edit-->
     
     <section> <title>View Menu</title>
-      TODO
+    
+        <varlistentry>
+          <term id="view_toolbars"><menuchoice>
+            <guimenu>View</guimenu>
+            <guisubmenu>Toolbars</guisubmenu>
+          </menuchoice></term>
+          <listitem><para>Toggle visibility for the avialable toolbars.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="view_docks"><menuchoice>
+            <guimenu>View</guimenu>
+            <guisubmenu>Docks</guisubmenu>
+          </menuchoice></term>
+          <listitem><para>Toggle visibility for the avialable dockable dialogs.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="view_zoom_in"><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo></shortcut>
+            <guimenu>View</guimenu>
+            <guisubmenu>Zoom</guisubmenu>
+            <guimenuitem>Zoom in</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Increase the zoom factor in the drawing area.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="view_zoom_out"><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>-</keycap></keycombo></shortcut>
+            <guimenu>View</guimenu>
+            <guisubmenu>Zoom</guisubmenu>
+            <guimenuitem>Zoom out</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Decrease the zoom factor in the drawing area.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="view_zoom_reset"><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>0</keycap></keycombo></shortcut>
+            <guimenu>View</guimenu>
+            <guisubmenu>Zoom</guisubmenu>
+            <guimenuitem>Reset Zoom</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Reset zoom to 100%.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="view_reset"><menuchoice>
+            <guimenu>View</guimenu>
+            <guimenuitem>Reset view</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Reset zoom to 100% and center on the origin.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="view_graph"><menuchoice>
+            <guimenu>View</guimenu>
+            <guimenuitem>Show graph</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Toggle visibility of the graph.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="view_knotline"><menuchoice>
+            <guimenu>View</guimenu>
+            <guimenuitem>Show Knotline</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Toggle visibility of the interlace.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="view_enable_grid"><menuchoice>
+            <guimenu>View</guimenu>
+            <guimenuitem>Enable grid</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Toggle grid visibility and snapping.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="view_configure_grid"><menuchoice>
+            <guimenu>View</guimenu>
+            <guimenuitem>Configure grid</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Show the grid configuration dialog.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="view_move_grid"><menuchoice>
+            <guimenu>View</guimenu>
+            <guimenuitem>Move grid</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Enable reposition of the grid origin, once this is
+          triggered, click on the canvas to set the new origin.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="view_background"><menuchoice>
+            <guimenu>View</guimenu>
+            <guimenuitem>Background</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Show the background configuration dialog.</para></listitem>
+        </varlistentry>
+        
     </section> <!--View-->
     
     <section> <title>Nodes Menu</title>
-      TODO
+        
+        <varlistentry>
+          <term id="nodes_link"><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>L</keycap></keycombo></shortcut>
+            <guimenu>Nodes</guimenu>
+            <guimenuitem>Link</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Connect selected nodes in a complete subrgraph.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="nodes_unlink"><menuchoice>
+            <guimenu>Nodes</guimenu>
+            <guimenuitem>Unlink</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Remove all edges connecting the selected nodes.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="nodes_erase"><menuchoice>
+            <shortcut><keycombo><keycap>Del</keycap></keycombo></shortcut>
+            <guimenu>Nodes</guimenu>
+            <guimenuitem>Erase</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Erase selected nodes.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="nodes_merge"><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>M</keycap></keycombo></shortcut>
+            <guimenu>Nodes</guimenu>
+            <guimenuitem>Merge</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Merge selected nodes in a single node.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="nodes_hflip"><menuchoice>
+            <guimenu>Nodes</guimenu>
+            <guimenuitem>Horizontal flip</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Flip nodes horizontally.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="nodes_vflip"><menuchoice>
+            <guimenu>Nodes</guimenu>
+            <guimenuitem>Vertical flip</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Flip nodes vertically.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="nodes_rotate"><menuchoice>
+            <guimenu>Nodes</guimenu>
+            <guimenuitem>Rotate</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Dragging on the transformation handles will
+          rotate the selection.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="nodes_scale"><menuchoice>
+            <guimenu>Nodes</guimenu>
+            <guimenuitem>Scale</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Dragging on the transformation handles will
+          scale the selection.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="nodes_snap"><menuchoice>
+            <guimenu>Nodes</guimenu>
+            <guimenuitem>Snap to grid</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Snaps the selected nodes to the grid.</para></listitem>
+        </varlistentry>
+        
     </section> <!--Nodes-->
     
     <section> <title>Tools Menu</title>
@@ -702,13 +863,38 @@
     </section> <!--Tools-->
     
     
-  </chapter>
+  </chapter><!-- Menu -->
   
-  <chapter id="knotfile"> <title>Knotter file formats</title>
+  <chapter id="dialogs"> <title>Dialogs</title>
     <warning>
       <title>To Do</title>
       <para>This section has not been written yet.</para>
     </warning>
+  </chapter>
+  
+  <chapter id="knotfile"> <title>Knotter file format</title>
+    <warning>
+      <title>To Do</title>
+      <para>This section has not been written yet.</para>
+    </warning>
+  </chapter>
+  
+  <chapter id="contacts"> <title>Contacts and links</title>
+    <section> <title>Obtaining Knotter</title>
+      <para>Source packages and some compiled binaries can be found at
+        <ulink url="http://sourceforge.net/projects/knotter/files/">http://sourceforge.net/projects/knotter/files/</ulink>,
+        The latest sources can be obtained with git at
+        <uri>git://git.code.sf.net/p/knotter/code</uri> (
+        <ulink url="http://sourceforge.net/p/knotter/code">Online repository browser</ulink> ).
+      </para>
+    </section>
+    <section> <title id="report_bug">Reporting Bugs</title>
+      <para>To send bug reports, freature request and feedback you can use the
+      <ulink url="https://sourceforge.net/p/knotter/discussion/">forum on SourceForge</ulink>
+      or send me an email: <personname>Mattia Basaglia</personname>
+      <email>mattia.basaglia@gmail.com</email>
+      </para>
+    </section>
   </chapter>
   
   <chapter id="license"> <title>License</title>

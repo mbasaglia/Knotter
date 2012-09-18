@@ -1,6 +1,7 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/doc" >
 <file>./contacts.html</file>
+<file>./dialogs.html</file>
 <file>./doc.qrc</file>
 <file>./fdl.html</file>
 <file>./fdl.xml</file>

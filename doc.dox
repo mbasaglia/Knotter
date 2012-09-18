@@ -21,5 +21,9 @@ packaging:
 
 UI:
 \todo Warn unsaved documents
+\todo toolbar configuration > ad zoom?
+
+UI+Logic:
 \todo put back edge-editing mode
 \todo selected nodes style dock
+\todo node style "use default" for every aspect

@@ -423,6 +423,8 @@ void Knot_Window::init_dialogs()
 
     foreach(QAction *menu,QMainWindow::menuBar()->actions())
         config_dlg.add_menu(menu);
+    config_dlg.add_menu(menu_Zoom->menuAction());
+
     foreach(QToolBar *toolb,findChildren<QToolBar *>())
         config_dlg.add_toolbar(toolb);
     config_dlg.set_menu(menu_File);
@@ -687,9 +689,17 @@ void Knot_Window::set_redo_text(QString txt)
 
 void Knot_Window::enable_selection_action()
 {
-    action_Horizontal_Flip->setEnabled ( knotview()->has_selection() );
-    action_Vertical_Flip->setEnabled ( knotview()->has_selection() );
-    actionS_nap_to_grid->setEnabled ( knotview()->get_grid().is_enabled() && knotview()->has_selection() );
+    int n = knotview()->selected_nodes().size();
+
+    action_Horizontal_Flip->setEnabled ( n );
+    action_Vertical_Flip->setEnabled ( n );
+    actionS_nap_to_grid->setEnabled ( n );
+    action_Erase->setEnabled ( n );
+    action_Merge->setEnabled ( n >= 2 );
+    action_Horizontal_Flip->setEnabled ( n >= 2 );
+    action_Vertical_Flip->setEnabled ( n >= 2);
+    action_Link->setEnabled ( n >= 2);
+    action_Unlink->setEnabled ( n >= 2 );
 }
 
 void Knot_Window::mouse_moved(QPointF p)
