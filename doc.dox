@@ -21,7 +21,6 @@ packaging:
 
 UI:
 \todo Warn unsaved documents
-\todo toolbar configuration > ad zoom?
 
 UI+Logic:
 \todo put back edge-editing mode

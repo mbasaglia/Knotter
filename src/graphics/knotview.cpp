@@ -457,14 +457,14 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
 
             /// \todo fix flipping
 
-            bool flipped = false;
+            //bool flipped = false;
 
             if ( grid.is_enabled() )
             {
                 if ( abs(newl.length()-oldl.length()) < grid.get_size() )
                     return;
                 else
-                     flipped = fixed_scale ( newl.length() > oldl.length() );
+                     /*flipped =*/ fixed_scale ( newl.length() > oldl.length() );
             }
             else
             {
@@ -473,8 +473,8 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
 
                 if ( newl.length() < 32 )
                 {
-                    flipped = true;
-                    scale = -1;
+                    /*flipped = true;
+                    scale = -1;*/return;
                 }
 
                 foreach ( Node* selnode, selected_nodes() )
@@ -485,7 +485,8 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
                 }
             }
 
-            if ( flipped )
+
+            /*if ( flipped )
             {
                 if ( dragged->get_position() == (TH::TOP|TH::LEFT) )
                     dragged = &h_br;
@@ -495,7 +496,7 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
                     dragged = &h_tr;
                 else if ( dragged->get_position() == (TH::BOTTOM|TH::RIGHT) )
                     dragged = &h_tl;
-            }
+            }*/
 
             if (fluid_redraw)
             {
