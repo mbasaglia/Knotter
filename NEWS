@@ -1,7 +1,11 @@
 This file contains a brief description of Knotter releases,
 showing when features have been added to the program.
 
-Knotter 0.7.0  - Ongoing development
+Knotter 0.8.0  - Ongoing development
+--------------------
+
+
+Knotter 0.7.0
 --------------------
 * Command Line Interface
 * Use system-wide clipboard for copy/pase (copy SVG as well)

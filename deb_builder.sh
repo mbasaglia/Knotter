@@ -17,7 +17,7 @@
 
 # Script to generate binary deb package
 # env vars DEBFULLNAME and DEBEMAIL are used, if empty set to upstream maintainer info
-# NOTE You  should run this script as root (or you'll have wrong install file permission)
+# NOTE You  should run this script as root or fakeroot (or you'll have wrong install file permission)
 
 set -e
 

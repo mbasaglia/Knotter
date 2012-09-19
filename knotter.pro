@@ -107,7 +107,7 @@ src_doc.commands = ./info_preprocessor.sh Doxyfile | doxygen -
 
 #doc
 doc.depends = doc_builder.sh user_guide/manual.xml user_guide/man_page.in.xml
-doc.commands = ./doc_builder.sh
+doc.commands = ./doc_builder.sh obfuscate
 doc_clean.commands = ./doc_builder.sh clean
 
 man/$${TARGET}.1.gz.depends = doc

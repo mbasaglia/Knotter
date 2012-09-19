@@ -16,7 +16,11 @@
 
 # This script generates the user guide html and man page from the docbook sources
 # WARNING this script may not be very portable
-# Usage: doc_builder.sh [clean|pdf]
+# Usage: doc_builder.sh [clean|pdf|obfuscate]
+#   clean   -   remove old files
+#   pdf     -   generate pdf (and only pdf)
+#   obfuscate   After generation, obfuscate HTML email adresses,
+#               useful when publishing the online make spammer life more difficult
 
 
 package=`./get_info.sh name`
@@ -24,7 +28,6 @@ package=`./get_info.sh name`
 
 if  [ "$1" = "clean" ] ; then
     echo "Removing old files..."
-    set -x
     rm -f user_guide/*.html user_guide/man_page.xml man/$package.1.gz
     exit 0
 elif [ "$1" = "pdf" ] ; then
@@ -36,8 +39,11 @@ fi
 xmlto -o man --skip-validation man user_guide/man_page.xml 
 gzip -9f man/$package.1
 
+
+
+cd user_guide ################################################################## NOTE cd user_guide
+
 # html manual
-cd user_guide
 xmlto --skip-validation  \
     --stringparam html.stylesheet=style.css \
     --stringparam admon.graphics=1 \
@@ -52,4 +58,20 @@ xmlto --skip-validation  \
 
 rcc -project | sed 's|<qresource|\0 prefix="/doc" |' >doc.qrc
 
-set +x
+
+# Obfuscate email addresses by hex-encoding them
+if  [ "$1" = "obfuscate" ] ; then
+    #grep -Eo "<a[^>]+href=['\"]mailto:[^'\"]+['\"][^>]*>[^<]+</a>" *.html
+    echo "Obfuscating email addresses..."
+    for html in `find -name \*.html`
+    do
+        echo $html:
+        for email in `grep -Eo [a-z.]+@[a-z.]+ $html`
+        do
+            echo "  $email"
+            obfuscated=`echo -n $email | hexdump -v -e '/1 "<<AMP>>#x%02X;"'`
+            mailto=`echo -n mailto: | hexdump -v -e '/1 "<<AMP>>#x%02X;"'`
+            sed -i -e "s/$email/$obfuscated/g" -e "s/mailto:/$mailto/g" -e 's/<<AMP>>/\&/g' $html
+        done
+    done
+fi

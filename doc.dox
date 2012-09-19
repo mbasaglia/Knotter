@@ -5,6 +5,7 @@ Ignore this, see the main todo page
 
 internal:
 \todo Document every class and function
+\todo Build info show display Boost Webkit and Tango status
 
 knot style:
 \todo extensible edge types (?)
