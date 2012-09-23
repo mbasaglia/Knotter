@@ -349,7 +349,7 @@ void Knot_Window::init_docks()
 
 // Default Node Style Dock
     QDockWidget*    default_node_style_dock;
-    default_node_style_form = new node_style_form;
+    default_node_style_form = new node_style_form(0,true);
     default_node_style_dock = new QDockWidget;
     default_node_style_dock->setWidget(default_node_style_form);
     default_node_style_dock->setObjectName("Default_Node_Style");

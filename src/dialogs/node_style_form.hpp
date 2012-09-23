@@ -38,10 +38,12 @@ class node_style_form : public QWidget, private Ui::node_style_form
         knot_curve_styler::style_id curstyle_id;
 
     public:
-        explicit node_style_form(QWidget *parent = 0);
+        explicit node_style_form( QWidget *parent = 0, bool is_default = false);
 
         void set_style_info ( styleinfo si );
         styleinfo get_style_info() const;
+
+        void set_default ( styleinfo custom, styleinfo def );
 
 
     signals:

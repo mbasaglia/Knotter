@@ -275,28 +275,6 @@ void ChangeCustomNodeStyle::retranslate()
     setText(tr("Change node style"));
 }
 
-RemoveNodeStyle::RemoveNodeStyle(Node *node, KnotView *kv)
-    : KnotViewUndoCommand(kv), node(node)
-{
-    retranslate();
-}
-
-void RemoveNodeStyle::undo()
-{
-    node->enable_custom_style();
-    kv->redraw(true);
-}
-
-void RemoveNodeStyle::redo()
-{
-    node->disable_custom_style();
-    kv->redraw(true);
-}
-
-void RemoveNodeStyle::retranslate()
-{
-    setText(tr("Remove custom node style"));
-}
 
 void ChangeKnotWidth::retranslate()
 {

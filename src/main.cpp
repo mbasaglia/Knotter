@@ -257,7 +257,13 @@ std::ostream& operator<< ( std::ostream&os, QString str )
 
 int main(int argc, char *argv[])
 {
+// initialize
     ErrorRecovery::initialize();
+
+    knot_curve_styler::register_style(new knot_curve_pointed, "pointed" );
+    knot_curve_styler::register_style(new knot_curve_ogee, "ogee" );
+    knot_curve_styler::register_style(new knot_curve_polygonal, "polygonal" );
+    knot_curve_styler::register_style(new knot_curve_round, "round" );
 
     QApplication a(argc, argv);
 
@@ -274,9 +280,15 @@ int main(int argc, char *argv[])
 
     load::initialize_icon_theme();
 
+// run
     Knot_Window w(&graph);
 
     w.show();
     
-    return a.exec();
+    int status = a.exec();
+
+// finalize
+    knot_curve_styler::clear();
+
+    return status;
 }

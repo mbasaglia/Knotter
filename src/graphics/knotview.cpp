@@ -913,7 +913,9 @@ QGraphicsItem::CacheMode KnotView::get_cache_mode() const
 
 void KnotView::disable_custom_style(Node *n)
 {
-    undo_stack.push(new RemoveNodeStyle(n,this) );
+    undo_stack.beginMacro( tr("Remove custom node style") );
+    undo_stack.push(new ChangeCustomNodeStyle(n,n->get_custom_style(),styleinfo(),this) );
+    undo_stack.endMacro();
 }
 
 void KnotView::set_custom_style(Node *n, styleinfo sty)

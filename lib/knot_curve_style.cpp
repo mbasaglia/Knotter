@@ -148,6 +148,11 @@ knot_curve_styler::style_id knot_curve_styler::register_style(knot_curve_style *
     return id;
 }
 
+void knot_curve_styler::register_style(knot_curve_style *style, QString name)
+{
+    register_alias(register_style(style),name);
+}
+
 void knot_curve_styler::register_alias(knot_curve_styler::style_id id, QString name)
 {
     names[name] = id;
@@ -166,23 +171,13 @@ QString knot_curve_styler::name(knot_curve_styler::style_id id)
 }
 
 
-knot_curve_styler::knot_curve_styler()
-{
-    register_alias ( register_style(new knot_curve_pointed), "pointed" );
-    register_alias ( register_style(new knot_curve_ogee), "ogee" );
-    register_alias ( register_style(new knot_curve_polygonal), "polygonal" );
-    register_alias ( register_style(new knot_curve_round), "round" );
-
-}
-
-knot_curve_styler::~knot_curve_styler()
+void knot_curve_styler::clear()
 {
     foreach( knot_curve_style* sty, styles.values() )
         delete sty;
 }
 QMap<knot_curve_styler::style_id,knot_curve_style*> knot_curve_styler::styles;
 QMap<QString,knot_curve_styler::style_id> knot_curve_styler::names;
-knot_curve_styler knot_curve_styler::singleton;
 
 QPointF knot_curve_style:: get_cusp_point ( QLineF start,
                                  QLineF finish,
@@ -238,5 +233,18 @@ void knot_curve_round::draw_joint(path_builder &path, Node *node, const Traversa
     {
         path.add_cubic(start.p1(),start.p2(),finish.p2(),finish.p1());
     }
+}
+
+styleinfo styleinfo::default_to(const styleinfo &other) const
+{
+    return styleinfo (
+                (enabled_style & CURVE_STYLE ) ? curve_style : other.curve_style,
+                (enabled_style & CUSP_ANGLE ) ? cusp_angle : other.cusp_angle,
+                (enabled_style & HANDLE_LENGTH ) ? handle_length : other.handle_length,
+                (enabled_style & CROSSING_DISTANCE ) ? crossing_distance : other.crossing_distance,
+                (enabled_style & CUSP_DISTANCE ) ? cusp_distance : other.cusp_distance,
+                EVERYTHING
+            );
+
 }
 

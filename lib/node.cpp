@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 bool CustomItem::show_graph = true;
 
 Node::Node(QPointF position)
-    : CustomItem(true), custom_style_enabled (false)
+    : CustomItem(true)
 {
     setPos(position);
     setFlag(QGraphicsItem::ItemIsMovable);
@@ -190,18 +190,12 @@ TraversalInfo Node::next_edge(Edge *edge, Edge::handle_type handle) const
 
 void Node::set_custom_style(styleinfo si)
 {
-    custom_style_enabled = true;
     custom_style = si;
 }
 
 void Node::disable_custom_style()
 {
-    custom_style_enabled = false;
-}
-
-void Node::enable_custom_style()
-{
-    custom_style_enabled = true;
+    custom_style.enabled_style = styleinfo::NOTHING;
 }
 
 

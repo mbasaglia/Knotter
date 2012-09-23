@@ -47,17 +47,17 @@ struct knot_curve_styler
     static knot_curve_style* style ( style_id id );
     static knot_curve_style* style ( QString name );
 
-    /// takes ownership
+    /// takes ownership (if you call clear())
     static style_id register_style ( knot_curve_style* style );
+    static void register_style( knot_curve_style* style, QString name );
     static void register_alias ( style_id id, QString name );
 
     static style_id idof ( QString name );
     static QString name ( style_id id );
 
+    static void clear();
+
     private:
-        knot_curve_styler();
-        ~knot_curve_styler();
-        static knot_curve_styler singleton;
         static QMap<style_id,knot_curve_style*> styles;
         static QMap<QString,style_id> names;
 };
@@ -65,21 +65,46 @@ struct knot_curve_styler
 
 struct styleinfo
 {
+
+    enum EnabledEnum
+    {
+        NOTHING           = 0x00,
+        CURVE_STYLE       = 0x01,
+        CUSP_ANGLE        = 0x02,
+        HANDLE_LENGTH     = 0x04,
+        CROSSING_DISTANCE = 0x08,
+        CUSP_DISTANCE     = 0x10,
+        EVERYTHING        = 0xFF
+    };
+
+    Q_DECLARE_FLAGS(Enabled, EnabledEnum)
+
+
     knot_curve_styler::style_id curve_style;///< Knot shape
     double cusp_angle;                      ///< Min cusp angle
     double handle_length;                   ///< Length of handles (line from start point to control point in SVG curves )
     double crossing_distance;               ///< Crossing gap value
     double cusp_distance;                   ///< Distance from the node to the cusp point
+    Enabled enabled_style;                  ///< Which style features are enabled
+
+
     styleinfo ( knot_curve_styler::style_id curve_style = 0,
                double cusp_angle = 0,
                double handle_length = 0,
                double crossing_distance = 0,
-               double cusp_distance = 0 )
+               double cusp_distance = 0,
+               Enabled enabled_style = NOTHING )
         : curve_style(curve_style), cusp_angle(cusp_angle),
             handle_length(handle_length), crossing_distance(crossing_distance),
-            cusp_distance ( cusp_distance )
+            cusp_distance ( cusp_distance ), enabled_style ( enabled_style )
     {}
+
+    /// Set disabled style to the values in other
+    styleinfo default_to(const styleinfo& other) const;
 };
+
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(styleinfo::Enabled)
 
 /// Abstract class
 class knot_curve_style

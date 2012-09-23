@@ -136,7 +136,7 @@ void basic_knot_graph::build_knotline(path_builder &path_b)
 
                 if ( n->has_custom_style() )
                 {
-                    const styleinfo& csi = n->get_custom_style();
+                    styleinfo csi = n->get_custom_style().default_to(default_style);
                     knot_curve_style* customcs = knot_curve_styler::style(csi.curve_style);
                     customcs->draw_joint(path_b,n,ti,csi);
                 }

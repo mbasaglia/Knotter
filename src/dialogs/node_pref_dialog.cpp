@@ -5,18 +5,9 @@ node_pref_dialog::node_pref_dialog(KnotView* knot_view, Node *node, QWidget *par
     QDialog(parent), node ( node ), knot_view ( knot_view )
 {
     setupUi(this);
-    if ( node->has_custom_style() )
-    {
-        use_default->setChecked ( false );
-        style_form->set_style_info(node->get_custom_style());
-        style_form->setEnabled(true);
-    }
-    else
-    {
-        use_default->setChecked ( true );
-        style_form->set_style_info(knot_view->get_default_style());
-        style_form->setEnabled(false);
-    }
+
+    style_form->set_default(node->get_custom_style(),knot_view->get_default_style());
+
 
     setModal(true);
 
@@ -25,10 +16,7 @@ node_pref_dialog::node_pref_dialog(KnotView* knot_view, Node *node, QWidget *par
 
 void node_pref_dialog::on_buttonBox_accepted()
 {
-    if ( use_default->isChecked() )
-        knot_view->disable_custom_style(node);
-    else
-        knot_view->set_custom_style ( node, style_form->get_style_info() );
+    knot_view->set_custom_style ( node, style_form->get_style_info() );
 
     knot_view->redraw(true);
 }

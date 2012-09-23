@@ -78,7 +78,6 @@ class Node : public CustomItem
     protected:
         static const int radius = 5; ///< Radius of the circle used to represent the node
         QList<Edge*> edges;          ///< Edges connected to the node
-        bool        custom_style_enabled;
         styleinfo   custom_style;
 
     public:
@@ -114,12 +113,11 @@ class Node : public CustomItem
         */
         TraversalInfo next_edge ( Edge* edge, Edge::handle_type handle ) const;
 
-        bool has_custom_style() const { return custom_style_enabled; }
+        bool has_custom_style() const { return custom_style.enabled_style != styleinfo::NOTHING; }
         const styleinfo& get_custom_style() const { return custom_style; }
 
         void set_custom_style ( styleinfo si );
         void disable_custom_style ();
-        void enable_custom_style ();
 };
 
 /// Used very often

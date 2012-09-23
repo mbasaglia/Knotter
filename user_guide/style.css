@@ -85,3 +85,11 @@ h1.title a{
     display: list-item;
     margin: 0.25em;
 }
+
+.programlisting
+{
+    white-space: pre;
+    border: 1px solid gray;
+    padding: 1.5em;
+    border-radius: 8px;
+}

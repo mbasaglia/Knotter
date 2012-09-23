@@ -15,16 +15,6 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QCheckBox" name="use_default">
-     <property name="text">
-      <string>Use default</string>
-     </property>
-     <property name="checked">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="node_style_form" name="style_form" native="true"/>
    </item>
    <item>
@@ -78,22 +68,6 @@
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>use_default</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>style_form</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>44</x>
-     <y>9</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>62</x>
-     <y>60</y>
     </hint>
    </hints>
   </connection>

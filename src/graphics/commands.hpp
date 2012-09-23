@@ -259,23 +259,6 @@ class ChangeCustomNodeStyle : public KnotViewUndoCommand
     protected:
         void retranslate();
 };
-/**
-    \brief Set node to follow default style
-*/
-class RemoveNodeStyle : public KnotViewUndoCommand
-{
-        Q_OBJECT
-
-    Node *node;
-    public:
-        RemoveNodeStyle ( Node *node, KnotView* kv );
-
-        void undo();
-        void redo();
-
-    protected:
-        void retranslate();
-};
 
 /**
     \brief Change knot width

@@ -16,23 +16,42 @@
 
 # This script generates the user guide html and man page from the docbook sources
 # WARNING this script may not be very portable
-# Usage: doc_builder.sh [clean|pdf|obfuscate]
+# Usage: doc_builder.sh [options]
 #   clean   -   remove old files
-#   pdf     -   generate pdf (and only pdf)
+#   pdf     -   generate pdf
 #   obfuscate   After generation, obfuscate HTML email adresses,
 #               useful when publishing the online make spammer life more difficult
-
+#   exit    -   Quit the script when found
+#   nochunks-   Generate a single HTML file
 
 package=`./get_info.sh name`
 
-
-if  [ "$1" = "clean" ] ; then
-    echo "Removing old files..."
-    rm -f user_guide/*.html user_guide/man_page.xml man/$package.1.gz
-    exit 0
-elif [ "$1" = "pdf" ] ; then
-    dblatex -P latex.output.revhistory=0 manual.xml
-fi
+obfuscate=no
+for arg in $*
+do
+    case $arg in
+        clean)
+            echo "Removing old files..."
+            rm -f user_guide/*.html user_guide/man_page.xml man/$package.1.gz
+        ;;
+        pdf)
+            ( cd user_guide &&
+                dblatex -P latex.output.revhistory=0 manual.xml
+            )
+        ;;
+        obfuscate)
+            obfuscate=yes
+        ;;
+        exit)
+            exit 0
+        ;;
+        nochunks)
+            ( cd user_guide &&
+                xmlto --skip-validation xhtml-nochunks manual.xml
+            )
+        ;;
+    esac
+done
 
 # man page
 ./info_preprocessor.sh user_guide/man_page.in.xml >user_guide/man_page.xml
@@ -56,11 +75,12 @@ xmlto --skip-validation  \
     --stringparam chunk.section.depth=0 \
     xhtml manual.xml
 
+
 rcc -project | sed 's|<qresource|\0 prefix="/doc" |' >doc.qrc
 
 
 # Obfuscate email addresses by hex-encoding them
-if  [ "$1" = "obfuscate" ] ; then
+if  [ "$obfuscate" = "yes" ] ; then
     #grep -Eo "<a[^>]+href=['\"]mailto:[^'\"]+['\"][^>]*>[^<]+</a>" *.html
     echo "Obfuscating email addresses..."
     for html in `find -name \*.html`

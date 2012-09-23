@@ -6,20 +6,23 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>212</width>
+    <width>214</width>
     <height>141</height>
    </rect>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+   <item row="0" column="1">
     <widget class="QLabel" name="label_5">
      <property name="text">
       <string>Curve Control</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="1">
+   <item row="0" column="2">
     <widget class="QDoubleSpinBox" name="handle_length_spinner">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="suffix">
       <string>px</string>
      </property>
@@ -31,15 +34,18 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item row="1" column="1">
     <widget class="QLabel" name="label_8">
      <property name="text">
       <string>Crossing Gap</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
+   <item row="1" column="2">
     <widget class="QDoubleSpinBox" name="crossing_gap_spinner">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="suffix">
       <string>px</string>
      </property>
@@ -51,15 +57,18 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
+   <item row="2" column="1">
     <widget class="QLabel" name="label_6">
      <property name="text">
       <string>Min Cusp Angle</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="1">
+   <item row="2" column="2">
     <widget class="QDoubleSpinBox" name="cusp_angle_spinner">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="suffix">
       <string>°</string>
      </property>
@@ -74,15 +83,18 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
+   <item row="3" column="1">
     <widget class="QLabel" name="label">
      <property name="text">
       <string>Cusp Distance</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="1">
+   <item row="3" column="2">
     <widget class="QDoubleSpinBox" name="cusp_distance_spinner">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="suffix">
       <string>px</string>
      </property>
@@ -97,15 +109,18 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0">
+   <item row="4" column="1">
     <widget class="QLabel" name="label_7">
      <property name="text">
       <string>Curve Style</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="1">
+   <item row="4" column="2">
     <widget class="QComboBox" name="style_combo">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <item>
       <property name="text">
        <string>Pointed</string>
@@ -126,6 +141,41 @@
        <string>Polygonal</string>
       </property>
      </item>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QCheckBox" name="handle_length_check">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QCheckBox" name="crossing_gap_check">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QCheckBox" name="cusp_angle_check">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QCheckBox" name="cusp_distance_check">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QCheckBox" name="style_check">
+     <property name="text">
+      <string/>
+     </property>
     </widget>
    </item>
   </layout>
@@ -191,8 +241,88 @@
      <y>101</y>
     </hint>
     <hint type="destinationlabel">
-     <x>312</x>
+     <x>213</x>
      <y>96</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>handle_length_check</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>handle_length_spinner</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>13</x>
+     <y>13</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>146</x>
+     <y>13</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>crossing_gap_check</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>crossing_gap_spinner</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>18</x>
+     <y>41</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>162</x>
+     <y>44</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cusp_angle_check</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>cusp_angle_spinner</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>13</x>
+     <y>68</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>150</x>
+     <y>68</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cusp_distance_check</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>cusp_distance_spinner</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>14</x>
+     <y>92</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>178</x>
+     <y>97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>style_check</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>style_combo</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>16</x>
+     <y>120</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>192</x>
+     <y>124</y>
     </hint>
    </hints>
   </connection>

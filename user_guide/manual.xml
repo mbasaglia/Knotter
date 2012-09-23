@@ -31,14 +31,27 @@
     <title>Knotter User Guide</title>
 
     <section> <title>Introduction</title>
-      <para>Interlace patterns are a kind of design hystorically used as
-        a decorations in many places and by different cultures.</para>
+      <para>Knotter is a highly configurable interlace designer.</para>
+      <para>Interlace patterns are a kind of design hystorically used as a
+      decorations in many places and by different cultures,
+      some examples are Celtic knotworks and Islamic interlaces.</para>
       <para>Knotter uses
-        <ulink url="http://en.wikipedia.org/wiki/Knots_and_graphs">graphs to represent knots</ulink>.
+        <ulink url="http://en.wikipedia.org/wiki/Knots_and_graphs">graphs to
+        represent knots</ulink>.
       </para>
       <para>A good description of the algorithm used to render them and design
         tips can be found at
         <ulink url="http://www.entrelacs.net/">Celtic Knotwork: the Ultimate Tutorial</ulink>
+      </para>
+      <para>
+        Knotter aims to allow its user to design such patterns in an intuitive
+        way and to provide easy ways to integrate the result in external
+        general-puspose graphic software.
+      </para>
+      <para>
+        For this purpose, designs created within Knotter can be save in a custom
+        human-readable format and exported as Scalable Vector Graphics and in a
+        wide number of raster image formats.
       </para>
       <informalfigure>
         <mediaobject><imageobject><imagedata fileref="img/quran.jpg"/></imageobject></mediaobject>
@@ -610,7 +623,7 @@
     </section><!--Edit-->
     
     <section> <title>View Menu</title>
-    
+      <variablelist>
         <varlistentry>
           <term id="view_toolbars"><menuchoice>
             <guimenu>View</guimenu>
@@ -714,9 +727,11 @@
           <listitem><para>Show the background configuration dialog.</para></listitem>
         </varlistentry>
         
+      </variablelist>
     </section> <!--View-->
     
     <section> <title>Nodes Menu</title>
+      <variablelist>
         
         <varlistentry>
           <term id="nodes_link"><menuchoice>
@@ -794,7 +809,7 @@
           </menuchoice></term>
           <listitem><para>Snaps the selected nodes to the grid.</para></listitem>
         </varlistentry>
-        
+      </variablelist>
     </section> <!--Nodes-->
     
     <section> <title>Tools Menu</title>
@@ -885,8 +900,75 @@
     </warning>
   </chapter>
   
+  
+  
+  <chapter id="build"> <title>Building and installing</title>
+    <para>This chapter describes how to build and install Knotter from source and
+      the official packages, see <xref linkend="obtaining_knotter" /> for links
+      and instructions on how to get the packages.
+    </para>
+    
+    <section> <title>Requirements and dependencies</title>
+      <para>Knotter is written in C++ using the Qt framework, installig
+        the Qt SDK will satisfy most requirements.</para>
+      <itemizedlist>
+        <listitem><para>C++ build environment (Compiler, make etc.)</para></listitem>
+        <listitem>
+          <para>Qt libraries and developent tools</para>
+          <para>Knotter has been tested with Qt versions 4.7 and 4.8</para>
+          <para><ulink url="http://qt-project.org/">Qt Developer Network</ulink></para>
+        </listitem>
+        <listitem>
+          <para>Boost program-options (optional)</para>
+          <para><ulink url="http://www.boost.org/">Boost homepage</ulink></para>
+        </listitem>
+      </itemizedlist>
+      
+    </section>
+    
+    <section> <title>Compiling from a bourne shell</title>
+      <para>This section describes the scripts that can be called to build
+      Knotter from a bourne-compatible shell like <command>bash</command> or
+      <command>dash</command>. This is the reccommended way to build Knotter.</para>
+      <para>Building from a shell takes two steps, configuration and actual building.</para>
+      <para>The configuration is done via <command>configure.sh</command>, see
+        <command>configure.sh --help</command> for a list of options.</para>
+      <para><command>configure.sh</command> generates a Makefile that can be
+        used to build the program.</para>
+      <para>Building with automatic configuration is done as follows:</para>
+<programlisting>
+./configure.sh
+make
+</programlisting>
+      <para>If you want to install the Knotter, after the commands described above, run</para>
+<programlisting>
+make install
+</programlisting>
+      <para>This will install the files in prefix, as set from <command>configure.sh</command>.
+      You can move the entire install tree to a specific directory by setting the
+      environment viariable <envar>INSTALL_ROOT</envar></para>.
+    </section>
+    
+    <section> <title>Compiling from Qt creator</title>
+      <warning>
+        <para>It is strongly reccommended that you compile from a shell if it
+        is available on your system.</para>
+      </warning>
+      <para>The project file is <filename>knotter.pro</filename>,
+      you should be able to build it from Qt Creator.</para>
+      <!-- todo variables (?)-->
+    </section>
+    
+    <section> <title>Deb and packages</title>
+      <para>Binary deb and rpm packages can be used to install Knotter
+      using the system installer on systems that support these package managers.
+      </para>
+    </section>
+    
+  </chapter> <!-- Building and installing -->
+  
   <chapter id="contacts"> <title>Contacts and links</title>
-    <section> <title>Obtaining Knotter</title>
+    <section id="obtaining_knotter"> <title>Obtaining Knotter</title>
       <para>Source packages and some compiled binaries can be found at
         <ulink url="http://sourceforge.net/projects/knotter/files/">http://sourceforge.net/projects/knotter/files/</ulink>,
         The latest sources can be obtained with git at
@@ -900,6 +982,41 @@
       or send me an email: <personname>Mattia Basaglia</personname>
       <email>mattia.basaglia@gmail.com</email>
       </para>
+    </section>
+    <section> <title>All contacts</title>
+      <para>Follows a list of places from which you can get more information or
+      contact the maintainer</para>
+      <itemizedlist>
+        <listitem><para>
+          <ulink url="https://sourceforge.net/projects/knotter/">SourceForce
+          project summary</ulink>
+        </para></listitem>
+        <listitem><para>
+          <ulink url="https://sourceforge.net/p/knotter/discussion/">Forum on
+          SourceForge</ulink></para>
+        </listitem>
+        <listitem>
+          <para>
+            <personname>Mattia Basaglia</personname>
+            <email>mattia.basaglia@gmail.com</email>
+            (Project maintainer)
+          </para>
+        </listitem>
+        <listitem>
+          <para>Mailing list <email>knotter-devel@lists.sourceforge.net</email>
+          (<ulink url="https://sourceforge.net/mailarchive/forum.php?forum_name=knotter-devel">Archive</ulink>)
+          </para>
+        </listitem>
+        <listitem><para>
+          <ulink url="https://twitter.com/FreeKnotter">Twitter account</ulink>
+        </para></listitem>
+        <listitem><para>
+          <ulink url="https://freecode.com/projects/knotter">Freecode page</ulink>
+        </para></listitem>
+        <listitem><para>
+          <ulink url="https://www.ohloh.net/p/knotter">Ohloh project summary</ulink>
+        </para></listitem>
+      </itemizedlist>
     </section>
   </chapter>
   
