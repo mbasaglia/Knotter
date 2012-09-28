@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ui_node_style_form.h"
 #include "knot_curve_style.hpp"
+#include "node.hpp"
 
 class node_style_form : public QWidget, private Ui::node_style_form
 {
@@ -38,12 +39,31 @@ class node_style_form : public QWidget, private Ui::node_style_form
         knot_curve_styler::style_id curstyle_id;
 
     public:
-        explicit node_style_form( QWidget *parent = 0, bool is_default = false);
+        explicit node_style_form( QWidget *parent = 0);
 
+        /**
+            \brief Initialize UI status (values and checkboxes)
+        */
         void set_style_info ( styleinfo si );
+
         styleinfo get_style_info() const;
 
-        void set_default ( styleinfo custom, styleinfo def );
+        /**
+            \brief Initialize UI status for node-specific settings.
+            \param custom style for the custom node (stuff that will be enabled)
+            \param def    default style, values are loaded for disabled options
+        */
+        void from_single_node ( styleinfo custom, styleinfo def );
+
+        /**
+            \brief Initialize UI status from group of nodes
+        */
+        void from_multi_nodes ( node_list nodes, styleinfo def_style );
+
+        /**
+            \brief Make checkboxes invisible and uncheckable (global style mode)
+        */
+        void global_style_mode();
 
 
     signals:

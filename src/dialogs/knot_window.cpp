@@ -349,11 +349,24 @@ void Knot_Window::init_docks()
 
 // Default Node Style Dock
     QDockWidget*    default_node_style_dock;
-    default_node_style_form = new node_style_form(0,true);
+    default_node_style_form = new node_style_form(0);
+    default_node_style_form->global_style_mode();
     default_node_style_dock = new QDockWidget;
     default_node_style_dock->setWidget(default_node_style_form);
     default_node_style_dock->setObjectName("Default_Node_Style");
-    default_node_style_dock->setWindowTitle(tr("Default Node Style"));
+    default_node_style_dock->setWindowTitle(tr("Default Style"));
+
+//Selected Node Style Dock
+    QDockWidget* selected_node_style_dock;
+    selected_node_style_form = new node_style_form(0);
+    selected_node_style_form->setEnabled(false);
+    selected_node_style_dock = new QDockWidget;
+    selected_node_style_dock->setWidget(selected_node_style_form);
+    selected_node_style_dock->setObjectName("selected_node_style_dock");
+    selected_node_style_dock->setWindowTitle(tr("Selection Style"));
+
+    connect(selected_node_style_form,SIGNAL(style_changed(styleinfo)),
+                    SLOT(set_selected_style(styleinfo)));
 
 // Knot Style Dock
     QDockWidget*    global_style_dock;
@@ -366,15 +379,11 @@ void Knot_Window::init_docks()
 
 // Dock default positioning
     addDockWidget(Qt::RightDockWidgetArea,global_style_dock);
-    addDockWidget(Qt::RightDockWidgetArea,default_node_style_dock);
-
-    //undoDock->setFloating(true);
-    undoView->setGeometry(0,0,128,128);
-    undoView->resize(128,128);
-    undoDock->resize(128,128);
-    undoView->setMinimumHeight(16);
+    tabifyDockWidget(global_style_dock,default_node_style_dock);
+    tabifyDockWidget(default_node_style_dock,selected_node_style_dock);
+    global_style_dock->raise();
+    //addDockWidget(Qt::RightDockWidgetArea,default_node_style_dock);
     addDockWidget(Qt::RightDockWidgetArea,undoDock);
-    //undoDock->setFloating(false);
 
 // Dock toogle actions
     menu_Docks->clear();
@@ -689,7 +698,8 @@ void Knot_Window::set_redo_text(QString txt)
 
 void Knot_Window::enable_selection_action()
 {
-    int n = knotview()->selected_nodes().size();
+    node_list selection = knotview()->selected_nodes();
+    int n = selection.size();
 
     action_Horizontal_Flip->setEnabled ( n );
     action_Vertical_Flip->setEnabled ( n );
@@ -700,6 +710,22 @@ void Knot_Window::enable_selection_action()
     action_Vertical_Flip->setEnabled ( n >= 2);
     action_Link->setEnabled ( n >= 2);
     action_Unlink->setEnabled ( n >= 2 );
+    selected_node_style_form->from_multi_nodes(selection, knotview()->get_default_style());
+}
+
+void Knot_Window::set_selected_style(styleinfo si)
+{
+    node_list selection =  knotview()->selected_nodes();
+
+    if ( !selection.empty() )
+    {
+        knotview()->get_undo_stack().beginMacro(tr("Set selected nodes style"));
+
+        foreach ( Node* node, selection )
+            knotview()->set_custom_style ( node, si );
+
+        knotview()->get_undo_stack().endMacro();
+    }
 }
 
 void Knot_Window::mouse_moved(QPointF p)

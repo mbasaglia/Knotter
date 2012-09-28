@@ -57,6 +57,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         edge_cxmn       edge_context_menu;  ///< Menu shown on right-clicking on an edge
         QUndoView *     undoView;           ///< Action history
         node_style_form*default_node_style_form;
+        node_style_form*selected_node_style_form;
         global_style_form* global_style_frm;
         bool            save_toolbars;      ///< Whether custom toolbar buttons shall be saved on exit
         bool            save_style;         ///< Whether style shall be saved on exit
@@ -108,30 +109,6 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
         KnotView* canvas_at(int index);
 
-    protected slots:
-
-        /**
-            \brief Change the window title to "Knotter - filename*"
-            \param clean Whether the file is unedited
-        */
-        void update_title();
-
-        /// load configuration
-        void load_config();
-        /// save configuration
-        void save_config();
-
-        /// called when one of the Open recent entrieas has been clicked
-        void click_recent();
-
-        /// show node-wise context menu
-        void show_node_prefs(Node*);
-
-        void insert_toolbar(QToolBar*);
-
-        void drag_tab_away(int tab);
-
-
     public slots:
 
         /// Update the statusbar to show the mouse position
@@ -168,6 +145,29 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
 
     private slots:
+
+        /**
+            \brief Change the window title to "Knotter - filename*"
+            \param clean Whether the file is unedited
+        */
+        void update_title();
+
+        /// load configuration
+        void load_config();
+        /// save configuration
+        void save_config();
+
+        /// called when one of the Open recent entrieas has been clicked
+        void click_recent();
+
+        /// show node-wise context menu
+        void show_node_prefs(Node*);
+
+        void insert_toolbar(QToolBar*);
+
+        void drag_tab_away(int tab);
+
+
         /// show about dialog
         void on_action_About_triggered();
         void on_actionShow_Graph_triggered(bool checked);
@@ -181,6 +181,8 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
         /// enable/disable widgets that act on selection within current canvas
         void enable_selection_action();
+
+        void set_selected_style(styleinfo);
 
 
         void on_action_Undo_triggered();

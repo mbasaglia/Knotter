@@ -6,7 +6,7 @@ node_pref_dialog::node_pref_dialog(KnotView* knot_view, Node *node, QWidget *par
 {
     setupUi(this);
 
-    style_form->set_default(node->get_custom_style(),knot_view->get_default_style());
+    style_form->from_single_node(node->get_custom_style(),knot_view->get_default_style());
 
 
     setModal(true);

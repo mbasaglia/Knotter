@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_loader.hpp"
 #include "translator.hpp"
 
-node_style_form::node_style_form(QWidget *parent, bool is_default) :
+node_style_form::node_style_form(QWidget *parent) :
     QWidget(parent)
 {
     setupUi(this);
@@ -45,20 +45,6 @@ node_style_form::node_style_form(QWidget *parent, bool is_default) :
 
     connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
 
-    if ( is_default )
-    {
-        for ( int i = 0; i < gridLayout->rowCount(); i++ )
-        {
-            QCheckBox *cb = dynamic_cast<QCheckBox*>(
-                                gridLayout->itemAtPosition(i,0)->widget() );
-            if ( cb )
-            {
-                cb->setVisible(false);
-                cb->setChecked(true);
-                cb->setEnabled(false);
-            }
-        }
-    }
 }
 
 void node_style_form::set_style_info(styleinfo si)
@@ -95,7 +81,23 @@ styleinfo node_style_form::get_style_info() const
                      enabled_style );
 }
 
-void node_style_form::set_default(styleinfo custom, styleinfo def)
+void node_style_form::global_style_mode()
+{
+    for ( int i = 0; i < gridLayout->rowCount(); i++ )
+    {
+        QCheckBox *cb = dynamic_cast<QCheckBox*>(
+                            gridLayout->itemAtPosition(i,0)->widget() );
+        if ( cb )
+        {
+            cb->setVisible(false);
+            cb->setChecked(true);
+            cb->setEnabled(false);
+        }
+    }
+}
+
+
+void node_style_form::from_single_node(styleinfo custom, styleinfo def)
 {
     set_style_info(custom);
     styleinfo::Enabled en = custom.enabled_style;
@@ -104,6 +106,18 @@ void node_style_form::set_default(styleinfo custom, styleinfo def)
     if(!(en&styleinfo::CROSSING_DISTANCE))crossing_gap_spinner->setValue ( def.crossing_distance );
     if(!(en&styleinfo::CUSP_ANGLE) )      cusp_angle_spinner->setValue ( def.cusp_angle );
     if(!(en&styleinfo::CUSP_DISTANCE) )   cusp_distance_spinner->setValue ( def.cusp_distance );
+}
+
+void node_style_form::from_multi_nodes(node_list nodes, styleinfo def_style)
+{
+    if ( nodes.empty() )
+        setEnabled(false);
+    else
+    {
+        setEnabled(true);
+        /// \todo average or something
+        from_single_node(nodes[0]->get_custom_style(),def_style);
+    }
 }
 
 
