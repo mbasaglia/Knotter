@@ -16,7 +16,7 @@ node_pref_dialog::node_pref_dialog(KnotView* knot_view, Node *node, QWidget *par
 
 void node_pref_dialog::on_buttonBox_accepted()
 {
-    knot_view->set_custom_style ( node, style_form->get_style_info() );
+    knot_view->set_custom_style ( node_list()<<node, style_form->get_style_info() );
 
     knot_view->redraw(true);
 }

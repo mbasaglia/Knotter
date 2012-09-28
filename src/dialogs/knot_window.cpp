@@ -710,7 +710,10 @@ void Knot_Window::enable_selection_action()
     action_Vertical_Flip->setEnabled ( n >= 2);
     action_Link->setEnabled ( n >= 2);
     action_Unlink->setEnabled ( n >= 2 );
+
+    selected_node_style_form->blockSignals(true);
     selected_node_style_form->from_multi_nodes(selection, knotview()->get_default_style());
+    selected_node_style_form->blockSignals(false);
 }
 
 void Knot_Window::set_selected_style(styleinfo si)
@@ -719,12 +722,8 @@ void Knot_Window::set_selected_style(styleinfo si)
 
     if ( !selection.empty() )
     {
-        knotview()->get_undo_stack().beginMacro(tr("Set selected nodes style"));
-
-        foreach ( Node* node, selection )
-            knotview()->set_custom_style ( node, si );
-
-        knotview()->get_undo_stack().endMacro();
+        /// \todo add overload that takes only style info
+        knotview()->set_custom_style ( selection, si );
     }
 }
 

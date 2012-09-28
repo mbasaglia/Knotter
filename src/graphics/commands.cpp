@@ -247,7 +247,7 @@ bool ChangeDefaultNodeStyle::mergeWith(const QUndoCommand *other)
     return false;
 }
 
-ChangeCustomNodeStyle::ChangeCustomNodeStyle(Node *node, styleinfo style_old, styleinfo style_new, KnotView *kv)
+/*ChangeCustomNodeStyle::ChangeCustomNodeStyle(Node *node, styleinfo style_old, styleinfo style_new, KnotView *kv)
     : KnotViewUndoCommand(kv),
     was_disabled(false), node(node), style_old(style_old), style_new(style_new)
 {
@@ -274,7 +274,7 @@ void ChangeCustomNodeStyle::retranslate()
 {
     setText(tr("Change node style"));
 }
-
+*/
 
 void ChangeKnotWidth::retranslate()
 {
@@ -437,5 +437,53 @@ void ChangeKnotJoinStyle::redo()
 void ChangeKnotJoinStyle::retranslate()
 {
     setText(tr("Change knot point style"));
+}
+
+ChangeMultiNodeStyle::ChangeMultiNodeStyle(node_list nodes, styleinfo style_new, KnotView *kv)
+    : KnotViewUndoCommand(kv), nodes(nodes), style_new(style_new)
+{
+    foreach(Node* node,nodes)
+        style_old.push_back(node->get_custom_style());
+    retranslate();
+}
+
+void ChangeMultiNodeStyle::undo()
+{
+    for ( int i = 0; i < nodes.size(); i++ )
+        nodes[i]->set_custom_style(style_old[i]);
+    kv->redraw(true);
+}
+
+void ChangeMultiNodeStyle::redo()
+{
+    foreach(Node* node,nodes)
+        node->set_custom_style(style_new);
+    kv->redraw(true);
+}
+
+int ChangeMultiNodeStyle::id_ = KnotViewUndoCommand::get_id();
+
+int ChangeMultiNodeStyle::id() const
+{
+    return id_;
+}
+
+bool ChangeMultiNodeStyle::mergeWith(const QUndoCommand *other)
+{
+
+    if (other->id() != id())
+        return false;
+    const ChangeMultiNodeStyle* o = dynamic_cast<const ChangeMultiNodeStyle*>(other);
+    if ( o && o->nodes == nodes )
+    {
+        style_new = o->style_new;
+        return true;
+    }
+    return false;
+}
+
+void ChangeMultiNodeStyle::retranslate()
+{
+    setText(tr("Change node style"));
 }
 

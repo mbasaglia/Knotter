@@ -155,7 +155,8 @@ class KnotView : public QGraphicsView
         QGraphicsItem::CacheMode get_cache_mode() const;
 
         void disable_custom_style(Node*n);
-        void set_custom_style ( Node*n, styleinfo sty );
+        //void set_custom_style ( Node*n, styleinfo sty );
+        void set_custom_style ( node_list n, styleinfo sty );
 
     public slots:
         void set_join_style(Qt::PenJoinStyle);

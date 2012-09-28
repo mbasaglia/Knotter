@@ -239,10 +239,11 @@ class ChangeDefaultNodeStyle : public KnotViewUndoCommand
         static int id_;
 };
 
-/**
+/* *
     \brief Change node style
+    \todo remove (keep only ChangeMultiNodeStyle)
 */
-class ChangeCustomNodeStyle : public KnotViewUndoCommand
+/*class ChangeCustomNodeStyle : public KnotViewUndoCommand
 {
         Q_OBJECT
 
@@ -258,6 +259,35 @@ class ChangeCustomNodeStyle : public KnotViewUndoCommand
 
     protected:
         void retranslate();
+};*/
+
+/**
+    \brief Change node styles
+*/
+class ChangeMultiNodeStyle : public KnotViewUndoCommand
+{
+        Q_OBJECT
+
+    bool was_disabled;
+    node_list nodes;
+    QList<styleinfo> style_old;
+    styleinfo style_new;
+
+    public:
+        ChangeMultiNodeStyle ( node_list nodes, styleinfo  style_new, KnotView* kv );
+
+        void undo();
+        void redo();
+
+        int id() const;
+
+        bool mergeWith(const QUndoCommand *other);
+
+    protected:
+        void retranslate();
+
+    private:
+        static int id_;
 };
 
 /**

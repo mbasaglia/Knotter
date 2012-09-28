@@ -115,6 +115,15 @@ void node_style_form::from_multi_nodes(node_list nodes, styleinfo def_style)
     else
     {
         setEnabled(true);
+        for ( int i = 0; i < gridLayout->rowCount(); i++ )
+        {
+            QCheckBox *cb = dynamic_cast<QCheckBox*>(
+                                gridLayout->itemAtPosition(i,0)->widget() );
+            if ( cb )
+            {
+                cb->setChecked(false);
+            }
+        }
         /// \todo average or something
         from_single_node(nodes[0]->get_custom_style(),def_style);
     }
