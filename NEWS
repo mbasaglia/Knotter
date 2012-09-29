@@ -4,6 +4,7 @@ showing when features have been added to the program.
 Knotter 0.8.0  - Ongoing development
 --------------------
 * Single per-node style settings parameters can be toggled from default to custom
+* Dock controlling selected node style
 
 Knotter 0.7.0
 --------------------

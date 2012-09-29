@@ -239,27 +239,27 @@ class ChangeDefaultNodeStyle : public KnotViewUndoCommand
         static int id_;
 };
 
-/* *
-    \brief Change node style
-    \todo remove (keep only ChangeMultiNodeStyle)
+/**
+    \brief Change (single) node style
+
+    This class is intended to be used for the node style dialog, never merges
 */
-/*class ChangeCustomNodeStyle : public KnotViewUndoCommand
+class ChangeCustomNodeStyle : public KnotViewUndoCommand
 {
         Q_OBJECT
 
-    bool was_disabled;
     Node *node;
     styleinfo style_old, style_new;
 
     public:
-        ChangeCustomNodeStyle ( Node *node, styleinfo style_old, styleinfo  style_new, KnotView* kv );
+        ChangeCustomNodeStyle ( Node *node, styleinfo  style_new, KnotView* kv );
 
         void undo();
         void redo();
 
     protected:
         void retranslate();
-};*/
+};
 
 /**
     \brief Change node styles

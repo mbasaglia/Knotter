@@ -918,8 +918,7 @@ QGraphicsItem::CacheMode KnotView::get_cache_mode() const
 void KnotView::disable_custom_style(Node *n)
 {
     undo_stack.beginMacro( tr("Remove custom node style") );
-    undo_stack.push(new ChangeMultiNodeStyle(node_list()<<n,styleinfo(),this) );
-    //undo_stack.push(new ChangeCustomNodeStyle(n,n->get_custom_style(),styleinfo(),this) );
+    undo_stack.push(new ChangeCustomNodeStyle(n,styleinfo(),this) );
     undo_stack.endMacro();
 }
 
@@ -928,10 +927,10 @@ void KnotView::set_custom_style(node_list n, styleinfo sty)
     undo_stack.push(new ChangeMultiNodeStyle(n,sty,this) );
 }
 
-/*void KnotView::set_custom_style(Node *n, styleinfo sty)
+void KnotView::set_custom_style(Node *n, styleinfo sty)
 {
-    undo_stack.push(new ChangeCustomNodeStyle(n,n->get_custom_style(),sty,this) );
-}*/
+    undo_stack.push(new ChangeCustomNodeStyle(n,sty,this) );
+}
 
 void KnotView::set_join_style(Qt::PenJoinStyle pjs)
 {

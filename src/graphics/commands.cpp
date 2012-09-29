@@ -26,6 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "commands.hpp"
 #include "translator.hpp"
 
+//KnotViewUndoCommand
+
 KnotViewUndoCommand::KnotViewUndoCommand ( KnotView* kv )
     : kv ( kv )
 {
@@ -38,11 +40,13 @@ int KnotViewUndoCommand::get_id()
     return 0xD0C3D000 | next++;
 }
 
+//LastNodeCommand
 LastNodeCommand::LastNodeCommand(KnotView *kv)
     : KnotViewUndoCommand ( kv )
 {
 }
 
+//AddNode
 AddNode::AddNode(Node *node, node_list links, KnotView *kv)
     : LastNodeCommand ( kv ),
       node ( node ), links (links)
@@ -77,6 +81,7 @@ void AddNode::retranslate()
     setText( tr("Insert Node") );
 }
 
+//RemoveNode
 RemoveNode::RemoveNode(Node *node, node_list links, KnotView *kv)
     : KnotViewUndoCommand(kv), node ( node ), links (links)
 {
@@ -98,6 +103,7 @@ void RemoveNode::retranslate()
     setText(tr("Remove Node"));
 }
 
+//AddEdge
 AddEdge::AddEdge(Node *n1, Node *n2, KnotView *kv)
     : LastNodeCommand(kv), n1 ( n1 ), n2 ( n2 )
 {
@@ -124,6 +130,7 @@ void AddEdge::retranslate()
     setText(tr("Insert Edge"));
 }
 
+//RemoveEdge
 RemoveEdge::RemoveEdge(Node *n1, Node *n2, KnotView *kv)
     : KnotViewUndoCommand(kv), n1 ( n1 ), n2 ( n2 ), type(n1->get_link(n2)->type)
 {
@@ -146,6 +153,7 @@ void RemoveEdge::retranslate()
     setText(tr("Remove Edge"));
 }
 
+//MoveNode
 MoveNode::MoveNode(Node *node, QPointF start_pos, QPointF end_pos, KnotView *kv)
     : KnotViewUndoCommand(kv), node(node), start_pos ( start_pos ), end_pos ( end_pos )
 {
@@ -167,6 +175,7 @@ void MoveNode::retranslate()
     setText(tr("Move Node"));
 }
 
+//ToggleEdge
 void ToggleEdge::retranslate()
 {
     setText(tr("Change Edge Type"));
@@ -206,6 +215,7 @@ int ToggleEdge::id()
     return id_;
 }
 
+//ChangeDefaultNodeStyle
 void ChangeDefaultNodeStyle::retranslate()
 {
     setText(tr("Change default node style"));
@@ -247,20 +257,17 @@ bool ChangeDefaultNodeStyle::mergeWith(const QUndoCommand *other)
     return false;
 }
 
-/*ChangeCustomNodeStyle::ChangeCustomNodeStyle(Node *node, styleinfo style_old, styleinfo style_new, KnotView *kv)
+//ChangeCustomNodeStyle
+ChangeCustomNodeStyle::ChangeCustomNodeStyle(Node *node, styleinfo style_new, KnotView *kv)
     : KnotViewUndoCommand(kv),
-    was_disabled(false), node(node), style_old(style_old), style_new(style_new)
+    node(node), style_old(node->get_custom_style()), style_new(style_new)
 {
     retranslate();
-    was_disabled = !node->has_custom_style();
 }
 
 void ChangeCustomNodeStyle::undo()
 {
-    if ( was_disabled )
-        node->disable_custom_style();
-    else
-        node->set_custom_style(style_old);
+    node->set_custom_style(style_old);
     kv->redraw(true);
 }
 
@@ -274,8 +281,8 @@ void ChangeCustomNodeStyle::retranslate()
 {
     setText(tr("Change node style"));
 }
-*/
 
+//ChangeKnotWidth
 void ChangeKnotWidth::retranslate()
 {
     setText(tr("Change knot width"));
@@ -294,7 +301,6 @@ ChangeKnotWidth::ChangeKnotWidth(double old_width, double new_width, bool accept
 {
     retranslate();
 }
-
 
 void ChangeKnotWidth::undo()
 {
@@ -328,6 +334,7 @@ bool ChangeKnotWidth::mergeWith(const QUndoCommand *other)
 }
 
 
+//ChangeKnotBrush
 int ChangeKnotBrush::id_ = KnotViewUndoCommand::get_id();
 
 ChangeKnotBrush::ChangeKnotBrush(QBrush old_brush, QBrush new_brush, KnotView *kv)
@@ -376,6 +383,7 @@ void ChangeKnotBrush::retranslate()
     setText(tr("Change knot color"));
 }
 
+//ChangeKnotPen
 void ChangeKnotPen::retranslate()
 {
     setText(tr("Change knot outline"));
@@ -418,6 +426,7 @@ int ChangeKnotPen::id() const
     return id_;
 }
 
+//ChangeKnotJoinStyle
 ChangeKnotJoinStyle::ChangeKnotJoinStyle(Qt::PenJoinStyle old_pjs, Qt::PenJoinStyle new_pjs, KnotView *kv)
     : KnotViewUndoCommand(kv), old_pjs(old_pjs), new_pjs(new_pjs)
 {
@@ -439,6 +448,7 @@ void ChangeKnotJoinStyle::retranslate()
     setText(tr("Change knot point style"));
 }
 
+//ChangeMultiNodeStyle
 ChangeMultiNodeStyle::ChangeMultiNodeStyle(node_list nodes, styleinfo style_new, KnotView *kv)
     : KnotViewUndoCommand(kv), nodes(nodes), style_new(style_new)
 {
