@@ -820,7 +820,12 @@ void KnotView::load_graph(const KnotGraph &knot_graph)
     foreach(Node* n,knot.get_nodes())
     {
         if ( n->scene() != scene() )
+        {
             add_node(n);
+            styleinfo si = n->get_custom_style().default_to(get_default_style());
+            si.enabled_style = n->get_custom_style().enabled_style;
+            n->set_custom_style(si);
+        }
     }
     foreach(Edge* e,knot.get_edges())
     {
