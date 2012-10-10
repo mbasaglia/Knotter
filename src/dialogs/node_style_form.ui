@@ -326,6 +326,86 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>handle_length_check</sender>
+   <signal>clicked()</signal>
+   <receiver>node_style_form</receiver>
+   <slot>anything_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>24</x>
+     <y>18</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>47</x>
+     <y>-32</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>crossing_gap_check</sender>
+   <signal>clicked()</signal>
+   <receiver>node_style_form</receiver>
+   <slot>anything_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>12</x>
+     <y>36</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>421</x>
+     <y>36</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cusp_angle_check</sender>
+   <signal>clicked()</signal>
+   <receiver>node_style_form</receiver>
+   <slot>anything_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>25</x>
+     <y>71</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>370</x>
+     <y>77</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cusp_distance_check</sender>
+   <signal>clicked()</signal>
+   <receiver>node_style_form</receiver>
+   <slot>anything_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>25</x>
+     <y>103</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>388</x>
+     <y>99</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>style_check</sender>
+   <signal>clicked()</signal>
+   <receiver>node_style_form</receiver>
+   <slot>anything_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>26</x>
+     <y>129</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>336</x>
+     <y>123</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>anything_changed()</slot>

@@ -14,6 +14,7 @@
 <file>./img/deco.jpg</file>
 <file>./img/edge_types.png</file>
 <file>./img/export.png</file>
+<file>./img/favicon.png</file>
 <file>./img/grid.png</file>
 <file>./img/home.svg</file>
 <file>./img/logo_big.svg</file>
@@ -34,6 +35,7 @@
 <file>./man_page.html</file>
 <file>./man_page.in.xml</file>
 <file>./man_page.xml</file>
+<file>./manual.html</file>
 <file>./manual.pdf</file>
 <file>./manual.xml</file>
 <file>./menus.html</file>

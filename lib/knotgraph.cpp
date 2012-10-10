@@ -127,7 +127,7 @@ void KnotGraph::load_xml(xml_loader &xml)
 
         setPen ( xml.get_pen("outline", pen() ) );
 
-        set_style_info ( xml.get_cusp( "cusp", get_style_info() ) );
+        set_style_info ( xml.get_cusp( "cusp" ) );
 
         xml.leave();
     }

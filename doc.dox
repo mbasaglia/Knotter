@@ -14,6 +14,7 @@ knot style:
 misc:
 \todo Qt translation files - http://qt-project.org/faq/answer/does_qt_provide_translations_for_the_user_visible_strings_of_the_widgets
 \todo Build info show display Boost Webkit and Tango status
+\todo add knotdraw.org references and mail to the docbook files
 
 packaging:
 \todo Debian changelog to NEWS (or NEWS to CHANGELOG?)

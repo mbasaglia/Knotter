@@ -26,6 +26,21 @@
 
 package=`./get_info.sh name`
 
+xsl_transform() {
+
+xmlto --skip-validation  \
+    --stringparam html.stylesheet=style.css \
+    --stringparam admon.graphics=1 \
+    --stringparam admon.graphics.extension=.svg \
+    --stringparam admon.graphics.path=img/ \
+    --stringparam navig.graphics=1 \
+    --stringparam navig.graphics.extension=.svg \
+    --stringparam navig.graphics.path=img/ \
+    --stringparam use.id.as.filename=1 \
+    --stringparam chunk.section.depth=0 \
+    $1 manual.xml
+}
+
 obfuscate=no
 for arg in $*
 do
@@ -47,7 +62,7 @@ do
         ;;
         nochunks)
             ( cd user_guide &&
-                xmlto --skip-validation xhtml-nochunks manual.xml
+                xsl_transform xhtml-nochunks
             )
         ;;
     esac
@@ -63,17 +78,7 @@ gzip -9f man/$package.1
 cd user_guide ################################################################## NOTE cd user_guide
 
 # html manual
-xmlto --skip-validation  \
-    --stringparam html.stylesheet=style.css \
-    --stringparam admon.graphics=1 \
-    --stringparam admon.graphics.extension=.svg \
-    --stringparam admon.graphics.path=img/ \
-    --stringparam navig.graphics=1 \
-    --stringparam navig.graphics.extension=.svg \
-    --stringparam navig.graphics.path=img/ \
-    --stringparam use.id.as.filename=1 \
-    --stringparam chunk.section.depth=0 \
-    xhtml manual.xml
+xsl_transform xhtml
 
 
 rcc -project | sed 's|<qresource|\0 prefix="/doc" |' >doc.qrc

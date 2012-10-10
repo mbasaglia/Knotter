@@ -89,7 +89,7 @@ void basic_knot_graph::clear()
 
 void basic_knot_graph::set_style_info(styleinfo new_style)
 {
-    default_style = new_style;
+    default_style = new_style.default_to(default_style);
 }
 
 styleinfo basic_knot_graph::get_style_info() const

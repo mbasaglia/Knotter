@@ -99,13 +99,20 @@ void xml_saver::save_pen(QString name, QPen pen, bool style, bool join_style )
 void xml_saver::save_cusp(QString name, styleinfo si)
 {
     start_element(name);
+    if ( si.enabled_style & styleinfo::CURVE_STYLE )
+        xml.writeTextElement("style",knot_curve_styler::name(si.curve_style));
 
-    xml.writeTextElement("style",knot_curve_styler::name(si.curve_style));
-    xml.writeTextElement("min-angle",QString::number(si.cusp_angle));
-    xml.writeTextElement("distance",QString::number(si.cusp_distance));
+    if ( si.enabled_style & styleinfo::CUSP_ANGLE )
+        xml.writeTextElement("min-angle",QString::number(si.cusp_angle));
 
-    xml.writeTextElement("gap",QString::number(si.crossing_distance));
-    xml.writeTextElement("handle-length",QString::number(si.handle_length));
+    if ( si.enabled_style & styleinfo::CUSP_DISTANCE )
+        xml.writeTextElement("distance",QString::number(si.cusp_distance));
+
+    if ( si.enabled_style & styleinfo::CROSSING_DISTANCE )
+        xml.writeTextElement("gap",QString::number(si.crossing_distance));
+
+    if ( si.enabled_style & styleinfo::HANDLE_LENGTH )
+        xml.writeTextElement("handle-length",QString::number(si.handle_length));
 
     end_element();
 }
@@ -202,8 +209,7 @@ void xml_loader::get_graph(KnotGraph &kv)
         if ( !node.firstChildElement("custom-style").isNull() )
         {
             current_elements.push(node);
-            cur_node->set_custom_style ( get_cusp ( "custom-style",
-                                        kv.get_style_info() ) );
+            cur_node->set_custom_style ( get_cusp ( "custom-style"  ) );
             current_elements.pop();
         }
 
@@ -298,33 +304,52 @@ QPen xml_loader::get_pen(QString name, QPen pen)
     return pen;
 }
 
-styleinfo xml_loader::get_cusp(QString name, styleinfo cusp_style_info)
+styleinfo xml_loader::get_cusp(QString name)
 {
-
+    styleinfo cusp_style_info;
     QDomElement cusp = current_elements.top().firstChildElement(name);
 
-        QDomElement cusp_style = cusp.firstChildElement("style");
-        if ( !cusp_style.isNull() )
-            cusp_style_info.curve_style = knot_curve_styler::idof(cusp_style.text());
+    QDomElement cusp_style = cusp.firstChildElement("style");
+    if ( !cusp_style.isNull() )
+    {
+        cusp_style_info.curve_style = knot_curve_styler::idof(cusp_style.text());
+        cusp_style_info.enabled_style |= styleinfo::CURVE_STYLE;
+    }
 
-        QDomElement cusp_angle = cusp.firstChildElement("min-angle");
-        if ( ! cusp_angle.isNull() )
-            cusp_style_info.cusp_angle =  cusp_angle.text().toDouble();
+    QDomElement cusp_angle = cusp.firstChildElement("min-angle");
+    if ( ! cusp_angle.isNull() )
+    {
+        cusp_style_info.cusp_angle =  cusp_angle.text().toDouble();
+        cusp_style_info.enabled_style |= styleinfo::CUSP_ANGLE;
+    }
 
-        QDomElement cusp_dist = cusp.firstChildElement("distance");
-        if ( !  cusp_dist.isNull() )
-            cusp_style_info.cusp_distance = cusp_dist.text().toDouble();
+
+    QDomElement cusp_dist = cusp.firstChildElement("distance");
+    if ( !  cusp_dist.isNull() )
+    {
+        cusp_style_info.cusp_distance = cusp_dist.text().toDouble();
+        cusp_style_info.enabled_style |= styleinfo::CUSP_DISTANCE;
+    }
 
 
-        QDomElement egap = cusp.firstChildElement("gap");
-        if ( !egap.isNull() )
-            cusp_style_info.crossing_distance =  egap.text().toDouble();
 
-        QDomElement handle_length = cusp.firstChildElement("handle-length");
-        if ( ! handle_length.isNull() )
-            cusp_style_info.handle_length =  handle_length.text().toDouble();
+    QDomElement egap = cusp.firstChildElement("gap");
+    if ( !egap.isNull() )
+    {
+        cusp_style_info.crossing_distance =  egap.text().toDouble();
+        cusp_style_info.enabled_style |= styleinfo::CROSSING_DISTANCE;
+    }
 
-        return cusp_style_info;
+
+    QDomElement handle_length = cusp.firstChildElement("handle-length");
+    if ( ! handle_length.isNull() )
+    {
+        cusp_style_info.handle_length =  handle_length.text().toDouble();
+        cusp_style_info.enabled_style |= styleinfo::HANDLE_LENGTH;
+    }
+
+
+    return cusp_style_info;
 
 }
 

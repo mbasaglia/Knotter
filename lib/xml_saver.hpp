@@ -79,7 +79,7 @@ class xml_loader
 
         QPen get_pen ( QString name, QPen default_value );
 
-        styleinfo get_cusp ( QString name, styleinfo default_value );
+        styleinfo get_cusp ( QString name );
 
         void leave();
 };
