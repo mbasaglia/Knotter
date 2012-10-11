@@ -1362,6 +1362,7 @@ void KnotView::merge_selected()
     QPointF pos; // average position
 
     node_list links; // nodes linked to selection
+    QMap<Node*,Edge::type_type> types; // link types
 
     QList<QGraphicsItem*> selection = scene()->selectedItems();
 
@@ -1381,14 +1382,20 @@ void KnotView::merge_selected()
             {
                 Node *o = e->other(n);
                 adjacency_list.push_back(o);
-                if ( !scene()->selectedItems().contains(o) )
+                if ( !o->isSelected() )
+                {
                     links.push_back(o);
+                    types[o] = e->type;
+                }
             }
             remove_node(n,adjacency_list);
         }
     }
 
-    add_node(pos/selection.count(),links);
+    Node* mid = add_node(pos/selection.count(),links);
+    foreach ( Node* o, links )
+        set_edge_type(mid,o,types[o]);
+
     last_node->setSelected(true);
 
     undo_stack.endMacro();
