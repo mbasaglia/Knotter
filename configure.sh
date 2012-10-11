@@ -387,13 +387,13 @@ case \$1 in
     name) echo $program_name ;;
     version) echo $program_version ;;
     author) echo "Mattia Basaglia" ;;
-    email) echo "mattia.basaglia@gmail.com" ;;
+    email) echo "knotter@knotdraw.org" ;;
     title) echo Knotter ;;
     desc) echo "Celtic knot editor" ;;
     long-desc) echo "Knotter is an editor for interlace patterns."
                echo " Knots drawn with Knotter can be exported as SVG or raster images."
     ;;
-    website) echo "https://sourceforge.net/projects/knotter/" ;;
+    website) echo "http://www.knotdraw.org/" ;;
     download) echo "http://sourceforge.net/projects/knotter/files/latest/download" ;;
     icon) echo "$datadir/img/$program_name-logo-big.svg" ;;
 _GET_DIR_

@@ -14,7 +14,7 @@
     <author>
       <firstname>Mattia</firstname>
       <surname>Basaglia</surname>
-      <email>mattia.basaglia@gmail.com</email>
+      <email>knotter@knotdraw.org</email>
     </author>
     
     <legalnotice><para>Permission is granted to copy, distribute and/or modify this document
@@ -979,7 +979,7 @@ make install
       <para>To send bug reports, freature request and feedback you can use the
       <ulink url="https://sourceforge.net/p/knotter/discussion/">forum on SourceForge</ulink>
       or send me an email: <personname>Mattia Basaglia</personname>
-      <email>mattia.basaglia@gmail.com</email>
+      <email>knotter@knotdraw.org</email>
       </para>
     </section>
     <section> <title>All contacts</title>
@@ -987,33 +987,24 @@ make install
       contact the maintainer</para>
       <itemizedlist>
         <listitem><para>
+          <ulink url="http://www.knotdraw.org/">Knotter website (knotdraw.org)</ulink>
+        </para></listitem>
+        <listitem><para>
           <ulink url="https://sourceforge.net/projects/knotter/">SourceForce
           project summary</ulink>
         </para></listitem>
         <listitem><para>
-          <ulink url="https://sourceforge.net/p/knotter/discussion/">Forum on
-          SourceForge</ulink></para>
+          <ulink url="http://www.knotdraw.org/forum/">Forum</ulink></para>
         </listitem>
         <listitem>
           <para>
             <personname>Mattia Basaglia</personname>
-            <email>mattia.basaglia@gmail.com</email>
+            <email>knotter@knotdraw.org</email>
             (Project maintainer)
-          </para>
-        </listitem>
-        <listitem>
-          <para>Mailing list <email>knotter-devel@lists.sourceforge.net</email>
-          (<ulink url="https://sourceforge.net/mailarchive/forum.php?forum_name=knotter-devel">Archive</ulink>)
           </para>
         </listitem>
         <listitem><para>
           <ulink url="https://twitter.com/FreeKnotter">Twitter account</ulink>
-        </para></listitem>
-        <listitem><para>
-          <ulink url="https://freecode.com/projects/knotter">Freecode page</ulink>
-        </para></listitem>
-        <listitem><para>
-          <ulink url="https://www.ohloh.net/p/knotter">Ohloh project summary</ulink>
         </para></listitem>
       </itemizedlist>
     </section>

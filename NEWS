@@ -5,6 +5,8 @@ Knotter 0.8.0  - Ongoing development
 --------------------
 * Single per-node style settings parameters can be toggled from default to custom
 * Dock controlling selected node style
+* Optimization, mostly noticeable when loading a graph and pasting
+* Website at http://www.knotdraw.org/
 
 Knotter 0.7.0
 --------------------
