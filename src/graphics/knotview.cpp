@@ -41,7 +41,8 @@ KnotView::KnotView( QWidget* parent )
     h_tr(TH::TOP|TH::RIGHT),
     h_br(TH::BOTTOM|TH::RIGHT),
     dragged(NULL),
-    saved(false)
+    saved(false),
+    dont_redraw(false)
 {
     setScene ( new QGraphicsScene );
     setSceneRect ( 0, 0, width(), height());
@@ -582,11 +583,11 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
     {
         dragged = NULL;
         if ( h_tl.get_mode() == TH::ROTATE )
-            undo_stack.beginMacro(tr("Rotate"));
+            begin_macro(tr("Rotate"));
         else
-            undo_stack.beginMacro(tr("Scale"));
+            begin_macro(tr("Scale"));
         move_nodes();
-        undo_stack.endMacro();
+        end_macro();
     }
     /*else if ( mouse_status == EDGING )
     {
@@ -804,11 +805,11 @@ void KnotView::clear()
 
 void KnotView::reload_graph()
 {
-    undo_stack.beginMacro(tr("Load Knot"));
+    begin_macro(tr("Load Knot"));
 
     load_graph(knot);
 
-    undo_stack.endMacro();
+    end_macro();
     undo_stack.setClean();
 }
 
@@ -851,6 +852,19 @@ void KnotView::same_mode(const KnotView &other)
     fluid_redraw = other.fluid_redraw;
 
     toggle_knotline ( other.knot.scene() != NULL );
+}
+
+void KnotView::begin_macro(QString name)
+{
+    dont_redraw = true;
+    undo_stack.beginMacro(name);
+}
+
+void KnotView::end_macro()
+{
+    dont_redraw = false;
+    undo_stack.endMacro();
+    redraw(true);
 }
 
 
@@ -922,9 +936,9 @@ QGraphicsItem::CacheMode KnotView::get_cache_mode() const
 
 void KnotView::disable_custom_style(Node *n)
 {
-    undo_stack.beginMacro( tr("Remove custom node style") );
+    begin_macro( tr("Remove custom node style") );
     undo_stack.push(new ChangeCustomNodeStyle(n,styleinfo(),this) );
-    undo_stack.endMacro();
+    end_macro();
 }
 
 void KnotView::set_custom_style(node_list n, styleinfo sty)
@@ -1033,12 +1047,12 @@ Node* KnotView::add_node_or_break_edge(QPointF p,node_list adjl)
         QLineF newline ( v1->pos(), p );
         newline.setAngle( oldline.angle() );
 
-        undo_stack.beginMacro(tr("Break Edge"));
+        begin_macro(tr("Break Edge"));
         adjl.push_back(v1);
         adjl.push_back(v2);
         retnode = add_node(newline.p2(),adjl);
         remove_edge(v1,v2);
-        undo_stack.endMacro();
+        end_macro();
     }
     else
         retnode = add_node(p,adjl);
@@ -1115,7 +1129,7 @@ void KnotView::break_edge_intersections(Edge *e)
     if ( intersected.empty() )
         return;
 
-    undo_stack.beginMacro("Break edge");
+    begin_macro("Break edge");
 
     Node* last = v1;
 
@@ -1136,7 +1150,7 @@ void KnotView::break_edge_intersections(Edge *e)
     add_edge(last,v2);
 
 
-    undo_stack.endMacro();
+    end_macro();
 
 }
 
@@ -1144,7 +1158,7 @@ void KnotView::break_edge_equal(Edge *e, int segments)
 {
     if ( !e || segments < 2 ) return;
 
-    undo_stack.beginMacro("Break edge");
+    begin_macro("Break edge");
 
     Node* v1 = e->vertex1();
     Node* v2 = e->vertex2();
@@ -1162,7 +1176,7 @@ void KnotView::break_edge_equal(Edge *e, int segments)
     }
     add_edge(last,v2);
 
-    undo_stack.endMacro();
+    end_macro();
 
 }
 
@@ -1170,12 +1184,12 @@ void KnotView::move_nodes ( )
 {
     if ( selected_nodes().size() > 1 )
     {
-        undo_stack.beginMacro(tr("Move Nodes"));
+        begin_macro(tr("Move Nodes"));
         foreach ( Node* n, selected_nodes() )
         {
             undo_stack.push(new MoveNode(n,sel_offset[n]+startpos,n->pos(),this));
         }
-        undo_stack.endMacro();
+        end_macro();
     }
     else if ( selected_nodes().size() == 1 )
     {
@@ -1319,18 +1333,18 @@ void KnotView::erase_selected()
 {
     //if ( mode == EDIT_NODE )
     {
-        undo_stack.beginMacro(tr("Remove Nodes"));
+        begin_macro(tr("Remove Nodes"));
         foreach( QGraphicsItem* node, scene()->selectedItems() )
         {
             remove_node ( dynamic_cast<Node*>(node) );
         }
-        undo_stack.endMacro();
+        end_macro();
     }
 }
 
 void KnotView::link_selected()
 {
-    undo_stack.beginMacro(tr("Link Nodes"));
+    begin_macro(tr("Link Nodes"));
     typedef node_list::iterator iter;
     node_list sel = selected_nodes();
     for ( iter i = sel.begin(); i != sel.end(); ++i )
@@ -1339,12 +1353,12 @@ void KnotView::link_selected()
         for ( ++j; j != sel.end(); ++j )
             add_edge(*i,*j);
     }
-    undo_stack.endMacro();
+    end_macro();
 }
 
 void KnotView::unlink_selected()
 {
-    undo_stack.beginMacro(tr("Unlink Nodes"));
+    begin_macro(tr("Unlink Nodes"));
     typedef node_list::iterator iter;
     node_list sel = selected_nodes();
     for ( iter i = sel.begin(); i != sel.end(); ++i )
@@ -1353,7 +1367,7 @@ void KnotView::unlink_selected()
         for ( ++j; j != sel.end(); ++j )
             remove_edge(*i,*j);
     }
-    undo_stack.endMacro();
+    end_macro();
 }
 
 
@@ -1369,7 +1383,7 @@ void KnotView::merge_selected()
     if ( selection.count() < 2 )
         return;
 
-    undo_stack.beginMacro(tr("Merge Nodes"));
+    begin_macro(tr("Merge Nodes"));
 
     foreach( QGraphicsItem* node, selection )
     {
@@ -1398,7 +1412,7 @@ void KnotView::merge_selected()
 
     last_node->setSelected(true);
 
-    undo_stack.endMacro();
+    end_macro();
 }
 
 void KnotView::select_all()
@@ -1416,6 +1430,9 @@ void KnotView::select_all()
 
 void KnotView::redraw(bool recalculate_node)
 {
+    if ( dont_redraw )
+        return;
+
     if ( recalculate_node && knot.scene() )
         knot.build();
     scene()->invalidate();
@@ -1454,7 +1471,7 @@ void KnotView::flip_horizontal()
     if ( sel.size() < 2 )
         return;
 
-    undo_stack.beginMacro(tr("Horizontal Flip"));
+    begin_macro(tr("Horizontal Flip"));
 
     QPointF origin = bound_box().center();
     foreach ( Node* selnode, sel )
@@ -1466,7 +1483,7 @@ void KnotView::flip_horizontal()
         undo_stack.push ( new MoveNode(selnode, selnode->pos(),vector.p2(),this) );
     }
 
-    undo_stack.endMacro();
+    end_macro();
 
     redraw(true);
 }
@@ -1478,7 +1495,7 @@ void KnotView::flip_vertical()
     if ( sel.size() < 2 )
         return;
 
-    undo_stack.beginMacro(tr("Vertical Flip"));
+    begin_macro(tr("Vertical Flip"));
 
     QPointF origin = bound_box().center();
     foreach ( Node* selnode, sel )
@@ -1490,7 +1507,7 @@ void KnotView::flip_vertical()
         undo_stack.push ( new MoveNode(selnode, selnode->pos(),vector.p2(),this) );
     }
 
-    undo_stack.endMacro();
+    end_macro();
 
     redraw(true);
 }

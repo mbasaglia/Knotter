@@ -78,6 +78,7 @@ class KnotView : public QGraphicsView
         Transform_Handle* dragged;      ///< The transform handle currently being dragged (if any)
         background_image backimg;
         bool saved;                     ///< Whether it has an associated file name
+        bool dont_redraw;               ///< Optimization flag, skip redrawing even on redraw(true)
 
         QPointF startpos;               ///< Starting position in moving actions
         QPointF move_center;            ///< Point aligned to the cursor during movement
@@ -103,6 +104,12 @@ class KnotView : public QGraphicsView
 
         /// copy mode from other
         void same_mode ( const KnotView& other );
+
+        /// Disable redrawing and begin UndoStack macro
+        void begin_macro(QString name);
+
+        /// enable redrawing and end UndoStack macro
+        void end_macro();
 
 // do_ functions
     /**

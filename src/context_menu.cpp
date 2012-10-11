@@ -56,9 +56,9 @@ void node_cxmn::snap()
 {
     if ( n && kv )
     {
-        kv->get_undo_stack().beginMacro(tr("Snap Node"));
+        kv->begin_macro(tr("Snap Node"));
         kv->move_node(n, kv->get_grid().nearest(n->pos()) );
-        kv->get_undo_stack().endMacro();
+        kv->end_macro();
     }
 }
 
@@ -133,7 +133,7 @@ void edge_cxmn::snap()
         kv->get_undo_stack().beginMacro(tr("Snap Edge"));
         kv->move_node(n1, kv->get_grid().nearest(n1->pos()) );
         kv->move_node(n2, kv->get_grid().nearest(n2->pos()) );
-        kv->get_undo_stack().endMacro();
+        kv->end_macro();
     }
 }
 

@@ -786,7 +786,7 @@ void Knot_Window::copy()
 
 void Knot_Window::cut()
 {
-    knotview()->get_undo_stack().beginMacro(tr("Cut"));
+    knotview()->begin_macro(tr("Cut"));
 
     copy();
 
@@ -794,7 +794,7 @@ void Knot_Window::cut()
     foreach ( Node* n, sel )
         knotview()->remove_node(n);
 
-    knotview()->get_undo_stack().endMacro();
+    knotview()->end_macro();
 }
 
 void Knot_Window::paste()
@@ -826,7 +826,7 @@ void Knot_Window::paste()
 
     QPointF p = knotview()->mapToScene( knotview()->mapFromGlobal(QCursor::pos()) );
 
-    knotview()->get_undo_stack().beginMacro(KnotView::tr("Paste"));
+    knotview()->begin_macro(KnotView::tr("Paste"));
 
     knotview()->scene()->clearSelection();
 
@@ -842,7 +842,7 @@ void Knot_Window::paste()
         knotview()->add_edge(e->vertex1(),e->vertex2());
     }
 
-    knotview()->get_undo_stack().endMacro();
+    knotview()->end_macro();
 
     knotview()->mode_moving_new(graph.get_nodes()[0]->pos());
 
@@ -1113,7 +1113,7 @@ void Knot_Window::on_actionInsert_Polygon_triggered()
     if ( !ok )
         return;
 
-    knotview()->get_undo_stack().beginMacro("Insert Polygon");
+    knotview()->begin_macro("Insert Polygon");
 
 
     knotview()->scene()->clearSelection();
@@ -1138,7 +1138,7 @@ void Knot_Window::on_actionInsert_Polygon_triggered()
     }
     knotview()->add_edge(last,first);
 
-    knotview()->get_undo_stack().endMacro();
+    knotview()->end_macro();
 
     knotview()->mode_moving_new(first->pos());//rad.p1());
 }
@@ -1307,12 +1307,12 @@ void Knot_Window::on_actionS_nap_to_grid_triggered()
     node_list sel =  kv->selected_nodes();
     if ( !sel.empty() )
     {
-        kv->get_undo_stack().beginMacro(tr("Snap Nodes"));
+        kv->begin_macro(tr("Snap Nodes"));
 
 
         foreach (Node* n, sel )
             kv->move_node(n, kv->get_grid().nearest(n->pos()) );
 
-        kv->get_undo_stack().endMacro();
+        kv->end_macro();
     }
 }
