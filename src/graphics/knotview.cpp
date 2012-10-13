@@ -255,13 +255,13 @@ void KnotView::mousePressEvent(QMouseEvent *event)
             else if ( event->modifiers() & Qt::ShiftModifier )
                 midpoint = boundbox.center();
             else if ( dragged->get_position() == (TH::TOP|TH::LEFT) )
-                midpoint = boundbox.topLeft();
-            else if ( dragged->get_position() == (TH::TOP|TH::RIGHT) )
-                midpoint = boundbox.topRight();
-            else if ( dragged->get_position() == (TH::BOTTOM|TH::LEFT) )
-                midpoint = boundbox.bottomLeft();
-            else if ( dragged->get_position() == (TH::BOTTOM|TH::RIGHT) )
                 midpoint = boundbox.bottomRight();
+            else if ( dragged->get_position() == (TH::TOP|TH::RIGHT) )
+                midpoint = boundbox.bottomLeft();
+            else if ( dragged->get_position() == (TH::BOTTOM|TH::LEFT) )
+                midpoint = boundbox.topRight();
+            else if ( dragged->get_position() == (TH::BOTTOM|TH::RIGHT) )
+                midpoint = boundbox.topLeft();
 
             initialize_movement(midpoint);
         }
@@ -1553,9 +1553,10 @@ void KnotView::update_transform_handles()
     boundbox.setLeft(boundbox.left()-16);
     boundbox.setBottom(boundbox.bottom()+16);
     boundbox.setRight(boundbox.right()+16);
-    h_tl.setPos(boundbox.bottomRight());
-    h_tr.setPos(boundbox.bottomLeft());
-    h_bl.setPos(boundbox.topRight());
-    h_br.setPos(boundbox.topLeft());
+
+    h_tl.setPos(boundbox.topLeft());
+    h_tr.setPos(boundbox.topRight());
+    h_bl.setPos(boundbox.bottomLeft());
+    h_br.setPos(boundbox.bottomRight());
 }
 
