@@ -31,7 +31,7 @@
 
     <section> <title>Introduction</title>
       <para>Knotter is a highly configurable interlace designer.</para>
-      <para>Interlace patterns are a kind of design hystorically used as a
+      <para>Interlace patterns are a kind of design historically used as a
       decorations in many places and by different cultures,
       some examples are Celtic knotworks and Islamic interlaces.</para>
       <para>Knotter uses
@@ -45,7 +45,7 @@
       <para>
         Knotter aims to allow its user to design such patterns in an intuitive
         way and to provide easy ways to integrate the result in external
-        general-puspose graphic software.
+        general-purpose graphic software.
       </para>
       <para>
         For this purpose, designs created within Knotter can be save in a custom
@@ -125,7 +125,7 @@
             
       <section> <title>Quick graph design</title>
         <para>Adding nodes and edges one at the time can be very tedious,
-        knotter provides the <xref linkend="tools_edge_list" /> tool to make
+        Knotter provides the <xref linkend="tools_edge_list" /> tool to make
         this process easier.</para>
         <para>When this is enabled, a single click will create a node and
         each new node is connected to the previous one by an edge.</para>
@@ -139,7 +139,7 @@
         <para>A single node is selected by left clicking it,
         multiple nodes can be selected by holding Shift or Control.</para>
         <para>Dragging the mouse from an empty spot will select the nodes within a 
-        rectangual area.</para>
+        rectangular area.</para>
         <para>Dragging one of the selected nodes will move the selection, while
         moving nodes can be transformed using the mouse wheel (will scale the
         selection) or Shift + mouse wheel (will rotate the selection around the
@@ -150,7 +150,7 @@
       </section>
       
       <section> <title>Snapping</title>
-        <para>To allow precise designs knotter offers a grid that, when enabled,
+        <para>To allow precise designs Knotter offers a grid that, when enabled,
         will snap nodes to the closest point.</para>
     
         <para>There are three types of grid:</para>
@@ -233,7 +233,7 @@
       </variablelist>
       
       <tip><para>Some style settings can be configured on individual nodes,
-      using the contect menu (right click on a node)</para></tip>
+      using the context menu (right click on a node)</para></tip>
       
       <informalfigure>
         <mediaobject>
@@ -470,7 +470,7 @@
           </answer>
         </qandaentry>
         <qandaentry>
-          <question><para>Improve performace</para></question>
+          <question><para>Improve performance</para></question>
           <answer><para>Change settings on the preferences dialog.</para></answer>
           <answer><para>Uncheck <xref linkend="view_knotline" />.</para></answer>
         </qandaentry>
@@ -628,7 +628,7 @@
             <guimenu>View</guimenu>
             <guisubmenu>Toolbars</guisubmenu>
           </menuchoice></term>
-          <listitem><para>Toggle visibility for the avialable toolbars.</para></listitem>
+          <listitem><para>Toggle visibility for the available toolbars.</para></listitem>
         </varlistentry>
         
         <varlistentry>
@@ -636,7 +636,7 @@
             <guimenu>View</guimenu>
             <guisubmenu>Docks</guisubmenu>
           </menuchoice></term>
-          <listitem><para>Toggle visibility for the avialable dockable dialogs.</para></listitem>
+          <listitem><para>Toggle visibility for the available dockable dialogs.</para></listitem>
         </varlistentry>
         
         <varlistentry>
@@ -850,7 +850,7 @@
             <guimenuitem>Refresh path</guimenuitem>
           </menuchoice></term>
           <listitem><para>Forces Knotter to redraw the knot if it missed some edit.
-          If you need to use this item, you may have encoutered a bug.
+          If you need to use this item, you may have encountered a bug.
           See <xref linkend="report_bug" />.</para></listitem>
         </varlistentry>
         
@@ -908,12 +908,12 @@
     </para>
     
     <section> <title>Requirements and dependencies</title>
-      <para>Knotter is written in C++ using the Qt framework, installig
+      <para>Knotter is written in C++ using the Qt framework, installing
         the Qt SDK will satisfy most requirements.</para>
       <itemizedlist>
         <listitem><para>C++ build environment (Compiler, make etc.)</para></listitem>
         <listitem>
-          <para>Qt libraries and developent tools</para>
+          <para>Qt libraries and development tools</para>
           <para>Knotter has been tested with Qt versions 4.7 and 4.8</para>
           <para><ulink url="http://qt-project.org/">Qt Developer Network</ulink></para>
         </listitem>
@@ -928,7 +928,7 @@
     <section> <title>Compiling from a bourne shell</title>
       <para>This section describes the scripts that can be called to build
       Knotter from a bourne-compatible shell like <command>bash</command> or
-      <command>dash</command>. This is the reccommended way to build Knotter.</para>
+      <command>dash</command>. This is the recommended way to build Knotter.</para>
       <para>Building from a shell takes two steps, configuration and actual building.</para>
       <para>The configuration is done via <command>configure.sh</command>, see
         <command>configure.sh --help</command> for a list of options.</para>
@@ -945,12 +945,12 @@ make install
 </programlisting>
       <para>This will install the files in prefix, as set from <command>configure.sh</command>.
       You can move the entire install tree to a specific directory by setting the
-      environment viariable <envar>INSTALL_ROOT</envar></para>.
+      environment variable <envar>INSTALL_ROOT</envar></para>.
     </section>
     
     <section> <title>Compiling from Qt creator</title>
       <warning>
-        <para>It is strongly reccommended that you compile from a shell if it
+        <para>It is strongly recommended that you compile from a shell if it
         is available on your system.</para>
       </warning>
       <para>The project file is <filename>knotter.pro</filename>,
@@ -976,7 +976,7 @@ make install
       </para>
     </section>
     <section> <title id="report_bug">Reporting Bugs</title>
-      <para>To send bug reports, freature request and feedback you can use the
+      <para>To send bug reports, feature request and feedback you can use the
       <ulink url="https://sourceforge.net/p/knotter/discussion/">forum on SourceForge</ulink>
       or send me an email: <personname>Mattia Basaglia</personname>
       <email>knotter@knotdraw.org</email>

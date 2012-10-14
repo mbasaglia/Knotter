@@ -2,7 +2,7 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
                    "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
 <!--
-    This file has to be preprocessed to genarate the actual docbook file,
+    This file has to be preprocessed to generate the actual docbook file,
     You should not edit man_page.xml as that will be overwritten, edit man_page.in.xml instead.
 -->
 <refentry id="man_page" >
