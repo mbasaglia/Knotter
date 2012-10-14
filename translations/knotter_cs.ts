@@ -4,7 +4,7 @@
 <context>
     <name>AddEdge</name>
     <message>
-        <location filename="../src/graphics/commands.cpp" line="124"/>
+        <location filename="../src/graphics/commands.cpp" line="130"/>
         <source>Insert Edge</source>
         <translation>Vložit oblouk</translation>
     </message>
@@ -12,7 +12,7 @@
 <context>
     <name>AddNode</name>
     <message>
-        <location filename="../src/graphics/commands.cpp" line="77"/>
+        <location filename="../src/graphics/commands.cpp" line="81"/>
         <source>Insert Node</source>
         <translation>Vložit uzel</translation>
     </message>
@@ -73,7 +73,7 @@
 <context>
     <name>ChangeCustomNodeStyle</name>
     <message>
-        <location filename="../src/graphics/commands.cpp" line="275"/>
+        <location filename="../src/graphics/commands.cpp" line="282"/>
         <source>Change node style</source>
         <translation>Změnit styl uzlu</translation>
     </message>
@@ -81,7 +81,7 @@
 <context>
     <name>ChangeDefaultNodeStyle</name>
     <message>
-        <location filename="../src/graphics/commands.cpp" line="211"/>
+        <location filename="../src/graphics/commands.cpp" line="221"/>
         <source>Change default node style</source>
         <translation>Výchozí výchozí styl uzlu</translation>
     </message>
@@ -89,7 +89,7 @@
 <context>
     <name>ChangeKnotBrush</name>
     <message>
-        <location filename="../src/graphics/commands.cpp" line="398"/>
+        <location filename="../src/graphics/commands.cpp" line="383"/>
         <source>Change knot color</source>
         <translation>Změnit barvu keltského uzlu</translation>
     </message>
@@ -97,7 +97,7 @@
 <context>
     <name>ChangeKnotJoinStyle</name>
     <message>
-        <location filename="../src/graphics/commands.cpp" line="461"/>
+        <location filename="../src/graphics/commands.cpp" line="448"/>
         <source>Change knot point style</source>
         <translation>Změnit styl bodu keltského uzlu</translation>
     </message>
@@ -105,7 +105,7 @@
 <context>
     <name>ChangeKnotPen</name>
     <message>
-        <location filename="../src/graphics/commands.cpp" line="403"/>
+        <location filename="../src/graphics/commands.cpp" line="389"/>
         <source>Change knot outline</source>
         <translation>Změnit obrys keltského uzlu</translation>
     </message>
@@ -113,9 +113,17 @@
 <context>
     <name>ChangeKnotWidth</name>
     <message>
-        <location filename="../src/graphics/commands.cpp" line="303"/>
+        <location filename="../src/graphics/commands.cpp" line="288"/>
         <source>Change knot width</source>
         <translation>Změnit šířku keltského uzlu</translation>
+    </message>
+</context>
+<context>
+    <name>ChangeMultiNodeStyle</name>
+    <message>
+        <location filename="../src/graphics/commands.cpp" line="497"/>
+        <source>Change node style</source>
+        <translation type="unfinished">Změnit styl uzlu</translation>
     </message>
 </context>
 <context>
@@ -344,62 +352,67 @@
 <context>
     <name>KnotView</name>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="804"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="829"/>
         <source>Paste</source>
         <translation>Vložit</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="581"/>
+        <location filename="../src/graphics/knotview.cpp" line="586"/>
         <source>Rotate</source>
         <translation>Otočit</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="583"/>
+        <location filename="../src/graphics/knotview.cpp" line="588"/>
         <source>Scale</source>
         <translation>Změnit velikost</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="803"/>
+        <location filename="../src/graphics/knotview.cpp" line="808"/>
         <source>Load Knot</source>
         <translation>Nahrát keltský uzel</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1020"/>
+        <location filename="../src/graphics/knotview.cpp" line="939"/>
+        <source>Remove custom node style</source>
+        <translation type="unfinished">Odstranit vlastní styl uzlu</translation>
+    </message>
+    <message>
+        <location filename="../src/graphics/knotview.cpp" line="1050"/>
         <source>Break Edge</source>
         <translation>Přerušit oblouk</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1157"/>
+        <location filename="../src/graphics/knotview.cpp" line="1187"/>
         <source>Move Nodes</source>
         <translation>Přesunout uzly</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1306"/>
+        <location filename="../src/graphics/knotview.cpp" line="1336"/>
         <source>Remove Nodes</source>
         <translation>Odstranit uzly</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1317"/>
+        <location filename="../src/graphics/knotview.cpp" line="1347"/>
         <source>Link Nodes</source>
         <translation>Propojit uzly</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1331"/>
+        <location filename="../src/graphics/knotview.cpp" line="1361"/>
         <source>Unlink Nodes</source>
         <translation>Rozpojit uzly</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1355"/>
+        <location filename="../src/graphics/knotview.cpp" line="1386"/>
         <source>Merge Nodes</source>
         <translation>Sloučit uzly</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1434"/>
+        <location filename="../src/graphics/knotview.cpp" line="1474"/>
         <source>Horizontal Flip</source>
         <translation>Vodorovné převrácení</translation>
     </message>
     <message>
-        <location filename="../src/graphics/knotview.cpp" line="1458"/>
+        <location filename="../src/graphics/knotview.cpp" line="1498"/>
         <source>Vertical Flip</source>
         <translation>Svislé převrácení</translation>
     </message>
@@ -687,7 +700,7 @@
     </message>
     <message>
         <location filename="../src/dialogs/knot_window.ui" line="459"/>
-        <location filename="../src/dialogs/knot_window.cpp" line="1029"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="1054"/>
         <source>No recent files</source>
         <translation>Žádné nedávné soubory</translation>
     </message>
@@ -757,27 +770,36 @@
         <translation>Historie činností</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="356"/>
         <source>Default Node Style</source>
-        <translation>Výchozí styl uzlu</translation>
+        <translation type="obsolete">Výchozí styl uzlu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="365"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="357"/>
+        <source>Default Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/knot_window.cpp" line="366"/>
+        <source>Selection Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/knot_window.cpp" line="378"/>
         <source>Knot Style</source>
         <translation>Styl keltského uzlu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="402"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="411"/>
         <source>Zoom</source>
         <translation>Zvětšení</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="449"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="458"/>
         <source>Load old configuration</source>
         <translation>Nahrát staré nastavení</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="450"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="459"/>
         <source>Knotter has detected configuration for version %1,
 this is version %2.
 Load old configuration?</source>
@@ -786,44 +808,44 @@ Toto je verze %2.
 Nahrát staré nastavení?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="486"/>
-        <location filename="../src/dialogs/knot_window.cpp" line="513"/>
-        <location filename="../src/dialogs/knot_window.cpp" line="525"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="495"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="522"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="534"/>
         <source>Warning:</source>
         <translation>Varování:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="487"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="496"/>
         <source>Not loading toolbar without name</source>
         <translation>Nástrojový panel bez názvu se nenahrává</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="514"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="523"/>
         <source>Not loading action without name</source>
         <translation>Činnost bez názvu se nenahrává</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="526"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="535"/>
         <source>Unknown action %1</source>
         <translation>Neznámá činnost %1</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="682"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="691"/>
         <source>Undo %1</source>
         <translation>Zpět %1</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="687"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="696"/>
         <source>Redo %1</source>
         <translation>Znovu %1</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="764"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="789"/>
         <source>Cut</source>
         <translation>Vyjmout</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="1285"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="1310"/>
         <source>Snap Nodes</source>
         <translation>Přichytit uzly</translation>
     </message>
@@ -832,57 +854,57 @@ Nahrát staré nastavení?</translation>
         <translation type="obsolete">Smazat dokument</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="837"/>
-        <location filename="../src/dialogs/knot_window.cpp" line="861"/>
-        <location filename="../src/dialogs/knot_window.cpp" line="878"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="862"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="886"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="903"/>
         <source>File Error</source>
         <translation>Chyba souboru</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="837"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="862"/>
         <location filename="../src/main.cpp" line="171"/>
         <source>Could not write to &quot;%1&quot;.</source>
         <translation>Nepodařilo se zapsat do &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="861"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="886"/>
         <source>Could not read &quot;%1&quot;.</source>
         <translation>Nepodařilo se přečíst &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="878"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="903"/>
         <location filename="../src/main.cpp" line="147"/>
         <location filename="../src/main.cpp" line="252"/>
         <source>Error while reading &quot;%1&quot;.</source>
         <translation>Chyba při čtení &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="907"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="932"/>
         <source>Save Knot</source>
         <translation>Uložit keltský uzel</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="918"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="943"/>
         <source>Open Knot</source>
         <translation>Otevřít keltský uzel</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="1069"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="1094"/>
         <source>About Knotter</source>
         <translation>O programu Knotter</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="1087"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="1112"/>
         <source>Insert Polygon</source>
         <translation>Vložit mnohoúhelník</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="1087"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="1112"/>
         <source>Sides</source>
         <translation>Strany</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/knot_window.cpp" line="1124"/>
+        <location filename="../src/dialogs/knot_window.cpp" line="1149"/>
         <source>&lt;empty&gt;</source>
         <translation>&lt;prázdné&gt;</translation>
     </message>
@@ -991,7 +1013,7 @@ Nahrát staré nastavení?</translation>
 <context>
     <name>MoveNode</name>
     <message>
-        <location filename="../src/graphics/commands.cpp" line="167"/>
+        <location filename="../src/graphics/commands.cpp" line="175"/>
         <source>Move Node</source>
         <translation>Přesunout uzel</translation>
     </message>
@@ -1030,7 +1052,7 @@ Nahrát staré nastavení?</translation>
 <context>
     <name>RemoveEdge</name>
     <message>
-        <location filename="../src/graphics/commands.cpp" line="146"/>
+        <location filename="../src/graphics/commands.cpp" line="153"/>
         <source>Remove Edge</source>
         <translation>Odstranit oblouk</translation>
     </message>
@@ -1038,7 +1060,7 @@ Nahrát staré nastavení?</translation>
 <context>
     <name>RemoveNode</name>
     <message>
-        <location filename="../src/graphics/commands.cpp" line="98"/>
+        <location filename="../src/graphics/commands.cpp" line="103"/>
         <source>Remove Node</source>
         <translation>Odstranit uzel</translation>
     </message>
@@ -1046,15 +1068,14 @@ Nahrát staré nastavení?</translation>
 <context>
     <name>RemoveNodeStyle</name>
     <message>
-        <location filename="../src/graphics/commands.cpp" line="298"/>
         <source>Remove custom node style</source>
-        <translation>Odstranit vlastní styl uzlu</translation>
+        <translation type="obsolete">Odstranit vlastní styl uzlu</translation>
     </message>
 </context>
 <context>
     <name>ToggleEdge</name>
     <message>
-        <location filename="../src/graphics/commands.cpp" line="172"/>
+        <location filename="../src/graphics/commands.cpp" line="181"/>
         <source>Change Edge Type</source>
         <translation>Změnit druh oblouku</translation>
     </message>
@@ -1514,9 +1535,8 @@ p, li { white-space: pre-wrap; }
         <translation>Styl uzlu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_pref_dialog.ui" line="20"/>
         <source>Use default</source>
-        <translation>Použít výchozí</translation>
+        <translation type="obsolete">Použít výchozí</translation>
     </message>
 </context>
 <context>
@@ -1531,54 +1551,54 @@ p, li { white-space: pre-wrap; }
         <translation>Vedení křivky</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="24"/>
-        <location filename="../src/dialogs/node_style_form.ui" line="44"/>
-        <location filename="../src/dialogs/node_style_form.ui" line="87"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="27"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="50"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="99"/>
         <source>px</source>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="37"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="40"/>
         <source>Crossing Gap</source>
         <translation>Mezera křížení</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="57"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="63"/>
         <source>Min Cusp Angle</source>
         <translation>Nejmenší úhel špičky</translation>
     </message>
     <message utf8="true">
-        <location filename="../src/dialogs/node_style_form.ui" line="64"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="73"/>
         <source>°</source>
         <translation>°</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="80"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="89"/>
         <source>Cusp Distance</source>
         <translation>Vzdálenost špičky</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="103"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="115"/>
         <source>Curve Style</source>
         <translation>Styl křivky</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="111"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="126"/>
         <source>Pointed</source>
         <translation>Špičatý</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="116"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="131"/>
         <source>Round</source>
         <translation>Zaoblený</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="121"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="136"/>
         <source>Ogee</source>
         <translation>Žlábkovnicový</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/node_style_form.ui" line="126"/>
+        <location filename="../src/dialogs/node_style_form.ui" line="141"/>
         <source>Polygonal</source>
         <translation>Mnohoúhelníkový</translation>
     </message>
