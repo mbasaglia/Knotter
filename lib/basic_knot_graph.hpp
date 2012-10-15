@@ -33,6 +33,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "knot_curve_style.hpp"
 
 /**
+    \brief Class representing the knot line
+
+    This class represents and builds the knot but is not responsible for any
+    appearence setting.
+
     \note This class does NOT take ownership over anything!
 */
 class basic_knot_graph

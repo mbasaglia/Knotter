@@ -31,6 +31,9 @@ class Node;
 class Edge;
 class KnotView;
 
+/**
+    \brief Node context menu
+*/
 class node_cxmn : public QMenu
 {
         Q_OBJECT
@@ -57,6 +60,9 @@ class node_cxmn : public QMenu
         void request_properties(Node*);
 };
 
+/**
+    \brief Edge context menu
+*/
 class edge_cxmn : public QMenu
 {
         Q_OBJECT

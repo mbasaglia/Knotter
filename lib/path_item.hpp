@@ -28,6 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QPainterPath>
 
+/**
+    \brief Classes used to build a SVG path
+*/
 namespace path_item {
 
 

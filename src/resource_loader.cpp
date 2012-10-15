@@ -29,8 +29,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <iostream>
 #include <QDir>
 
+/**
+    \brief Resource loading
+
+    The functions enclosed in this namespace locate resources based on build configuration
+*/
 namespace load {
 
+/**
+    \brief Conditionally load Tango icons
+
+    If Tango is disabled, this function does nothing.
+
+    If Tango is used as fall back theme, the system theme is queried with the
+    "document-new" icon, if that is not present, Tango is loaded.
+
+    If Tango is used as default theme, it's loaded directly.
+*/
 void initialize_icon_theme()
 {
   #ifdef TANGO_FALLBACK
@@ -47,6 +62,12 @@ void initialize_icon_theme()
   #endif
 }
 
+/**
+    \brief return an icon from given name
+
+    If the current theme has an icon corresponding to the given name, that it selected
+    otherwise it loads DATA_DIR/img/name.svg
+*/
 QIcon icon ( QString name )
 {
     if ( QIcon::hasThemeIcon(name) ) // check theme first
@@ -55,7 +76,21 @@ QIcon icon ( QString name )
     return QIcon( resource_name( DATA_DIR, "img/"+name+".svg") );
 }
 
+/**
+    \brief get full path to resource given it's name
 
+    If base_dir is a QRC resource path, it's used as file path.
+
+    If base_dir is a directory, "name" is searched there.
+    If it's not found there, "name" is searched in the current directory.
+
+    If the file cannot be located, an empty string is returned and a message is
+    written to stderr.
+
+    \param base_dir  exprected installation directory
+    \param name      resource file name relative to base_dir
+    \return A normalized path pointing to "name"
+*/
 QString resource_name ( QString base_dir, QString name )
 {
     if ( base_dir.startsWith(":/") ) // resource
@@ -79,7 +114,9 @@ QString resource_name ( QString base_dir, QString name )
     return QDir::cleanPath(path.absoluteFilePath(name));
 }
 
-
+/**
+    \brief Get a QUrl object for a resource
+*/
 QUrl resource_url ( QString base_dir, QString name )
 {
     if ( base_dir.startsWith(":/") ) // resource

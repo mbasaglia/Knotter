@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMimeData>
 
 /**
-    \brief Class representing the knot line
+    \brief Drawable class representing the knot line
 
     This class will both evaluate the shape and render the knot
 */

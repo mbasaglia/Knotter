@@ -28,7 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QPixmap>
 
-
+/**
+    \brief Background image for KnotView
+*/
 class background_image
 {
     protected:
