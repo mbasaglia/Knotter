@@ -7,6 +7,7 @@ Knotter 0.8.0  - Ongoing development
 * Dock controlling selected node style
 * Optimization, mostly noticeable when loading a graph and pasting
 * Website at http://www.knotdraw.org/
+* Printing options
 
 Knotter 0.7.0
 --------------------

@@ -40,6 +40,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QClipboard>
 #include <QBuffer>
 #include <QDropEvent>
+#include <QPrintDialog>
+#include <QPageSetupDialog>
+#include <QPrintPreviewDialog>
 
 Knot_Window::Knot_Window(KnotGraph *graph, QWidget *parent) :
     QMainWindow(parent), save_ui ( true ), max_recent_files(5),
@@ -271,7 +274,14 @@ void Knot_Window::init_menus()
     action_Quit->setShortcuts(QKeySequence::Quit);
     action_Export->setIcon(load::icon("document-export"));
     menuOpen_Recent->setIcon(load::icon("document-open-recent"));
+    action_Print->setIcon(load::icon("document-print"));
+    action_Print->setShortcut(QKeySequence::Print);
+    actionPr_int_Preview->setIcon(load::icon("document-print-preview"));
 
+    QIcon page_setup = load::icon("document-page-setup");
+    if ( page_setup.isNull() )
+        page_setup = load::icon("document-properties");
+    actionPage_Set_up->setIcon(page_setup);
 
 
 // Edit menu icons/shortcuts
@@ -1315,4 +1325,39 @@ void Knot_Window::on_actionS_nap_to_grid_triggered()
 
         kv->end_macro();
     }
+}
+
+void Knot_Window::on_action_Print_triggered()
+{
+    QPrintDialog dialog(&printer, this);
+    if (dialog.exec())
+    {
+        print(&printer);
+    }
+}
+
+
+void Knot_Window::print ( QPrinter* p )
+{
+    QPainter painter(p);
+    painter.setRenderHints(QPainter::Antialiasing|QPainter::HighQualityAntialiasing);
+    QRect rect = painter.viewport();
+    QSize size = knotview()->viewport()->size();
+    size.scale(rect.size(), Qt::KeepAspectRatio);
+    painter.setViewport(rect.x(), rect.y(), size.width(), size.height());
+    painter.setWindow(knotview()->viewport()->rect());
+    knotview()->graph().paint_knot(&painter,false);
+}
+
+void Knot_Window::on_actionPage_Set_up_triggered()
+{
+    QPageSetupDialog page_detup(&printer,this);
+    page_detup.exec();
+}
+
+void Knot_Window::on_actionPr_int_Preview_triggered()
+{
+    QPrintPreviewDialog dialog(&printer,this);
+    connect(&dialog,SIGNAL(paintRequested(QPrinter*)),SLOT(print(QPrinter*)));
+    dialog.exec();
 }

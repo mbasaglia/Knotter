@@ -67,6 +67,10 @@
     <addaction name="actionSave_A_ll"/>
     <addaction name="action_Export"/>
     <addaction name="separator"/>
+    <addaction name="action_Print"/>
+    <addaction name="actionPage_Set_up"/>
+    <addaction name="actionPr_int_Preview"/>
+    <addaction name="separator"/>
     <addaction name="action_Quit"/>
    </widget>
    <widget class="QMenu" name="menuNo_des">
@@ -517,6 +521,21 @@
   <action name="actionS_nap_to_grid">
    <property name="text">
     <string>S&amp;nap to grid</string>
+   </property>
+  </action>
+  <action name="action_Print">
+   <property name="text">
+    <string>&amp;Print...</string>
+   </property>
+  </action>
+  <action name="actionPage_Set_up">
+   <property name="text">
+    <string>Page Set&amp;up...</string>
+   </property>
+  </action>
+  <action name="actionPr_int_Preview">
+   <property name="text">
+    <string>Pr&amp;int Preview...</string>
    </property>
   </action>
  </widget>

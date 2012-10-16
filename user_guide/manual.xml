@@ -53,7 +53,10 @@
         wide number of raster image formats.
       </para>
       <informalfigure>
-        <mediaobject><imageobject><imagedata fileref="img/quran.jpg"/></imageobject></mediaobject>
+        <mediaobject>
+            <imageobject><imagedata fileref="img/quran.jpg"/></imageobject>
+            <textobject><phrase>An illumination on the cover of the Quran with an interlaced frame.</phrase></textobject>
+        </mediaobject>
         <caption>
           <para>An illumination on the cover of the Quran with an interlaced frame.</para>
         </caption>
@@ -238,6 +241,7 @@
       <informalfigure>
         <mediaobject>
             <imageobject><imagedata fileref="img/cusp_shapes.png" /></imageobject>
+            <textobject><phrase>Solomon's knots and trefoils rendered using various styles.</phrase></textobject>
         </mediaobject>
         <caption>
           <para>Solomon's knots and trefoils rendered using various styles.</para>

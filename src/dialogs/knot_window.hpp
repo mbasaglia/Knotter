@@ -38,6 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "node_style_form.hpp"
 #include "global_style_form.hpp"
 #include "background_config.hpp"
+#include <QPrinter>
 
 /**
     Main knot window
@@ -65,6 +66,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         Background_Config back_config;
         QDoubleSpinBox* zoomer;             ///< Zomm spinner on statusbar
         KnotView*       canvas;             ///< Current tab widget
+        QPrinter        printer;
 
     public:
         explicit Knot_Window(KnotGraph* graph = 0, QWidget *parent = 0);
@@ -143,6 +145,8 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
         void show_help();
 
+        void print ( QPrinter* );
+
 
     private slots:
 
@@ -207,6 +211,9 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void on_tabWidget_tabCloseRequested(int index);
         void on_actionSave_A_ll_triggered();
         void on_actionS_nap_to_grid_triggered();
+        void on_action_Print_triggered();
+        void on_actionPage_Set_up_triggered();
+        void on_actionPr_int_Preview_triggered();
 };
 
 #endif // KNOT_WINDOW_HPP

@@ -73,7 +73,8 @@ QIcon icon ( QString name )
     if ( QIcon::hasThemeIcon(name) ) // check theme first
         return QIcon::fromTheme(name);
 
-    return QIcon( resource_name( DATA_DIR, "img/"+name+".svg") );
+    QString image = resource_name( DATA_DIR, "img/"+name+".svg");
+    return image.isEmpty() ? QIcon() : QIcon( image );
 }
 
 /**
