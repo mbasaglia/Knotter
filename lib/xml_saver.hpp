@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef XML_SAVER_HPP
 #define XML_SAVER_HPP
 #include "knot_curve_style.hpp"
-#include "knotgraph.hpp"
+#include "graphic_knot_graph.hpp"
 #include <QXmlStreamWriter>
 #include <QDomDocument>
 class xml_saver

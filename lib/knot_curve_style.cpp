@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 #include "knot_curve_style.hpp"
-#include "node.hpp"
+#include "basic_knot_graph.hpp"
 
 void knot_curve_ogee::draw_joint ( path_builder& path,
                     Node* node,

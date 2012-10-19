@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef ERROR_RECOVERY_HPP
 #define ERROR_RECOVERY_HPP
 
-#include "knotgraph.hpp"
+#include "graphic_knot_graph.hpp"
 
 /**
     \brief Quick and dirty class used to save a backup file on error

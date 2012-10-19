@@ -132,7 +132,7 @@ void basic_knot_graph::build_knotline(path_builder &path_b)
                     n = e->vertex2();
 
 
-                TraversalInfo ti = n->next_edge(e,handle);
+                TraversalInfo ti = next_edge(n,e,handle);
 
                 if ( n->has_custom_style() )
                 {
@@ -155,3 +155,76 @@ void basic_knot_graph::build_knotline(path_builder &path_b)
     traversed_edges.clear();
 }
 
+
+
+
+
+
+TraversalInfo next_edge(Node* node, Edge *edge, Edge::handle_type handle)
+{
+
+    TraversalInfo ti;
+    ti.edge_in = edge;
+    ti.handle_in = handle;
+
+    if ( edge->vertex1() == node )
+    {
+        // RH = TL,  LH = BL
+        if ( handle == Edge::TOPLEFT )
+            ti.handside = TraversalInfo::RIGHT;
+        else if ( handle == Edge::BOTTOMLEFT )
+            ti.handside = TraversalInfo::LEFT;
+        else
+            return TraversalInfo("Wrong handle");
+    }
+    else if ( edge->vertex2() == node )
+    {
+        // RH = BR,  LH = TR
+        if ( handle == Edge::BOTTOMRIGHT )
+            ti.handside = TraversalInfo::RIGHT;
+        else if ( handle == Edge::TOPRIGHT )
+            ti.handside = TraversalInfo::LEFT;
+        else
+            return TraversalInfo("Wrong handle");
+    }
+    else
+        return TraversalInfo("Wrong edge");
+
+    ti.angle_in =  QLineF ( node->pos(), edge->other(node)->pos() ).angle();
+
+    ti.angle_out = ti.angle_in;
+    ti.angle_delta = 360;
+    ti.edge_out = edge;
+    foreach(Edge* i, node->links())
+    {
+        if ( i != edge )
+        {
+            double angle_out = QLineF ( node->pos(),i->other(node)->pos() ).angle();
+            double delta = ti.angle_in - angle_out;
+            if ( delta < 0 )
+                delta += 360;
+            if ( ti.handside == TraversalInfo::RIGHT )
+                delta = 360-delta;
+            if ( delta < ti.angle_delta )
+            {
+                ti.angle_delta = delta;
+                ti.edge_out = i;
+                ti.angle_out = angle_out;
+            }
+        }
+    }
+
+
+    if ( ti.edge_out->vertex1() == node )
+    {
+        // RH -> BL,  LH -> TL
+        ti.handle_out = ti.handside == TraversalInfo::RIGHT ? Edge::BOTTOMLEFT : Edge::TOPLEFT;
+    }
+    else if ( ti.edge_out->vertex2() == node )
+    {
+        // RH -> TR,  LH -> BR
+        ti.handle_out = ti.handside == TraversalInfo::RIGHT ? Edge::TOPRIGHT : Edge::BOTTOMRIGHT;
+    }
+    ti.success = true;
+    return ti;
+}

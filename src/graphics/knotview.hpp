@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "node.hpp"
 #include "edge.hpp"
 #include <QUndoStack>
-#include "knotgraph.hpp"
+#include "graphic_knot_graph.hpp"
 #include "snapping_grid.hpp"
 #include "transform_handle.hpp"
 #include "background_image.hpp"

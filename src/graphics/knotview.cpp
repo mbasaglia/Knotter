@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QGraphicsItem>
 #include <QApplication>
 #include "commands.hpp"
-#include "knotgraph.hpp"
+#include "graphic_knot_graph.hpp"
 
 KnotView::KnotView( QWidget* parent )
     : QGraphicsView(parent), mode(EDIT_NODE_EDGE),
