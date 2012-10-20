@@ -30,6 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "commands.hpp"
 #include "graphic_knot_graph.hpp"
 
+using namespace commands;
+
 KnotView::KnotView( QWidget* parent )
     : QGraphicsView(parent), mode(EDIT_NODE_EDGE),
     last_node(NULL),
@@ -1210,7 +1212,7 @@ void KnotView::cycle_edge(Edge* e)
             case Edge::HOLE:      tt = Edge::INVERTED; break;
             case Edge::INVERTED:  tt = Edge::CROSSING; break;
         }
-        undo_stack.push(new ToggleEdge(e->vertex1(),e->vertex2(),e->type,tt,this));
+        undo_stack.push(new ChangeEdgeType(e->vertex1(),e->vertex2(),e->type,tt,this));
     }
 }
 
@@ -1220,13 +1222,13 @@ void KnotView::cycle_edge_inverted(Edge *e)
     {
         Edge::type_type tt = e->type;
         switch ( tt ) // cycle type
-        {
+        {;
             case Edge::HOLE:        tt = Edge::WALL; break;
             case Edge::INVERTED:    tt = Edge::HOLE; break;
             case Edge::CROSSING:    tt = Edge::INVERTED; break;
             case Edge::WALL:        tt = Edge::CROSSING; break;
         }
-        undo_stack.push(new ToggleEdge(e->vertex1(),e->vertex2(),e->type,tt,this));
+        undo_stack.push(new ChangeEdgeType(e->vertex1(),e->vertex2(),e->type,tt,this));
     }
 }
 
@@ -1234,7 +1236,7 @@ void KnotView::set_edge_type(Edge *e, Edge::type_type type)
 {
     if ( e )
     {
-        undo_stack.push(new ToggleEdge(e->vertex1(),e->vertex2(),e->type,type,this));
+        undo_stack.push(new ChangeEdgeType(e->vertex1(),e->vertex2(),e->type,type,this));
     }
 }
 
@@ -1242,7 +1244,7 @@ void KnotView::set_edge_type(Node *n1, Node *n2, Edge::type_type type)
 {
     Edge* e = n1->get_link(n2);
     if ( n1 && n2 && e )
-        undo_stack.push(new ToggleEdge(n1,n2,e->type,type,this));
+        undo_stack.push(new ChangeEdgeType(n1,n2,e->type,type,this));
 }
 
 node_list KnotView::selected_nodes() const

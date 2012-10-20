@@ -39,30 +39,33 @@ struct TraversalInfo
 {
     enum handside_type { LEFT, RIGHT };
 
-    Edge* edge_in;                  ///< Input Edge
-    Edge::handle_type handle_in;    ///< Input Handle
-    Edge* edge_out;                 ///< Output Edge
-    Edge::handle_type handle_out;   ///< Output Handle
+    struct Source
+    {
+        Edge* edge;
+        Edge::handle_type handle;
+        double angle;
+        Node* node;
+
+        Source()
+            : edge(NULL), handle(Edge::NOHANDLE), angle(0), node(NULL)
+        {}
+    };
+
+    Source in;
+    Source out;
+    Node* middle;
     handside_type handside;         ///< Side of the input handle relative to the input edge
-    double angle_in;                ///< Angle of the input edge relative to the vertex bewteen the two edges
-    double angle_out;               ///< Angle of the output edge relative to the vertex bewteen the two edges
     double angle_delta;             ///< Difference between angle_in and angle_out (clock or counter depends on handside)
     bool success;                   ///< Input parameters were OK
     QString error_message;          ///< If !success, error message
 
     TraversalInfo ( QString error_message )
-        : edge_in ( NULL ), handle_in ( Edge::NOHANDLE ),
-            edge_out ( NULL ), handle_out ( Edge::NOHANDLE ),
-            handside ( LEFT ),
-            angle_in(0), angle_out(0), angle_delta(0),
+        : middle(NULL), handside ( LEFT ), angle_delta(0),
             success(false), error_message ( error_message )
     {}
 
     TraversalInfo()
-        : edge_in ( NULL ), handle_in ( Edge::NOHANDLE ),
-            edge_out ( NULL ), handle_out ( Edge::NOHANDLE ),
-            handside ( LEFT ),
-            angle_in(0), angle_out(0), angle_delta(0),
+        :   middle(NULL), handside ( LEFT ), angle_delta(0),
             success(false), error_message ()
     {}
 

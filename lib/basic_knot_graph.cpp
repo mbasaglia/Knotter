@@ -133,19 +133,19 @@ void basic_knot_graph::build_knotline(path_builder &path_b)
 
 
                 TraversalInfo ti = next_edge(n,e,handle);
+                ti.out.edge->traverse(ti.out.handle);
 
                 if ( n->has_custom_style() )
                 {
                     styleinfo csi = n->get_custom_style().default_to(default_style);
                     knot_curve_style* customcs = knot_curve_styler::style(csi.curve_style);
-                    customcs->draw_joint(path_b,n,ti,csi);
+                    customcs->draw_joint(path_b,ti,csi);
                 }
                 else
                 {
-                    pcs->draw_joint(path_b,n,ti,default_style);
+                    pcs->draw_joint(path_b,ti,default_style);
                 }
 
-                ti.edge_out->traverse(ti.handle_out);
             }
         }
     }
@@ -164,8 +164,8 @@ TraversalInfo next_edge(Node* node, Edge *edge, Edge::handle_type handle)
 {
 
     TraversalInfo ti;
-    ti.edge_in = edge;
-    ti.handle_in = handle;
+    ti.in.edge = edge;
+    ti.in.handle = handle;
 
     if ( edge->vertex1() == node )
     {
@@ -190,17 +190,17 @@ TraversalInfo next_edge(Node* node, Edge *edge, Edge::handle_type handle)
     else
         return TraversalInfo("Wrong edge");
 
-    ti.angle_in =  QLineF ( node->pos(), edge->other(node)->pos() ).angle();
+    ti.in.angle =  QLineF ( node->pos(), edge->other(node)->pos() ).angle();
 
-    ti.angle_out = ti.angle_in;
+    ti.out.angle = ti.in.angle;
     ti.angle_delta = 360;
-    ti.edge_out = edge;
+    ti.out.edge = edge;
     foreach(Edge* i, node->links())
     {
         if ( i != edge )
         {
             double angle_out = QLineF ( node->pos(),i->other(node)->pos() ).angle();
-            double delta = ti.angle_in - angle_out;
+            double delta = ti.in.angle - angle_out;
             if ( delta < 0 )
                 delta += 360;
             if ( ti.handside == TraversalInfo::RIGHT )
@@ -208,22 +208,25 @@ TraversalInfo next_edge(Node* node, Edge *edge, Edge::handle_type handle)
             if ( delta < ti.angle_delta )
             {
                 ti.angle_delta = delta;
-                ti.edge_out = i;
-                ti.angle_out = angle_out;
+                ti.out.edge = i;
+                ti.out.angle = angle_out;
             }
         }
     }
 
+    ti.in.node = ti.in.edge->other(node);
+    ti.middle = node;
+    ti.out.node = ti.out.edge->other(node);
 
-    if ( ti.edge_out->vertex1() == node )
+    if ( ti.out.edge->vertex1() == node )
     {
         // RH -> BL,  LH -> TL
-        ti.handle_out = ti.handside == TraversalInfo::RIGHT ? Edge::BOTTOMLEFT : Edge::TOPLEFT;
+        ti.out.handle = ti.handside == TraversalInfo::RIGHT ? Edge::BOTTOMLEFT : Edge::TOPLEFT;
     }
-    else if ( ti.edge_out->vertex2() == node )
+    else if ( ti.out.edge->vertex2() == node )
     {
         // RH -> TR,  LH -> BR
-        ti.handle_out = ti.handside == TraversalInfo::RIGHT ? Edge::TOPRIGHT : Edge::BOTTOMRIGHT;
+        ti.out.handle = ti.handside == TraversalInfo::RIGHT ? Edge::TOPRIGHT : Edge::BOTTOMRIGHT;
     }
     ti.success = true;
     return ti;

@@ -111,7 +111,6 @@ class knot_curve_style
 {
     public:
         virtual void draw_joint ( path_builder& path,
-                                    Node *node,
                                     const TraversalInfo& ti,
                                     styleinfo style ) = 0;
 
@@ -128,7 +127,6 @@ class knot_curve_style
         */
         QPointF get_cusp_point ( QLineF start,
                                  QLineF finish,
-                                 Node *node,
                                  const TraversalInfo& ti,
                                  double def_dist ) const;
 };
@@ -137,7 +135,6 @@ class knot_curve_ogee : public knot_curve_style
 {
     public:
         void draw_joint ( path_builder& path,
-                            Node *node,
                             const TraversalInfo& ti,
                             styleinfo style );
 };
@@ -146,7 +143,6 @@ class knot_curve_pointed : public knot_curve_style
 {
     public:
         void draw_joint ( path_builder& path,
-                            Node *node,
                             const TraversalInfo& ti,
                             styleinfo style );
 };
@@ -155,7 +151,6 @@ class knot_curve_polygonal : public knot_curve_style
 {
     public:
         void draw_joint ( path_builder& path,
-                            Node *node,
                             const TraversalInfo& ti,
                             styleinfo style );
 };
@@ -164,7 +159,6 @@ class knot_curve_round : public knot_curve_style
 {
     public:
         void draw_joint ( path_builder& path,
-                            Node *node,
                             const TraversalInfo& ti,
                             styleinfo style );
 };

@@ -153,8 +153,7 @@ QList<QLineF> Edge::connected(double hl, double cd) const
             r.push_back ( QLineF( handle_point(BOTTOMLEFT,hl,cd).p1(),
                                   handle_point(BOTTOMRIGHT,hl,cd).p1() ) );
             break;
-        case HOLE:
-            // handle endpoints are merged
+        case HOLE: // handle endpoints are merged
             break;
 
     }

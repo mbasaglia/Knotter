@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "commands.hpp"
 #include "translator.hpp"
 
+using namespace commands;
 //KnotViewUndoCommand
 
 KnotViewUndoCommand::KnotViewUndoCommand ( KnotView* kv )
@@ -175,42 +176,42 @@ void MoveNode::retranslate()
     setText(tr("Move Node"));
 }
 
-//ToggleEdge
-void ToggleEdge::retranslate()
+//ChangeEdgeType
+void ChangeEdgeType::retranslate()
 {
     setText(tr("Change Edge Type"));
 }
 
-bool ToggleEdge::mergeWith(const QUndoCommand *other)
+bool ChangeEdgeType::mergeWith(const QUndoCommand *other)
 {
     if (other->id() != id())
         return false;
-    const ToggleEdge* o = dynamic_cast<const ToggleEdge*>(other);
-    if ( !o || o->from != to || n1 != o->n1 || n2 != o->n2 )
+    const ChangeEdgeType* o = dynamic_cast<const ChangeEdgeType*>(other);
+    if ( !o || n1 != o->n1 || n2 != o->n2 )
         return false;
     to = o->to;
     return true;
 }
 
-int ToggleEdge::id_ = KnotViewUndoCommand::get_id();
+int ChangeEdgeType::id_ = KnotViewUndoCommand::get_id();
 
-ToggleEdge::ToggleEdge(Node *n1, Node *n2, Edge::type_type from, Edge::type_type to, KnotView *kv)
+ChangeEdgeType::ChangeEdgeType(Node *n1, Node *n2, Edge::type_type from, Edge::type_type to, KnotView *kv)
     : KnotViewUndoCommand(kv), n1 ( n1 ), n2 ( n2 ), from ( from ), to ( to )
 {
     retranslate();
 }
 
-void ToggleEdge::undo()
+void ChangeEdgeType::undo()
 {
     kv->do_toggle_edge(n1,n2,from);
 }
 
-void ToggleEdge::redo()
+void ChangeEdgeType::redo()
 {
     kv->do_toggle_edge(n1,n2,to);
 }
 
-int ToggleEdge::id()
+int ChangeEdgeType::id() const
 {
     return id_;
 }

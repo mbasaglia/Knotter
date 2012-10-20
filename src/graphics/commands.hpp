@@ -36,6 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "knotview.hpp"
 #include <QUndoCommand>
 
+namespace commands {
+
 /**
     \brief base class for undo commands that change the state of a KnotView
 */
@@ -184,7 +186,7 @@ class MoveNode : public KnotViewUndoCommand
 /**
     \brief Changes edge type
 */
-class ToggleEdge : public KnotViewUndoCommand
+class ChangeEdgeType : public KnotViewUndoCommand
 {
         Q_OBJECT
 
@@ -193,13 +195,13 @@ class ToggleEdge : public KnotViewUndoCommand
     Edge::type_type to;
 
     public:
-        ToggleEdge ( Node* n1, Node* n2, Edge::type_type from,
+        ChangeEdgeType ( Node* n1, Node* n2, Edge::type_type from,
                     Edge::type_type to, KnotView* kv );
 
         void undo();
         void redo();
 
-        int id();
+        int id() const;
 
         bool mergeWith(const QUndoCommand *other);
 
@@ -389,5 +391,7 @@ class ChangeKnotJoinStyle : public KnotViewUndoCommand
         void retranslate();
 };
 
+
+} // namespace commands
 
 #endif // COMMANDS_HPP

@@ -27,16 +27,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "basic_knot_graph.hpp"
 
 void knot_curve_ogee::draw_joint ( path_builder& path,
-                    Node* node,
                     const TraversalInfo& ti,
                     styleinfo style )
 {
-    QLineF start = ti.edge_in->handle_point(ti.handle_in,style.handle_length,style.crossing_distance);
-    QLineF finish = ti.edge_out->handle_point(ti.handle_out,style.handle_length,style.crossing_distance);
+    QLineF start = ti.in.edge->handle_point(ti.in.handle,style.handle_length,style.crossing_distance);
+    QLineF finish = ti.out.edge->handle_point(ti.out.handle,style.handle_length,style.crossing_distance);
 
     if ( ti.angle_delta > style.cusp_angle  ) // draw cusp
     {
-        QPointF cusp_point = get_cusp_point(start, finish,node,ti,style.cusp_distance);
+        QPointF cusp_point = get_cusp_point(start, finish,ti,style.cusp_distance);
 
 
         QLineF bar (start.p1(), finish.p1()); // join handle base
@@ -70,16 +69,15 @@ void knot_curve_ogee::draw_joint ( path_builder& path,
 }
 
 void knot_curve_pointed::draw_joint ( path_builder& path,
-                    Node *node,
                     const TraversalInfo& ti,
                     styleinfo style )
 {
-    QLineF start = ti.edge_in->handle_point(ti.handle_in,style.handle_length,style.crossing_distance);
-    QLineF finish = ti.edge_out->handle_point(ti.handle_out,style.handle_length,style.crossing_distance);
+    QLineF start = ti.in.edge->handle_point(ti.in.handle,style.handle_length,style.crossing_distance);
+    QLineF finish = ti.out.edge->handle_point(ti.out.handle,style.handle_length,style.crossing_distance);
 
     if ( ti.angle_delta > style.cusp_angle  ) // draw cusp
     {
-        QPointF cusp_point = get_cusp_point(start, finish,node,ti,style.cusp_distance);
+        QPointF cusp_point = get_cusp_point(start, finish,ti,style.cusp_distance);
 
 
         path.add_quad(start.p1(),start.p2(),cusp_point);
@@ -98,16 +96,15 @@ void knot_curve_pointed::draw_joint ( path_builder& path,
 }
 
 void knot_curve_polygonal::draw_joint ( path_builder& path,
-                    Node *node,
                     const TraversalInfo& ti,
                     styleinfo style )
 {
-    QLineF start = ti.edge_in->handle_point(ti.handle_in,style.handle_length,style.crossing_distance);
-    QLineF finish = ti.edge_out->handle_point(ti.handle_out,style.handle_length,style.crossing_distance);
+    QLineF start = ti.in.edge->handle_point(ti.in.handle,style.handle_length,style.crossing_distance);
+    QLineF finish = ti.out.edge->handle_point(ti.out.handle,style.handle_length,style.crossing_distance);
 
     if ( ti.angle_delta > style.cusp_angle  ) // draw cusp
     {
-        QPointF cusp_point = get_cusp_point(start, finish,node,ti,style.cusp_distance);
+        QPointF cusp_point = get_cusp_point(start, finish,ti,style.cusp_distance);
 
         path.add_line(start.p1(),start.p2());
         path.add_line(start.p2(),cusp_point);
@@ -181,25 +178,29 @@ QMap<QString,knot_curve_styler::style_id> knot_curve_styler::names;
 
 QPointF knot_curve_style:: get_cusp_point ( QLineF start,
                                  QLineF finish,
-                                 Node *node,
                                  const TraversalInfo& ti,
                                  double def_dist ) const
 {
-    QLineF bisect(0,0,1,1);
-    bisect.setP1(node->pos());
-    bisect.setAngle((ti.angle_in+ti.angle_out)/2);
 
-    QLineF handlebs(ti.edge_in->other(node)->pos(),node->pos());
-    handlebs.setLength(handlebs.length()/2);
-    handlebs.translate(start.p2()-handlebs.p1());
+    QLineF bisect(0,0,1,1);
+    // place line in the cusp node and give it the right direction
+    bisect.setP1(ti.middle->pos());
+    bisect.setAngle((ti.in.angle+ti.out.angle)/2);
+
+    // make a line parallel to the input edge and place it in the start handle endpoint
+    QLineF parallel(ti.in.node->pos(),ti.middle->pos());
+    parallel.setLength(parallel.length()/2);
+    parallel.translate(start.p2()-parallel.p1());
+
     QPointF intersect = bisect.p2();
     if ( ti.angle_delta < 350 )
     {
-        handlebs.intersect(bisect,&intersect);
+        // find the intersection between the bisector and the parallel line
+        parallel.intersect(bisect,&intersect);
         bisect.setP2(intersect);
     }
     else
-        bisect.setAngle((ti.angle_in+ti.angle_out)/2+180);
+        bisect.setAngle((ti.in.angle+ti.out.angle)/2+180);
 
     bisect.setLength(def_dist);
 
@@ -209,14 +210,14 @@ QPointF knot_curve_style:: get_cusp_point ( QLineF start,
     return bisect.p2();
 }
 
-void knot_curve_round::draw_joint(path_builder &path, Node *node, const TraversalInfo &ti, styleinfo style)
+void knot_curve_round::draw_joint(path_builder &path, const TraversalInfo &ti, styleinfo style)
 {
-    QLineF start = ti.edge_in->handle_point(ti.handle_in,style.handle_length,style.crossing_distance);
-    QLineF finish = ti.edge_out->handle_point(ti.handle_out,style.handle_length,style.crossing_distance);
+    QLineF start = ti.in.edge->handle_point(ti.in.handle,style.handle_length,style.crossing_distance);
+    QLineF finish = ti.out.edge->handle_point(ti.out.handle,style.handle_length,style.crossing_distance);
 
     if ( ti.angle_delta > style.cusp_angle  ) // draw cusp
     {
-        QPointF cusp_point = get_cusp_point(start, finish,node,ti,style.cusp_distance);
+        QPointF cusp_point = get_cusp_point(start, finish,ti,style.cusp_distance);
 
         QLineF handle( start.p1(),finish.p1() );
         handle.translate(cusp_point-start.p1());
