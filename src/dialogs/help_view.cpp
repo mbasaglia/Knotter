@@ -34,8 +34,6 @@ QStringList test_manual ( QString base_dir, QString name )
 {
     QStringList attempts;
 
-
-
     if ( base_dir.startsWith(":/") ) // resource
     {
         attempts << "qrc"+base_dir+'/'+name + " (resource)";
@@ -62,6 +60,8 @@ QStringList test_manual ( QString base_dir, QString name )
     {
         attempts << "(Not found)";
     }
+    else
+        attempts.back() += " (found here)";
 
     return attempts;
 }

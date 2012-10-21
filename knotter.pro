@@ -13,15 +13,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-QT       += core gui xml
-
+# Base configutation
+QT += core gui xml
 
 TARGET = knotter
 VERSION = 0.7.5devel
 
-
 TEMPLATE = app
-
 
 UI_DIR = src/generated
 MOC_DIR = src/generated
@@ -31,7 +29,7 @@ include(src/src.pri)
 include(lib/lib.pri)
 include(translations/translations.pri)
 
-
+#non-source files
 OTHER_FILES = \
     COPYING \
     Doxyfile \
@@ -48,15 +46,26 @@ OTHER_FILES = \
     knotter.desktop.in \
     knotter.desktop
 
+# Windows-specific stuff
+win32 {
+    # Remove non-numeric stuff from version as Windows RC doesn't like it
+    VERSION ~= s/[-_a-zA-Z]+//
+    # Bundle everything in a single file to avoid loading issues
+    isEmpty(SINGLE_FILE) {
+        SINGLE_FILE = yes
+    }
+    # No Freedesktop themes on Windows...
+    isEmpty(TANGO) {
+        TANGO = default
+    }
+}
+
+# cpp defines
+
 DEFINES += "VERSION=\\\"$${VERSION}\\\""
 
 DEFINES += "BUILD_INFO=\"\\\"Knotter $$VERSION\\nBuilt on $$_DATE_\\n$${QMAKE_HOST.os} \
 $${QMAKE_HOST.version} $${QMAKE_HOST.arch}\\nQt $${QT_VERSION}\\\""\"
-
-CONFIG(debug, debug|release) {
-    QMAKE_CXXFLAGS += -Werror -Wall -Wextra
-}
-
 
 !lessThan(QT_VERSION,"4.8"){
     DEFINES += HAS_QT_4_8
@@ -122,10 +131,9 @@ QMAKE_EXTRA_TARGETS += src_doc Doxyfile doc doc_clean man/$${TARGET}.1.gz deskto
 
 #check directories and options from configure.sh
 
-isEmpty(TANGO) { #let tango be fallback for those who don't use configure.sh (eg: Win users)
+isEmpty(TANGO) { #let tango be fallback for those who don't use configure.sh
     TANGO=fallback
 }
-
 contains (TANGO,default){
     DEFINES += TANGO_DEFAULT
     message("Using Tango icons")
@@ -194,6 +202,7 @@ isEmpty(BINDIR){
     BINDIR=.
 }
 
+# finalize ( now all directory  variables are set )
 
 DEFINES += "DATA_DIR=\\\"$${DATADIR}\\\""
 
@@ -201,8 +210,4 @@ DEFINES += "DOC_DIR=\\\"$${DOCDIR}\\\""
 
 target.path = $$BINDIR
 INSTALLS += target
-
-win32 {
-    VERSION ~= s/[-_a-zA-Z]+//
-}
 
