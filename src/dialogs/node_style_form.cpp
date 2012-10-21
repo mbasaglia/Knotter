@@ -49,19 +49,34 @@ node_style_form::node_style_form(QWidget *parent) :
 
 void node_style_form::set_style_info(styleinfo si)
 {
-    handle_length_spinner->setValue ( si.handle_length );
-    crossing_gap_spinner->setValue ( si.crossing_distance );
-    cusp_angle_spinner->setValue ( si.cusp_angle );
-    cusp_distance_spinner->setValue ( si.cusp_distance );
 
-    curstyle_id = si.curve_style;
-    style_combo->setCurrentIndex(combo_style[curstyle_id]);
 
-   if ( si.enabled_style & styleinfo::CURVE_STYLE )     style_check        ->setChecked(true);
-   if ( si.enabled_style & styleinfo::HANDLE_LENGTH )   handle_length_check->setChecked(true);
-   if ( si.enabled_style & styleinfo::CROSSING_DISTANCE)crossing_gap_check ->setChecked(true);
-   if ( si.enabled_style & styleinfo::CUSP_ANGLE )      cusp_angle_check   ->setChecked(true);
-   if ( si.enabled_style & styleinfo::CUSP_DISTANCE )   cusp_distance_check->setChecked(true);
+    if ( si.enabled_style & styleinfo::CURVE_STYLE )
+    {
+        style_check->setChecked(true);
+        curstyle_id = si.curve_style;
+        style_combo->setCurrentIndex(combo_style[curstyle_id]);
+    }
+    if ( si.enabled_style & styleinfo::HANDLE_LENGTH )
+    {
+        handle_length_check->setChecked(true);
+        handle_length_spinner->setValue ( si.handle_length );
+    }
+    if ( si.enabled_style & styleinfo::CROSSING_DISTANCE)
+    {
+        crossing_gap_check->setChecked(true);
+        crossing_gap_spinner->setValue ( si.crossing_distance );
+    }
+    if ( si.enabled_style & styleinfo::CUSP_ANGLE )
+    {
+        cusp_angle_check->setChecked(true);
+        cusp_angle_spinner->setValue ( si.cusp_angle );
+    }
+    if ( si.enabled_style & styleinfo::CUSP_DISTANCE )
+    {
+        cusp_distance_check->setChecked(true);
+        cusp_distance_spinner->setValue ( si.cusp_distance );
+    }
 
 }
 
@@ -99,6 +114,7 @@ void node_style_form::global_style_mode()
 
 void node_style_form::from_single_node(styleinfo custom, styleinfo def)
 {
+    blockSignals(true);
     set_style_info(custom);
     styleinfo::Enabled en = custom.enabled_style;
     if(!(en&styleinfo::CURVE_STYLE) )     style_combo->setCurrentIndex(combo_style[def.curve_style]);
@@ -106,10 +122,12 @@ void node_style_form::from_single_node(styleinfo custom, styleinfo def)
     if(!(en&styleinfo::CROSSING_DISTANCE))crossing_gap_spinner->setValue ( def.crossing_distance );
     if(!(en&styleinfo::CUSP_ANGLE) )      cusp_angle_spinner->setValue ( def.cusp_angle );
     if(!(en&styleinfo::CUSP_DISTANCE) )   cusp_distance_spinner->setValue ( def.cusp_distance );
+    blockSignals(false);
 }
 
 void node_style_form::from_multi_nodes(node_list nodes, styleinfo def_style)
 {
+    blockSignals(true);
     if ( nodes.empty() )
         setEnabled(false);
     else
@@ -127,6 +145,7 @@ void node_style_form::from_multi_nodes(node_list nodes, styleinfo def_style)
         /// \todo average or something
         from_single_node(nodes[0]->get_custom_style(),def_style);
     }
+    blockSignals(false);
 }
 
 
