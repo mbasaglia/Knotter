@@ -94,15 +94,17 @@ class Edge : public CustomItem
         /// Whether handle has been traversed
         bool traversed ( handle_type handle ) const;
 
-        /// \return lines to be connected in the path
-        QList<QLineF> connected( double handle_length,
-                                 double crossing_distance) const;
-
         /**
             \return one of the handles that has not been traversed or
             NOHANDLE if all have been visited
         */
         handle_type not_traversed () const;
+
+        /// Whether two handles are connected by a line
+        bool connected ( handle_type a, handle_type b ) const;
+
+        /// get next handle in traversal
+        handle_type next_handle ( handle_type from ) const;
 
         /**
             \return whether all handles have been traversed

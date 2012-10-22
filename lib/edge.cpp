@@ -133,33 +133,6 @@ bool Edge::traversed(Edge::handle_type handle) const
 }
 
 
-
-QList<QLineF> Edge::connected(double hl, double cd) const
-{
-    QList<QLineF> r;
-    switch ( type )
-    {
-        case CROSSING:
-            r.push_back ( QLineF( handle_point(TOPLEFT,hl,cd).p1(),
-                                  handle_point(BOTTOMRIGHT,hl,cd).p1() ) );
-            break;
-        case INVERTED:
-            r.push_back ( QLineF( handle_point(BOTTOMLEFT,hl,cd).p1(),
-                                  handle_point(TOPRIGHT,hl,cd).p1() ) );
-            break;
-        case WALL:
-            r.push_back ( QLineF( handle_point(TOPLEFT,hl,cd).p1(),
-                                  handle_point(TOPRIGHT,hl,cd).p1() ) );
-            r.push_back ( QLineF( handle_point(BOTTOMLEFT,hl,cd).p1(),
-                                  handle_point(BOTTOMRIGHT,hl,cd).p1() ) );
-            break;
-        case HOLE: // handle endpoints are merged
-            break;
-
-    }
-    return r;
-}
-
 Edge::handle_type Edge::not_traversed() const
 {
     if ( ! ( traversed_handles & TOPRIGHT ) )
@@ -172,6 +145,66 @@ Edge::handle_type Edge::not_traversed() const
         return BOTTOMRIGHT;
     else
         return NOHANDLE;
+}
+
+bool Edge::connected(Edge::handle_type a, Edge::handle_type b) const
+{
+
+    switch ( type )
+    {
+        case CROSSING:
+            return  ( a == TOPLEFT && b == BOTTOMRIGHT ) ||
+                    ( b == TOPLEFT && a == BOTTOMRIGHT );
+        case INVERTED:
+            return  ( a == BOTTOMLEFT && b == TOPRIGHT ) ||
+                    ( b == BOTTOMLEFT && a == TOPRIGHT );
+        case WALL:
+            return  ( a == TOPLEFT && b == TOPRIGHT ) ||
+                    ( b == TOPLEFT && a == TOPRIGHT ) ||
+                    ( a == BOTTOMLEFT && b == BOTTOMRIGHT ) ||
+                    ( b == BOTTOMLEFT && a == BOTTOMRIGHT );
+            break;
+        case HOLE: // handle endpoints are merged
+            return false;
+
+    }
+    return false;
+}
+
+Edge::handle_type Edge::next_handle(handle_type from) const
+{
+    switch ( type )
+    {
+        case CROSSING:
+        case INVERTED:
+            switch ( from )
+            {
+                case TOPLEFT: return BOTTOMRIGHT;
+                case TOPRIGHT: return BOTTOMLEFT;
+                case BOTTOMLEFT: return TOPRIGHT;
+                case BOTTOMRIGHT: return TOPLEFT;
+                default: return NOHANDLE;
+            }
+        case WALL:
+            switch ( from )
+            {
+                case TOPLEFT: return TOPRIGHT;
+                case TOPRIGHT: return TOPLEFT;
+                case BOTTOMLEFT: return BOTTOMRIGHT;
+                case BOTTOMRIGHT: return BOTTOMLEFT;
+                default: return NOHANDLE;
+            }
+        case HOLE:
+            switch ( from )
+            {
+                case TOPLEFT: return BOTTOMLEFT;
+                case TOPRIGHT: return BOTTOMRIGHT;
+                case BOTTOMLEFT: return TOPLEFT;
+                case BOTTOMRIGHT: return TOPRIGHT;
+                default: return NOHANDLE;
+            }
+    }
+    return NOHANDLE;
 }
 
 bool Edge::completed() const

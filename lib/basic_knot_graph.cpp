@@ -104,12 +104,6 @@ void basic_knot_graph::build_knotline(path_builder &path_b)
     foreach(Edge*e,edges)
     {
         e->reset();
-        QList<QLineF> connected = e->connected(default_style.handle_length,
-                                                default_style.crossing_distance);
-        foreach ( QLineF l, connected )
-        {
-            path_b.add_line(l.p1(),l.p2());
-        }
     }
 
     while ( !edges.empty() )
@@ -123,7 +117,7 @@ void basic_knot_graph::build_knotline(path_builder &path_b)
         }
         else
         {
-            if ( ! e->traversed(handle) )
+            while ( ! e->traversed(handle) )
             {
                 e->traverse(handle);
 
@@ -146,6 +140,15 @@ void basic_knot_graph::build_knotline(path_builder &path_b)
                     pcs->draw_joint(path_b,ti,default_style);
                 }
 
+                e = ti.out.edge;
+                handle = e->next_handle(ti.out.handle);
+                if ( e->connected(handle,ti.out.handle) )
+                    path_b.add_line(e->handle_point(handle,
+                                        default_style.handle_length,
+                                        default_style.crossing_distance).p1(),
+                                    e->handle_point(ti.out.handle,
+                                        default_style.handle_length,
+                                        default_style.crossing_distance).p1());
             }
         }
     }
