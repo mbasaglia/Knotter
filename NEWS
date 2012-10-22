@@ -8,6 +8,7 @@ Knotter 0.8.0  - Ongoing development
 * Optimization, mostly noticeable when loading a graph and pasting
 * Website at http://www.knotdraw.org/
 * Printing options
+* Exported SVG generates a path per loop
 
 Knotter 0.7.0
 --------------------
