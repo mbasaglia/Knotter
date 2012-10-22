@@ -80,10 +80,7 @@ void KnotGraph::add(CustomItem *what)
 QPainterPath KnotGraph::build()
 {
 
-    path_builder path_b;
-    build_knotline(path_b);
-
-    QList<QPainterPath> paths = path_b.build();
+    QList<QPainterPath> paths = multi_build();
     QPainterPath path;
     foreach ( const QPainterPath& p, paths )
         path.addPath(p);
@@ -94,6 +91,14 @@ QPainterPath KnotGraph::build()
     setPath(styled);
 
     return path;
+}
+
+QList<QPainterPath> KnotGraph::multi_build()
+{
+    path_builder path_b;
+    build_knotline(path_b);
+
+    return path_b.build();
 }
 
 void KnotGraph::set_width(double w)
@@ -190,14 +195,10 @@ void KnotGraph::paint_knot(QPaintDevice *device, bool minimal )
 
 void KnotGraph::paint_knot(QPainter *painter, bool minimal)
 {
-    QGraphicsItem::CacheMode backup_cache = cacheMode();
-    setCacheMode(QGraphicsItem::NoCache);
-
-    QStyleOptionGraphicsItem opt;
-
     QPointF off = boundingRect().topLeft();
     painter->translate(-off.x(),-off.y()); // remove offset
 
+    QList<QPainterPath> paths = multi_build();
 
     if ( minimal )
     {
@@ -205,12 +206,21 @@ void KnotGraph::paint_knot(QPainter *painter, bool minimal)
         stroke.setJoinStyle(stroker.joinStyle());
         stroke.setCapStyle(Qt::FlatCap);
         painter->setPen(stroke);
-        painter->drawPath(build());
+        foreach ( const QPainterPath& path, paths )
+            painter->drawPath(path);
     }
     else
-        paint(painter,&opt);
+    {
+        painter->setPen(pen());
+        painter->setBrush(brush());
 
-    setCacheMode(backup_cache);
+        foreach ( const QPainterPath& path, paths )
+        {
+            QPainterPath styled = stroker.createStroke(path).simplified();
+            styled.setFillRule(Qt::WindingFill);
+            painter->drawPath(styled);
+        }
+    }
 }
 
 void KnotGraph::export_svg(QIODevice &file, bool minimal)

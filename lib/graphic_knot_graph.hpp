@@ -58,6 +58,11 @@ class KnotGraph : public QGraphicsPathItem, public basic_knot_graph
         */
         QPainterPath build();
 
+        /**
+            \brief Create a list of paths. Each path corresponds to a loop
+        */
+        QList<QPainterPath> multi_build();
+
         /// set knot path width
         void set_width ( double w );
         /// get knot path width
