@@ -101,34 +101,39 @@ void basic_knot_graph::build_knotline(path_builder &path_b)
 {
     knot_curve_style* pcs = knot_curve_styler::style(default_style.curve_style);
 
-    foreach(Edge*e,edges)
-    {
-        e->reset();
-    }
-
+    // cycle while there are edges with untraversed handles
     while ( !edges.empty() )
     {
+        // pick first edge/handle
         Edge* e = edges.front();
         Edge::handle_type handle = e->not_traversed();
+
         if ( handle == Edge::NOHANDLE )
         {
+            // removed completed edge
             traversed_edges.push_back(e);
             edges.pop_front();
         }
         else
         {
+            // loop around a knotline loop item
             while ( ! e->traversed(handle) )
             {
+                // mark handle as traversed
                 e->traverse(handle);
 
+                // pick vertex
                 Node* n = e->vertex1();
                 if ( handle == Edge::TOPRIGHT || handle == Edge::BOTTOMRIGHT )
                     n = e->vertex2();
 
-
+                // perform actual traversal
                 TraversalInfo ti = next_edge(n,e,handle);
+
+                // mark output handle as traversed
                 ti.out.edge->traverse(ti.out.handle);
 
+                // build path
                 if ( n->has_custom_style() )
                 {
                     styleinfo csi = n->get_custom_style().default_to(default_style);
@@ -140,8 +145,15 @@ void basic_knot_graph::build_knotline(path_builder &path_b)
                     pcs->draw_joint(path_b,ti,default_style);
                 }
 
+                // set variables for next iteration
                 e = ti.out.edge;
                 handle = e->next_handle(ti.out.handle);
+
+                /*
+                    Draw eventual line between current output handle and next
+                    input handle.
+                    This line connects the two handle starting points.
+                */
                 if ( e->connected(handle,ti.out.handle) )
                     path_b.add_line(e->handle_point(handle,
                                         default_style.handle_length,
@@ -153,23 +165,30 @@ void basic_knot_graph::build_knotline(path_builder &path_b)
         }
     }
 
-
+    // reset traversal info
     edges = traversed_edges;
     traversed_edges.clear();
+    foreach(Edge*e,edges)
+    {
+        e->reset();
+    }
 }
-
-
 
 
 
 
 TraversalInfo next_edge(Node* node, Edge *edge, Edge::handle_type handle)
 {
-
     TraversalInfo ti;
+
+    // set input values
     ti.in.edge = edge;
     ti.in.handle = handle;
+    ti.in.angle =  QLineF ( node->pos(), edge->other(node)->pos() ).angle();
+    ti.in.node = ti.in.edge->other(node);
+    ti.middle = node;
 
+    // select handside (as viewed from the edge)
     if ( edge->vertex1() == node )
     {
         // RH = TL,  LH = BL
@@ -193,11 +212,11 @@ TraversalInfo next_edge(Node* node, Edge *edge, Edge::handle_type handle)
     else
         return TraversalInfo("Wrong edge");
 
-    ti.in.angle =  QLineF ( node->pos(), edge->other(node)->pos() ).angle();
-
     ti.out.angle = ti.in.angle;
     ti.angle_delta = 360;
     ti.out.edge = edge;
+    // select the next edge as the one with the smallest angle difference
+    // angle direction is based on handside
     foreach(Edge* i, node->links())
     {
         if ( i != edge )
@@ -217,10 +236,10 @@ TraversalInfo next_edge(Node* node, Edge *edge, Edge::handle_type handle)
         }
     }
 
-    ti.in.node = ti.in.edge->other(node);
-    ti.middle = node;
+    // output values
     ti.out.node = ti.out.edge->other(node);
 
+    // select output handles based on handside
     if ( ti.out.edge->vertex1() == node )
     {
         // RH -> BL,  LH -> TL
@@ -231,6 +250,8 @@ TraversalInfo next_edge(Node* node, Edge *edge, Edge::handle_type handle)
         // RH -> TR,  LH -> BR
         ti.out.handle = ti.handside == TraversalInfo::RIGHT ? Edge::TOPRIGHT : Edge::BOTTOMRIGHT;
     }
+
     ti.success = true;
+
     return ti;
 }
