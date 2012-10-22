@@ -32,8 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class path_builder
 {
     protected:
-        typedef QList<path_item::line*> line_list;
-        typedef line_list::iterator iterator;
+        typedef QList< QList<path_item::line*> > line_list;
+        typedef line_list::value_type::iterator iterator;
         line_list strokes;
 
         path_builder(const path_builder&);
@@ -48,7 +48,10 @@ class path_builder
         void add_cubic( QPointF begin, QPointF control1, QPointF control2, QPointF end );
         void add_quad ( QPointF begin, QPointF control, QPointF end );
 
-        QPainterPath build();
+        // next calls to add_* will be placed in a different group
+        void new_group();
+
+        QList<QPainterPath> build();
 };
 
 #endif // PATH_BUILDER_HPP

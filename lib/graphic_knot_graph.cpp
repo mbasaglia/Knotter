@@ -83,7 +83,10 @@ QPainterPath KnotGraph::build()
     path_builder path_b;
     build_knotline(path_b);
 
-    QPainterPath path = path_b.build();
+    QList<QPainterPath> paths = path_b.build();
+    QPainterPath path;
+    foreach ( const QPainterPath& p, paths )
+        path.addPath(p);
 
     /// \bug Qt? if not simplified weird artifacts on cusps
     QPainterPath styled = stroker.createStroke(path).simplified();

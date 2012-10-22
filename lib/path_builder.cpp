@@ -22,37 +22,41 @@ path_builder &path_builder::operator= (const path_builder &o)
 
 path_builder::~path_builder()
 {
-    foreach(path_item::line* stroke, strokes)
-        delete stroke;
+    foreach ( const line_list::value_type& ll, strokes )
+        foreach(path_item::line* stroke, ll)
+            delete stroke;
     strokes.clear();
 }
 
 void path_builder::add_line(path_item::line *l)
 {
-    for ( iterator i = strokes.begin(); i != strokes.end(); ++i )
+    if ( strokes.empty() )
+        new_group();
+
+    for ( iterator i = strokes.back().begin(); i != strokes.back().end(); ++i )
     {
         if ( path_item::adjacent(*i,l) )
         {
             path_item::line* c = path_item::merge(*i,l);
-            strokes.erase(i);
-            for ( iterator j = strokes.begin(); j != strokes.end(); )
+            strokes.back().erase(i);
+            for ( iterator j = strokes.back().begin(); j != strokes.back().end(); )
             {
                 if ( *j != c && path_item::adjacent(c,*j) )
                 {
                     c = path_item::merge(c,*j);
-                    strokes.erase(j);
-                    j = strokes.begin();
+                    strokes.back().erase(j);
+                    j = strokes.back().begin();
                 }
                 else
                     ++j;
             }
-            strokes.push_back(c);
+            strokes.back().push_back(c);
             return;
         }
 
     }
 
-    strokes.push_back(l);
+    strokes.back().push_back(l);
 }
 
 void path_builder::add_line(QPointF begin, QPointF end)
@@ -70,20 +74,35 @@ void path_builder::add_quad(QPointF begin, QPointF control, QPointF end)
     add_line ( new path_item::quadcurve ( begin, control, end ) );
 }
 
-QPainterPath path_builder::build()
+void path_builder::new_group()
+{
+    strokes.push_back(line_list::value_type());
+}
+
+QList<QPainterPath> path_builder::build()
 {
     if ( strokes.empty() )
-        return QPainterPath();
+        return QList<QPainterPath>();
 
-    QPainterPath ppth;
-    QPointF nextpoint = strokes[0]->begin;
-    ppth.moveTo(nextpoint);
+    QList<QPainterPath> paths;
 
-    foreach ( path_item::line* stroke, strokes )
+    foreach ( const line_list::value_type& ll, strokes )
     {
-        stroke->add_to(true,ppth);
-        nextpoint = stroke->end;
+        if ( ll.empty() )
+            continue;
+
+        paths.push_back(QPainterPath());
+
+        QPointF nextpoint = ll[0]->begin;
+
+        paths.back().moveTo(nextpoint);
+
+        foreach ( path_item::line* stroke, ll )
+        {
+            stroke->add_to(true,paths.back());
+            nextpoint = stroke->end;
+        }
     }
 
-    return ppth;
+    return paths;
 }

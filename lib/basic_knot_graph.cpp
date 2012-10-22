@@ -101,6 +101,11 @@ void basic_knot_graph::build_knotline(path_builder &path_b)
 {
     knot_curve_style* pcs = knot_curve_styler::style(default_style.curve_style);
 
+    foreach(Edge*e,edges)
+    {
+        e->reset();
+    }
+
     // cycle while there are edges with untraversed handles
     while ( !edges.empty() )
     {
@@ -116,6 +121,7 @@ void basic_knot_graph::build_knotline(path_builder &path_b)
         }
         else
         {
+            path_b.new_group();
             // loop around a knotline loop item
             while ( ! e->traversed(handle) )
             {
@@ -168,10 +174,6 @@ void basic_knot_graph::build_knotline(path_builder &path_b)
     // reset traversal info
     edges = traversed_edges;
     traversed_edges.clear();
-    foreach(Edge*e,edges)
-    {
-        e->reset();
-    }
 }
 
 
