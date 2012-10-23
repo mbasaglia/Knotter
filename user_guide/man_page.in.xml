@@ -97,10 +97,16 @@
                     </listitem>
                 </varlistentry>
                 <varlistentry>
-                    <term>--minimal</term>
-                    <term>--no-minimal</term>
+                    <term>--mode-normal</term>
+                    <term>--mode-minimal</term>
+                    <term>--mode-loops</term>
                     <listitem>
-                        <para>Export only path or full shape to SVG (default disabled)</para>
+                        <para>If the mode is set to <option>normal</option> (the default) the full shape is exported.</para>
+                        <para><option>minimal</option> mode exports line-only, with the same style as the knot.
+                            In raster exports this results in having no outline, in vector exports this results in
+                                a path that is only stroked.</para>
+                        <para>In <option>loops</option> mode, the export result is similar to <option>minimal</option>
+                            but a random color is applied to every loop within the knot.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>

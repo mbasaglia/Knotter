@@ -854,6 +854,8 @@ void KnotView::same_mode(const KnotView &other)
     fluid_redraw = other.fluid_redraw;
 
     toggle_knotline ( other.knot.scene() != NULL );
+
+    set_paint_mode(other.get_paint_mode());
 }
 
 void KnotView::begin_macro(QString name)
@@ -903,6 +905,13 @@ void KnotView::do_set_join_style(Qt::PenJoinStyle pjs)
 void KnotView::set_cache_mode(QGraphicsItem::CacheMode cm)
 {
     knot.setCacheMode(cm);
+    redraw(false);
+}
+
+void KnotView::set_paint_mode(KnotGraph::PaintingMode pmode)
+{
+    knot.set_paint_mode(pmode);
+    redraw(false);
 }
 
 double KnotView::get_width() const
@@ -934,6 +943,11 @@ Qt::PenJoinStyle KnotView::get_join_style() const
 QGraphicsItem::CacheMode KnotView::get_cache_mode() const
 {
     return knot.cacheMode();
+}
+
+KnotGraph::PaintingMode KnotView::get_paint_mode() const
+{
+    return knot.get_paint_mode();
 }
 
 void KnotView::disable_custom_style(Node *n)

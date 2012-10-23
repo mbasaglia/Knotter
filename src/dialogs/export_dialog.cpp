@@ -61,7 +61,7 @@ void Export_Dialog::on_export_svg_button_clicked()
     filename = exname;
 
 
-    canvas->graph().export_svg( quf, only_shape_check->isChecked() );
+    canvas->graph().export_svg( quf, get_paint_mode() );
 
     quf.close();
 }
@@ -92,10 +92,6 @@ void Export_Dialog::on_export_raster_button_clicked()
     QString exname = export_dialog.selectedFiles()[0];
 
 
-    /*QString exname = QFileDialog::getSaveFileName(this,tr("Export Knot as SVG"),filename,
-                "SVG Images (*);;XML files (*.xml);;All files (*)" );*/
-
-
     QFile quf(exname);
     if ( ! quf.open(QIODevice::WriteOnly) )
     {
@@ -113,7 +109,7 @@ void Export_Dialog::on_export_raster_button_clicked()
     if ( name_filter == png )
         back = Qt::transparent;
 
-    canvas->graph().export_raster(quf,false,back,antialias_check->isChecked(),
+    canvas->graph().export_raster(quf,get_paint_mode(),back,antialias_check->isChecked(),
             get_size(),100-quality_slider->value());
 
     quf.close();
@@ -126,10 +122,20 @@ QSize Export_Dialog::get_size() const
 
 QRectF Export_Dialog::get_area()
 {
-    if ( area_everything->isChecked() )
+    //if ( area_everything->isChecked() )
         return canvas->scene()->itemsBoundingRect();
+    //else
+        //    return canvas->sceneRect();
+}
+
+KnotGraph::PaintingMode Export_Dialog::get_paint_mode() const
+{
+    if ( mode_minimal->isChecked() )
+        return KnotGraph::MINIMAL;
+    else if ( mode_loops->isChecked() )
+        return KnotGraph::LOOPS;
     else
-        return canvas->sceneRect();
+        return KnotGraph::NORMAL;
 }
 
 void Export_Dialog::on_quality_slider_valueChanged(int value)

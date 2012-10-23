@@ -214,6 +214,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void on_action_Print_triggered();
         void on_actionPage_Set_up_triggered();
         void on_actionPr_int_Preview_triggered();
+        void on_action_Highlight_loops_triggered(bool checked);
 };
 
 #endif // KNOT_WINDOW_HPP

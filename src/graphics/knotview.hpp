@@ -160,6 +160,7 @@ class KnotView : public QGraphicsView
         Qt::PenJoinStyle get_join_style() const;
 
         QGraphicsItem::CacheMode get_cache_mode() const;
+        KnotGraph::PaintingMode get_paint_mode() const;
 
         void disable_custom_style(Node*n);
         void set_custom_style ( Node*n, styleinfo sty );
@@ -178,6 +179,8 @@ class KnotView : public QGraphicsView
         void accept_width();
 
         void set_cache_mode(QGraphicsItem::CacheMode cm);
+
+        void set_paint_mode(KnotGraph::PaintingMode pmode);
     public:
     /// @}
 // undo requests

@@ -134,6 +134,7 @@
     <addaction name="separator"/>
     <addaction name="actionShow_Graph"/>
     <addaction name="actionShow_Knot_line"/>
+    <addaction name="action_Highlight_loops"/>
     <addaction name="separator"/>
     <addaction name="actionEnable_Grid"/>
     <addaction name="actionConfigure_G_rid"/>
@@ -227,6 +228,7 @@
    <addaction name="actionZoom_In"/>
    <addaction name="actionZoom_Out"/>
    <addaction name="separator"/>
+   <addaction name="action_Highlight_loops"/>
    <addaction name="actionShow_Graph"/>
    <addaction name="actionEnable_Grid"/>
    <addaction name="action_Move_Grid"/>
@@ -536,6 +538,14 @@
   <action name="actionPr_int_Preview">
    <property name="text">
     <string>Pr&amp;int Preview...</string>
+   </property>
+  </action>
+  <action name="action_Highlight_loops">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Highlight loops</string>
    </property>
   </action>
  </widget>

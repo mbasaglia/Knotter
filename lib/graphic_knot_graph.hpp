@@ -35,15 +35,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     This class will both evaluate the shape and render the knot
 */
-class KnotGraph : public QGraphicsPathItem, public basic_knot_graph
+class KnotGraph : public QAbstractGraphicsShapeItem, public basic_knot_graph
 {
+    public:
+        enum PaintingMode
+        {
+            NORMAL = 0x0, // full shape
+            MINIMAL= 0x1, // outline (same style as NORMAL)
+            LOOPS  = 0x2  // outline (one color per loop)
+        };
+
     protected:
         QPainterPathStroker stroker;            ///< Knot style
+        QList<QPainterPath> paths;
+        QRectF bounding_cache;
+        PaintingMode paint_mode;
+
+        void recalculate_rect_cache();
+
+        void paint_minimal(QPainter *painter);
+        void paint_loops(QPainter *painter);
+        void paint_normal(QPainter *painter);
+
+        void paint(QPainter *painter, PaintingMode paint_mode);
 
     public:
         KnotGraph();
         ~KnotGraph();
         KnotGraph& operator= ( const KnotGraph& o );
+
+        QRectF boundingRect() const { return bounding_cache; }
+
+        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+
+        /// Draw the knot to device (normalize position to 0,0)
+        void paint_knot ( QPaintDevice* device, PaintingMode mode );
+        /// Draw the knot (normalize position to 0,0)
+        void paint_knot ( QPainter* painter, PaintingMode mode );
+
+        void set_paint_mode ( PaintingMode mode ) { paint_mode = mode; }
+        PaintingMode get_paint_mode () const { return paint_mode; }
 
         void copy_style( const KnotGraph& o );
 
@@ -56,12 +88,12 @@ class KnotGraph : public QGraphicsPathItem, public basic_knot_graph
 
             \return the thin resulting path, without any style
         */
-        QPainterPath build();
+        //QPainterPath build();
 
         /**
             \brief Create a list of paths. Each path corresponds to a loop
         */
-        QList<QPainterPath> multi_build();
+        const QList<QPainterPath> &build();
 
         /// set knot path width
         void set_width ( double w );
@@ -78,15 +110,9 @@ class KnotGraph : public QGraphicsPathItem, public basic_knot_graph
         bool load_xml(QIODevice* file);
         void save_xml(QIODevice* file) const;
 
+        void export_svg(QIODevice &file, PaintingMode mode);
 
-        /// Draw the knot to device
-        void paint_knot ( QPaintDevice* device, bool minimal );
-        /// Draw the knot
-        void paint_knot ( QPainter* painter, bool minimal );
-
-        void export_svg(QIODevice &file, bool minimal);
-
-        void export_raster(QIODevice &file, bool minimal,
+        void export_raster(QIODevice &file, PaintingMode mode,
             QColor background, bool antialias, QSize img_size, int quality);
 
 

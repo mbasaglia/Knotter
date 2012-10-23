@@ -314,6 +314,7 @@ void Knot_Window::init_menus()
     action_Move_Grid->setIcon(load::icon("move_grid"));
     actionConfigure_G_rid->setIcon(load::icon("configure-grid"));
     action_Background->setIcon(load::icon("preferences-desktop-wallpaper"));
+    action_Highlight_loops->setIcon(load::icon("highlight-loops"));
 
 // Node menu icons
     action_Horizontal_Flip->setIcon(load::icon("object-flip-horizontal"));
@@ -1346,7 +1347,7 @@ void Knot_Window::print ( QPrinter* p )
     size.scale(rect.size(), Qt::KeepAspectRatio);
     painter.setViewport(rect.x(), rect.y(), size.width(), size.height());
     painter.setWindow(knotview()->viewport()->rect());
-    knotview()->graph().paint_knot(&painter,false);
+    knotview()->graph().paint_knot(&painter,KnotGraph::NORMAL);
 }
 
 void Knot_Window::on_actionPage_Set_up_triggered()
@@ -1360,4 +1361,9 @@ void Knot_Window::on_actionPr_int_Preview_triggered()
     QPrintPreviewDialog dialog(&printer,this);
     connect(&dialog,SIGNAL(paintRequested(QPrinter*)),SLOT(print(QPrinter*)));
     dialog.exec();
+}
+
+void Knot_Window::on_action_Highlight_loops_triggered(bool checked)
+{
+    knotview()->set_paint_mode ( checked ? KnotGraph::LOOPS : KnotGraph::NORMAL );
 }

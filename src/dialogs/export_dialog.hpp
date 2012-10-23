@@ -40,6 +40,9 @@ class Export_Dialog : public QDialog, private Ui::Export_Dialog
 
         QSize get_size() const;
         QRectF get_area();
+        KnotGraph::PaintingMode get_paint_mode() const;
+
+
     public:
         explicit Export_Dialog( QWidget *parent = 0);
 

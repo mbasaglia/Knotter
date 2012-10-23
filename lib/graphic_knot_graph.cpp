@@ -33,7 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPainter>
 #include <QBuffer>
 
+
 KnotGraph::KnotGraph()
+    : paint_mode ( NORMAL )
 {
     setBrush(QBrush(Qt::black));
     setPen(QPen(Qt::gray));
@@ -60,6 +62,97 @@ KnotGraph &KnotGraph::operator= (const KnotGraph &o)
     return *this;
 }
 
+void KnotGraph::recalculate_rect_cache()
+{
+    bounding_cache = QRectF();
+    foreach ( const QPainterPath& path, paths )
+    {
+        bounding_cache |= path.controlPointRect();
+    }
+
+    bounding_cache = bounding_cache.normalized();
+}
+
+void KnotGraph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    Q_UNUSED(widget);
+    Q_UNUSED(option);
+
+    paint(painter,paint_mode);
+}
+
+void KnotGraph::paint_minimal(QPainter *painter)
+{
+    QPen stroke(brush(),stroker.width());
+    stroke.setJoinStyle(stroker.joinStyle());
+    stroke.setCapStyle(Qt::FlatCap);
+    painter->setPen(stroke);
+    foreach ( const QPainterPath& path, paths )
+        painter->drawPath(path);
+}
+
+void KnotGraph::paint_loops(QPainter *painter)
+{
+
+    if ( paths.isEmpty() )
+        return;
+
+    int hoff = 360 / paths.size();
+    int hue = 0;
+
+    foreach ( const QPainterPath& path, paths )
+    {
+        painter->setPen( QPen ( QColor::fromHsv(hue,192,170), stroker.width() ) );
+        painter->drawPath(path);
+        hue += hoff;
+    }
+}
+
+void KnotGraph::paint_normal(QPainter *painter)
+{
+    painter->setPen(pen());
+    painter->setBrush(brush());
+
+    foreach ( const QPainterPath& path, paths )
+    {
+        QPainterPath styled = stroker.createStroke(path).simplified();
+        styled.setFillRule(Qt::WindingFill);
+        painter->drawPath(styled);
+    }
+}
+
+void KnotGraph::paint(QPainter *painter, KnotGraph::PaintingMode paint_mode)
+{
+    switch(paint_mode)
+    {
+        default:
+        case NORMAL:
+            return paint_normal(painter);
+        case MINIMAL:
+            return paint_minimal(painter);
+        case LOOPS:
+            return paint_loops(painter);
+    }
+}
+
+void KnotGraph::paint_knot(QPaintDevice *device, PaintingMode mode )
+{
+    QPainter painter;
+    painter.begin(device);
+
+    paint_knot ( &painter, mode );
+
+    painter.end();
+}
+
+void KnotGraph::paint_knot(QPainter *painter, PaintingMode mode )
+{
+    QPointF off = boundingRect().topLeft();
+    painter->translate(-off.x(),-off.y()); // remove offset
+
+    paint(painter,mode);
+}
+
 void KnotGraph::copy_style(const KnotGraph &o)
 {
     stroker.setCapStyle(o.stroker.capStyle());
@@ -77,7 +170,7 @@ void KnotGraph::add(CustomItem *what)
     add_edge ( dynamic_cast<Edge*>(what) );
 }
 
-QPainterPath KnotGraph::build()
+/*QPainterPath KnotGraph::build()
 {
 
     QList<QPainterPath> paths = multi_build();
@@ -91,14 +184,17 @@ QPainterPath KnotGraph::build()
     setPath(styled);
 
     return path;
-}
+}*/
 
-QList<QPainterPath> KnotGraph::multi_build()
+const QList<QPainterPath>& KnotGraph::build()
 {
     path_builder path_b;
     build_knotline(path_b);
 
-    return path_b.build();
+    paths = path_b.build();
+    recalculate_rect_cache();
+
+    return paths;
 }
 
 void KnotGraph::set_width(double w)
@@ -183,55 +279,16 @@ bool KnotGraph::load_xml(QIODevice *device)
     return true;
 }
 
-void KnotGraph::paint_knot(QPaintDevice *device, bool minimal )
-{
-    QPainter painter;
-    painter.begin(device);
 
-    paint_knot ( &painter, minimal );
-
-    painter.end();
-}
-
-void KnotGraph::paint_knot(QPainter *painter, bool minimal)
-{
-    QPointF off = boundingRect().topLeft();
-    painter->translate(-off.x(),-off.y()); // remove offset
-
-    QList<QPainterPath> paths = multi_build();
-
-    if ( minimal )
-    {
-        QPen stroke(brush(),stroker.width());
-        stroke.setJoinStyle(stroker.joinStyle());
-        stroke.setCapStyle(Qt::FlatCap);
-        painter->setPen(stroke);
-        foreach ( const QPainterPath& path, paths )
-            painter->drawPath(path);
-    }
-    else
-    {
-        painter->setPen(pen());
-        painter->setBrush(brush());
-
-        foreach ( const QPainterPath& path, paths )
-        {
-            QPainterPath styled = stroker.createStroke(path).simplified();
-            styled.setFillRule(Qt::WindingFill);
-            painter->drawPath(styled);
-        }
-    }
-}
-
-void KnotGraph::export_svg(QIODevice &file, bool minimal)
+void KnotGraph::export_svg(QIODevice &file, PaintingMode mode)
 {
     QSvgGenerator gen;
     gen.setOutputDevice(&file);
 
-    paint_knot ( &gen, minimal );
+    paint_knot ( &gen, mode );
 }
 
-void KnotGraph::export_raster(QIODevice &file, bool minimal,
+void KnotGraph::export_raster(QIODevice &file, PaintingMode mode,
     QColor background, bool antialias, QSize img_size, int quality )
 {
     QSizeF actual_size = boundingRect().size();
@@ -253,7 +310,7 @@ void KnotGraph::export_raster(QIODevice &file, bool minimal,
 
         painter.scale(scale_x,scale_y);
 
-        paint_knot ( &painter, minimal );
+        paint_knot ( &painter, mode );
 
         painter.end();
 
@@ -285,7 +342,7 @@ void KnotGraph::export_raster(QIODevice &file, bool minimal,
 
         painter.scale(scale_x,scale_y);
 
-        paint_knot ( &painter, minimal );
+        paint_knot ( &painter, mode );
 
         painter.end();
 
@@ -307,7 +364,7 @@ void KnotGraph::to_mime(QMimeData *data)
         QByteArray knot_svg;
         QBuffer svg_stream(&knot_svg);
         svg_stream.open(QIODevice::WriteOnly|QIODevice::Text);
-        export_svg(svg_stream,true);
+        export_svg(svg_stream,paint_mode);
         data->setData("image/svg",knot_svg);
 }
 

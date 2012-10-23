@@ -60,8 +60,9 @@ std::ostream& operator<< ( std::ostream&os, QString str )
             ("input-file", value<std::string>(), Knot_Window::tr("Knot file to be loaded").toStdString().c_str() )
             ("antialias", Knot_Window::tr("Enable supersampling for raster export").toStdString().c_str() )
             ("no-antialias", Knot_Window::tr("Disable supersampling for raster export").toStdString().c_str() )
-            ("minimal", Knot_Window::tr("Export only path to SVG").toStdString().c_str() )
-            ("no-minimal", Knot_Window::tr("Export full shape to SVG").toStdString().c_str() )
+            ("mode-minimal", Knot_Window::tr("Export only path to SVG").toStdString().c_str() )
+            ("mode-normal", Knot_Window::tr("Export full shape to SVG").toStdString().c_str() )
+            ("mode-loops", Knot_Window::tr("Export only path to SVG, one color per loop").toStdString().c_str() )
             ("background,b", value<std::string>(), Knot_Window::tr("Name for the background color for raster export").toStdString().c_str() )
             ;
 
@@ -82,7 +83,7 @@ std::ostream& operator<< ( std::ostream&os, QString str )
 
         bool no_gui = false;
         bool antialias = true;
-        bool minimal = false;
+        KnotGraph::PaintingMode mode = KnotGraph::NORMAL;
         QColor background;
         QString format = "auto";
         QStringList formats;
@@ -122,9 +123,11 @@ std::ostream& operator<< ( std::ostream&os, QString str )
             else if ( key == "no-antialias" )
                 antialias = false;
             else if ( key == "minimal" )
-                minimal = true;
-            else if ( key == "no-minimal" )
-                minimal = false;
+                mode = KnotGraph::MINIMAL;
+            else if ( key == "normal" )
+                mode = KnotGraph::NORMAL;
+            else if ( key == "loops" )
+                mode = KnotGraph::LOOPS;
             else
             {
                 QString value;
@@ -173,11 +176,11 @@ std::ostream& operator<< ( std::ostream&os, QString str )
                     }
 
                     if ( tformat == "svg" )
-                        graph.export_svg(open_file,minimal);
+                        graph.export_svg(open_file,mode);
                     else
                     {
                         /// \todo size argument
-                        graph.export_raster(open_file,false,background,
+                        graph.export_raster(open_file,mode,background,
                             antialias,graph.boundingRect().size().toSize(),100);
                     }
                 } // output
