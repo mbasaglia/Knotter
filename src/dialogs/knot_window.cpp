@@ -366,6 +366,8 @@ void Knot_Window::init_docks()
     default_node_style_dock->setWidget(default_node_style_form);
     default_node_style_dock->setObjectName("Default_Node_Style");
     default_node_style_dock->setWindowTitle(tr("Default Style"));
+    default_node_style_dock->setToolTip(
+        tr("Change settings that chan be edited node-wise") );
 
 //Selected Node Style Dock
     QDockWidget* selected_node_style_dock;
@@ -375,6 +377,8 @@ void Knot_Window::init_docks()
     selected_node_style_dock->setWidget(selected_node_style_form);
     selected_node_style_dock->setObjectName("selected_node_style_dock");
     selected_node_style_dock->setWindowTitle(tr("Selection Style"));
+    selected_node_style_dock->setToolTip(
+        tr("Override node style for the current selection") );
 
     connect(selected_node_style_form,SIGNAL(style_changed(styleinfo)),
                     SLOT(set_selected_style(styleinfo)));
@@ -387,6 +391,8 @@ void Knot_Window::init_docks()
     global_style_dock->setWidget(global_style_frm);
     global_style_dock->setObjectName("Knot_Style");
     global_style_dock->setWindowTitle(tr("Knot Style"));
+    global_style_dock->setToolTip(
+        tr("Change overall knot appearence, these settings cannot be overriden node-wide") );
 
 // Dock default positioning
     addDockWidget(Qt::RightDockWidgetArea,global_style_dock);
@@ -411,7 +417,7 @@ void Knot_Window::init_toolbars()
     addToolBar(Qt::LeftToolBarArea, EditBar);
     addToolBar(Qt::TopToolBarArea, MainToolBar);
     addToolBar(Qt::TopToolBarArea, ViewBar);
-    addToolBar(Qt::TopToolBarArea, TransformBar);
+    addToolBar(Qt::LeftToolBarArea, TransformBar);
 
     // Statusbar...
     zoomer = new QDoubleSpinBox;
@@ -949,14 +955,12 @@ void Knot_Window::saveAs()
 
 void Knot_Window::open()
 {
-    QString fn = tabWidget->tabText(tabWidget->currentIndex());
-
-    fn = QFileDialog::getOpenFileName(this,tr("Open Knot"),fn,
+    QStringList files = QFileDialog::getOpenFileNames(this,tr("Open Knot"),
+                tabWidget->tabText(tabWidget->currentIndex()),
                 "Knot files (*.knot);;XML files (*.xml);;All files (*)" );
-    if ( fn.isNull() )
-        return;
 
-    open(fn);
+    foreach ( QString file, files )
+        open(file);
 
 }
 

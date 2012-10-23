@@ -9,6 +9,8 @@ Knotter 0.8.0  - Ongoing development
 * Website at http://www.knotdraw.org/
 * Printing options
 * Exported SVG generates a path per loop
+* Highlight separate loops
+* Open multiple files from Open...
 
 Knotter 0.7.0
 --------------------

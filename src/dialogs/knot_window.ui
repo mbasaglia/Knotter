@@ -231,7 +231,6 @@
    <addaction name="action_Highlight_loops"/>
    <addaction name="actionShow_Graph"/>
    <addaction name="actionEnable_Grid"/>
-   <addaction name="action_Move_Grid"/>
    <addaction name="actionS_nap_to_grid"/>
   </widget>
   <widget class="QToolBar" name="TransformBar">
