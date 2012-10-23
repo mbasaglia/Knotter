@@ -100,9 +100,14 @@ void KnotGraph::paint_loops(QPainter *painter)
     int hoff = 360 / paths.size();
     int hue = 0;
 
+    QPen stroke(brush(),stroker.width());
+    stroke.setJoinStyle(stroker.joinStyle());
+    stroke.setCapStyle(Qt::FlatCap);
+
     foreach ( const QPainterPath& path, paths )
     {
-        painter->setPen( QPen ( QColor::fromHsv(hue,192,170), stroker.width() ) );
+        stroke.setColor ( QColor::fromHsv(hue,192,170) );
+        painter->setPen( stroke );
         painter->drawPath(path);
         hue += hoff;
     }
