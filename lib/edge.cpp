@@ -70,12 +70,31 @@ void Edge::paint(QPainter *painter,
     }
 
     if ( type == WALL )
-        pen.setWidth(pen.width()*2);
+    {
+        pen.setWidth(pen.width()*3);
+        pen.setCapStyle(Qt::FlatCap);
+    }
     else if ( type == INVERTED )
         pen.setStyle(Qt::DashLine);
 
     painter->setPen(pen);
-    painter->drawLine(start->pos(),end->pos());
+
+    //if ( type != WALL )
+        painter->drawLine(start->pos(),end->pos());
+    /*else
+    {
+        QPainterPathStroker pps;
+        pps.setWidth(pen.width()+1);
+        QPainterPath pp(start->pos());
+        pp.lineTo(end->pos());
+        painter->drawPath(pps.createStroke(pp));
+    }*/
+
+    if ( type == WALL )
+    {
+        painter->setPen(QPen(Qt::white,pen.width()/3));
+        painter->drawLine(start->pos(),end->pos());
+    }
 
     if ( type == HOLE )
     {
