@@ -46,7 +46,7 @@ void Export_Dialog::set_knot_view(KnotView *kn)
 void Export_Dialog::on_export_svg_button_clicked()
 {
     QString exname = QFileDialog::getSaveFileName(this,tr("Export Knot as SVG"),filename,
-                "SVG Images (*);;XML files (*.xml);;All files (*)" );
+                "SVG Images (*.svg);;XML files (*.xml);;All files (*)" );
 
     if ( exname.isNull() )
         return;

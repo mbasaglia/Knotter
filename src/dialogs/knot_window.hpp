@@ -94,9 +94,6 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void update_recent_menu();
 
 
-        /// update ui elements based on the actual values
-        void update_ui();
-
         void init_menus();
         void init_docks();
         void init_toolbars();
@@ -149,6 +146,10 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
 
     private slots:
+
+
+        /// update ui elements based on the actual values
+        void update_ui();
 
         /// Update the grid icon in the toolbar/menu to the current grid shape
         void update_grid_icon();

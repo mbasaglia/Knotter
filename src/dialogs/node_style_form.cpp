@@ -46,43 +46,63 @@ void node_style_form::set_style_info(styleinfo si)
 {
 
 
-    if ( si.enabled_style & styleinfo::CURVE_STYLE )
+    if ( si.enabled_style & styleinfo::CURVE_STYLE || !style_check->isVisible() )
     {
         style_check->setChecked(true);
         curstyle_id = si.curve_style;
         style_combo->setCurrentIndex(combo_style[curstyle_id]);
     }
-    if ( si.enabled_style & styleinfo::HANDLE_LENGTH )
+    else
+        style_check->setChecked(false);
+
+    if ( si.enabled_style & styleinfo::HANDLE_LENGTH || !handle_length_check->isVisible() )
     {
         handle_length_check->setChecked(true);
         handle_length_spinner->setValue ( si.handle_length );
     }
-    if ( si.enabled_style & styleinfo::CROSSING_DISTANCE)
+    else
+        handle_length_check->setChecked(false);
+
+    if ( si.enabled_style & styleinfo::CROSSING_DISTANCE || !crossing_gap_check->isVisible() )
     {
         crossing_gap_check->setChecked(true);
         crossing_gap_spinner->setValue ( si.crossing_distance );
     }
-    if ( si.enabled_style & styleinfo::CUSP_ANGLE )
+    else
+        crossing_gap_check->setChecked(false);
+
+    if ( si.enabled_style & styleinfo::CUSP_ANGLE || !cusp_angle_check->isVisible() )
     {
         cusp_angle_check->setChecked(true);
         cusp_angle_spinner->setValue ( si.cusp_angle );
     }
-    if ( si.enabled_style & styleinfo::CUSP_DISTANCE )
+    else
+        cusp_angle_check->setChecked(false);
+
+    if ( si.enabled_style & styleinfo::CUSP_DISTANCE || !cusp_distance_check->isVisible() )
     {
         cusp_distance_check->setChecked(true);
         cusp_distance_spinner->setValue ( si.cusp_distance );
     }
+    else
+        cusp_distance_check->setChecked(false);
+
 
 }
 
 styleinfo node_style_form::get_style_info() const
 {
     styleinfo::Enabled enabled_style;
-    if ( style_check        ->isChecked() ) enabled_style |= styleinfo::CURVE_STYLE;
-    if ( handle_length_check->isChecked() ) enabled_style |= styleinfo::HANDLE_LENGTH;
-    if ( crossing_gap_check ->isChecked() ) enabled_style |= styleinfo::CROSSING_DISTANCE;
-    if ( cusp_angle_check   ->isChecked() ) enabled_style |= styleinfo::CUSP_ANGLE;
-    if ( cusp_distance_check->isChecked() ) enabled_style |= styleinfo::CUSP_DISTANCE;
+    if ( style_check->isChecked() || !style_check->isVisible() )
+        enabled_style |= styleinfo::CURVE_STYLE;
+    if ( handle_length_check->isChecked() || !handle_length_check->isVisible() )
+        enabled_style |= styleinfo::HANDLE_LENGTH;
+    if ( crossing_gap_check->isChecked() || !crossing_gap_check->isVisible() )
+        enabled_style |= styleinfo::CROSSING_DISTANCE;
+    if ( cusp_angle_check->isChecked() || !cusp_angle_check->isVisible() )
+        enabled_style |= styleinfo::CUSP_ANGLE;
+    if ( cusp_distance_check->isChecked() || !cusp_distance_check->isVisible() )
+        enabled_style |= styleinfo::CUSP_DISTANCE;
 
     return styleinfo(curstyle_id,cusp_angle_spinner->value(),
                     handle_length_spinner->value(),

@@ -92,7 +92,9 @@ void Edge::paint(QPainter *painter,
 
     if ( type == WALL )
     {
-        painter->setPen(QPen(Qt::white,pen.width()/3));
+        QPen p(Qt::white,pen.width()/3);
+        p.setCosmetic(true);
+        painter->setPen(p);
         painter->drawLine(start->pos(),end->pos());
     }
 

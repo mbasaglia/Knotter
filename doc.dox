@@ -22,6 +22,7 @@ packaging:
 
 UI:
 \todo Warn unsaved documents
+\todo KnotView Undo/Redo (style) should cause Knot_Window::update_ui
 
 UI+Logic:
 \todo put back edge-editing mode (?)

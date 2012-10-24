@@ -1,4 +1,4 @@
-This file contains a brief description of Knotter releases,
+his file contains a brief description of Knotter releases,
 showing when features have been added to the program.
 
 Knotter 0.8.0  - Ongoing development
@@ -10,7 +10,9 @@ Knotter 0.8.0  - Ongoing development
 * Printing options
 * Exported SVG generates a path per loop
 * Highlight separate loops
-* Open multiple files from Open...
+* Open multiple files from "Open..."
+* "Configure Grid" as a dock
+* Better display for "WALL" edges
 
 Knotter 0.7.0
 --------------------

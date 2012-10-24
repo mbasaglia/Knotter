@@ -166,6 +166,7 @@ void KnotView::snap(QPointF& p,QMouseEvent *event)
     }
 
     grid.snap(p);
+
 }
 
 void KnotView::mouseDoubleClickEvent(QMouseEvent * event)
@@ -425,11 +426,13 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
     }*/
     else if ( mode == INSERT_EDGE_CHAIN )
     {
-        QPointF q = p;
-        snap(q,event);
-
         if ( guide && last_node )
         {
+            QPointF q = p;
+            snap(q,event);
+            Node* n = node_at(p);
+            if ( n )
+                q = n->pos();
             set_guide ( last_node->pos(), q );
         }
     }
@@ -753,7 +756,7 @@ Transform_Handle *KnotView::th_at(QPointF p)
 void KnotView::link(Node *a, Node *b )
 {
     Edge* e = knot.add_edge(a,b);
-    if ( e )
+    if ( e && e->scene() != scene() )
         scene()->addItem ( e );
     redraw(true);
 }

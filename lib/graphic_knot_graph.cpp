@@ -70,7 +70,10 @@ void KnotGraph::recalculate_rect_cache()
         bounding_cache |= path.controlPointRect();
     }
 
-    bounding_cache = bounding_cache.normalized();
+    double w_pad = stroker.width()/2 + pen().widthF();
+    bounding_cache.adjust(-w_pad,-w_pad,w_pad,w_pad);
+
+    //bounding_cache = bounding_cache.normalized();
 }
 
 void KnotGraph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -153,9 +156,22 @@ void KnotGraph::paint_knot(QPaintDevice *device, PaintingMode mode )
 void KnotGraph::paint_knot(QPainter *painter, PaintingMode mode )
 {
     QPointF off = boundingRect().topLeft();
+
     painter->translate(-off.x(),-off.y()); // remove offset
 
+
     paint(painter,mode);
+
+    /// \todo export graph?
+    /*
+    foreach(Edge* edge, edges)
+        edge->paint(painter,0,0);
+    foreach(Node* node, nodes)
+    {
+        painter->translate(node->pos().toPoint());
+        node->paint(painter,0,0);
+        painter->translate(-node->pos().toPoint());
+    }*/
 }
 
 void KnotGraph::copy_style(const KnotGraph &o)

@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 bool CustomItem::show_graph = true;
 
 Node::Node(QPointF position)
-    : CustomItem(true)
+    : CustomItem(false)
 {
     setPos(position);
     setFlag(QGraphicsItem::ItemIsMovable);
