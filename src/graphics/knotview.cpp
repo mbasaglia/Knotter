@@ -60,6 +60,8 @@ KnotView::KnotView( QWidget* parent )
     connect(scene(),SIGNAL(selectionChanged()),SIGNAL(selectionChanged()));
 
     grid.enable(false);
+
+    connect(&grid,SIGNAL(edited()),SLOT(refresh()));
 }
 
 void KnotView::do_add_node(Node *node, node_list adjl)
@@ -542,6 +544,7 @@ void KnotView::mouseReleaseEvent(QMouseEvent *event)
             p = node->pos();
         grid.set_origin(p);
         redraw(false);
+        grid_moved(p);
         mode_edit_node_edge();
     }
     else if ( mouse_status == MOVING )
@@ -1444,12 +1447,12 @@ void KnotView::select_all()
 }
 
 
-void KnotView::redraw(bool recalculate_node)
+void KnotView::redraw(bool recalculate_knot)
 {
     if ( dont_redraw )
         return;
 
-    if ( recalculate_node && knot.scene() )
+    if ( recalculate_knot && knot.scene() )
         knot.build();
     scene()->invalidate();
 }

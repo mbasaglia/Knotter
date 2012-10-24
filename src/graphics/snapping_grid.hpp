@@ -32,8 +32,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /**
     \brief Triangular or Square grid
 */
-class snapping_grid
+class snapping_grid : public QObject
 {
+    Q_OBJECT
+
     public:
         enum grid_shape { SQUARE, TRIANGLE1, TRIANGLE2 };
 
@@ -76,6 +78,9 @@ class snapping_grid
         void set_shape ( grid_shape shape );
 
         void set_origin ( QPointF origin );
+
+    signals:
+        void edited();
 };
 
 #endif // SNAPPING_GRID_HPP

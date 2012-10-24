@@ -1,134 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>GridConfig</class>
- <widget class="QDialog" name="GridConfig">
+ <widget class="QWidget" name="GridConfig">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>249</height>
+    <width>195</width>
+    <height>223</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Configure Grid</string>
   </property>
-  <property name="modal">
-   <bool>true</bool>
-  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <widget class="QGroupBox" name="enable_check">
-     <property name="title">
-      <string>Enable Grid</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <property name="checked">
-      <bool>true</bool>
-     </property>
+    <widget class="QWidget" name="widget" native="true">
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Size</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QSpinBox" name="size_spin">
-        <property name="suffix">
-         <string>px</string>
-        </property>
-        <property name="minimum">
-         <number>2</number>
-        </property>
-        <property name="maximum">
-         <number>1024</number>
-        </property>
-        <property name="value">
-         <number>64</number>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Shape</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QComboBox" name="shape_combo">
-        <item>
-         <property name="text">
-          <string>Square</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Triangle1</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Triangle2</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="2" column="0" colspan="2">
-       <widget class="QGroupBox" name="groupBox">
+       <widget class="QGroupBox" name="enable_check">
         <property name="title">
-         <string>Origin</string>
+         <string>Enable Grid</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
         </property>
         <layout class="QGridLayout" name="gridLayout_3">
          <item row="0" column="0">
-          <widget class="QLabel" name="label_3">
+          <widget class="QLabel" name="label">
            <property name="text">
-            <string>x</string>
+            <string>Size</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QDoubleSpinBox" name="origin_x_spin">
+          <widget class="QSpinBox" name="size_spin">
            <property name="suffix">
             <string>px</string>
            </property>
            <property name="minimum">
-            <double>-8192.000000000000000</double>
+            <number>1</number>
            </property>
            <property name="maximum">
-            <double>8192.000000000000000</double>
+            <number>1024</number>
+           </property>
+           <property name="value">
+            <number>64</number>
            </property>
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QLabel" name="label_4">
+          <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>y</string>
+            <string>Shape</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QDoubleSpinBox" name="origin_y_spin">
-           <property name="suffix">
-            <string>px</string>
-           </property>
-           <property name="minimum">
-            <double>-8192.000000000000000</double>
-           </property>
-           <property name="maximum">
-            <double>8192.000000000000000</double>
-           </property>
+          <widget class="QComboBox" name="shape_combo">
+           <item>
+            <property name="text">
+             <string>Square</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Triangle1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Triangle2</string>
+            </property>
+           </item>
           </widget>
          </item>
          <item row="2" column="0" colspan="2">
-          <widget class="QPushButton" name="pushButton">
-           <property name="text">
-            <string>&amp;Reset</string>
+          <widget class="QGroupBox" name="groupBox_2">
+           <property name="title">
+            <string>Origin</string>
            </property>
+           <layout class="QGridLayout" name="gridLayout_4">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>x</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QDoubleSpinBox" name="origin_x_spin">
+              <property name="suffix">
+               <string>px</string>
+              </property>
+              <property name="minimum">
+               <double>-8192.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>8192.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>y</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QDoubleSpinBox" name="origin_y_spin">
+              <property name="suffix">
+               <string>px</string>
+              </property>
+              <property name="minimum">
+               <double>-8192.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>8192.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QPushButton" name="reset_btn">
+              <property name="text">
+               <string>&amp;Reset</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QPushButton" name="move_btn">
+              <property name="toolTip">
+               <string>Move grid origin with the cursor</string>
+              </property>
+              <property name="text">
+               <string>&amp;Move...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
         </layout>
@@ -137,51 +147,44 @@
      </layout>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
+   <sender>origin_x_spin</sender>
+   <signal>valueChanged(double)</signal>
    <receiver>GridConfig</receiver>
-   <slot>accept()</slot>
+   <slot>position_spin_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>256</x>
-     <y>244</y>
+     <x>286</x>
+     <y>153</y>
     </hint>
     <hint type="destinationlabel">
-     <x>157</x>
-     <y>175</y>
+     <x>547</x>
+     <y>160</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
+   <sender>origin_y_spin</sender>
+   <signal>valueChanged(double)</signal>
    <receiver>GridConfig</receiver>
-   <slot>reject()</slot>
+   <slot>position_spin_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>324</x>
-     <y>244</y>
+     <x>341</x>
+     <y>198</y>
     </hint>
     <hint type="destinationlabel">
-     <x>286</x>
-     <y>175</y>
+     <x>488</x>
+     <y>196</y>
     </hint>
    </hints>
   </connection>
  </connections>
+ <slots>
+  <slot>position_spin_changed()</slot>
+ </slots>
 </ui>

@@ -29,8 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ui_gridconfig.h"
 
 #include "snapping_grid.hpp"
+#include "knotview.hpp"
+#include <QDockWidget>
 
-class GridConfig : public QDialog, private Ui::GridConfig
+class GridConfig : public QDockWidget, private Ui::GridConfig
 {
         Q_OBJECT
 
@@ -38,11 +40,31 @@ class GridConfig : public QDialog, private Ui::GridConfig
         snapping_grid *target;
 
     public:
-        explicit GridConfig(snapping_grid *target_grid, QWidget *parent = 0);
+        explicit GridConfig(QWidget *parent = 0);
+
+        void set_grid_view(snapping_grid *target_grid);
+
     private slots:
-        void on_buttonBox_accepted();
-        void on_pushButton_clicked();
+        void position_spin_changed();
         void retranslate();
+        void on_size_spin_valueChanged(int arg1);
+        void on_shape_combo_currentIndexChanged(int index);
+        void on_enable_check_toggled(bool arg1);
+        void on_reset_btn_clicked();
+
+        void on_move_btn_clicked();
+
+
+        void grid_edited();
+
+        void on_enable_check_clicked(bool checked);
+
+    public slots:
+        void grid_moved(QPointF p);
+
+
+    signals:
+        void move_button_clicked();
 };
 
 #endif // GRIDCONFIG_HPP

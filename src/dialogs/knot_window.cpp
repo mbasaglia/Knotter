@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "commands.hpp"
 #include <QFileDialog>
 #include <QMessageBox>
-#include "gridconfig.hpp"
 #include "error_recovery.hpp"
 #include <QSvgGenerator>
 #include <QSettings>
@@ -46,7 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Knot_Window::Knot_Window(KnotGraph *graph, QWidget *parent) :
     QMainWindow(parent), save_ui ( true ), max_recent_files(5),
-    save_toolbars(true), save_style(false), save_anything(true), canvas(0)
+    save_toolbars(true), save_style(false), save_anything(true), canvas(0),
+    grid_config_dialog(this)
 {
 
 // UI from designer
@@ -122,6 +122,10 @@ void Knot_Window::connect_view()
     connect(knotview(),SIGNAL(mouse_moved(QPointF)),SLOT(mouse_moved(QPointF)));
     connect(knotview(),SIGNAL(selectionChanged()),SLOT(enable_selection_action()));
 
+    grid_config_dialog.set_grid_view(&knotview()->get_grid());
+    connect(&knotview()->get_grid(),SIGNAL(edited()),SLOT(update_grid_icon()));
+    grid_config_dialog.connect(knotview(),SIGNAL(grid_moved(QPointF)),SLOT(grid_moved(QPointF)));
+
 }
 
 void Knot_Window::disconnect_view()
@@ -136,6 +140,10 @@ void Knot_Window::disconnect_view()
         zoomer->disconnect(knotview());
         knotview()->disconnect(zoomer);
         knotview()->disconnect(this);
+
+        grid_config_dialog.set_grid_view(NULL);
+        knotview()->get_grid().disconnect(this);
+        knotview()->disconnect(&grid_config_dialog);
     }
 }
 
@@ -404,9 +412,8 @@ void Knot_Window::init_docks()
 
 // Dock toogle actions
     menu_Docks->clear();
-    menu_Docks->addAction(undoDock->toggleViewAction());
-    menu_Docks->addAction(global_style_dock->toggleViewAction());
-    menu_Docks->addAction(default_node_style_dock->toggleViewAction());
+    foreach(QDockWidget* dw, findChildren<QDockWidget*>() )
+        menu_Docks->addAction(dw->toggleViewAction());
 
 }
 
@@ -461,6 +468,9 @@ void Knot_Window::init_dialogs()
     help_view.setAttribute(Qt::WA_QuitOnClose, false);
 
     action_About->setIcon(load::icon("help-about"));
+
+// Grid
+    connect(&grid_config_dialog,SIGNAL(move_button_clicked()),SLOT(on_action_Move_Grid_triggered()));
 
 }
 
@@ -868,6 +878,7 @@ void Knot_Window::paste()
 void Knot_Window::clear()
 {
     new_tab();
+    update_ui();
 }
 
 
@@ -984,11 +995,8 @@ void Knot_Window::zoom_out()
 
 void Knot_Window::configure_grid()
 {
-    snapping_grid &grid = knotview()->get_grid();
-    GridConfig(&grid,this).exec();
-
-    update_grid_icon();
-
+    grid_config_dialog.show();
+    grid_config_dialog.raise();
 }
 
 void Knot_Window::enable_grid(bool enabled)
@@ -1238,6 +1246,7 @@ void Knot_Window::on_action_Vertical_Flip_triggered()
 
 void Knot_Window::on_action_Move_Grid_triggered()
 {
+    actionInsert_Edges->setChecked(true);
     knotview()->mode_move_grid();
 }
 

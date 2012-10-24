@@ -39,6 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "global_style_form.hpp"
 #include "background_config.hpp"
 #include <QPrinter>
+#include "gridconfig.hpp"
 
 /**
     Main knot window
@@ -67,6 +68,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         QDoubleSpinBox* zoomer;             ///< Zomm spinner on statusbar
         KnotView*       canvas;             ///< Current tab widget
         QPrinter        printer;
+        GridConfig      grid_config_dialog;
 
     public:
         explicit Knot_Window(KnotGraph* graph = 0, QWidget *parent = 0);
@@ -91,8 +93,6 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         /// synch the Open recent menu with the contents of recent_files
         void update_recent_menu();
 
-        /// Update the grid icon in the toolbar/menu to the current grid shape
-        void update_grid_icon();
 
         /// update ui elements based on the actual values
         void update_ui();
@@ -149,6 +149,9 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
 
 
     private slots:
+
+        /// Update the grid icon in the toolbar/menu to the current grid shape
+        void update_grid_icon();
 
         /**
             \brief Change the window title to "Knotter - filename*"

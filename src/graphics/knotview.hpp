@@ -272,7 +272,9 @@ class KnotView : public QGraphicsView
 
         void select_all();
 
-        void redraw(bool recalculate_node=true);
+        void redraw(bool recalculate_knot=true);
+        /// alias to redraw(false)
+        void refresh() { redraw(false); }
 
         void reset_view();
         void zoom ( double factor );
@@ -294,6 +296,7 @@ class KnotView : public QGraphicsView
         void context_menu(Edge*);
         void zoom_changed(double);
         void selectionChanged();
+        void grid_moved(QPointF);
 };
 
 #endif // KNOTVIEW_HPP

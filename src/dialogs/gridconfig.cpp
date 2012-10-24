@@ -27,44 +27,130 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_loader.hpp"
 #include "translator.hpp"
 
-GridConfig::GridConfig(snapping_grid *target_grid, QWidget *parent) :
-    QDialog(parent), target(target_grid)
+GridConfig::GridConfig(QWidget *parent) :
+    QDockWidget(parent), target(NULL)
 {
     setupUi(this);
+
+    setWindowIcon(load::icon("configure-grid"));
+
+    setWidget(Ui_GridConfig::widget);
+
+    move_btn->setIcon(load::icon("move_grid"));
+
+
+    hide();
+    setFloating(true);
+
+    set_grid_view ( NULL );
+
+    connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
+}
+
+void GridConfig::set_grid_view(snapping_grid *target_grid)
+{
+    if ( target )
+    {
+        target->disconnect(this);
+    }
+
+    target = target_grid;
 
     if ( target )
     {
         size_spin->setValue(target->get_size());
         shape_combo->setCurrentIndex(target->get_shape());
         enable_check->setChecked(target->is_enabled());
+
+        origin_x_spin->blockSignals(true);
+        origin_y_spin->blockSignals(true);
         origin_x_spin->setValue(target->get_origin().x());
         origin_y_spin->setValue(target->get_origin().y());
+        origin_x_spin->blockSignals(false);
+        origin_y_spin->blockSignals(false);
+
+        connect(target,SIGNAL(edited()),SLOT(grid_edited()));
+        setEnabled(true);
     }
-
-    setWindowIcon(load::icon("configure-grid"));
-
-    connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
+    else
+    {
+        enable_check->setChecked(false);
+        setEnabled(false);
+    }
 }
 
-
-void GridConfig::on_buttonBox_accepted()
+void GridConfig::position_spin_changed()
 {
     if ( target )
     {
-        target->set_size(size_spin->value());
-        target->set_shape(snapping_grid::grid_shape(shape_combo->currentIndex()));
-        target->enable ( enable_check->isChecked() );
         target->set_origin(QPointF(origin_x_spin->value(),origin_y_spin->value()));
     }
-}
-
-void GridConfig::on_pushButton_clicked()
-{
-    origin_x_spin->setValue(0);
-    origin_y_spin->setValue(0);
 }
 
 void GridConfig::retranslate()
 {
     retranslateUi(this);
+    shape_combo->setItemIcon(0,load::icon("square_grid"));
+    shape_combo->setItemIcon(1,load::icon("triangular_grid"));
+    shape_combo->setItemIcon(2,load::icon("triangular_grid2"));
+}
+
+void GridConfig::on_size_spin_valueChanged(int arg1)
+{
+    if ( target )
+    {
+        target->set_size(arg1);
+    }
+}
+
+void GridConfig::on_shape_combo_currentIndexChanged(int index)
+{
+    if ( target )
+    {
+        target->set_shape(snapping_grid::grid_shape(index));
+    }
+}
+
+void GridConfig::on_enable_check_toggled(bool arg1)
+{
+    if ( target )
+    {
+        target->enable ( arg1 );
+    }
+}
+
+void GridConfig::on_reset_btn_clicked()
+{
+    origin_x_spin->setValue(0);
+    origin_y_spin->setValue(0);
+}
+
+
+void GridConfig::on_move_btn_clicked()
+{
+    emit move_button_clicked();
+}
+
+void GridConfig::grid_moved(QPointF p)
+{
+    origin_x_spin->setValue(p.x());
+    origin_y_spin->setValue(p.y());
+    Q_UNUSED(p);
+}
+
+void GridConfig::grid_edited()
+{
+    if ( target )
+    {
+        enable_check->setChecked(target->is_enabled());
+    }
+}
+
+void GridConfig::on_enable_check_clicked(bool checked)
+{
+
+    if ( target )
+    {
+        target->enable(checked);
+    }
 }

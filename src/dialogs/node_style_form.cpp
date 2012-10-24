@@ -38,11 +38,6 @@ node_style_form::node_style_form(QWidget *parent) :
     combo_style[knot_curve_styler::idof("polygonal")]=3;
     curstyle_id = knot_curve_styler::idof("pointed");
 
-    style_combo->setItemIcon(0,load::icon("cusp-point"));
-    style_combo->setItemIcon(1,load::icon("cusp-round"));
-    style_combo->setItemIcon(2,load::icon("cusp-ogee"));
-    style_combo->setItemIcon(3,load::icon("cusp-poly"));
-
     connect(&Translator::object,SIGNAL(language_changed()),SLOT(retranslate()));
 
 }

@@ -174,6 +174,7 @@ QPointF snapping_grid::get_origin() const
 void snapping_grid::enable(bool enabled)
 {
     this->enabled = enabled;
+    emit edited();
 }
 
 void snapping_grid::set_size(double size)
@@ -184,14 +185,17 @@ void snapping_grid::set_size(double size)
         return;
 
     this->size = size;
+    emit edited();
 }
 
 void snapping_grid::set_shape(snapping_grid::grid_shape shape)
 {
     this->shape = shape;
+    emit edited();
 }
 
 void snapping_grid::set_origin(QPointF origin)
 {
     this->origin = origin;
+    emit edited();
 }
