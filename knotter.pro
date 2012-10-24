@@ -50,10 +50,10 @@ OTHER_FILES = \
 win32 {
     # Remove non-numeric stuff from version as Windows RC doesn't like it
     VERSION ~= s/[-_a-zA-Z]+//
-    # Bundle everything in a single file to avoid loading issues
-    isEmpty(SINGLE_FILE) {
-        SINGLE_FILE = yes
-    }
+    ## Bundle everything in a single file to avoid loading issues
+    #isEmpty(SINGLE_FILE) {
+    #    SINGLE_FILE = yes
+    #}
     # No Freedesktop themes on Windows...
     isEmpty(TANGO) {
         TANGO = default
