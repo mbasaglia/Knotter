@@ -322,7 +322,15 @@ void Knot_Window::init_menus()
     action_Move_Grid->setIcon(load::icon("move_grid"));
     actionConfigure_G_rid->setIcon(load::icon("configure-grid"));
     action_Background->setIcon(load::icon("preferences-desktop-wallpaper"));
-    action_Highlight_loops->setIcon(load::icon("highlight-loops"));
+
+    QActionGroup* paint_mode = new QActionGroup(this);
+    paint_mode->addAction(action_Highlight_loops);
+    paint_mode->addAction(action_Normal_Rendering);
+    paint_mode->addAction(action_Simplified);
+    action_Highlight_loops->setIcon(load::icon("paint_loops"));
+    action_Normal_Rendering->setIcon(load::icon("paint_normal"));
+    action_Simplified->setIcon(load::icon("paint_minimal"));
+    menuR_endering->setIcon(load::icon("paint_normal"));
 
 // Node menu icons
     action_Horizontal_Flip->setIcon(load::icon("object-flip-horizontal"));
@@ -426,6 +434,8 @@ void Knot_Window::init_toolbars()
     addToolBar(Qt::TopToolBarArea, ViewBar);
     addToolBar(Qt::LeftToolBarArea, TransformBar);
 
+    ViewBar->insertAction(actionShow_Graph,menuR_endering->menuAction());
+
     // Statusbar...
     zoomer = new QDoubleSpinBox;
     zoomer->setMinimum(0.01);
@@ -457,6 +467,7 @@ void Knot_Window::init_dialogs()
     foreach(QAction *menu,QMainWindow::menuBar()->actions())
         config_dlg.add_menu(menu);
     config_dlg.add_menu(menu_Zoom->menuAction());
+    config_dlg.add_menu(menuR_endering->menuAction());
 
     foreach(QToolBar *toolb,findChildren<QToolBar *>())
         config_dlg.add_toolbar(toolb);
@@ -555,6 +566,14 @@ void Knot_Window::load_config()
                     else /// \warning exposing internal action names
                     {
                         QAction* act = findChild<QAction*>(item);
+
+                        if ( !act )
+                        {
+                            QMenu *menu = findChild<QMenu*>(item);
+                            if ( menu )
+                                act = menu->menuAction();
+                        }
+
                         if ( act )
                             toolbar->addAction ( act );
                         else
@@ -673,8 +692,11 @@ void Knot_Window::save_config()
             {
                 if ( act->isSeparator() )
                     items.push_back("(separator)");
-                else
+                else if ( act->objectName() != "" )
                     items.push_back(act->objectName());
+                else if ( act->menu() )
+                    items.push_back(act->menu()->objectName());
+
             }
             settings.setValue("items",items);
         }
@@ -1376,7 +1398,20 @@ void Knot_Window::on_actionPr_int_Preview_triggered()
     dialog.exec();
 }
 
-void Knot_Window::on_action_Highlight_loops_triggered(bool checked)
+void Knot_Window::on_action_Highlight_loops_triggered()
 {
-    knotview()->set_paint_mode ( checked ? KnotGraph::LOOPS : KnotGraph::NORMAL );
+    knotview()->set_paint_mode ( KnotGraph::LOOPS );
+    menuR_endering->setIcon(action_Highlight_loops->icon());
+}
+
+void Knot_Window::on_action_Normal_Rendering_triggered()
+{
+    knotview()->set_paint_mode ( KnotGraph::NORMAL );
+    menuR_endering->setIcon(action_Normal_Rendering->icon());
+}
+
+void Knot_Window::on_action_Simplified_triggered()
+{
+    knotview()->set_paint_mode ( KnotGraph::MINIMAL );
+    menuR_endering->setIcon(action_Simplified->icon());
 }

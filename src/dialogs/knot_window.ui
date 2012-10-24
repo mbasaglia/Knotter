@@ -126,6 +126,14 @@
       <string>&amp;Docks</string>
      </property>
     </widget>
+    <widget class="QMenu" name="menuR_endering">
+     <property name="title">
+      <string>R&amp;endering</string>
+     </property>
+     <addaction name="action_Normal_Rendering"/>
+     <addaction name="action_Highlight_loops"/>
+     <addaction name="action_Simplified"/>
+    </widget>
     <addaction name="menu_Toolbars"/>
     <addaction name="menu_Docks"/>
     <addaction name="separator"/>
@@ -134,7 +142,7 @@
     <addaction name="separator"/>
     <addaction name="actionShow_Graph"/>
     <addaction name="actionShow_Knot_line"/>
-    <addaction name="action_Highlight_loops"/>
+    <addaction name="menuR_endering"/>
     <addaction name="separator"/>
     <addaction name="actionEnable_Grid"/>
     <addaction name="actionConfigure_G_rid"/>
@@ -228,7 +236,6 @@
    <addaction name="actionZoom_In"/>
    <addaction name="actionZoom_Out"/>
    <addaction name="separator"/>
-   <addaction name="action_Highlight_loops"/>
    <addaction name="actionShow_Graph"/>
    <addaction name="actionEnable_Grid"/>
    <addaction name="actionS_nap_to_grid"/>
@@ -545,6 +552,31 @@
    </property>
    <property name="text">
     <string>&amp;Highlight loops</string>
+   </property>
+  </action>
+  <action name="action_Normal_Rendering">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Normal</string>
+   </property>
+   <property name="toolTip">
+    <string>Full Rendering</string>
+   </property>
+  </action>
+  <action name="action_Simplified">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Simplified</string>
+   </property>
+   <property name="toolTip">
+    <string>Simplified rendering (faster)</string>
    </property>
   </action>
  </widget>

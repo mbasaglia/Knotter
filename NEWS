@@ -10,6 +10,7 @@ Knotter 0.8.0  - Ongoing development
 * Printing options
 * Exported SVG generates a path per loop
 * Highlight separate loops
+* Simplified rendering
 * Open multiple files from "Open..."
 * "Configure Grid" as a dock
 * Better display for "WALL" edges

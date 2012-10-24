@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_loader.hpp"
 #include "translator.hpp"
 #include <QSettings>
+#include <QMessageBox>
 
 config_dialog::config_dialog(QWidget *parent) :
     QDialog(parent), current_menu(NULL), current_toolbar(NULL), save_anything(true)
@@ -315,4 +316,6 @@ void config_dialog::on_clear_settings_clicked()
     QSettings settings("knotter","knotter");
     settings.remove("");
     save_anything = false;
+    QMessageBox::information(this,tr("Settings cleared"),
+        tr("Next time Knotter will load the default configuration"));
 }
