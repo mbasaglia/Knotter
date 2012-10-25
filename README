@@ -1,6 +1,37 @@
 Kotter
 =======================================
 
+About
+---------------------------------------
+This program is a designer for Celtic knotworks, using the mathematical
+correlation between knots and graphs.
+
+The software is under development, some features may change without
+notice and there may be some bugs.
+
+
+Getting the latest sources
+---------------------------------------
+The git repository is located at git://github.com/mbasaglia/Knotter.git
+You can browse it online at https://github.com/mbasaglia/Knotter
+
+Some tarballs can be downloaded from https://sourceforge.net/projects/knotter/files/
+
+
+Contacts
+---------------------------------------
+Mattia Basaglia <mattia.basaglia@gmail.com>
+Mattia Basaglia (Knotter-specific address) <knotter@knotdraw.org>
+[Knotter Website](http://www.knotdraw.org/)
+[Knotter Forum](http://www.knotdraw.org/forum/)
+
+If you have any suggestion, criticism, feature request or bug report please let me know
+
+
+License
+---------------------------------------
+GPLv3 or later, see COPYING.
+
 
 Build instructions
 ---------------------------------------
@@ -38,36 +69,6 @@ To install in a specific directory, you can set INSTALL_ROOT
 The default install prefix is /usr/local (see ./configure.sh --help)
 
 
-Getting the latest sources
----------------------------------------
-The git repository is located at git://git.code.sf.net/p/knotter/code
-You can browse it online at https://sourceforge.net/p/knotter/code/
-
-Some tarballs can be downloaded from https://sourceforge.net/projects/knotter/files/
-
-
-License
----------------------------------------
-GPLv3 or later, see COPYING.
-
-
-About
----------------------------------------
-This program is a designer for Celtic knotworks, using the mathematical
-correlation between knots and graphs.
-
-The software is under development, some features may change without
-notice and there may be some bugs.
-
-Contacts
----------------------------------------
-Mattia Basaglia <mattia.basaglia@gmail.com>
-Mattia Basaglia (Knotter-specific address) <knotter@knotdraw.org>
-[Knotter Website](http://www.knotdraw.org/)
-[Knotter Forum](http://www.knotdraw.org/forum/)
-
-If you have any suggestion, criticism, feature request or bug report please let me know
-
 
 Misc build targets
 ---------------------------------------
@@ -83,6 +84,7 @@ doc
 
 src_doc
 :    Generate Doxygen documentation from the source files
+
 
 Misc scripts
 ---------------------------------------
@@ -104,3 +106,5 @@ info_preprocessor.sh
 
 rpm_builder.sh
 :    Generate rpm packages
+
+
