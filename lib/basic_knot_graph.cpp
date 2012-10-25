@@ -139,10 +139,11 @@ void basic_knot_graph::build_knotline(path_builder &path_b)
                 // mark output handle as traversed
                 ti.out.edge->traverse(ti.out.handle);
 
+                styleinfo csi = default_style;
                 // build path
                 if ( n->has_custom_style() )
                 {
-                    styleinfo csi = n->get_custom_style().default_to(default_style);
+                    csi = n->get_custom_style().default_to(default_style);
                     knot_curve_style* customcs = knot_curve_styler::style(csi.curve_style);
                     customcs->draw_joint(path_b,ti,csi);
                 }
@@ -162,11 +163,11 @@ void basic_knot_graph::build_knotline(path_builder &path_b)
                 */
                 if ( e->connected(handle,ti.out.handle) )
                     path_b.add_line(e->handle_point(handle,
-                                        default_style.handle_length,
-                                        default_style.crossing_distance).p1(),
+                                        csi.handle_length,
+                                        csi.crossing_distance).p1(),
                                     e->handle_point(ti.out.handle,
-                                        default_style.handle_length,
-                                        default_style.crossing_distance).p1());
+                                        csi.handle_length,
+                                        csi.crossing_distance).p1());
             }
         }
     }
