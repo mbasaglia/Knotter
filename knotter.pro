@@ -46,19 +46,6 @@ OTHER_FILES = \
     knotter.desktop.in \
     knotter.desktop
 
-# Windows-specific stuff
-win32 {
-    # Remove non-numeric stuff from version as Windows RC doesn't like it
-    VERSION ~= s/[-_a-zA-Z]+//
-    ## Bundle everything in a single file to avoid loading issues
-    #isEmpty(SINGLE_FILE) {
-    #    SINGLE_FILE = yes
-    #}
-    # No Freedesktop themes on Windows...
-    isEmpty(TANGO) {
-        TANGO = default
-    }
-}
 
 # cpp defines
 
@@ -75,6 +62,21 @@ contains(BOOST,no) {
     DEFINES += NO_BOOST
 } else {
     LIBS += -lboost_program_options
+}
+
+
+# Windows-specific stuff
+win32 {
+    # Remove non-numeric stuff from version as Windows RC doesn't like it
+    VERSION ~= s/[-_a-zA-Z]+//
+    ## Bundle everything in a single file to avoid loading issues
+    #isEmpty(SINGLE_FILE) {
+    #    SINGLE_FILE = yes
+    #}
+    # No Freedesktop themes on Windows...
+    isEmpty(TANGO) {
+        TANGO = default
+    }
 }
 
 #Extra make targets

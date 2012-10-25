@@ -1,33 +1,4 @@
 /** */
-/**
-\page misc Misc todos
-Ignore this, see the main todo page
-
-internal:
-\todo Document every class and function
-
-knot style:
-\todo extensible edge types (?)
-\todo custom edge style (crossing distance + handle length)
-\todo per node/edge knot width (requires custom stroker)
-\todo Option to skip WALL edges ( handle as if chain of edges are a single edge )
-
-misc:
-\todo Qt translation files - http://qt-project.org/faq/answer/does_qt_provide_translations_for_the_user_visible_strings_of_the_widgets
-\todo Build info show display Boost Webkit and Tango status
-
-packaging:
-\todo Debian changelog to NEWS (or NEWS to CHANGELOG?)
-\todo use `find` ad add md5 to deb
-
-UI:
-\todo Warn unsaved documents
-\todo KnotView Undo/Redo (style) should cause Knot_Window::update_ui
-
-UI+Logic:
-\todo put back edge-editing mode (?)
-\todo set background image position
-*/
 
 /**
 \mainpage

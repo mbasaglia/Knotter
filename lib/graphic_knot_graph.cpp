@@ -42,7 +42,6 @@ KnotGraph::KnotGraph()
     stroker.setWidth(5);
     stroker.setCapStyle(Qt::FlatCap);
 
-    /// \todo configure miter limit
     stroker.setJoinStyle(Qt::MiterJoin);
 
     //setCacheMode(QGraphicsItem::DeviceCoordinateCache); mild
@@ -121,11 +120,9 @@ void KnotGraph::paint_normal(QPainter *painter)
     painter->setPen(pen());
     painter->setBrush(brush());
 
-    foreach ( const QPainterPath& path, paths )
+    foreach ( const QPainterPath& path, stroked )
     {
-        QPainterPath styled = stroker.createStroke(path).simplified();
-        styled.setFillRule(Qt::WindingFill);
-        painter->drawPath(styled);
+        painter->drawPath(path);
     }
 }
 
@@ -162,7 +159,6 @@ void KnotGraph::paint_knot(QPainter *painter, PaintingMode mode )
 
     paint(painter,mode);
 
-    /// \todo export graph?
     /*
     foreach(Edge* edge, edges)
         edge->paint(painter,0,0);
@@ -214,6 +210,14 @@ const QList<QPainterPath>& KnotGraph::build()
 
     paths = path_b.build();
     recalculate_rect_cache();
+
+    stroked.clear();
+    foreach ( const QPainterPath& path, paths )
+    {
+        QPainterPath styled = stroker.createStroke(path).simplified();
+        styled.setFillRule(Qt::WindingFill);
+        stroked.push_back(styled);
+    }
 
     return paths;
 }

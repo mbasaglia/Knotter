@@ -46,8 +46,9 @@ class KnotGraph : public QAbstractGraphicsShapeItem, public basic_knot_graph
         };
 
     protected:
-        QPainterPathStroker stroker;            ///< Knot style
-        QList<QPainterPath> paths;
+        QPainterPathStroker stroker;    ///< Knot style
+        QList<QPainterPath> paths;      ///< loops (just the shape)
+        QList<QPainterPath> stroked;      ///< loops (stroked)
         QRectF bounding_cache;
         PaintingMode paint_mode;
 

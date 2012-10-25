@@ -80,7 +80,7 @@ void Transform_Handle::paint(QPainter *painter, const QStyleOptionGraphicsItem *
 void Transform_Handle::update_cursor()
 {
     if ( mode == ROTATE )
-        setCursor(Qt::ArrowCursor); /// \todo custom cursor?
+        setCursor(Qt::ArrowCursor);
     else if ( position == TOP || position == BOTTOM )
         setCursor(Qt::SizeVerCursor);
     else if ( position == LEFT || position == RIGHT )
