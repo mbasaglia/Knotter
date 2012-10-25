@@ -99,6 +99,9 @@ void Knot_Window::connect_view()
     action_Undo->connect(&(knotview()->get_undo_stack()),SIGNAL(canUndoChanged(bool)),SLOT(setEnabled(bool)));
     action_Redo->connect(&(knotview()->get_undo_stack()),SIGNAL(canRedoChanged(bool)),SLOT(setEnabled(bool)));
 
+    connect(&knotview()->get_undo_stack(),SIGNAL(indexChanged(int)),SLOT(update_ui()));
+
+
     node_context_menu.connect(knotview(),SIGNAL(context_menu(Node*)),SLOT(activate(Node*)));
 
     edge_context_menu.connect(knotview(),SIGNAL(context_menu(Edge*)),SLOT(activate(Edge*)));
