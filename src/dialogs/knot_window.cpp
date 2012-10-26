@@ -1135,14 +1135,15 @@ void Knot_Window::show_node_prefs(Node *node)
     node_pref_dialog(knotview(),node).exec();
 }
 
-
+#include "about_dialog.hpp"
 void Knot_Window::on_action_About_triggered()
 {
-    //QMessageBox::about(this,tr("About Knotter"), BUILD_INFO );
+    About_Dialog(this).exec();
+    /*//QMessageBox::about(this,tr("About Knotter"), BUILD_INFO );
     QMessageBox mb(QMessageBox::Information, tr("About Knotter"), BUILD_INFO );
     //mb.setAttribute(Qt::WA_QuitOnClose, false);
     mb.setWindowIcon(load::icon("help-about"));
-    mb.exec();
+    mb.exec();*/
 }
 
 void Knot_Window::on_actionShow_Graph_triggered(bool checked)

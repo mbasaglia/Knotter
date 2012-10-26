@@ -51,8 +51,8 @@ OTHER_FILES = \
 
 DEFINES += "VERSION=\\\"$${VERSION}\\\""
 
-DEFINES += "BUILD_INFO=\"\\\"Knotter $$VERSION\\nBuilt on $$_DATE_\\n$${QMAKE_HOST.os} \
-$${QMAKE_HOST.version} $${QMAKE_HOST.arch}\\nQt $${QT_VERSION}\\\""\"
+#DEFINES += "BUILD_INFO=\"\\\"Knotter $$VERSION\\nBuilt on $$_DATE_\\n$${QMAKE_HOST.os} \
+#$${QMAKE_HOST.version} $${QMAKE_HOST.arch}\\nQt $${QT_VERSION}\\\""\"
 
 !lessThan(QT_VERSION,"4.8"){
     DEFINES += HAS_QT_4_8

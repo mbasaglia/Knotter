@@ -39,6 +39,11 @@ std::ostream& operator<< ( std::ostream&os, QString str )
     return os << str.toStdString();
 }
 
+inline QString FULL_VERSION_STR()
+{
+    return QObject::tr("Knotter %1, Qt %2").arg(VERSION).arg(QT_VERSION_STR);
+}
+
 #ifndef NO_BOOST
     #include <boost/program_options.hpp>
     void parse_cmd_args(int argc, char* argv[], KnotGraph& graph)
@@ -108,7 +113,7 @@ std::ostream& operator<< ( std::ostream&os, QString str )
             }
             else if ( key == "version" )
             {
-                std::cout << BUILD_INFO << '\n';
+                std::cout << FULL_VERSION_STR() << '\n';
                 exit(0);
             }
             else if ( key == "list-formats" )
@@ -233,7 +238,7 @@ std::ostream& operator<< ( std::ostream&os, QString str )
 
             if ( arg == "-v" || arg == "--version" )
             {
-                std::cout << BUILD_INFO << '\n';
+                std::cout << FULL_VERSION_STR() << '\n';
                 exit(0);
             }
             else if ( arg == "-h" || arg == "--help" )
