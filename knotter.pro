@@ -24,6 +24,7 @@ TEMPLATE = app
 UI_DIR = src/generated
 MOC_DIR = src/generated
 RCC_DIR = src/generated
+OBJECTS_DIR = obj
 
 include(src/src.pri)
 include(lib/lib.pri)
