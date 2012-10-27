@@ -172,7 +172,7 @@
          <string>Export as a single line (discards outline)</string>
         </property>
         <property name="text">
-         <string>Minimal</string>
+         <string>Simplified</string>
         </property>
        </widget>
       </item>

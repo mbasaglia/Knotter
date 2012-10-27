@@ -150,6 +150,9 @@
         nodes.</para>
         <para>Selected nodes can be mirrored using <xref linkend="nodes_hflip" />
         and <xref linkend="nodes_vflip" />.</para>
+        <para>When several nodes are selected, they can be transformed (rotated
+        and translated) by dragging the arrows that appear on the vertices of
+        the bounding rectangle.</para>
       </section>
       
       <section> <title>Snapping</title>
@@ -177,7 +180,7 @@
         <screenshot>
           <mediaobject>
             <textobject><phrase>Screenshot showing some nodes on a grid</phrase></textobject>
-            <imageobject><imagedata fileref="img/grid.png" /></imageobject>
+            <imageobject><imagedata fileref="img/grid_edit.png" /></imageobject>
             <caption>The grid allows precise editing</caption>
           </mediaobject>
         </screenshot>
@@ -236,7 +239,8 @@
       </variablelist>
       
       <tip><para>Some style settings can be configured on individual nodes,
-      using the context menu (right click on a node)</para></tip>
+      using the context menu (right click on a node) or with the "Selection Style"
+      dialog</para></tip>
       
       <informalfigure>
         <mediaobject>
@@ -250,12 +254,16 @@
       
       <screenshot>
         <mediaobject>
-            <imageobject><imagedata fileref="img/style1.png" /></imageobject>
+            <imageobject><imagedata fileref="img/dialog_knot_style.png" /></imageobject>
             <textobject><phrase>Screenshot of the display style settings</phrase></textobject>
         </mediaobject>
         <mediaobject>
-            <imageobject><imagedata fileref="img/style2.png" /></imageobject>
+            <imageobject><imagedata fileref="img/dialog_default_style.png" /></imageobject>
             <textobject><phrase>Screenshot of the shape style settings</phrase></textobject>
+        </mediaobject>
+        <mediaobject>
+            <imageobject><imagedata fileref="img/dialog_selection_style.png" /></imageobject>
+            <textobject><phrase>Shape settings can be set on the current selection</phrase></textobject>
         </mediaobject>
         <caption>
           <para>Style settings docks.</para>
@@ -271,13 +279,39 @@
 
       <section> <title>Export</title>
         <para>The Export dialog gives many options to export the knot as Image.</para>
+        
+        <section id="export_mode"> <title>Mode</title>
+          <para>The export mode allows the selection of the rendiring style used
+            in the exported image</para>
+          <variablelist>
+            <varlistentry>
+              <term>Normal</term>
+              <listitem><para>Use the default rendering, all style options
+                are applied to the final result.
+              </para></listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>Simplified</term>
+              <listitem><para>Export the interlace as a stroke sequence.</para>
+                <para>For raster images the only noticeable difference with
+                  <option>Normal</option> is that the outline is not visible.</para>
+                <para>In vector exports, the result will be a cleaner,
+                  un-extruded path that can be customized more easily.</para>
+                <para>This is useful if you plan to edit the image with an external program
+                  as it will give more control on shape changes.</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>Loops</term>
+              <listitem><para>Has a similar result as <option>Simplified</option>
+                But all closed loops are colored differently.</para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+        </section>
     
         <section> <title>Vector</title>
-          <para>If <action>Only shape</action> is checked, Knotter will
-          export only the shape of the knot as a thin line, discarding 
-          some style option.
-          This is useful if you plan to edit the image with an external program
-          as it will give more control on shape changes.</para>
+          <para>Exports in the Scalable Vector Graphic format (SVG)</para>
         </section>
         
         <section> <title>Raster</title>
@@ -316,7 +350,7 @@
         
         <screenshot>
           <mediaobject>
-              <imageobject><imagedata fileref="img/export.png" /></imageobject>
+              <imageobject><imagedata fileref="img/dialog_export.png" /></imageobject>
               <textobject><phrase>Export dialog</phrase></textobject>
           </mediaobject>
           <caption>
@@ -440,6 +474,10 @@
           </para></answer>
         </qandaentry>
         <qandaentry>
+          <question><para>Change the style for selected nodes.</para></question>
+          <answer><para>Use the <emphasis>Selection style</emphasis> dialog.</para></answer>
+        </qandaentry>
+        <qandaentry>
           <question><para>Remove node specific settings</para></question>
           <answer><para>Click on
             <menuchoice>
@@ -544,6 +582,29 @@
           </menuchoice></term>
           <listitem><para>Show the export dialog, this allows SVG and raster
           export of the knot.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term id="file_print"><menuchoice>
+            <shortcut><keycombo><keycap>Ctrl</keycap><keycap>P</keycap></keycombo></shortcut>
+            <guimenu>File</guimenu>
+            <guimenuitem>Print</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Show the system print dialog.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term id="file_page_setup"><menuchoice>
+            <guimenu>File</guimenu>
+            <guimenuitem>Page Setup</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Show a dialog that can be used to conifure the paper
+          size for printing.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term id="file_print_preview"><menuchoice>
+            <guimenu>File</guimenu>
+            <guimenuitem>Print Preview</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Show a preview of the printing result with the current settings.</para></listitem>
         </varlistentry>
         <varlistentry>
           <term id="file_quit"><menuchoice>
@@ -695,6 +756,34 @@
             <guimenuitem>Show Knotline</guimenuitem>
           </menuchoice></term>
           <listitem><para>Toggle visibility of the interlace.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="view_rendering_normal"><menuchoice>
+            <guimenu>View</guimenu>
+            <guisubmenu>Rendering</guisubmenu>
+            <guimenuitem>Normal</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Use the default rendering, all style options
+            are applied, may be slower than the other redering modes.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="view_rendering_loops"><menuchoice>
+            <guimenu>View</guimenu>
+            <guisubmenu>Rendering</guisubmenu>
+            <guimenuitem>Highlight Loops</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Closed loops are detected and colored with different colors.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term id="view_rendering_simplified"><menuchoice>
+            <guimenu>View</guimenu>
+            <guisubmenu>Rendering</guisubmenu>
+            <guimenuitem>Simplified</guimenuitem>
+          </menuchoice></term>
+          <listitem><para>Simple and fast rendering, some style options are discarded.</para></listitem>
         </varlistentry>
         
         <varlistentry>
