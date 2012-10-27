@@ -145,14 +145,21 @@ knot_curve_styler::style_id knot_curve_styler::register_style(knot_curve_style *
     return id;
 }
 
-void knot_curve_styler::register_style(knot_curve_style *style, QString name)
+void knot_curve_styler::register_style(knot_curve_style *style, QString name, QString ui_name)
 {
-    register_alias(register_style(style),name);
+    style_id id = register_style(style);
+    register_alias(id,name);
+    register_ui_name(id,ui_name);
 }
 
 void knot_curve_styler::register_alias(knot_curve_styler::style_id id, QString name)
 {
     names[name] = id;
+}
+
+void knot_curve_styler::register_ui_name(knot_curve_styler::style_id id, QString name)
+{
+    ui_names[name] = id;
 }
 
 knot_curve_styler::style_id knot_curve_styler::idof(QString name)
@@ -167,6 +174,16 @@ QString knot_curve_styler::name(knot_curve_styler::style_id id)
     return names.key(id);
 }
 
+const knot_curve_styler::name_container &knot_curve_styler::get_names()
+{
+    return names;
+}
+
+const knot_curve_styler::name_container &knot_curve_styler::get_ui_names()
+{
+    return ui_names;
+}
+
 
 void knot_curve_styler::clear()
 {
@@ -174,7 +191,8 @@ void knot_curve_styler::clear()
         delete sty;
 }
 QMap<knot_curve_styler::style_id,knot_curve_style*> knot_curve_styler::styles;
-QMap<QString,knot_curve_styler::style_id> knot_curve_styler::names;
+knot_curve_styler::name_container knot_curve_styler::names;
+knot_curve_styler::name_container knot_curve_styler::ui_names;
 
 QPointF knot_curve_style:: get_cusp_point ( QLineF start,
                                  QLineF finish,

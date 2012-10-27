@@ -43,23 +43,28 @@ class knot_curve_style;
 struct knot_curve_styler
 {
     typedef long style_id;
+    typedef QMap<QString,style_id> name_container;
 
     static knot_curve_style* style ( style_id id );
     static knot_curve_style* style ( QString name );
 
     /// takes ownership (if you call clear())
     static style_id register_style ( knot_curve_style* style );
-    static void register_style( knot_curve_style* style, QString name );
+    static void register_style( knot_curve_style* style, QString name, QString ui_name );
     static void register_alias ( style_id id, QString name );
+    static void register_ui_name ( style_id id, QString name );
 
     static style_id idof ( QString name );
     static QString name ( style_id id );
+    static const name_container& get_names();
+    static const name_container& get_ui_names();
 
     static void clear();
 
     private:
         static QMap<style_id,knot_curve_style*> styles;
-        static QMap<QString,style_id> names;
+        static name_container names;    ///< Internal unique identifiers (better never change them)
+        static name_container ui_names; ///< Names for user interfaces (can be translated)
 };
 
 

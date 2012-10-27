@@ -14,10 +14,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Base configutation
-QT += core gui xml
+QT += core gui xml script
 
 TARGET = knotter
-VERSION = 0.8.0test2
+VERSION = scripting_0.8.0
 
 TEMPLATE = app
 

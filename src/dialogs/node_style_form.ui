@@ -121,26 +121,6 @@
      <property name="enabled">
       <bool>false</bool>
      </property>
-     <item>
-      <property name="text">
-       <string>Pointed</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Round</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Ogee</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Polygonal</string>
-      </property>
-     </item>
     </widget>
    </item>
    <item row="0" column="0">
