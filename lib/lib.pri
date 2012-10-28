@@ -10,7 +10,8 @@ HEADERS += \
     lib/custom_item.hpp \
     lib/xml_saver.hpp \
     lib/graphic_knot_graph.hpp \
-    lib/knot_curve_script.hpp
+    lib/knot_curve_script.hpp \
+    lib/script_wrappers.hpp
 
 SOURCES += \
     lib/basic_knot_graph.cpp \
