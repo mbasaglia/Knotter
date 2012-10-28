@@ -26,13 +26,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef KNOT_CURVE_SCRIPT_HPP
 #define KNOT_CURVE_SCRIPT_HPP
 #include "knot_curve_style.hpp"
+#include <QScriptEngine>
 
 
 class knot_curve_script : public knot_curve_style
 {
+    static QScriptEngine* engine;
+
+    QScriptProgram program;
+
     public:
+        knot_curve_script(QString code);
+
         void draw_joint ( path_builder& path,
                             const TraversalInfo& ti,
                             styleinfo style );
+
+        static void initialize_script_engine();
 };
 #endif // KNOT_CURVE_SCRIPT_HPP

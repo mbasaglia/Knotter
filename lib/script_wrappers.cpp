@@ -123,12 +123,12 @@ QScriptValue opposite_point (QScriptContext *context, QScriptEngine *engine)
 
 
 
-void initialize_engine ( QScriptEngine& engine )
+void initialize_engine ( QScriptEngine* engine )
 {
-    qScriptRegisterMetaType(&engine, line_to_script, line_from_script);
-    qScriptRegisterMetaType(&engine, point_to_script, point_from_script);
-    engine.globalObject().setProperty("line", engine.newFunction(build_line));
-    engine.globalObject().setProperty("point", engine.newFunction(build_point));
-    engine.globalObject().setProperty("diff", engine.newFunction(subtract_points));
-    engine.globalObject().setProperty("opposite", engine.newFunction(opposite_point));
+    qScriptRegisterMetaType(engine, line_to_script, line_from_script);
+    qScriptRegisterMetaType(engine, point_to_script, point_from_script);
+    engine->globalObject().setProperty("line", engine->newFunction(build_line));
+    engine->globalObject().setProperty("point", engine->newFunction(build_point));
+    engine->globalObject().setProperty("diff", engine->newFunction(subtract_points));
+    engine->globalObject().setProperty("opposite", engine->newFunction(opposite_point));
 }
