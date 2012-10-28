@@ -22,6 +22,7 @@ SOURCES += \
     lib/edge.cpp \
     lib/xml_saver.cpp \
     lib/graphic_knot_graph.cpp \
-    lib/knot_curve_script.cpp
+    lib/knot_curve_script.cpp \
+    lib/script_wrappers.cpp
 
 INCLUDEPATH += lib

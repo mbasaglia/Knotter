@@ -171,6 +171,6 @@ class script_path_builder : public QObject
         }
 };
 
-
+void initialize_engine ( QScriptEngine& engine );
 
 #endif // SCRIPT_WRAPPERS_HPP
