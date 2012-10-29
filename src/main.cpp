@@ -47,19 +47,7 @@ int main(int argc, char *argv[])
     knot_curve_styler::register_style(new knot_curve_ogee, "ogee", QObject::tr("Ogee") );
     knot_curve_styler::register_style(new knot_curve_polygonal, "polygonal", QObject::tr("Polygonal") );
     knot_curve_styler::register_style(new knot_curve_round, "round", QObject::tr("Round") );
-    knot_curve_styler::register_style(new knot_curve_script("if ( angle > cusp_angle ) { "
-        "handle = line(start_handle.p1,finish_handle.p1);"
-        "handle.translate(cusp_point);"
-        "handle.translate(opposite(start_handle.p1));"
-        "handle.length = handle_length/2;"
-        "h2 = handle.p2;"
-        "handle.length = -handle_length/2;"
-        "h1 = handle.p2;"
-        "path.add_cubic ( start_handle.p1, start_handle.p2, h1, cusp_point );"
-        "path.add_cubic ( finish_handle.p1, finish_handle.p2, h2, cusp_point );"
-    "} else {"
-        "path.add_cubic(start_handle.p1,start_handle.p2,finish_handle.p2,finish_handle.p1);"
-    "}"), "script", QObject::tr("Script") );
+    knot_curve_script::register_script(load::resource_name(DATA_DIR,"plugins/example_cusp.xml"));
 
     QApplication a(argc, argv);
 

@@ -64,3 +64,14 @@ void knot_curve_script::initialize_script_engine()
     engine = new QScriptEngine;
     initialize_engine(engine);
 }
+
+void knot_curve_script::register_script(QString filename)
+{
+    QString id = "todo";
+    QString name = "ToDo";
+    QString code = "path.add_cubic(start_handle.p1,start_handle.p2,finish_handle.p2,finish_handle.p1);";
+
+    if ( knot_curve_styler::style(id) != NULL )
+        qWarning() << tr("Curve shape %1 already registered").arg(id);
+    knot_curve_styler::register_style(new knot_curve_script(code),id, name );
+}

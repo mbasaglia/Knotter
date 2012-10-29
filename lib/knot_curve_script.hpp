@@ -43,5 +43,7 @@ class knot_curve_script : public knot_curve_style
                             styleinfo style );
 
         static void initialize_script_engine();
+
+        static void register_script ( QString filename );
 };
 #endif // KNOT_CURVE_SCRIPT_HPP
