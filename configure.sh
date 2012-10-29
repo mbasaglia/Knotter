@@ -109,7 +109,6 @@ _HELP_
 cat <<_HELP_
 
 Optional components:
-    --without-webkit    Remove the dependency on QtWebkit
     --with-tango        Use Tango icons as fallback if no system theme is found
     --with-tango-default Use Tango icons as default icon theme
     --without-boost     Disable dependency on Boost library
@@ -155,9 +154,6 @@ do
         --name)
             echo $program_name
             exit 0
-            ;;
-        --without-webkit)
-            qmake_opts="$qmake_opts WEBKIT=no"
             ;;
         --with-tango)
             tango=fallback

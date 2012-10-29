@@ -64,8 +64,8 @@ License:        GPLv3+
 URL:            $website
 Source0:        $download/$tarball
 
-BuildRequires:  qt-devel, qtwebkit-devel
-Requires:       qt, qtwebkit
+BuildRequires:  qt-devel
+Requires:       qt
 
 %description
 $longdesc

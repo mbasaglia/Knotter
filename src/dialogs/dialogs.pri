@@ -41,10 +41,3 @@ FORMS += \
 
 
 INCLUDEPATH += src/dialogs
-
-contains(WEBKIT,no) {
-    DEFINES += NO_WEBKIT
-    message("Webkit support is DISABLED")
-} else {
-    QT += webkit
-}
