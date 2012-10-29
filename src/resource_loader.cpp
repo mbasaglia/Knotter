@@ -117,7 +117,7 @@ QString resource_name ( QString base_dir, QString name )
 */
 QUrl resource_url ( QString base_dir, QString name )
 {
-    return "file://"+resource_name(base_dir,name);
+    return "file:///"+resource_name(base_dir,name);
 }
 
 
