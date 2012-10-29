@@ -59,10 +59,10 @@ DEFINES += "VERSION=\\\"$${VERSION}\\\""
     DEFINES += HAS_QT_4_8
 }
 
-contains(BOOST,no) {
-    DEFINES += NO_BOOST
-} else {
+contains(BOOST,yes) {
     LIBS += -lboost_program_options
+} else {
+    DEFINES += NO_BOOST
 }
 
 
