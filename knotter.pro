@@ -71,9 +71,6 @@ win32 {
     # Remove non-numeric stuff from version as Windows RC doesn't like it
     VERSION ~= s/[-_a-zA-Z]+//
     ## Bundle everything in a single file to avoid loading issues
-    #isEmpty(SINGLE_FILE) {
-    #    SINGLE_FILE = yes
-    #}
     # No Freedesktop themes on Windows...
     isEmpty(TANGO) {
         TANGO = default
@@ -146,60 +143,45 @@ contains(TANGO,fallback){
     message("Using Tango icons as fallback")
 }
 
-contains(SINGLE_FILE,yes) {
-    BINDIR=.
-    DATADIR=:/data
-    DOCDIR=:/doc
-    MANDIR=man
-    message("Compiling all data in a single executable file")
-    RESOURCES += data.qrc \
-                 user_guide/doc.qrc
 
-    !contains(TANGO,no){
-        RESOURCES += themes/tango-icons/tango.qrc
-        message("Tango icons included in the executable as well")
-    }
-
-} else {
-    isEmpty(DATADIR){
-        DATADIR=.
-    }
-    isEmpty(DOCDIR){
-        DOCDIR=.
-    }
-    isEmpty(MANDIR){
-        MANDIR=man
-    }
-    isEmpty(DATAROOTDIR){
-        DATAROOTDIR=.
-    }
-
-
-    img.files = img/*
-    img.path = $${DATADIR}/img
-
-    doc.files = user_guide/*
-    doc.path = $${DOCDIR}/user_guide
-
-    translations.files = translations/*.qm
-    translations.path = $${DATADIR}/translations
-
-    man.files = man/$${TARGET}.1.gz
-    man.path = $${MANDIR}/man1
-
-    desktop_file.files=$${TARGET}.desktop
-    desktop_file.path=$${DATAROOTDIR}/applications
-
-    INSTALLS += img doc translations man desktop_file
-
-
-    !isEmpty(TANGO){
-        tango_icons.files=themes/*
-        tango_icons.path = $${DATADIR}/themes
-        INSTALLS += tango_icons
-    }
-
+isEmpty(DATADIR){
+    DATADIR=.
 }
+isEmpty(DOCDIR){
+    DOCDIR=.
+}
+isEmpty(MANDIR){
+    MANDIR=man
+}
+isEmpty(DATAROOTDIR){
+    DATAROOTDIR=.
+}
+
+
+img.files = img/*
+img.path = $${DATADIR}/img
+
+doc.files = user_guide/*
+doc.path = $${DOCDIR}/user_guide
+
+translations.files = translations/*.qm
+translations.path = $${DATADIR}/translations
+
+man.files = man/$${TARGET}.1.gz
+man.path = $${MANDIR}/man1
+
+desktop_file.files=$${TARGET}.desktop
+desktop_file.path=$${DATAROOTDIR}/applications
+
+INSTALLS += img doc translations man desktop_file
+
+
+!isEmpty(TANGO){
+    tango_icons.files=themes/*
+    tango_icons.path = $${DATADIR}/themes
+    INSTALLS += tango_icons
+}
+
 
 isEmpty(BINDIR){
     BINDIR=.

@@ -94,9 +94,6 @@ QIcon icon ( QString name )
 */
 QString resource_name ( QString base_dir, QString name )
 {
-    if ( base_dir.startsWith(":/") ) // resource
-        return base_dir+'/'+name;
-
     QDir path ( base_dir ); // install dir
 
     if ( !path.exists(name) )
@@ -120,10 +117,7 @@ QString resource_name ( QString base_dir, QString name )
 */
 QUrl resource_url ( QString base_dir, QString name )
 {
-    if ( base_dir.startsWith(":/") ) // resource
-        return "qrc"+base_dir+'/'+name;
-    else
-        return "file://"+resource_name(base_dir,name);
+    return "file://"+resource_name(base_dir,name);
 }
 
 

@@ -33,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QUndoView>
 #include "config_dialog.hpp"
 #include "export_dialog.hpp"
-#include "help_view.hpp"
 #include "context_menu.hpp"
 #include "node_style_form.hpp"
 #include "global_style_form.hpp"
@@ -54,7 +53,6 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         int             max_recent_files;   ///< Max number of entries in the Open recent menu
         config_dialog   config_dlg;         ///< Knotter preferences dialog
         Export_Dialog   export_dialog;      ///< Export SVG/Bitmap dialog
-        Help_View       help_view;          ///< Window showing the user guide
         node_cxmn       node_context_menu;  ///< Menu shown on right-clicking on a node
         edge_cxmn       edge_context_menu;  ///< Menu shown on right-clicking on an edge
         QUndoView *     undoView;           ///< Action history

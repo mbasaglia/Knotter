@@ -13,7 +13,6 @@ HEADERS += \
     src/dialogs/export_dialog.hpp \
     src/dialogs/node_style_form.hpp \
     src/dialogs/global_style_form.hpp \
-    src/dialogs/help_view.hpp \
     src/dialogs/background_config.hpp \
     src/dialogs/node_pref_dialog.hpp \
     src/dialogs/about_dialog.hpp
@@ -25,7 +24,6 @@ SOURCES += \
     src/dialogs/export_dialog.cpp \
     src/dialogs/node_style_form.cpp \
     src/dialogs/global_style_form.cpp \
-    src/dialogs/help_view.cpp \
     src/dialogs/background_config.cpp \
     src/dialogs/node_pref_dialog.cpp \
     src/dialogs/about_dialog.cpp
@@ -37,7 +35,6 @@ FORMS += \
     src/dialogs/export_dialog.ui \
     src/dialogs/node_style_form.ui \
     src/dialogs/global_style_form.ui \
-    src/dialogs/help_view.ui \
     src/dialogs/background_config.ui \
     src/dialogs/node_pref_dialog.ui \
     src/dialogs/about_dialog.ui

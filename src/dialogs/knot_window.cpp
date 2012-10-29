@@ -42,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPrintDialog>
 #include <QPageSetupDialog>
 #include <QPrintPreviewDialog>
+#include <QDesktopServices>
 
 Knot_Window::Knot_Window(KnotGraph *graph, QWidget *parent) :
     QMainWindow(parent), save_ui ( true ), max_recent_files(5),
@@ -476,10 +477,6 @@ void Knot_Window::init_dialogs()
         config_dlg.add_toolbar(toolb);
     config_dlg.set_menu(menu_File);
     config_dlg.set_toolbar(MainToolBar);
-
-// Manual
-    help_view.setWindowIcon(load::icon("help-contents"));
-    help_view.setAttribute(Qt::WA_QuitOnClose, false);
 
     action_About->setIcon(load::icon("help-about"));
 
@@ -1074,7 +1071,7 @@ void Knot_Window::clear_recent_files()
 
 void Knot_Window::show_help()
 {
-    help_view.show();
+    QDesktopServices::openUrl( load::resource_url(DOC_DIR,"user_guide/index.html") );
 }
 
 
