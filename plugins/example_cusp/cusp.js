@@ -1,15 +1,5 @@
-<?xml version="1.0" ?>
-<plugin type="cusp" id="scripted-cusp"><!-- ID must be a unique string identifier -->
-    <meta>
-        <author>Mattia Basaglia</author>
-        <license>GPLv3+</license>
-        <title lang="en">Scripted cusp</title>
-        <description lang="en">
-            Example script for a custom cusp shape
-        </description>
-        <version>0.1</version>
-    </meta>
-<!-- The scripting language is QtScript aka ECMAScript aka JavaScript 
+/*
+The scripting language is QtScript aka ECMAScript aka JavaScript 
 
 Functions:
     * line() or new line() to create a line object (see QLine for reference)
@@ -25,8 +15,7 @@ Variables:
     * cusp_point    [point]- pre-computed point location
     * node_point    [point]- position of the node between the two edges
     * path          [path] - object used to build the path
--->
-        <code><![CDATA[
+*/
 if ( angle > cusp_angle ) 
 {
     handle = line(start_handle.p1,finish_handle.p1);
@@ -42,7 +31,4 @@ if ( angle > cusp_angle )
 else
 {
     path.add_cubic(start_handle.p1,start_handle.p2,finish_handle.p2,finish_handle.p1);
-}
-        ]]></code>
-</plugin>
-        
+} 
