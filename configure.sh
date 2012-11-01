@@ -36,7 +36,6 @@ program_version=`get_project_var VERSION`
 #mandir=${datarootdir}/man/$program_name
 
 #initialize misc options
-single_file=no
 qmake_opts=""
 with_boost=yes
 tango=no
@@ -100,9 +99,6 @@ Usage: $0 [OPTION]... [VARIABLE=VALUE]...
 
 Options:
     --help -h           Show this help message and exit
-    --single-file       Enable compilation of data in the executable file.
-                        Will override installation directories to point to
-                        the internal resource location.
     --name              Print the program name ($program_name) and exit.
     --version           Print the program version ($program_version) and exit.
 
@@ -113,7 +109,6 @@ _HELP_
 cat <<_HELP_
 
 Optional components:
-    --without-webkit    Remove the dependency on QtWebkit
     --with-tango        Use Tango icons as fallback if no system theme is found
     --with-tango-default Use Tango icons as default icon theme
     --without-boost     Disable dependency on Boost library
@@ -152,10 +147,6 @@ do
             show_help
             exit 0
             ;;
-        --single-file)
-            single_file=yes
-            qmake_opts="$qmake_opts SINGLE_FILE=yes"
-            ;;
         --version)
             echo $program_version
             exit 0
@@ -163,9 +154,6 @@ do
         --name)
             echo $program_name
             exit 0
-            ;;
-        --without-webkit)
-            qmake_opts="$qmake_opts WEBKIT=no"
             ;;
         --with-tango)
             tango=fallback

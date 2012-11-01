@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KNOT_CURVE_STYLE_HPP
 
 class Node;
-class TraversalInfo;
+struct TraversalInfo;
 #include "path_builder.hpp"
 #include <QMap>
 #include <QPainterPath>
