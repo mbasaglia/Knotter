@@ -162,6 +162,21 @@ void knot_curve_styler::register_ui_name(knot_curve_styler::style_id id, QString
     ui_names[name] = id;
 }
 
+void knot_curve_styler::unregister(QString name)
+{
+    if ( names.contains(name) )
+    {
+        style_id id = names[name];
+        names.remove(name);
+        styles.remove(id);
+        for (name_container::Iterator it = ui_names.begin(); it != ui_names.end();)
+            if (it.value() == id )
+                it = ui_names.erase(it);
+            else
+                ++it;
+    }
+}
+
 knot_curve_styler::style_id knot_curve_styler::idof(QString name)
 {
     if ( !names.contains(name) )

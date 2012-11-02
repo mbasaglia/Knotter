@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QImageWriter>
 #include <algorithm>
 #include "knot_curve_script.hpp"
+#include "plugin.hpp"
 
 void parse_cmd_args(int argc, char* argv[], KnotGraph& graph);
 
@@ -42,16 +43,17 @@ int main(int argc, char *argv[])
 // initialize
     ErrorRecovery::initialize();
 
+    QApplication a(argc, argv);
+
 
     knot_curve_styler::register_style(new knot_curve_pointed, "pointed", QObject::tr("Pointed")  );
     knot_curve_styler::register_style(new knot_curve_ogee, "ogee", QObject::tr("Ogee") );
     knot_curve_styler::register_style(new knot_curve_polygonal, "polygonal", QObject::tr("Polygonal") );
     knot_curve_styler::register_style(new knot_curve_round, "round", QObject::tr("Round") );
-    knot_curve_script::register_script(load::resource_name(DATA_DIR,"plugins/example_cusp.xml"));
 
-    QApplication a(argc, argv);
-
+    Plugin::set_base_directory ( load::resource_name(DATA_DIR,"plugins") );
     knot_curve_script::initialize_script_engine();
+    Plugin("example_cusp").enable(true);
 
     Translator::initialize("en");
     Translator::load_system_default();

@@ -9,9 +9,7 @@ HEADERS += \
     lib/edge.hpp \
     lib/custom_item.hpp \
     lib/xml_saver.hpp \
-    lib/graphic_knot_graph.hpp \
-    lib/knot_curve_script.hpp \
-    lib/script_wrappers.hpp
+    lib/graphic_knot_graph.hpp
 
 SOURCES += \
     lib/basic_knot_graph.cpp \
@@ -21,8 +19,6 @@ SOURCES += \
     lib/knot_curve_style.cpp \
     lib/edge.cpp \
     lib/xml_saver.cpp \
-    lib/graphic_knot_graph.cpp \
-    lib/knot_curve_script.cpp \
-    lib/script_wrappers.cpp
+    lib/graphic_knot_graph.cpp
 
 INCLUDEPATH += lib

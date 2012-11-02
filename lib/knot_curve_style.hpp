@@ -53,6 +53,8 @@ struct knot_curve_styler
     static void register_style( knot_curve_style* style, QString name, QString ui_name );
     static void register_alias ( style_id id, QString name );
     static void register_ui_name ( style_id id, QString name );
+    /// unregisters style, alias and ui_name
+    static void unregister ( QString name );
 
     static style_id idof ( QString name );
     static QString name ( style_id id );

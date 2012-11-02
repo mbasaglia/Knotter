@@ -4,7 +4,10 @@ SOURCES += src/main.cpp \
     src/context_menu.cpp \
     src/resource_loader.cpp \
     src/translator.cpp \
-    src/extended_tabwidget.cpp
+    src/extended_tabwidget.cpp \
+    src/plugin.cpp \
+    src/knot_curve_script.cpp \
+    src/script_wrappers.cpp
 
 
 include(dialogs/dialogs.pri)
@@ -20,6 +23,9 @@ HEADERS += \
     src/context_menu.hpp \
     src/resource_loader.hpp \
     src/translator.hpp \
-    src/extended_tabwidget.hpp
+    src/extended_tabwidget.hpp \
+    src/plugin.hpp \
+    src/knot_curve_script.hpp \
+    src/script_wrappers.hpp
 
 INCLUDEPATH += src

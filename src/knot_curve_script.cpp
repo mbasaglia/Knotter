@@ -32,6 +32,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 knot_curve_script::knot_curve_script(QString code) : program ( code )
 {}
 
+knot_curve_script::knot_curve_script(const QScriptProgram &code)
+    : program(code)
+{}
+
 void knot_curve_script::draw_joint(path_builder &pathb, const TraversalInfo &ti, styleinfo style)
 {
     script_line start_handle = ti.in.edge->handle_point(ti.in.handle,style.handle_length,style.crossing_distance);
@@ -63,15 +67,4 @@ void knot_curve_script::initialize_script_engine()
     delete engine;
     engine = new QScriptEngine;
     initialize_engine(engine);
-}
-
-void knot_curve_script::register_script(QString filename)
-{
-    QString id = "todo";
-    QString name = "ToDo";
-    QString code = "path.add_cubic(start_handle.p1,start_handle.p2,finish_handle.p2,finish_handle.p1);";
-
-    if ( knot_curve_styler::style(id) != NULL )
-        qWarning() << tr("Curve shape %1 already registered").arg(id);
-    knot_curve_styler::register_style(new knot_curve_script(code),id, name );
 }

@@ -37,13 +37,12 @@ class knot_curve_script : public knot_curve_style
 
     public:
         knot_curve_script(QString code);
+        knot_curve_script(const QScriptProgram& code);
 
         void draw_joint ( path_builder& path,
                             const TraversalInfo& ti,
                             styleinfo style );
 
         static void initialize_script_engine();
-
-        static void register_script ( QString filename );
 };
 #endif // KNOT_CURVE_SCRIPT_HPP
