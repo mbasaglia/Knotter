@@ -123,7 +123,7 @@
     <message>
         <location filename="../src/graphics/commands.cpp" line="497"/>
         <source>Change node style</source>
-        <translation type="unfinished">Změnit styl uzlu</translation>
+        <translation>Změnit styl uzlu</translation>
     </message>
 </context>
 <context>
@@ -374,7 +374,7 @@
     <message>
         <location filename="../src/graphics/knotview.cpp" line="939"/>
         <source>Remove custom node style</source>
-        <translation type="unfinished">Odstranit vlastní styl uzlu</translation>
+        <translation>Odstranit vlastní styl uzlu</translation>
     </message>
     <message>
         <location filename="../src/graphics/knotview.cpp" line="1050"/>
@@ -776,12 +776,12 @@
     <message>
         <location filename="../src/dialogs/knot_window.cpp" line="357"/>
         <source>Default Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Výchozí styl</translation>
     </message>
     <message>
         <location filename="../src/dialogs/knot_window.cpp" line="366"/>
         <source>Selection Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Styl výběru</translation>
     </message>
     <message>
         <location filename="../src/dialogs/knot_window.cpp" line="378"/>
