@@ -48,7 +48,7 @@ class path_builder
         void add_cubic( QPointF begin, QPointF control1, QPointF control2, QPointF end );
         void add_quad ( QPointF begin, QPointF control, QPointF end );
 
-        // next calls to add_* will be placed in a different group
+        /// next calls to add_* will be placed in a different group
         void new_group();
 
         QList<QPainterPath> build();

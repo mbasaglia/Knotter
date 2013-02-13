@@ -33,6 +33,53 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_loader.hpp"
 #include <QImageWriter>
 #include <algorithm>
+#include "knot_curve_script.hpp"
+#include "plugin.hpp"
+
+void parse_cmd_args(int argc, char* argv[], KnotGraph& graph);
+
+int main(int argc, char *argv[])
+{
+// initialize
+    ErrorRecovery::initialize();
+
+    QApplication a(argc, argv);
+
+
+    knot_curve_styler::register_style(new knot_curve_pointed, "pointed", QObject::tr("Pointed")  );
+    knot_curve_styler::register_style(new knot_curve_ogee, "ogee", QObject::tr("Ogee") );
+    knot_curve_styler::register_style(new knot_curve_polygonal, "polygonal", QObject::tr("Polygonal") );
+    knot_curve_styler::register_style(new knot_curve_round, "round", QObject::tr("Round") );
+
+    Plugin::set_base_directory ( load::resource_name(DATA_DIR,"plugins") );
+    knot_curve_script::initialize_script_engine();
+    Plugin("example_cusp").enable(true);
+
+    Translator::initialize("en");
+    Translator::load_system_default();
+
+    Transform_Handle::scale_rest.load(load::resource_name(DATA_DIR,"img/handle_scale_rest.svg"));
+    Transform_Handle::scale_active.load(load::resource_name(DATA_DIR,"img/handle_scale_active.svg"));
+    Transform_Handle::rotate_rest.load(load::resource_name(DATA_DIR,"img/handle_rotate_rest.svg"));
+    Transform_Handle::rotate_active.load(load::resource_name(DATA_DIR,"img/handle_rotate_active.svg"));
+
+    KnotGraph graph;
+    parse_cmd_args(argc,argv,graph);
+
+    load::initialize_icon_theme();
+
+// run
+    Knot_Window w(&graph);
+
+    w.show();
+    
+    int status = a.exec();
+
+// finalize
+    knot_curve_styler::clear();
+
+    return status;
+}
 
 std::ostream& operator<< ( std::ostream&os, QString str )
 {
@@ -262,41 +309,3 @@ inline QString FULL_VERSION_STR()
         }
     }
 #endif // NO_BOOST
-
-int main(int argc, char *argv[])
-{
-// initialize
-    ErrorRecovery::initialize();
-
-    knot_curve_styler::register_style(new knot_curve_pointed, "pointed" );
-    knot_curve_styler::register_style(new knot_curve_ogee, "ogee" );
-    knot_curve_styler::register_style(new knot_curve_polygonal, "polygonal" );
-    knot_curve_styler::register_style(new knot_curve_round, "round" );
-
-    QApplication a(argc, argv);
-
-    Translator::initialize("en");
-    Translator::load_system_default();
-
-    Transform_Handle::scale_rest.load(load::resource_name(DATA_DIR,"img/handle_scale_rest.svg"));
-    Transform_Handle::scale_active.load(load::resource_name(DATA_DIR,"img/handle_scale_active.svg"));
-    Transform_Handle::rotate_rest.load(load::resource_name(DATA_DIR,"img/handle_rotate_rest.svg"));
-    Transform_Handle::rotate_active.load(load::resource_name(DATA_DIR,"img/handle_rotate_active.svg"));
-
-    KnotGraph graph;
-    parse_cmd_args(argc,argv,graph);
-
-    load::initialize_icon_theme();
-
-// run
-    Knot_Window w(&graph);
-
-    w.show();
-    
-    int status = a.exec();
-
-// finalize
-    knot_curve_styler::clear();
-
-    return status;
-}
