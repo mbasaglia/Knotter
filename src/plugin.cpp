@@ -3,6 +3,11 @@
 #include "knot_curve_script.hpp"
 #include <QDebug>
 
+// Qt 4.7 compatibility
+#ifndef Q_LIKELY
+#define Q_LIKELY(x) x
+#endif
+
 QDir Plugin::base_directory;
 
 bool Plugin::set_base_directory(QString dir)
