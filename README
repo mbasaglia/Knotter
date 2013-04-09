@@ -1,1 +1,87 @@
- 
+Kotter
+=======================================
+
+About
+---------------------------------------
+This program is a designer for Celtic knotworks, using the mathematical
+correlation between knots and graphs.
+
+The software is under development, some features may change without
+notice and there may be some bugs.
+
+
+Contacts
+---------------------------------------
+Mattia Basaglia <mattia.basaglia@gmail.com>
+[Knotter Website](http://www.knotdraw.org/)
+
+If you have any suggestion, criticism, feature request or bug report please let me know
+
+
+License
+---------------------------------------
+GPLv3 or later, see COPYING.
+
+
+Build instructions
+---------------------------------------
+
+Quick build
+
+    ./configure.sh && make
+
+The configuration script will generate the makefile using qmake and set up
+the installation directories, for more information run
+
+    ./configure.sh --help
+
+If the configure script fails despite being in a proper build environment you
+can run directly qmake  on knotter.pro. Be advised that this will make some
+make targets buggy or unavailable.
+
+If you want to regenerate the files created by the Qt build tools, run
+
+    make clean
+    make
+
+To install the binaries run
+
+    make install
+
+To install in a specific directory, you can set INSTALL_ROOT
+
+    make install INSTALL_ROOT=/some/directory
+
+The default install prefix is /usr/local (see ./configure.sh --help)
+
+
+Misc build targets
+---------------------------------------
+
+* dist:    Generate source tarball
+* src_doc: Generate Doxygen documentation from the source files
+
+
+Getting the latest sources
+---------------------------------------
+
+The git repository is located at git://github.com/mbasaglia/Knotter.git
+You can browse it online at https://github.com/mbasaglia/Knotter
+
+Some tarballs can be downloaded from https://sourceforge.net/projects/knotter/files/
+
+
+### Cloning from Git ###
+
+This source tree uses git submodules, this means that the submodules need to
+be initialized when the repo is coloned:
+
+    # Clone repo
+    git clone git://github.com/mbasaglia/Knotter.git
+
+    # Initialize submodules
+    git submodule init
+
+    # Clone/pull submodules
+    git submodule update
+
