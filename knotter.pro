@@ -32,6 +32,7 @@ include(translations.pri)
 OTHER_FILES = \
     COPYING \
     Doxyfile.in \
+    Doxyfile \
     README \
     configure.sh \
     knotter.desktop.in \

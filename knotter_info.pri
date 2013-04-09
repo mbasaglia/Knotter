@@ -13,23 +13,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# executable/package name
 TARGET=knotter
-
+# program version
 VERSION=0.9.0
-
+# capitalized name
 TITLE=Knotter
-
+# Short description
 DESC="Interactive Celtic Knot Editor"
-
+# Long description
 LONG_DESC="Knotter is an editor for interlace patterns. \
 Knots drawn with Knotter can be exported as SVG or raster images."
-
+# Maintainer name
 AUTHOR="Mattia Basaglia"
-
+# Maintainer email
 EMAIL="mattia.basaglia@gmail.com"
-
+# Main website
 WEBSITE="http://www.knotdraw.org/"
-
+# Direct link to the latest version
 DOWNLOAD="http://sourceforge.net/projects/knotter/files/latest/download"
-
+# Repo browser URL
+REPO="https://github.com/mbasaglia/Knotter"
+# Icon path relative to datadir
 ICON_RELPATH="img/logo-big.svg"
