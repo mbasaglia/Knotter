@@ -1,4 +1,4 @@
-# Copyright (C) 2012  Mattia Basaglia
+# Copyright (C) 2012-2013  Mattia Basaglia
 #
 # Knotter is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,9 +16,6 @@
 # Base configutation
 QT += core gui xml script
 
-TARGET = knotter
-VERSION = 0.8.2
-
 TEMPLATE = app
 
 UI_DIR = src/generated
@@ -26,37 +23,50 @@ MOC_DIR = src/generated
 RCC_DIR = src/generated
 OBJECTS_DIR = obj
 
+include(knotter_info.pri)
 include(src/src.pri)
-include(lib/lib.pri)
-include(translations/translations.pri)
+include(translations.pri)
+
 
 #non-source files
 OTHER_FILES = \
     COPYING \
-    Doxyfile \
-    NEWS \
-    doc.dox \
+    Doxyfile.in \
     README \
     configure.sh \
-    AUTHORS \
-    deb_builder.sh \
-    fix_makefile.sh \
-    doc_builder.sh \
-    info_preprocessor.sh \
-    rpm_builder.sh \
     knotter.desktop.in \
-    knotter.desktop
+    knotter.desktop \
+    fix_makefile.sh \
+    knotter_info.pri \
+    translations.pri
+
+# configured directories
+
+isEmpty(DATADIR){
+    DATADIR=$$PWD
+}
+isEmpty(DATAROOTDIR){
+    DATAROOTDIR=$$PWD
+}
+isEmpty(BINDIR){
+    BINDIR=$$PWD
+}
 
 
 # cpp defines
 
 DEFINES += "VERSION=\\\"$${VERSION}\\\""
+DEFINES += "DATA_DIR=\\\"$${DATADIR}\\\""
 
 #DEFINES += "BUILD_INFO=\"\\\"Knotter $$VERSION\\nBuilt on $$_DATE_\\n$${QMAKE_HOST.os} \
 #$${QMAKE_HOST.version} $${QMAKE_HOST.arch}\\nQt $${QT_VERSION}\\\""\"
 
-!lessThan(QT_VERSION,"4.8"){
+!lessThan(QT_MAJOR_VERSION,4) !lessThan(QT_MINOR_VERSION,8) {
     DEFINES += HAS_QT_4_8
+}
+greaterThan(QT_MAJOR_VERSION, 4) {
+    DEFINES += HAS_QT_5
+    QT += widgets
 }
 
 contains(BOOST,yes) {
@@ -70,18 +80,13 @@ contains(BOOST,yes) {
 win32 {
     # Remove non-numeric stuff from version as Windows RC doesn't like it
     VERSION ~= s/[-_a-zA-Z]+//
-    ## Bundle everything in a single file to avoid loading issues
-    # No Freedesktop themes on Windows...
-    isEmpty(TANGO) {
-        TANGO = default
-    }
 }
 
 #Extra make targets
 
 #dist
-MYDISTFILES =  $$OTHER_FILES knotter.pro
-MYDISTDIRS  =  src lib img translations user_guide man
+MYDISTFILES =  $$OTHER_FILES $${TARGET}.pro
+MYDISTDIRS  =  src data
 
 MYDIST_NAME = "$$TARGET-$${VERSION}"
 MYDIST_TAR_GZ = "$${MYDIST_NAME}.tar.gz"
@@ -111,88 +116,30 @@ mydistclean.commands = $(DEL_FILE) $$MYDIST_TAR_GZ Makefile $(TARGET)
 QMAKE_EXTRA_TARGETS += mydist mydistclean
 
 #src_doc
-Doxyfile.commands = doxygen -g
+Doxyfile.commands = ./info_preprocessor.sh Doxyfile.in > Doxyfile
 src_doc.depends = Doxyfile FORCE
-src_doc.commands = ./info_preprocessor.sh Doxyfile | doxygen -
-
-#doc
-doc.depends = doc_builder.sh user_guide/manual.xml user_guide/man_page.in.xml
-doc.commands = ./doc_builder.sh nochunks obfuscate
-doc_clean.commands = ./doc_builder.sh clean exit
-
-man/$${TARGET}.1.gz.depends = doc
+src_doc.commands = doxygen Doxyfile
 
 #desktop
-desktop_file.depends=$${TARGET}.desktop.in
-desktop_file.commands=./info_preprocessor.sh $${TARGET}.desktop.in > $${TARGET}.desktop
+$${TARGET}.desktop.depends=$${TARGET}.desktop.in
+$${TARGET}.desktop.commands=./info_preprocessor.sh $${TARGET}.desktop.in > $${TARGET}.desktop
 
-QMAKE_EXTRA_TARGETS += src_doc Doxyfile doc doc_clean man/$${TARGET}.1.gz desktop_file
-
-
-#check directories and options from configure.sh
-
-isEmpty(TANGO) { #let tango be fallback for those who don't use configure.sh
-    TANGO=fallback
-}
-contains (TANGO,default){
-    DEFINES += TANGO_DEFAULT
-    message("Using Tango icons")
-}
-contains(TANGO,fallback){
-    DEFINES += TANGO_FALLBACK
-    message("Using Tango icons as fallback")
-}
+QMAKE_EXTRA_TARGETS += src_doc Doxyfile $${TARGET}.desktop
 
 
-isEmpty(DATADIR){
-    DATADIR=.
-}
-isEmpty(DOCDIR){
-    DOCDIR=.
-}
-isEmpty(MANDIR){
-    MANDIR=man
-}
-isEmpty(DATAROOTDIR){
-    DATAROOTDIR=.
-}
+# Installs
+
+data.files = data/*
+data.path = $${DATADIR}
 
 
-img.files = img/*
-img.path = $${DATADIR}/img
+$${TARGET}.desktop.files=$${TARGET}.desktop
+$${TARGET}.desktop.path=$${DATAROOTDIR}/applications
 
-doc.files = user_guide/*
-doc.path = $${DOCDIR}/user_guide
+INSTALLS += data $${TARGET}.desktop
 
-translations.files = translations/*.qm
-translations.path = $${DATADIR}/translations
-
-man.files = man/$${TARGET}.1.gz
-man.path = $${MANDIR}/man1
-
-desktop_file.files=$${TARGET}.desktop
-desktop_file.path=$${DATAROOTDIR}/applications
-
-INSTALLS += img doc translations man desktop_file
-
-
-!isEmpty(TANGO){
-    tango_icons.files=themes/*
-    tango_icons.path = $${DATADIR}/themes
-    INSTALLS += tango_icons
-}
-
-
-isEmpty(BINDIR){
-    BINDIR=.
-}
-
-# finalize ( now all directory  variables are set )
-
-DEFINES += "DATA_DIR=\\\"$${DATADIR}\\\""
-
-DEFINES += "DOC_DIR=\\\"$${DOCDIR}\\\""
 
 target.path = $$BINDIR
 INSTALLS += target
+
 
