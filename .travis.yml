@@ -3,5 +3,3 @@ compiler:
   - clang
   - gcc
 script: ./configure.sh && make
-before_install:
-  git submodule init && git submodule --quiet update

@@ -82,6 +82,6 @@ be initialized when the repo is coloned:
     # Initialize submodules
     git submodule init
 
-    # Clone/pull submodules
+    # Clone submodules
     git submodule update
 
