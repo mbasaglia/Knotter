@@ -1,0 +1,7 @@
+*.o
+test/
+src/generated/*.cpp
+src/generated/*.h
+*.pro.user
+
+
