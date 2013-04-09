@@ -1,8 +1,15 @@
  
+INCLUDEPATH += $$PWD
 
-include($$PWD/widgets/color/color_widgets.pri)
-include($$PWD/widgets/toolbar_editor/toolbar_editor.pri)
+include($$PWD/widgets/widgets.pri)
+include($$PWD/dialogs/dialogs.pri)
+include($$PWD/graph/graph.pri)
+include($$PWD/scripting/scripting.pri)
 
 
 SOURCES += \
-    src/main.cpp
+    $$PWD/main.cpp \
+    $$PWD/resource_manager.cpp
+
+HEADERS += \
+    $$PWD/resource_manager.hpp

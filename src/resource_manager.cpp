@@ -23,14 +23,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
-#include <QApplication>
-#include "main_window.hpp"
+#include "resource_manager.hpp"
 
-int main(int argc, char *argv[])
+
+QString Resource_Manager::program_name()
 {
-    QApplication a(argc, argv);
-    Main_Window mw;
-    mw.show();
-
-    return a.exec();
+    return tr("Knotter");
 }

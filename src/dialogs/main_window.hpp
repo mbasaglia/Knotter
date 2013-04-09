@@ -23,14 +23,26 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
-#include <QApplication>
-#include "main_window.hpp"
+#ifndef MAIN_WINDOW_HPP
+#define MAIN_WINDOW_HPP
 
-int main(int argc, char *argv[])
+#include "ui_main_window.h"
+
+class Main_Window : public QMainWindow, private Ui::Main_Window
 {
-    QApplication a(argc, argv);
-    Main_Window mw;
-    mw.show();
+    Q_OBJECT
+    
+public:
+    explicit Main_Window(QWidget *parent = 0);
 
-    return a.exec();
-}
+    /// Change all the strings to their translated version
+    void retranslate();
+
+private:
+    /// Initialize menus
+    void init_menus();
+
+
+};
+
+#endif // MAIN_WINDOW_HPP

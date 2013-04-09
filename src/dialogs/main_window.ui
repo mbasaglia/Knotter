@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Main_Window</class>
+ <widget class="QMainWindow" name="Main_Window">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>640</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>640</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <widget class="QMenu" name="menu_Open_Recent">
+     <property name="title">
+      <string>Open &amp;Recent</string>
+     </property>
+     <property name="icon">
+      <iconset theme="document-open-recent"/>
+     </property>
+     <addaction name="actionPlaceholder"/>
+    </widget>
+    <addaction name="action_New"/>
+    <addaction name="action_Open"/>
+    <addaction name="menu_Open_Recent"/>
+    <addaction name="separator"/>
+    <addaction name="action_Save"/>
+    <addaction name="actionSave_As"/>
+    <addaction name="actionSave_A_ll"/>
+    <addaction name="action_Export"/>
+    <addaction name="separator"/>
+    <addaction name="action_Close"/>
+    <addaction name="action_Close_All"/>
+    <addaction name="separator"/>
+    <addaction name="action_Print"/>
+    <addaction name="action_Page_Setup"/>
+    <addaction name="action_Print_Preview"/>
+    <addaction name="separator"/>
+    <addaction name="action_Exit"/>
+   </widget>
+   <widget class="QMenu" name="menu_Edit">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="action_Cut"/>
+    <addaction name="action_Copy"/>
+    <addaction name="action_Paste"/>
+    <addaction name="action_Delete"/>
+    <addaction name="separator"/>
+    <addaction name="actionSelect_All"/>
+    <addaction name="separator"/>
+    <addaction name="action_Preferemces"/>
+   </widget>
+   <widget class="QMenu" name="menu_View">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <widget class="QMenu" name="menu_Toolbars">
+     <property name="title">
+      <string>&amp;Toolbars</string>
+     </property>
+     <property name="icon">
+      <iconset theme="configure-toolbars"/>
+     </property>
+     <addaction name="actionPlaceholder_2"/>
+    </widget>
+    <widget class="QMenu" name="menu_Docks">
+     <property name="title">
+      <string>&amp;Docks</string>
+     </property>
+     <property name="icon">
+      <iconset theme="preferences-system-windows-move"/>
+     </property>
+     <addaction name="actionPlaceholder_3"/>
+    </widget>
+    <widget class="QMenu" name="menu_Zoom">
+     <property name="title">
+      <string>&amp;Zoom</string>
+     </property>
+     <property name="icon">
+      <iconset theme="page-zoom"/>
+     </property>
+     <addaction name="action_Zoom_In"/>
+     <addaction name="actionZoom_Out"/>
+     <addaction name="action_Reset_Zoom"/>
+    </widget>
+    <widget class="QMenu" name="menu_Rendering">
+     <property name="title">
+      <string>R&amp;endering</string>
+     </property>
+     <addaction name="action_Normal"/>
+     <addaction name="action_Highlight_Links"/>
+    </widget>
+    <addaction name="menu_Toolbars"/>
+    <addaction name="menu_Docks"/>
+    <addaction name="separator"/>
+    <addaction name="menu_Zoom"/>
+    <addaction name="action_Reset_View"/>
+    <addaction name="separator"/>
+    <addaction name="action_Show_Graph"/>
+    <addaction name="action_Display_Knot"/>
+    <addaction name="separator"/>
+    <addaction name="menu_Rendering"/>
+   </widget>
+   <widget class="QMenu" name="menu_Nodes">
+    <property name="title">
+     <string>&amp;Nodes</string>
+    </property>
+    <addaction name="action_Connect"/>
+    <addaction name="action_Disconnect"/>
+    <addaction name="action_Merge"/>
+    <addaction name="action_Erase"/>
+    <addaction name="separator"/>
+    <addaction name="action_Snap_to_Grid"/>
+    <addaction name="separator"/>
+    <addaction name="action_Mirror_Horizontal"/>
+    <addaction name="action_Mirror_Vertical"/>
+    <addaction name="separator"/>
+    <addaction name="action_Rotate"/>
+    <addaction name="action_Scale"/>
+   </widget>
+   <widget class="QMenu" name="menu_Tools">
+    <property name="title">
+     <string>&amp;Tools</string>
+    </property>
+    <addaction name="action_Edit_Graph"/>
+    <addaction name="action_Edge_Loop"/>
+    <addaction name="separator"/>
+    <addaction name="action_Insert_Polygon"/>
+    <addaction name="separator"/>
+    <addaction name="action_Refresh_Path"/>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="action_Manual"/>
+    <addaction name="action_About"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu_Edit"/>
+   <addaction name="menu_View"/>
+   <addaction name="menu_Nodes"/>
+   <addaction name="menu_Tools"/>
+   <addaction name="menu_Help"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="action_Open">
+   <property name="icon">
+    <iconset theme="document-open"/>
+   </property>
+   <property name="text">
+    <string>&amp;Open...</string>
+   </property>
+  </action>
+  <action name="action_New">
+   <property name="icon">
+    <iconset theme="document-new"/>
+   </property>
+   <property name="text">
+    <string>&amp;New</string>
+   </property>
+  </action>
+  <action name="actionPlaceholder">
+   <property name="text">
+    <string>placeholder</string>
+   </property>
+  </action>
+  <action name="action_Save">
+   <property name="icon">
+    <iconset theme="document-save"/>
+   </property>
+   <property name="text">
+    <string>&amp;Save</string>
+   </property>
+  </action>
+  <action name="actionSave_As">
+   <property name="icon">
+    <iconset theme="document-save-as"/>
+   </property>
+   <property name="text">
+    <string>Save &amp;As...</string>
+   </property>
+  </action>
+  <action name="actionSave_A_ll">
+   <property name="icon">
+    <iconset theme="document-save-all"/>
+   </property>
+   <property name="text">
+    <string>Save A&amp;ll</string>
+   </property>
+  </action>
+  <action name="action_Print">
+   <property name="icon">
+    <iconset theme="document-print"/>
+   </property>
+   <property name="text">
+    <string>&amp;Print...</string>
+   </property>
+  </action>
+  <action name="action_Page_Setup">
+   <property name="icon">
+    <iconset theme="document-properties"/>
+   </property>
+   <property name="text">
+    <string>Pa&amp;ge Setup...</string>
+   </property>
+  </action>
+  <action name="action_Print_Preview">
+   <property name="icon">
+    <iconset theme="document-print-preview"/>
+   </property>
+   <property name="text">
+    <string>Print Pre&amp;view</string>
+   </property>
+  </action>
+  <action name="action_Close">
+   <property name="icon">
+    <iconset theme="tab-close"/>
+   </property>
+   <property name="text">
+    <string>&amp;Close</string>
+   </property>
+  </action>
+  <action name="action_Close_All">
+   <property name="text">
+    <string>Close All</string>
+   </property>
+  </action>
+  <action name="action_Exit">
+   <property name="icon">
+    <iconset theme="application-exit"/>
+   </property>
+   <property name="text">
+    <string>&amp;Exit</string>
+   </property>
+  </action>
+  <action name="action_Copy">
+   <property name="icon">
+    <iconset theme="edit-copy"/>
+   </property>
+   <property name="text">
+    <string>&amp;Copy</string>
+   </property>
+  </action>
+  <action name="action_Paste">
+   <property name="icon">
+    <iconset theme="edit-paste"/>
+   </property>
+   <property name="text">
+    <string>&amp;Paste</string>
+   </property>
+  </action>
+  <action name="action_Cut">
+   <property name="icon">
+    <iconset theme="edit-cut"/>
+   </property>
+   <property name="text">
+    <string>Cu&amp;t</string>
+   </property>
+  </action>
+  <action name="action_Delete">
+   <property name="icon">
+    <iconset theme="edit-delete"/>
+   </property>
+   <property name="text">
+    <string>&amp;Delete</string>
+   </property>
+  </action>
+  <action name="actionSelect_All">
+   <property name="icon">
+    <iconset theme="edit-select-all"/>
+   </property>
+   <property name="text">
+    <string>Select &amp;All</string>
+   </property>
+  </action>
+  <action name="action_Preferemces">
+   <property name="icon">
+    <iconset theme="preferences-other"/>
+   </property>
+   <property name="text">
+    <string>&amp;Preferemces...</string>
+   </property>
+  </action>
+  <action name="actionPlaceholder_2">
+   <property name="text">
+    <string>placeholder</string>
+   </property>
+  </action>
+  <action name="actionPlaceholder_3">
+   <property name="text">
+    <string>placeholder</string>
+   </property>
+  </action>
+  <action name="action_Reset_View">
+   <property name="icon">
+    <iconset theme="view-restore"/>
+   </property>
+   <property name="text">
+    <string>&amp;Reset View</string>
+   </property>
+  </action>
+  <action name="action_Zoom_In">
+   <property name="icon">
+    <iconset theme="zoom-in"/>
+   </property>
+   <property name="text">
+    <string>Zoom &amp;In</string>
+   </property>
+  </action>
+  <action name="actionZoom_Out">
+   <property name="icon">
+    <iconset theme="zoom-out"/>
+   </property>
+   <property name="text">
+    <string>Zoom &amp;Out</string>
+   </property>
+  </action>
+  <action name="action_Reset_Zoom">
+   <property name="icon">
+    <iconset theme="zoom-original"/>
+   </property>
+   <property name="text">
+    <string>&amp;Reset Zoom</string>
+   </property>
+  </action>
+  <action name="action_Show_Graph">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Display &amp;Graph</string>
+   </property>
+  </action>
+  <action name="action_Display_Knot">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Display &amp;Knot</string>
+   </property>
+  </action>
+  <action name="action_Normal">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Normal</string>
+   </property>
+  </action>
+  <action name="action_Highlight_Links">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Highlight Links</string>
+   </property>
+  </action>
+  <action name="action_Connect">
+   <property name="icon">
+    <iconset theme="format-connect-node"/>
+   </property>
+   <property name="text">
+    <string>&amp;Connect</string>
+   </property>
+  </action>
+  <action name="action_Disconnect">
+   <property name="icon">
+    <iconset theme="format-disconnect-node"/>
+   </property>
+   <property name="text">
+    <string>&amp;Disconnect</string>
+   </property>
+  </action>
+  <action name="action_Mirror_Horizontal">
+   <property name="icon">
+    <iconset theme="object-flip-horizontal"/>
+   </property>
+   <property name="text">
+    <string>&amp;Horizontal Flip</string>
+   </property>
+  </action>
+  <action name="action_Mirror_Vertical">
+   <property name="icon">
+    <iconset theme="object-flip-vertical"/>
+   </property>
+   <property name="text">
+    <string>&amp;Vertical Flip</string>
+   </property>
+  </action>
+  <action name="action_Rotate">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="transform-rotate"/>
+   </property>
+   <property name="text">
+    <string>&amp;Rotate</string>
+   </property>
+  </action>
+  <action name="action_Scale">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="transform-scale"/>
+   </property>
+   <property name="text">
+    <string>&amp;Scale</string>
+   </property>
+  </action>
+  <action name="action_Merge">
+   <property name="icon">
+    <iconset theme="format-join-node"/>
+   </property>
+   <property name="text">
+    <string>&amp;Merge</string>
+   </property>
+  </action>
+  <action name="action_Erase">
+   <property name="icon">
+    <iconset theme="format-remove-node"/>
+   </property>
+   <property name="text">
+    <string>&amp;Erase</string>
+   </property>
+  </action>
+  <action name="action_Edit_Graph">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="draw-line"/>
+   </property>
+   <property name="text">
+    <string>&amp;Edit Graph</string>
+   </property>
+  </action>
+  <action name="action_Edge_Loop">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Edge &amp;Loop</string>
+   </property>
+  </action>
+  <action name="action_Insert_Polygon">
+   <property name="icon">
+    <iconset theme="draw-polygon"/>
+   </property>
+   <property name="text">
+    <string>Insert &amp;Polygon...</string>
+   </property>
+  </action>
+  <action name="action_Refresh_Path">
+   <property name="icon">
+    <iconset theme="view-refresh"/>
+   </property>
+   <property name="text">
+    <string>&amp;Refresh Path</string>
+   </property>
+  </action>
+  <action name="action_Manual">
+   <property name="icon">
+    <iconset theme="help-contents"/>
+   </property>
+   <property name="text">
+    <string>&amp;Manual</string>
+   </property>
+  </action>
+  <action name="action_About">
+   <property name="icon">
+    <iconset theme="help-about"/>
+   </property>
+   <property name="text">
+    <string>&amp;About...</string>
+   </property>
+  </action>
+  <action name="action_Export">
+   <property name="icon">
+    <iconset theme="document-export"/>
+   </property>
+   <property name="text">
+    <string>E&amp;xport...</string>
+   </property>
+  </action>
+  <action name="action_Snap_to_Grid">
+   <property name="text">
+    <string>Snap to &amp;Grid</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
