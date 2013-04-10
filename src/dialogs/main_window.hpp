@@ -31,6 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class Main_Window : public QMainWindow, private Ui::Main_Window
 {
     Q_OBJECT
+
+private:
+    bool        save_ui; /// Whether the GUI state must be loaded between sessions
     
 public:
     explicit Main_Window(QWidget *parent = 0);
@@ -41,6 +44,12 @@ public:
 private:
     /// Initialize menus
     void init_menus();
+    /// Initialize toolbars
+    void init_toolbars();
+    /// Load saved configuration
+    void load_config();
+
+    QAction* action_by_name(QString name) const;
 
 
 };

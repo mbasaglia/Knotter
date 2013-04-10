@@ -13,7 +13,33 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="documentMode">
+       <bool>false</bool>
+      </property>
+      <property name="tabsClosable">
+       <bool>true</bool>
+      </property>
+      <property name="movable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Tab 1</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Tab 2</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -36,15 +62,14 @@
        <normaloff/>
       </iconset>
      </property>
-     <addaction name="actionPlaceholder"/>
     </widget>
     <addaction name="action_New"/>
     <addaction name="action_Open"/>
     <addaction name="menu_Open_Recent"/>
     <addaction name="separator"/>
     <addaction name="action_Save"/>
-    <addaction name="actionSave_As"/>
-    <addaction name="actionSave_A_ll"/>
+    <addaction name="action_Save_As"/>
+    <addaction name="action_Save_All"/>
     <addaction name="action_Export"/>
     <addaction name="separator"/>
     <addaction name="action_Close"/>
@@ -61,14 +86,17 @@
      <string>&amp;Edit</string>
     </property>
     <addaction name="separator"/>
+    <addaction name="action_Undo"/>
+    <addaction name="action_Redo"/>
+    <addaction name="separator"/>
     <addaction name="action_Cut"/>
     <addaction name="action_Copy"/>
     <addaction name="action_Paste"/>
     <addaction name="action_Delete"/>
     <addaction name="separator"/>
-    <addaction name="actionSelect_All"/>
+    <addaction name="action_Select_All"/>
     <addaction name="separator"/>
-    <addaction name="action_Preferemces"/>
+    <addaction name="action_Preferences"/>
    </widget>
    <widget class="QMenu" name="menu_View">
     <property name="title">
@@ -83,7 +111,6 @@
        <normaloff/>
       </iconset>
      </property>
-     <addaction name="actionPlaceholder_2"/>
     </widget>
     <widget class="QMenu" name="menu_Docks">
      <property name="title">
@@ -94,7 +121,6 @@
        <normaloff/>
       </iconset>
      </property>
-     <addaction name="actionPlaceholder_3"/>
     </widget>
     <widget class="QMenu" name="menu_Zoom">
      <property name="title">
@@ -106,12 +132,15 @@
       </iconset>
      </property>
      <addaction name="action_Zoom_In"/>
-     <addaction name="actionZoom_Out"/>
+     <addaction name="action_Zoom_Out"/>
      <addaction name="action_Reset_Zoom"/>
     </widget>
     <widget class="QMenu" name="menu_Rendering">
      <property name="title">
       <string>R&amp;endering</string>
+     </property>
+     <property name="icon">
+      <iconset theme="knot-render-plain"/>
      </property>
      <addaction name="action_Normal"/>
      <addaction name="action_Highlight_Links"/>
@@ -170,6 +199,80 @@
    <addaction name="menu_Help"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolbar_main">
+   <property name="windowTitle">
+    <string>Main Toolbar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_New"/>
+   <addaction name="action_Open"/>
+   <addaction name="action_Save"/>
+   <addaction name="action_Save_As"/>
+   <addaction name="action_Export"/>
+   <addaction name="separator"/>
+   <addaction name="action_Undo"/>
+   <addaction name="action_Redo"/>
+   <addaction name="separator"/>
+   <addaction name="action_Cut"/>
+   <addaction name="action_Copy"/>
+   <addaction name="action_Paste"/>
+  </widget>
+  <widget class="QToolBar" name="toolbar_view">
+   <property name="windowTitle">
+    <string>View Toolbar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_Zoom_In"/>
+   <addaction name="action_Zoom_Out"/>
+   <addaction name="separator"/>
+   <addaction name="action_Show_Graph"/>
+  </widget>
+  <widget class="QToolBar" name="toolbar_draw">
+   <property name="windowTitle">
+    <string>Drawing Toolbar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_Edit_Graph"/>
+   <addaction name="action_Edge_Loop"/>
+   <addaction name="separator"/>
+   <addaction name="action_Connect"/>
+   <addaction name="action_Disconnect"/>
+   <addaction name="action_Merge"/>
+   <addaction name="action_Erase"/>
+   <addaction name="separator"/>
+   <addaction name="action_Insert_Polygon"/>
+  </widget>
+  <widget class="QToolBar" name="toolbar_transform">
+   <property name="windowTitle">
+    <string>Transformation Toolbar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_Mirror_Horizontal"/>
+   <addaction name="action_Mirror_Vertical"/>
+   <addaction name="separator"/>
+   <addaction name="action_Rotate"/>
+   <addaction name="action_Scale"/>
+  </widget>
   <action name="action_Open">
    <property name="icon">
     <iconset theme="document-open">
@@ -205,7 +308,7 @@
     <string>&amp;Save</string>
    </property>
   </action>
-  <action name="actionSave_As">
+  <action name="action_Save_As">
    <property name="icon">
     <iconset theme="document-save-as">
      <normaloff/>
@@ -215,7 +318,7 @@
     <string>Save &amp;As...</string>
    </property>
   </action>
-  <action name="actionSave_A_ll">
+  <action name="action_Save_All">
    <property name="icon">
     <iconset theme="document-save-all">
      <normaloff/>
@@ -223,6 +326,9 @@
    </property>
    <property name="text">
     <string>Save A&amp;ll</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
    </property>
   </action>
   <action name="action_Print">
@@ -268,6 +374,9 @@
   <action name="action_Close_All">
    <property name="text">
     <string>Close All</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+W</string>
    </property>
   </action>
   <action name="action_Exit">
@@ -320,7 +429,7 @@
     <string>&amp;Delete</string>
    </property>
   </action>
-  <action name="actionSelect_All">
+  <action name="action_Select_All">
    <property name="icon">
     <iconset theme="edit-select-all">
      <normaloff/>
@@ -330,14 +439,14 @@
     <string>Select &amp;All</string>
    </property>
   </action>
-  <action name="action_Preferemces">
+  <action name="action_Preferences">
    <property name="icon">
     <iconset theme="preferences-other">
      <normaloff/>
     </iconset>
    </property>
    <property name="text">
-    <string>&amp;Preferemces...</string>
+    <string>&amp;Preferences...</string>
    </property>
   </action>
   <action name="actionPlaceholder_2">
@@ -370,7 +479,7 @@
     <string>Zoom &amp;In</string>
    </property>
   </action>
-  <action name="actionZoom_Out">
+  <action name="action_Zoom_Out">
    <property name="icon">
     <iconset theme="zoom-out">
      <normaloff/>
@@ -389,6 +498,9 @@
    <property name="text">
     <string>&amp;Reset Zoom</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+0</string>
+   </property>
   </action>
   <action name="action_Show_Graph">
    <property name="checkable">
@@ -396,6 +508,9 @@
    </property>
    <property name="checked">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="knot-graph-on"/>
    </property>
    <property name="text">
     <string>Display &amp;Graph</string>
@@ -419,6 +534,9 @@
    <property name="checked">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset theme="knot-render-plain"/>
+   </property>
    <property name="text">
     <string>&amp;Normal</string>
    </property>
@@ -426,6 +544,9 @@
   <action name="action_Highlight_Links">
    <property name="checkable">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="knot-render-loops"/>
    </property>
    <property name="text">
     <string>&amp;Highlight Links</string>
@@ -439,6 +560,9 @@
    </property>
    <property name="text">
     <string>&amp;Connect</string>
+   </property>
+   <property name="shortcut">
+    <string>F</string>
    </property>
   </action>
   <action name="action_Disconnect">
@@ -509,6 +633,9 @@
    <property name="text">
     <string>&amp;Merge</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
+   </property>
   </action>
   <action name="action_Erase">
    <property name="icon">
@@ -518,6 +645,9 @@
    </property>
    <property name="text">
     <string>&amp;Erase</string>
+   </property>
+   <property name="shortcut">
+    <string>Del</string>
    </property>
   </action>
   <action name="action_Edit_Graph">
@@ -535,13 +665,22 @@
    <property name="text">
     <string>&amp;Edit Graph</string>
    </property>
+   <property name="shortcut">
+    <string>Alt+Shift+E</string>
+   </property>
   </action>
   <action name="action_Edge_Loop">
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset theme="draw-jagged-line"/>
+   </property>
    <property name="text">
     <string>Edge &amp;Loop</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Shift+L</string>
    </property>
   </action>
   <action name="action_Insert_Polygon">
@@ -593,13 +732,34 @@
    <property name="text">
     <string>E&amp;xport...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
   </action>
   <action name="action_Snap_to_Grid">
    <property name="icon">
-    <iconset theme="snap-orthogonal"/>
+    <iconset theme="snap-orthogonal">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Snap to &amp;Grid</string>
+   </property>
+  </action>
+  <action name="action_Undo">
+   <property name="icon">
+    <iconset theme="edit-undo"/>
+   </property>
+   <property name="text">
+    <string>&amp;Undo</string>
+   </property>
+  </action>
+  <action name="action_Redo">
+   <property name="icon">
+    <iconset theme="edit-redo"/>
+   </property>
+   <property name="text">
+    <string>&amp;Redo</string>
    </property>
   </action>
  </widget>

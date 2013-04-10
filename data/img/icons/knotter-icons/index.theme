@@ -27,7 +27,12 @@ PanelSizes=16,22,32,48,64,128,256
 DialogDefault=32
 DialogSizes=16,22,32,48,64,128,256
 
-Directories=oxygen/16x16,oxygen/22x22,oxygen/32x32,oxygen/48x48,oxygen/scalable
+Directories=oxygen/16x16,oxygen/22x22,oxygen/32x32,oxygen/48x48,oxygen/scalable,custom
+
+[custom]
+Size=64
+Type=Scalable
+
 [oxygen/16x16]
 Size=16
 Type=Threshold
@@ -47,3 +52,4 @@ Type=Threshold
 [oxygen/scalable]
 Size=64
 Type=Scalable
+
