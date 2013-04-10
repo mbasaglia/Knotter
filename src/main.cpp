@@ -25,10 +25,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <QApplication>
 #include "main_window.hpp"
+#include "resource_manager.hpp"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    Resource_Manager::initialize();
+
     Main_Window mw;
     mw.show();
 

@@ -32,7 +32,9 @@
       <string>Open &amp;Recent</string>
      </property>
      <property name="icon">
-      <iconset theme="document-open-recent"/>
+      <iconset theme="document-open-recent">
+       <normaloff/>
+      </iconset>
      </property>
      <addaction name="actionPlaceholder"/>
     </widget>
@@ -77,7 +79,9 @@
       <string>&amp;Toolbars</string>
      </property>
      <property name="icon">
-      <iconset theme="configure-toolbars"/>
+      <iconset theme="configure-toolbars">
+       <normaloff/>
+      </iconset>
      </property>
      <addaction name="actionPlaceholder_2"/>
     </widget>
@@ -86,7 +90,9 @@
       <string>&amp;Docks</string>
      </property>
      <property name="icon">
-      <iconset theme="preferences-system-windows-move"/>
+      <iconset theme="preferences-system-windows-move">
+       <normaloff/>
+      </iconset>
      </property>
      <addaction name="actionPlaceholder_3"/>
     </widget>
@@ -95,7 +101,9 @@
       <string>&amp;Zoom</string>
      </property>
      <property name="icon">
-      <iconset theme="page-zoom"/>
+      <iconset theme="page-zoom">
+       <normaloff/>
+      </iconset>
      </property>
      <addaction name="action_Zoom_In"/>
      <addaction name="actionZoom_Out"/>
@@ -164,7 +172,9 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action_Open">
    <property name="icon">
-    <iconset theme="document-open"/>
+    <iconset theme="document-open">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Open...</string>
@@ -172,7 +182,9 @@
   </action>
   <action name="action_New">
    <property name="icon">
-    <iconset theme="document-new"/>
+    <iconset theme="document-new">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;New</string>
@@ -185,7 +197,9 @@
   </action>
   <action name="action_Save">
    <property name="icon">
-    <iconset theme="document-save"/>
+    <iconset theme="document-save">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Save</string>
@@ -193,7 +207,9 @@
   </action>
   <action name="actionSave_As">
    <property name="icon">
-    <iconset theme="document-save-as"/>
+    <iconset theme="document-save-as">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Save &amp;As...</string>
@@ -201,7 +217,9 @@
   </action>
   <action name="actionSave_A_ll">
    <property name="icon">
-    <iconset theme="document-save-all"/>
+    <iconset theme="document-save-all">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Save A&amp;ll</string>
@@ -209,7 +227,9 @@
   </action>
   <action name="action_Print">
    <property name="icon">
-    <iconset theme="document-print"/>
+    <iconset theme="document-print">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Print...</string>
@@ -217,7 +237,9 @@
   </action>
   <action name="action_Page_Setup">
    <property name="icon">
-    <iconset theme="document-properties"/>
+    <iconset theme="document-properties">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Pa&amp;ge Setup...</string>
@@ -225,7 +247,9 @@
   </action>
   <action name="action_Print_Preview">
    <property name="icon">
-    <iconset theme="document-print-preview"/>
+    <iconset theme="document-print-preview">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Print Pre&amp;view</string>
@@ -233,7 +257,9 @@
   </action>
   <action name="action_Close">
    <property name="icon">
-    <iconset theme="tab-close"/>
+    <iconset theme="tab-close">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Close</string>
@@ -246,7 +272,9 @@
   </action>
   <action name="action_Exit">
    <property name="icon">
-    <iconset theme="application-exit"/>
+    <iconset theme="application-exit">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Exit</string>
@@ -254,7 +282,9 @@
   </action>
   <action name="action_Copy">
    <property name="icon">
-    <iconset theme="edit-copy"/>
+    <iconset theme="edit-copy">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Copy</string>
@@ -262,7 +292,9 @@
   </action>
   <action name="action_Paste">
    <property name="icon">
-    <iconset theme="edit-paste"/>
+    <iconset theme="edit-paste">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Paste</string>
@@ -270,7 +302,9 @@
   </action>
   <action name="action_Cut">
    <property name="icon">
-    <iconset theme="edit-cut"/>
+    <iconset theme="edit-cut">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Cu&amp;t</string>
@@ -278,7 +312,9 @@
   </action>
   <action name="action_Delete">
    <property name="icon">
-    <iconset theme="edit-delete"/>
+    <iconset theme="edit-delete">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Delete</string>
@@ -286,7 +322,9 @@
   </action>
   <action name="actionSelect_All">
    <property name="icon">
-    <iconset theme="edit-select-all"/>
+    <iconset theme="edit-select-all">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Select &amp;All</string>
@@ -294,7 +332,9 @@
   </action>
   <action name="action_Preferemces">
    <property name="icon">
-    <iconset theme="preferences-other"/>
+    <iconset theme="preferences-other">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Preferemces...</string>
@@ -312,7 +352,9 @@
   </action>
   <action name="action_Reset_View">
    <property name="icon">
-    <iconset theme="view-restore"/>
+    <iconset theme="view-restore">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Reset View</string>
@@ -320,7 +362,9 @@
   </action>
   <action name="action_Zoom_In">
    <property name="icon">
-    <iconset theme="zoom-in"/>
+    <iconset theme="zoom-in">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Zoom &amp;In</string>
@@ -328,7 +372,9 @@
   </action>
   <action name="actionZoom_Out">
    <property name="icon">
-    <iconset theme="zoom-out"/>
+    <iconset theme="zoom-out">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Zoom &amp;Out</string>
@@ -336,7 +382,9 @@
   </action>
   <action name="action_Reset_Zoom">
    <property name="icon">
-    <iconset theme="zoom-original"/>
+    <iconset theme="zoom-original">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Reset Zoom</string>
@@ -385,7 +433,9 @@
   </action>
   <action name="action_Connect">
    <property name="icon">
-    <iconset theme="format-connect-node"/>
+    <iconset theme="format-connect-node">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Connect</string>
@@ -393,7 +443,9 @@
   </action>
   <action name="action_Disconnect">
    <property name="icon">
-    <iconset theme="format-disconnect-node"/>
+    <iconset theme="format-disconnect-node">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Disconnect</string>
@@ -401,7 +453,9 @@
   </action>
   <action name="action_Mirror_Horizontal">
    <property name="icon">
-    <iconset theme="object-flip-horizontal"/>
+    <iconset theme="object-flip-horizontal">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Horizontal Flip</string>
@@ -409,7 +463,9 @@
   </action>
   <action name="action_Mirror_Vertical">
    <property name="icon">
-    <iconset theme="object-flip-vertical"/>
+    <iconset theme="object-flip-vertical">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Vertical Flip</string>
@@ -420,7 +476,9 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="transform-rotate"/>
+    <iconset theme="transform-rotate">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Rotate</string>
@@ -434,7 +492,9 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="transform-scale"/>
+    <iconset theme="transform-scale">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Scale</string>
@@ -442,7 +502,9 @@
   </action>
   <action name="action_Merge">
    <property name="icon">
-    <iconset theme="format-join-node"/>
+    <iconset theme="format-join-node">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Merge</string>
@@ -450,7 +512,9 @@
   </action>
   <action name="action_Erase">
    <property name="icon">
-    <iconset theme="format-remove-node"/>
+    <iconset theme="format-remove-node">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Erase</string>
@@ -464,7 +528,9 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="draw-line"/>
+    <iconset theme="draw-line">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Edit Graph</string>
@@ -480,7 +546,9 @@
   </action>
   <action name="action_Insert_Polygon">
    <property name="icon">
-    <iconset theme="draw-polygon"/>
+    <iconset theme="draw-polygon">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Insert &amp;Polygon...</string>
@@ -488,7 +556,9 @@
   </action>
   <action name="action_Refresh_Path">
    <property name="icon">
-    <iconset theme="view-refresh"/>
+    <iconset theme="view-refresh">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Refresh Path</string>
@@ -496,7 +566,9 @@
   </action>
   <action name="action_Manual">
    <property name="icon">
-    <iconset theme="help-contents"/>
+    <iconset theme="help-contents">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Manual</string>
@@ -504,7 +576,9 @@
   </action>
   <action name="action_About">
    <property name="icon">
-    <iconset theme="help-about"/>
+    <iconset theme="help-about">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;About...</string>
@@ -512,13 +586,18 @@
   </action>
   <action name="action_Export">
    <property name="icon">
-    <iconset theme="document-export"/>
+    <iconset theme="document-export">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>E&amp;xport...</string>
    </property>
   </action>
   <action name="action_Snap_to_Grid">
+   <property name="icon">
+    <iconset theme="snap-orthogonal"/>
+   </property>
    <property name="text">
     <string>Snap to &amp;Grid</string>
    </property>

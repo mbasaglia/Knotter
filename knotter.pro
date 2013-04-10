@@ -44,7 +44,7 @@ OTHER_FILES = \
 # configured directories
 
 isEmpty(DATADIR){
-    DATADIR=$$PWD
+    DATADIR=$$PWD/data
 }
 isEmpty(DATAROOTDIR){
     DATAROOTDIR=$$PWD
@@ -58,6 +58,9 @@ isEmpty(BINDIR){
 
 DEFINES += "VERSION=\\\"$${VERSION}\\\""
 DEFINES += "DATA_DIR=\\\"$${DATADIR}\\\""
+contains(CONFIG,debug) {
+    DEFINES += "DEBUG=1"
+}
 
 #DEFINES += "BUILD_INFO=\"\\\"Knotter $$VERSION\\nBuilt on $$_DATE_\\n$${QMAKE_HOST.os} \
 #$${QMAKE_HOST.version} $${QMAKE_HOST.arch}\\nQt $${QT_VERSION}\\\""\"
