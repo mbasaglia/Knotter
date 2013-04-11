@@ -55,6 +55,8 @@ icons='application-exit
         preferences-system-windows-move
         preferences-system
         preferences-system-performance
+        preferences-plugin
+        preferences-plugin-script
         snap-orthogonal
         stroke-cap-butt
         stroke-cap-round
@@ -68,12 +70,14 @@ icons='application-exit
         tab-duplicate
         tab-new-backgound
         tab-new
+        text-x-script
         tools-report-bug
         transform-move
         transform-rotate
         transform-scale
         view-refresh
         view-restore
+        x-kde-nsplugin-generated
         zoom-in
         zoom-original
         zoom-out

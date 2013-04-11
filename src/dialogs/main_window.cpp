@@ -107,6 +107,16 @@ void Main_Window::init_toolbars()
 {
     foreach(QToolBar* tb, findChildren<QToolBar*>())
         menu_Toolbars->insertAction(0,tb->toggleViewAction());
+
+
+    // Statusbar...
+    zoomer = new QDoubleSpinBox(this);
+    zoomer->setMinimum(0.01);
+    zoomer->setMaximum(800);
+    zoomer->setSuffix("%");
+    zoomer->setValue(100);
+    statusBar()->addPermanentWidget(new QLabel(tr("Zoom")));
+    statusBar()->addPermanentWidget(zoomer);
 }
 
 void Main_Window::load_config()

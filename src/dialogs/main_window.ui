@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>640</width>
-    <height>480</height>
+    <height>489</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -140,7 +140,9 @@
       <string>R&amp;endering</string>
      </property>
      <property name="icon">
-      <iconset theme="knot-render-plain"/>
+      <iconset theme="knot-render-plain">
+       <normaloff/>
+      </iconset>
      </property>
      <addaction name="action_Normal"/>
      <addaction name="action_Highlight_Links"/>
@@ -191,11 +193,43 @@
     <addaction name="action_Manual"/>
     <addaction name="action_About"/>
    </widget>
+   <widget class="QMenu" name="menu_Plugins">
+    <property name="title">
+     <string>&amp;Plugins</string>
+    </property>
+    <widget class="QMenu" name="menu_Insert">
+     <property name="toolTip">
+      <string>Insert objects from plugin</string>
+     </property>
+     <property name="title">
+      <string>&amp;Insert</string>
+     </property>
+     <property name="icon">
+      <iconset theme="preferences-plugin-script"/>
+     </property>
+    </widget>
+    <widget class="QMenu" name="menu_Transform">
+     <property name="toolTip">
+      <string>Transform selection with plugin</string>
+     </property>
+     <property name="title">
+      <string>&amp;Transform</string>
+     </property>
+     <property name="icon">
+      <iconset theme="preferences-plugin-script"/>
+     </property>
+    </widget>
+    <addaction name="menu_Insert"/>
+    <addaction name="menu_Transform"/>
+    <addaction name="separator"/>
+    <addaction name="action_Configure_Plugins"/>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
    <addaction name="menu_View"/>
    <addaction name="menu_Nodes"/>
    <addaction name="menu_Tools"/>
+   <addaction name="menu_Plugins"/>
    <addaction name="menu_Help"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -510,7 +544,9 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="knot-graph-on"/>
+    <iconset theme="knot-graph-on">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Display &amp;Graph</string>
@@ -535,7 +571,9 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="knot-render-plain"/>
+    <iconset theme="knot-render-plain">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Normal</string>
@@ -546,7 +584,9 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="knot-render-loops"/>
+    <iconset theme="knot-render-loops">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Highlight Links</string>
@@ -674,7 +714,9 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="draw-jagged-line"/>
+    <iconset theme="draw-jagged-line">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Edge &amp;Loop</string>
@@ -748,7 +790,9 @@
   </action>
   <action name="action_Undo">
    <property name="icon">
-    <iconset theme="edit-undo"/>
+    <iconset theme="edit-undo">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Undo</string>
@@ -756,10 +800,30 @@
   </action>
   <action name="action_Redo">
    <property name="icon">
-    <iconset theme="edit-redo"/>
+    <iconset theme="edit-redo">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Redo</string>
+   </property>
+  </action>
+  <action name="actionB">
+   <property name="text">
+    <string>b</string>
+   </property>
+  </action>
+  <action name="actionF">
+   <property name="text">
+    <string>f</string>
+   </property>
+  </action>
+  <action name="action_Configure_Plugins">
+   <property name="icon">
+    <iconset theme="preferences-plugin"/>
+   </property>
+   <property name="text">
+    <string>&amp;Configure Plugins...</string>
    </property>
   </action>
  </widget>

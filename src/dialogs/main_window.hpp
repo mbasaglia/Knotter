@@ -27,13 +27,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MAIN_WINDOW_HPP
 
 #include "ui_main_window.h"
+#include <QDoubleSpinBox>
 
 class Main_Window : public QMainWindow, private Ui::Main_Window
 {
     Q_OBJECT
 
 private:
-    
+    QDoubleSpinBox* zoomer; ///< Zoom on statusbar
 public:
     explicit Main_Window(QWidget *parent = 0);
 
