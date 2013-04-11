@@ -43,6 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPageSetupDialog>
 #include <QPrintPreviewDialog>
 #include <QDesktopServices>
+#include <QDrag>
 
 Knot_Window::Knot_Window(KnotGraph *graph, QWidget *parent) :
     QMainWindow(parent), save_ui ( true ), max_recent_files(5),

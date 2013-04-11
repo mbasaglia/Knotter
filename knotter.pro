@@ -16,6 +16,7 @@
 # Base configutation
 QT += core gui xml script
 
+
 TARGET = knotter
 VERSION = 0.8.2
 
@@ -57,6 +58,12 @@ DEFINES += "VERSION=\\\"$${VERSION}\\\""
 
 !lessThan(QT_VERSION,"4.8"){
     DEFINES += HAS_QT_4_8
+}
+
+greaterThan(QT_MAJOR_VERSION, 4) {
+    DEFINES += HAS_QT_5
+    QT += widgets printsupport
+    #message("Qt 5")
 }
 
 contains(BOOST,yes) {

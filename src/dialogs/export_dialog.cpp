@@ -101,7 +101,13 @@ void Export_Dialog::on_export_raster_button_clicked()
 
     filename = exname;
 
-    int name_filter = filters.indexOf(export_dialog.selectedFilter());
+    int name_filter = filters.indexOf(export_dialog.
+#ifdef HAS_QT_5
+        selectedNameFilter
+#else
+        selectedFilter
+#endif
+      ());
 
 
     // pixmap

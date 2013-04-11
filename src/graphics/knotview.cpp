@@ -523,7 +523,11 @@ void KnotView::mouseMoveEvent(QMouseEvent *event)
         if ( ci )
             ci->highlight = false;
     }
-    CustomItem* ci = dynamic_cast<CustomItem*>(scene()->itemAt(p));
+    CustomItem* ci = dynamic_cast<CustomItem*>(scene()->itemAt(p
+                                                           #ifdef HAS_QT_5
+                                                               ,QTransform()
+                                                           #endif
+                                                               ));
     if ( ci )
         ci->highlight = true;
 
@@ -740,17 +744,29 @@ void KnotView::initialize_movement(QPointF center)
 
 Node *KnotView::node_at(QPointF p)
 {
-    return dynamic_cast<Node*>(scene()->itemAt(p));
+    return dynamic_cast<Node*>(scene()->itemAt(p
+#ifdef HAS_QT_5
+    ,QTransform()
+#endif
+                                               ));
 }
 
 Edge *KnotView::edge_at(QPointF p)
 {
-    return dynamic_cast<Edge*>(scene()->itemAt(p));
+    return dynamic_cast<Edge*>(scene()->itemAt(p
+#ifdef HAS_QT_5
+    ,QTransform()
+#endif
+                                               ));
 }
 
 Transform_Handle *KnotView::th_at(QPointF p)
 {
-    return dynamic_cast<Transform_Handle*>(scene()->itemAt(p));
+    return dynamic_cast<Transform_Handle*>(scene()->itemAt(p
+#ifdef HAS_QT_5
+    ,QTransform()
+#endif
+                                                           ));
 }
 
 void KnotView::link(Node *a, Node *b )
