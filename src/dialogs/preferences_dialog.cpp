@@ -59,3 +59,4 @@ void Preferences_Dialog::set_preferences()
     Resource_Manager::settings.button_style( Qt::ToolButtonStyle (
         combo_icon_style->itemData(combo_icon_style->currentIndex()).toInt()) );
 }
+
