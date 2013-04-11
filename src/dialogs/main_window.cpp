@@ -26,6 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "main_window.hpp"
 #include "resource_manager.hpp"
 #include <QMessageBox>
+#include "preferences_dialog.hpp"
+
 
 Main_Window::Main_Window(QWidget *parent) :
     QMainWindow(parent)
@@ -147,4 +149,9 @@ void Main_Window::set_icon_size(int sz)
 void Main_Window::set_tool_button_style(Qt::ToolButtonStyle tbs)
 {
     setToolButtonStyle(tbs);
+}
+
+void Main_Window::on_action_Preferences_triggered()
+{
+    Preferences_Dialog(this).exec();
 }

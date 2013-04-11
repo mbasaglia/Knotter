@@ -53,6 +53,8 @@ icons='application-exit
         page-zoom
         preferences-other
         preferences-system-windows-move
+        preferences-system
+        preferences-system-performance
         snap-orthogonal
         stroke-cap-butt
         stroke-cap-round
@@ -80,8 +82,8 @@ output=oxygen
 input=~/Downloads/oxygen-icons-4.10.2
 copy_dirs='16x16
            22x22
-           32x32
-           48x48'
+           48x48
+           64x64'
            
 
 rm -f $output/scalable/*

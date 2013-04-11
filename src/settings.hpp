@@ -41,7 +41,7 @@ public:
 private:
     QString                 config_version; ///< Version of the setting file
 
-    int                     icon_size;
+    int                     m_icon_size;
     // language
     // performace
     // recent files
@@ -69,6 +69,12 @@ public:
     QString version() const;
     bool least_version(int maj,int min) const;
     bool current_version() const;
+
+    void icon_size(int sz);
+    int icon_size() const { return m_icon_size; }
+
+    Qt::ToolButtonStyle button_style() const { return tool_button_style; }
+    void button_style(Qt::ToolButtonStyle);
 signals:
     void icon_size_changed(int);
     void tool_button_style_changed(Qt::ToolButtonStyle);

@@ -1,5 +1,5 @@
 /**
-
+  
 \file
 
 \author Mattia Basaglia
@@ -23,38 +23,22 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
-#ifndef MAIN_WINDOW_HPP
-#define MAIN_WINDOW_HPP
 
-#include "ui_main_window.h"
+#ifndef PREFERENCES_DIALOG_HPP
+#define PREFERENCES_DIALOG_HPP
 
-class Main_Window : public QMainWindow, private Ui::Main_Window
+#include "ui_preferences_dialog.h"
+#include <QMainWindow>
+
+class Preferences_Dialog : public QDialog, private Ui::Preferences_Dialog
 {
     Q_OBJECT
-
-private:
     
 public:
-    explicit Main_Window(QWidget *parent = 0);
+    explicit Preferences_Dialog(QMainWindow *parent);
 
-    /// Change all the strings to their translated version
-    void retranslate();
-
-    ~Main_Window();
-
-private:
-    /// Initialize menus
-    void init_menus();
-    /// Initialize toolbars
-    void init_toolbars();
-    /// Load saved configuration
-    void load_config();
-
-private slots:
-    void set_icon_size(int);
-    void set_tool_button_style(Qt::ToolButtonStyle);
-
-    void on_action_Preferences_triggered();
+protected slots:
+    void set_preferences();
 };
 
-#endif // MAIN_WINDOW_HPP
+#endif // PREFERENCES_DIALOG_HPP

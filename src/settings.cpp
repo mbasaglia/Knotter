@@ -67,7 +67,7 @@ void Settings::load_config()
     window_state = settings.value("geometry").toByteArray();
     window_geometry = settings.value("state").toByteArray();
 
-    icon_size = settings.value("icon_size",icon_size).toInt();
+    m_icon_size = settings.value("icon_size",m_icon_size).toInt();
 
     tool_button_style = settings.value("buttons",tool_button_style).
             value<Qt::ToolButtonStyle>();
@@ -100,7 +100,7 @@ void Settings::initialize_window(QMainWindow *w)
     {
         w->restoreGeometry(window_geometry);
         w->restoreState(window_state);
-        w->setIconSize(QSize(icon_size,icon_size));
+        w->setIconSize(QSize(m_icon_size,m_icon_size));
         w->setToolButtonStyle(tool_button_style);
     }
 }
@@ -110,7 +110,7 @@ void Settings::save_window(QMainWindow *w)
     toolbars.clear();
     foreach(QToolBar* tb, w->findChildren<QToolBar*>())
         toolbars.append(tb);
-    icon_size = w->iconSize().width();
+    m_icon_size = w->iconSize().width();
     tool_button_style = w->toolButtonStyle();
 }
 
@@ -129,8 +129,19 @@ bool Settings::current_version() const
     return Resource_Manager::program_version() == config_version;
 }
 
+void Settings::icon_size(int sz)
+{
+    m_icon_size = sz;
+    emit icon_size_changed(sz);
+}
+
+void Settings::button_style(Qt::ToolButtonStyle bs)
+{
+    tool_button_style = bs;
+    emit tool_button_style_changed(bs);
+}
 
 Settings::Settings()
-    : icon_size(22), save_ui(true), tool_button_style(Qt::ToolButtonFollowStyle)
+    : m_icon_size(22), save_ui(true), tool_button_style(Qt::ToolButtonFollowStyle)
 {
 }
