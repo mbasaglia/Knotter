@@ -9,7 +9,11 @@ include($$PWD/scripting/scripting.pri)
 
 SOURCES += \
     $$PWD/main.cpp \
-    $$PWD/resource_manager.cpp
+    $$PWD/resource_manager.cpp \
+    src/settings.cpp \
+    src/string_toolbar.cpp
 
 HEADERS += \
-    $$PWD/resource_manager.hpp
+    $$PWD/resource_manager.hpp \
+    src/settings.hpp \
+    src/string_toolbar.hpp

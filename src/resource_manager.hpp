@@ -1,8 +1,34 @@
+/**
+
+\file
+
+\author Mattia Basaglia
+
+\section License
+This file is part of Knotter.
+
+Copyright (C) 2012-2013  Mattia Basaglia
+
+Knotter is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Knotter is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
 #ifndef RESOURCE_MANAGER_HPP
 #define RESOURCE_MANAGER_HPP
 
 #include <QObject>
 #include <QDebug>
+#include "settings.hpp"
 
 /**
  * Manage resources and data
@@ -14,10 +40,12 @@ class Resource_Manager : public QObject
     Resource_Manager(){}
     Resource_Manager(const Resource_Manager&);
     Resource_Manager& operator= (const Resource_Manager&);
+    ~Resource_Manager();
 
     static Resource_Manager singleton;
 
 public:
+    static Settings settings;
 
     /// Initialize the resource system
     static void initialize();

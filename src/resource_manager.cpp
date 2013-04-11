@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QIcon>
 #include <QCoreApplication>
 
+Settings Resource_Manager::settings;
 
 QString Resource_Manager::program_name()
 {
@@ -85,4 +86,12 @@ void Resource_Manager::initialize()
                  << data("img/icons") );
 
     QIcon::setThemeName("knotter-icons");
+
+    settings.load_config();
+}
+
+
+Resource_Manager::~Resource_Manager()
+{
+    settings.save_config();
 }

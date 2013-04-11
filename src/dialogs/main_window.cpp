@@ -25,11 +25,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "main_window.hpp"
 #include "resource_manager.hpp"
-#include <QSettings>
 #include <QMessageBox>
 
 Main_Window::Main_Window(QWidget *parent) :
-    QMainWindow(parent), save_ui(true)
+    QMainWindow(parent)
 {
     setupUi(this);
     setWindowIcon(QIcon(Resource_Manager::data("img/icon-small.svg")));
@@ -46,6 +45,11 @@ void Main_Window::retranslate()
 {
     retranslateUi(this);
     setWindowTitle(Resource_Manager::program_name());
+}
+
+Main_Window::~Main_Window()
+{
+    Resource_Manager::settings.save_window(this);
 }
 
 void Main_Window::init_menus()
@@ -105,110 +109,42 @@ void Main_Window::init_toolbars()
 
 void Main_Window::load_config()
 {
-    QSettings settings("knotter","knotter");
+    connect(&Resource_Manager::settings,SIGNAL(icon_size_changed(int)),this,
+            SLOT(set_icon_size(int)));
+    connect(&Resource_Manager::settings,
+            SIGNAL(tool_button_style_changed(Qt::ToolButtonStyle)),
+            this,SLOT(set_tool_button_style(Qt::ToolButtonStyle)));
 
-    QString config_version = settings.value("version",VERSION).toString();
-    if ( !Resource_Manager::check_least_version(config_version,0,9) )
+    if ( !Resource_Manager::settings.least_version(0,9) )
     {
         qWarning() << tr("Warning:")
                    << tr("Discarding old configuration");
         return;
     }
-    if ( config_version != VERSION)
+    if ( !Resource_Manager::settings.current_version() )
     {
         int load_old = QMessageBox::question(this,
                     tr("Load old configuration"),
                     tr("Knotter has detected configuration for version %1,\n"
                         "this is version %2.\n"
                         "Do you want to load it anyways?")
-                        .arg(config_version).arg(VERSION),
-                QMessageBox::Yes,QMessageBox::No
+                        .arg(Resource_Manager::settings.version())
+                        .arg(Resource_Manager::program_version()),
+                QMessageBox::Yes,
+                QMessageBox::No
         );
         if ( load_old != QMessageBox::Yes)
             return;
     }
-
-    /// \todo Language
-
-    /// \todo performance
-
-    settings.beginGroup("gui");
-
-
-    int ntoolbars = settings.beginReadArray("toolbar");
-
-    if ( ntoolbars == 0 )
-    {
-        foreach(QToolBar* tb, findChildren<QToolBar*>() )
-            delete tb;
-
-        for ( int i = 0; i < ntoolbars; i++ )
-        {
-            settings.setArrayIndex(i);
-
-            QString name = settings.value("name").toString();
-            if ( name.isEmpty() )
-            {
-                 qWarning() << tr("Warning:")
-                            << tr("Not loading toolbar without name");
-                continue;
-            }
-            QString title = settings.value("title").toString();
-
-            QToolBar *toolbar = new QToolBar(title,this);
-            toolbar->setObjectName(name);
-            addToolBar(Qt::TopToolBarArea,toolbar);
-
-            QStringList items = settings.value("items").toStringList();
-            foreach(const QString&item, items)
-            {
-                if ( item.isEmpty()  || item == "(separator)" )
-                    toolbar->addSeparator();
-                else
-                {
-                    QAction* act = action_by_name(item);
-                    if ( act )
-                        toolbar->addAction ( act );
-                    else
-                        qWarning() << tr("Warning:")
-                                  << tr("Unknown action %1").arg(item);
-                }
-            }
-        }
-    }
-    settings.endArray();//toolbars
-
-
-    save_ui = settings.value("save",save_ui).toBool();
-    if ( save_ui )
-    {
-        restoreGeometry(settings.value("geometry").toByteArray());
-        restoreState(settings.value("state").toByteArray());
-
-        int icon_size = settings.value("icon_size",iconSize().width()).toInt();
-        setIconSize(QSize(icon_size,icon_size));
-        /// \todo Transformation handle size
-        setToolButtonStyle ( Qt::ToolButtonStyle (
-                     settings.value("buttons",toolButtonStyle()).toInt() ) );
-    }
-    settings.endGroup();//gui
-
-    /// \todo recent files
-
-    /// \todo style, grid
-
+    Resource_Manager::settings.initialize_window(this);
 }
 
-QAction *Main_Window::action_by_name(QString name) const
+void Main_Window::set_icon_size(int sz)
 {
-    QAction* act = findChild<QAction*>(name);
+    setIconSize(QSize(sz,sz));
+}
 
-    if ( !act )
-    {
-        QMenu *menu = findChild<QMenu*>(name);
-        if ( menu )
-            act = menu->menuAction();
-    }
-
-    return act;
+void Main_Window::set_tool_button_style(Qt::ToolButtonStyle tbs)
+{
+    setToolButtonStyle(tbs);
 }
