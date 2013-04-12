@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QPointF>
 #include <QObject>
+#include <QPainter>
 
 class Edge;
 
@@ -41,7 +42,7 @@ private:
     QList<Edge*> edges;
 
 public:
-    Node(QPointF pos = QPointF(), QObject* parent=0 ) : QObject(parent),pos(pos) {}
+    Node(QPointF pos, class Graph* parent );
 
     QPointF position() const { return pos; }
 
@@ -62,6 +63,8 @@ public:
      */
     bool has_edge_to(const Node*n) const;
 
+    void paint_regular(QPainter *painter) const;
+    void paint_highlighted(QPainter *painter) const;
 
 public slots:
     void set_position(QPointF p);

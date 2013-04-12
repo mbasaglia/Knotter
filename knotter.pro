@@ -70,7 +70,7 @@ contains(CONFIG,debug) {
 }
 greaterThan(QT_MAJOR_VERSION, 4) {
     DEFINES += HAS_QT_5
-    QT += widgets
+    QT += widgets printsupport
 }
 
 contains(BOOST,yes) {

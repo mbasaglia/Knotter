@@ -16,24 +16,10 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="documentMode">
-       <bool>false</bool>
-      </property>
-      <property name="tabsClosable">
-       <bool>true</bool>
-      </property>
-      <property name="movable">
-       <bool>true</bool>
-      </property>
+     <widget class="Extended_TabWidget" name="tabWidget">
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Tab 1</string>
-       </attribute>
-      </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>Tab 2</string>
+        <string>Page</string>
        </attribute>
       </widget>
      </widget>
@@ -205,7 +191,9 @@
       <string>&amp;Insert</string>
      </property>
      <property name="icon">
-      <iconset theme="preferences-plugin-script"/>
+      <iconset theme="preferences-plugin-script">
+       <normaloff/>
+      </iconset>
      </property>
     </widget>
     <widget class="QMenu" name="menu_Transform">
@@ -216,7 +204,9 @@
       <string>&amp;Transform</string>
      </property>
      <property name="icon">
-      <iconset theme="preferences-plugin-script"/>
+      <iconset theme="preferences-plugin-script">
+       <normaloff/>
+      </iconset>
      </property>
     </widget>
     <addaction name="menu_Insert"/>
@@ -820,13 +810,22 @@
   </action>
   <action name="action_Configure_Plugins">
    <property name="icon">
-    <iconset theme="preferences-plugin"/>
+    <iconset theme="preferences-plugin">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Configure Plugins...</string>
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Extended_TabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>extended_tab_widget.hpp</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

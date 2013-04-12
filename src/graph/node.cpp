@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "node.hpp"
 #include "edge.hpp"
+#include "graph.hpp"
+#include "resource_manager.hpp"
 
 void Node::set_position(QPointF p)
 {
@@ -51,4 +53,29 @@ bool Node::has_edge_to(const Node *n) const
             return true;
     }
     return false;
+}
+
+void Node::paint_regular(QPainter *painter) const
+{
+    /// \todo paint rectangle for selected nodes
+
+        painter->setPen(Qt::black);
+        painter->setBrush(QColor("#ff4400"));
+        painter->drawEllipse(pos,Resource_Manager::settings.icon_size(),
+                                 Resource_Manager::settings.icon_size());
+
+}
+
+void Node::paint_highlighted(QPainter *painter) const
+{
+    painter->setPen(Qt::black);
+    painter->setBrush(QColor("#ffcc00"));
+    painter->drawEllipse(pos,Resource_Manager::settings.icon_size(),
+                             Resource_Manager::settings.icon_size());
+}
+
+
+Node::Node(QPointF pos, Graph *parent)
+ : QObject(parent),pos(pos)
+{
 }

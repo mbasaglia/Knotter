@@ -1,5 +1,5 @@
 /**
-
+  
 \file
 
 \author Mattia Basaglia
@@ -23,44 +23,50 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
-#include "edge.hpp"
-#include "graph.hpp"
 
-Edge::Edge(Node *v1, Node *v2, Edge_Style* e_style, Graph *parent) :
-    QObject(parent), v1(v1), v2(v2), m_style(e_style)
+#ifndef EDGE_STYLE_HPP
+#define EDGE_STYLE_HPP
+
+#include <QPainter>
+
+class Edge;
+
+class Edge_Style
 {
-    attach();
-}
+public:
+    Edge_Style();
+    virtual ~Edge_Style(){}
 
-void Edge::detach()
+    void paint_regular(QPainter*painter, const Edge& edge);
+    void paint_highlighted(QPainter*painter, const Edge& edge);
+
+    virtual void paint(QPainter*painter, const Edge& edge);
+
+};
+
+class Edge_Normal : public Edge_Style
 {
-    v1->remove_edge(this);
-    v2->remove_edge(this);
-}
 
-void Edge::attach()
+};
+
+
+class Edge_Inverted : public Edge_Style
 {
-    v1->add_edge(this);
-    v2->add_edge(this);
-}
+    void paint(QPainter*painter, const Edge& edge);
+};
 
-
-void Edge::set_style(Edge_Style *st)
+class Edge_Wall : public Edge_Style
 {
-    m_style = st;
-}
+    void paint(QPainter*painter, const Edge& edge);
+};
 
-Edge_Style *Edge::style() const
-{
-    return m_style;
-}
 
-void Edge::paint_regular(QPainter *painter) const
+class Edge_Hole : public Edge_Style
 {
-    m_style->paint_regular(painter,*this);
-}
+    void paint(QPainter*painter, const Edge& edge);
+};
 
-void Edge::paint_highlighted(QPainter *painter) const
-{
-     m_style->paint_highlighted(painter,*this);
-}
+
+
+
+#endif // EDGE_STYLE_HPP

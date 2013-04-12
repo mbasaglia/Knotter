@@ -28,6 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QObject>
 #include "node.hpp"
+#include "edge_style.hpp"
+#include <QLineF>
 
 class Edge : public QObject
 {
@@ -36,9 +38,10 @@ class Edge : public QObject
 private:
     Node* v1;
     Node* v2;
+    Edge_Style* m_style;
 
 public:
-    explicit Edge(Node* v1, Node* v2, QObject *parent = 0);
+    explicit Edge(Node* v1, Node* v2, Edge_Style* e_style, class Graph *parent);
 
     /// Whether node is one of its vetices
     bool is_vertex ( const Node* node ) const
@@ -68,6 +71,14 @@ public:
     {
         return n == v1 ? v2 : ( n == v2 ? v1 : NULL );
     }
+
+    void set_style(Edge_Style* st);
+    Edge_Style* style() const;
+
+    QLineF to_line() const { return QLineF(v1->position(), v2->position()); }
+
+    void paint_regular(QPainter *painter) const;
+    void paint_highlighted(QPainter *painter) const;
 
 public slots:
     /**

@@ -4,3 +4,6 @@
 [submodule "src/widgets/toolbar_editor"]
 	path = src/widgets/toolbar_editor
 	url = https://github.com/mbasaglia/Qt-Toolbar-Editor
+[submodule "src/widgets/tabwidget"]
+	path = src/widgets/tabwidget
+	url = https://github.com/mbasaglia/Qt-Extended-TabWidget.git
