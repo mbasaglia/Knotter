@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Base configutation
-QT += core gui xml script
+QT += core gui xml script svg
 
 TEMPLATE = app
 

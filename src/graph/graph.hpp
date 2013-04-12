@@ -29,10 +29,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QObject>
 #include "node.hpp"
 #include "edge.hpp"
+#include <QPainter>
 
 class Graph : public QObject
 {
     Q_OBJECT
+    Q_FLAGS(Paint_Mode_Enum Paint_Mode)
+public:
+    enum Paint_Mode_Enum {
+        Paint_Graph = 1,
+        Paint_Knot  = 2
+    };
+    Q_DECLARE_FLAGS(Paint_Mode,Paint_Mode_Enum)
 
 private:
     QList<Node*> nodes;
@@ -70,6 +78,8 @@ public:
      *  \post e is not in the graph
      */
     void remove_edge(Edge* e);
+
+    void paint(QPainter* painter, Paint_Mode paint_mode = Paint_Knot) const;
 
 public slots:
     /// Render knot again

@@ -56,6 +56,15 @@ void Graph::remove_edge(Edge *e)
     update();
 }
 
+void Graph::paint(QPainter *painter, Paint_Mode paint_mode) const
+{
+    Q_UNUSED(paint_mode);
+    foreach(Edge* e, edges)
+        e->paint_regular(painter);
+    foreach(Node* n, nodes)
+        n->paint_regular(painter);
+}
+
 void Graph::update()
 {
     emit graph_changed();

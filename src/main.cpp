@@ -27,6 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "main_window.hpp"
 #include "resource_manager.hpp"
 
+#include <QSvgGenerator>
+#include "graph.hpp"
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -35,6 +38,24 @@ int main(int argc, char *argv[])
 
     Main_Window mw;
     mw.show();
+
+    Graph g;
+    Node * last = 0;
+    for ( int i = 0; i < 10; i++)
+    {
+        Node* nn = new Node(QPointF(i*16,(i%2)*64),&g);
+        g.add_node(nn);
+        if ( last != 0 )
+            g.add_edge(new Edge(nn,last,new Edge_Normal,&g));
+        last = nn;
+    }
+    QSvgGenerator generator;
+    generator.setFileName("misc/foo.svg");
+    QPainter painter;
+    painter.begin(&generator);
+    g.paint(&painter);
+    painter.end();
+
 
     return a.exec();
 }

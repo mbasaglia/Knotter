@@ -61,8 +61,8 @@ void Node::paint_regular(QPainter *painter) const
 
         painter->setPen(Qt::black);
         painter->setBrush(QColor("#ff4400"));
-        painter->drawEllipse(pos,Resource_Manager::settings.icon_size(),
-                                 Resource_Manager::settings.icon_size());
+        painter->drawEllipse(pos,Resource_Manager::settings.icon_size()/4,
+                                 Resource_Manager::settings.icon_size()/4);
 
 }
 
@@ -70,8 +70,8 @@ void Node::paint_highlighted(QPainter *painter) const
 {
     painter->setPen(Qt::black);
     painter->setBrush(QColor("#ffcc00"));
-    painter->drawEllipse(pos,Resource_Manager::settings.icon_size(),
-                             Resource_Manager::settings.icon_size());
+    painter->drawEllipse(pos,Resource_Manager::settings.icon_size()/4,
+                             Resource_Manager::settings.icon_size()/4);
 }
 
 
