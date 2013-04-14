@@ -25,9 +25,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "edge.hpp"
 #include "graph.hpp"
+#include <QVector2D>
 
 Edge::Edge(Node *v1, Node *v2, Edge_Style* e_style, Graph *parent) :
-    QObject(parent), v1(v1), v2(v2), m_style(e_style)
+    Graph_Item(parent), v1(v1), v2(v2), m_style(e_style)
 {
     attach();
 }
@@ -62,5 +63,10 @@ void Edge::paint_regular(QPainter *painter) const
 
 void Edge::paint_highlighted(QPainter *painter) const
 {
-     m_style->paint_highlighted(painter,*this);
+    m_style->paint_highlighted(painter,*this);
+}
+
+double Edge::distance_squared(QPointF to) const
+{
+     return line_point_distance_squared(v1->position(),v2->position(),to);
 }

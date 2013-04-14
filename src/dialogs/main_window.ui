@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>640</width>
-    <height>489</height>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,11 +17,15 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="Extended_TabWidget" name="tabWidget">
-      <widget class="QWidget" name="tab">
-       <attribute name="title">
-        <string>Page</string>
-       </attribute>
-      </widget>
+      <property name="documentMode">
+       <bool>true</bool>
+      </property>
+      <property name="tabsClosable">
+       <bool>true</bool>
+      </property>
+      <property name="movable">
+       <bool>true</bool>
+      </property>
      </widget>
     </item>
    </layout>
@@ -798,16 +802,6 @@
     <string>&amp;Redo</string>
    </property>
   </action>
-  <action name="actionB">
-   <property name="text">
-    <string>b</string>
-   </property>
-  </action>
-  <action name="actionF">
-   <property name="text">
-    <string>f</string>
-   </property>
-  </action>
   <action name="action_Configure_Plugins">
    <property name="icon">
     <iconset theme="preferences-plugin">
@@ -827,5 +821,42 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>tabWidget</sender>
+   <signal>tabCloseRequested(int)</signal>
+   <receiver>Main_Window</receiver>
+   <slot>close_tab(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>207</x>
+     <y>176</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-84</x>
+     <y>160</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_New</sender>
+   <signal>triggered()</signal>
+   <receiver>Main_Window</receiver>
+   <slot>create_tab()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>close_tab(int)</slot>
+  <slot>create_tab()</slot>
+ </slots>
 </ui>

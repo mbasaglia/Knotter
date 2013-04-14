@@ -27,12 +27,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NODE_HPP
 
 #include <QPointF>
-#include <QObject>
+#include "graph_item.hpp"
 #include <QPainter>
 
 class Edge;
 
-class Node : public QObject
+class Node : public Graph_Item
 {
     Q_OBJECT
     Q_PROPERTY(QPointF position READ position WRITE set_position NOTIFY moved)
@@ -40,6 +40,7 @@ class Node : public QObject
 private:
     QPointF pos;
     QList<Edge*> edges;
+    static const int radius = 6; ///< \todo maybe not const and settings
 
 public:
     Node(QPointF pos, class Graph* parent );
@@ -63,6 +64,7 @@ public:
      */
     bool has_edge_to(const Node*n) const;
 
+    double distance_squared(QPointF to) const;
     void paint_regular(QPainter *painter) const;
     void paint_highlighted(QPainter *painter) const;
 

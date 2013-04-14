@@ -55,14 +55,18 @@ bool Node::has_edge_to(const Node *n) const
     return false;
 }
 
+double Node::distance_squared(QPointF to) const
+{
+    return point_distance_squared(pos,to);
+}
+
 void Node::paint_regular(QPainter *painter) const
 {
     /// \todo paint rectangle for selected nodes
 
         painter->setPen(Qt::black);
         painter->setBrush(QColor("#ff4400"));
-        painter->drawEllipse(pos,Resource_Manager::settings.icon_size()/4,
-                                 Resource_Manager::settings.icon_size()/4);
+        painter->drawEllipse(pos,radius,radius);
 
 }
 
@@ -70,12 +74,11 @@ void Node::paint_highlighted(QPainter *painter) const
 {
     painter->setPen(Qt::black);
     painter->setBrush(QColor("#ffcc00"));
-    painter->drawEllipse(pos,Resource_Manager::settings.icon_size()/4,
-                             Resource_Manager::settings.icon_size()/4);
+    painter->drawEllipse(pos,radius,radius);
 }
 
 
 Node::Node(QPointF pos, Graph *parent)
- : QObject(parent),pos(pos)
+ : Graph_Item(parent),pos(pos)
 {
 }

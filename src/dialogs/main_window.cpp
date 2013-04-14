@@ -41,6 +41,8 @@ Main_Window::Main_Window(QWidget *parent) :
 
     init_menus();
     init_toolbars();
+
+    create_tab();
 }
 
 void Main_Window::retranslate()
@@ -53,6 +55,7 @@ Main_Window::~Main_Window()
 {
     Resource_Manager::settings.save_window(this);
 }
+
 
 void Main_Window::init_menus()
 {
@@ -164,4 +167,28 @@ void Main_Window::set_tool_button_style(Qt::ToolButtonStyle tbs)
 void Main_Window::on_action_Preferences_triggered()
 {
     Preferences_Dialog(this).exec();
+}
+
+
+void Main_Window::create_tab(QString file)
+{
+    int t = tabWidget->addTab(new Knot_View(file),file.isEmpty() ? tr("New Knot") : file);
+    switch_to_tab(t);
+
+}
+
+void Main_Window::switch_to_tab(int i)
+{
+    tabWidget->setCurrentIndex(i);
+    setWindowTitle(tr("%1 - %2").arg(Resource_Manager::program_name())
+                   .arg(tabWidget->tabText(i)));
+}
+
+void Main_Window::close_tab(int i)
+{
+    /// \todo check for edited file
+    //delete tabWidget->widget(i);
+    tabWidget->removeTab(i);
+    if ( tabWidget->count() == 0 )
+        create_tab();
 }

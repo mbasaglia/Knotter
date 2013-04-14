@@ -13,18 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-INCLUDEPATH += $$PWD
-
 HEADERS += \
-    $$PWD/node.hpp \
-    $$PWD/graph.hpp \
-    $$PWD/edge.hpp \
-    src/graph/edge_style.hpp \
-    src/graph/graph_item.hpp
+    $$PWD/knot_view.hpp
 
 SOURCES += \
-    $$PWD/node.cpp \
-    $$PWD/graph.cpp \
-    $$PWD/edge.cpp \
-    src/graph/edge_style.cpp \
-    src/graph/graph_item.cpp
+    $$PWD/knot_view.cpp
+
+INCLUDEPATH += $$PWD

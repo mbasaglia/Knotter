@@ -26,12 +26,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef EDGE_HPP
 #define EDGE_HPP
 
-#include <QObject>
+#include "graph_item.hpp"
 #include "node.hpp"
 #include "edge_style.hpp"
 #include <QLineF>
 
-class Edge : public QObject
+class Edge : public Graph_Item
 {
     Q_OBJECT
 
@@ -79,6 +79,7 @@ public:
 
     void paint_regular(QPainter *painter) const;
     void paint_highlighted(QPainter *painter) const;
+    double distance_squared(QPointF to) const;
 
 public slots:
     /**
