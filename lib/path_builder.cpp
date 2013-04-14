@@ -70,7 +70,8 @@ void path_builder::add_line(path_item::line *l)
                 {
                     c = path_item::merge(c,*j);
                     strokes.back().erase(j);
-                    j = strokes.back().begin();
+                    //j = strokes.back().begin();
+                    break;
                 }
                 else
                     ++j;

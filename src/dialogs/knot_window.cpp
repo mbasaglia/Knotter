@@ -1299,9 +1299,9 @@ void Knot_Window::on_actionEdge_List_triggered()
     knotview()->mode_edge_chain();
 }
 
-void Knot_Window::on_tabWidget_currentChanged(QWidget *arg1)
+void Knot_Window::on_tabWidget_currentChanged(int arg1)
 {
-    KnotView* next_canvas = dynamic_cast<KnotView*>(arg1);
+    KnotView* next_canvas = dynamic_cast<KnotView*>(tabWidget->widget(arg1));
     if ( next_canvas )
     {
         if ( canvas )

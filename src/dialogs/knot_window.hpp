@@ -209,7 +209,7 @@ class Knot_Window : public QMainWindow, private Ui::Knot_Window
         void on_action_Rotate_triggered();
         void on_action_Scale_triggered();
         void on_actionEdge_List_triggered();
-        void on_tabWidget_currentChanged(QWidget *arg1);
+        void on_tabWidget_currentChanged(int arg1);
         void on_tabWidget_tabCloseRequested(int index);
         void on_actionSave_A_ll_triggered();
         void on_actionS_nap_to_grid_triggered();
