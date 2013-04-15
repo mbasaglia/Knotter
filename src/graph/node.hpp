@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QPointF>
 #include "graph_item.hpp"
+#include "node_style.hpp"
 #include <QPainter>
 
 class Edge;
@@ -41,11 +42,17 @@ private:
     QPointF pos;
     QList<Edge*> edges;
     static const int radius = 6; ///< \todo maybe not const and settings
+    /// Extended radius
+    static const int xradius = 7; ///< \todo maybe not const and settings
+    /// \todo node style: pointer or value?
 
 public:
     Node(QPointF pos, class Graph* parent );
 
     QPointF position() const { return pos; }
+
+
+    QRectF bounding_box() const;
 
     /**
      *  Add edge to node
@@ -65,8 +72,7 @@ public:
     bool has_edge_to(const Node*n) const;
 
     double distance_squared(QPointF to) const;
-    void paint_regular(QPainter *painter) const;
-    void paint_highlighted(QPainter *painter) const;
+    void paint(QPainter *painter,bool hidden, bool selected, bool active) const;
 
 public slots:
     void set_position(QPointF p);

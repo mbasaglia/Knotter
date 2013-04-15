@@ -24,20 +24,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "knot_view.hpp"
-#include <QMouseEvent>
+#include "graphics_item.hpp"
+#include "edge.hpp"
 
-
-Knot_View::Knot_View(QString file)
+Graphics_Item::Graphics_Item(Graph_Item *item)
+    : item(item),
+      highlighted(false),
+      int_type(dynamic_cast<Edge*>(item)?Type_Edge:Type_Node)
 {
-    setFrameStyle(StyledPanel|Plain);
-    QGraphicsScene *scene = new QGraphicsScene;
-    scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-    setScene(scene);
-}
-
-
-void Knot_View::mousePressEvent(QMouseEvent *event)
-{
-    scene()->addEllipse(event->pos().x(),event->pos().y(),10,10);
 }

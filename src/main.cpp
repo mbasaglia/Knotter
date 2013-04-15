@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
         last = nn;
     }
     QSvgGenerator generator;
-    generator.setFileName("misc/foo.svg");
+    generator.setFileName("../../misc/foo.svg");
     QPainter painter;
     painter.begin(&generator);
     g.paint(&painter);

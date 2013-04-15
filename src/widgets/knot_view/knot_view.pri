@@ -14,9 +14,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 HEADERS += \
-    $$PWD/knot_view.hpp
+    $$PWD/knot_view.hpp \
+    src/widgets/knot_view/graphics_item.hpp
 
 SOURCES += \
-    $$PWD/knot_view.cpp
+    $$PWD/knot_view.cpp \
+    src/widgets/knot_view/graphics_item.cpp
 
 INCLUDEPATH += $$PWD

@@ -157,7 +157,7 @@ void Main_Window::load_config()
 void Main_Window::set_icon_size(int sz)
 {
     setIconSize(QSize(sz,sz));
-}
+}//....
 
 void Main_Window::set_tool_button_style(Qt::ToolButtonStyle tbs)
 {

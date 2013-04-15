@@ -30,7 +30,6 @@ source knotter_info.pri
 
 #initialize misc options
 qmake_opts=""
-with_boost=yes
 
 dirlist="prefix
          exec_prefix
@@ -100,10 +99,6 @@ _HELP_
 
 cat <<_HELP_
 
-Optional components:
-    --without-boost     Disable dependency on Boost library
-    --with-boost        Use Boost without running checks
-
 Environment variables:
     QMAKE               Override qmake command
     CXX                 Override C++ compiler
@@ -144,12 +139,6 @@ do
         --name)
             echo $TARGET
             exit 0
-            ;;
-        --without-boost)
-            with_boost=no
-            ;;
-        --with-boost)
-            with_boost=force
             ;;
         *)
             echo "Ignoring option $arg"
@@ -320,22 +309,6 @@ then
     echo "Extra library path: $LIBDIR"
 fi
 
-#check dependencies
-if [ "$with_boost" = "no" ] 
-then
-    echo "Boost is disabled"
-    qmake_opts="$qmake_opts BOOST=no"
-elif [ "$with_boost" = "force" ] 
-then
-    echo "Boost is enabled"
-    qmake_opts="$qmake_opts BOOST=yes"
-elif  check_cxx_library "Boost::program_options" boost/program_options.hpp boost_program_options 
-then
-    qmake_opts="$qmake_opts BOOST=yes"
-else
-    echo "Dependency from Boost::program_options has been disabled"
-    qmake_opts="$qmake_opts BOOST=no"
-fi
 
 #clean old make output
 if [ -f Makefile ]

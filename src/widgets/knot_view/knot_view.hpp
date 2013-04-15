@@ -43,6 +43,9 @@ signals:
 
     /// emitted when the graph structure or style is changed
     void graph_changed();
+
+protected:
+    void mousePressEvent(QMouseEvent *event);
     
 };
 

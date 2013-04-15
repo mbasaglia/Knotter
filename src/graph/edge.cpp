@@ -33,6 +33,16 @@ Edge::Edge(Node *v1, Node *v2, Edge_Style* e_style, Graph *parent) :
     attach();
 }
 
+QRectF Edge::bounding_box() const
+{
+    QRectF bb = QRectF(v1->position(),v2->position()).normalized();
+    bb.setTop(bb.top()-4);
+    bb.setLeft(bb.left()-4);
+    bb.setWidth(bb.width()+8);
+    bb.setHeight(bb.height()+8);
+    return bb;
+}
+
 void Edge::detach()
 {
     v1->remove_edge(this);
@@ -56,14 +66,13 @@ Edge_Style *Edge::style() const
     return m_style;
 }
 
-void Edge::paint_regular(QPainter *painter) const
+void Edge::paint(QPainter *painter, bool hidden, bool , bool active) const
 {
-    m_style->paint_regular(painter,*this);
-}
+    if ( !hidden && active )
+        m_style->paint_highlighted(painter,*this);
+    else if ( !hidden || active )
+        m_style->paint_regular(painter,*this);
 
-void Edge::paint_highlighted(QPainter *painter) const
-{
-    m_style->paint_highlighted(painter,*this);
 }
 
 double Edge::distance_squared(QPointF to) const

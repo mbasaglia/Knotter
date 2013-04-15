@@ -60,25 +60,40 @@ double Node::distance_squared(QPointF to) const
     return point_distance_squared(pos,to);
 }
 
-void Node::paint_regular(QPainter *painter) const
+void Node::paint(QPainter *painter, bool hidden, bool selected, bool active) const
 {
-    /// \todo paint rectangle for selected nodes
 
-        painter->setPen(Qt::black);
+    if ( selected )
+    {
+        painter->setPen(QPen(Qt::darkGray,2));
+        painter->setBrush(Qt::white);
+        painter->drawRect(bounding_box());
+    }
+
+
+    painter->setPen(Qt::black);
+
+    if ( !hidden && active )
+    {
+        painter->setBrush(QColor("#ffcc00"));
+        painter->drawEllipse(pos,xradius,xradius);
+    }
+    else if ( !hidden || active )
+    {
         painter->setBrush(QColor("#ff4400"));
         painter->drawEllipse(pos,radius,radius);
+    }
 
 }
 
-void Node::paint_highlighted(QPainter *painter) const
-{
-    painter->setPen(Qt::black);
-    painter->setBrush(QColor("#ffcc00"));
-    painter->drawEllipse(pos,radius,radius);
-}
 
 
 Node::Node(QPointF pos, Graph *parent)
  : Graph_Item(parent),pos(pos)
 {
+}
+
+QRectF Node::bounding_box() const
+{
+    return QRectF(pos.x()-xradius,pos.y()-xradius,2*xradius,2*xradius);
 }

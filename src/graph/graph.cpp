@@ -60,9 +60,9 @@ void Graph::paint(QPainter *painter, Paint_Mode paint_mode) const
 {
     Q_UNUSED(paint_mode);
     foreach(Edge* e, edges)
-        e->paint_regular(painter);
+        e->paint(painter,false,false,false);
     foreach(Node* n, nodes)
-        n->paint_regular(painter);
+        n->paint(painter,false,false,false);
 }
 
 void Graph::update()

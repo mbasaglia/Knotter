@@ -137,10 +137,10 @@ data.files = data/*
 data.path = $${DATADIR}
 
 
-$${TARGET}.desktop.files=$${TARGET}.desktop
-$${TARGET}.desktop.path=$${DATAROOTDIR}/applications
+desktop_file.files=$${TARGET}.desktop
+desktop_file.path=$${DATAROOTDIR}/applications
 
-INSTALLS += data $${TARGET}.desktop
+INSTALLS += data desktop_file
 
 
 target.path = $$BINDIR

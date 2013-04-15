@@ -30,6 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "node.hpp"
 #include "edge.hpp"
 #include <QPainter>
+#include "path_builder.hpp"
+class Traversal_Info; /// \todo
 
 class Graph : public QObject
 {
@@ -45,6 +47,7 @@ public:
 private:
     QList<Node*> nodes;
     QList<Edge*> edges;
+    Node_Style   default_style;
 
 public:
     explicit Graph(QObject *parent = 0);
@@ -84,6 +87,10 @@ public:
 public slots:
     /// Render knot again
     void update();
+
+private:
+
+    void draw_segment( Path_Builder& path, const Traversal_Info& ti ) const;
     
 signals:
     /// Emitted when nodes or edges have changed and requires redrawing

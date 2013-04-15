@@ -24,20 +24,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "knot_view.hpp"
-#include <QMouseEvent>
+#include "node_style.hpp"
 
-
-Knot_View::Knot_View(QString file)
+Node_Style Node_Style::default_to(const Node_Style &other) const
 {
-    setFrameStyle(StyledPanel|Plain);
-    QGraphicsScene *scene = new QGraphicsScene;
-    scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-    setScene(scene);
+
+    return Node_Style (
+                //(enabled_style & CURVE_STYLE ) ? curve_style : other.curve_style,
+                (enabled_style & CUSP_ANGLE ) ? cusp_angle : other.cusp_angle,
+                (enabled_style & HANDLE_LENGTH ) ? handle_length : other.handle_length,
+                (enabled_style & CROSSING_DISTANCE ) ? crossing_distance : other.crossing_distance,
+                (enabled_style & CUSP_DISTANCE ) ? cusp_distance : other.cusp_distance,
+                EVERYTHING
+            );
 }
 
-
-void Knot_View::mousePressEvent(QMouseEvent *event)
-{
-    scene()->addEllipse(event->pos().x(),event->pos().y(),10,10);
-}

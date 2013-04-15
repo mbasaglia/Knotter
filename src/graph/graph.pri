@@ -20,11 +20,18 @@ HEADERS += \
     $$PWD/graph.hpp \
     $$PWD/edge.hpp \
     src/graph/edge_style.hpp \
-    src/graph/graph_item.hpp
+    src/graph/graph_item.hpp \
+    src/graph/node_style.hpp \
+    src/graph/path_builder.hpp \
+    src/graph/path_item.hpp \
+    src/graph/point_math.hpp
 
 SOURCES += \
     $$PWD/node.cpp \
     $$PWD/graph.cpp \
     $$PWD/edge.cpp \
     src/graph/edge_style.cpp \
-    src/graph/graph_item.cpp
+    src/graph/graph_item.cpp \
+    src/graph/node_style.cpp \
+    src/graph/path_builder.cpp \
+    src/graph/path_item.cpp

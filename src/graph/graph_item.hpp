@@ -27,28 +27,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef GRAPH_ITEM_HPP
 #define GRAPH_ITEM_HPP
 #include <QObject>
-#include <qmath.h>
 #include <QPainter>
+#include "point_math.hpp"
 class Graph;
 
-inline double point_distance_squared(const QPointF &p1, const QPointF &p2 )
-{
-    QPointF d = p1-p2;
-    return d.x()*d.x() + d.y()*d.y();
-}
-
-inline double line_point_distance_squared(const QPointF& p1, const QPointF &p2,
-                                          const QPointF &to)
-{
-    double a = qSqrt(point_distance_squared(p1,p2));
-    double b2 = point_distance_squared(p1,to);
-    double b = qSqrt(b2);
-    double c = qSqrt(point_distance_squared(to,p2));
-    double s = (a+b+c) / 2;         // Semi-perimeter
-    double T = s*(s-a)*(s-b)*(s-c); // Area^2
-    return T / b2; // ( Area / Base ) ^ 2
-
-}
 
 class Graph_Item : public QObject
 {
@@ -57,9 +39,16 @@ class Graph_Item : public QObject
 public:
     Graph_Item(Graph* parent);
 
+    virtual QRectF bounding_box() const = 0;
     virtual double distance_squared(QPointF to) const = 0;
-    virtual void paint_regular(QPainter *painter) const = 0;
-    virtual void paint_highlighted(QPainter *painter) const = 0;
+    /**
+     *  \param painter  The painter that draws the item
+     *  \param hidden   Whether the item should be painted as hidden
+     *  \param selected Whether the item results selected
+     *  \param active   Whether to put extra emphasis
+    */
+    virtual void paint(QPainter *painter,
+                       bool hidden, bool selected, bool active) const = 0;
 };
 
 #endif // GRAPH_ITEM_HPP

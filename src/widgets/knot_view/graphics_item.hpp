@@ -24,20 +24,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "knot_view.hpp"
-#include <QMouseEvent>
+#ifndef GRAPHICS_ITEM_HPP
+#define GRAPHICS_ITEM_HPP
 
+#include <QGraphicsItem>
+#include "graph_item.hpp"
 
-Knot_View::Knot_View(QString file)
+class Graphics_Item : public QGraphicsItem
 {
-    setFrameStyle(StyledPanel|Plain);
-    QGraphicsScene *scene = new QGraphicsScene;
-    scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-    setScene(scene);
-}
+    enum Internal_Type
+    {
+        Type_Node = UserType + 0x01,
+        Type_Edge = UserType + 0x02
+    };
+
+    Graph_Item *    item;
+    bool            highlighted;
+    Internal_Type   int_type;
 
 
-void Knot_View::mousePressEvent(QMouseEvent *event)
-{
-    scene()->addEllipse(event->pos().x(),event->pos().y(),10,10);
-}
+public:
+    Graphics_Item(Graph_Item *item);
+
+    QRectF boundingRect() const { return item->bounding_box(); }
+
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+    {
+        item->paint(painter,!isVisible(),isSelected(),highlighted);
+    }
+
+    int type() const { return int(int_type); }
+};
+
+#endif // GRAPHICS_ITEM_HPP
