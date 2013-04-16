@@ -32,10 +32,10 @@ include($$PWD/widgets/knot_view/knot_view.pri)
 SOURCES += \
     $$PWD/main.cpp \
     $$PWD/resource_manager.cpp \
-    src/settings.cpp \
-    src/string_toolbar.cpp
+    $$PWD/settings.cpp \
+    $$PWD/string_toolbar.cpp
 
 HEADERS += \
     $$PWD/resource_manager.hpp \
-    src/settings.hpp \
-    src/string_toolbar.hpp
+    $$PWD/settings.hpp \
+    $$PWD/string_toolbar.hpp

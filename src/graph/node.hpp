@@ -74,6 +74,8 @@ public:
     double distance_squared(QPointF to) const;
     void paint(QPainter *painter,bool hidden, bool selected, bool active) const;
 
+    QList<Edge*> all_edges() const { return edges; }
+
 public slots:
     void set_position(QPointF p);
 

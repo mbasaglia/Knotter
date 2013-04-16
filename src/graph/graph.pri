@@ -19,19 +19,19 @@ HEADERS += \
     $$PWD/node.hpp \
     $$PWD/graph.hpp \
     $$PWD/edge.hpp \
-    src/graph/edge_style.hpp \
-    src/graph/graph_item.hpp \
-    src/graph/node_style.hpp \
-    src/graph/path_builder.hpp \
-    src/graph/path_item.hpp \
-    src/graph/point_math.hpp
+    $$PWD/edge_style.hpp \
+    $$PWD/graph_item.hpp \
+    $$PWD/node_style.hpp \
+    $$PWD/path_builder.hpp \
+    $$PWD/path_item.hpp \
+    $$PWD/point_math.hpp
 
 SOURCES += \
     $$PWD/node.cpp \
     $$PWD/graph.cpp \
     $$PWD/edge.cpp \
-    src/graph/edge_style.cpp \
-    src/graph/graph_item.cpp \
-    src/graph/node_style.cpp \
-    src/graph/path_builder.cpp \
-    src/graph/path_item.cpp
+    $$PWD/edge_style.cpp \
+    $$PWD/graph_item.cpp \
+    $$PWD/node_style.cpp \
+    $$PWD/path_builder.cpp \
+    $$PWD/path_item.cpp

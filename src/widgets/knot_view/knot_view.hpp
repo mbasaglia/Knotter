@@ -28,13 +28,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KNOT_VIEW_HPP
 
 #include <QGraphicsView>
+#include "graph.hpp"
 
 class Knot_View : public QGraphicsView
 {
     Q_OBJECT
 
+    friend class Knot_Command;
 
     QPoint move_center;            ///< Point aligned to the cursor during movement
+    Graph  graph;
 
 public:
 

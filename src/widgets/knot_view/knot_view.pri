@@ -15,10 +15,12 @@
 
 HEADERS += \
     $$PWD/knot_view.hpp \
-    src/widgets/knot_view/graphics_item.hpp
+    $$PWD/graphics_item.hpp \
+    $$PWD/commands.hpp
 
 SOURCES += \
     $$PWD/knot_view.cpp \
-    src/widgets/knot_view/graphics_item.cpp
+    $$PWD/graphics_item.cpp \
+    $$PWD/commands.cpp
 
 INCLUDEPATH += $$PWD

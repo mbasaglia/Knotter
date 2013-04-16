@@ -41,11 +41,6 @@ Knot_View::Knot_View(QString file)
     setTransformationAnchor(NoAnchor);
     setResizeAnchor(AnchorViewCenter);
 
-    //scene->addRect(-width()/2, -height()/2, width(), height(),QPen(Qt::red),Qt::blue);
-    for ( double x = 0; x < 24; x++ )
-    {
-        scene->addRect(x*width()/12,x*height()/12,10,10);
-    }
 }
 
 void Knot_View::translate_view(QPointF delta)
@@ -101,7 +96,7 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
 
 void Knot_View::mouseMoveEvent(QMouseEvent *event)
 {
-    if ( event->buttons() & Qt::MiddleButton )
+    if ( event->buttons() & Qt::MiddleButton  )
     {
         QPointF delta = event->pos()-move_center;
         delta /= matrix().m11(); // take scaling into account
