@@ -32,12 +32,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class Knot_View : public QGraphicsView
 {
     Q_OBJECT
+
+
+    QPoint move_center;            ///< Point aligned to the cursor during movement
+
 public:
 
     /**
      *  \param file File name, if empty no file is loaded
     */
     Knot_View ( QString file );
+
+    /// Overload QGraphicsView::translate
+    void translate(QPointF d) { QGraphicsView::translate(d.x(),d.y()); }
+
+    /**
+     *  \brief Translate and resize sceneRect
+     *
+     *  Translate the scene, if the result is not contained within sceneRect,
+     *  the sceneRect is expanded
+     */
+    void translate_view(QPointF delta);
+
+
+public slots:
+    /// Zoom view by factor ( 1 = don't zoom )
+    void zoom_view(double factor);
+
+protected:
+    /**
+     *  \brief Expand sceneRect to contain the visible area
+     *  \param margin optional margin to grow the visible area
+    */
+    void expand_scene_rect(int margin=0);
     
 signals:
 
@@ -46,6 +73,9 @@ signals:
 
 protected:
     void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+    void wheelEvent(QWheelEvent *event);
     
 };
 
