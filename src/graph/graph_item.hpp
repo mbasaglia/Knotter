@@ -29,26 +29,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QObject>
 #include <QPainter>
 #include "point_math.hpp"
+#include <QGraphicsObject>
 class Graph;
 
 
-class Graph_Item : public QObject
+class Graph_Item : public QGraphicsObject
 {
     Q_OBJECT
+
+protected:
+    bool            highlighted;
 
 public:
     Graph_Item(Graph* parent);
 
-    virtual QRectF bounding_box() const = 0;
     virtual double distance_squared(QPointF to) const = 0;
-    /**
-     *  \param painter  The painter that draws the item
-     *  \param hidden   Whether the item should be painted as hidden
-     *  \param selected Whether the item results selected
-     *  \param active   Whether to put extra emphasis
-    */
-    virtual void paint(QPainter *painter,
-                       bool hidden, bool selected, bool active) const = 0;
 };
 
 #endif // GRAPH_ITEM_HPP

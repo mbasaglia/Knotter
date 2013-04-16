@@ -36,27 +36,23 @@ int Knot_Command::generate_id()
 
 
 Create_Node::Create_Node(Node *node, Knot_View *kv)
-    : Knot_Command(kv), node(node), item(new Graphics_Item(node))
+    : Knot_Command(kv), node(node)
 {
     retranslate();
 }
 
-Create_Node::~Create_Node()
-{
-    delete item;
-}
 
 void Create_Node::undo()
 {
-    scene->removeItem(item);
+    scene->removeItem(node);
     graph->remove_node(node);
 
 }
 
 void Create_Node::redo()
 {
-    scene->addItem(item);
-    graph->add_node(n);
+    scene->addItem(node);
+    graph->add_node(node);
 }
 
 void Create_Node::retranslate()

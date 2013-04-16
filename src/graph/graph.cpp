@@ -56,13 +56,12 @@ void Graph::remove_edge(Edge *e)
     update();
 }
 
-void Graph::paint(QPainter *painter, Paint_Mode paint_mode) const
+void Graph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    Q_UNUSED(paint_mode);
     foreach(Edge* e, edges)
-        e->paint(painter,false,false,false);
+        e->paint(painter,option,widget);
     foreach(Node* n, nodes)
-        n->paint(painter,false,false,false);
+        n->paint(painter,option,widget);
 }
 
 void Graph::update()

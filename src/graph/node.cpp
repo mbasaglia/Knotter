@@ -28,11 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "graph.hpp"
 #include "resource_manager.hpp"
 
-void Node::set_position(QPointF p)
-{
-    pos = p;
-    emit moved(p);
-}
 
 
 void Node::add_edge(Edge *e)
@@ -57,43 +52,43 @@ bool Node::has_edge_to(const Node *n) const
 
 double Node::distance_squared(QPointF to) const
 {
-    return point_distance_squared(pos,to);
+    return point_distance_squared(pos(),to);
 }
 
-void Node::paint(QPainter *painter, bool hidden, bool selected, bool active) const
+void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
 
-    if ( selected )
+    if ( isSelected() )
     {
         painter->setPen(QPen(Qt::darkGray,2));
         painter->setBrush(Qt::white);
-        painter->drawRect(bounding_box());
+        painter->drawRect(boundingRect());
     }
 
 
     painter->setPen(Qt::black);
 
-    if ( !hidden && active )
-    {
+    if ( isVisible() && highlighted )
         painter->setBrush(QColor("#ffcc00"));
-        painter->drawEllipse(pos,xradius,xradius);
-    }
-    else if ( !hidden || active )
-    {
+    else if ( isVisible() || highlighted )
         painter->setBrush(QColor("#ff4400"));
-        painter->drawEllipse(pos,radius,radius);
-    }
+    else
+        return;
+    painter->drawEllipse(boundingRect());
 
 }
 
 
 
 Node::Node(QPointF pos, Graph *parent)
- : Graph_Item(parent),pos(pos)
+ : Graph_Item(parent)
 {
+    setPos(pos);
+    setFlag(QGraphicsItem::ItemIsSelectable);
+    setZValue(1);
 }
 
-QRectF Node::bounding_box() const
+QRectF Node::boundingRect() const
 {
-    return QRectF(pos.x()-xradius,pos.y()-xradius,2*xradius,2*xradius);
+    return QRectF(-xradius/2,-xradius/2,xradius,xradius);
 }

@@ -36,10 +36,8 @@ class Edge;
 class Node : public Graph_Item
 {
     Q_OBJECT
-    Q_PROPERTY(QPointF position READ position WRITE set_position NOTIFY moved)
 
 private:
-    QPointF pos;
     QList<Edge*> edges;
     static const int radius = 6; ///< \todo maybe not const and settings
     /// Extended radius
@@ -49,10 +47,8 @@ private:
 public:
     Node(QPointF pos, class Graph* parent );
 
-    QPointF position() const { return pos; }
 
 
-    QRectF bounding_box() const;
 
     /**
      *  Add edge to node
@@ -72,16 +68,12 @@ public:
     bool has_edge_to(const Node*n) const;
 
     double distance_squared(QPointF to) const;
-    void paint(QPainter *painter,bool hidden, bool selected, bool active) const;
 
-    QList<Edge*> all_edges() const { return edges; }
+    QList<Edge*> connections() const { return edges; }
 
-public slots:
-    void set_position(QPointF p);
-
-signals:
-    /// Emitted when the position is changed
-    void moved(QPointF);
+    int type() const { return UserType + 0x01; }
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem* =0, QWidget* =0);
+    QRectF boundingRect() const;
 };
 
 #endif // NODE_HPP

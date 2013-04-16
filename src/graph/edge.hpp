@@ -43,7 +43,6 @@ private:
 public:
     explicit Edge(Node* v1, Node* v2, Edge_Style* e_style, class Graph *parent);
 
-    QRectF bounding_box() const;
 
     /// Whether node is one of its vetices
     bool is_vertex ( const Node* node ) const
@@ -77,10 +76,13 @@ public:
     void set_style(Edge_Style* st);
     Edge_Style* style() const;
 
-    QLineF to_line() const { return QLineF(v1->position(), v2->position()); }
+    QLineF to_line() const { return QLineF(v1->pos(), v2->pos()); }
 
-    void paint(QPainter *painter,bool hidden, bool selected, bool active) const;
     double distance_squared(QPointF to) const;
+
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem* =0, QWidget* =0);
+    int type() const { return UserType + 0x01; }
 
 public slots:
     /**

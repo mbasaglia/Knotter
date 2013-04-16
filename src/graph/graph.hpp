@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "path_builder.hpp"
 class Traversal_Info; /// \todo
 
-class Graph : public QObject
+class Graph : public QObject, public QAbstractGraphicsShapeItem
 {
     Q_OBJECT
     Q_FLAGS(Paint_Mode_Enum Paint_Mode)
@@ -48,6 +48,7 @@ private:
     QList<Node*> nodes;
     QList<Edge*> edges;
     Node_Style   default_style;
+    QRectF       bounding_box;
 
 public:
     explicit Graph(QObject *parent = 0);
@@ -82,7 +83,9 @@ public:
      */
     void remove_edge(Edge* e);
 
-    void paint(QPainter* painter, Paint_Mode paint_mode = Paint_Knot) const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option=0, QWidget *widget=0);
+    QRectF boundingRect() const { return bounding_box; }
+    int type() const { return UserType+0x03; }
 
 public slots:
     /// Render knot again

@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QGraphicsView>
 #include "graph.hpp"
+#include <QUndoStack>
 
 class Knot_View : public QGraphicsView
 {
@@ -36,8 +37,9 @@ class Knot_View : public QGraphicsView
 
     friend class Knot_Command;
 
-    QPoint move_center;            ///< Point aligned to the cursor during movement
-    Graph  graph;
+    QPoint      move_center;            ///< Point aligned to the cursor during movement
+    Graph       graph;
+    QUndoStack  undo_stack;
 
 public:
 
@@ -57,17 +59,12 @@ public:
      */
     void translate_view(QPointF delta);
 
+    void add_node(QPointF pos);
+
 
 public slots:
     /// Zoom view by factor ( 1 = don't zoom )
     void zoom_view(double factor);
-
-protected:
-    /**
-     *  \brief Expand sceneRect to contain the visible area
-     *  \param margin optional margin to grow the visible area
-    */
-    void expand_scene_rect(int margin=0);
     
 signals:
 
@@ -79,7 +76,17 @@ protected:
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void wheelEvent(QWheelEvent *event);
+
+    /**
+     *  \brief Expand sceneRect to contain the visible area
+     *  \param margin optional margin to grow the visible area
+    */
+    void expand_scene_rect(int margin=0);
     
+private slots:
+    /// Expand scene rect when scrollbars reach margin
+    void update_scrollbars() { expand_scene_rect(2); }
+
 };
 
 #endif // KNOT_VIEW_HPP

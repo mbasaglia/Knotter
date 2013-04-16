@@ -86,7 +86,7 @@ void Edge_Hole::paint(QPainter *painter, const Edge &edge)
 {
     QLineF l = edge.to_line().normalVector();
     l.setLength(5);
-    l.translate((edge.vertex1()->position()-edge.vertex2()->position())/2);
+    l.translate((edge.vertex1()->pos()-edge.vertex2()->pos())/2);
     painter->drawLine(l);
     l.setLength(-5);
     painter->drawLine(l);

@@ -29,11 +29,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QUndoCommand>
 #include "knot_view.hpp"
-#include "graphics_item.hpp"
 #include "graph.hpp"
 
-class Knot_Command : public QUndoCommand
+class Knot_Command : public QObject, public QUndoCommand
 {
+    Q_OBJECT
+
 private:
     static int auto_id;
 protected:
@@ -45,18 +46,17 @@ protected:
 public:
     Knot_Command(Knot_View* view)
         : view(view), graph(&view->graph), scene(view->scene()) {}
-    virtual ~Knot_Command(){}
     virtual void retranslate() = 0;
 
 };
 
 class Create_Node : public Knot_Command
 {
+    Q_OBJECT
+
     Node*          node;
-    Graphics_Item* item;
 public:
     Create_Node(Node* node, Knot_View* kv);
-    ~Create_Node();
     void undo();
     void redo();
     void retranslate();

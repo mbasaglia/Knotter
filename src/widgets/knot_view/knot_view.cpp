@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMouseEvent>
 #include <QScrollBar>
 #include <QDebug>
+#include "commands.hpp"
 
 Knot_View::Knot_View(QString file)
 {
@@ -41,12 +42,21 @@ Knot_View::Knot_View(QString file)
     setTransformationAnchor(NoAnchor);
     setResizeAnchor(AnchorViewCenter);
 
+    connect(horizontalScrollBar(),SIGNAL(valueChanged(int)),
+            this,SLOT(update_scrollbars()));
+    connect(verticalScrollBar(),SIGNAL(valueChanged(int)),
+            this,SLOT(update_scrollbars()));
 }
 
 void Knot_View::translate_view(QPointF delta)
 {
     translate(delta);
     expand_scene_rect(10);
+}
+
+void Knot_View::add_node(QPointF pos)
+{
+    undo_stack.push(new Create_Node(new Node(pos,&graph),this));
 }
 
 void Knot_View::zoom_view(double factor)
@@ -67,7 +77,7 @@ void Knot_View::zoom_view(double factor)
 
 void Knot_View::expand_scene_rect(int margin)
 {
-    QRectF vp ( mapToScene(margin,margin),
+    QRectF vp ( mapToScene(-margin,-margin),
                 mapToScene(width()+2*margin,height()+2*margin));
     QRectF sr = sceneRect();
     if ( ! sr.contains(vp) )
@@ -79,13 +89,12 @@ void Knot_View::expand_scene_rect(int margin)
 }
 
 
+
 void Knot_View::mousePressEvent(QMouseEvent *event)
 {
     if ( event->button() == Qt::LeftButton )
     {
-        QPointF scene_pos = mapToScene(event->pos());
-        scene()->addEllipse(scene_pos.x()-5,scene_pos.y()-5,
-                            10,10);
+        add_node(mapToScene(event->pos()));
     }
     else if ( event->buttons() & Qt::MiddleButton )
     {
