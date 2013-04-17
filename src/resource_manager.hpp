@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QObject>
 #include <QDebug>
 #include "settings.hpp"
+#include <QTranslator>
 
 /**
  * Manage resources and data
@@ -44,11 +45,16 @@ class Resource_Manager : public QObject
 
     static Resource_Manager singleton;
 
+
+    QMap<QString,QString> lang_names; ///< map lang_name -> lang_code
+    QMap<QString,QTranslator*> translators; ///< map lang_code -> translator
+    QTranslator* current_translator;
+
 public:
     static Settings settings;
 
     /// Initialize the resource system
-    static void initialize();
+    static void initialize(QString default_lang_code="en");
 
     /// Get the translated program name
     static QString program_name();
@@ -69,6 +75,45 @@ public:
      * \return Full path or null string if not found
      */
     static QString data(QString name);
+
+    /**
+     *  \brief Determine human readable language name from ISO 639-1 code
+     *
+     *  Depending on Qt version the returned string is either in English or
+     *  in the language itself.
+     *
+     *  If lang_code is not rectognised, a null string is returned
+    */
+    static QString language_name ( QString lang_code );
+
+
+    /**
+     *  \brief Register a translation
+     *
+     *  \param name Human-readable language name
+     *  \param code ISO 639-1 language code
+     *  \param file Path to the translation file, if empty no file gets loaded
+    */
+    static void register_translation ( QString name, QString code, QString file );
+
+
+    static QString current_lang_name();
+    static QString current_lang_code();
+    static QTranslator* translator();
+    /**
+     *  Get list of the names of all the available languages
+    */
+    static QStringList available_languages();
+
+
+public slots:
+
+    void change_lang_code ( QString code );
+    void change_lang_name ( QString name );
+
+signals:
+
+    void language_changed();
     
 };
 
