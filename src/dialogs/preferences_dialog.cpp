@@ -33,6 +33,18 @@ Preferences_Dialog::Preferences_Dialog(QMainWindow *parent) :
     setupUi(this);
     toolbar_editor->setTargetWindow(parent);
 
+    init_combos();
+
+
+    combo_language->addItems(Resource_Manager::available_languages());
+    combo_language->setCurrentIndex ( combo_language->findText(Resource_Manager::current_lang_name()) );
+
+    connect(Resource_Manager::pointer,SIGNAL(language_changed()),this,SLOT(retranslate()));
+}
+
+void Preferences_Dialog::init_combos()
+{
+    combo_icon_size->clear();
     combo_icon_size->addItem(tr("Small (16x16)"),16);
     combo_icon_size->addItem(tr("Medium (22x22)"),22);
     combo_icon_size->addItem(tr("Large (48x48)"),48);
@@ -41,6 +53,7 @@ Preferences_Dialog::Preferences_Dialog(QMainWindow *parent) :
     combo_icon_size->setCurrentIndex(combo_icon_size->findData(
                                 Resource_Manager::settings.icon_size()));
 
+    combo_icon_style->clear();
     combo_icon_style->addItem(tr("Icon Only"),Qt::ToolButtonIconOnly);
     combo_icon_style->addItem(tr("Text Only"),Qt::ToolButtonTextOnly);
     combo_icon_style->addItem(tr("Text Beside Icon"),Qt::ToolButtonTextBesideIcon);
@@ -58,5 +71,16 @@ void Preferences_Dialog::set_preferences()
                                     combo_icon_size->currentIndex()).toInt());
     Resource_Manager::settings.button_style( Qt::ToolButtonStyle (
         combo_icon_style->itemData(combo_icon_style->currentIndex()).toInt()) );
+
+    Resource_Manager::change_lang_name(combo_language->currentText());
+
 }
+
+void Preferences_Dialog::retranslate()
+{
+    retranslateUi(this);
+
+    init_combos();
+}
+
 

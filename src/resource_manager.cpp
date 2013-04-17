@@ -28,8 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QIcon>
 #include <QCoreApplication>
 
-Settings Resource_Manager::settings;
-Resource_Manager Resource_Manager::singleton;
+Settings          Resource_Manager::settings;
+Resource_Manager  Resource_Manager::singleton;
+Resource_Manager* const Resource_Manager::pointer = &singleton;
 
 QString Resource_Manager::program_name()
 {
@@ -112,13 +113,15 @@ void Resource_Manager::initialize(QString default_lang_code)
             QString code = re.cap(1);
             QString name = language_name(code);
             if ( !name.isEmpty() )
-                register_translation(name,code,file);
+                register_translation(name,code,translations.absoluteFilePath(file));
         }
         else
             qWarning() << tr("Warning:")
                        << tr("Unrecognised translation file name pattern: %1")
                           .arg(file);
     }
+
+    change_lang_code(QLocale::system().name());
 }
 
 
@@ -156,7 +159,14 @@ void Resource_Manager::register_translation(QString name, QString code, QString 
     if ( !file.isEmpty() )
     {
         QTranslator* ntrans = new QTranslator;
-        ntrans->load(file);
+        if ( ! ntrans->load(file) )
+            qDebug() << tr("Warning:") <<
+            /*: %1 is the file name,
+             *  %2 is the human-readable language code
+             *  %3 is the ISO language code
+             */
+            tr("Error on loading translation file %1 for language %2 (%3)")
+            .arg(file).arg(name).arg(code);
         singleton.translators[code]=ntrans;
     }
     else
@@ -186,11 +196,11 @@ QStringList Resource_Manager::available_languages()
 void Resource_Manager::change_lang_code(QString code)
 {
 
-    if ( !translators.contains(code) )
+    if ( !singleton.translators.contains(code) )
     {
         QString base_code = code.left(code.lastIndexOf('_')); // en_US -> en
         bool found = false;
-        foreach ( QString installed_code, translators.keys() )
+        foreach ( QString installed_code, singleton.translators.keys() )
         {
             if ( installed_code.left(installed_code.lastIndexOf('_')) == base_code )
             {
@@ -210,14 +220,14 @@ void Resource_Manager::change_lang_code(QString code)
     }
 
     QCoreApplication* app = QCoreApplication::instance();
-    app->removeTranslator(current_translator);
-    current_translator = translators[code];
-    app->installTranslator(current_translator);
-    emit language_changed();
+    app->removeTranslator(singleton.current_translator);
+    singleton.current_translator = singleton.translators[code];
+    app->installTranslator(singleton.current_translator);
+    emit singleton.language_changed();
 }
 
 void Resource_Manager::change_lang_name(QString name)
 {
-    change_lang_code(lang_names[name]);
+    change_lang_code(singleton.lang_names[name]);
 }
 

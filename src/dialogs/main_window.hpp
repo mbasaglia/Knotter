@@ -40,12 +40,13 @@ private:
 public:
     explicit Main_Window(QWidget *parent = 0);
 
-    /// Change all the strings to their translated version
-    void retranslate();
 
     ~Main_Window();
 
 public slots:
+    /// Change all the strings to their translated version
+    void retranslate();
+
     /// Create tab and load given file name
     void create_tab(QString file = QString());
     /**

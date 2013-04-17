@@ -92,3 +92,9 @@ QRectF Node::boundingRect() const
 {
     return QRectF(-xradius/2,-xradius/2,xradius,xradius);
 }
+
+void Node::move(QPointF p)
+{
+    setPos(p);
+    emit moved(p);
+}

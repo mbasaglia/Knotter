@@ -75,6 +75,18 @@ public:
     int type() const override { return UserType + 0x01; }
     void paint(QPainter *painter, const QStyleOptionGraphicsItem* =0, QWidget* =0) override;
     QRectF boundingRect() const override;
+
+
+    /**
+     *  \brief Moves the node
+     *
+     *  Use this instead of setPos
+     */
+    void move(QPointF p);
+
+signals:
+    void moved(QPointF);
+
 };
 
 #endif // NODE_HPP

@@ -37,8 +37,14 @@ class Preferences_Dialog : public QDialog, private Ui::Preferences_Dialog
 public:
     explicit Preferences_Dialog(QMainWindow *parent);
 
+private:
+    void init_combos();
+
 protected slots:
     void set_preferences();
+
+public slots:
+    void retranslate();
 };
 
 #endif // PREFERENCES_DIALOG_HPP

@@ -43,6 +43,8 @@ Main_Window::Main_Window(QWidget *parent) :
     init_toolbars();
 
     create_tab();
+
+    connect(Resource_Manager::pointer,SIGNAL(language_changed()),this,SLOT(retranslate()));
 }
 
 void Main_Window::retranslate()

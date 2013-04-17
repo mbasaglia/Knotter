@@ -53,6 +53,7 @@ class Resource_Manager : public QObject
 
 public:
     static Settings settings;
+    static Resource_Manager * const pointer ;
 
     /// Initialize the resource system
     static void initialize(QString default_lang_code="en");
@@ -109,8 +110,8 @@ public:
 
 public slots:
 
-    void change_lang_code ( QString code );
-    void change_lang_name ( QString name );
+    static void change_lang_code ( QString code );
+    static void change_lang_name ( QString name );
 
 signals:
 

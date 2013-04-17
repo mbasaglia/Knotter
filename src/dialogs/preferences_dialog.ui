@@ -100,7 +100,9 @@
          <string>Toolbars</string>
         </property>
         <property name="icon">
-         <iconset theme="configure-toolbars"/>
+         <iconset theme="configure-toolbars">
+          <normaloff/>
+         </iconset>
         </property>
         <property name="flags">
          <set>ItemIsSelectable|ItemIsEnabled</set>
@@ -111,7 +113,9 @@
          <string>General</string>
         </property>
         <property name="icon">
-         <iconset theme="preferences-system"/>
+         <iconset theme="preferences-system">
+          <normaloff/>
+         </iconset>
         </property>
         <property name="flags">
          <set>ItemIsSelectable|ItemIsEnabled</set>
@@ -122,7 +126,9 @@
          <string>Performance</string>
         </property>
         <property name="icon">
-         <iconset theme="preferences-system-performance"/>
+         <iconset theme="preferences-system-performance">
+          <normaloff/>
+         </iconset>
         </property>
         <property name="flags">
          <set>ItemIsSelectable|ItemIsEnabled</set>
@@ -225,7 +231,7 @@
           </widget>
          </item>
          <item row="1" column="1" colspan="2">
-          <widget class="QComboBox" name="comboBox"/>
+          <widget class="QComboBox" name="combo_language"/>
          </item>
          <item row="2" column="0" colspan="3">
           <widget class="QGroupBox" name="groupBox_2">
