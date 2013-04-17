@@ -72,12 +72,10 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     DEFINES += HAS_QT_5
     QT += widgets printsupport
 }
-
-contains(BOOST,yes) {
-    LIBS += -lboost_program_options
-} else {
-    DEFINES += NO_BOOST
+contains(CONFIG,c++11) {
+    DEFINES += CXX_11
 }
+
 
 
 # Windows-specific stuff

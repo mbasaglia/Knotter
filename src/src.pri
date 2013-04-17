@@ -38,4 +38,5 @@ SOURCES += \
 HEADERS += \
     $$PWD/resource_manager.hpp \
     $$PWD/settings.hpp \
-    $$PWD/string_toolbar.hpp
+    $$PWD/string_toolbar.hpp \
+    $$PWD/c++.hpp

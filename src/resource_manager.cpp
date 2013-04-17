@@ -160,7 +160,7 @@ void Resource_Manager::register_translation(QString name, QString code, QString 
         singleton.translators[code]=ntrans;
     }
     else
-        singleton.translators[code] = NULL;
+        singleton.translators[code] = nullptr;
 }
 
 QString Resource_Manager::current_lang_name()

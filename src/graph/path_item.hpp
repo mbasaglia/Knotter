@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QPointF>
 #include <QPainterPath>
+#include "c++.hpp"
 
 /**
  * Classes that can be stored inside a Path_Builder and related functions
@@ -70,7 +71,7 @@ struct Quad_Curve : public Line
     QPointF control;
     Quad_Curve ( QPointF begin, QPointF control, QPointF end );
 
-    void add_to ( bool move, QPainterPath& ppth ) const;
+    void add_to ( bool move, QPainterPath& ppth ) const override;
 };
 
 /**
@@ -82,9 +83,9 @@ struct Cubic_Curve : public Line
     QPointF control2;
     Cubic_Curve ( QPointF begin, QPointF control1, QPointF control2, QPointF end );
 
-    void reverse();
+    void reverse() override;
 
-    void add_to ( bool move, QPainterPath& ppth ) const;
+    void add_to ( bool move, QPainterPath& ppth ) const override;
 };
 
 
@@ -107,9 +108,9 @@ struct Compound : public Line
          */
         void append(Line* l);
 
-        void add_to ( bool move, QPainterPath& ppth ) const;
+        void add_to ( bool move, QPainterPath& ppth ) const override;
 
-        void reverse();
+        void reverse() override;
 
         ~Compound();
 };

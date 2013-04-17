@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include "settings.hpp"
 #include <QTranslator>
+#include "c++.hpp"
 
 /**
  * Manage resources and data

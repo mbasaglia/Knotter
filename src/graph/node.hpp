@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "graph_item.hpp"
 #include "node_style.hpp"
 #include <QPainter>
+#include "c++.hpp"
 
 class Edge;
 
@@ -71,9 +72,9 @@ public:
 
     QList<Edge*> connections() const { return edges; }
 
-    int type() const { return UserType + 0x01; }
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem* =0, QWidget* =0);
-    QRectF boundingRect() const;
+    int type() const override { return UserType + 0x01; }
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem* =0, QWidget* =0) override;
+    QRectF boundingRect() const override;
 };
 
 #endif // NODE_HPP

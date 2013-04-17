@@ -84,8 +84,8 @@ public:
     void remove_edge(Edge* e);
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option=0, QWidget *widget=0);
-    QRectF boundingRect() const { return bounding_box; }
-    int type() const { return UserType+0x03; }
+    QRectF boundingRect() const override { return bounding_box; }
+    int type() const override { return UserType+0x03; }
 
 public slots:
     /// Render knot again

@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EDGE_STYLE_HPP
 
 #include <QPainter>
+#include "c++.hpp"
 
 class Edge;
 
@@ -52,18 +53,18 @@ class Edge_Normal : public Edge_Style
 
 class Edge_Inverted : public Edge_Style
 {
-    void paint(QPainter*painter, const Edge& edge);
+    void paint(QPainter*painter, const Edge& edge) override;
 };
 
 class Edge_Wall : public Edge_Style
 {
-    void paint(QPainter*painter, const Edge& edge);
+    void paint(QPainter*painter, const Edge& edge) override;
 };
 
 
 class Edge_Hole : public Edge_Style
 {
-    void paint(QPainter*painter, const Edge& edge);
+    void paint(QPainter*painter, const Edge& edge) override;
 };
 
 

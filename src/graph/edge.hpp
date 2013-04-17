@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "node.hpp"
 #include "edge_style.hpp"
 #include <QLineF>
+#include "c++.hpp"
 
 class Edge : public Graph_Item
 {
@@ -70,7 +71,7 @@ public:
      */
     Node* other(const Node* n) const
     {
-        return n == v1 ? v2 : ( n == v2 ? v1 : NULL );
+        return n == v1 ? v2 : ( n == v2 ? v1 : nullptr );
     }
 
     void set_style(Edge_Style* st);
@@ -78,11 +79,11 @@ public:
 
     QLineF to_line() const { return QLineF(v1->pos(), v2->pos()); }
 
-    double distance_squared(QPointF to) const;
+    double distance_squared(QPointF to) const override;
 
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem* =0, QWidget* =0);
-    int type() const { return UserType + 0x01; }
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem* =0, QWidget* =0) override;
+    int type() const override { return UserType + 0x01; }
 
 public slots:
     /**

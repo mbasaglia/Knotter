@@ -24,43 +24,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef COMMANDS_HPP
-#define COMMANDS_HPP
+#ifndef CXX_HPP
+#define CXX_HPP
+/**
+    \file
 
-#include <QUndoCommand>
-#include "knot_view.hpp"
-#include "graph.hpp"
+    Macros and stuff that should be already in C++
+*/
 
-class Knot_Command : public QObject, public QUndoCommand
-{
-    Q_OBJECT
+#include <ciso646>
 
-private:
-    static int auto_id;
-protected:
-    static int generate_id();
-    Knot_View*      view;
-    Graph*          graph;
-    QGraphicsScene* scene;
+#if !defined(CXX_11) || __cplusplus < 201103
 
-public:
-    Knot_Command(Knot_View* view)
-        : view(view), graph(&view->graph), scene(view->scene()) {}
-    virtual void retranslate() = 0;
+#define nullptr 0
+#define override
 
-};
-
-class Create_Node : public Knot_Command
-{
-    Q_OBJECT
-
-    Node*          node;
-public:
-    Create_Node(Node* node, Knot_View* kv);
-    void undo() override;
-    void redo() override;
-    void retranslate() override;
-};
+#endif // C++11
 
 
-#endif // COMMANDS_HPP
+#endif // CXX_HPP
