@@ -129,3 +129,10 @@ void Knot_View::wheelEvent(QWheelEvent *event)
             zoom_view(1.25);
     }
 }
+
+void Knot_View::drawBackground(QPainter *painter, const QRectF &rect)
+{
+    painter->fillRect(rect,backgroundBrush());
+    /// \todo background image
+    grid.render(painter,rect);
+}

@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QGraphicsView>
 #include "graph.hpp"
 #include <QUndoStack>
+#include "snapping_grid.hpp"
 
 class Knot_View : public QGraphicsView
 {
@@ -37,9 +38,10 @@ class Knot_View : public QGraphicsView
 
     friend class Knot_Command;
 
-    QPoint      move_center;            ///< Point aligned to the cursor during movement
-    Graph       graph;
-    QUndoStack  undo_stack;
+    QPoint          move_center; ///< Point aligned to the cursor during movement
+    Graph           graph;
+    QUndoStack      undo_stack;
+    Snapping_Grid   grid;
 
 public:
 
@@ -76,6 +78,7 @@ protected:
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void wheelEvent(QWheelEvent *event);
+    void drawBackground(QPainter *painter, const QRectF &rect);
 
     /**
      *  \brief Expand sceneRect to contain the visible area

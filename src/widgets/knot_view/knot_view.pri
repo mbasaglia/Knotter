@@ -15,10 +15,12 @@
 
 HEADERS += \
     $$PWD/knot_view.hpp \
-    $$PWD/commands.hpp
+    $$PWD/commands.hpp \
+    src/widgets/knot_view/snapping_grid.hpp
 
 SOURCES += \
     $$PWD/knot_view.cpp \
-    $$PWD/commands.cpp
+    $$PWD/commands.cpp \
+    src/widgets/knot_view/snapping_grid.cpp
 
 INCLUDEPATH += $$PWD
