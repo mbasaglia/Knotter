@@ -39,8 +39,11 @@ class Graph : public QObject, public QAbstractGraphicsShapeItem
     Q_FLAGS(Paint_Mode_Enum Paint_Mode)
 public:
     enum Paint_Mode_Enum {
-        Paint_Graph = 1,
-        Paint_Knot  = 2
+        Paint_Graph = 0x01, ///< renders the graph
+        Paint_Knot  = 0x02, ///< renders the knot
+        Paint_Everything = Paint_Graph|Paint_Knot, ///< Paints everything, can be used as mask
+
+        Paint_Loops = 0x10 ///< Whether separate loops need to be differently colored
     };
     Q_DECLARE_FLAGS(Paint_Mode,Paint_Mode_Enum)
 
@@ -49,6 +52,7 @@ private:
     QList<Edge*> edges;
     Node_Style   default_style;
     QRectF       bounding_box;
+    Paint_Mode   paint_mode;
 
 public:
     explicit Graph(QObject *parent = 0);
@@ -83,6 +87,29 @@ public:
      */
     void remove_edge(Edge* e);
 
+    /**
+     *  \brief Set the paint mode to the given paint mode
+    */
+    void set_paint_mode( Paint_Mode mode );
+    /**
+     *  \brief Toggles the given flag from the paint mode
+     *
+     *  Performs paint_mode XOR flag
+    */
+    void toggle_paint_flag ( Paint_Mode_Enum flag );
+    /**
+     *  \brief Enables the given flag in the paint mode
+     *
+     *  Performs paint_mode OR flag
+    */
+    void enable_paint_flag ( Paint_Mode_Enum flag );
+    /**
+     *  \brief Disables the given flag from the paint mode
+     *
+     *  Performs paint_mode NAND flag
+    */
+    void disable_paint_flag ( Paint_Mode_Enum flag );
+
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option=0, QWidget *widget=0);
     QRectF boundingRect() const override { return bounding_box; }
     int type() const override { return UserType+0x03; }
@@ -98,6 +125,8 @@ private:
 signals:
     /// Emitted when nodes or edges have changed and requires redrawing
     void graph_changed();
+    /// Emitted when style is changed and requires redrawing but not re-traversing
+    void style_changed();
     
 };
 

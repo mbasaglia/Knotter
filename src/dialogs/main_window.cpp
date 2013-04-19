@@ -30,12 +30,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 Main_Window::Main_Window(QWidget *parent) :
-    QMainWindow(parent)
+    QMainWindow(parent), view(nullptr)
 {
     setupUi(this);
     setWindowIcon(QIcon(Resource_Manager::data("img/icon-small.svg")));
 
     setWindowTitle(Resource_Manager::program_name());
+
+    // Overcome limitation in designer by adding this manually before load_config
+    toolbar_view->insertAction(0,menu_Rendering->menuAction());
 
     load_config();
 
@@ -45,6 +48,7 @@ Main_Window::Main_Window(QWidget *parent) :
     create_tab();
 
     connect(Resource_Manager::pointer,SIGNAL(language_changed()),this,SLOT(retranslate()));
+
 }
 
 void Main_Window::retranslate()
@@ -122,6 +126,7 @@ void Main_Window::init_toolbars()
     zoomer->setValue(100);
     statusBar()->addPermanentWidget(new QLabel(tr("Zoom")));
     statusBar()->addPermanentWidget(zoomer);
+    connect(zoomer,SIGNAL(editingFinished()),this,SLOT(apply_zoom()));
 }
 
 void Main_Window::load_config()
@@ -156,6 +161,20 @@ void Main_Window::load_config()
     Resource_Manager::settings.initialize_window(this);
 }
 
+void Main_Window::connect_view(Knot_View *v)
+{
+    zoomer->setValue(v->get_zoom_factor()*100);
+    connect(v,SIGNAL(zoomed(double)),zoomer,SLOT(setValue(double)));
+
+    view = v;
+}
+
+void Main_Window::disconnect_view(Knot_View *v)
+{
+    if ( v != nullptr )
+        disconnect(v,SIGNAL(zoomed(double)),zoomer,SLOT(setValue(double)));
+}
+
 void Main_Window::set_icon_size(int sz)
 {
     setIconSize(QSize(sz,sz));
@@ -164,6 +183,22 @@ void Main_Window::set_icon_size(int sz)
 void Main_Window::set_tool_button_style(Qt::ToolButtonStyle tbs)
 {
     setToolButtonStyle(tbs);
+}
+
+void Main_Window::apply_zoom()
+{
+    view->set_zoom(zoomer->value()/100);
+}
+
+void Main_Window::change_rendering()
+{
+    if ( action_Highlight_Links->isChecked() )
+    {
+        menu_Rendering->setIcon(QIcon::fromTheme("knot-render-loops"));
+        /// \todo actually change paint mode
+    }
+    else
+        menu_Rendering->setIcon(QIcon::fromTheme("knot-render-plain"));
 }
 
 void Main_Window::on_action_Preferences_triggered()
@@ -184,6 +219,8 @@ void Main_Window::switch_to_tab(int i)
     tabWidget->setCurrentIndex(i);
     setWindowTitle(tr("%1 - %2").arg(Resource_Manager::program_name())
                    .arg(tabWidget->tabText(i)));
+    disconnect_view(view);
+    connect_view(dynamic_cast<Knot_View*>(tabWidget->currentWidget()));
 }
 
 void Main_Window::close_tab(int i)
@@ -193,4 +230,13 @@ void Main_Window::close_tab(int i)
     tabWidget->removeTab(i);
     if ( tabWidget->count() == 0 )
         create_tab();
+}
+
+void Main_Window::on_action_Show_Graph_toggled(bool arg1)
+{
+    /// \todo actually toggle
+    if ( arg1 )
+        action_Show_Graph->setIcon(QIcon::fromTheme("knot-graph-on"));
+    else
+        action_Show_Graph->setIcon(QIcon::fromTheme("knot-graph-off"));
 }

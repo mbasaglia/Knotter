@@ -36,6 +36,7 @@ class Main_Window : public QMainWindow, private Ui::Main_Window
 
 private:
     QDoubleSpinBox* zoomer; ///< Zoom on statusbar
+    Knot_View*      view;
 
 public:
     explicit Main_Window(QWidget *parent = 0);
@@ -72,11 +73,26 @@ private:
     /// Load saved configuration
     void load_config();
 
+    /**
+     *  Ensure view is connected to the proper signals/slots
+    */
+    void connect_view(Knot_View* v);
+    /**
+     *  Ensure view is disconnected connected from the relevant signals/slots
+    */
+    void disconnect_view(Knot_View* v);
+
 private slots:
     void set_icon_size(int);
     void set_tool_button_style(Qt::ToolButtonStyle);
+    /**
+     *  Sets the current view zoom factor to the value of the slider in the statusbar
+    */
+    void apply_zoom();
 
+    void change_rendering();
     void on_action_Preferences_triggered();
+    void on_action_Show_Graph_toggled(bool arg1);
 };
 
 #endif // MAIN_WINDOW_HPP

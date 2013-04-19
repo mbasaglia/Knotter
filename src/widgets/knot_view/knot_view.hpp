@@ -63,15 +63,42 @@ public:
 
     void add_node(QPointF pos);
 
+    /**
+     *  \brief Get the grobal zoom factor
+     *
+     *  \return A value representing the scaling factor, 1 = 100%
+    */
+    double get_zoom_factor() const { return transform().m11(); }
+
 
 public slots:
-    /// Zoom view by factor ( 1 = don't zoom )
+    /**
+     * \brief Zoom view by factor
+     *
+     *  The zooming is performed relative to the current transformation
+     *
+     *  \param factor scaling factor ( 1 = don't zoom )
+     */
     void zoom_view(double factor);
-    
+    /**
+     * \brief Set zoom factor
+     *
+     *  The zooming is performed absolutely
+     *
+     *  \param factor scaling factor ( 1 = no zoom )
+     */
+    void set_zoom(double factor);
+
 signals:
 
     /// emitted when the graph structure or style is changed
     void graph_changed();
+
+    /**
+     *  Emit when zoom is changed
+     *  \param percent Zoom percentage
+     */
+    void zoomed(double percent);
 
 protected:
     void mousePressEvent(QMouseEvent *event);
@@ -89,6 +116,7 @@ protected:
 private slots:
     /// Expand scene rect when scrollbars reach margin
     void update_scrollbars() { expand_scene_rect(2); }
+
 
 };
 

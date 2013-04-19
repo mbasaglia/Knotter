@@ -56,6 +56,30 @@ void Graph::remove_edge(Edge *e)
     update();
 }
 
+void Graph::set_paint_mode(Paint_Mode mode)
+{
+    paint_mode = mode;
+    emit style_changed();
+}
+
+void Graph::toggle_paint_flag(Graph::Paint_Mode_Enum flag)
+{
+    paint_mode ^= flag;
+    emit style_changed();
+}
+
+void Graph::enable_paint_flag(Graph::Paint_Mode_Enum flag)
+{
+    paint_mode |= flag;
+    emit style_changed();
+}
+
+void Graph::disable_paint_flag(Graph::Paint_Mode_Enum flag)
+{
+    paint_mode &= ~flag;
+    emit style_changed();
+}
+
 void Graph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     foreach(Edge* e, edges)
@@ -68,4 +92,5 @@ void Graph::update()
 {
     emit graph_changed();
 }
+
 

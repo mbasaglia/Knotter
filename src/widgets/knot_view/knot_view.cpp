@@ -72,7 +72,17 @@ void Knot_View::zoom_view(double factor)
     }
     expand_scene_rect();
 
+    emit zoomed(100*get_zoom_factor());
+}
 
+void Knot_View::set_zoom(double factor)
+{
+    QTransform t ( factor,           transform().m12(), transform().m13(),
+                   transform().m21(),factor,            transform().m23(),
+                   transform().m31(),transform().m32(), transform().m33()
+                   );
+    setTransform(t);
+    emit zoomed(100*factor);
 }
 
 void Knot_View::expand_scene_rect(int margin)
@@ -108,7 +118,7 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
     if ( event->buttons() & Qt::MiddleButton  )
     {
         QPointF delta = event->pos()-move_center;
-        delta /= matrix().m11(); // take scaling into account
+        delta /= get_zoom_factor(); // take scaling into account
         translate_view(delta);
         move_center = event->pos();
     }

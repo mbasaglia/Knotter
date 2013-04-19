@@ -10,9 +10,6 @@
     <height>480</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>MainWindow</string>
-  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
@@ -321,11 +318,6 @@
     <string>&amp;New</string>
    </property>
   </action>
-  <action name="actionPlaceholder">
-   <property name="text">
-    <string>placeholder</string>
-   </property>
-  </action>
   <action name="action_Save">
    <property name="icon">
     <iconset theme="document-save">
@@ -475,16 +467,6 @@
    </property>
    <property name="text">
     <string>&amp;Preferences...</string>
-   </property>
-  </action>
-  <action name="actionPlaceholder_2">
-   <property name="text">
-    <string>placeholder</string>
-   </property>
-  </action>
-  <action name="actionPlaceholder_3">
-   <property name="text">
-    <string>placeholder</string>
    </property>
   </action>
   <action name="action_Reset_View">
@@ -854,9 +836,42 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>action_Normal</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Main_Window</receiver>
+   <slot>change_rendering()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Highlight_Links</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Main_Window</receiver>
+   <slot>change_rendering()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>close_tab(int)</slot>
   <slot>create_tab()</slot>
+  <slot>change_rendering()</slot>
  </slots>
 </ui>

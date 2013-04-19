@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "snapping_grid.hpp"
+#include <QVarLengthArray>
+#include <QLineF>
 
 static const double sqrt3 = 1.732050808;
 
