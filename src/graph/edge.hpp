@@ -42,7 +42,7 @@ private:
     Edge_Style* m_style;
 
 public:
-    explicit Edge(Node* v1, Node* v2, Edge_Style* e_style, class Graph *parent);
+    explicit Edge(Node* v1, Node* v2, Edge_Style* e_style);
 
 
     /// Whether node is one of its vetices

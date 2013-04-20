@@ -49,6 +49,8 @@ Knot_View::Knot_View(QString file)
             this,SLOT(update_scrollbars()));
     connect(verticalScrollBar(),SIGNAL(valueChanged(int)),
             this,SLOT(update_scrollbars()));
+
+    guide.setPen(QPen(Qt::gray,1,Qt::DashLine));
 }
 
 void Knot_View::translate_view(QPointF delta)
@@ -59,15 +61,19 @@ void Knot_View::translate_view(QPointF delta)
 
 Node* Knot_View::add_node(QPointF pos)
 {
-    Node* node = new Node(pos,&graph);
-    undo_stack.push(new Create_Node(node,this));
+    Node* node = node_at(pos);
+    if ( !node )
+    {
+        node = new Node(pos);
+        undo_stack.push(new Create_Node(node,this));
+    }
     return node;
 }
 
 Edge *Knot_View::add_edge(Node *n1, Node *n2)
 {
     /// \todo centralized edge style management (in Resource_Manager)
-    Edge* e = new Edge(n1,n2,new Edge_Normal,&graph);
+    Edge* e = new Edge(n1,n2,new Edge_Normal);
     undo_stack.push(new Create_Edge(e,this));
     return e;
 }
@@ -122,12 +128,20 @@ void Knot_View::expand_scene_rect(int margin)
     }
 }
 
+Node *Knot_View::node_at(QPointF p) const
+{
+    return qgraphicsitem_cast<Node*>(scene()->itemAt(p,QTransform()));
+}
+
 
 
 void Knot_View::mousePressEvent(QMouseEvent *event)
 {
     QPoint mpos = event->pos();
     QPointF snapped_scene_pos = grid.nearest(mapToScene(mpos));
+
+    if ( guide.scene() )
+        scene()->removeItem(&guide);
 
     if ( mouse_mode & MOVE_BACK )
     {
@@ -152,11 +166,18 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
         }
         else if ( mouse_mode & EDGE_CHAIN  && event->button() == Qt::LeftButton )
         {
+            if ( last_node != nullptr )
+                undo_stack.beginMacro(tr("Add Edge"));
             Node* next_node = add_node(snapped_scene_pos);
             if ( last_node != nullptr )
+            {
                 add_edge(last_node,next_node);
+                undo_stack.endMacro();
+            }
             last_node = next_node;
-            /// \todo guide
+            if ( !guide.scene() )
+                scene()->addItem(&guide);
+            /// \todo handle undo on edge loop mode so that changes last_node
         }
 
     }
@@ -166,7 +187,7 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
 void Knot_View::mouseMoveEvent(QMouseEvent *event)
 {
     QPoint mpos = event->pos();
-    //QPointF snapped_scene_pos = grid.nearest(mapToScene(mpos));
+    QPointF snapped_scene_pos = grid.nearest(mapToScene(mpos));
 
     /// \todo move grid/bg
 
@@ -184,9 +205,10 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
     {
         /// \todo update rubberband
     }
-    else if ( mouse_mode & EDGE_CHAIN && event->button() == Qt::LeftButton )
+    else if ( mouse_mode & EDGE_CHAIN )
     {
-        /// \todo guide
+        if ( last_node )
+            guide.setLine(QLineF(last_node->pos(),snapped_scene_pos));
     }
 
     move_center = mpos;

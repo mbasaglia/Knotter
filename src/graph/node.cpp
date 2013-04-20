@@ -29,6 +29,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_manager.hpp"
 
 
+Node::Node(QPointF pos)
+{
+    setPos(pos);
+    setFlag(QGraphicsItem::ItemIsSelectable);
+    setZValue(1);
+}
 
 void Node::add_edge(Edge *e)
 {
@@ -80,13 +86,6 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 
 
 
-Node::Node(QPointF pos, Graph *parent)
- : Graph_Item(parent)
-{
-    setPos(pos);
-    setFlag(QGraphicsItem::ItemIsSelectable);
-    setZValue(1);
-}
 
 QRectF Node::boundingRect() const
 {

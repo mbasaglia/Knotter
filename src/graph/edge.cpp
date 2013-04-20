@@ -27,8 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "graph.hpp"
 #include <QVector2D>
 
-Edge::Edge(Node *v1, Node *v2, Edge_Style* e_style, Graph *parent) :
-    Graph_Item(parent), v1(v1), v2(v2), m_style(e_style)
+Edge::Edge(Node *v1, Node *v2, Edge_Style* e_style) :
+    v1(v1), v2(v2), m_style(e_style)
 {
     attach();
 }

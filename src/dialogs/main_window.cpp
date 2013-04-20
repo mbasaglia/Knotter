@@ -27,10 +27,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_manager.hpp"
 #include <QMessageBox>
 #include "preferences_dialog.hpp"
+#include <QDockWidget>
 
 
 Main_Window::Main_Window(QWidget *parent) :
-    QMainWindow(parent), view(nullptr)
+    QMainWindow(parent), zoomer(nullptr), view(nullptr)
 {
     setupUi(this);
     setWindowIcon(QIcon(Resource_Manager::data("img/icon-small.svg")));
@@ -40,12 +41,18 @@ Main_Window::Main_Window(QWidget *parent) :
     // Overcome limitation in designer by adding this manually before load_config
     toolbar_view->insertAction(0,menu_Rendering->menuAction());
 
-    load_config();
-
-    init_menus();
-    init_toolbars();
+    init_statusbar();
 
     create_tab();
+
+    init_docks();
+    init_menus();
+
+    load_config();
+
+    // init_toolbars must come load_config in order to configure properly user-defined toolbars
+    init_toolbars();
+
 
     connect(Resource_Manager::pointer,SIGNAL(language_changed()),this,SLOT(retranslate()));
 
@@ -116,9 +123,10 @@ void Main_Window::init_toolbars()
 {
     foreach(QToolBar* tb, findChildren<QToolBar*>())
         menu_Toolbars->insertAction(0,tb->toggleViewAction());
+}
 
-
-    // Statusbar...
+void Main_Window::init_statusbar()
+{
     zoomer = new QDoubleSpinBox(this);
     zoomer->setMinimum(0.01);
     zoomer->setMaximum(800);
@@ -126,7 +134,28 @@ void Main_Window::init_toolbars()
     zoomer->setValue(100);
     statusBar()->addPermanentWidget(new QLabel(tr("Zoom")));
     statusBar()->addPermanentWidget(zoomer);
-    connect(zoomer,SIGNAL(editingFinished()),this,SLOT(apply_zoom()));
+    connect(zoomer,SIGNAL(valueChanged(double)),this,SLOT(apply_zoom()));
+}
+
+void Main_Window::init_docks()
+{
+    // Action History Dock
+    undo_view = new QUndoView(&undo_group);
+    QDockWidget* undo_dock  = new QDockWidget;
+    undo_dock->setWidget(undo_view);
+    undo_dock->setObjectName("Action_History");
+    undo_dock->setWindowTitle(tr("Action History"));
+    addDockWidget(Qt::RightDockWidgetArea,undo_dock);
+    undo_dock->show();
+
+
+    connect(&undo_group,SIGNAL(cleanChanged(bool)),SLOT(set_clean_icon(bool)));
+    connect(&undo_group,SIGNAL(undoTextChanged(QString)),SLOT(set_undo_text(QString)));
+    connect(&undo_group,SIGNAL(redoTextChanged(QString)),SLOT(set_redo_text(QString)));
+    connect(&undo_group,SIGNAL(canUndoChanged(bool)),action_Undo,SLOT(setEnabled(bool)));
+    connect(&undo_group,SIGNAL(canRedoChanged(bool)),action_Redo,SLOT(setEnabled(bool)));
+    connect(action_Undo,SIGNAL(triggered()),&undo_group,SLOT(undo()));
+    connect(action_Redo,SIGNAL(triggered()),&undo_group,SLOT(redo()));
 }
 
 void Main_Window::load_config()
@@ -163,27 +192,55 @@ void Main_Window::load_config()
 
 void Main_Window::connect_view(Knot_View *v)
 {
+    // zoom/view
     zoomer->setValue(v->get_zoom_factor()*100);
     connect(v,SIGNAL(zoomed(double)),zoomer,SLOT(setValue(double)));
 
+    // edit mode
     connect(action_Edit_Graph,SIGNAL(triggered()),v,SLOT(set_mode_edit_graph()),
             Qt::UniqueConnection);
     connect(action_Edge_Loop,SIGNAL(triggered()),v,SLOT(set_mode_edge_chain()),
             Qt::UniqueConnection);
 
+    // undo/redo
+    v->undo_stack_pointer()->setActive(true);
+
+    // set current
     view = v;
 }
 
 void Main_Window::disconnect_view(Knot_View *v)
 {
     if ( v != nullptr )
+    {
         disconnect(v,SIGNAL(zoomed(double)),zoomer,SLOT(setValue(double)));
+    }
 }
 
 void Main_Window::set_icon_size(int sz)
 {
     setIconSize(QSize(sz,sz));
-}//....
+}
+
+void Main_Window::set_clean_icon(bool clean)
+{
+    tabWidget->setTabIcon(tabWidget->currentIndex(),clean ?
+                              QIcon() : QIcon::fromTheme("document-save"));
+    update_title();
+}
+
+void Main_Window::update_title()
+{
+    bool clean = view->undo_stack_pointer()->isClean();
+    QString filename = tabWidget->tabText(tabWidget->currentIndex());
+    /*: Main window title
+     *  %1 is the program name
+     *  %2 is the file name
+     *  %3 is a star * or an empty string depending on whether the file was modified
+     */
+    setWindowTitle(tr("%1 - %2%3").arg(Resource_Manager::program_name())
+                   .arg(filename).arg(clean?"":"*"));
+}
 
 void Main_Window::set_tool_button_style(Qt::ToolButtonStyle tbs)
 {
@@ -214,7 +271,9 @@ void Main_Window::on_action_Preferences_triggered()
 
 void Main_Window::create_tab(QString file)
 {
-    int t = tabWidget->addTab(new Knot_View(file),file.isEmpty() ? tr("New Knot") : file);
+    Knot_View *v = new Knot_View(file);
+    int t = tabWidget->addTab(v,file.isEmpty() ? tr("New Knot") : file);
+    undo_group.addStack(v->undo_stack_pointer());
     switch_to_tab(t);
 
 }
@@ -226,12 +285,18 @@ void Main_Window::switch_to_tab(int i)
                    .arg(tabWidget->tabText(i)));
     disconnect_view(view);
     connect_view(dynamic_cast<Knot_View*>(tabWidget->currentWidget()));
+    update_title();
 }
 
 void Main_Window::close_tab(int i)
 {
     /// \todo check for edited file
-    //delete tabWidget->widget(i);
+    Knot_View* kv = dynamic_cast<Knot_View*>(tabWidget->widget(i));
+    if ( kv )
+    {
+        undo_group.removeStack(kv->undo_stack_pointer());
+        delete kv;
+    }
     tabWidget->removeTab(i);
     if ( tabWidget->count() == 0 )
         create_tab();
@@ -244,4 +309,35 @@ void Main_Window::on_action_Show_Graph_toggled(bool arg1)
         action_Show_Graph->setIcon(QIcon::fromTheme("knot-graph-on"));
     else
         action_Show_Graph->setIcon(QIcon::fromTheme("knot-graph-off"));
+}
+
+
+void Main_Window::set_undo_text(QString txt)
+{
+    action_Undo->setText(tr("Undo %1").arg(txt));
+}
+
+void Main_Window::set_redo_text(QString txt)
+{
+    action_Redo->setText(tr("Redo %1").arg(txt));
+}
+
+void Main_Window::on_action_Zoom_In_triggered()
+{
+    view->zoom_view(1.25);
+}
+
+void Main_Window::on_action_Zoom_Out_triggered()
+{
+     view->zoom_view(0.8);
+}
+
+void Main_Window::on_action_Reset_Zoom_triggered()
+{
+    view->set_zoom(1);
+}
+
+void Main_Window::on_action_Reset_View_triggered()
+{
+    view->resetTransform();
 }

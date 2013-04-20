@@ -41,7 +41,7 @@ protected:
     bool            highlighted;
 
 public:
-    Graph_Item(Graph* parent);
+    Graph_Item();
 
     virtual double distance_squared(QPointF to) const = 0;
 };

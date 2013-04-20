@@ -29,15 +29,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ui_main_window.h"
 #include <QDoubleSpinBox>
 #include "knot_view.hpp"
+#include <QUndoView>
+#include <QUndoGroup>
 
 class Main_Window : public QMainWindow, private Ui::Main_Window
 {
     Q_OBJECT
 
 private:
-    QDoubleSpinBox* zoomer; ///< Zoom on statusbar
+    QDoubleSpinBox* zoomer;     ///< Zoom on statusbar
     Knot_View*      view;
-
+    QUndoView*      undo_view;  ///< Action history
+    QUndoGroup      undo_group; ///< Groups undo stacks
 public:
     explicit Main_Window(QWidget *parent = 0);
 
@@ -50,6 +53,7 @@ public slots:
 
     /// Create tab and load given file name
     void create_tab(QString file = QString());
+
     /**
      *  Switch to the gien tab
      *  \param i tab index
@@ -70,6 +74,10 @@ private:
     void init_menus();
     /// Initialize toolbars
     void init_toolbars();
+    /// Initialize statusbar
+    void init_statusbar();
+    /// Initialize dock widgets
+    void init_docks();
     /// Load saved configuration
     void load_config();
 
@@ -84,6 +92,16 @@ private:
 
 private slots:
     void set_icon_size(int);
+    /**
+     *  Toggle tab icon to show whether the file has been modified
+    */
+    void set_clean_icon(bool clean);
+    /**
+     *  Update title to current file and add a *star* if there are unsaved changes
+     */
+    void update_title();
+    void set_undo_text(QString txt);
+    void set_redo_text(QString txt);
     void set_tool_button_style(Qt::ToolButtonStyle);
     /**
      *  Sets the current view zoom factor to the value of the slider in the statusbar
@@ -93,6 +111,10 @@ private slots:
     void change_rendering();
     void on_action_Preferences_triggered();
     void on_action_Show_Graph_toggled(bool arg1);
+    void on_action_Zoom_In_triggered();
+    void on_action_Zoom_Out_triggered();
+    void on_action_Reset_Zoom_triggered();
+    void on_action_Reset_View_triggered();
 };
 
 #endif // MAIN_WINDOW_HPP

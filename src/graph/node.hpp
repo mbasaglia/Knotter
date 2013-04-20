@@ -46,7 +46,7 @@ private:
     /// \todo node style: pointer or value?
 
 public:
-    Node(QPointF pos, class Graph* parent );
+    Node(QPointF pos );
 
 
 

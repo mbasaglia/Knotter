@@ -60,6 +60,7 @@ public:
     void undo() override;
     void redo() override;
     void retranslate() override;
+    ~Create_Node();
 };
 
 class Create_Edge : public Knot_Command
@@ -72,6 +73,7 @@ public:
     void undo() override;
     void redo() override;
     void retranslate() override;
+    ~Create_Edge();
 };
 
 #endif // COMMANDS_HPP

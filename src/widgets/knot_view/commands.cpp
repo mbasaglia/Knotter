@@ -44,20 +44,24 @@ Create_Node::Create_Node(Node *node, Knot_View *kv)
 
 void Create_Node::undo()
 {
-    scene->removeItem(node);
     graph->remove_node(node);
+    scene->removeItem(node);
 
 }
 
 void Create_Node::redo()
 {
-    scene->addItem(node);
     graph->add_node(node);
 }
 
 void Create_Node::retranslate()
 {
     setText(tr("Create Node"));
+}
+
+Create_Node::~Create_Node()
+{
+    delete node;
 }
 
 
@@ -69,17 +73,21 @@ Create_Edge::Create_Edge(Edge *edge, Knot_View *kv)
 
 void Create_Edge::undo()
 {
-    scene->removeItem(edge);
     graph->remove_edge(edge);
+    scene->removeItem(edge);
 }
 
 void Create_Edge::redo()
 {
-    scene->addItem(edge);
     graph->add_edge(edge);
 }
 
 void Create_Edge::retranslate()
 {
     setText(tr("Create Edge"));
+}
+
+Create_Edge::~Create_Edge()
+{
+    delete edge;
 }

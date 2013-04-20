@@ -27,8 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "graph_item.hpp"
 #include "graph.hpp"
 
-Graph_Item::Graph_Item(Graph *parent)
-    : QGraphicsObject(parent), highlighted(false)
+Graph_Item::Graph_Item()
+    :  highlighted(false)
 {
     setFlag(QGraphicsItem::ItemIgnoresTransformations);
 }

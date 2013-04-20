@@ -33,19 +33,24 @@ Graph::Graph(QObject *parent) :
 void Graph::add_node(Node *n)
 {
     nodes.append(n);
+    n->setParentItem(this);
     connect(n,SIGNAL(moved(QPointF)),this,SLOT(update()));
 }
 
 void Graph::add_edge(Edge *e)
 {
     edges.append(e);
+    e->setParentItem(this);
     e->vertex1()->add_edge(e);
+    e->vertex2()->add_edge(e);
     update();
 }
 
 void Graph::remove_node(Node *n)
 {
     nodes.removeOne(n);
+    n->setParentItem(nullptr);
+    disconnect(n,SIGNAL(moved(QPointF)),this,SLOT(update()));
     update();
 }
 
@@ -53,6 +58,7 @@ void Graph::remove_edge(Edge *e)
 {
     edges.removeOne(e);
     e->detach();
+    e->setParentItem(nullptr);
     update();
 }
 
@@ -82,10 +88,17 @@ void Graph::disable_paint_flag(Graph::Paint_Mode_Enum flag)
 
 void Graph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    foreach(Edge* e, edges)
-        e->paint(painter,option,widget);
-    foreach(Node* n, nodes)
-        n->paint(painter,option,widget);
+    if ( paint_mode & Paint_Graph )
+    {
+        foreach(Edge* e, edges)
+            e->paint(painter,option,widget);
+        foreach(Node* n, nodes)
+        {
+            painter->translate(n->pos());
+            n->paint(painter,option,widget);
+            painter->translate(-n->pos());
+        }
+    }
 }
 
 void Graph::update()

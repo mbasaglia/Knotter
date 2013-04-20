@@ -49,12 +49,14 @@ class Knot_View : public QGraphicsView
     Q_DECLARE_FLAGS(Mouse_Mode,Mouse_Mode_Enum)
 
 
-    QPoint          move_center; ///< Point aligned to the cursor during movement
-    Graph           graph;
-    QUndoStack      undo_stack;
-    Snapping_Grid   grid;
-    Mouse_Mode      mouse_mode;
-    Node*           last_node;  ///< Last node in a chain
+    QPoint              move_center; ///< Point aligned to the cursor during movement
+    Graph               graph;
+    QUndoStack          undo_stack;
+    Snapping_Grid       grid;
+    Mouse_Mode          mouse_mode;
+    Node*               last_node;  ///< Last node in a chain
+    QGraphicsLineItem   guide;       ///< Tiny line showing the edge being edited
+    QGraphicsRectItem   rubberband;  ///< Draggable selection rectangle
 
 public:
 
@@ -62,6 +64,8 @@ public:
      *  \param file File name, if empty no file is loaded
     */
     Knot_View ( QString file );
+
+    QUndoStack* undo_stack_pointer() { return &undo_stack; }
 
     /// Overload QGraphicsView::translate
     void translate(QPointF d) { QGraphicsView::translate(d.x(),d.y()); }
@@ -75,7 +79,10 @@ public:
     void translate_view(QPointF delta);
 
     /**
-     *  Creates a node in the given location
+     *  \brief Creates a node in the given location
+     *
+     *  If there is already a node at that location, that node is returned and
+     *  no new node is created
      *
      *  \return The created node
     */
@@ -83,6 +90,9 @@ public:
 
     /**
      *  \brief Creates an edge connecting the given nodes
+     *
+     *  If there is already an edge between the nodes, that one is returned and
+     *  no new edge is created
      *
      *  \pre n1 and n2 must be in the scene and in the graph
      *
@@ -153,6 +163,12 @@ private slots:
     /// Expand scene rect when scrollbars reach margin
     void update_scrollbars() { expand_scene_rect(2); }
 
+private:
+    /**
+     *  \brief Get node at location
+     *  \return The found node or NULL
+    */
+    Node* node_at(QPointF p) const;
 
 };
 
