@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     Main_Window mw;
     mw.show();
 
-    Graph g;
+    /*Graph g;
     Node * last = 0;
     for ( int i = 0; i < 10; i++)
     {
@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
     QPainter painter;
     painter.begin(&generator);
     g.paint(&painter);
-    painter.end();
+    painter.end();*/
 
 
     return a.exec();

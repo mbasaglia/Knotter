@@ -166,6 +166,11 @@ void Main_Window::connect_view(Knot_View *v)
     zoomer->setValue(v->get_zoom_factor()*100);
     connect(v,SIGNAL(zoomed(double)),zoomer,SLOT(setValue(double)));
 
+    connect(action_Edit_Graph,SIGNAL(triggered()),v,SLOT(set_mode_edit_graph()),
+            Qt::UniqueConnection);
+    connect(action_Edge_Loop,SIGNAL(triggered()),v,SLOT(set_mode_edge_chain()),
+            Qt::UniqueConnection);
+
     view = v;
 }
 

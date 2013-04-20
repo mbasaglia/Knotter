@@ -62,5 +62,16 @@ public:
     void retranslate() override;
 };
 
+class Create_Edge : public Knot_Command
+{
+    Q_OBJECT
+
+    Edge*          edge;
+public:
+    Create_Edge(Edge* edge, Knot_View* kv);
+    void undo() override;
+    void redo() override;
+    void retranslate() override;
+};
 
 #endif // COMMANDS_HPP

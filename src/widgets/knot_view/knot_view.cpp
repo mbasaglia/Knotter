@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "commands.hpp"
 
 Knot_View::Knot_View(QString file)
+    : mouse_mode(EDIT_GRAPH), last_node(nullptr)
 {
     setFrameStyle(StyledPanel|Plain);
     QGraphicsScene *scene = new QGraphicsScene;
@@ -41,6 +42,8 @@ Knot_View::Knot_View(QString file)
     setRenderHint(QPainter::Antialiasing);
     setTransformationAnchor(NoAnchor);
     setResizeAnchor(AnchorViewCenter);
+
+    scene->addItem(&graph);
 
     connect(horizontalScrollBar(),SIGNAL(valueChanged(int)),
             this,SLOT(update_scrollbars()));
@@ -54,10 +57,21 @@ void Knot_View::translate_view(QPointF delta)
     expand_scene_rect(10);
 }
 
-void Knot_View::add_node(QPointF pos)
+Node* Knot_View::add_node(QPointF pos)
 {
-    undo_stack.push(new Create_Node(new Node(pos,&graph),this));
+    Node* node = new Node(pos,&graph);
+    undo_stack.push(new Create_Node(node,this));
+    return node;
 }
+
+Edge *Knot_View::add_edge(Node *n1, Node *n2)
+{
+    /// \todo centralized edge style management (in Resource_Manager)
+    Edge* e = new Edge(n1,n2,new Edge_Normal,&graph);
+    undo_stack.push(new Create_Edge(e,this));
+    return e;
+}
+
 
 void Knot_View::zoom_view(double factor)
 {
@@ -85,6 +99,16 @@ void Knot_View::set_zoom(double factor)
     emit zoomed(100*factor);
 }
 
+void Knot_View::set_mode_edit_graph()
+{
+    mouse_mode = EDIT_GRAPH;
+}
+
+void Knot_View::set_mode_edge_chain()
+{
+    mouse_mode = EDGE_CHAIN;
+}
+
 void Knot_View::expand_scene_rect(int margin)
 {
     QRectF vp ( mapToScene(-margin,-margin),
@@ -102,26 +126,70 @@ void Knot_View::expand_scene_rect(int margin)
 
 void Knot_View::mousePressEvent(QMouseEvent *event)
 {
-    if ( event->button() == Qt::LeftButton )
+    QPoint mpos = event->pos();
+    QPointF snapped_scene_pos = grid.nearest(mapToScene(mpos));
+
+    if ( mouse_mode & MOVE_BACK )
     {
-        add_node(mapToScene(event->pos()));
+        /// \todo
     }
-    else if ( event->buttons() & Qt::MiddleButton )
+    else
     {
-        setCursor(Qt::ClosedHandCursor);
+        if ( event->buttons() & Qt::MiddleButton )
+        {
+            // drag view
+            setCursor(Qt::ClosedHandCursor);
+        }
+        else if ( mouse_mode & EDIT_GRAPH && event->buttons() & Qt::LeftButton )
+        {
+            /// \todo drag selection
+        }
+        else if ( mouse_mode & EDIT_GRAPH || event->buttons() & Qt::RightButton )
+        {
+            scene()->clearSelection();
+            last_node = nullptr;
+            /// \todo begin rubberband
+        }
+        else if ( mouse_mode & EDGE_CHAIN  && event->button() == Qt::LeftButton )
+        {
+            Node* next_node = add_node(snapped_scene_pos);
+            if ( last_node != nullptr )
+                add_edge(last_node,next_node);
+            last_node = next_node;
+            /// \todo guide
+        }
+
     }
-    move_center = event->pos();
+    move_center = mpos;
 }
 
 void Knot_View::mouseMoveEvent(QMouseEvent *event)
 {
+    QPoint mpos = event->pos();
+    //QPointF snapped_scene_pos = grid.nearest(mapToScene(mpos));
+
+    /// \todo move grid/bg
+
     if ( event->buttons() & Qt::MiddleButton  )
     {
-        QPointF delta = event->pos()-move_center;
+        QPointF delta = mpos-move_center;
         delta /= get_zoom_factor(); // take scaling into account
         translate_view(delta);
-        move_center = event->pos();
     }
+    else if ( mouse_mode & EDIT_GRAPH && event->buttons() & Qt::LeftButton )
+    {
+        /// \todo drag selection
+    }
+    else if ( mouse_mode & EDIT_GRAPH || event->buttons() & Qt::RightButton )
+    {
+        /// \todo update rubberband
+    }
+    else if ( mouse_mode & EDGE_CHAIN && event->button() == Qt::LeftButton )
+    {
+        /// \todo guide
+    }
+
+    move_center = mpos;
 }
 
 void Knot_View::mouseReleaseEvent(QMouseEvent *)

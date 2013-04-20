@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "graph.hpp"
 
 Graph::Graph(QObject *parent) :
-    QObject(parent)
+    QObject(parent), paint_mode(Paint_Knot)
 {
 }
 

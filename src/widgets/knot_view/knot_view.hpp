@@ -37,11 +37,24 @@ class Knot_View : public QGraphicsView
     Q_OBJECT
 
     friend class Knot_Command;
+    enum Mouse_Mode_Enum
+    {
+        EDIT_GRAPH = 0x001, ///< Move and select
+        EDGE_CHAIN = 0x002, ///< Keep inserting connected node, RMB selects
+        MOVE_GRID  = 0x110, ///< \todo Move grid origin
+        MOVE_BG_IMG= 0x120, ///< \todo Move background image
+        MOVE_BACK  = 0x100, ///< Moving either grid or image
+        MOVE_BACK_M= MOVE_GRID|MOVE_BG_IMG ///< Mask with both MOVE_GRID and MOVE_BG_IMG
+    };
+    Q_DECLARE_FLAGS(Mouse_Mode,Mouse_Mode_Enum)
+
 
     QPoint          move_center; ///< Point aligned to the cursor during movement
     Graph           graph;
     QUndoStack      undo_stack;
     Snapping_Grid   grid;
+    Mouse_Mode      mouse_mode;
+    Node*           last_node;  ///< Last node in a chain
 
 public:
 
@@ -61,7 +74,21 @@ public:
      */
     void translate_view(QPointF delta);
 
-    void add_node(QPointF pos);
+    /**
+     *  Creates a node in the given location
+     *
+     *  \return The created node
+    */
+    Node* add_node(QPointF pos);
+
+    /**
+     *  \brief Creates an edge connecting the given nodes
+     *
+     *  \pre n1 and n2 must be in the scene and in the graph
+     *
+     *  \return The newly created edge
+     */
+    Edge* add_edge(Node*n1,Node*n2);
 
     /**
      *  \brief Get the grobal zoom factor
@@ -69,7 +96,6 @@ public:
      *  \return A value representing the scaling factor, 1 = 100%
     */
     double get_zoom_factor() const { return transform().m11(); }
-
 
 public slots:
     /**
@@ -88,6 +114,16 @@ public slots:
      *  \param factor scaling factor ( 1 = no zoom )
      */
     void set_zoom(double factor);
+
+    /**
+     *  Sets mouse mode to edit graph
+     */
+    void set_mode_edit_graph();
+
+    /**
+     *  Sets mouse mode to edge chain
+     */
+    void set_mode_edge_chain();
 
 signals:
 

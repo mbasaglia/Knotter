@@ -60,3 +60,26 @@ void Create_Node::retranslate()
     setText(tr("Create Node"));
 }
 
+
+Create_Edge::Create_Edge(Edge *edge, Knot_View *kv)
+    : Knot_Command(kv), edge(edge)
+{
+    retranslate();
+}
+
+void Create_Edge::undo()
+{
+    scene->removeItem(edge);
+    graph->remove_edge(edge);
+}
+
+void Create_Edge::redo()
+{
+    scene->addItem(edge);
+    graph->add_edge(edge);
+}
+
+void Create_Edge::retranslate()
+{
+    setText(tr("Create Edge"));
+}
