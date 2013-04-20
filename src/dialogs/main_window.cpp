@@ -92,7 +92,6 @@ void Main_Window::init_menus()
 
 
     // Menu View
-    /// \todo docks
     QActionGroup* display_mode = new QActionGroup(this);
     display_mode->addAction(action_Normal);
     display_mode->addAction(action_Highlight_Links);
@@ -139,6 +138,7 @@ void Main_Window::init_statusbar()
 
 void Main_Window::init_docks()
 {
+
     // Action History Dock
     undo_view = new QUndoView(&undo_group);
     QDockWidget* undo_dock  = new QDockWidget;
@@ -156,6 +156,12 @@ void Main_Window::init_docks()
     connect(&undo_group,SIGNAL(canRedoChanged(bool)),action_Redo,SLOT(setEnabled(bool)));
     connect(action_Undo,SIGNAL(triggered()),&undo_group,SLOT(undo()));
     connect(action_Redo,SIGNAL(triggered()),&undo_group,SLOT(redo()));
+
+
+    // Menu entry
+
+    foreach(QDockWidget* dw, findChildren<QDockWidget*>())
+        menu_Docks->insertAction(0,dw->toggleViewAction());
 }
 
 void Main_Window::load_config()

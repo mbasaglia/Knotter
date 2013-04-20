@@ -61,24 +61,16 @@ void Knot_View::translate_view(QPointF delta)
 
 Node* Knot_View::add_node(QPointF pos)
 {
-    Node* node = node_at(pos);
-    if ( !node )
-    {
-        node = new Node(pos);
-        undo_stack.push(new Create_Node(node,this));
-    }
+    Node* node = new Node(pos);
+    undo_stack.push(new Create_Node(node,this));
     return node;
 }
 
 Edge *Knot_View::add_edge(Node *n1, Node *n2)
 {
     /// \todo centralized edge style management (in Resource_Manager)
-    Edge* e = n1->edge_to(n2);
-    if ( e == nullptr )
-    {
-        e = new Edge(n1,n2,new Edge_Normal);
-        undo_stack.push(new Create_Edge(e,this));
-    }
+    Edge* e = new Edge(n1,n2,new Edge_Normal);
+    undo_stack.push(new Create_Edge(e,this));
     return e;
 }
 
@@ -184,9 +176,10 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
 
             undo_stack.beginMacro(title);
 
-            next_node = add_node(snapped_scene_pos);
+            if ( !next_node )/// \todo break existing edges
+                next_node = add_node(snapped_scene_pos);
 
-            if ( last_node )
+            if ( last_node && !next_edge )
                 add_edge(last_node,next_node);
 
             undo_stack.push(new Last_Node(last_node,next_node,this));
@@ -194,8 +187,10 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
             undo_stack.endMacro();
 
             if ( !guide.scene() )
+            {
+                guide.setLine(QLineF(last_node->pos(),snapped_scene_pos));
                 scene()->addItem(&guide);
-            /// \todo handle undo on edge loop mode so that changes last_node
+            }
         }
 
     }

@@ -82,18 +82,12 @@ public:
     /**
      *  \brief Creates a node in the given location
      *
-     *  If there is already a node at that location, that node is returned and
-     *  no new node is created
-     *
      *  \return The created node
     */
     Node* add_node(QPointF pos);
 
     /**
      *  \brief Creates an edge connecting the given nodes
-     *
-     *  If there is already an edge between the nodes, that one is returned and
-     *  no new edge is created
      *
      *  \pre n1 and n2 must be in the scene and in the graph
      *
