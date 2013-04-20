@@ -43,10 +43,11 @@ protected:
     Graph*          graph;
     QGraphicsScene* scene;
 
+    void set_last_node(Node* n);
+
 public:
     Knot_Command(Knot_View* view)
         : view(view), graph(&view->graph), scene(view->scene()) {}
-    virtual void retranslate() = 0;
 
 };
 
@@ -59,7 +60,6 @@ public:
     Create_Node(Node* node, Knot_View* kv);
     void undo() override;
     void redo() override;
-    void retranslate() override;
     ~Create_Node();
 };
 
@@ -72,8 +72,23 @@ public:
     Create_Edge(Edge* edge, Knot_View* kv);
     void undo() override;
     void redo() override;
-    void retranslate() override;
     ~Create_Edge();
+};
+
+/**
+ *  Used to change view->last_node
+ */
+class Last_Node : public Knot_Command
+{
+    Q_OBJECT
+
+    Node* node_before;
+    Node* node_after;
+public:
+    Last_Node(Node* node_before, Node* node_after, Knot_View* kv);
+    void undo() override;
+    void redo() override;
+
 };
 
 #endif // COMMANDS_HPP

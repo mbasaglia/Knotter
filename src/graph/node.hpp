@@ -68,6 +68,12 @@ public:
      */
     bool has_edge_to(const Node*n) const;
 
+
+    /**
+     *  Get the edge from this node to the given node
+     */
+    Edge* edge_to(const Node*n) const;
+
     double distance_squared(QPointF to) const;
 
     QList<Edge*> connections() const { return edges; }

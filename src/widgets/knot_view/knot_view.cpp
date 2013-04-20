@@ -73,8 +73,12 @@ Node* Knot_View::add_node(QPointF pos)
 Edge *Knot_View::add_edge(Node *n1, Node *n2)
 {
     /// \todo centralized edge style management (in Resource_Manager)
-    Edge* e = new Edge(n1,n2,new Edge_Normal);
-    undo_stack.push(new Create_Edge(e,this));
+    Edge* e = n1->edge_to(n2);
+    if ( e == nullptr )
+    {
+        e = new Edge(n1,n2,new Edge_Normal);
+        undo_stack.push(new Create_Edge(e,this));
+    }
     return e;
 }
 
@@ -130,7 +134,7 @@ void Knot_View::expand_scene_rect(int margin)
 
 Node *Knot_View::node_at(QPointF p) const
 {
-    return qgraphicsitem_cast<Node*>(scene()->itemAt(p,QTransform()));
+    return dynamic_cast<Node*>(scene()->itemAt(p,QTransform()));
 }
 
 
@@ -166,15 +170,29 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
         }
         else if ( mouse_mode & EDGE_CHAIN  && event->button() == Qt::LeftButton )
         {
-            if ( last_node != nullptr )
-                undo_stack.beginMacro(tr("Add Edge"));
-            Node* next_node = add_node(snapped_scene_pos);
-            if ( last_node != nullptr )
-            {
+            Node* next_node = node_at(snapped_scene_pos);
+            Edge* next_edge = last_node && next_node ? last_node->edge_to(next_node) : nullptr;
+
+            QString title;
+
+            if ( next_edge )
+                title = tr("Move Ahead");
+            else if ( !last_node )
+                title = tr("Create Node");
+            else
+                title = tr("Add Edge");
+
+            undo_stack.beginMacro(title);
+
+            next_node = add_node(snapped_scene_pos);
+
+            if ( last_node )
                 add_edge(last_node,next_node);
-                undo_stack.endMacro();
-            }
-            last_node = next_node;
+
+            undo_stack.push(new Last_Node(last_node,next_node,this));
+
+            undo_stack.endMacro();
+
             if ( !guide.scene() )
                 scene()->addItem(&guide);
             /// \todo handle undo on edge loop mode so that changes last_node

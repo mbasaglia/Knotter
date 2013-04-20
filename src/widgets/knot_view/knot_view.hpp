@@ -37,6 +37,7 @@ class Knot_View : public QGraphicsView
     Q_OBJECT
 
     friend class Knot_Command;
+
     enum Mouse_Mode_Enum
     {
         EDIT_GRAPH = 0x001, ///< Move and select
@@ -54,7 +55,7 @@ class Knot_View : public QGraphicsView
     QUndoStack          undo_stack;
     Snapping_Grid       grid;
     Mouse_Mode          mouse_mode;
-    Node*               last_node;  ///< Last node in a chain
+    Node*               last_node;   ///< Last node in a chain
     QGraphicsLineItem   guide;       ///< Tiny line showing the edge being edited
     QGraphicsRectItem   rubberband;  ///< Draggable selection rectangle
 

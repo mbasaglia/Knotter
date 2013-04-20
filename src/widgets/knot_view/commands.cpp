@@ -34,11 +34,21 @@ int Knot_Command::generate_id()
     return auto_id++;
 }
 
+void Knot_Command::set_last_node(Node *n)
+{
+    view->last_node = n;
+    if ( !n && view->guide.scene() )
+        scene->removeItem(&view->guide);
+    else if ( n )
+    {
+        view->guide.setLine(QLineF(n->pos(),view->guide.line().p2()));
+    }
+}
 
 Create_Node::Create_Node(Node *node, Knot_View *kv)
     : Knot_Command(kv), node(node)
 {
-    retranslate();
+    setText(tr("Create Node"));
 }
 
 
@@ -46,18 +56,14 @@ void Create_Node::undo()
 {
     graph->remove_node(node);
     scene->removeItem(node);
-
 }
 
 void Create_Node::redo()
 {
     graph->add_node(node);
+    scene->addItem(node);
 }
 
-void Create_Node::retranslate()
-{
-    setText(tr("Create Node"));
-}
 
 Create_Node::~Create_Node()
 {
@@ -68,7 +74,7 @@ Create_Node::~Create_Node()
 Create_Edge::Create_Edge(Edge *edge, Knot_View *kv)
     : Knot_Command(kv), edge(edge)
 {
-    retranslate();
+    setText(tr("Create Edge"));
 }
 
 void Create_Edge::undo()
@@ -80,14 +86,27 @@ void Create_Edge::undo()
 void Create_Edge::redo()
 {
     graph->add_edge(edge);
+    scene->addItem(edge);
 }
 
-void Create_Edge::retranslate()
-{
-    setText(tr("Create Edge"));
-}
 
 Create_Edge::~Create_Edge()
 {
     delete edge;
+}
+
+
+Last_Node::Last_Node(Node *node_before, Node *node_after, Knot_View *kv)
+    : Knot_Command(kv), node_before(node_before), node_after(node_after)
+{
+}
+
+void Last_Node::undo()
+{
+    set_last_node(node_before);
+}
+
+void Last_Node::redo()
+{
+    set_last_node(node_after);
 }

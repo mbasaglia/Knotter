@@ -56,6 +56,16 @@ bool Node::has_edge_to(const Node *n) const
     return false;
 }
 
+Edge *Node::edge_to(const Node *n) const
+{
+    foreach(Edge* e, edges)
+    {
+        if ( e->other(this) == n )
+            return e;
+    }
+    return nullptr;
+}
+
 double Node::distance_squared(QPointF to) const
 {
     return point_distance_squared(pos(),to);

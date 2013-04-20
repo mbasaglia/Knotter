@@ -33,14 +33,12 @@ Graph::Graph(QObject *parent) :
 void Graph::add_node(Node *n)
 {
     nodes.append(n);
-    n->setParentItem(this);
     connect(n,SIGNAL(moved(QPointF)),this,SLOT(update()));
 }
 
 void Graph::add_edge(Edge *e)
 {
     edges.append(e);
-    e->setParentItem(this);
     e->vertex1()->add_edge(e);
     e->vertex2()->add_edge(e);
     update();

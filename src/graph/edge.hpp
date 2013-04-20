@@ -83,7 +83,7 @@ public:
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem* =0, QWidget* =0) override;
-    int type() const override { return UserType + 0x01; }
+    int type() const override { return UserType + 0x02; }
 
 public slots:
     /**
