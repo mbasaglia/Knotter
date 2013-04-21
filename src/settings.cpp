@@ -37,6 +37,10 @@ void Settings::load_config()
 
     /// \todo performance
 
+    /// \todo recent files
+
+    /// \todo render mode (plain or loops)
+
     settings.beginGroup("gui");
 
 
@@ -74,7 +78,6 @@ void Settings::load_config()
 
     settings.endGroup();//gui
 
-    /// \todo recent files
 
     /// \todo style, grid
 

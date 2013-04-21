@@ -73,24 +73,28 @@ double Node::distance_squared(QPointF to) const
 
 void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
+    QRectF r(-radius,-radius,radius*2,radius*2);
 
     if ( isSelected() )
     {
         painter->setPen(QPen(Qt::darkGray,2));
         painter->setBrush(Qt::white);
-        painter->drawRect(boundingRect());
+        painter->drawRect(r);
     }
 
 
     painter->setPen(Qt::black);
 
     if ( isVisible() && highlighted )
+    {
         painter->setBrush(QColor("#ffcc00"));
+        r = boundingRect();
+    }
     else if ( isVisible() || highlighted )
         painter->setBrush(QColor("#ff4400"));
     else
         return;
-    painter->drawEllipse(boundingRect());
+    painter->drawEllipse(r);
 
 }
 
@@ -99,7 +103,7 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 
 QRectF Node::boundingRect() const
 {
-    return QRectF(-xradius/2,-xradius/2,xradius,xradius);
+    return QRectF(-xradius,-xradius,xradius*2,xradius*2);
 }
 
 void Node::move(QPointF p)

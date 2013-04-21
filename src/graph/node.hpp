@@ -40,9 +40,9 @@ class Node : public Graph_Item
 
 private:
     QList<Edge*> edges;
-    static const int radius = 6; ///< \todo maybe not const and settings
+    static const int radius = 5; ///< \todo maybe not const and settings
     /// Extended radius
-    static const int xradius = 7; ///< \todo maybe not const and settings
+    static const int xradius = 6; ///< \todo maybe not const and settings
     /// \todo node style: pointer or value?
 
 public:

@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QScrollBar>
 #include <QDebug>
 #include "commands.hpp"
+#include <QApplication>
 
 Knot_View::Knot_View(QString file)
     : mouse_mode(EDIT_GRAPH), last_node(nullptr)
@@ -51,6 +52,13 @@ Knot_View::Knot_View(QString file)
             this,SLOT(update_scrollbars()));
 
     guide.setPen(QPen(Qt::gray,1,Qt::DashLine));
+
+
+    QColor bg = QApplication::palette().color(QPalette::Highlight);
+    rubberband.setPen(QPen(bg));
+    bg.setAlpha(128);
+    rubberband.setBrush(bg);
+    rubberband.setZValue(100);
 }
 
 void Knot_View::translate_view(QPointF delta)
@@ -152,13 +160,15 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
         }
         else if ( mouse_mode & EDIT_GRAPH && event->buttons() & Qt::LeftButton )
         {
-            /// \todo drag selection
+            /// \todo move selected nodes
         }
         else if ( mouse_mode & EDIT_GRAPH || event->buttons() & Qt::RightButton )
         {
-            scene()->clearSelection();
+            // drag rubberband selection
             last_node = nullptr;
-            /// \todo begin rubberband
+            rubberband.setPos(mapToScene(mpos));
+            rubberband.setRect(0,0,0,0);
+            scene()->addItem(&rubberband);
         }
         else if ( mouse_mode & EDGE_CHAIN  && event->button() == Qt::LeftButton )
         {
@@ -186,7 +196,7 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
 
             undo_stack.endMacro();
 
-            if ( !guide.scene() )
+            //if ( !guide.scene() )
             {
                 guide.setLine(QLineF(last_node->pos(),snapped_scene_pos));
                 scene()->addItem(&guide);
@@ -206,17 +216,20 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
 
     if ( event->buttons() & Qt::MiddleButton  )
     {
+        // drag view
         QPointF delta = mpos-move_center;
         delta /= get_zoom_factor(); // take scaling into account
         translate_view(delta);
     }
-    else if ( mouse_mode & EDIT_GRAPH && event->buttons() & Qt::LeftButton )
+    /*else if ( mouse_mode & EDIT_GRAPH && event->buttons() & Qt::LeftButton )
     {
-        /// \todo drag selection
-    }
+        /// \todo move selected nodes
+    }*/
     else if ( mouse_mode & EDIT_GRAPH || event->buttons() & Qt::RightButton )
     {
-        /// \todo update rubberband
+        // update rubberband
+        rubberband.setRect(QRectF(QPointF(0,0),mapToScene(mpos)-rubberband.pos())
+                            .normalized());
     }
     else if ( mouse_mode & EDGE_CHAIN )
     {
@@ -227,9 +240,27 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
     move_center = mpos;
 }
 
-void Knot_View::mouseReleaseEvent(QMouseEvent *)
+void Knot_View::mouseReleaseEvent(QMouseEvent *event)
 {
     setCursor(Qt::ArrowCursor);
+
+    if ( (mouse_mode & EDIT_GRAPH && !event->buttons() & Qt::LeftButton)
+         || event->button() == Qt::RightButton )
+    {
+        // select from rubberband;
+        scene()->removeItem(&rubberband);
+
+        QPainterPath pp;
+
+        if ( !(event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier)) )
+            scene()->clearSelection();
+        QList<QGraphicsItem*> sel = scene()->selectedItems();
+        pp.addRect(rubberband.rect());
+        pp.translate(rubberband.pos());
+        scene()->setSelectionArea(pp);
+        foreach(QGraphicsItem* itm, sel)
+            itm->setSelected(true);
+    }
 }
 
 void Knot_View::wheelEvent(QWheelEvent *event)
