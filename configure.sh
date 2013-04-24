@@ -381,7 +381,7 @@ case \$1 in
     long-desc) echo "Knotter is an editor for interlace patterns."
                echo " Knots drawn with Knotter can be exported as SVG or raster images."
     ;;
-    website) echo "http://www.knotdraw.org/" ;;
+    website) echo "http://knotter.mattbas.org/" ;;
     download) echo "http://sourceforge.net/projects/knotter/files/latest/download" ;;
     icon) echo "$datadir/img/$program_name-logo-big.svg" ;;
 _GET_DIR_

@@ -119,14 +119,14 @@ QList<QPainterPath> path_builder::build()
 
         paths.push_back(QPainterPath());
 
-        QPointF nextpoint = ll[0]->begin;
+        //QPointF nextpoint = ll[0]->begin;
 
-        paths.back().moveTo(nextpoint);
+        //paths.back().moveTo(nextpoint);
 
         foreach ( path_item::line* stroke, ll )
         {
             stroke->add_to(true,paths.back());
-            nextpoint = stroke->end;
+            //nextpoint = stroke->end;
         }
     }
 
