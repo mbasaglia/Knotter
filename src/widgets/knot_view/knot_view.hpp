@@ -45,10 +45,12 @@ class Knot_View : public QGraphicsView
         MOVE_GRID  = 0x110, ///< \todo Move grid origin
         MOVE_BG_IMG= 0x120, ///< \todo Move background image
         MOVE_BACK  = 0x100, ///< Moving either grid or image
-        MOVE_BACK_M= MOVE_GRID|MOVE_BG_IMG ///< Mask with both MOVE_GRID and MOVE_BG_IMG
+        MOVE_BACK_M= MOVE_GRID|MOVE_BG_IMG, ///< Mask with both MOVE_GRID and MOVE_BG_IMG
+
+        RUBBERBAND = 0x200, ///< Dragging the rubberband
+        MOVE_NODES = 0x400  ///< Moving the selection
     };
     Q_DECLARE_FLAGS(Mouse_Mode,Mouse_Mode_Enum)
-
 
     QPoint              move_center; ///< Point aligned to the cursor during movement
     Graph               graph;
@@ -87,6 +89,15 @@ public:
     Node* add_node(QPointF pos);
 
     /**
+     *  \brief Creates a node in the given location
+     *
+     *  If at location there is an edge, the node will split that edge
+     *
+     *  \return The created node
+    */
+    Node* add_breaking_node(QPointF pos);
+
+    /**
      *  \brief Creates an edge connecting the given nodes
      *
      *  \pre n1 and n2 must be in the scene and in the graph
@@ -96,11 +107,28 @@ public:
     Edge* add_edge(Node*n1,Node*n2);
 
     /**
+     *  \brief Removes an edge from the view and grph
+    */
+    void remove_edge(Edge* edge);
+
+    /**
+     *  \brief begins a command macro
+     */
+    void begin_macro(QString name) { undo_stack.beginMacro(name); }
+    /**
+     *  \brief ends a command macro
+     */
+    void end_macro() { undo_stack.endMacro(); }
+
+
+    /**
      *  \brief Get the grobal zoom factor
      *
      *  \return A value representing the scaling factor, 1 = 100%
     */
     double get_zoom_factor() const { return transform().m11(); }
+
+    QList<Node*> selected_nodes() const;
 
 public slots:
     /**
@@ -153,6 +181,18 @@ protected:
      *  \param margin optional margin to grow the visible area
     */
     void expand_scene_rect(int margin=0);
+
+    /**
+     *  \brief select nodes
+     *
+     *  If modifier is false, nodes will be the only selected node
+     *  If modifier is true and some of nodes are not selected
+     *  nodes and the previous selection will be both selected.
+     *  If modifier is true and all nodes are selected, they will be unselected
+     *
+     *  \return Whether nodes have been selected or deselected
+    */
+    bool mouse_select(QList<Node*> nodes,bool modifier);
     
 private slots:
     /// Expand scene rect when scrollbars reach margin
@@ -164,6 +204,16 @@ private:
      *  \return The found node or NULL
     */
     Node* node_at(QPointF p) const;
+
+    /// Returns all nodes within the rubberband rectangle
+    QList<Node*> nodes_in_rubberband() const;
+
+
+    /**
+     *  \brief Get edge at location
+     *  \return The found edge or NULL
+    */
+    Edge *edge_at(QPointF p) const;
 
 };
 

@@ -41,6 +41,7 @@ private:
     Node* v2;
     Edge_Style* m_style;
 
+    static const int shapew = 8; ///< Width ued for shape()
 public:
     explicit Edge(Node* v1, Node* v2, Edge_Style* e_style);
 
@@ -82,6 +83,7 @@ public:
     double distance_squared(QPointF to) const override;
 
     QRectF boundingRect() const override;
+    QPainterPath shape() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem* =0, QWidget* =0) override;
     int type() const override { return UserType + 0x02; }
 

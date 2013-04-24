@@ -91,4 +91,17 @@ public:
 
 };
 
+class Remove_Edge : public Knot_Command
+{
+    Q_OBJECT
+
+    Edge*          edge;
+public:
+    Remove_Edge(Edge* edge, Knot_View* kv);
+    void undo() override;
+    void redo() override;
+};
+
+
+
 #endif // COMMANDS_HPP

@@ -36,10 +36,10 @@ Edge::Edge(Node *v1, Node *v2, Edge_Style* e_style) :
 QRectF Edge::boundingRect() const
 {
     QRectF bb = QRectF(v1->pos(),v2->pos()).normalized();
-    bb.setTop(bb.top()-4);
-    bb.setLeft(bb.left()-4);
-    bb.setWidth(bb.width()+8);
-    bb.setHeight(bb.height()+8);
+    bb.setTop(bb.top()-shapew/2);
+    bb.setLeft(bb.left()-shapew/2);
+    bb.setWidth(bb.width()+shapew);
+    bb.setHeight(bb.height()+shapew);
     return bb;
 }
 
@@ -78,4 +78,19 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 double Edge::distance_squared(QPointF to) const
 {
      return line_point_distance_squared(v1->pos(),v2->pos(),to);
+}
+
+QPainterPath Edge::shape() const
+{
+
+    QPointF startp = v1->pos();
+    QPointF endp = v2->pos();
+
+    QPainterPath line;
+    line.moveTo(startp);
+    line.lineTo(endp);
+    QPainterPathStroker pps;
+    pps.setWidth(shapew);
+
+    return pps.createStroke(line);
 }

@@ -74,12 +74,51 @@ Node* Knot_View::add_node(QPointF pos)
     return node;
 }
 
+Node *Knot_View::add_breaking_node(QPointF pos)
+{
+    Edge* e = edge_at(pos);
+    if ( !e )
+        return add_node(pos);
+
+    Node* v1 = e->vertex1();
+    Node* v2 = e->vertex2();
+    QLineF oldline ( v1->pos(), v2->pos() );
+    QLineF newline ( v1->pos(), pos );
+    newline.setAngle( oldline.angle() );
+
+    begin_macro(tr("Break Edge"));
+    Node* new_node = add_node(newline.p2());
+    add_edge(v1,new_node);
+    add_edge(new_node,v2);
+    remove_edge(e);
+    end_macro();
+
+    return new_node;
+}
+
 Edge *Knot_View::add_edge(Node *n1, Node *n2)
 {
     /// \todo centralized edge style management (in Resource_Manager)
     Edge* e = new Edge(n1,n2,new Edge_Normal);
     undo_stack.push(new Create_Edge(e,this));
     return e;
+}
+
+void Knot_View::remove_edge(Edge *edge)
+{
+    undo_stack.push(new Remove_Edge(edge,this));
+}
+
+QList<Node *> Knot_View::selected_nodes() const
+{
+    QList<Node*> nl;
+    foreach ( QGraphicsItem* it, scene()->selectedItems() )
+    {
+        Node* n = dynamic_cast<Node*>(it);
+        if(n)
+            nl.push_back(n);
+    }
+    return nl;
 }
 
 
@@ -132,9 +171,40 @@ void Knot_View::expand_scene_rect(int margin)
     }
 }
 
+bool Knot_View::mouse_select(QList<Node *> nodes, bool modifier)
+{
+    bool select = true;
+    if ( !modifier )
+        scene()->clearSelection();
+    else
+    {
+        select = false;
+        foreach(Node* itm, nodes)
+        {
+            if ( !itm->isSelected() )
+            {
+                select = true;
+                break;
+            }
+        }
+    }
+
+
+    foreach(Node* itm, nodes)
+        itm->setSelected(select);
+
+    return select;
+}
+
 Node *Knot_View::node_at(QPointF p) const
 {
     return dynamic_cast<Node*>(scene()->itemAt(p,QTransform()));
+}
+
+
+Edge *Knot_View::edge_at(QPointF p) const
+{
+    return dynamic_cast<Edge*>(scene()->itemAt(p,QTransform()));
 }
 
 
@@ -142,7 +212,8 @@ Node *Knot_View::node_at(QPointF p) const
 void Knot_View::mousePressEvent(QMouseEvent *event)
 {
     QPoint mpos = event->pos();
-    QPointF snapped_scene_pos = grid.nearest(mapToScene(mpos));
+    QPointF scene_pos = mapToScene(mpos);
+    QPointF snapped_scene_pos = grid.nearest(scene_pos);
 
     if ( guide.scene() )
         scene()->removeItem(&guide);
@@ -160,15 +231,35 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
         }
         else if ( mouse_mode & EDIT_GRAPH && event->buttons() & Qt::LeftButton )
         {
-            /// \todo move selected nodes
+            Node* n = node_at(scene_pos);
+            Edge* e = edge_at(scene_pos);
+            QList<Node*> nodes;
+            if ( n )
+            {
+                nodes.push_back(n);
+            }
+            else if ( e )
+            {
+                nodes.push_back(e->vertex1());
+                nodes.push_back(e->vertex2());
+
+            }
+            else
+                mouse_mode |= RUBBERBAND;
+
+            if ( !(mouse_mode & RUBBERBAND) )
+            {
+                // not directly in condition because has side-effect
+                bool b = mouse_select(nodes,event->modifiers() &
+                                      (Qt::ControlModifier|Qt::ShiftModifier));
+                // move only if has selected, not if has deselected
+                if ( b )
+                    mouse_mode |= MOVE_NODES;
+            }
         }
         else if ( mouse_mode & EDIT_GRAPH || event->buttons() & Qt::RightButton )
         {
-            // drag rubberband selection
-            last_node = nullptr;
-            rubberband.setPos(mapToScene(mpos));
-            rubberband.setRect(0,0,0,0);
-            scene()->addItem(&rubberband);
+            mouse_mode |= RUBBERBAND;
         }
         else if ( mouse_mode & EDGE_CHAIN  && event->button() == Qt::LeftButton )
         {
@@ -184,23 +275,32 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
             else
                 title = tr("Add Edge");
 
-            undo_stack.beginMacro(title);
+            begin_macro(title);
 
-            if ( !next_node )/// \todo break existing edges
-                next_node = add_node(snapped_scene_pos);
+            if ( !next_node )
+                next_node = add_breaking_node(snapped_scene_pos);
 
             if ( last_node && !next_edge )
                 add_edge(last_node,next_node);
 
             undo_stack.push(new Last_Node(last_node,next_node,this));
 
-            undo_stack.endMacro();
+            end_macro();
 
             //if ( !guide.scene() )
             {
                 guide.setLine(QLineF(last_node->pos(),snapped_scene_pos));
                 scene()->addItem(&guide);
             }
+        }
+
+        if ( mouse_mode & RUBBERBAND )
+        {
+            // drag rubberband selection
+            last_node = nullptr;
+            rubberband.setPos(mapToScene(mpos));
+            rubberband.setRect(0,0,0,0);
+            scene()->addItem(&rubberband);
         }
 
     }
@@ -210,7 +310,8 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
 void Knot_View::mouseMoveEvent(QMouseEvent *event)
 {
     QPoint mpos = event->pos();
-    QPointF snapped_scene_pos = grid.nearest(mapToScene(mpos));
+    QPointF scene_pos = mapToScene(mpos);
+    QPointF snapped_scene_pos = grid.nearest(scene_pos);
 
     /// \todo move grid/bg
 
@@ -221,15 +322,22 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
         delta /= get_zoom_factor(); // take scaling into account
         translate_view(delta);
     }
-    /*else if ( mouse_mode & EDIT_GRAPH && event->buttons() & Qt::LeftButton )
-    {
-        /// \todo move selected nodes
-    }*/
-    else if ( mouse_mode & EDIT_GRAPH || event->buttons() & Qt::RightButton )
+    else if ( mouse_mode & RUBBERBAND )
     {
         // update rubberband
         rubberband.setRect(QRectF(QPointF(0,0),mapToScene(mpos)-rubberband.pos())
                             .normalized());
+    }
+    else if ( mouse_mode & MOVE_NODES )
+    {
+        // move selected nodes
+        grid.snap(scene_pos);
+        QPointF delta = mpos-move_center;
+        delta /= get_zoom_factor(); // take scaling into account
+        foreach(Node* n,selected_nodes())
+        {
+            n->setPos(n->pos()+delta);
+        }
     }
     else if ( mouse_mode & EDGE_CHAIN )
     {
@@ -238,28 +346,29 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
     }
 
     move_center = mpos;
+    scene()->invalidate();
 }
+
 
 void Knot_View::mouseReleaseEvent(QMouseEvent *event)
 {
     setCursor(Qt::ArrowCursor);
 
-    if ( (mouse_mode & EDIT_GRAPH && !event->buttons() & Qt::LeftButton)
-         || event->button() == Qt::RightButton )
+    if ( mouse_mode & RUBBERBAND )
     {
         // select from rubberband;
         scene()->removeItem(&rubberband);
 
         QPainterPath pp;
 
-        if ( !(event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier)) )
-            scene()->clearSelection();
-        QList<QGraphicsItem*> sel = scene()->selectedItems();
-        pp.addRect(rubberband.rect());
-        pp.translate(rubberband.pos());
-        scene()->setSelectionArea(pp);
-        foreach(QGraphicsItem* itm, sel)
-            itm->setSelected(true);
+        mouse_select(nodes_in_rubberband(),
+                     event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier) );
+
+        mouse_mode &= ~RUBBERBAND;
+    }
+    if ( mouse_mode & MOVE_NODES )
+    {
+        mouse_mode &=~ MOVE_NODES;
     }
 }
 
@@ -272,6 +381,22 @@ void Knot_View::wheelEvent(QWheelEvent *event)
         else
             zoom_view(1.25);
     }
+}
+
+
+
+QList<Node *> Knot_View::nodes_in_rubberband() const
+{
+    QList<QGraphicsItem*> items = scene()->items(QRectF(
+                            rubberband.rect().translated(rubberband.pos())));
+    QList<Node*> nodes;
+    foreach ( QGraphicsItem* item, items)
+    {
+        Node* n = dynamic_cast<Node*>(item);
+        if ( n )
+            nodes.push_back(n);
+    }
+    return nodes;
 }
 
 void Knot_View::drawBackground(QPainter *painter, const QRectF &rect)

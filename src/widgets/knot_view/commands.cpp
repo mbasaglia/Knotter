@@ -110,3 +110,23 @@ void Last_Node::redo()
 {
     set_last_node(node_after);
 }
+
+
+Remove_Edge::Remove_Edge(Edge *edge, Knot_View *kv)
+    : Knot_Command(kv), edge(edge)
+{
+    setText(tr("Remove Edge"));
+}
+
+void Remove_Edge::redo()
+{
+    graph->remove_edge(edge);
+    scene->removeItem(edge);
+}
+
+void Remove_Edge::undo()
+{
+    graph->add_edge(edge);
+    scene->addItem(edge);
+}
+
