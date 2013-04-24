@@ -29,7 +29,7 @@ AUTHOR="Mattia Basaglia"
 # Maintainer email
 EMAIL="mattia.basaglia@gmail.com"
 # Main website
-WEBSITE="http://www.knotdraw.org/"
+WEBSITE="http://knotter.mattbas.org/"
 # Direct link to the latest version
 DOWNLOAD="http://sourceforge.net/projects/knotter/files/latest/download"
 # Repo browser URL
