@@ -28,6 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMessageBox>
 #include "preferences_dialog.hpp"
 #include <QDockWidget>
+#include <QDesktopServices>
+#include <QUrl>
 
 
 Main_Window::Main_Window(QWidget *parent) :
@@ -113,6 +115,7 @@ void Main_Window::init_menus()
 
     // Menu Help
     action_Manual->setShortcut(QKeySequence::HelpContents);
+    connect(action_About_Qt,SIGNAL(triggered()),qApp, SLOT(aboutQt()));
 
 
 
@@ -350,4 +353,14 @@ void Main_Window::on_action_Reset_Zoom_triggered()
 void Main_Window::on_action_Reset_View_triggered()
 {
     view->resetTransform();
+}
+
+void Main_Window::on_action_Report_Bugs_triggered()
+{
+    QDesktopServices::openUrl(QUrl(BUG_URL));
+}
+
+void Main_Window::on_action_Manual_triggered()
+{
+    QDesktopServices::openUrl(QUrl(DOC_URL));
 }

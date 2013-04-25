@@ -178,6 +178,10 @@
      <string>&amp;Help</string>
     </property>
     <addaction name="action_Manual"/>
+    <addaction name="separator"/>
+    <addaction name="action_Report_Bugs"/>
+    <addaction name="separator"/>
+    <addaction name="action_About_Qt"/>
     <addaction name="action_About"/>
    </widget>
    <widget class="QMenu" name="menu_Plugins">
@@ -738,7 +742,7 @@
     </iconset>
    </property>
    <property name="text">
-    <string>&amp;About...</string>
+    <string>&amp;About Knotter...</string>
    </property>
   </action>
   <action name="action_Export">
@@ -792,6 +796,19 @@
    </property>
    <property name="text">
     <string>&amp;Configure Plugins...</string>
+   </property>
+  </action>
+  <action name="action_About_Qt">
+   <property name="text">
+    <string>About &amp;Qt...</string>
+   </property>
+  </action>
+  <action name="action_Report_Bugs">
+   <property name="icon">
+    <iconset theme="tools-report-bug"/>
+   </property>
+   <property name="text">
+    <string>Report &amp;Bugs..</string>
    </property>
   </action>
  </widget>

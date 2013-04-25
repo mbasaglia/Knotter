@@ -58,6 +58,8 @@ isEmpty(BINDIR){
 
 DEFINES += "VERSION=\\\"$${VERSION}\\\""
 DEFINES += "DATA_DIR=\\\"$${DATADIR}\\\""
+DEFINES += "BUG_URL=\\\"$${BUGS}\\\""
+DEFINES += "DOC_URL=\\\"$${DOC_URL}\\\""
 contains(CONFIG,debug) {
     DEFINES += "DEBUG=1"
 }

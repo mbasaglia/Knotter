@@ -19,7 +19,7 @@
   <layout class="QGridLayout" name="gridLayout_4">
    <item row="0" column="0">
     <widget class="QWidget" name="central_widget" native="true">
-     <layout class="QGridLayout">
+     <layout class="QGridLayout" name="gridLayout1">
       <item row="0" column="0">
        <widget class="QGroupBox" name="check_enable">
         <property name="title">
