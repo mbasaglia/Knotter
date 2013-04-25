@@ -138,6 +138,9 @@ void Main_Window::init_statusbar()
 
 void Main_Window::init_docks()
 {
+    // Grid config
+    dock_grid = new Dock_Grid(this);
+    addDockWidget(Qt::RightDockWidgetArea,dock_grid);
 
     // Action History Dock
     undo_view = new QUndoView(&undo_group);
@@ -146,7 +149,8 @@ void Main_Window::init_docks()
     undo_dock->setObjectName("Action_History");
     undo_dock->setWindowTitle(tr("Action History"));
     addDockWidget(Qt::RightDockWidgetArea,undo_dock);
-    undo_dock->show();
+    tabifyDockWidget(undo_dock,dock_grid);
+    undo_dock->raise();
 
 
     connect(&undo_group,SIGNAL(cleanChanged(bool)),SLOT(set_clean_icon(bool)));
@@ -158,8 +162,8 @@ void Main_Window::init_docks()
     connect(action_Redo,SIGNAL(triggered()),&undo_group,SLOT(redo()));
 
 
-    // Menu entry
 
+    // Menu entries
     foreach(QDockWidget* dw, findChildren<QDockWidget*>())
         menu_Docks->insertAction(0,dw->toggleViewAction());
 }

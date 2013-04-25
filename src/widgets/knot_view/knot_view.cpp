@@ -213,7 +213,7 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
 {
     QPoint mpos = event->pos();
     QPointF scene_pos = mapToScene(mpos);
-    QPointF snapped_scene_pos = grid.nearest(scene_pos);
+    QPointF snapped_scene_pos = m_grid.nearest(scene_pos);
 
     if ( guide.scene() )
         scene()->removeItem(&guide);
@@ -311,7 +311,7 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
 {
     QPoint mpos = event->pos();
     QPointF scene_pos = mapToScene(mpos);
-    QPointF snapped_scene_pos = grid.nearest(scene_pos);
+    QPointF snapped_scene_pos = m_grid.nearest(scene_pos);
 
     /// \todo move grid/bg
 
@@ -331,7 +331,7 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
     else if ( mouse_mode & MOVE_NODES )
     {
         // move selected nodes
-        grid.snap(scene_pos);
+        m_grid.snap(scene_pos);
         QPointF delta = mpos-move_center;
         delta /= get_zoom_factor(); // take scaling into account
         foreach(Node* n,selected_nodes())
@@ -403,5 +403,5 @@ void Knot_View::drawBackground(QPainter *painter, const QRectF &rect)
 {
     painter->fillRect(rect,backgroundBrush());
     /// \todo background image
-    grid.render(painter,rect);
+    m_grid.render(painter,rect);
 }

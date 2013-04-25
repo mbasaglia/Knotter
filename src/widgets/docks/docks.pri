@@ -13,31 +13,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Base configutation
 INCLUDEPATH += $$PWD
 
-include($$PWD/dialogs/dialogs.pri)
-include($$PWD/graph/graph.pri)
-include($$PWD/scripting/scripting.pri)
-
-#widgets
-
-
-include($$PWD/widgets/color/color_widgets.pri)
-include($$PWD/widgets/toolbar_editor/toolbar_editor.pri)
-include($$PWD/widgets/tabwidget/extended_tabwidget.pri)
-include($$PWD/widgets/knot_view/knot_view.pri)
-include($$PWD/widgets/docks/docks.pri)
-
+HEADERS += \
+    $$PWD/dock_grid.hpp
 
 SOURCES += \
-    $$PWD/main.cpp \
-    $$PWD/resource_manager.cpp \
-    $$PWD/settings.cpp \
-    $$PWD/string_toolbar.cpp
+    $$PWD/dock_grid.cpp
 
-HEADERS += \
-    $$PWD/resource_manager.hpp \
-    $$PWD/settings.hpp \
-    $$PWD/string_toolbar.hpp \
-    $$PWD/c++.hpp
+FORMS += \
+    $$PWD/dock_grid.ui

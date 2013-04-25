@@ -55,7 +55,7 @@ class Knot_View : public QGraphicsView
     QPoint              move_center; ///< Point aligned to the cursor during movement
     Graph               graph;
     QUndoStack          undo_stack;
-    Snapping_Grid       grid;
+    Snapping_Grid       m_grid;
     Mouse_Mode          mouse_mode;
     Node*               last_node;   ///< Last node in a chain
     QGraphicsLineItem   guide;       ///< Tiny line showing the edge being edited
@@ -69,6 +69,8 @@ public:
     Knot_View ( QString file );
 
     QUndoStack* undo_stack_pointer() { return &undo_stack; }
+
+    Snapping_Grid& grid() { return m_grid; }
 
     /// Overload QGraphicsView::translate
     void translate(QPointF d) { QGraphicsView::translate(d.x(),d.y()); }
