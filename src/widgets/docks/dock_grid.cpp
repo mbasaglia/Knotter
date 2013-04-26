@@ -31,7 +31,7 @@ Dock_Grid::Dock_Grid(QWidget *parent) :
 {
     setupUi(this);
     setWidget(central_widget);
-    connect(button_move,SIGNAL(clicked()),SIGNAL(move_grid()));
+    connect(button_move,SIGNAL(clicked()),SIGNAL(move_grid()));/// \todo connect in mainwindow
 }
 
 void Dock_Grid::set_grid(Snapping_Grid *target_grid)

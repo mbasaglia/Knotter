@@ -164,6 +164,12 @@ void Knot_View::set_mode_edge_chain()
     mouse_mode = EDGE_CHAIN;
 }
 
+void Knot_View::set_mode_move_grid()
+{
+    mouse_mode |= MOVE_GRID;
+    setCursor(Qt::SizeAllCursor);
+}
+
 void Knot_View::expand_scene_rect(int margin)
 {
     QRectF vp ( mapToScene(-margin,-margin),
@@ -222,18 +228,19 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
     if ( guide.scene() )
         scene()->removeItem(&guide);
 
-    if ( mouse_mode & MOVE_BACK )
+
+    if ( event->buttons() & Qt::MiddleButton )
     {
-        /// \todo
+        // drag view
+        setCursor(Qt::ClosedHandCursor);
+    }
+    else if ( mouse_mode & MOVE_BACK)
+    {
+        mouse_mode &= ~MOVE_BACK_M;
     }
     else
     {
-        if ( event->buttons() & Qt::MiddleButton )
-        {
-            // drag view
-            setCursor(Qt::ClosedHandCursor);
-        }
-        else if ( mouse_mode & EDIT_GRAPH && event->buttons() & Qt::LeftButton )
+        if ( mouse_mode & EDIT_GRAPH && event->buttons() & Qt::LeftButton )
         {
             Node* n = node_at(scene_pos);
             Edge* e = edge_at(scene_pos);
@@ -317,14 +324,28 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
     QPointF scene_pos = mapToScene(mpos);
     QPointF snapped_scene_pos = m_grid.nearest(scene_pos);
 
+
+    QPointF delta = mpos-move_center;
+    delta /= get_zoom_factor(); // take scaling into account
+
     /// \todo move grid/bg
 
     if ( event->buttons() & Qt::MiddleButton  )
     {
         // drag view
-        QPointF delta = mpos-move_center;
-        delta /= get_zoom_factor(); // take scaling into account
         translate_view(delta);
+    }
+    else if ( mouse_mode & MOVE_BACK )
+    {
+        Node* n = node_at(scene_pos);
+        if ( mouse_mode & MOVE_GRID )
+        {
+            if ( n )
+                m_grid.set_origin(n->pos());
+            else
+                m_grid.set_origin(scene_pos);
+        }
+
     }
     else if ( mouse_mode & RUBBERBAND )
     {
@@ -335,9 +356,8 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
     else if ( mouse_mode & MOVE_NODES )
     {
         // move selected nodes
-        m_grid.snap(scene_pos);
-        QPointF delta = mpos-move_center;
-        delta /= get_zoom_factor(); // take scaling into account
+        /// \todo snap to grid
+        //m_grid.snap(scene_pos);
         foreach(Node* n,selected_nodes())
         {
             n->setPos(n->pos()+delta);
@@ -370,10 +390,16 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
 
         mouse_mode &= ~RUBBERBAND;
     }
-    if ( mouse_mode & MOVE_NODES )
+    else if ( mouse_mode & MOVE_NODES )
     {
         mouse_mode &=~ MOVE_NODES;
     }
+    else if ( mouse_mode & MOVE_BACK )
+    {
+        if ( event->button() == Qt::MiddleButton )
+            setCursor(Qt::SizeAllCursor);
+    }
+
 }
 
 void Knot_View::wheelEvent(QWheelEvent *event)

@@ -160,6 +160,13 @@ public slots:
      */
     void set_mode_edge_chain();
 
+    /**
+     *  \brief Sets mouse mode to move grid
+     *
+     *  This will be reset on the next mouse click
+     */
+    void set_mode_move_grid();
+
 signals:
 
     /// emitted when the graph structure or style is changed

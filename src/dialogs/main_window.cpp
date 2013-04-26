@@ -223,6 +223,7 @@ void Main_Window::connect_view(Knot_View *v)
 
     // grid editor
     dock_grid->set_grid(&v->grid());
+    connect(dock_grid,SIGNAL(move_grid()),v,SLOT(set_mode_move_grid()));
 
 }
 
@@ -231,6 +232,7 @@ void Main_Window::disconnect_view(Knot_View *v)
     if ( v != nullptr )
     {
         disconnect(v,SIGNAL(zoomed(double)),zoomer,SLOT(setValue(double)));
+        disconnect(dock_grid,SIGNAL(move_grid()),v,SLOT(set_mode_move_grid()));
     }
 }
 
