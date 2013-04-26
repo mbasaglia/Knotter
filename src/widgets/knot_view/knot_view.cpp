@@ -181,11 +181,14 @@ void Knot_View::expand_scene_rect(int margin)
     }
 }
 
-bool Knot_View::mouse_select(QList<Node *> nodes, bool modifier)
+bool Knot_View::mouse_select(QList<Node *> nodes, bool modifier, bool clear)
 {
     bool select = true;
     if ( !modifier )
-        scene()->clearSelection();
+    {
+        if ( clear )
+            scene()->clearSelection();
+    }
     else
     {
         select = false;
@@ -245,10 +248,12 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
             QList<Node*> nodes;
             if ( n )
             {
+                last_node = n;
                 nodes.push_back(n);
             }
             else if ( e )
             {
+                last_node = e->vertex1();
                 nodes.push_back(e->vertex1());
                 nodes.push_back(e->vertex2());
 
@@ -260,7 +265,8 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
             {
                 // not directly in condition because has side-effect
                 bool b = mouse_select(nodes,event->modifiers() &
-                                      (Qt::ControlModifier|Qt::ShiftModifier));
+                                      (Qt::ControlModifier|Qt::ShiftModifier),
+                                      false );
                 // move only if has selected, not if has deselected
                 if ( b )
                     mouse_mode |= MOVE_NODES;
@@ -322,19 +328,16 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
     QPointF scene_pos = mapToScene(mpos);
     QPointF snapped_scene_pos = m_grid.nearest(scene_pos);
 
-
-    QPointF delta = mpos-move_center;
-    delta /= get_zoom_factor(); // take scaling into account
-
-    /// \todo move grid/bg
-
     if ( event->buttons() & Qt::MiddleButton  )
     {
         // drag view
+        QPointF delta = mpos-move_center;
+        delta /= get_zoom_factor(); // take scaling into account
         translate_view(delta);
     }
     else if ( mouse_mode & MOVE_BACK )
     {
+        /// \todo move bg
         Node* n = node_at(scene_pos);
         Edge* e = edge_at(scene_pos);
         if ( mouse_mode & MOVE_GRID )
@@ -357,11 +360,15 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
     else if ( mouse_mode & MOVE_NODES )
     {
         // move selected nodes
-        /// \todo snap to grid
-        //m_grid.snap(scene_pos);
-        foreach(Node* n,selected_nodes())
+
+        if ( last_node )
         {
-            n->setPos(n->pos()+delta);
+            QPointF delta = snapped_scene_pos-last_node->pos();
+
+            foreach(Node* n,selected_nodes())
+            {
+                n->setPos(n->pos()+delta);
+            }
         }
     }
     else if ( mouse_mode & EDGE_CHAIN )
@@ -393,6 +400,7 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
     }
     else if ( mouse_mode & MOVE_NODES )
     {
+        last_node = nullptr;
         mouse_mode &=~ MOVE_NODES;
     }
     else if ( mouse_mode & MOVE_BACK )

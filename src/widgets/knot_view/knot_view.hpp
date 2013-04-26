@@ -197,11 +197,13 @@ protected:
      *  If modifier is false, nodes will be the only selected node
      *  If modifier is true and some of nodes are not selected
      *  nodes and the previous selection will be both selected.
-     *  If modifier is true and all nodes are selected, they will be unselected
+     *  If modifier is true and all nodes are selected, they will be unselected.
+     *
+     *  If clear is true and modifier is false the current selection is cleared
      *
      *  \return Whether nodes have been selected or deselected
     */
-    bool mouse_select(QList<Node*> nodes,bool modifier);
+    bool mouse_select(QList<Node*> nodes, bool modifier, bool clear = true);
     
 private slots:
     /// Expand scene rect when scrollbars reach margin
