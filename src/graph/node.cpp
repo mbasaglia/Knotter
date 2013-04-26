@@ -66,10 +66,10 @@ Edge *Node::edge_to(const Node *n) const
     return nullptr;
 }
 
-double Node::distance_squared(QPointF to) const
+/*double Node::distance_squared(QPointF to) const
 {
     return point_distance_squared(pos(),to);
-}
+}*/
 
 void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {

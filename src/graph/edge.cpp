@@ -75,10 +75,10 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 
 }
 
-double Edge::distance_squared(QPointF to) const
+/*double Edge::distance_squared(QPointF to) const
 {
      return line_point_distance_squared(v1->pos(),v2->pos(),to);
-}
+}*/
 
 QPainterPath Edge::shape() const
 {

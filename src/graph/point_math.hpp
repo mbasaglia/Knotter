@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define POINT_MATH_HPP
 
 #include <QPointF>
+#include <QLineF>
 #include <qmath.h>
 
 inline bool qFuzzyCompare ( QPointF p1, QPointF p2 )
@@ -35,7 +36,7 @@ inline bool qFuzzyCompare ( QPointF p1, QPointF p2 )
     return qFuzzyCompare(p1.x(),p2.x()) && qFuzzyCompare(p1.y(),p2.y());
 }
 
-inline double point_distance_squared(const QPointF &p1, const QPointF &p2 )
+/*inline double point_distance_squared(const QPointF &p1, const QPointF &p2 )
 {
     QPointF d = p1-p2;
     return d.x()*d.x() + d.y()*d.y();
@@ -52,6 +53,17 @@ inline double line_point_distance_squared(const QPointF& p1, const QPointF &p2,
     double T = s*(s-a)*(s-b)*(s-c); // Area^2
     return T / b2; // ( Area / Base ) ^ 2
 
+}*/
+
+/**
+ * Project point to line
+ */
+inline QPointF project(QPointF point, QLineF line)
+{
+    QPointF intersection;
+    QLineF normalLine = line.normalVector().translated(point - line.p1());
+    line.intersect(normalLine, &intersection);
+    return intersection;
 }
 
 #endif // POINT_MATH_HPP

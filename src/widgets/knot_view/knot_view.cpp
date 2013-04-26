@@ -88,12 +88,10 @@ Node *Knot_View::add_breaking_node(QPointF pos)
 
     Node* v1 = e->vertex1();
     Node* v2 = e->vertex2();
-    QLineF oldline ( v1->pos(), v2->pos() );
-    QLineF newline ( v1->pos(), pos );
-    newline.setAngle( oldline.angle() );
+
 
     begin_macro(tr("Break Edge"));
-    Node* new_node = add_node(newline.p2());
+    Node* new_node = add_node(e->snap(pos));
     add_edge(v1,new_node);
     add_edge(new_node,v2);
     remove_edge(e);
@@ -338,10 +336,13 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
     else if ( mouse_mode & MOVE_BACK )
     {
         Node* n = node_at(scene_pos);
+        Edge* e = edge_at(scene_pos);
         if ( mouse_mode & MOVE_GRID )
         {
             if ( n )
                 m_grid.set_origin(n->pos());
+            else if ( e )
+                m_grid.set_origin(e->snap(scene_pos));
             else
                 m_grid.set_origin(scene_pos);
         }

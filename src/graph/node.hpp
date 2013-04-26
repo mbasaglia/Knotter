@@ -74,7 +74,7 @@ public:
      */
     Edge* edge_to(const Node*n) const;
 
-    double distance_squared(QPointF to) const;
+    //double distance_squared(QPointF to) const;
 
     QList<Edge*> connections() const { return edges; }
 

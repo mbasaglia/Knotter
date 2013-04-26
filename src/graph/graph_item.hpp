@@ -43,7 +43,7 @@ protected:
 public:
     Graph_Item();
 
-    virtual double distance_squared(QPointF to) const = 0;
+    //virtual double distance_squared(QPointF to) const = 0;
 };
 
 #endif // GRAPH_ITEM_HPP

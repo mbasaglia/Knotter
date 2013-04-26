@@ -80,7 +80,12 @@ public:
 
     QLineF to_line() const { return QLineF(v1->pos(), v2->pos()); }
 
-    double distance_squared(QPointF to) const override;
+    /**
+     *  Find closest point within the edge
+     */
+    QPointF snap(QPointF p) const { return project(p,to_line()); }
+
+    //double distance_squared(QPointF to) const override;
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
