@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Grid</string>
+   <string>Configure Grid</string>
   </property>
   <property name="windowIcon">
    <iconset theme="configure-grid">

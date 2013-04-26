@@ -34,6 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Knot_View::Knot_View(QString file)
     : mouse_mode(EDIT_GRAPH), last_node(nullptr)
 {
+
+    setWindowFilePath(file);
     setFrameStyle(StyledPanel|Plain);
     QGraphicsScene *scene = new QGraphicsScene;
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);

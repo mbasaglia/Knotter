@@ -75,6 +75,7 @@ icons='application-exit
         transform-move
         transform-rotate
         transform-scale
+        view-history
         view-refresh
         view-restore
         x-kde-nsplugin-generated

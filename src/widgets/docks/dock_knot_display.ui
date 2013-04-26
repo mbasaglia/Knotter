@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dock_Knot_Display</class>
+ <widget class="QWidget" name="Dock_Knot_Display">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>188</width>
+    <height>320</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Knot Display</string>
+  </property>
+  <property name="windowIcon">
+   <iconset theme="format-stroke-color">
+    <normaloff/>
+   </iconset>
+  </property>
+  <widget class="QWidget" name="central_widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>9</y>
+     <width>170</width>
+     <height>302</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0" colspan="2">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Custom Colors</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="1" column="0">
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Add</string>
+         </property>
+         <property name="icon">
+          <iconset theme="list-add">
+           <normaloff/>
+          </iconset>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QTableView" name="list_colors"/>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Width</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QDoubleSpinBox" name="spin_width">
+      <property name="suffix">
+       <string>px</string>
+      </property>
+      <property name="maximum">
+       <double>128.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Joint Style</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QComboBox" name="comboBox">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <item>
+       <property name="text">
+        <string>Bevel</string>
+       </property>
+       <property name="icon">
+        <iconset theme="stroke-join-bevel">
+         <normaloff/>
+        </iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Miter</string>
+       </property>
+       <property name="icon">
+        <iconset theme="stroke-join-miter">
+         <normaloff/>
+        </iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Round</string>
+       </property>
+       <property name="icon">
+        <iconset theme="stroke-join-round">
+         <normaloff/>
+        </iconset>
+       </property>
+      </item>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -32,17 +32,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QUndoView>
 #include <QUndoGroup>
 #include "dock_grid.hpp"
+#include "dock_knot_display.hpp"
 
 class Main_Window : public QMainWindow, private Ui::Main_Window
 {
     Q_OBJECT
 
 private:
-    QDoubleSpinBox* zoomer;     ///< Zoom on statusbar
-    Knot_View*      view;
-    QUndoView*      undo_view;  ///< Action history
-    QUndoGroup      undo_group; ///< Groups undo stacks
-    Dock_Grid*      dock_grid;  ///< Grid conf dock
+    QDoubleSpinBox*     zoomer;     ///< Zoom on statusbar
+    Knot_View*          view;       ///< Active Knot_View (hopefully never NULL)
+    QUndoView*          undo_view;  ///< Action history
+    QUndoGroup          undo_group; ///< Groups undo stacks
+    Dock_Grid*          dock_grid;  ///< Grid conf dock
+    Dock_Knot_Display*  dock_knot_display;///< Display conf dock
 public:
     explicit Main_Window(QWidget *parent = 0);
 
@@ -110,7 +112,6 @@ private slots:
     */
     void apply_zoom();
 
-    void change_rendering();
     void on_action_Preferences_triggered();
     void on_action_Show_Graph_toggled(bool arg1);
     void on_action_Zoom_In_triggered();

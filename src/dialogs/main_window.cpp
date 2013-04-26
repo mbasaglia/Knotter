@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDockWidget>
 #include <QDesktopServices>
 #include <QUrl>
+#include "icon_dock_style.hpp"
 
 
 Main_Window::Main_Window(QWidget *parent) :
@@ -39,9 +40,6 @@ Main_Window::Main_Window(QWidget *parent) :
     setWindowIcon(QIcon(Resource_Manager::data("img/icon-small.svg")));
 
     setWindowTitle(Resource_Manager::program_name());
-
-    // Overcome limitation in designer by adding this manually before load_config
-    toolbar_view->insertAction(0,menu_Rendering->menuAction());
 
     init_statusbar();
     init_docks();
@@ -94,9 +92,6 @@ void Main_Window::init_menus()
 
 
     // Menu View
-    QActionGroup* display_mode = new QActionGroup(this);
-    display_mode->addAction(action_Normal);
-    display_mode->addAction(action_Highlight_Links);
 
     action_Zoom_In->setShortcut(QKeySequence::ZoomIn);
     action_Zoom_Out->setShortcut(QKeySequence::ZoomOut);
@@ -141,6 +136,10 @@ void Main_Window::init_statusbar()
 
 void Main_Window::init_docks()
 {
+    // Knot Display
+    dock_knot_display = new Dock_Knot_Display(this);
+    addDockWidget(Qt::RightDockWidgetArea,dock_knot_display);
+
     // Grid config
     dock_grid = new Dock_Grid(this);
     addDockWidget(Qt::RightDockWidgetArea,dock_grid);
@@ -151,6 +150,7 @@ void Main_Window::init_docks()
     undo_dock->setWidget(undo_view);
     undo_dock->setObjectName("Action_History");
     undo_dock->setWindowTitle(tr("Action History"));
+    undo_dock->setWindowIcon(QIcon::fromTheme("view-history"));
     addDockWidget(Qt::RightDockWidgetArea,undo_dock);
     tabifyDockWidget(undo_dock,dock_grid);
     undo_dock->raise();
@@ -168,7 +168,12 @@ void Main_Window::init_docks()
 
     // Menu entries
     foreach(QDockWidget* dw, findChildren<QDockWidget*>())
-        menu_Docks->insertAction(0,dw->toggleViewAction());
+    {
+        QAction *a = dw->toggleViewAction();
+        a->setIcon(dw->windowIcon());
+        menu_Docks->insertAction(0,a);
+        dw->setStyle(new Icon_Dock_Style(dw));
+    }
 }
 
 void Main_Window::load_config()
@@ -251,7 +256,10 @@ void Main_Window::set_clean_icon(bool clean)
 void Main_Window::update_title()
 {
     bool clean = view->undo_stack_pointer()->isClean();
-    QString filename = tabWidget->tabText(tabWidget->currentIndex());
+    QString filename = view->windowFilePath();
+    if ( filename.isEmpty() )
+        filename = tr("New Knot");
+
     /*: Main window title
      *  %1 is the program name
      *  %2 is the file name
@@ -269,17 +277,6 @@ void Main_Window::set_tool_button_style(Qt::ToolButtonStyle tbs)
 void Main_Window::apply_zoom()
 {
     view->set_zoom(zoomer->value()/100);
-}
-
-void Main_Window::change_rendering()
-{
-    if ( action_Highlight_Links->isChecked() )
-    {
-        menu_Rendering->setIcon(QIcon::fromTheme("knot-render-loops"));
-        /// \todo actually change paint mode
-    }
-    else
-        menu_Rendering->setIcon(QIcon::fromTheme("knot-render-plain"));
 }
 
 void Main_Window::on_action_Preferences_triggered()

@@ -122,18 +122,6 @@
      <addaction name="action_Zoom_Out"/>
      <addaction name="action_Reset_Zoom"/>
     </widget>
-    <widget class="QMenu" name="menu_Rendering">
-     <property name="title">
-      <string>R&amp;endering</string>
-     </property>
-     <property name="icon">
-      <iconset theme="knot-render-plain">
-       <normaloff/>
-      </iconset>
-     </property>
-     <addaction name="action_Normal"/>
-     <addaction name="action_Highlight_Links"/>
-    </widget>
     <addaction name="menu_Toolbars"/>
     <addaction name="menu_Docks"/>
     <addaction name="separator"/>
@@ -143,7 +131,6 @@
     <addaction name="action_Show_Graph"/>
     <addaction name="action_Display_Knot"/>
     <addaction name="separator"/>
-    <addaction name="menu_Rendering"/>
    </widget>
    <widget class="QMenu" name="menu_Nodes">
     <property name="title">
@@ -155,6 +142,8 @@
     <addaction name="action_Erase"/>
     <addaction name="separator"/>
     <addaction name="action_Snap_to_Grid"/>
+    <addaction name="separator"/>
+    <addaction name="actionSelect_Connected"/>
     <addaction name="separator"/>
     <addaction name="action_Mirror_Horizontal"/>
     <addaction name="action_Mirror_Vertical"/>
@@ -543,35 +532,6 @@
     <string>Display &amp;Knot</string>
    </property>
   </action>
-  <action name="action_Normal">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset theme="knot-render-plain">
-     <normaloff/>
-    </iconset>
-   </property>
-   <property name="text">
-    <string>&amp;Normal</string>
-   </property>
-  </action>
-  <action name="action_Highlight_Links">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset theme="knot-render-loops">
-     <normaloff/>
-    </iconset>
-   </property>
-   <property name="text">
-    <string>&amp;Highlight Links</string>
-   </property>
-  </action>
   <action name="action_Connect">
    <property name="icon">
     <iconset theme="format-connect-node">
@@ -805,10 +765,20 @@
   </action>
   <action name="action_Report_Bugs">
    <property name="icon">
-    <iconset theme="tools-report-bug"/>
+    <iconset theme="tools-report-bug">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Report &amp;Bugs..</string>
+   </property>
+  </action>
+  <action name="actionSelect_Connected">
+   <property name="text">
+    <string>Select Connected</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
   </action>
  </widget>
@@ -842,38 +812,6 @@
    <signal>triggered()</signal>
    <receiver>Main_Window</receiver>
    <slot>create_tab()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>239</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>action_Normal</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>Main_Window</receiver>
-   <slot>change_rendering()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>319</x>
-     <y>239</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>action_Highlight_Links</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>Main_Window</receiver>
-   <slot>change_rendering()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
