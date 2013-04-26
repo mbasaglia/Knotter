@@ -163,7 +163,7 @@ void Snapping_Grid::enable(bool enabled)
     emit grid_changed();
 }
 
-void Snapping_Grid::set_size(unsigned size)
+void Snapping_Grid::set_size(int size)
 {
     if ( size > 0 )
     {
@@ -182,4 +182,5 @@ void Snapping_Grid::set_origin(QPointF origin)
 {
     m_origin = origin;
     emit grid_changed();
+    emit moved(origin);
 }

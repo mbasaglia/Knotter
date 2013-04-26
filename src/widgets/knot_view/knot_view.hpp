@@ -217,6 +217,7 @@ private:
     */
     Edge *edge_at(QPointF p) const;
 
+
 };
 
 #endif // KNOT_VIEW_HPP

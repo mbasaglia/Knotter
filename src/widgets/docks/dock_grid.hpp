@@ -29,18 +29,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ui_dock_grid.h"
 #include <QDockWidget>
+#include "snapping_grid.hpp"
+#include "c++.hpp"
 
 class Dock_Grid : public QDockWidget, private Ui::Dock_Grid
 {
     Q_OBJECT
     
+private:
+    Snapping_Grid* target;
+
 public:
     explicit Dock_Grid(QWidget *parent = 0);
+
+    void set_grid(Snapping_Grid* target_grid);
     
 protected:
     void changeEvent(QEvent *e);
+
+signals:
+    /// Emitted when the user want to move the grid with the mouse
+    void move_grid();
+
 private slots:
+    void position_spin_changed();
+    void grid_moved(QPointF p);
     void on_button_reset_clicked();
+    void on_combo_shape_currentIndexChanged(int index);
 };
 
 #endif // DOCK_GRID_HPP

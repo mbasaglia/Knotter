@@ -44,10 +44,10 @@ Main_Window::Main_Window(QWidget *parent) :
     toolbar_view->insertAction(0,menu_Rendering->menuAction());
 
     init_statusbar();
+    init_docks();
 
     create_tab();
 
-    init_docks();
     init_menus();
 
     load_config();
@@ -205,6 +205,9 @@ void Main_Window::load_config()
 
 void Main_Window::connect_view(Knot_View *v)
 {
+    // set current
+    view = v;
+
     // zoom/view
     zoomer->setValue(v->get_zoom_factor()*100);
     connect(v,SIGNAL(zoomed(double)),zoomer,SLOT(setValue(double)));
@@ -218,8 +221,9 @@ void Main_Window::connect_view(Knot_View *v)
     // undo/redo
     v->undo_stack_pointer()->setActive(true);
 
-    // set current
-    view = v;
+    // grid editor
+    dock_grid->set_grid(&v->grid());
+
 }
 
 void Main_Window::disconnect_view(Knot_View *v)

@@ -59,7 +59,13 @@ Knot_View::Knot_View(QString file)
     bg.setAlpha(128);
     rubberband.setBrush(bg);
     rubberband.setZValue(100);
+
+
+    //setCacheMode(CacheNone);
+    connect(&m_grid,SIGNAL(grid_changed()),scene,SLOT(invalidate()));
 }
+
+
 
 void Knot_View::translate_view(QPointF delta)
 {
@@ -206,8 +212,6 @@ Edge *Knot_View::edge_at(QPointF p) const
 {
     return dynamic_cast<Edge*>(scene()->itemAt(p,QTransform()));
 }
-
-
 
 void Knot_View::mousePressEvent(QMouseEvent *event)
 {

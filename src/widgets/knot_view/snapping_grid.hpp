@@ -69,9 +69,12 @@ public:
 
     QPointF origin() const { return m_origin; }
 
+
+public slots:
+
     void enable ( bool enabled );
 
-    void set_size ( unsigned size );
+    void set_size (int size );
 
     void set_shape ( Grid_Shape shape );
 
@@ -79,6 +82,7 @@ public:
 
 signals:
     void grid_changed();
+    void moved(QPointF);
     
 };
 
