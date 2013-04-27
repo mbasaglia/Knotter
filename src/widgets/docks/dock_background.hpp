@@ -24,24 +24,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef DOCK_KNOT_DISPLAY_HPP
-#define DOCK_KNOT_DISPLAY_HPP
+#ifndef DOCK_BACKGROUND_HPP
+#define DOCK_BACKGROUND_HPP
 
+#include "ui_dock_background.h"
 #include <QDockWidget>
-#include "ui_dock_knot_display.h"
 
-class Dock_Knot_Display : public QDockWidget, private Ui::Dock_Knot_Display
+class Dock_Background : public QDockWidget, private Ui::Dock_Background
 {
     Q_OBJECT
-
+    
 public:
-    explicit Dock_Knot_Display(QWidget *parent = 0);
+    explicit Dock_Background(QWidget *parent = 0);
     
 protected:
     void changeEvent(QEvent *e);
 
 private slots:
-    void on_button_add_color_clicked();
+    void commit_filename();
+
+    void on_button_browse_clicked();
+
+signals:
+    /// Background has to change to the given filenamee
+    void image_loaded(QString);
+
+    void image_toogled(bool);
+
+    /// Sale image by percentage 100 = normal size
+    void image_scaled(double);
+
+    void move_image();
+
+    void background_changed(QColor);
 };
 
-#endif // DOCK_KNOT_DISPLAY_HPP
+#endif // DOCK_BACKGROUND_HPP

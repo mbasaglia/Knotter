@@ -27,15 +27,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "dock_knot_display.hpp"
 #include "color_delegate.hpp"
 
+#include "color_selector.hpp"
+
 Dock_Knot_Display::Dock_Knot_Display(QWidget *parent) :
     QDockWidget(parent)
 {
     setupUi(this);
     setWidget(central_widget);
-    list_colors->setModel(&color_list_model);
+    /*list_colors->setModel(&color_list_model);
     color_list_model.insert_new();
-    list_colors->setItemDelegate(new Color_Delegate);
-    list_colors->setEditTriggers(QTableView::CurrentChanged);
+    list_colors->setIndexWidget(color_list_model.index(0,0),new Color_Selector);
+    //list_colors->setItemDelegate(new Color_Delegate);*/
+
+    for ( int i = 0; i < 20; i++ )
+    {
+        list_colors->addColor(Qt::blue);
+    }
+    for ( int i = 0; i < 20; i++ )
+        list_colors->setColor(i,QColor::fromHsv(i*360/20,128,128));
+
 }
 
 void Dock_Knot_Display::changeEvent(QEvent *e)
@@ -48,4 +58,9 @@ void Dock_Knot_Display::changeEvent(QEvent *e)
         default:
             break;
     }
+}
+
+void Dock_Knot_Display::on_button_add_color_clicked()
+{
+    list_colors->addColor(Qt::black);
 }

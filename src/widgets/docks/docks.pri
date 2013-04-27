@@ -18,12 +18,15 @@ INCLUDEPATH += $$PWD
 HEADERS += \
     $$PWD/dock_grid.hpp \
     $$PWD/dock_knot_display.hpp \
-    $$PWD/icon_dock_style.hpp
+    $$PWD/icon_dock_style.hpp \
+    src/widgets/docks/dock_background.hpp
 
 SOURCES += \
     $$PWD/dock_grid.cpp \
-    $$PWD/dock_knot_display.cpp
+    $$PWD/dock_knot_display.cpp \
+    src/widgets/docks/dock_background.cpp
 
 FORMS += \
     $$PWD/dock_grid.ui \
-    $$PWD/dock_knot_display.ui
+    $$PWD/dock_knot_display.ui \
+    src/widgets/docks/dock_background.ui

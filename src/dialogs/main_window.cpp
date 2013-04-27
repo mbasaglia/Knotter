@@ -140,6 +140,11 @@ void Main_Window::init_docks()
     dock_knot_display = new Dock_Knot_Display(this);
     addDockWidget(Qt::RightDockWidgetArea,dock_knot_display);
 
+    // Background
+    dock_background = new Dock_Background(this);
+    dock_background->hide();
+    dock_background->setFloating(true);
+
     // Grid config
     dock_grid = new Dock_Grid(this);
     addDockWidget(Qt::RightDockWidgetArea,dock_grid);

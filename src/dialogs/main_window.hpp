@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QUndoGroup>
 #include "dock_grid.hpp"
 #include "dock_knot_display.hpp"
+#include "dock_background.hpp"
 
 class Main_Window : public QMainWindow, private Ui::Main_Window
 {
@@ -45,6 +46,7 @@ private:
     QUndoGroup          undo_group; ///< Groups undo stacks
     Dock_Grid*          dock_grid;  ///< Grid conf dock
     Dock_Knot_Display*  dock_knot_display;///< Display conf dock
+    Dock_Background*    dock_background;
 public:
     explicit Main_Window(QWidget *parent = 0);
 

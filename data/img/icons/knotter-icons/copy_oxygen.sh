@@ -43,6 +43,8 @@ icons='application-exit
         format-join-node
         format-remove-node
         format-stroke-color
+        go-down
+        go-up
         help-about
         help-contents
         insert-horizontal-rule
@@ -51,12 +53,13 @@ icons='application-exit
         object-flip-horizontal
         object-flip-vertical
         page-zoom
+        preferences-desktop-wallpaper
         preferences-other
-        preferences-system-windows-move
-        preferences-system
-        preferences-system-performance
         preferences-plugin
         preferences-plugin-script
+        preferences-system
+        preferences-system-performance
+        preferences-system-windows-move
         snap-orthogonal
         stroke-cap-butt
         stroke-cap-round
@@ -64,8 +67,8 @@ icons='application-exit
         stroke-join-bevel
         stroke-join-miter
         stroke-join-round
-        tab-close-other
         tab-close
+        tab-close-other
         tab-detach
         tab-duplicate
         tab-new-backgound
