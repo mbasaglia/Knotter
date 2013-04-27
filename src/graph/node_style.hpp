@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NODE_STYLE_HPP
 
 #include <QObject>
+#include "path_builder.hpp"
 
 class Node_Style
 {
@@ -75,6 +76,12 @@ public:
 
     /// Set disabled style to the values in other
     Node_Style default_to(const Node_Style& other) const;
+
+    void build(QPointF pos,Path_Builder&path, const Node_Style* default_style) const
+    {
+        Q_UNUSED(pos);Q_UNUSED(path);Q_UNUSED(default_style);
+        /// \todo cusp algorithm
+    }
 
 };
 

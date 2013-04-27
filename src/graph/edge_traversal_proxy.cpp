@@ -24,25 +24,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef DOCK_KNOT_DISPLAY_HPP
-#define DOCK_KNOT_DISPLAY_HPP
+#include "edge_traversal_proxy.hpp"
 
-#include <QDockWidget>
-#include "ui_dock_knot_display.h"
-
-class Dock_Knot_Display : public QDockWidget, private Ui::Dock_Knot_Display
-{
-    Q_OBJECT
-
-public:
-    explicit Dock_Knot_Display(QWidget *parent = 0);
-    
-protected:
-    void changeEvent(QEvent *e);
-
-private slots:
-    void on_button_add_color_clicked();
-    void on_list_colors_removed(int arg1);
-};
-
-#endif // DOCK_KNOT_DISPLAY_HPP

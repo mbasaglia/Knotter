@@ -24,7 +24,11 @@ HEADERS += \
     $$PWD/node_style.hpp \
     $$PWD/path_builder.hpp \
     $$PWD/path_item.hpp \
-    $$PWD/point_math.hpp
+    $$PWD/point_math.hpp \
+    src/graph/graph_traverser.hpp \
+    src/graph/edge_traversal_proxy.hpp \
+    src/graph/traversal_info.hpp \
+    src/graph/edge_handle.hpp
 
 SOURCES += \
     $$PWD/node.cpp \
@@ -34,4 +38,6 @@ SOURCES += \
     $$PWD/graph_item.cpp \
     $$PWD/node_style.cpp \
     $$PWD/path_builder.cpp \
-    $$PWD/path_item.cpp
+    $$PWD/path_item.cpp \
+    src/graph/graph_traverser.cpp \
+    src/graph/edge_traversal_proxy.cpp

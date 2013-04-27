@@ -58,7 +58,7 @@ The default install prefix is /usr/local (see ./configure.sh --help)
 Dependencies
 ---------------------------------------
 
-* Qt Framework, should work with versions 4.7, 4.8 and 5.0
+* Qt Framework, should work with versions 4.8 and 5.0
 
 Misc build targets
 ---------------------------------------

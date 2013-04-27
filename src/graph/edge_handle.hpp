@@ -24,25 +24,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef DOCK_KNOT_DISPLAY_HPP
-#define DOCK_KNOT_DISPLAY_HPP
+#ifndef EDGE_HANDLE_HPP
+#define EDGE_HANDLE_HPP
 
-#include <QDockWidget>
-#include "ui_dock_knot_display.h"
+#include <QFlags>
 
-class Dock_Knot_Display : public QDockWidget, private Ui::Dock_Knot_Display
+enum Edge_Handle
 {
-    Q_OBJECT
-
-public:
-    explicit Dock_Knot_Display(QWidget *parent = 0);
-    
-protected:
-    void changeEvent(QEvent *e);
-
-private slots:
-    void on_button_add_color_clicked();
-    void on_list_colors_removed(int arg1);
+    NO_HANDLE   = 0x00,
+    TOP_LEFT    = 0x01,
+    TOP_RIGHT   = 0x02,
+    BOTTOM_LEFT = 0x04,
+    BOTTOM_RIGHT= 0x08
 };
 
-#endif // DOCK_KNOT_DISPLAY_HPP
+Q_DECLARE_FLAGS(Handle_Flags,Edge_Handle)
+
+#endif // EDGE_HANDLE_HPP

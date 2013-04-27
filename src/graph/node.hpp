@@ -43,13 +43,14 @@ private:
     static const int radius = 5; ///< \todo maybe not const and settings
     /// Extended radius
     static const int xradius = 6; ///< \todo maybe not const and settings
-    /// \todo node style: pointer or value?
+
+    Node_Style m_style;
 
 public:
     Node(QPointF pos );
 
 
-
+    Node_Style& style() { return m_style; }
 
     /**
      *  Add edge to node

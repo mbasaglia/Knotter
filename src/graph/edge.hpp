@@ -28,13 +28,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "graph_item.hpp"
 #include "node.hpp"
-#include "edge_style.hpp"
 #include <QLineF>
 #include "c++.hpp"
+#include "edge_handle.hpp"
+#include "edge_style.hpp"
 
 class Edge : public Graph_Item
 {
     Q_OBJECT
+
 
 private:
     Node* v1;
