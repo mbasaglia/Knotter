@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "graph.hpp"
 #include <QUndoStack>
 #include "snapping_grid.hpp"
+#include "background_image.hpp"
 
 class Knot_View : public QGraphicsView
 {
@@ -42,10 +43,9 @@ class Knot_View : public QGraphicsView
     {
         EDIT_GRAPH = 0x001, ///< Move and select
         EDGE_CHAIN = 0x002, ///< Keep inserting connected node, RMB selects
-        MOVE_GRID  = 0x110, ///< \todo Move grid origin
-        MOVE_BG_IMG= 0x120, ///< \todo Move background image
-        MOVE_BACK  = 0x100, ///< Moving either grid or image
-        MOVE_BACK_M= MOVE_GRID|MOVE_BG_IMG, ///< Mask with both MOVE_GRID and MOVE_BG_IMG
+        MOVE_GRID  = 0x010, ///< Move grid origin
+        MOVE_BG_IMG= 0x020, ///<  Move background image
+        MOVE_BACK= MOVE_GRID|MOVE_BG_IMG, ///< Mask with both MOVE_GRID and MOVE_BG_IMG
 
         RUBBERBAND = 0x200, ///< Dragging the rubberband
         MOVE_NODES = 0x400  ///< Moving the selection
@@ -56,6 +56,7 @@ class Knot_View : public QGraphicsView
     Graph               graph;
     QUndoStack          undo_stack;
     Snapping_Grid       m_grid;
+    Background_Image    bg_img;
     Mouse_Mode          mouse_mode;
     Node*               last_node;   ///< Last node in a chain
     QGraphicsLineItem   guide;       ///< Tiny line showing the edge being edited
@@ -71,6 +72,8 @@ public:
     QUndoStack* undo_stack_pointer() { return &undo_stack; }
 
     Snapping_Grid& grid() { return m_grid; }
+
+    Background_Image& background_image() { return bg_img; }
 
     /// Overload QGraphicsView::translate
     void translate(QPointF d) { QGraphicsView::translate(d.x(),d.y()); }
@@ -166,6 +169,15 @@ public slots:
      *  This will be reset on the next mouse click
      */
     void set_mode_move_grid();
+
+    /**
+     *  \brief Sets mouse mode to move the background image
+     *
+     *  This will be reset on the next mouse click
+     */
+    void set_mode_move_background();
+
+    void set_background_color(QColor c) { setBackgroundBrush(c); }
 
 signals:
 

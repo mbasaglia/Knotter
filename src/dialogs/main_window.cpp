@@ -235,6 +235,18 @@ void Main_Window::connect_view(Knot_View *v)
     dock_grid->set_grid(&v->grid());
     connect(dock_grid,SIGNAL(move_grid()),v,SLOT(set_mode_move_grid()));
 
+    // background
+    connect(dock_background,SIGNAL(background_changed(QColor)),
+            v,SLOT(set_background_color(QColor)));
+    connect(dock_background,SIGNAL(image_toogled(bool)),
+            &v->background_image(),SLOT(enable(bool)));
+    connect(dock_background,SIGNAL(image_scaled(double)),
+            &v->background_image(),SLOT(set_scale_percent(double)));
+    connect(dock_background,SIGNAL(image_loaded(QString)),
+            &v->background_image(),SLOT(load_file(QString)));
+    connect(dock_background,SIGNAL(move_image()),
+            v,SLOT(set_mode_move_background()));
+
 }
 
 void Main_Window::disconnect_view(Knot_View *v)
@@ -243,6 +255,8 @@ void Main_Window::disconnect_view(Knot_View *v)
     {
         disconnect(v,SIGNAL(zoomed(double)),zoomer,SLOT(setValue(double)));
         disconnect(dock_grid,SIGNAL(move_grid()),v,SLOT(set_mode_move_grid()));
+        dock_background->disconnect(v);
+        dock_background->disconnect(&v->background_image());
     }
 }
 

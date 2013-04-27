@@ -101,7 +101,7 @@
     </widget>
     <widget class="QMenu" name="menu_Docks">
      <property name="title">
-      <string>&amp;Docks</string>
+      <string>&amp;Dialogs</string>
      </property>
      <property name="icon">
       <iconset theme="preferences-system-windows-move">

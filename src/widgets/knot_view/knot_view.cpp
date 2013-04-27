@@ -65,6 +65,7 @@ Knot_View::Knot_View(QString file)
 
     //setCacheMode(CacheNone);
     connect(&m_grid,SIGNAL(grid_changed()),scene,SLOT(invalidate()));
+    connect(&bg_img,SIGNAL(changed()),scene,SLOT(invalidate()));
 }
 
 
@@ -170,6 +171,12 @@ void Knot_View::set_mode_move_grid()
     setCursor(Qt::SizeAllCursor);
 }
 
+void Knot_View::set_mode_move_background()
+{
+    mouse_mode |= MOVE_BG_IMG;
+    setCursor(Qt::SizeAllCursor);
+}
+
 void Knot_View::expand_scene_rect(int margin)
 {
     QRectF vp ( mapToScene(-margin,-margin),
@@ -239,7 +246,7 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
     }
     else if ( mouse_mode & MOVE_BACK)
     {
-        mouse_mode &= ~MOVE_BACK_M;
+        mouse_mode &= ~MOVE_BACK;
     }
     else
     {
@@ -351,6 +358,15 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
             else
                 m_grid.set_origin(scene_pos);
         }
+        else if ( mouse_mode & MOVE_BG_IMG )
+        {
+            if ( n )
+                bg_img.set_position(n->pos());
+            else if ( e )
+                bg_img.set_position(e->snap(scene_pos));
+            else
+                bg_img.set_position(scene_pos);
+        }
 
     }
     else if ( mouse_mode & RUBBERBAND )
@@ -443,6 +459,6 @@ QList<Node *> Knot_View::nodes_in_rubberband() const
 void Knot_View::drawBackground(QPainter *painter, const QRectF &rect)
 {
     painter->fillRect(rect,backgroundBrush());
-    /// \todo background image
+    bg_img.render(painter);
     m_grid.render(painter,rect);
 }
