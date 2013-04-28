@@ -30,18 +30,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "node.hpp"
 #include <QLineF>
 #include "c++.hpp"
-#include "edge_handle.hpp"
-#include "edge_style.hpp"
+class Edge_Style;
 
 class Edge : public Graph_Item
 {
     Q_OBJECT
 
+public:
+
+    enum Handle
+    {
+        NO_HANDLE   = 0x00,
+        TOP_LEFT    = 0x01,
+        TOP_RIGHT   = 0x02,
+        BOTTOM_LEFT = 0x04,
+        BOTTOM_RIGHT= 0x08
+    };
+
+    Q_DECLARE_FLAGS(Handle_Flags,Handle)
 
 private:
     Node* v1;
     Node* v2;
     Edge_Style* m_style;
+    Handle_Flags available_handles;
 
     static const int shapew = 8; ///< Width ued for shape()
 public:
@@ -93,6 +105,45 @@ public:
     QPainterPath shape() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem* =0, QWidget* =0) override;
     int type() const override { return UserType + 0x02; }
+
+
+    /// Mark all handles as untraversed
+    void reset()
+    {
+        available_handles |= Handle_Flags(TOP_LEFT)|TOP_RIGHT|BOTTOM_LEFT|BOTTOM_RIGHT;
+    }
+
+    void mark_traversed(Handle h)
+    {
+        available_handles &=~ h;
+    }
+
+    /// Check if handle has been traversed
+    bool traversed(Handle handle) const
+    {
+        return available_handles & handle;
+    }
+
+    /// Get a 'random' non-traversed handle
+    Handle not_traversed() const
+    {
+        if ( available_handles & TOP_LEFT )
+            return TOP_LEFT;
+        else if ( available_handles & TOP_RIGHT )
+            return TOP_RIGHT;
+        else if ( available_handles & BOTTOM_LEFT )
+            return BOTTOM_LEFT;
+        else if ( available_handles & BOTTOM_RIGHT )
+            return BOTTOM_RIGHT;
+        else
+            return NO_HANDLE;
+    }
+
+    /// Get node in the direction of the handle
+    Node* vertex_for(Handle handle) const
+    {
+        return ( handle == TOP_RIGHT || handle == BOTTOM_RIGHT ) ? v2 : v1;
+    }
 
 public slots:
     /**

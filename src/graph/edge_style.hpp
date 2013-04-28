@@ -30,10 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPainter>
 #include "c++.hpp"
 #include "node_style.hpp"
-#include "edge_handle.hpp"
 #include "path_builder.hpp"
-
-class Edge;
+#include "edge.hpp"
 
 class Edge_Style
 {
@@ -49,7 +47,7 @@ public:
     /**
      *  \brief Perform any rendering to path and return the next handle
     */
-    virtual Edge_Handle traverse(Edge* edge, Edge_Handle handle,Path_Builder& path,
+    virtual Edge::Handle traverse(Edge* edge, Edge::Handle handle,Path_Builder& path,
                           const Node_Style* default_style ) const
     {
         /// \todo abstract

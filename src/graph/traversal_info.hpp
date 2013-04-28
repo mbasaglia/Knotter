@@ -27,8 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef TRAVERSAL_INFO_HPP
 #define TRAVERSAL_INFO_HPP
 
-#include "edge_traversal_proxy.hpp"
 #include "c++.hpp"
+#include "edge.hpp"
 
 
 /**
@@ -41,11 +41,11 @@ struct Traversal_Info
     struct Source
     {
         Edge* edge;
-        Edge_Handle handle;
+        Edge::Handle handle;
         double angle;
 
         Source()
-            : edge(nullptr), handle(NO_HANDLE), angle(0)
+            : edge(nullptr), handle(Edge::NO_HANDLE), angle(0)
         {}
     };
 

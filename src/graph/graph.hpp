@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "edge.hpp"
 #include <QPainter>
 #include "path_builder.hpp"
-class Traversal_Info; /// \todo
+#include "traversal_info.hpp"
 
 class Graph : public QObject, public QAbstractGraphicsShapeItem
 {
@@ -114,6 +114,9 @@ public:
     QRectF boundingRect() const override { return bounding_box; }
     int type() const override { return UserType+0x03; }
 
+
+    void traverse(Path_Builder& path, const Node_Style* default_node_style );
+
 public slots:
     /// Render knot again
     void update();
@@ -121,6 +124,14 @@ public slots:
 private:
 
     void draw_segment( Path_Builder& path, const Traversal_Info& ti ) const;
+
+
+    /** Mark source and destionation handles as traversed,
+     * get proper vertices and render
+     */
+    Traversal_Info traverse(Edge *edge, Edge::Handle handle,
+                            Path_Builder& path,
+                            const Node_Style* default_node_style );
     
 signals:
     /// Emitted when nodes or edges have changed and requires redrawing
