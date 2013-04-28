@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include "commands.hpp"
 #include <QApplication>
+#include "resource_manager.hpp"
 
 Knot_View::Knot_View(QString file)
     : mouse_mode(EDIT_GRAPH), last_node(nullptr)
@@ -105,8 +106,7 @@ Node *Knot_View::add_breaking_node(QPointF pos)
 
 Edge *Knot_View::add_edge(Node *n1, Node *n2)
 {
-    /// \todo centralized edge style management (in Resource_Manager)
-    Edge* e = new Edge(n1,n2,new Edge_Normal);
+    Edge* e = new Edge(n1,n2,Resource_Manager::default_edge_style());
     undo_stack.push(new Create_Edge(e,this));
     return e;
 }

@@ -132,6 +132,9 @@ Resource_Manager::~Resource_Manager()
 
     foreach ( QTranslator* tr, translators.values() )
         delete tr;
+
+    foreach ( Edge_Style* es, edge_styles )
+        delete es;
 }
 
 
@@ -231,3 +234,18 @@ void Resource_Manager::change_lang_name(QString name)
     change_lang_code(singleton.lang_names[name]);
 }
 
+
+void Resource_Manager::register_edge_style(Edge_Style *style, QString name, QString machine_name)
+{
+    singleton.edge_style_machine_names[machine_name] = singleton.edge_styles.size();
+    singleton.edge_style_names[name] = singleton.edge_styles.size();
+   singleton. edge_styles.push_back(style);
+
+}
+
+Edge_Style *Resource_Manager::default_edge_style()
+{
+    if ( singleton.edge_styles.empty() )
+        return nullptr;
+    return singleton.edge_styles.front();
+}

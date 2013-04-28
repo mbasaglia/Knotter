@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.hpp"
 #include <QTranslator>
 #include "c++.hpp"
+#include "edge_style.hpp"
 
 /**
  * Manage resources and data
@@ -50,6 +51,12 @@ class Resource_Manager : public QObject
     QMap<QString,QString> lang_names; ///< map lang_name -> lang_code
     QMap<QString,QTranslator*> translators; ///< map lang_code -> translator
     QTranslator* current_translator;
+
+    QVector<Edge_Style*> edge_styles;
+    QMap<QString,uint> edge_style_machine_names; ///< Map machine readable style name -> uid
+    QMap<QString,uint> edge_style_names; ///< Map human readable style name -> uid
+
+
 
 public:
     static Settings settings;
@@ -107,6 +114,23 @@ public:
     */
     static QStringList available_languages();
 
+    /**
+     *  \brief Register an edge style
+     *
+     *  Takes ownership of the style pointer
+     *
+     *  \param style Style to be registered
+     *  \param name  Human readable name, shown in the user interface
+     *  \param machine_name Machine readable name, used in the XML output
+    */
+    static void register_edge_style(Edge_Style* style, QString name, QString machine_name );
+
+    /**
+     *  \brief get the default edge style
+     *
+     *  \returns the first inserted style or nullptr if there is no style
+     */
+    static Edge_Style* default_edge_style();
 
 public slots:
 

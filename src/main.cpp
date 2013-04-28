@@ -26,15 +26,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QApplication>
 #include "main_window.hpp"
 #include "resource_manager.hpp"
+#include "edge_style.hpp"
 
-#include <QSvgGenerator>
-#include "graph.hpp"
+/*#include <QSvgGenerator>
+#include "graph.hpp"*/
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-
+    Resource_Manager::register_edge_style(new Edge_Normal,QObject::tr("Regular"),"regular");
+    Resource_Manager::register_edge_style(new Edge_Inverted,QObject::tr("Inverted"),"inverted");
+    Resource_Manager::register_edge_style(new Edge_Hole,QObject::tr("Hole"),"hole");
+    Resource_Manager::register_edge_style(new Edge_Wall,QObject::tr("Wall"),"wall");
     Resource_Manager::initialize();
 
     Main_Window mw;
