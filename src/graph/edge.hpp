@@ -94,6 +94,9 @@ public:
 
     QLineF to_line() const { return QLineF(v1->pos(), v2->pos()); }
 
+    /// Get the point in the middle of the edge
+    QPointF midpoint() const { return (v1->pos()+v2->pos())/2; }
+
     /**
      *  Find closest point within the edge
      */

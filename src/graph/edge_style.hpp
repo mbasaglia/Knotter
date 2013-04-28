@@ -48,18 +48,25 @@ public:
      *  \brief Perform any rendering to path and return the next handle
     */
     virtual Edge::Handle traverse(Edge* edge, Edge::Handle handle,Path_Builder& path,
-                          const Node_Style* default_style ) const
-    {
-        /// \todo abstract
-        Q_UNUSED(edge); Q_UNUSED(path); Q_UNUSED(default_style);
-        return handle;
-    }
+                          const Node_Style& default_style ) const = 0;
+    /**
+     *  \brief Get handle geometry
+     *
+     *  p1 is the point where the path line should pass, p2 the control point
+     */
+    virtual QLineF handle(const Edge *edge, Edge::Handle handle,
+                          const Node_Style &default_style) const;
 
 };
 
 class Edge_Normal : public Edge_Style
 {
 
+    /**
+     *  \brief Perform any rendering to path and return the next handle
+    */
+    virtual Edge::Handle traverse(Edge* edge, Edge::Handle handle,Path_Builder& path,
+                          const Node_Style& default_style ) const;
 };
 
 

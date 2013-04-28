@@ -100,7 +100,7 @@ void Graph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     }
 }
 
-void Graph::traverse(Path_Builder &path, const Node_Style *default_node_style)
+void Graph::traverse(Path_Builder &path, const Node_Style &default_node_style)
 {
     QList<Edge*> traversed_edges;
     traversed_edges.reserve(edges.size());
@@ -149,7 +149,7 @@ void Graph::update()
 
 Traversal_Info Graph::traverse(Edge *edge, Edge::Handle handle,
                                Path_Builder &path,
-                               const Node_Style *default_node_style)
+                               const Node_Style &default_node_style)
 {
     // set input values
     Traversal_Info ti;

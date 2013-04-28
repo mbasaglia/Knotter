@@ -54,6 +54,36 @@ void Edge_Style::paint(QPainter *painter, const Edge &edge)
     painter->drawLine(edge.to_line());
 }
 
+QLineF Edge_Style::handle(const Edge *edge, Edge::Handle handle,
+                          const Node_Style &default_style) const
+{
+    // set line from center to path point
+    QLineF line = edge->to_line();
+    line.setP1(edge->midpoint());
+
+    double handle_angle = 0;
+    if ( handle == Edge::TOP_RIGHT )
+        handle_angle = 45;
+    else if ( handle == Edge::TOP_LEFT )
+        handle_angle = 135;
+    else if ( handle == Edge::BOTTOM_LEFT )
+        handle_angle = 225;
+    else if ( handle == Edge::BOTTOM_RIGHT )
+        handle_angle = 315;
+
+    line.setAngle(line.angle()+handle_angle);
+    Node_Style s = edge->vertex_for(handle)->style().default_to(default_style);
+    line.setLength( s.crossing_distance/2 );
+
+    // set line from path point to control point
+    QLineF nextline;
+    nextline.setP1(line.p2());
+    nextline.setAngle(line.angle());
+    nextline.setLength(s.handle_length);
+
+    return nextline;
+}
+
 
 void Edge_Inverted::paint(QPainter *painter, const Edge &edge)
 {
@@ -90,4 +120,29 @@ void Edge_Hole::paint(QPainter *painter, const Edge &edge)
     painter->drawLine(l);
     l.setLength(-5);
     painter->drawLine(l);
+}
+
+
+Edge::Handle Edge_Normal::traverse(Edge *edge, Edge::Handle hand,
+                                   Path_Builder &path,
+                                   const Node_Style &default_style) const
+{
+    Edge::Handle normh = hand;
+    if ( hand == Edge::TOP_RIGHT )
+        normh = Edge::BOTTOM_LEFT;
+    else if ( hand == Edge::BOTTOM_RIGHT )
+        normh = Edge::TOP_LEFT;
+
+   Edge::Handle next = Edge::NO_HANDLE;
+   if ( normh == Edge::BOTTOM_LEFT )
+       next = Edge::TOP_RIGHT;
+   else if ( normh == Edge::TOP_LEFT )
+       next = Edge::BOTTOM_RIGHT;
+
+   if ( normh == Edge::TOP_LEFT )
+       path.add_line(handle(edge,normh,default_style).p1(),
+                     handle(edge,next,default_style).p1()
+                     );
+
+   return next;
 }

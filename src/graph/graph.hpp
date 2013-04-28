@@ -115,7 +115,7 @@ public:
     int type() const override { return UserType+0x03; }
 
 
-    void traverse(Path_Builder& path, const Node_Style* default_node_style );
+    void traverse(Path_Builder& path, const Node_Style &default_node_style );
 
 public slots:
     /// Render knot again
@@ -131,7 +131,7 @@ private:
      */
     Traversal_Info traverse(Edge *edge, Edge::Handle handle,
                             Path_Builder& path,
-                            const Node_Style* default_node_style );
+                            const Node_Style &default_node_style );
     
 signals:
     /// Emitted when nodes or edges have changed and requires redrawing

@@ -47,7 +47,7 @@ public:
     };
     Q_DECLARE_FLAGS(Enabled_Styles, Enabled_Styles_Enum)
 
-private:
+public:
     /// Which styles to override
     Enabled_Styles enabled_style;
     /// Minimum angle required to enable the cusp
@@ -77,7 +77,7 @@ public:
     /// Set disabled style to the values in other
     Node_Style default_to(const Node_Style& other) const;
 
-    void build(QPointF pos,Path_Builder&path, const Node_Style* default_style) const
+    void build(QPointF pos,Path_Builder&path, const Node_Style& default_style) const
     {
         Q_UNUSED(pos);Q_UNUSED(path);Q_UNUSED(default_style);
         /// \todo cusp algorithm
