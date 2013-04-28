@@ -124,7 +124,7 @@ public:
     /// Check if handle has been traversed
     bool traversed(Handle handle) const
     {
-        return available_handles & handle;
+        return !(available_handles & handle);
     }
 
     /// Get a 'random' non-traversed handle

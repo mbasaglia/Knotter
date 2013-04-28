@@ -62,10 +62,10 @@ public:
 
 public:
     Node_Style (
-               double cusp_angle = 0,
-               double handle_length = 0,
-               double crossing_distance = 0,
-               double cusp_distance = 0,
+               double cusp_angle = 225,
+               double handle_length = 24,
+               double crossing_distance = 10,
+               double cusp_distance = 32,
                Enabled_Styles enabled_style = NOTHING )
         :   enabled_style ( enabled_style ),
             cusp_angle(cusp_angle),

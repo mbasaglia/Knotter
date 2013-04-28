@@ -34,7 +34,8 @@ Graph::Graph(QObject *parent) :
 void Graph::add_node(Node *n)
 {
     nodes.append(n);
-    connect(n,SIGNAL(moved(QPointF)),this,SLOT(update()));
+    //connect(n,SIGNAL(moved(QPointF)),this,SLOT(render_knot()));
+    emit graph_changed();
 }
 
 void Graph::add_edge(Edge *e)
@@ -42,15 +43,17 @@ void Graph::add_edge(Edge *e)
     edges.append(e);
     e->vertex1()->add_edge(e);
     e->vertex2()->add_edge(e);
-    update();
+
+    emit graph_changed();
 }
 
 void Graph::remove_node(Node *n)
 {
     nodes.removeOne(n);
     n->setParentItem(nullptr);
-    disconnect(n,SIGNAL(moved(QPointF)),this,SLOT(update()));
-    update();
+    //disconnect(n,SIGNAL(moved(QPointF)),this,SLOT(render_knot()));
+
+    emit graph_changed();
 }
 
 void Graph::remove_edge(Edge *e)
@@ -58,7 +61,8 @@ void Graph::remove_edge(Edge *e)
     edges.removeOne(e);
     e->detach();
     e->setParentItem(nullptr);
-    update();
+
+    emit graph_changed();
 }
 
 void Graph::set_paint_mode(Paint_Mode mode)
@@ -98,9 +102,26 @@ void Graph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
             painter->translate(-n->pos());
         }
     }
+
+    if ( paint_mode & Paint_Knot )
+    {
+        painter->setBrush(Qt::NoBrush);
+        painter->setPen(Qt::black);
+        for ( int i = 0; i < paths.size(); ++i )
+            painter->drawPath(paths[i]);
+    }
 }
 
-void Graph::traverse(Path_Builder &path, const Node_Style &default_node_style)
+void Graph::render_knot()
+{
+    Path_Builder path;
+    traverse(path);
+    paths = path.build();
+    update_bounding_box();
+    update();
+}
+
+void Graph::traverse(Path_Builder &path)
 {
     QList<Edge*> traversed_edges;
     traversed_edges.reserve(edges.size());
@@ -129,11 +150,13 @@ void Graph::traverse(Path_Builder &path, const Node_Style &default_node_style)
         // loop around a knotline loop item
         while ( ! edge->traversed(handle) )
         {
-            Traversal_Info ti = traverse(edge,handle,path,default_node_style);
+            edge->mark_traversed(handle);
+            Traversal_Info ti = traverse(edge,handle,path);
 
             edge = ti.out.edge;
             // Don't mark handle as traversed but render and get next handle
             handle = edge->style()->traverse(edge,ti.out.handle,path,default_node_style);
+            edge->mark_traversed(handle);
 
         }
     }
@@ -141,15 +164,9 @@ void Graph::traverse(Path_Builder &path, const Node_Style &default_node_style)
     edges.swap(traversed_edges);
 }
 
-void Graph::update()
-{
-    emit graph_changed();
-}
-
 
 Traversal_Info Graph::traverse(Edge *edge, Edge::Handle handle,
-                               Path_Builder &path,
-                               const Node_Style &default_node_style)
+                               Path_Builder &path)
 {
     // set input values
     Traversal_Info ti;
@@ -233,5 +250,15 @@ Traversal_Info Graph::traverse(Edge *edge, Edge::Handle handle,
     ti.node->style().build(ti.node->pos(),path,default_node_style);
 
     return ti;
+}
+
+void Graph::update_bounding_box()
+{
+    bounding_box = QRectF();
+    if ( ! paths.empty() )
+    {
+        foreach(const QPainterPath&pp, paths)
+            bounding_box.unite(pp.controlPointRect());
+    }
 }
 

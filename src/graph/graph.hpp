@@ -40,19 +40,20 @@ class Graph : public QObject, public QAbstractGraphicsShapeItem
 public:
     enum Paint_Mode_Enum {
         Paint_Graph = 0x01, ///< renders the graph
-        Paint_Knot  = 0x02, ///< renders the knot
-        Paint_Everything = Paint_Graph|Paint_Knot, ///< Paints everything, can be used as mask
-
-        Paint_Loops = 0x10 ///< Whether separate loops need to be differently colored
+        Paint_Knot  = 0x02  ///< renders the knot
     };
     Q_DECLARE_FLAGS(Paint_Mode,Paint_Mode_Enum)
 
 private:
-    QList<Node*> nodes;
-    QList<Edge*> edges;
-    Node_Style   default_style;
-    QRectF       bounding_box;
-    Paint_Mode   paint_mode;
+    QList<Node*>        nodes;
+    QList<Edge*>        edges;
+    Node_Style          default_style;
+    QRectF              bounding_box;
+    Paint_Mode          paint_mode;
+    QList<QColor>       colors;     ///< \todo
+    bool                auto_color; ///< \todo
+    QList<QPainterPath> paths;    ///< Rendered knot (one per loop)
+    Node_Style          default_node_style;
 
 public:
     explicit Graph(QObject *parent = 0);
@@ -115,23 +116,24 @@ public:
     int type() const override { return UserType+0x03; }
 
 
-    void traverse(Path_Builder& path, const Node_Style &default_node_style );
-
 public slots:
-    /// Render knot again
-    void update();
 
+    /// Traverse graph and update internal painter paths
+    void render_knot();
 private:
 
     void draw_segment( Path_Builder& path, const Traversal_Info& ti ) const;
 
+    /// Traverse the entire graph
+    void traverse(Path_Builder& path);
 
     /** Mark source and destionation handles as traversed,
      * get proper vertices and render
      */
     Traversal_Info traverse(Edge *edge, Edge::Handle handle,
-                            Path_Builder& path,
-                            const Node_Style &default_node_style );
+                            Path_Builder& path);
+
+    void update_bounding_box();
     
 signals:
     /// Emitted when nodes or edges have changed and requires redrawing

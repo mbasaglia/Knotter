@@ -67,6 +67,9 @@ Knot_View::Knot_View(QString file)
     //setCacheMode(CacheNone);
     connect(&m_grid,SIGNAL(grid_changed()),scene,SLOT(invalidate()));
     connect(&bg_img,SIGNAL(changed()),scene,SLOT(invalidate()));
+
+    /// \todo don't connect, use where appropriate
+    connect(&graph,SIGNAL(graph_changed()),&graph,SLOT(render_knot()));
 }
 
 
@@ -184,9 +187,10 @@ void Knot_View::expand_scene_rect(int margin)
     QRectF sr = sceneRect();
     if ( ! sr.contains(vp) )
     {
-        QPoint p1 ( qMin(vp.left(),sr.left()),qMin(vp.top(),sr.top()) );
+        setSceneRect(sr.united(vp));
+        /*QPoint p1 ( qMin(vp.left(),sr.left()),qMin(vp.top(),sr.top()) );
         QPoint p2 ( qMax(vp.right(),sr.right()),qMax(vp.bottom(),sr.bottom()) );
-        setSceneRect(QRect(p1,p2));
+        setSceneRect(QRect(p1,p2));*/
     }
 }
 
