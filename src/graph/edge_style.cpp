@@ -127,24 +127,23 @@ Edge::Handle Edge_Normal::traverse(Edge *edge, Edge::Handle hand,
                                    Path_Builder &path,
                                    const Node_Style &default_style) const
 {
-    Edge::Handle normh = hand;
+    Edge::Handle next = Edge::NO_HANDLE;
     if ( hand == Edge::TOP_RIGHT )
-        normh = Edge::BOTTOM_LEFT;
+        next = Edge::BOTTOM_LEFT;
     else if ( hand == Edge::BOTTOM_RIGHT )
-        normh = Edge::TOP_LEFT;
+        next = Edge::TOP_LEFT;
+    else if ( hand == Edge::BOTTOM_LEFT )
+        next = Edge::TOP_RIGHT;
+    else if ( hand == Edge::TOP_LEFT )
+        next = Edge::BOTTOM_RIGHT;
 
-   Edge::Handle next = Edge::NO_HANDLE;
-   if ( normh == Edge::BOTTOM_LEFT )
-       next = Edge::TOP_RIGHT;
-   else if ( normh == Edge::TOP_LEFT )
-       next = Edge::BOTTOM_RIGHT;
 
-   if ( normh == Edge::TOP_LEFT )
-       path.add_line(handle(edge,normh,default_style).p1(),
+   if ( hand == Edge::TOP_LEFT || next == Edge::TOP_LEFT )
+       path.add_line(handle(edge,hand,default_style).p1(),
                      handle(edge,next,default_style).p1()
                      );
 
-   return normh == hand ? next : normh;
+   return next ;
 }
 
 QString Edge_Normal::name() const
