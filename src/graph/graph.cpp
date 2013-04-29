@@ -160,9 +160,9 @@ void Graph::traverse(Path_Builder &path)
             //ti.node->style().build(ti,path,default_node_style);
 
             edge = ti.out.edge;
+            edge->mark_traversed(ti.out.handle);
             // Don't mark handle as traversed but render and get next handle
             handle = edge->style()->traverse(edge,ti.out.handle,path,default_node_style);
-            edge->mark_traversed(handle);
 
         }
     }

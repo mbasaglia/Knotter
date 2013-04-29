@@ -144,7 +144,7 @@ Edge::Handle Edge_Normal::traverse(Edge *edge, Edge::Handle hand,
                      handle(edge,next,default_style).p1()
                      );
 
-   return next;
+   return normh == hand ? next : normh;
 }
 
 QString Edge_Normal::name() const

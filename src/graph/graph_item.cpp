@@ -30,5 +30,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Graph_Item::Graph_Item()
     :  highlighted(false)
 {
-    setFlag(QGraphicsItem::ItemIgnoresTransformations);
 }

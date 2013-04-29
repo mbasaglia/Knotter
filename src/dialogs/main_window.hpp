@@ -122,6 +122,7 @@ private slots:
     void on_action_Reset_View_triggered();
     void on_action_Report_Bugs_triggered();
     void on_action_Manual_triggered();
+    void on_action_Refresh_Path_triggered();
 };
 
 #endif // MAIN_WINDOW_HPP

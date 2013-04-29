@@ -180,6 +180,11 @@ void Knot_View::set_mode_move_background()
     setCursor(Qt::SizeAllCursor);
 }
 
+void Knot_View::update_knot()
+{
+    graph.render_knot();
+}
+
 void Knot_View::expand_scene_rect(int margin)
 {
     QRectF vp ( mapToScene(-margin,-margin),

@@ -33,6 +33,7 @@ Node::Node(QPointF pos)
 {
     setPos(pos);
     setFlag(QGraphicsItem::ItemIsSelectable);
+    setFlag(QGraphicsItem::ItemIgnoresTransformations);
     setZValue(1);
 }
 

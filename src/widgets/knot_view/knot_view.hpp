@@ -179,6 +179,8 @@ public slots:
 
     void set_background_color(QColor c) { setBackgroundBrush(c); }
 
+    void update_knot();
+
 signals:
 
     /// emitted when the graph structure or style is changed

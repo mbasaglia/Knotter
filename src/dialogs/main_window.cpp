@@ -386,3 +386,8 @@ void Main_Window::on_action_Manual_triggered()
 {
     QDesktopServices::openUrl(QUrl(DOC_URL));
 }
+
+void Main_Window::on_action_Refresh_Path_triggered()
+{
+    view->update_knot();
+}
