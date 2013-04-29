@@ -35,6 +35,7 @@ Node_Style Node_Style::default_to(const Node_Style &other) const
                 (enabled_style & HANDLE_LENGTH ) ? handle_length : other.handle_length,
                 (enabled_style & CROSSING_DISTANCE ) ? crossing_distance : other.crossing_distance,
                 (enabled_style & CUSP_DISTANCE ) ? cusp_distance : other.cusp_distance,
+                (enabled_style & CURVE_STYLE) && cusp_shape ? cusp_shape : other.cusp_shape,
                 EVERYTHING
             );
 }

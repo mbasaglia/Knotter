@@ -25,7 +25,8 @@ HEADERS += \
     $$PWD/path_builder.hpp \
     $$PWD/path_item.hpp \
     $$PWD/point_math.hpp \
-    src/graph/traversal_info.hpp
+    src/graph/traversal_info.hpp \
+    src/graph/node_cusp_shape.hpp
 
 SOURCES += \
     $$PWD/node.cpp \
@@ -35,4 +36,5 @@ SOURCES += \
     $$PWD/graph_item.cpp \
     $$PWD/node_style.cpp \
     $$PWD/path_builder.cpp \
-    $$PWD/path_item.cpp
+    $$PWD/path_item.cpp \
+    src/graph/node_cusp_shape.cpp

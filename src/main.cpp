@@ -35,10 +35,12 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    Resource_Manager::register_edge_style(new Edge_Normal,QObject::tr("Regular"),"regular");
-   /* Resource_Manager::register_edge_style(new Edge_Inverted,QObject::tr("Inverted"),"inverted");
-    Resource_Manager::register_edge_style(new Edge_Hole,QObject::tr("Hole"),"hole");
-    Resource_Manager::register_edge_style(new Edge_Wall,QObject::tr("Wall"),"wall");*/
+    Resource_Manager::register_cusp_shape(new Cusp_Rounded);
+
+    Resource_Manager::register_edge_style(new Edge_Normal);
+   /* Resource_Manager::register_edge_style(new Edge_Inverted,"inverted");
+    Resource_Manager::register_edge_style(new Edge_Hole,"hole");
+    Resource_Manager::register_edge_style(new Edge_Wall,"wall");*/
     Resource_Manager::initialize();
 
     Main_Window mw;

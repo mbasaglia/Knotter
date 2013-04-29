@@ -25,9 +25,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "graph.hpp"
 #include "edge_style.hpp"
+#include "resource_manager.hpp"
 
 Graph::Graph(QObject *parent) :
-    QObject(parent), paint_mode(Paint_Knot)
+    QObject(parent),
+    default_node_style(225,24,10,32,Resource_Manager::default_cusp_shape(),
+                  Node_Style::EVERYTHING),
+    paint_mode(Paint_Knot)
 {
 }
 
@@ -153,6 +157,8 @@ void Graph::traverse(Path_Builder &path)
             edge->mark_traversed(handle);
             Traversal_Info ti = traverse(edge,handle,path);
 
+            //ti.node->style().build(ti,path,default_node_style);
+
             edge = ti.out.edge;
             // Don't mark handle as traversed but render and get next handle
             handle = edge->style()->traverse(edge,ti.out.handle,path,default_node_style);
@@ -247,7 +253,7 @@ Traversal_Info Graph::traverse(Edge *edge, Edge::Handle handle,
 
     ti.success = true;
 
-    ti.node->style().build(ti.node->pos(),path,default_node_style);
+    ti.node->style().build(ti,path,default_node_style);
 
     return ti;
 }

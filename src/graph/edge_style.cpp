@@ -146,3 +146,13 @@ Edge::Handle Edge_Normal::traverse(Edge *edge, Edge::Handle hand,
 
    return next;
 }
+
+QString Edge_Normal::name() const
+{
+    return QObject::tr("Regular");
+}
+
+QString Edge_Normal::machine_name() const
+{
+    return "regular";
+}

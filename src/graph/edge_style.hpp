@@ -57,6 +57,13 @@ public:
     virtual QLineF handle(const Edge *edge, Edge::Handle handle,
                           const Node_Style &default_style) const;
 
+    /// (Translated) Human-readable name, used in the UI
+    virtual QString name() const = 0;
+
+
+    /// Machine-readable (unique) name, used as identifier
+    virtual QString machine_name() const = 0;
+
 };
 
 class Edge_Normal : public Edge_Style
@@ -66,7 +73,9 @@ class Edge_Normal : public Edge_Style
      *  \brief Perform any rendering to path and return the next handle
     */
     virtual Edge::Handle traverse(Edge* edge, Edge::Handle handle,Path_Builder& path,
-                          const Node_Style& default_style ) const;
+                          const Node_Style& default_style ) const override;
+    QString name() const override;
+    QString machine_name() const override;
 };
 
 

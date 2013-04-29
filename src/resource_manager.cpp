@@ -133,7 +133,7 @@ Resource_Manager::~Resource_Manager()
     foreach ( QTranslator* tr, translators.values() )
         delete tr;
 
-    foreach ( Edge_Style* es, edge_styles )
+    foreach ( Edge_Style* es, m_edge_styles )
         delete es;
 }
 
@@ -235,17 +235,26 @@ void Resource_Manager::change_lang_name(QString name)
 }
 
 
-void Resource_Manager::register_edge_style(Edge_Style *style, QString name, QString machine_name)
+void Resource_Manager::register_edge_style(Edge_Style *style)
 {
-    singleton.edge_style_machine_names[machine_name] = singleton.edge_styles.size();
-    singleton.edge_style_names[name] = singleton.edge_styles.size();
-   singleton. edge_styles.push_back(style);
-
+    singleton.m_edge_styles.push_back(style);
 }
 
 Edge_Style *Resource_Manager::default_edge_style()
 {
-    if ( singleton.edge_styles.empty() )
+    if ( singleton.m_edge_styles.empty() )
         return nullptr;
-    return singleton.edge_styles.front();
+    return singleton.m_edge_styles.front();
+}
+
+void Resource_Manager::register_cusp_shape(Node_Cusp_Shape *style)
+{
+    singleton.m_cusp_shapes.push_back(style);
+}
+
+Node_Cusp_Shape *Resource_Manager::default_cusp_shape()
+{
+    if ( singleton.m_cusp_shapes.empty() )
+        return nullptr;
+    return singleton.m_cusp_shapes.front();
 }

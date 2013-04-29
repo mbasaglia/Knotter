@@ -47,13 +47,12 @@ public:
 private:
     QList<Node*>        nodes;
     QList<Edge*>        edges;
-    Node_Style          default_style;
+    Node_Style          default_node_style;
     QRectF              bounding_box;
     Paint_Mode          paint_mode;
     QList<QColor>       colors;     ///< \todo
     bool                auto_color; ///< \todo
     QList<QPainterPath> paths;    ///< Rendered knot (one per loop)
-    Node_Style          default_node_style;
 
 public:
     explicit Graph(QObject *parent = 0);

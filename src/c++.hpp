@@ -35,11 +35,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <ciso646>
 
 #if !defined(CXX_11) || __cplusplus < 201103
-
-#define nullptr 0
-#define override
-
+    #define nullptr 0
+    #define override
 #endif // C++11
 
+#include <QDebug>
 
 #endif // CXX_HPP

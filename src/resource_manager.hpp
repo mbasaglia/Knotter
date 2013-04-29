@@ -52,11 +52,8 @@ class Resource_Manager : public QObject
     QMap<QString,QTranslator*> translators; ///< map lang_code -> translator
     QTranslator* current_translator;
 
-    QVector<Edge_Style*> edge_styles;
-    QMap<QString,uint> edge_style_machine_names; ///< Map machine readable style name -> uid
-    QMap<QString,uint> edge_style_names; ///< Map human readable style name -> uid
-
-
+    QVector<Edge_Style*> m_edge_styles;
+    QVector<Node_Cusp_Shape*> m_cusp_shapes;
 
 public:
     static Settings settings;
@@ -120,10 +117,8 @@ public:
      *  Takes ownership of the style pointer
      *
      *  \param style Style to be registered
-     *  \param name  Human readable name, shown in the user interface
-     *  \param machine_name Machine readable name, used in the XML output
     */
-    static void register_edge_style(Edge_Style* style, QString name, QString machine_name );
+    static void register_edge_style(Edge_Style* style);
 
     /**
      *  \brief get the default edge style
@@ -131,6 +126,22 @@ public:
      *  \returns the first inserted style or nullptr if there is no style
      */
     static Edge_Style* default_edge_style();
+
+    static QVector<Edge_Style*> edge_styles() { return singleton.m_edge_styles; }
+
+
+    /**
+     *  \brief Register a cusp style
+     *
+     *  Takes ownership of the style pointer
+     *
+     *  \param style Style to be registered
+    */
+    static void register_cusp_shape(Node_Cusp_Shape* style);
+
+    static QVector<Node_Cusp_Shape*> cusp_shapes() { return singleton.m_cusp_shapes; }
+
+    static Node_Cusp_Shape* default_cusp_shape();
 
 public slots:
 
