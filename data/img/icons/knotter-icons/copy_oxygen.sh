@@ -48,10 +48,14 @@ icons='application-exit
         help-about
         help-contents
         insert-horizontal-rule
+        image-svg+xml
+        image-x-generic
         list-add
         list-remove
         object-flip-horizontal
         object-flip-vertical
+        object-locked
+        object-unlocked
         page-zoom
         preferences-desktop-wallpaper
         preferences-other

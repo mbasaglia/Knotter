@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "knot_view.hpp"
 #include <QUndoView>
 #include <QUndoGroup>
+#include "export_image_dialog.hpp"
 #include "dock_grid.hpp"
 #include "dock_knot_display.hpp"
 #include "dock_background.hpp"
@@ -44,9 +45,11 @@ private:
     Knot_View*          view;       ///< Active Knot_View (hopefully never NULL)
     QUndoView*          undo_view;  ///< Action history
     QUndoGroup          undo_group; ///< Groups undo stacks
+    Export_Image_Dialog ximg_dlg;
     Dock_Grid*          dock_grid;  ///< Grid conf dock
     Dock_Knot_Display*  dock_knot_display;///< Display conf dock
     Dock_Background*    dock_background;
+
 public:
     explicit Main_Window(QWidget *parent = 0);
 

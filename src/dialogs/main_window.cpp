@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 Main_Window::Main_Window(QWidget *parent) :
-    QMainWindow(parent), zoomer(nullptr), view(nullptr)
+    QMainWindow(parent), zoomer(nullptr), view(nullptr), ximg_dlg(this)
 {
     setupUi(this);
     setWindowIcon(QIcon(Resource_Manager::data("img/icon-small.svg")));
@@ -80,6 +80,7 @@ void Main_Window::init_menus()
     action_Close->setShortcut(QKeySequence::Close);
     action_Print->setShortcut(QKeySequence::Print);
     action_Exit->setShortcut(QKeySequence::Quit);
+    connect(action_Export,SIGNAL(triggered()),&ximg_dlg,SLOT(show()));
 
     // Menu Edit
     action_Undo->setShortcut(QKeySequence::Undo);

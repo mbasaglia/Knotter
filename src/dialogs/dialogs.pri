@@ -17,12 +17,15 @@ INCLUDEPATH += $$PWD
 
 HEADERS += \
     $$PWD/main_window.hpp \
-    $$PWD/preferences_dialog.hpp
+    $$PWD/preferences_dialog.hpp \
+    src/dialogs/export_image_dialog.hpp
 
 SOURCES += \
     $$PWD/main_window.cpp \
-    $$PWD/preferences_dialog.cpp
+    $$PWD/preferences_dialog.cpp \
+    src/dialogs/export_image_dialog.cpp
 
 FORMS += \
     $$PWD/main_window.ui \
-    $$PWD/preferences_dialog.ui
+    $$PWD/preferences_dialog.ui \
+    src/dialogs/export_image_dialog.ui
