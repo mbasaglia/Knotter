@@ -50,7 +50,7 @@ private:
     Node_Style          default_node_style;
     QRectF              bounding_box;
     Paint_Mode          paint_mode;
-    QList<QColor>       colors;     ///< \todo
+    QList<QColor>       m_colors;     ///< \todo
     bool                auto_color; ///< \todo
     QList<QPainterPath> paths;    ///< Rendered knot (one per loop)
 
@@ -109,6 +109,9 @@ public:
      *  Performs paint_mode NAND flag
     */
     void disable_paint_flag ( Paint_Mode_Enum flag );
+
+    const QList<QColor>& colors() const { return m_colors; }
+    void set_colors(const QList<QColor>& l);
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option=0, QWidget *widget=0);
     QRectF boundingRect() const override { return bounding_box; }

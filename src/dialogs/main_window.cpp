@@ -248,6 +248,11 @@ void Main_Window::connect_view(Knot_View *v)
     connect(dock_background,SIGNAL(move_image()),
             v,SLOT(set_mode_move_background()));
 
+    // style
+    dock_knot_display->set_colors(v->knot_colors());
+    connect(dock_knot_display,SIGNAL(colors_changed(QList<QColor>)),
+            v,SLOT(set_knot_colors(QList<QColor>)));
+
 }
 
 void Main_Window::disconnect_view(Knot_View *v)
@@ -258,6 +263,7 @@ void Main_Window::disconnect_view(Knot_View *v)
         disconnect(dock_grid,SIGNAL(move_grid()),v,SLOT(set_mode_move_grid()));
         dock_background->disconnect(v);
         dock_background->disconnect(&v->background_image());
+        dock_knot_display->disconnect(v);
     }
 }
 

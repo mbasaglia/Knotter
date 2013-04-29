@@ -36,6 +36,8 @@ class Dock_Knot_Display : public QDockWidget, private Ui::Dock_Knot_Display
 
 public:
     explicit Dock_Knot_Display(QWidget *parent = 0);
+
+    void set_colors(const QList<QColor>& c);
     
 protected:
     void changeEvent(QEvent *e);
@@ -43,6 +45,10 @@ protected:
 private slots:
     void on_button_add_color_clicked();
     void on_list_colors_removed(int arg1);
+
+signals:
+
+    void colors_changed(const QList<QColor>&);
 };
 
 #endif // DOCK_KNOT_DISPLAY_HPP

@@ -133,7 +133,16 @@ public:
     */
     double get_zoom_factor() const { return transform().m11(); }
 
+    /**
+     *  List of currenty selected nodes on the view
+    */
     QList<Node*> selected_nodes() const;
+
+
+    /**
+     *  Colors used to display the knot
+     */
+    const QList<QColor>& knot_colors() const { return graph.colors(); }
 
 public slots:
     /**
@@ -179,7 +188,15 @@ public slots:
 
     void set_background_color(QColor c) { setBackgroundBrush(c); }
 
+    /**
+     * Render the knot again and repaint
+     */
     void update_knot();
+
+    /**
+     *  Set the colors used to display the knot
+     */
+    void set_knot_colors(const QList<QColor>& l) { graph.set_colors(l); }
 
 signals:
 

@@ -39,8 +39,14 @@ Dock_Knot_Display::Dock_Knot_Display(QWidget *parent) :
     list_colors->setIndexWidget(color_list_model.index(0,0),new Color_Selector);
     //list_colors->setItemDelegate(new Color_Delegate);*/
 
-    list_colors->addColor(Qt::black);
+    connect(list_colors,SIGNAL(colorsChanged(QList<QColor>)),
+            SIGNAL(colors_changed(QList<QColor>)));
 
+}
+
+void Dock_Knot_Display::set_colors(const QList<QColor> &c)
+{
+    list_colors->setColors(c);
 }
 
 void Dock_Knot_Display::changeEvent(QEvent *e)

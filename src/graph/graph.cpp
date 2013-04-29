@@ -31,8 +31,12 @@ Graph::Graph(QObject *parent) :
     QObject(parent),
     default_node_style(225,24,10,32,Resource_Manager::default_cusp_shape(),
                   Node_Style::EVERYTHING),
-    paint_mode(Paint_Knot)
+    paint_mode(Paint_Knot),
+    auto_color(false)
 {
+    m_colors.push_back(Qt::black);
+    m_colors.push_back(Qt::red);
+    m_colors.push_back(Qt::green);
 }
 
 void Graph::add_node(Node *n)
@@ -93,6 +97,12 @@ void Graph::disable_paint_flag(Graph::Paint_Mode_Enum flag)
     emit style_changed();
 }
 
+void Graph::set_colors(const QList<QColor> &l)
+{
+    m_colors = l;
+    emit style_changed();
+}
+
 void Graph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     if ( paint_mode & Paint_Graph )
@@ -107,12 +117,19 @@ void Graph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
         }
     }
 
-    if ( paint_mode & Paint_Knot )
+    if ( paint_mode & Paint_Knot && ! m_colors.empty() )
     {
         painter->setBrush(Qt::NoBrush);
-        painter->setPen(Qt::black);
+        QPen p = pen();
         for ( int i = 0; i < paths.size(); ++i )
+        {
+            if ( auto_color )
+                p.setColor(QColor::fromHsv(i*360/paths.size(),192,170));
+            else
+                p.setColor(m_colors[i%m_colors.size()]);
+            painter->setPen(p);
             painter->drawPath(paths[i]);
+        }
     }
 }
 
@@ -264,7 +281,7 @@ void Graph::update_bounding_box()
     if ( ! paths.empty() )
     {
         foreach(const QPainterPath&pp, paths)
-            bounding_box.unite(pp.controlPointRect());
+            bounding_box |= pp.controlPointRect();
     }
 }
 
