@@ -43,7 +43,6 @@ protected:
     void changeEvent(QEvent *e);
 
 private slots:
-    void on_button_add_color_clicked();
     void on_list_colors_removed(int arg1);
 
 signals:

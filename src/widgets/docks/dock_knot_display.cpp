@@ -61,13 +61,8 @@ void Dock_Knot_Display::changeEvent(QEvent *e)
     }
 }
 
-void Dock_Knot_Display::on_button_add_color_clicked()
-{
-    list_colors->addColor(Qt::black);
-}
-
 void Dock_Knot_Display::on_list_colors_removed(int)
 {
     if ( list_colors->count() == 0 )
-        list_colors->addColor(Qt::black);
+        list_colors->append();
 }
