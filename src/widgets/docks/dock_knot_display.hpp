@@ -48,6 +48,8 @@ private slots:
 signals:
 
     void colors_changed(const QList<QColor>&);
+
+    void width_changed(double);
 };
 
 #endif // DOCK_KNOT_DISPLAY_HPP

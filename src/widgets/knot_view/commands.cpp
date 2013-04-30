@@ -182,3 +182,38 @@ void Move_Node::redo()
 {
     node->setPos(after);
 }
+
+
+int Knot_Width::m_id = generate_id();
+
+Knot_Width::Knot_Width(double before, double after, Knot_View *kv)
+    : Knot_Command(kv),before(before), after(after)
+{
+    setText(tr("Change Stroke Width"));
+}
+
+void Knot_Width::undo()
+{
+    graph->set_width(before);
+}
+
+void Knot_Width::redo()
+{
+    graph->set_width(after);
+}
+
+int Knot_Width::id() const
+{
+    return m_id;
+}
+
+bool Knot_Width::mergeWith(const QUndoCommand *other)
+{
+    const Knot_Width* cc = static_cast<const Knot_Width*>(other);
+    if ( cc->graph == graph )
+    {
+        after = cc->after;
+        return true;
+    }
+    return false;
+}

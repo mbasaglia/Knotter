@@ -146,6 +146,13 @@ public:
      */
     const QList<QColor>& knot_colors() const { return graph.colors(); }
 
+
+
+    /**
+     *  Set knot stroke width
+     */
+    double stroke_width() const { return graph.width(); }
+
 public slots:
     /**
      * \brief Zoom view by factor
@@ -200,6 +207,12 @@ public slots:
      */
     void set_knot_colors(const QList<QColor>& l);
 
+
+    /**
+     *  Set knot stroke width
+     */
+    void set_stroke_width(double w);
+
 signals:
 
     /// emitted when the graph structure or style is changed
@@ -215,6 +228,7 @@ protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
+    void mouseDoubleClickEvent(QMouseEvent *event);
     void wheelEvent(QWheelEvent *event);
     void drawBackground(QPainter *painter, const QRectF &rect);
 

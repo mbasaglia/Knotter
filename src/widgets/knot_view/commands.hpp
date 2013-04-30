@@ -134,5 +134,21 @@ public:
     void redo() override;
 };
 
+class Knot_Width : public Knot_Command
+{
+    Q_OBJECT
+
+    static int m_id;
+
+    double before;
+    double after;
+
+public:
+    Knot_Width(double before, double after, Knot_View* kv);
+    void undo() override;
+    void redo() override;
+    int id() const override;
+    bool mergeWith(const QUndoCommand *other) override;
+};
 
 #endif // COMMANDS_HPP

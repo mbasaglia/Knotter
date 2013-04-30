@@ -252,6 +252,8 @@ void Main_Window::connect_view(Knot_View *v)
     dock_knot_display->set_colors(v->knot_colors());
     connect(dock_knot_display,SIGNAL(colors_changed(QList<QColor>)),
             v,SLOT(set_knot_colors(QList<QColor>)));
+    connect(dock_knot_display,SIGNAL(width_changed(double)),
+            v,SLOT(set_stroke_width(double)) );
 
 }
 

@@ -42,6 +42,9 @@ Dock_Knot_Display::Dock_Knot_Display(QWidget *parent) :
     connect(list_colors,SIGNAL(colorsChanged(QList<QColor>)),
             SIGNAL(colors_changed(QList<QColor>)));
 
+
+    connect(spin_width,SIGNAL(valueChanged(double)), SIGNAL(width_changed(double)));
+
 }
 
 void Dock_Knot_Display::set_colors(const QList<QColor> &c)

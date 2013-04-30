@@ -103,6 +103,12 @@ void Graph::set_colors(const QList<QColor> &l)
     emit style_changed();
 }
 
+void Graph::set_width(double w)
+{
+    setPen(QPen(Qt::black,w,pen().style(),pen().capStyle()));
+    emit style_changed();
+}
+
 void Graph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     if ( paint_mode & Paint_Graph )

@@ -113,15 +113,21 @@ public:
     const QList<QColor>& colors() const { return m_colors; }
     void set_colors(const QList<QColor>& l);
 
+
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option=0, QWidget *widget=0);
     QRectF boundingRect() const override { return bounding_box; }
     int type() const override { return UserType+0x03; }
 
+    /// get stroke width
+    double width() const { return pen().widthF();}
 
 public slots:
 
     /// Traverse graph and update internal painter paths
     void render_knot();
+
+    /// set stroke width
+    void set_width(double w);
 private:
 
     void draw_segment( Path_Builder& path, const Traversal_Info& ti ) const;

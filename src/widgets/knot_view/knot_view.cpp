@@ -68,8 +68,8 @@ Knot_View::Knot_View(QString file)
     connect(&m_grid,SIGNAL(grid_changed()),scene,SLOT(invalidate()));
     connect(&bg_img,SIGNAL(changed()),scene,SLOT(invalidate()));
 
-    /// \todo don't connect, use where appropriate
-    connect(&graph,SIGNAL(graph_changed()),&graph,SLOT(render_knot()));
+    connect(&graph,SIGNAL(style_changed()),scene,SLOT(invalidate()));
+
 }
 
 
@@ -183,11 +183,17 @@ void Knot_View::set_mode_move_background()
 void Knot_View::update_knot()
 {
     graph.render_knot();
+    //scene()->invalidate();
 }
 
 void Knot_View::set_knot_colors(const QList<QColor> &l)
 {
     undo_stack.push(new Change_Colors(graph.colors(),l,this));
+}
+
+void Knot_View::set_stroke_width(double w)
+{
+    undo_stack.push(new Knot_Width(graph.width(),w,this));
 }
 
 void Knot_View::expand_scene_rect(int margin)
@@ -286,6 +292,7 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
 
             if ( !(mouse_mode & RUBBERBAND) )
             {
+                /// \todo there's something wrong with the selection
                 // not directly in condition because has side-effect
                 bool b = mouse_select(nodes,event->modifiers() &
                                       (Qt::ControlModifier|Qt::ShiftModifier),
@@ -327,6 +334,8 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
             undo_stack.push(new Last_Node(last_node,next_node,this));
 
             end_macro();
+
+            update_knot();
 
             //if ( !guide.scene() )
             {
@@ -399,6 +408,8 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
         {
             QPointF delta = snapped_scene_pos-last_node->pos();
             node_mover.move(delta);
+            /// \todo if fluid refresh
+            update_knot();
         }
     }
     else if ( mouse_mode & EDGE_CHAIN )
@@ -433,6 +444,7 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
         last_node = nullptr;
         mouse_mode &=~ MOVE_NODES;
         node_mover.deploy(this);
+        update_knot();
     }
     else if ( mouse_mode & MOVE_BACK )
     {
@@ -440,6 +452,24 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
             setCursor(Qt::SizeAllCursor);
     }
 
+}
+
+void Knot_View::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    if ( event->button() == Qt::LeftButton )
+    {
+        QPoint mpos = event->pos();
+        QPointF scene_pos = mapToScene(mpos);
+        QPointF snapped_scene_pos = m_grid.nearest(scene_pos);
+        Node *node=node_at(scene_pos);
+
+        if ( node )
+            node->setPos(snapped_scene_pos);
+        else
+            add_breaking_node(snapped_scene_pos);
+
+        update_knot();
+    }
 }
 
 void Knot_View::wheelEvent(QWheelEvent *event)
