@@ -185,6 +185,11 @@ void Knot_View::update_knot()
     graph.render_knot();
 }
 
+void Knot_View::set_knot_colors(const QList<QColor> &l)
+{
+    undo_stack.push(new Change_Colors(graph.colors(),l,this));
+}
+
 void Knot_View::expand_scene_rect(int margin)
 {
     QRectF vp ( mapToScene(-margin,-margin),
@@ -287,7 +292,10 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
                                       false );
                 // move only if has selected, not if has deselected
                 if ( b )
+                {
                     mouse_mode |= MOVE_NODES;
+                    node_mover = Node_Mover(selected_nodes(),last_node->pos());
+                }
             }
         }
         else if ( mouse_mode & EDIT_GRAPH || event->buttons() & Qt::RightButton )
@@ -355,7 +363,6 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
     }
     else if ( mouse_mode & MOVE_BACK )
     {
-        /// \todo move bg
         Node* n = node_at(scene_pos);
         Edge* e = edge_at(scene_pos);
         if ( mouse_mode & MOVE_GRID )
@@ -391,11 +398,7 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
         if ( last_node )
         {
             QPointF delta = snapped_scene_pos-last_node->pos();
-
-            foreach(Node* n,selected_nodes())
-            {
-                n->setPos(n->pos()+delta);
-            }
+            node_mover.move(delta);
         }
     }
     else if ( mouse_mode & EDGE_CHAIN )
@@ -429,6 +432,7 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
     {
         last_node = nullptr;
         mouse_mode &=~ MOVE_NODES;
+        node_mover.deploy(this);
     }
     else if ( mouse_mode & MOVE_BACK )
     {

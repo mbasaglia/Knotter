@@ -130,3 +130,55 @@ void Remove_Edge::undo()
     scene->addItem(edge);
 }
 
+
+int Change_Colors::m_id = generate_id();
+Change_Colors::Change_Colors(QList<QColor> before, QList<QColor> after, Knot_View *kv)
+    : Knot_Command(kv),before(before),after(after)
+{
+    setText(tr("Change Color"));
+}
+
+void Change_Colors::undo()
+{
+    graph->set_colors(before);
+    scene->invalidate(graph->boundingRect());
+}
+
+void Change_Colors::redo()
+{
+    graph->set_colors(after);
+    scene->invalidate(graph->boundingRect());
+}
+
+int Change_Colors::id() const
+{
+    return m_id;
+}
+
+bool Change_Colors::mergeWith(const QUndoCommand *other)
+{
+    const Change_Colors* cc = static_cast<const Change_Colors*>(other);
+    if ( cc->graph == graph )
+    {
+        after = cc->after;
+        return true;
+    }
+    return false;
+}
+
+
+Move_Node::Move_Node(Node *node, QPointF before, QPointF after, Knot_View *kv)
+    : Knot_Command(kv), node(node), before(before), after(after)
+{
+    setText(tr("Move Node"));
+}
+
+void Move_Node::undo()
+{
+    node->setPos(before);
+}
+
+void Move_Node::redo()
+{
+    node->setPos(after);
+}

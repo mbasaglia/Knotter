@@ -104,4 +104,35 @@ public:
 
 
 
+class Change_Colors : public Knot_Command
+{
+    Q_OBJECT
+    static int m_id;
+    QList<QColor> before;
+    QList<QColor> after;
+public:
+    Change_Colors(QList<QColor> before, QList<QColor> after, Knot_View* kv);
+    void undo() override;
+    void redo() override;
+    int id() const override;
+    bool mergeWith(const QUndoCommand *other) override;
+};
+
+
+
+
+class Move_Node : public Knot_Command
+{
+    Q_OBJECT
+
+    Node*   node;
+    QPointF before;
+    QPointF after;
+public:
+    Move_Node(Node* node, QPointF before, QPointF after, Knot_View* kv);
+    void undo() override;
+    void redo() override;
+};
+
+
 #endif // COMMANDS_HPP

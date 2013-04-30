@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QUndoStack>
 #include "snapping_grid.hpp"
 #include "background_image.hpp"
+#include "node_mover.hpp"
 
 class Knot_View : public QGraphicsView
 {
@@ -61,6 +62,7 @@ class Knot_View : public QGraphicsView
     Node*               last_node;   ///< Last node in a chain
     QGraphicsLineItem   guide;       ///< Tiny line showing the edge being edited
     QGraphicsRectItem   rubberband;  ///< Draggable selection rectangle
+    Node_Mover          node_mover;  ///< Helper to manage movement of the nodes
 
 public:
 
@@ -196,7 +198,7 @@ public slots:
     /**
      *  Set the colors used to display the knot
      */
-    void set_knot_colors(const QList<QColor>& l) { graph.set_colors(l); }
+    void set_knot_colors(const QList<QColor>& l);
 
 signals:
 
