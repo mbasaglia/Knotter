@@ -121,6 +121,7 @@ QMAKE_EXTRA_TARGETS += mydist mydistclean
 
 #src_doc
 Doxyfile.commands = ./info_preprocessor.sh Doxyfile.in > Doxyfile
+Doxyfile.depends = Doxyfile.in
 src_doc.depends = Doxyfile FORCE
 src_doc.commands = doxygen Doxyfile
 

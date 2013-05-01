@@ -41,7 +41,7 @@ public:
     /// Machine-readable name, must be unique and constant for every derived class
     virtual QString machine_name() const = 0;
 
-
+    /// render the cusp to \c path
     virtual void draw_joint ( Path_Builder& path,
                                 const Traversal_Info& ti,
                                 const Node_Style& style ) const = 0;
@@ -50,7 +50,6 @@ protected:
         \brief get line pointing to the cusp endpoint
         \param start        starning handle line
         \param finish       ending handle line
-        \param node         node
         \param ti           traversal info
         \param def_dist     default distance from node (only if delta ~ 360)
     */

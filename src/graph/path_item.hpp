@@ -29,12 +29,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "c++.hpp"
 
 /**
- * Classes that can be stored inside a Path_Builder and related functions
+ *  \brief Classes that can be stored inside a Path_Builder and related functions
  */
 namespace path_item {
 
 /**
- *  Straight line
+ *  \brief Straight line
  */
 struct Line
 {
@@ -64,7 +64,7 @@ struct Line
 };
 
 /**
- *  Quadratic curve (1 control point)
+ *  \brief Quadratic curve (1 control point)
  */
 struct Quad_Curve : public Line
 {
@@ -75,7 +75,7 @@ struct Quad_Curve : public Line
 };
 
 /**
- *  Cubic curve (1 control points)
+ *  \brief Cubic curve (1 control points)
  */
 struct Cubic_Curve : public Line
 {
@@ -123,8 +123,8 @@ struct Compound : public Line
 Compound* merge ( Line* a, Line* b );
 
 /**
-    \brief check consecutive lines
-    \return true <=> a and be can be merged in a continuous line
+    \brief Check if two lines have an endpoint in common
+    \return \c true  \f$\iff\f$ \c a and \c b can be merged in a continuous line
 */
 bool adjacent ( const Line* a, const Line* b );
 
