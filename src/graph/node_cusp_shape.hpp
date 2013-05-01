@@ -38,6 +38,9 @@ public:
     /// (Translated) Human-readable name
     virtual QString name() const = 0;
 
+    /// Machine-readable name, must be unique and constant for every derived class
+    virtual QString machine_name() const = 0;
+
 
     virtual void draw_joint ( Path_Builder& path,
                                 const Traversal_Info& ti,
@@ -61,6 +64,8 @@ protected:
 class Cusp_Rounded : public Node_Cusp_Shape
 {
     QString name() const override { return QObject::tr("Rounded"); }
+
+    QString machine_name() const override { return "rounded"; }
 
     void draw_joint ( Path_Builder& path,
                         const Traversal_Info& ti,

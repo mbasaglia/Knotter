@@ -258,3 +258,22 @@ void Knot_Macro::undo()
         qobject_cast<Knot_Command*>(obj)->undo();
     update_knot();
 }
+
+
+Remove_Node::Remove_Node(Node *node, Knot_View *kv, Knot_Macro *parent)
+    : Knot_Command(kv,parent),node(node)
+{
+    setText(tr("Remove Node"));
+}
+
+void Remove_Node::undo()
+{
+    graph->add_node(node);
+    update_knot();
+}
+
+void Remove_Node::redo()
+{
+    graph->remove_node(node);
+    update_knot();
+}

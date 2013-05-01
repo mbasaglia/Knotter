@@ -129,6 +129,16 @@ public:
 
     static QVector<Edge_Style*> edge_styles() { return singleton.m_edge_styles; }
 
+    /**
+     *  \brief Get edge style from its machine-readable name
+     *
+     *  Scans every register style to check a match to the given name,
+     *  if none is found, the default style is returned.
+     *
+     *  Resurns NULL only if there are no registered styles
+     */
+    static Edge_Style* edge_style_from_machine_name(QString name);
+
 
     /**
      *  \brief Register a cusp style
@@ -142,6 +152,15 @@ public:
     static QVector<Node_Cusp_Shape*> cusp_shapes() { return singleton.m_cusp_shapes; }
 
     static Node_Cusp_Shape* default_cusp_shape();
+    /**
+     *  \brief Get cusp shape from its machine-readable name
+     *
+     *  Scans every register style to check a match to the given name,
+     *  if none is found, the default style is returned.
+     *
+     *  Resurns NULL only if there are no registered styles
+     */
+    static Node_Cusp_Shape* cusp_shape_from_machine_name(QString name);
 
 public slots:
 

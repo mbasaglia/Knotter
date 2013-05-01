@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "commands.hpp"
 #include <QApplication>
 #include "resource_manager.hpp"
+#include "xml_loader_v2.hpp"
 
 Knot_View::Knot_View(QString file)
     : mouse_mode(EDIT_GRAPH), last_node(nullptr), m_file_name(file)
@@ -70,9 +71,69 @@ Knot_View::Knot_View(QString file)
 
     connect(&graph,SIGNAL(style_changed()),scene,SLOT(invalidate()));
 
+    load_file(file);
+
 }
 
 
+
+bool Knot_View::load_file(QString fname)
+{
+    if ( !fname.isEmpty() )
+    {
+        QFile file(fname);
+        if ( load_file(&file) )
+        {
+            setWindowFilePath(fname);
+            m_file_name = fname;
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Knot_View::load_file(QIODevice *device)
+{
+
+    XML_Loader_v2 xml;
+
+    if ( !xml.load(device) )
+        return false;
+
+    begin_macro(tr("Load File"));
+
+
+    foreach(Node* n,graph.nodes())
+    {
+        push_command(new Remove_Node(n,this));
+    }
+    foreach(Edge* e,graph.edges())
+    {
+        push_command(new Remove_Edge(e,this));
+    }
+
+    Graph loaded;
+    xml.get_graph(loaded);
+
+    push_command(new Knot_Width(graph.width(),loaded.width(),this));
+    push_command(new Change_Colors(graph.colors(),loaded.colors(),this));
+    /// \todo commands for missing style features
+
+    foreach(Node* n,loaded.nodes())
+    {
+        push_command(new Create_Node(n,this));
+        /// \todo commands for style
+    }
+    foreach(Edge* e,loaded.edges())
+    {
+        push_command(new Create_Edge(e,this));
+        /// \todo commands for style
+    }
+
+    end_macro();
+
+    return true;
+}
 
 void Knot_View::translate_view(QPointF delta)
 {

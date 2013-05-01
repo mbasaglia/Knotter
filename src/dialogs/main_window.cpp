@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDesktopServices>
 #include <QUrl>
 #include "icon_dock_style.hpp"
+#include <QFileDialog>
 
 
 Main_Window::Main_Window(QWidget *parent) :
@@ -320,11 +321,27 @@ void Main_Window::on_action_Preferences_triggered()
 
 void Main_Window::create_tab(QString file)
 {
-    Knot_View *v = new Knot_View(file);
-    int t = tabWidget->addTab(v,file.isEmpty() ? tr("New Knot") : file);
-    undo_group.addStack(v->undo_stack_pointer());
-    switch_to_tab(t);
+    bool error = false;
+    if ( view && view->file_name().isEmpty() &&
+             !view->undo_stack_pointer()->canUndo() &&
+             !view->undo_stack_pointer()->canRedo() )
+    {
+        error = !view->load_file(file);
+    }
+    else
+    {
+        Knot_View *v = new Knot_View();
+        error = !v->load_file(file);
+        int t = tabWidget->addTab(v,file.isEmpty() ? tr("New Knot") : file);
+        undo_group.addStack(v->undo_stack_pointer());
+        switch_to_tab(t);
+    }
 
+    if ( error )
+    {
+        QMessageBox::warning(this,tr("File Error"),
+                             tr("Error while reading \"%1\".").arg(file));
+    }
 }
 
 void Main_Window::switch_to_tab(int i)
@@ -404,4 +421,15 @@ void Main_Window::on_action_Manual_triggered()
 void Main_Window::on_action_Refresh_Path_triggered()
 {
     view->update_knot();
+}
+
+void Main_Window::on_action_Open_triggered()
+{
+
+    QStringList files = QFileDialog::getOpenFileNames(this,tr("Open Knot"),
+                view->file_name(),
+                "Knot files (*.knot);;XML files (*.xml);;All files (*)" );
+
+    foreach ( QString file, files )
+        create_tab(file);
 }

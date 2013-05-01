@@ -72,7 +72,7 @@ public:
     /**
      *  \param file File name, if empty no file is loaded
     */
-    Knot_View ( QString file );
+    Knot_View ( QString file = QString() );
 
     QString file_name() const { return m_file_name; }
     void set_file_name(QString name) {m_file_name = name;}
@@ -171,6 +171,8 @@ public:
      */
     bool edit_graph_mode_enabled() const { return mouse_mode & EDIT_GRAPH; }
 
+    bool load_file(QIODevice* device);
+
 public slots:
     /**
      * \brief Zoom view by factor
@@ -230,6 +232,8 @@ public slots:
      *  Set knot stroke width
      */
     void set_stroke_width(double w);
+
+    bool load_file(QString fname);
 
 signals:
 

@@ -52,6 +52,8 @@ public:
 
     Node_Style& style() { return m_style; }
 
+    void set_style(Node_Style st) { m_style = st; }
+
     /**
      *  Add edge to node
      *  \param e Edge to be added

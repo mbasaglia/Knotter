@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Graph::Graph(QObject *parent) :
     QObject(parent),
-    default_node_style(225,24,10,32,Resource_Manager::default_cusp_shape(),
+    m_default_node_style(225,24,10,32,Resource_Manager::default_cusp_shape(),
                   Node_Style::EVERYTHING),
     paint_mode(Paint_Knot),
     auto_color(false)
@@ -41,14 +41,14 @@ Graph::Graph(QObject *parent) :
 
 void Graph::add_node(Node *n)
 {
-    nodes.append(n);
+    m_nodes.append(n);
     //connect(n,SIGNAL(moved(QPointF)),this,SLOT(render_knot()));
     emit graph_changed();
 }
 
 void Graph::add_edge(Edge *e)
 {
-    edges.append(e);
+    m_edges.append(e);
     e->attach();
 
     emit graph_changed();
@@ -56,7 +56,7 @@ void Graph::add_edge(Edge *e)
 
 void Graph::remove_node(Node *n)
 {
-    nodes.removeOne(n);
+    m_nodes.removeOne(n);
     n->setParentItem(nullptr);
     //disconnect(n,SIGNAL(moved(QPointF)),this,SLOT(render_knot()));
 
@@ -65,12 +65,21 @@ void Graph::remove_node(Node *n)
 
 void Graph::remove_edge(Edge *e)
 {
-    edges.removeOne(e);
+    m_edges.removeOne(e);
     e->detach();
     e->setParentItem(nullptr);
 
     emit graph_changed();
 }
+
+/*void Graph::clear()
+{
+    foreach(Edge* e, m_edges)
+        remove_edge(e);
+
+    foreach(Node* n, m_nodes)
+        remove_node(n);
+}*/
 
 void Graph::set_paint_mode(Paint_Mode mode)
 {
@@ -102,9 +111,22 @@ void Graph::set_colors(const QList<QColor> &l)
     emit style_changed();
 }
 
+void Graph::set_join_style(Qt::PenJoinStyle style)
+{
+
+    setPen(QPen(Qt::black,width(),pen().style(),Qt::FlatCap,style));
+    emit style_changed();
+}
+
+void Graph::set_default_node_style(Node_Style style)
+{
+    m_default_node_style = style;
+    emit graph_changed();
+}
+
 void Graph::set_width(double w)
 {
-    setPen(QPen(Qt::black,w,pen().style(),pen().capStyle()));
+    setPen(QPen(Qt::black,w,pen().style(),Qt::FlatCap,join_style()));
     emit style_changed();
 }
 
@@ -117,9 +139,9 @@ void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 {
     if ( paint_mode & Paint_Graph )
     {
-        foreach(Edge* e, edges)
+        foreach(Edge* e, m_edges)
             e->paint(painter,option,widget);
-        foreach(Node* n, nodes)
+        foreach(Node* n, m_nodes)
         {
             painter->translate(n->pos());
             n->paint(painter,option,widget);
@@ -156,23 +178,23 @@ void Graph::render_knot()
 void Graph::traverse(Path_Builder &path)
 {
     QList<Edge*> traversed_edges;
-    traversed_edges.reserve(edges.size());
+    traversed_edges.reserve(m_edges.size());
 
-    for(QList<Edge*>::iterator i = edges.begin(); i != edges.end(); ++i)
+    for(QList<Edge*>::iterator i = m_edges.begin(); i != m_edges.end(); ++i)
         (*i)->reset();
 
     // cycle while there are edges with untraversed handles
-    while(!edges.empty())
+    while(!m_edges.empty())
     {
         // pick first edge/handle
-        Edge* edge = edges.front();
+        Edge* edge = m_edges.front();
         Edge::Handle handle = edge->not_traversed();
 
         if ( handle == Edge::NO_HANDLE )
         {
             // removed completed edge
             traversed_edges.push_back(edge);
-            edges.pop_front();
+            m_edges.pop_front();
             continue;
         }
 
@@ -190,12 +212,12 @@ void Graph::traverse(Path_Builder &path)
             edge = ti.out.edge;
             edge->mark_traversed(ti.out.handle);
             // Don't mark handle as traversed but render and get next handle
-            handle = edge->style()->traverse(edge,ti.out.handle,path,default_node_style);
+            handle = edge->style()->traverse(edge,ti.out.handle,path,m_default_node_style);
 
         }
     }
 
-    edges.swap(traversed_edges);
+    m_edges.swap(traversed_edges);
 }
 
 
@@ -281,7 +303,7 @@ Traversal_Info Graph::traverse(Edge *edge, Edge::Handle handle,
 
     ti.success = true;
 
-    ti.node->style().build(ti,path,default_node_style);
+    ti.node->style().build(ti,path,m_default_node_style);
 
     return ti;
 }

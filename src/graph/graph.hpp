@@ -33,6 +33,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "path_builder.hpp"
 #include "traversal_info.hpp"
 
+/**
+ *  \brief Class that represents the knot (as a graph) and renders it
+ *
+ *  \note Never takes ownership of edges and nodes
+ */
 class Graph : public QObject, public QAbstractGraphicsShapeItem
 {
     Q_OBJECT
@@ -45,9 +50,9 @@ public:
     Q_DECLARE_FLAGS(Paint_Mode,Paint_Mode_Enum)
 
 private:
-    QList<Node*>        nodes;
-    QList<Edge*>        edges;
-    Node_Style          default_node_style;
+    QList<Node*>        m_nodes;
+    QList<Edge*>        m_edges;
+    Node_Style          m_default_node_style;
     QRectF              bounding_box;
     Paint_Mode          paint_mode;
     QList<QColor>       m_colors;     ///< \todo
@@ -87,6 +92,12 @@ public:
      */
     void remove_edge(Edge* e);
 
+    /*/// Remove all edges and nodes from the graph
+    void clear();*/
+
+    QList<Node*> nodes() const { return m_nodes; }
+    QList<Edge*> edges() const { return m_edges; }
+
     /**
      *  \brief Set the paint mode to the given paint mode
     */
@@ -113,14 +124,20 @@ public:
     const QList<QColor>& colors() const { return m_colors; }
     void set_colors(const QList<QColor>& l);
 
+    /// get stroke width
+    double width() const { return pen().widthF();}
+    Qt::PenJoinStyle join_style() const { return pen().joinStyle(); }
+    void set_join_style ( Qt::PenJoinStyle style );
+
+
+    Node_Style default_node_style() const { return m_default_node_style; }
+    void set_default_node_style( Node_Style style );
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option=0, QWidget *widget=0);
     void const_paint(QPainter *painter, const QStyleOptionGraphicsItem *option=0, QWidget *widget=0) const;
     QRectF boundingRect() const override { return bounding_box; }
     int type() const override { return UserType+0x03; }
 
-    /// get stroke width
-    double width() const { return pen().widthF();}
 
 public slots:
 
@@ -129,6 +146,7 @@ public slots:
 
     /// set stroke width
     void set_width(double w);
+
 private:
 
     void draw_segment( Path_Builder& path, const Traversal_Info& ti ) const;
@@ -144,7 +162,7 @@ private:
 
     void update_bounding_box();
     
-signals:
+signals: /// \todo Maybe they are redundant and can be removed, most likely Q_OBJECT is not required for this class
     /// Emitted when nodes or edges have changed and requires redrawing
     void graph_changed();
     /// Emitted when style is changed and requires redrawing but not re-traversing

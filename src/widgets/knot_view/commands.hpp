@@ -134,6 +134,18 @@ public:
 };
 
 
+class Remove_Node : public Knot_Command
+{
+    Q_OBJECT
+
+    Node* node;
+public:
+    Remove_Node(Node* node, Knot_View* kv, Knot_Macro* parent = nullptr);
+    void undo() override;
+    void redo() override;
+};
+
+
 
 class Change_Colors : public Knot_Command
 {
