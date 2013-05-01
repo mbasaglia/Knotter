@@ -83,7 +83,7 @@ void Knot_View::translate_view(QPointF delta)
 Node* Knot_View::add_node(QPointF pos)
 {
     Node* node = new Node(pos);
-    undo_stack.push(new Create_Node(node,this));
+    push_command(new Create_Node(node,this));
     return node;
 }
 
@@ -110,13 +110,34 @@ Node *Knot_View::add_breaking_node(QPointF pos)
 Edge *Knot_View::add_edge(Node *n1, Node *n2)
 {
     Edge* e = new Edge(n1,n2,Resource_Manager::default_edge_style());
-    undo_stack.push(new Create_Edge(e,this));
+    push_command(new Create_Edge(e,this));
     return e;
 }
 
 void Knot_View::remove_edge(Edge *edge)
 {
-    undo_stack.push(new Remove_Edge(edge,this));
+    push_command(new Remove_Edge(edge,this));
+}
+
+void Knot_View::begin_macro(QString name)
+{
+    macro_stack.push( new Knot_Macro(name,this,nullptr) );
+}
+
+void Knot_View::end_macro()
+{
+    if ( macro_stack.empty() )
+        return;
+    Knot_Macro* macro = macro_stack.pop();
+    push_command(macro);
+}
+
+void Knot_View::push_command(Knot_Command *cmd)
+{
+    if ( !macro_stack.isEmpty() )
+        cmd->set_parent(macro_stack.top());
+    else
+        undo_stack.push(cmd);
 }
 
 QList<Node *> Knot_View::selected_nodes() const
@@ -183,17 +204,17 @@ void Knot_View::set_mode_move_background()
 void Knot_View::update_knot()
 {
     graph.render_knot();
-    //scene()->invalidate();
+    scene()->invalidate();
 }
 
 void Knot_View::set_knot_colors(const QList<QColor> &l)
 {
-    undo_stack.push(new Change_Colors(graph.colors(),l,this));
+    push_command(new Change_Colors(graph.colors(),l,this));
 }
 
 void Knot_View::set_stroke_width(double w)
 {
-    undo_stack.push(new Knot_Width(graph.width(),w,this));
+    push_command(new Knot_Width(graph.width(),w,this));
 }
 
 void Knot_View::expand_scene_rect(int margin)
@@ -331,7 +352,7 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
             if ( last_node && !next_edge )
                 add_edge(last_node,next_node);
 
-            undo_stack.push(new Last_Node(last_node,next_node,this));
+            push_command(new Last_Node(last_node,next_node,this));
 
             end_macro();
 

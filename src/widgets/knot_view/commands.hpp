@@ -31,6 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "knot_view.hpp"
 #include "graph.hpp"
 
+class Knot_Macro;
+
 class Knot_Command : public QObject, public QUndoCommand
 {
     Q_OBJECT
@@ -43,12 +45,40 @@ protected:
     Graph*          graph;
     QGraphicsScene* scene;
 
+    /**
+     *  Adjust view->last_node and view->guide
+     */
     void set_last_node(Node* n);
 
-public:
-    Knot_Command(Knot_View* view)
-        : view(view), graph(&view->graph), scene(view->scene()) {}
+    /**
+     *  Update knot only if has no parent
+     */
+    void update_knot() const;
 
+public:
+    Knot_Command(Knot_View* view, Knot_Macro* parent );
+
+    void set_parent(Knot_Macro* macro);
+
+};
+
+/**
+ *  \brief Smart macro that updates the view after all the children have been executed
+ *
+ *  \note Uses QObject children system as the one for QUndoCommand is too limited
+ */
+class Knot_Macro : public Knot_Command
+{
+    Q_OBJECT
+
+public:
+    Knot_Macro(QString text,Knot_View*kv, Knot_Macro* parent = nullptr)
+        : Knot_Command(kv,parent)
+    {
+        setText(text);
+    }
+    void undo() override;
+    void redo() override;
 };
 
 class Create_Node : public Knot_Command
@@ -57,7 +87,7 @@ class Create_Node : public Knot_Command
 
     Node*          node;
 public:
-    Create_Node(Node* node, Knot_View* kv);
+    Create_Node(Node* node, Knot_View* kv, Knot_Macro* parent = nullptr);
     void undo() override;
     void redo() override;
     ~Create_Node();
@@ -69,7 +99,7 @@ class Create_Edge : public Knot_Command
 
     Edge*          edge;
 public:
-    Create_Edge(Edge* edge, Knot_View* kv);
+    Create_Edge(Edge* edge, Knot_View* kv, Knot_Macro* parent = nullptr);
     void undo() override;
     void redo() override;
     ~Create_Edge();
@@ -85,7 +115,8 @@ class Last_Node : public Knot_Command
     Node* node_before;
     Node* node_after;
 public:
-    Last_Node(Node* node_before, Node* node_after, Knot_View* kv);
+    Last_Node(Node* node_before, Node* node_after, Knot_View* kv,
+              Knot_Macro* parent = nullptr);
     void undo() override;
     void redo() override;
 
@@ -97,7 +128,7 @@ class Remove_Edge : public Knot_Command
 
     Edge*          edge;
 public:
-    Remove_Edge(Edge* edge, Knot_View* kv);
+    Remove_Edge(Edge* edge, Knot_View* kv, Knot_Macro* parent = nullptr);
     void undo() override;
     void redo() override;
 };
@@ -111,7 +142,8 @@ class Change_Colors : public Knot_Command
     QList<QColor> before;
     QList<QColor> after;
 public:
-    Change_Colors(QList<QColor> before, QList<QColor> after, Knot_View* kv);
+    Change_Colors(QList<QColor> before, QList<QColor> after, Knot_View* kv,
+                  Knot_Macro* parent = nullptr);
     void undo() override;
     void redo() override;
     int id() const override;
@@ -129,7 +161,8 @@ class Move_Node : public Knot_Command
     QPointF before;
     QPointF after;
 public:
-    Move_Node(Node* node, QPointF before, QPointF after, Knot_View* kv);
+    Move_Node(Node* node, QPointF before, QPointF after, Knot_View* kv,
+              Knot_Macro* parent = nullptr);
     void undo() override;
     void redo() override;
 };
@@ -144,7 +177,7 @@ class Knot_Width : public Knot_Command
     double after;
 
 public:
-    Knot_Width(double before, double after, Knot_View* kv);
+    Knot_Width(double before, double after, Knot_View* kv, Knot_Macro* parent = nullptr);
     void undo() override;
     void redo() override;
     int id() const override;

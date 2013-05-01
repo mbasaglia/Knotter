@@ -49,8 +49,7 @@ void Graph::add_node(Node *n)
 void Graph::add_edge(Edge *e)
 {
     edges.append(e);
-    e->vertex1()->add_edge(e);
-    e->vertex2()->add_edge(e);
+    e->attach();
 
     emit graph_changed();
 }
@@ -141,6 +140,7 @@ void Graph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 
 void Graph::render_knot()
 {
+    paths.clear();
     Path_Builder path;
     traverse(path);
     paths = path.build();

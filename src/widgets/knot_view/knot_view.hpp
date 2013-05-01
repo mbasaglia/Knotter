@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "snapping_grid.hpp"
 #include "background_image.hpp"
 #include "node_mover.hpp"
+#include <QStack>
 
 class Knot_View : public QGraphicsView
 {
@@ -56,6 +57,7 @@ class Knot_View : public QGraphicsView
     QPoint              move_center; ///< Point aligned to the cursor during movement
     Graph               graph;
     QUndoStack          undo_stack;
+    QStack<class Knot_Macro*> macro_stack;
     Snapping_Grid       m_grid;
     Background_Image    bg_img;
     Mouse_Mode          mouse_mode;
@@ -119,13 +121,18 @@ public:
     void remove_edge(Edge* edge);
 
     /**
-     *  \brief begins a command macro
+     *  \brief Begins a command macro
      */
-    void begin_macro(QString name) { undo_stack.beginMacro(name); }
+    void begin_macro(QString name);
     /**
-     *  \brief ends a command macro
+     *  \brief Ends a command macro
      */
-    void end_macro() { undo_stack.endMacro(); }
+    void end_macro();
+    /**
+     *  \brief Creates a command and adds it either to the current macro or to the command stack
+     */
+    void push_command( class Knot_Command* cmd );
+
 
 
     /**

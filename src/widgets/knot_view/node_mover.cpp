@@ -52,20 +52,18 @@ void Node_Mover::deploy(Knot_View *view)
 {
     if ( nodes.size() > 1 )
     {
-        view->undo_stack_pointer()->beginMacro(QObject::tr("Move Nodes"));
+        view->begin_macro(QObject::tr("Move Nodes"));
         for ( int i = 0; i < nodes.size(); i++ )
         {
             Node* n = nodes[i];
-            view->undo_stack_pointer()->push(
-                    new Move_Node(n,offset[i]+start_pos,n->pos(),view));
+            view->push_command(new Move_Node(n,offset[i]+start_pos,n->pos(),view));
         }
-        view->undo_stack_pointer()->endMacro();
+        view->end_macro();
     }
     else if ( nodes.size() == 1 )
     {
         Node* n = nodes[0];
-        view->undo_stack_pointer()->push(
-                new Move_Node(n,offset[0]+start_pos,n->pos(),view));
+        view->push_command(new Move_Node(n,offset[0]+start_pos,n->pos(),view));
     }
 
     nodes.clear();

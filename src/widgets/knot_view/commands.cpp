@@ -34,6 +34,16 @@ int Knot_Command::generate_id()
     return auto_id++;
 }
 
+Knot_Command::Knot_Command(Knot_View *view, Knot_Macro *parent)
+    : QObject(parent),
+      view(view), graph(&view->graph), scene(view->scene())
+{}
+
+void Knot_Command::set_parent(Knot_Macro *macro)
+{
+    setParent(macro);
+}
+
 void Knot_Command::set_last_node(Node *n)
 {
     view->last_node = n;
@@ -45,8 +55,16 @@ void Knot_Command::set_last_node(Node *n)
     }
 }
 
-Create_Node::Create_Node(Node *node, Knot_View *kv)
-    : Knot_Command(kv), node(node)
+void Knot_Command::update_knot() const
+{
+    if ( qobject_cast<Knot_Macro*>(parent()) == nullptr )
+        view->update_knot();
+}
+
+
+
+Create_Node::Create_Node(Node *node, Knot_View *kv, Knot_Macro* parent)
+    : Knot_Command(kv,parent), node(node)
 {
     setText(tr("Create Node"));
 }
@@ -56,12 +74,14 @@ void Create_Node::undo()
 {
     graph->remove_node(node);
     scene->removeItem(node);
+    update_knot();
 }
 
 void Create_Node::redo()
 {
     graph->add_node(node);
     scene->addItem(node);
+    update_knot();
 }
 
 
@@ -71,8 +91,8 @@ Create_Node::~Create_Node()
 }
 
 
-Create_Edge::Create_Edge(Edge *edge, Knot_View *kv)
-    : Knot_Command(kv), edge(edge)
+Create_Edge::Create_Edge(Edge *edge, Knot_View *kv, Knot_Macro* parent)
+    : Knot_Command(kv,parent), edge(edge)
 {
     setText(tr("Create Edge"));
 }
@@ -96,8 +116,8 @@ Create_Edge::~Create_Edge()
 }
 
 
-Last_Node::Last_Node(Node *node_before, Node *node_after, Knot_View *kv)
-    : Knot_Command(kv), node_before(node_before), node_after(node_after)
+Last_Node::Last_Node(Node *node_before, Node *node_after, Knot_View *kv, Knot_Macro* parent)
+    : Knot_Command(kv,parent), node_before(node_before), node_after(node_after)
 {
 }
 
@@ -112,8 +132,8 @@ void Last_Node::redo()
 }
 
 
-Remove_Edge::Remove_Edge(Edge *edge, Knot_View *kv)
-    : Knot_Command(kv), edge(edge)
+Remove_Edge::Remove_Edge(Edge *edge, Knot_View *kv, Knot_Macro* parent)
+    : Knot_Command(kv,parent), edge(edge)
 {
     setText(tr("Remove Edge"));
 }
@@ -122,18 +142,21 @@ void Remove_Edge::redo()
 {
     graph->remove_edge(edge);
     scene->removeItem(edge);
+    update_knot();
 }
 
 void Remove_Edge::undo()
 {
     graph->add_edge(edge);
     scene->addItem(edge);
+    update_knot();
 }
 
 
 int Change_Colors::m_id = generate_id();
-Change_Colors::Change_Colors(QList<QColor> before, QList<QColor> after, Knot_View *kv)
-    : Knot_Command(kv),before(before),after(after)
+Change_Colors::Change_Colors(QList<QColor> before, QList<QColor> after, Knot_View *kv,
+                             Knot_Macro* parent )
+    : Knot_Command(kv,parent),before(before),after(after)
 {
     setText(tr("Change Color"));
 }
@@ -167,8 +190,9 @@ bool Change_Colors::mergeWith(const QUndoCommand *other)
 }
 
 
-Move_Node::Move_Node(Node *node, QPointF before, QPointF after, Knot_View *kv)
-    : Knot_Command(kv), node(node), before(before), after(after)
+Move_Node::Move_Node(Node *node, QPointF before, QPointF after, Knot_View *kv,
+                     Knot_Macro* parent)
+    : Knot_Command(kv,parent), node(node), before(before), after(after)
 {
     setText(tr("Move Node"));
 }
@@ -176,18 +200,20 @@ Move_Node::Move_Node(Node *node, QPointF before, QPointF after, Knot_View *kv)
 void Move_Node::undo()
 {
     node->setPos(before);
+    update_knot();
 }
 
 void Move_Node::redo()
 {
     node->setPos(after);
+    update_knot();
 }
 
 
 int Knot_Width::m_id = generate_id();
 
-Knot_Width::Knot_Width(double before, double after, Knot_View *kv)
-    : Knot_Command(kv),before(before), after(after)
+Knot_Width::Knot_Width(double before, double after, Knot_View *kv, Knot_Macro* parent)
+    : Knot_Command(kv,parent),before(before), after(after)
 {
     setText(tr("Change Stroke Width"));
 }
@@ -216,4 +242,19 @@ bool Knot_Width::mergeWith(const QUndoCommand *other)
         return true;
     }
     return false;
+}
+
+
+void Knot_Macro::redo()
+{
+    foreach ( QObject* obj, children() )
+        qobject_cast<Knot_Command*>(obj)->redo();
+    update_knot();
+}
+
+void Knot_Macro::undo()
+{
+    foreach ( QObject* obj, children() )
+        qobject_cast<Knot_Command*>(obj)->undo();
+    update_knot();
 }
