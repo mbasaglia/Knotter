@@ -166,6 +166,11 @@ public:
      */
     double stroke_width() const { return graph.width(); }
 
+    /**
+     * Get whether mode is edit graph
+     */
+    bool edit_graph_mode_enabled() const { return mouse_mode & EDIT_GRAPH; }
+
 public slots:
     /**
      * \brief Zoom view by factor

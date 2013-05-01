@@ -57,24 +57,26 @@ void export_raster(const Graph& graph, QIODevice &file, QColor background,
     QSizeF actual_size = graph.boundingRect().size();
     double scale_x = img_size.width() / actual_size.width();
     double scale_y = img_size.height() / actual_size.height();
+    QPointF offset = -graph.boundingRect().topLeft();
 
 
     QPixmap *pix;
 
     if ( antialias )
     {
-        pix = new QPixmap(img_size);
+        pix = new QPixmap(img_size*2);
         scale_x *= 2;
         scale_y *= 2;
+        offset *= 2;
     }
     else
-        pix = new QPixmap(img_size*2);
+        pix = new QPixmap(img_size);
 
     pix->fill(background);
 
     QPainter painter;
     painter.begin(pix);
-
+    painter.translate(offset);
     painter.scale(scale_x,scale_y);
 
     graph.const_paint(&painter);

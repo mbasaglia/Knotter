@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>234</width>
+    <width>214</width>
     <height>351</height>
    </rect>
   </property>
@@ -14,7 +14,9 @@
    <string>Export Image</string>
   </property>
   <property name="windowIcon">
-   <iconset theme="document-export"/>
+   <iconset theme="document-export">
+    <normaloff/>
+   </iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -42,7 +44,9 @@
          <string>Export &amp;SVG..</string>
         </property>
         <property name="icon">
-         <iconset theme="image-svg+xml"/>
+         <iconset theme="image-svg+xml">
+          <normaloff/>
+         </iconset>
         </property>
         <property name="autoDefault">
          <bool>false</bool>
@@ -76,15 +80,24 @@
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
-         <string>Compression</string>
+         <string>Quality</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1" colspan="2">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QSlider" name="slider_compression">
+         <widget class="QSlider" name="slider_quality">
+          <property name="toolTip">
+           <string>Depending on the format, lower quality means more compressed files.</string>
+          </property>
           <property name="maximum">
            <number>100</number>
           </property>
@@ -97,7 +110,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_compression">
+         <widget class="QLabel" name="label_quality">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -164,7 +177,9 @@
          <string>Export &amp;Image...</string>
         </property>
         <property name="icon">
-         <iconset theme="image-x-generic"/>
+         <iconset theme="image-x-generic">
+          <normaloff/>
+         </iconset>
         </property>
        </widget>
       </item>
@@ -183,7 +198,9 @@
          <string>Keep &amp;Ratio</string>
         </property>
         <property name="icon">
-         <iconset theme="object-locked"/>
+         <iconset theme="object-locked">
+          <normaloff/>
+         </iconset>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -214,14 +231,33 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>267</x>
-     <y>301</y>
+     <x>88</x>
+     <y>341</y>
     </hint>
     <hint type="destinationlabel">
-     <x>371</x>
+     <x>213</x>
      <y>296</y>
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>button_reset_size</sender>
+   <signal>clicked()</signal>
+   <receiver>Export_Image_Dialog</receiver>
+   <slot>reset_size()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>143</x>
+     <y>256</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>275</x>
+     <y>259</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>reset_size()</slot>
+ </slots>
 </ui>

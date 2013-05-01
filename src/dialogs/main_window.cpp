@@ -228,6 +228,8 @@ void Main_Window::connect_view(Knot_View *v)
             Qt::UniqueConnection);
     connect(action_Edge_Loop,SIGNAL(triggered()),v,SLOT(set_mode_edge_chain()),
             Qt::UniqueConnection);
+    action_Edit_Graph->setChecked(v->edit_graph_mode_enabled());
+    action_Edge_Loop->setChecked(!v->edit_graph_mode_enabled());
 
     // undo/redo
     v->undo_stack_pointer()->setActive(true);
@@ -328,6 +330,8 @@ void Main_Window::create_tab(QString file)
 void Main_Window::switch_to_tab(int i)
 {
     tabWidget->setCurrentIndex(i);
+    setWindowTitle(tr("%1 - %2").arg(Resource_Manager::program_name())
+                   .arg(tabWidget->tabText(i)));
     disconnect_view(view);
     connect_view(dynamic_cast<Knot_View*>(tabWidget->currentWidget()));
     update_title();

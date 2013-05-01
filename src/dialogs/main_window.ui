@@ -823,10 +823,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>tabWidget</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>Main_Window</receiver>
+   <slot>switch_to_tab(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>223</x>
+     <y>233</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-159</x>
+     <y>236</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>close_tab(int)</slot>
   <slot>create_tab()</slot>
   <slot>change_rendering()</slot>
+  <slot>switch_to_tab(int)</slot>
  </slots>
 </ui>

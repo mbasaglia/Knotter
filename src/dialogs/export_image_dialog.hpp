@@ -37,6 +37,7 @@ class Export_Image_Dialog : public QDialog, private Ui::Export_Image_Dialog
 private:
     const Knot_View* view;
     QString file_name;
+    double  ratio;
 
 public:
     explicit Export_Image_Dialog(QWidget *parent = 0);
@@ -44,12 +45,22 @@ public:
     void set_view(const Knot_View* v);
 
 protected:
-    void changeEvent(QEvent *e);
+    void changeEvent(QEvent *e) override;
+    void showEvent(QShowEvent * event) override;
 
 private slots:
+    void reset_size();
+
     void on_button_ratio_toggled(bool checked);
-    void on_slider_compression_valueChanged(int value);
+    void on_slider_quality_valueChanged(int value);
     void on_button_svg_clicked();
+
+    void on_button_image_clicked();
+
+
+    void on_spin_width_valueChanged(int arg1);
+
+    void on_spin_height_valueChanged(int arg1);
 
 private:
     /**
