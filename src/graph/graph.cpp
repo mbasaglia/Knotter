@@ -110,6 +110,11 @@ void Graph::set_width(double w)
 
 void Graph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    const_paint(painter,option,widget);
+}
+
+void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) const
+{
     if ( paint_mode & Paint_Graph )
     {
         foreach(Edge* e, edges)

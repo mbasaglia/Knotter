@@ -15,27 +15,8 @@
 
 INCLUDEPATH += $$PWD
 
-include($$PWD/dialogs/dialogs.pri)
-include($$PWD/graph/graph.pri)
-include($$PWD/scripting/scripting.pri)
-include($$PWD/io/io.pri)
-
-#widgets
-include($$PWD/widgets/color/color_widgets.pri)
-include($$PWD/widgets/toolbar_editor/toolbar_editor.pri)
-include($$PWD/widgets/tabwidget/extended_tabwidget.pri)
-include($$PWD/widgets/knot_view/knot_view.pri)
-include($$PWD/widgets/docks/docks.pri)
-
+HEADERS += \
+    src/io/image_exporter.hpp
 
 SOURCES += \
-    $$PWD/main.cpp \
-    $$PWD/resource_manager.cpp \
-    $$PWD/settings.cpp \
-    $$PWD/string_toolbar.cpp
-
-HEADERS += \
-    $$PWD/resource_manager.hpp \
-    $$PWD/settings.hpp \
-    $$PWD/string_toolbar.hpp \
-    $$PWD/c++.hpp
+    src/io/image_exporter.cpp

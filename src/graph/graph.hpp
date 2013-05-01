@@ -115,6 +115,7 @@ public:
 
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option=0, QWidget *widget=0);
+    void const_paint(QPainter *painter, const QStyleOptionGraphicsItem *option=0, QWidget *widget=0) const;
     QRectF boundingRect() const override { return bounding_box; }
     int type() const override { return UserType+0x03; }
 

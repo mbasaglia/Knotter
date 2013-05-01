@@ -255,6 +255,9 @@ void Main_Window::connect_view(Knot_View *v)
     connect(dock_knot_display,SIGNAL(width_changed(double)),
             v,SLOT(set_stroke_width(double)) );
 
+    //export
+    ximg_dlg.set_view(v);
+
 }
 
 void Main_Window::disconnect_view(Knot_View *v)
@@ -325,8 +328,6 @@ void Main_Window::create_tab(QString file)
 void Main_Window::switch_to_tab(int i)
 {
     tabWidget->setCurrentIndex(i);
-    setWindowTitle(tr("%1 - %2").arg(Resource_Manager::program_name())
-                   .arg(tabWidget->tabText(i)));
     disconnect_view(view);
     connect_view(dynamic_cast<Knot_View*>(tabWidget->currentWidget()));
     update_title();

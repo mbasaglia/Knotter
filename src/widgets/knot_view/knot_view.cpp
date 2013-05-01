@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_manager.hpp"
 
 Knot_View::Knot_View(QString file)
-    : mouse_mode(EDIT_GRAPH), last_node(nullptr)
+    : mouse_mode(EDIT_GRAPH), last_node(nullptr), m_file_name(file)
 {
 
     setWindowFilePath(file);

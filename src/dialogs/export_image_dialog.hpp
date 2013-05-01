@@ -28,19 +28,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EXPORT_IMAGE_DIALOG_HPP
 
 #include "ui_export_image_dialog.h"
+#include "knot_view.hpp"
+#include <QFile>
 
 class Export_Image_Dialog : public QDialog, private Ui::Export_Image_Dialog
 {
     Q_OBJECT
-    
+private:
+    const Knot_View* view;
+    QString file_name;
+
 public:
     explicit Export_Image_Dialog(QWidget *parent = 0);
-    
+
+    void set_view(const Knot_View* v);
+
 protected:
     void changeEvent(QEvent *e);
+
 private slots:
     void on_button_ratio_toggled(bool checked);
     void on_slider_compression_valueChanged(int value);
+    void on_button_svg_clicked();
+
+private:
+    /**
+     *  \brief Check whether file is open for writing
+     */
+    bool file_ok(QFile& file);
 };
 
 #endif // EXPORT_IMAGE_DIALOG_HPP

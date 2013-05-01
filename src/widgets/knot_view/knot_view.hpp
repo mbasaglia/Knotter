@@ -65,6 +65,7 @@ class Knot_View : public QGraphicsView
     QGraphicsLineItem   guide;       ///< Tiny line showing the edge being edited
     QGraphicsRectItem   rubberband;  ///< Draggable selection rectangle
     Node_Mover          node_mover;  ///< Helper to manage movement of the nodes
+    QString             m_file_name; ///< Full name of the open file
 
 public:
 
@@ -73,11 +74,16 @@ public:
     */
     Knot_View ( QString file );
 
+    QString file_name() const { return m_file_name; }
+    void set_file_name(QString name) {m_file_name = name;}
+
     QUndoStack* undo_stack_pointer() { return &undo_stack; }
 
     Snapping_Grid& grid() { return m_grid; }
 
     Background_Image& background_image() { return bg_img; }
+
+    const Graph& get_graph() const { return graph; }
 
     /// Overload QGraphicsView::translate
     void translate(QPointF d) { QGraphicsView::translate(d.x(),d.y()); }
