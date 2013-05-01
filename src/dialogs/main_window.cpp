@@ -257,6 +257,8 @@ void Main_Window::connect_view(Knot_View *v)
             v,SLOT(set_knot_colors(QList<QColor>)));
     connect(dock_knot_display,SIGNAL(width_changed(double)),
             v,SLOT(set_stroke_width(double)) );
+    connect(dock_knot_display,SIGNAL(join_style_changed(Qt::PenJoinStyle)),
+            v,SLOT(set_join_style(Qt::PenJoinStyle)));
 
     //export
     ximg_dlg.set_view(v);
@@ -335,6 +337,8 @@ void Main_Window::create_tab(QString file)
         int t = tabWidget->addTab(v,file.isEmpty() ? tr("New Knot") : file);
         undo_group.addStack(v->undo_stack_pointer());
         switch_to_tab(t);
+        if ( error && file.isEmpty() )
+            error = false;
     }
 
     if ( error )

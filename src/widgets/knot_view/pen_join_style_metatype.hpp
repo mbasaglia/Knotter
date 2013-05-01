@@ -24,37 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef DOCK_KNOT_DISPLAY_HPP
-#define DOCK_KNOT_DISPLAY_HPP
+#ifndef PEN_JOIN_STYLE_METATYPE_HPP
+#define PEN_JOIN_STYLE_METATYPE_HPP
 
-#include <QDockWidget>
-#include "ui_dock_knot_display.h"
-#include "pen_join_style_metatype.hpp"
+#include <QMetaType>
 
-class Dock_Knot_Display : public QDockWidget, private Ui::Dock_Knot_Display
-{
-    Q_OBJECT
+Q_DECLARE_METATYPE(Qt::PenJoinStyle)
 
-public:
-    explicit Dock_Knot_Display(QWidget *parent = 0);
-
-    void set_colors(const QList<QColor>& c);
-    
-protected:
-    void changeEvent(QEvent *e);
-
-private slots:
-    void on_list_colors_removed(int arg1);
-
-    void on_combo_joint_currentIndexChanged(int index);
-
-signals:
-
-    void colors_changed(const QList<QColor>&);
-
-    void width_changed(double);
-
-    void join_style_changed(Qt::PenJoinStyle);
-};
-
-#endif // DOCK_KNOT_DISPLAY_HPP
+#endif // PEN_JOIN_STYLE_METATYPE_HPP

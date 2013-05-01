@@ -196,4 +196,22 @@ public:
     bool mergeWith(const QUndoCommand *other) override;
 };
 
+class Pen_Join_Style : public Knot_Command
+{
+    Q_OBJECT
+
+    static int m_id;
+
+    Qt::PenJoinStyle before;
+    Qt::PenJoinStyle after;
+
+public:
+    Pen_Join_Style(Qt::PenJoinStyle before, Qt::PenJoinStyle after, Knot_View* kv,
+               Knot_Macro* parent = nullptr);
+    void undo() override;
+    void redo() override;
+    int id() const override;
+    bool mergeWith(const QUndoCommand *other) override;
+};
+
 #endif // COMMANDS_HPP

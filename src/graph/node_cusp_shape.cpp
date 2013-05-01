@@ -90,3 +90,24 @@ void Cusp_Rounded::draw_joint(Path_Builder &path, const Traversal_Info &ti,
         path.add_cubic(start.p1(),start.p2(),finish.p2(),finish.p1());
     }
 }
+
+
+void Cusp_Pointed::draw_joint(Path_Builder &path, const Traversal_Info &ti, const Node_Style &style) const
+{
+    QLineF start = ti.in.edge->style()->handle(ti.in.edge,ti.in.handle,style);
+    QLineF finish = ti.out.edge->style()->handle(ti.out.edge,ti.out.handle,style);
+
+    if ( ti.angle_delta > style.cusp_angle  ) // draw cusp
+    {
+        QPointF cusp_pt = cusp_point(start, finish,ti,style.cusp_distance);
+
+
+        path.add_quad(start.p1(),start.p2(),cusp_pt);
+        path.add_quad(cusp_pt,finish.p2(),finish.p1());
+
+    }
+    else // draw cubic
+    {
+        path.add_cubic(start.p1(),start.p2(),finish.p2(),finish.p1());
+    }
+}

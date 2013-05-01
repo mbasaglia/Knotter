@@ -277,3 +277,39 @@ void Remove_Node::redo()
     graph->remove_node(node);
     update_knot();
 }
+
+
+int Pen_Join_Style::m_id = generate_id();
+
+Pen_Join_Style::Pen_Join_Style(Qt::PenJoinStyle before, Qt::PenJoinStyle after,
+                               Knot_View *kv, Knot_Macro *parent)
+    : Knot_Command(kv,parent), before(before), after(after)
+{
+    setText(tr("Change Joint Style"));
+}
+
+void Pen_Join_Style::undo()
+{
+    graph->set_join_style(before);
+}
+
+void Pen_Join_Style::redo()
+{
+    graph->set_join_style(after);
+}
+
+int Pen_Join_Style::id() const
+{
+    return m_id;
+}
+
+bool Pen_Join_Style::mergeWith(const QUndoCommand *other)
+{
+    const Pen_Join_Style* cc = static_cast<const Pen_Join_Style*>(other);
+    if ( cc->graph == graph )
+    {
+        after = cc->after;
+        return true;
+    }
+    return false;
+}

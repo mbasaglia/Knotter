@@ -18,7 +18,8 @@ HEADERS += \
     $$PWD/commands.hpp \
     $$PWD/snapping_grid.hpp \
     $$PWD/background_image.hpp \
-    $$PWD/node_mover.hpp
+    $$PWD/node_mover.hpp \
+    src/widgets/knot_view/pen_join_style_metatype.hpp
 
 SOURCES += \
     $$PWD/knot_view.cpp \

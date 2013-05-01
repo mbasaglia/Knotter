@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    Resource_Manager::register_cusp_shape(new Cusp_Pointed);
     Resource_Manager::register_cusp_shape(new Cusp_Rounded);
 
     Resource_Manager::register_edge_style(new Edge_Normal);

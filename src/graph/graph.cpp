@@ -37,6 +37,7 @@ Graph::Graph(QObject *parent) :
     m_colors.push_back(Qt::black);
     m_colors.push_back(Qt::red);
     m_colors.push_back(Qt::green);
+    set_join_style(Qt::MiterJoin);
 }
 
 void Graph::add_node(Node *n)

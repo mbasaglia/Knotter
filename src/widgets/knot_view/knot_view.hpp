@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "background_image.hpp"
 #include "node_mover.hpp"
 #include <QStack>
+#include "pen_join_style_metatype.hpp"
 
 class Knot_View : public QGraphicsView
 {
@@ -149,25 +150,27 @@ public:
     double get_zoom_factor() const { return transform().m11(); }
 
     /**
-     *  List of currenty selected nodes on the view
+     *  \brief List of currenty selected nodes on the view
     */
     QList<Node*> selected_nodes() const;
 
 
     /**
-     *  Colors used to display the knot
+     *  \brief Colors used to display the knot
      */
     const QList<QColor>& knot_colors() const { return graph.colors(); }
 
 
 
     /**
-     *  Set knot stroke width
+     *  \brief Get knot stroke width
      */
     double stroke_width() const { return graph.width(); }
 
+    Qt::PenJoinStyle join_style() const { return graph.join_style(); }
+
     /**
-     * Get whether mode is edit graph
+     * \brief Get whether mode is edit graph
      */
     bool edit_graph_mode_enabled() const { return mouse_mode & EDIT_GRAPH; }
 
@@ -197,7 +200,7 @@ public slots:
     void set_mode_edit_graph();
 
     /**
-     *  Sets mouse mode to edge chain
+     *  \brief Sets mouse mode to edge chain
      */
     void set_mode_edge_chain();
 
@@ -218,20 +221,22 @@ public slots:
     void set_background_color(QColor c) { setBackgroundBrush(c); }
 
     /**
-     * Render the knot again and repaint
+     * \brief Render the knot again and repaint
      */
     void update_knot();
 
     /**
-     *  Set the colors used to display the knot
+     *  \brief Set the colors used to display the knot
      */
     void set_knot_colors(const QList<QColor>& l);
 
 
     /**
-     *  Set knot stroke width
+     *  \brief Set knot stroke width
      */
     void set_stroke_width(double w);
+
+    void set_join_style(Qt::PenJoinStyle s);
 
     bool load_file(QString fname);
 
@@ -241,7 +246,7 @@ signals:
     void graph_changed();
 
     /**
-     *  Emit when zoom is changed
+     *  \brief Emit when zoom is changed
      *  \param percent Zoom percentage
      */
     void zoomed(double percent);

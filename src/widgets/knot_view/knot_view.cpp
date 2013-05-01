@@ -278,6 +278,12 @@ void Knot_View::set_stroke_width(double w)
     push_command(new Knot_Width(graph.width(),w,this));
 }
 
+void Knot_View::set_join_style(Qt::PenJoinStyle s)
+{
+
+    push_command(new Pen_Join_Style(graph.join_style(),s,this));
+}
+
 void Knot_View::expand_scene_rect(int margin)
 {
     QRectF vp ( mapToScene(-margin,-margin),

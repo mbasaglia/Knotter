@@ -71,4 +71,15 @@ class Cusp_Rounded : public Node_Cusp_Shape
                         const Node_Style& style ) const override;
 };
 
+
+class Cusp_Pointed : public Node_Cusp_Shape
+{
+    QString name() const override { return QObject::tr("Pointed"); }
+
+    QString machine_name() const override { return "pointed"; }
+
+    void draw_joint ( Path_Builder& path,
+                        const Traversal_Info& ti,
+                        const Node_Style& style ) const override;
+};
 #endif // NODE_CUSP_SHAPE_HPP
