@@ -32,6 +32,8 @@ Cusp_Style_Widget::Cusp_Style_Widget(QWidget *parent) :
     QWidget(parent)
 {
     setupUi(this);
+    label_tooltip();
+
     foreach(Cusp_Shape* cs, Resource_Manager::cusp_shapes())
         combo_cusp_shape->addItem(cs->icon(),cs->name(),
                                   QVariant::fromValue(cs) );
@@ -105,6 +107,7 @@ void Cusp_Style_Widget::changeEvent(QEvent *e)
         case QEvent::LanguageChange:
         {
             retranslateUi(this);
+            label_tooltip();
 
             // reload cusp shapes
             int current_index = combo_cusp_shape->currentIndex();
@@ -141,4 +144,14 @@ void Cusp_Style_Widget::changeEvent(QEvent *e)
 void Cusp_Style_Widget::on_combo_cusp_shape_activated(int index)
 {
     emit cusp_shape_changed(combo_cusp_shape->itemData(index).value<Cusp_Shape*>());
+}
+
+void Cusp_Style_Widget::label_tooltip()
+{
+    foreach(QLabel* l, findChildren<QLabel*>())
+    {
+        QWidget *bud = l->buddy();
+        if ( bud )
+            l->setToolTip(bud->toolTip());
+    }
 }

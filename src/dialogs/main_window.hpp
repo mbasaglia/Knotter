@@ -35,6 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "dock_grid.hpp"
 #include "dock_knot_display.hpp"
 #include "dock_background.hpp"
+#include "cusp_style_widget.hpp"
 
 class Main_Window : public QMainWindow, private Ui::Main_Window
 {
@@ -49,6 +50,8 @@ private:
     Dock_Grid*          dock_grid;  ///< Grid conf dock
     Dock_Knot_Display*  dock_knot_display;///< Display conf dock
     Dock_Background*    dock_background;
+    Cusp_Style_Widget*  global_style;
+    Cusp_Style_Widget*  selection_style;
 
 public:
     explicit Main_Window(QWidget *parent = 0);

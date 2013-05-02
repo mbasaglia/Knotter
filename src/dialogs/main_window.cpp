@@ -138,9 +138,29 @@ void Main_Window::init_statusbar()
 
 void Main_Window::init_docks()
 {
+
     // Knot Display
     dock_knot_display = new Dock_Knot_Display(this);
     addDockWidget(Qt::RightDockWidgetArea,dock_knot_display);
+
+    // Global style
+    global_style = new Cusp_Style_Widget;
+    QDockWidget* glob_style_widget = new QDockWidget;
+    glob_style_widget->setWidget(global_style);
+    glob_style_widget->setObjectName("global_style_dock");
+    glob_style_widget->setWindowTitle(tr("Knot Style"));
+    addDockWidget(Qt::RightDockWidgetArea,glob_style_widget);
+    tabifyDockWidget(dock_knot_display,glob_style_widget);
+
+    // Selection style
+    selection_style = new Cusp_Style_Widget;
+    QDockWidget* sel_style_widget = new QDockWidget;
+    sel_style_widget->setWidget(selection_style);
+    sel_style_widget->setObjectName("selection_style_dock");
+    sel_style_widget->setWindowTitle(tr("Selection Style"));
+    addDockWidget(Qt::RightDockWidgetArea,sel_style_widget);
+    tabifyDockWidget(glob_style_widget,sel_style_widget);
+    dock_knot_display->raise();
 
     // Background
     dock_background = new Dock_Background(this);

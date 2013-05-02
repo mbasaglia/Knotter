@@ -52,6 +52,10 @@ signals:
 
 private slots:
     void on_combo_cusp_shape_activated(int index);
+
+private:
+    /// Copy tooltip from buddy to label
+    void label_tooltip();
 };
 
 #endif // CUSP_STYLE_WIDGET_HPP

@@ -37,6 +37,8 @@ int main(int argc, char *argv[])
 
     Resource_Manager::register_cusp_shape(new Cusp_Pointed);
     Resource_Manager::register_cusp_shape(new Cusp_Rounded);
+    Resource_Manager::register_cusp_shape(new Cusp_Polygonal);
+    Resource_Manager::register_cusp_shape(new Cusp_Ogee);
 
     Resource_Manager::register_edge_style(new Edge_Normal);
    /* Resource_Manager::register_edge_style(new Edge_Inverted,"inverted");
