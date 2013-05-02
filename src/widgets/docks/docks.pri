@@ -19,14 +19,17 @@ HEADERS += \
     $$PWD/dock_grid.hpp \
     $$PWD/dock_knot_display.hpp \
     $$PWD/icon_dock_style.hpp \
-    src/widgets/docks/dock_background.hpp
+    $$PWD/dock_background.hpp \
+    $$PWD/cusp_style_widget.hpp
 
 SOURCES += \
     $$PWD/dock_grid.cpp \
     $$PWD/dock_knot_display.cpp \
-    src/widgets/docks/dock_background.cpp
+    $$PWD/dock_background.cpp \
+    $$PWD/cusp_style_widget.cpp
 
 FORMS += \
     $$PWD/dock_grid.ui \
     $$PWD/dock_knot_display.ui \
-    src/widgets/docks/dock_background.ui
+    $$PWD/dock_background.ui \
+    $$PWD/cusp_style_widget.ui

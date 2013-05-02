@@ -27,12 +27,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NODE_CUSP_SHAPE_HPP
 #define NODE_CUSP_SHAPE_HPP
 #include <QString>
+#include <QIcon>
 #include "path_builder.hpp"
 
 class Traversal_Info;
 class Node_Style;
 
-class Node_Cusp_Shape
+class Cusp_Shape
 {
 public:
     /// (Translated) Human-readable name
@@ -45,6 +46,10 @@ public:
     virtual void draw_joint ( Path_Builder& path,
                                 const Traversal_Info& ti,
                                 const Node_Style& style ) const = 0;
+
+    /// Icon to be shown in the UI
+    virtual QIcon icon() const { return QIcon::fromTheme("cusp-other"); }
+
 protected:
     /**
         \brief get line pointing to the cusp endpoint
@@ -59,12 +64,16 @@ protected:
                          double def_dist ) const;
 };
 
+Q_DECLARE_METATYPE(Cusp_Shape*)
 
-class Cusp_Rounded : public Node_Cusp_Shape
+
+class Cusp_Rounded : public Cusp_Shape
 {
-    QString name() const override { return QObject::tr("Rounded"); }
+    QString name() const override { return QObject::tr("Round"); }
 
-    QString machine_name() const override { return "rounded"; }
+    QString machine_name() const override { return "round"; }
+
+    virtual QIcon icon() const override { return QIcon::fromTheme("cusp-round"); }
 
     void draw_joint ( Path_Builder& path,
                         const Traversal_Info& ti,
@@ -72,11 +81,41 @@ class Cusp_Rounded : public Node_Cusp_Shape
 };
 
 
-class Cusp_Pointed : public Node_Cusp_Shape
+class Cusp_Pointed : public Cusp_Shape
 {
     QString name() const override { return QObject::tr("Pointed"); }
 
     QString machine_name() const override { return "pointed"; }
+
+    virtual QIcon icon() const override { return QIcon::fromTheme("cusp-pointed"); }
+
+    void draw_joint ( Path_Builder& path,
+                        const Traversal_Info& ti,
+                        const Node_Style& style ) const override;
+};
+
+
+class Cusp_Ogee : public Cusp_Shape
+{
+    QString name() const override { return QObject::tr("Ogee"); }
+
+    QString machine_name() const override { return "ogee"; }
+
+    virtual QIcon icon() const override { return QIcon::fromTheme("cusp-ogee"); }
+
+    void draw_joint ( Path_Builder& path,
+                        const Traversal_Info& ti,
+                        const Node_Style& style ) const override;
+};
+
+
+class Cusp_Polygonal : public Cusp_Shape
+{
+    QString name() const override { return QObject::tr("Polygonal"); }
+
+    QString machine_name() const override { return "polygonal"; }
+
+    virtual QIcon icon() const override { return QIcon::fromTheme("cusp-polygonal"); }
 
     void draw_joint ( Path_Builder& path,
                         const Traversal_Info& ti,

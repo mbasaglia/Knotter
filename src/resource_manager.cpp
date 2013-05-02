@@ -255,21 +255,21 @@ Edge_Style *Resource_Manager::edge_style_from_machine_name(QString name)
     return default_edge_style();
 }
 
-void Resource_Manager::register_cusp_shape(Node_Cusp_Shape *style)
+void Resource_Manager::register_cusp_shape(Cusp_Shape *style)
 {
     singleton.m_cusp_shapes.push_back(style);
 }
 
-Node_Cusp_Shape *Resource_Manager::default_cusp_shape()
+Cusp_Shape *Resource_Manager::default_cusp_shape()
 {
     if ( singleton.m_cusp_shapes.empty() )
         return nullptr;
     return singleton.m_cusp_shapes.front();
 }
 
-Node_Cusp_Shape *Resource_Manager::cusp_shape_from_machine_name(QString name)
+Cusp_Shape *Resource_Manager::cusp_shape_from_machine_name(QString name)
 {
-    foreach(Node_Cusp_Shape* st, singleton.m_cusp_shapes )
+    foreach(Cusp_Shape* st, singleton.m_cusp_shapes )
         if ( st->machine_name() == name )
             return st;
     return default_cusp_shape();

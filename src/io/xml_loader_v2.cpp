@@ -178,7 +178,7 @@ Node_Style XML_Loader_v2::get_cusp(QString name)
     {
         cusp_style_info.cusp_shape =
                 Resource_Manager::cusp_shape_from_machine_name(cusp_style.text());
-        cusp_style_info.enabled_style |= Node_Style::CURVE_STYLE;
+        cusp_style_info.enabled_style |= Node_Style::CUSP_SHAPE;
     }
 
     QDomElement cusp_angle = cusp.firstChildElement("min-angle");

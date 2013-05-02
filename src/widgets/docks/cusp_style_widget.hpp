@@ -24,19 +24,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+#ifndef CUSP_STYLE_WIDGET_HPP
+#define CUSP_STYLE_WIDGET_HPP
+
+#include "ui_cusp_style_widget.h"
 #include "node_style.hpp"
 
-Node_Style Node_Style::default_to(const Node_Style &other) const
+class Cusp_Style_Widget : public QWidget, private Ui::Cusp_Style_Widget
 {
+    Q_OBJECT
+    
+public:
+    explicit Cusp_Style_Widget(QWidget *parent = 0);
 
-    return Node_Style (
-                //(enabled_style & CURVE_STYLE ) ? curve_style : other.curve_style,
-                (enabled_style & CUSP_ANGLE ) ? cusp_angle : other.cusp_angle,
-                (enabled_style & HANDLE_LENGTH ) ? handle_length : other.handle_length,
-                (enabled_style & CROSSING_DISTANCE ) ? crossing_distance : other.crossing_distance,
-                (enabled_style & CUSP_DISTANCE ) ? cusp_distance : other.cusp_distance,
-                (enabled_style & CUSP_SHAPE) && cusp_shape ? cusp_shape : other.cusp_shape,
-                EVERYTHING
-            );
-}
+    void set_style(const Node_Style& st );
+    Node_Style get_style() const;
+    
+protected:
+    void changeEvent(QEvent *e);
 
+signals:
+    void cusp_angle_changed(double);
+    void handle_length_changed(double);
+    void crossing_distance_changed(double);
+    void cusp_distance_changed(double);
+    void cusp_shape_changed(Cusp_Shape*);
+
+private slots:
+    void on_combo_cusp_shape_activated(int index);
+};
+
+#endif // CUSP_STYLE_WIDGET_HPP

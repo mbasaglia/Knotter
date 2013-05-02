@@ -39,7 +39,7 @@ public:
     enum Enabled_Styles_Enum
     {
         NOTHING           = 0x00,
-        CURVE_STYLE       = 0x01,
+        CUSP_SHAPE       = 0x01,
         CUSP_ANGLE        = 0x02,
         HANDLE_LENGTH     = 0x04,
         CROSSING_DISTANCE = 0x08,
@@ -60,7 +60,7 @@ public:
     /// Distance from the node to the cusp point
     double cusp_distance;
     /// Polymorphic object that renders the cusp
-    Node_Cusp_Shape* cusp_shape;
+    Cusp_Shape* cusp_shape;
 
 public:
     Node_Style (
@@ -68,7 +68,7 @@ public:
                double handle_length = 24,
                double crossing_distance = 10,
                double cusp_distance = 32,
-               Node_Cusp_Shape* cusp_shape = nullptr,
+               Cusp_Shape* cusp_shape = nullptr,
                Enabled_Styles enabled_style = NOTHING )
         :   enabled_style ( enabled_style ),
             cusp_angle(cusp_angle),

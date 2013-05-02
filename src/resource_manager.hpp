@@ -53,7 +53,7 @@ class Resource_Manager : public QObject
     QTranslator* current_translator;
 
     QVector<Edge_Style*> m_edge_styles;
-    QVector<Node_Cusp_Shape*> m_cusp_shapes;
+    QVector<Cusp_Shape*> m_cusp_shapes;
 
 public:
     static Settings settings;
@@ -147,11 +147,11 @@ public:
      *
      *  \param style Style to be registered
     */
-    static void register_cusp_shape(Node_Cusp_Shape* style);
+    static void register_cusp_shape(Cusp_Shape* style);
 
-    static QVector<Node_Cusp_Shape*> cusp_shapes() { return singleton.m_cusp_shapes; }
+    static QVector<Cusp_Shape*> cusp_shapes() { return singleton.m_cusp_shapes; }
 
-    static Node_Cusp_Shape* default_cusp_shape();
+    static Cusp_Shape* default_cusp_shape();
     /**
      *  \brief Get cusp shape from its machine-readable name
      *
@@ -160,7 +160,7 @@ public:
      *
      *  Resurns NULL only if there are no registered styles
      */
-    static Node_Cusp_Shape* cusp_shape_from_machine_name(QString name);
+    static Cusp_Shape* cusp_shape_from_machine_name(QString name);
 
 public slots:
 
