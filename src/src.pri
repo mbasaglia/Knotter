@@ -25,7 +25,6 @@ include($$PWD/widgets/color/color_widgets.pri)
 include($$PWD/widgets/toolbar_editor/toolbar_editor.pri)
 include($$PWD/widgets/tabwidget/extended_tabwidget.pri)
 include($$PWD/widgets/knot_view/knot_view.pri)
-include($$PWD/widgets/docks/docks.pri)
 
 
 SOURCES += \
