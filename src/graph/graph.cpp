@@ -31,7 +31,7 @@ Graph::Graph(QObject *parent) :
     QObject(parent),
     m_default_node_style(225,24,10,32,Resource_Manager::default_cusp_shape(),
                   Node_Style::EVERYTHING),
-    paint_mode(Paint_Knot),
+    paint_mode(PAINT_KNOT),
     auto_color(false)
 {
     m_colors.push_back(Qt::black);
@@ -133,12 +133,13 @@ void Graph::set_width(double w)
 
 void Graph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    const_paint(painter,option,widget);
+    const_paint(painter,option,widget,paint_mode);
 }
 
-void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) const
+void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+                        QWidget *widget, Paint_Mode mode) const
 {
-    if ( paint_mode & Paint_Graph )
+    if ( mode & PAINT_GRAPH )
     {
         foreach(Edge* e, m_edges)
             e->paint(painter,option,widget);
@@ -150,7 +151,7 @@ void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
         }
     }
 
-    if ( paint_mode & Paint_Knot && ! m_colors.empty() )
+    if ( mode & PAINT_KNOT && ! m_colors.empty() )
     {
         painter->setBrush(Qt::NoBrush);
         QPen p = pen();
@@ -164,6 +165,11 @@ void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
             painter->drawPath(paths[i]);
         }
     }
+}
+
+void Graph::const_paint(QPainter *painter, Paint_Mode mode) const
+{
+    const_paint(painter,nullptr,nullptr,mode);
 }
 
 void Graph::render_knot()

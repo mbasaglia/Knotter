@@ -44,8 +44,8 @@ class Graph : public QObject, public QAbstractGraphicsShapeItem
     Q_FLAGS(Paint_Mode_Enum Paint_Mode)
 public:
     enum Paint_Mode_Enum {
-        Paint_Graph = 0x01, ///< renders the graph
-        Paint_Knot  = 0x02  ///< renders the knot
+        PAINT_GRAPH = 0x01, ///< renders the graph
+        PAINT_KNOT  = 0x02  ///< renders the knot
     };
     Q_DECLARE_FLAGS(Paint_Mode,Paint_Mode_Enum)
 
@@ -133,8 +133,12 @@ public:
     Node_Style default_node_style() const { return m_default_node_style; }
     void set_default_node_style( Node_Style style );
 
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option=0, QWidget *widget=0);
-    void const_paint(QPainter *painter, const QStyleOptionGraphicsItem *option=0, QWidget *widget=0) const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option=nullptr,
+               QWidget *widget=nullptr);
+    void const_paint(QPainter *painter,
+                     const QStyleOptionGraphicsItem *option=nullptr,
+                     QWidget *widget=nullptr, Paint_Mode mode = PAINT_KNOT ) const;
+    void const_paint(QPainter *painter, Paint_Mode mode) const;
     QRectF boundingRect() const override { return bounding_box; }
     int type() const override { return UserType+0x03; }
 

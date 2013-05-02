@@ -28,30 +28,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QSvgGenerator>
 
-void paint_knot(const Graph& graph , QPaintDevice *device)
+void paint_knot(const Graph& graph , QPaintDevice *device, bool draw_graph)
 {
     QPainter painter;
     painter.begin(device);
 
-    graph.const_paint(&painter);
+    Graph::Paint_Mode mode = Graph::PAINT_KNOT;
+    if ( draw_graph )
+        mode |=  Graph::PAINT_GRAPH;
+    graph.const_paint(&painter,mode);
 
     painter.end();
 }
 
 
-void export_svg(const Graph& graph, QIODevice &file)
+void export_svg(const Graph& graph, QIODevice &file, bool draw_graph)
 {
     QSvgGenerator gen;
     gen.setOutputDevice(&file);
     gen.setTitle("");
     gen.setDescription("");
 
-    paint_knot ( graph, &gen );
+    paint_knot ( graph, &gen, draw_graph );
 }
 
 
 void export_raster(const Graph& graph, QIODevice &file, QColor background,
-                   bool antialias, QSize img_size, int quality )
+                   bool antialias, QSize img_size, int quality, bool draw_graph )
 {
 
     QSizeF actual_size = graph.boundingRect().size();
@@ -79,7 +82,10 @@ void export_raster(const Graph& graph, QIODevice &file, QColor background,
     painter.translate(offset);
     painter.scale(scale_x,scale_y);
 
-    graph.const_paint(&painter);
+    Graph::Paint_Mode mode = Graph::PAINT_KNOT;
+    if ( draw_graph )
+        mode |=  Graph::PAINT_GRAPH;
+    graph.const_paint(&painter,mode);
 
     painter.end();
 

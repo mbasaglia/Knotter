@@ -29,9 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "graph.hpp"
 
-void paint_knot(const Graph& graph, QPaintDevice *device );
+void paint_knot(const Graph& graph, QPaintDevice *device, bool draw_graph );
 
-void export_svg(const Graph& graph, QIODevice &file);
+void export_svg(const Graph& graph, QIODevice &file, bool draw_graph);
 
 /**
  * \brief Export a raster image
@@ -42,8 +42,9 @@ void export_svg(const Graph& graph, QIODevice &file);
  *  \param antialias    Whether to perform supersampling with bilinear filtering
  *  \param img_size     Size of the image
  *  \param quality      Quality/Compression (See QPixmap::save())
+ *  \param draw_graph   Whether to render also the graph itself
 */
 void export_raster(const Graph& graph, QIODevice &file, QColor background,
-                   bool antialias, QSize img_size, int quality );
+                   bool antialias, QSize img_size, int quality , bool draw_graph);
 
 #endif // IMAGE_EXPORTER_HPP
