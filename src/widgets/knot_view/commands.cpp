@@ -313,3 +313,71 @@ bool Pen_Join_Style::mergeWith(const QUndoCommand *other)
     }
     return false;
 }
+
+
+
+Knot_Style_Basic_Double_Parameter::Knot_Style_Basic_Double_Parameter
+        (double before, double after, Knot_View *kv, Knot_Macro *parent)
+    : Knot_Command(kv,parent), before(before), after(after)
+{}
+void Knot_Style_Basic_Double_Parameter::undo()
+{
+    apply(before);
+    update_knot();
+}
+void Knot_Style_Basic_Double_Parameter::redo()
+{
+    apply(after);
+    update_knot();
+}
+bool Knot_Style_Basic_Double_Parameter::mergeWith(const QUndoCommand *other)
+{
+    const Knot_Style_Handle_Lenght* cc = static_cast<const Knot_Style_Handle_Lenght*>(other);
+    if ( cc->graph == graph )
+    {
+        after = cc->after;
+        return true;
+    }
+    return false;
+}
+
+int Knot_Style_Handle_Lenght::m_id = generate_id();
+void Knot_Style_Handle_Lenght::apply(double value)
+{
+    graph->default_node_style_reference().handle_length = value;
+}
+int Knot_Style_Crossing_Distance::m_id = generate_id();
+void Knot_Style_Crossing_Distance::apply(double value)
+{
+    graph->default_node_style_reference().crossing_distance = value;
+}
+int Knot_Style_Cusp_Angle::m_id = generate_id();
+void Knot_Style_Cusp_Angle::apply(double value)
+{
+    graph->default_node_style_reference().cusp_angle = value;
+}
+int Knot_Style_Cusp_Distance::m_id = generate_id();
+void Knot_Style_Cusp_Distance::apply(double value)
+{
+    graph->default_node_style_reference().cusp_distance = value;
+}
+
+
+Knot_Style_Cusp_Shape::Knot_Style_Cusp_Shape(Cusp_Shape *before, Cusp_Shape *after,
+                                             Knot_View *kv, Knot_Macro *parent)
+    :Knot_Command(kv,parent), before(before), after(after)
+{
+    setText(tr("Change Cusp Shape"));
+}
+
+void Knot_Style_Cusp_Shape::undo()
+{
+    graph->default_node_style_reference().cusp_shape = before;
+    update_knot();
+}
+
+void Knot_Style_Cusp_Shape::redo()
+{
+    graph->default_node_style_reference().cusp_shape = after;
+    update_knot();
+}

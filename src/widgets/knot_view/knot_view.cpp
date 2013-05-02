@@ -92,6 +92,46 @@ bool Knot_View::load_file(QString fname)
     return false;
 }
 
+void Knot_View::set_knot_handle_lenght(double v)
+{
+    push_command(new Knot_Style_Handle_Lenght(
+                     graph.default_node_style().handle_length,
+                     v, this
+                     ));
+}
+
+void Knot_View::set_knot_crossing_distance(double v)
+{
+    push_command(new Knot_Style_Crossing_Distance(
+                     graph.default_node_style().crossing_distance,
+                     v, this
+                ));
+}
+
+void Knot_View::set_knot_cusp_angle(double v)
+{
+    push_command(new Knot_Style_Cusp_Angle(
+                     graph.default_node_style().cusp_angle,
+                     v, this
+                ));
+}
+
+void Knot_View::set_knot_cusp_distance(double v)
+{
+    push_command(new Knot_Style_Cusp_Distance(
+                     graph.default_node_style().cusp_distance,
+                     v, this
+                ));
+}
+
+void Knot_View::set_knot_cusp_shape(Cusp_Shape *v)
+{
+    push_command(new Knot_Style_Cusp_Shape(
+                     graph.default_node_style().cusp_shape,
+                     v, this
+                ));
+}
+
 bool Knot_View::load_file(QIODevice *device)
 {
 

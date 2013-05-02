@@ -145,6 +145,7 @@ void Main_Window::init_docks()
 
     // Global style
     global_style = new Cusp_Style_Widget;
+    global_style->hide_checkboxes();
     QDockWidget* glob_style_widget = new QDockWidget;
     glob_style_widget->setWidget(global_style);
     glob_style_widget->setObjectName("global_style_dock");
@@ -271,7 +272,7 @@ void Main_Window::connect_view(Knot_View *v)
     connect(dock_background,SIGNAL(move_image()),
             v,SLOT(set_mode_move_background()));
 
-    // style
+    // display
     dock_knot_display->set_colors(v->knot_colors());
     connect(dock_knot_display,SIGNAL(colors_changed(QList<QColor>)),
             v,SLOT(set_knot_colors(QList<QColor>)));
@@ -279,6 +280,21 @@ void Main_Window::connect_view(Knot_View *v)
             v,SLOT(set_stroke_width(double)) );
     connect(dock_knot_display,SIGNAL(join_style_changed(Qt::PenJoinStyle)),
             v,SLOT(set_join_style(Qt::PenJoinStyle)));
+
+    // style
+    global_style->set_style(v->get_graph().default_node_style());
+    connect(global_style,SIGNAL(crossing_distance_changed(double)),
+            v,SLOT(set_knot_crossing_distance(double)));
+    connect(global_style,SIGNAL(cusp_angle_changed(double)),
+            v,SLOT(set_knot_cusp_angle(double)));
+    connect(global_style,SIGNAL(crossing_distance_changed(double)),
+            v,SLOT(set_knot_crossing_distance(double)));
+    connect(global_style,SIGNAL(cusp_distance_changed(double)),
+            v,SLOT(set_knot_cusp_distance(double)));
+    connect(global_style,SIGNAL(handle_length_changed(double)),
+            v,SLOT(set_knot_handle_lenght(double)));
+    connect(global_style,SIGNAL(cusp_shape_changed(Cusp_Shape*)),
+            v,SLOT(set_knot_cusp_shape(Cusp_Shape*)));
 
     //export
     ximg_dlg.set_view(v);
@@ -294,6 +310,7 @@ void Main_Window::disconnect_view(Knot_View *v)
         dock_background->disconnect(v);
         dock_background->disconnect(&v->background_image());
         dock_knot_display->disconnect(v);
+        global_style->disconnect(v);
     }
 }
 

@@ -90,4 +90,6 @@ public:
 
 };
 
+Q_DECLARE_METATYPE(Node_Style::Enabled_Styles)
+
 #endif // NODE_STYLE_HPP

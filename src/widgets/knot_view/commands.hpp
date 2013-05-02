@@ -31,6 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "knot_view.hpp"
 #include "graph.hpp"
 
+// basic
+
 class Knot_Macro;
 
 class Knot_Command : public QObject, public QUndoCommand
@@ -81,6 +83,7 @@ public:
     void redo() override;
 };
 
+// graph editing
 class Create_Node : public Knot_Command
 {
     Q_OBJECT
@@ -145,8 +148,21 @@ public:
     void redo() override;
 };
 
+class Move_Node : public Knot_Command
+{
+    Q_OBJECT
 
+    Node*   node;
+    QPointF before;
+    QPointF after;
+public:
+    Move_Node(Node* node, QPointF before, QPointF after, Knot_View* kv,
+              Knot_Macro* parent = nullptr);
+    void undo() override;
+    void redo() override;
+};
 
+// knot display
 class Change_Colors : public Knot_Command
 {
     Q_OBJECT
@@ -162,22 +178,6 @@ public:
     bool mergeWith(const QUndoCommand *other) override;
 };
 
-
-
-
-class Move_Node : public Knot_Command
-{
-    Q_OBJECT
-
-    Node*   node;
-    QPointF before;
-    QPointF after;
-public:
-    Move_Node(Node* node, QPointF before, QPointF after, Knot_View* kv,
-              Knot_Macro* parent = nullptr);
-    void undo() override;
-    void redo() override;
-};
 
 class Knot_Width : public Knot_Command
 {
@@ -214,4 +214,115 @@ public:
     bool mergeWith(const QUndoCommand *other) override;
 };
 
+// knot style
+/**
+ *  \brief Base class for Knot style commands
+ *
+ *  Simplifies the implementation of similar commands
+ */
+class Knot_Style_Basic_Double_Parameter : public Knot_Command
+{
+    Q_OBJECT
+
+    double before;
+    double after;
+
+protected:
+    /// Apply the value to the style
+    virtual void apply(double value) = 0;
+
+public:
+    Knot_Style_Basic_Double_Parameter(double before, double after, Knot_View* kv,
+               Knot_Macro* parent = nullptr);
+    void undo() override;
+    void redo() override;
+    bool mergeWith(const QUndoCommand *other) override;
+};
+
+class Knot_Style_Handle_Lenght : public Knot_Style_Basic_Double_Parameter
+{
+    Q_OBJECT
+
+    static int m_id;
+
+public:
+    Knot_Style_Handle_Lenght(double before, double after, Knot_View* kv,
+               Knot_Macro* parent = nullptr)
+        : Knot_Style_Basic_Double_Parameter(before,after,kv,parent)
+    { setText(tr("Change Curve Control")); }
+
+    void apply(double value) override;
+    int id() const override { return m_id; }
+
+};
+
+class Knot_Style_Crossing_Distance : public Knot_Style_Basic_Double_Parameter
+{
+    Q_OBJECT
+
+    static int m_id;
+
+public:
+    Knot_Style_Crossing_Distance(double before, double after, Knot_View* kv,
+               Knot_Macro* parent = nullptr)
+        : Knot_Style_Basic_Double_Parameter(before,after,kv,parent)
+    { setText(tr("Change Crossing Gap")); }
+
+    void apply(double value) override;
+    int id() const override { return m_id; }
+
+};
+
+class Knot_Style_Cusp_Angle : public Knot_Style_Basic_Double_Parameter
+{
+    Q_OBJECT
+
+    static int m_id;
+
+public:
+    Knot_Style_Cusp_Angle(double before, double after, Knot_View* kv,
+               Knot_Macro* parent = nullptr)
+        : Knot_Style_Basic_Double_Parameter(before,after,kv,parent)
+    { setText(tr("Change Minimum Cusp Angle")); }
+
+    void apply(double value) override;
+    int id() const override { return m_id; }
+
+};
+
+class Knot_Style_Cusp_Distance : public Knot_Style_Basic_Double_Parameter
+{
+    Q_OBJECT
+
+    static int m_id;
+
+public:
+    Knot_Style_Cusp_Distance(double before, double after, Knot_View* kv,
+               Knot_Macro* parent = nullptr)
+        : Knot_Style_Basic_Double_Parameter(before,after,kv,parent)
+    { setText(tr("Change Cusp Distance")); }
+
+    void apply(double value) override;
+    int id() const override { return m_id; }
+
+};
+
+
+class Knot_Style_Cusp_Shape : public Knot_Command
+{
+    Q_OBJECT
+
+    Cusp_Shape* before;
+    Cusp_Shape* after;
+
+public:
+    Knot_Style_Cusp_Shape(Cusp_Shape* before, Cusp_Shape* after, Knot_View* kv,
+               Knot_Macro* parent = nullptr);
+    void undo() override;
+    void redo() override;
+};
+
+
+
+// node style
 #endif // COMMANDS_HPP

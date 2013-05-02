@@ -39,6 +39,11 @@ public:
 
     void set_style(const Node_Style& st );
     Node_Style get_style() const;
+
+    Node_Style::Enabled_Styles enabled_styles() const;
+    Cusp_Shape* cusp_shape() const;
+
+    void hide_checkboxes();
     
 protected:
     void changeEvent(QEvent *e);
@@ -49,13 +54,18 @@ signals:
     void crossing_distance_changed(double);
     void cusp_distance_changed(double);
     void cusp_shape_changed(Cusp_Shape*);
+    void enabled_styles_changed(Node_Style::Enabled_Styles);
 
 private slots:
     void on_combo_cusp_shape_activated(int index);
+    void checkbox_toggled();
 
 private:
     /// Copy tooltip from buddy to label
     void label_tooltip();
+
+    /// Cusp shape associaated with combo box index
+    Cusp_Shape* cusp_shape(int index) const;
 };
 
 #endif // CUSP_STYLE_WIDGET_HPP

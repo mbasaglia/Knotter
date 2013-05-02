@@ -240,6 +240,14 @@ public slots:
 
     bool load_file(QString fname);
 
+    // knot style
+
+    void set_knot_handle_lenght(double v);
+    void set_knot_crossing_distance(double v);
+    void set_knot_cusp_angle(double v);
+    void set_knot_cusp_distance(double v);
+    void set_knot_cusp_shape(Cusp_Shape* v);
+
 signals:
 
     /// emitted when the graph structure or style is changed

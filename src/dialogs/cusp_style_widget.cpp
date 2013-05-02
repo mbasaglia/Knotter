@@ -63,7 +63,7 @@ void Cusp_Style_Widget::set_style(const Node_Style &st)
     {
         for(int i = 0; i < combo_cusp_shape->count(); i++ )
         {
-            Cusp_Shape* cs = combo_cusp_shape->itemData(i).value<Cusp_Shape*>();
+            Cusp_Shape* cs = cusp_shape(i);
             if ( cs->name() == st.cusp_shape->name() )
             {
                 combo_cusp_shape->setCurrentIndex(i);
@@ -100,6 +100,53 @@ void Cusp_Style_Widget::set_style(const Node_Style &st)
         check_handle_length->setChecked(false);
 }
 
+Node_Style Cusp_Style_Widget::get_style() const
+{
+    return Node_Style(
+                spin_cusp_angle->value(),
+                spin_handle_length->value(),
+                spin_crossing_gap->value(),
+                spin_cusp_distance->value(),
+                cusp_shape(),
+                enabled_styles()
+                );
+}
+
+Node_Style::Enabled_Styles Cusp_Style_Widget::enabled_styles() const
+{
+    Node_Style::Enabled_Styles es = Node_Style::NOTHING;
+    if ( check_crossing_gap->isChecked() )
+        es |= Node_Style::CROSSING_DISTANCE;
+    if ( check_cusp_angle->isChecked() )
+        es |= Node_Style::CUSP_ANGLE;
+    if ( check_cusp_distance->isChecked() )
+        es |= Node_Style::CUSP_DISTANCE;
+    if ( check_cusp_shape->isChecked() )
+        es |= Node_Style::CUSP_SHAPE;
+    if ( check_handle_length->isChecked() )
+        es |= Node_Style::HANDLE_LENGTH;
+    return es;
+}
+
+Cusp_Shape *Cusp_Style_Widget::cusp_shape() const
+{
+    return cusp_shape(combo_cusp_shape->currentIndex());
+}
+
+void Cusp_Style_Widget::hide_checkboxes()
+{
+    foreach(QCheckBox* cb, findChildren<QCheckBox*>())
+    {
+        cb->setChecked(true);
+        cb->hide();
+    }
+}
+
+Cusp_Shape *Cusp_Style_Widget::cusp_shape(int index) const
+{
+    return combo_cusp_shape->itemData(index).value<Cusp_Shape*>();
+}
+
 void Cusp_Style_Widget::changeEvent(QEvent *e)
 {
     QWidget::changeEvent(e);
@@ -111,8 +158,7 @@ void Cusp_Style_Widget::changeEvent(QEvent *e)
 
             // reload cusp shapes
             int current_index = combo_cusp_shape->currentIndex();
-            Cusp_Shape* current_shape = combo_cusp_shape->itemData(current_index)
-                                            .value<Cusp_Shape*>();
+            Cusp_Shape* current_shape = cusp_shape();
             blockSignals(true);
             combo_cusp_shape->clear();
 
@@ -124,14 +170,16 @@ void Cusp_Style_Widget::changeEvent(QEvent *e)
                 combo_cusp_shape->addItem(cs->icon(),cs->name(),
                                           QVariant::fromValue(cs) );
             }
-            blockSignals(false);
 
             if ( current_index > combo_cusp_shape->count() )
                 current_index = 0;
 
             combo_cusp_shape->setCurrentIndex(current_index);
-            Cusp_Shape* new_shape = combo_cusp_shape->itemData(current_index)
-                                            .value<Cusp_Shape*>();
+
+            blockSignals(false);
+
+            Cusp_Shape* new_shape = cusp_shape(current_index);
+
             if ( new_shape != current_shape )
                 emit cusp_shape_changed(new_shape);
         }
@@ -143,7 +191,12 @@ void Cusp_Style_Widget::changeEvent(QEvent *e)
 
 void Cusp_Style_Widget::on_combo_cusp_shape_activated(int index)
 {
-    emit cusp_shape_changed(combo_cusp_shape->itemData(index).value<Cusp_Shape*>());
+    emit cusp_shape_changed(cusp_shape(index));
+}
+
+void Cusp_Style_Widget::checkbox_toggled()
+{
+    emit enabled_styles_changed(enabled_styles());
 }
 
 void Cusp_Style_Widget::label_tooltip()

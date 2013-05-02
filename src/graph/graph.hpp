@@ -131,6 +131,7 @@ public:
 
 
     Node_Style default_node_style() const { return m_default_node_style; }
+    Node_Style& default_node_style_reference() { return m_default_node_style; }
     void set_default_node_style( Node_Style style );
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option=nullptr,
