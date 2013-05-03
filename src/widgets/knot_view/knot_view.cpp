@@ -341,9 +341,9 @@ void Knot_View::expand_scene_rect(int margin)
 bool Knot_View::mouse_select(QList<Node *> nodes, bool modifier, bool clear)
 {
     bool select = true;
-    if ( !modifier )
+
+    if ( !modifier && clear )
     {
-        if ( clear )
             scene()->clearSelection();
     }
     else
@@ -356,6 +356,16 @@ bool Knot_View::mouse_select(QList<Node *> nodes, bool modifier, bool clear)
                 select = true;
                 break;
             }
+        }
+
+
+        if ( !modifier && !clear )
+        {
+            if ( select )
+            {
+                scene()->clearSelection();
+            }
+            select = true;
         }
     }
 
@@ -420,7 +430,6 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
 
             if ( !(mouse_mode & RUBBERBAND) )
             {
-                /// \todo there's something wrong with the selection
                 // not directly in condition because has side-effect
                 bool b = mouse_select(nodes,event->modifiers() &
                                       (Qt::ControlModifier|Qt::ShiftModifier),
