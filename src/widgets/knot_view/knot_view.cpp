@@ -129,7 +129,85 @@ void Knot_View::set_knot_cusp_shape(Cusp_Shape *v)
     push_command(new Knot_Style_Cusp_Shape(
                      graph.default_node_style().cusp_shape,
                      v, this
-                ));
+                     ));
+}
+
+void Knot_View::set_selection_handle_lenght(double v)
+{
+    QList<Node*> nodes = selected_nodes();
+    QList<double> before;
+    QList<double> after;
+    foreach(Node* n, nodes)
+    {
+        before.push_back(n->style().handle_length);
+        after.push_back(v);
+    }
+    push_command(new Node_Style_Handle_Lenght(nodes,before,after,this));
+}
+
+void Knot_View::set_selection_crossing_distance(double v)
+{
+    QList<Node*> nodes = selected_nodes();
+    QList<double> before;
+    QList<double> after;
+    foreach(Node* n, nodes)
+    {
+        before.push_back(n->style().crossing_distance);
+        after.push_back(v);
+    }
+    push_command(new Node_Style_Crossing_Distance(nodes,before,after,this));
+}
+
+void Knot_View::set_selection_cusp_angle(double v)
+{
+    QList<Node*> nodes = selected_nodes();
+    QList<double> before;
+    QList<double> after;
+    foreach(Node* n, nodes)
+    {
+        before.push_back(n->style().cusp_angle);
+        after.push_back(v);
+    }
+    push_command(new Node_Style_Cusp_Angle(nodes,before,after,this));
+}
+
+void Knot_View::set_selection_cusp_distance(double v)
+{
+    QList<Node*> nodes = selected_nodes();
+    QList<double> before;
+    QList<double> after;
+    foreach(Node* n, nodes)
+    {
+        before.push_back(n->style().cusp_distance);
+        after.push_back(v);
+    }
+    push_command(new Node_Style_Cusp_Distance(nodes,before,after,this));
+}
+
+void Knot_View::set_selection_cusp_shape(Cusp_Shape *v)
+{
+    QList<Node*> nodes = selected_nodes();
+    QList<Cusp_Shape *> before;
+    QList<Cusp_Shape *> after;
+    foreach(Node* n, nodes)
+    {
+        before.push_back(n->style().cusp_shape);
+        after.push_back(v);
+    }
+    push_command(new Node_Style_Cusp_Shape(nodes,before,after,this));
+}
+
+void Knot_View::set_selection_enabled_styles(Node_Style::Enabled_Styles v)
+{
+    QList<Node*> nodes = selected_nodes();
+    QList<Node_Style::Enabled_Styles> before;
+    QList<Node_Style::Enabled_Styles> after;
+    foreach(Node* n, nodes)
+    {
+        before.push_back(n->style().enabled_style);
+        after.push_back(v);
+    }
+    push_command(new Node_Style_Enable(nodes,before,after,this));
 }
 
 bool Knot_View::load_file(QIODevice *device)

@@ -389,22 +389,23 @@ void Knot_Style_Cusp_Shape::redo()
 Node_Style_Base::Node_Style_Base(QList<Node *> nodes, Knot_View *kv, Knot_Macro *parent)
     : Knot_Command(kv,parent), nodes(nodes)
 {
+    setText(tr("Change Selection Style"));
 }
 
 Node_Style_Basic_Double_Parameter::Node_Style_Basic_Double_Parameter
-        (QList<Node *> nodes, double before, double after, Knot_View *kv, Knot_Macro *parent)
+        (QList<Node *> nodes, QList<double> before, QList<double> after, Knot_View *kv, Knot_Macro *parent)
     : Node_Style_Base(nodes,kv,parent), before(before), after(after)
 {}
 void Node_Style_Basic_Double_Parameter::undo()
 {
-    foreach(Node* node, nodes)
-        apply(node, before);
+    for( int i = 0; i < nodes.size(); i++)
+        apply(nodes[i], before[i]);
     update_knot();
 }
 void Node_Style_Basic_Double_Parameter::redo()
 {
-    foreach(Node* node, nodes)
-        apply(node,after);
+    for( int i = 0; i < nodes.size(); i++)
+        apply(nodes[i], after[i]);
     update_knot();
 }
 bool Node_Style_Basic_Double_Parameter::mergeWith(const QUndoCommand *other)
@@ -443,42 +444,44 @@ void Node_Style_Crossing_Distance::apply(Node* node, double value)
 }
 
 
-Node_Style_Cusp_Shape::Node_Style_Cusp_Shape(QList<Node *> nodes, Cusp_Shape *before,
-                                             Cusp_Shape *after, Knot_View *kv,
-                                             Knot_Macro *parent)
+Node_Style_Cusp_Shape::Node_Style_Cusp_Shape(
+        QList<Node *> nodes, QList<Cusp_Shape*> before, QList<Cusp_Shape*> after,
+        Knot_View *kv,Knot_Macro *parent)
     :Node_Style_Base(nodes,kv,parent), before(before), after(after)
 {
 }
 void Node_Style_Cusp_Shape::undo()
 {
-    foreach(Node* node, nodes)
-        node->style().cusp_shape = before;
+    for( int i = 0; i < nodes.size(); i++)
+        nodes[i]->style().cusp_shape = before[i];
     update_knot();
 }
 void Node_Style_Cusp_Shape::redo()
 {
-    foreach(Node* node, nodes)
-        node->style().cusp_shape = after;
+    for( int i = 0; i < nodes.size(); i++)
+        nodes[i]->style().cusp_shape = after[i];
     update_knot();
 }
 
 
-Knot_Style_Enable::Knot_Style_Enable(QList<Node *> nodes, Node_Style::Enabled_Styles before,
-                                     Node_Style::Enabled_Styles after,
-                                     Knot_View *kv, Knot_Macro *parent)
+Node_Style_Enable::Node_Style_Enable(
+        QList<Node *> nodes, QList<Node_Style::Enabled_Styles> before,
+        QList<Node_Style::Enabled_Styles> after,
+        Knot_View *kv, Knot_Macro *parent)
     :Node_Style_Base(nodes,kv,parent), before(before), after(after)
 {
+    setText(tr("Toggle Selection Style Property"));
 }
-void Knot_Style_Enable::undo()
+void Node_Style_Enable::undo()
 {
-    foreach(Node* node, nodes)
-        node->style().enabled_style = before;
+    for( int i = 0; i < nodes.size(); i++)
+        nodes[i]->style().enabled_style = before[i];
     update_knot();
 }
-void Knot_Style_Enable::redo()
+void Node_Style_Enable::redo()
 {
-    foreach(Node* node, nodes)
-        node->style().enabled_style = after;
+    for( int i = 0; i < nodes.size(); i++)
+        nodes[i]->style().enabled_style = after[i];
     update_knot();
 }
 

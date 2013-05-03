@@ -248,6 +248,13 @@ public slots:
     void set_knot_cusp_distance(double v);
     void set_knot_cusp_shape(Cusp_Shape* v);
 
+    void set_selection_handle_lenght(double v);
+    void set_selection_crossing_distance(double v);
+    void set_selection_cusp_angle(double v);
+    void set_selection_cusp_distance(double v);
+    void set_selection_cusp_shape(Cusp_Shape* v);
+    void set_selection_enabled_styles(Node_Style::Enabled_Styles v);
+
 signals:
 
     /// emitted when the graph structure or style is changed

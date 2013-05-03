@@ -299,6 +299,20 @@ void Main_Window::connect_view(Knot_View *v)
     // selection style
     udate_selection(v->selected_nodes());
     connect(v,SIGNAL(selection_changed(QList<Node*>)),SLOT(udate_selection(QList<Node*>)));
+    connect(selection_style,SIGNAL(crossing_distance_changed(double)),
+            v,SLOT(set_selection_crossing_distance(double)));
+    connect(selection_style,SIGNAL(cusp_angle_changed(double)),
+            v,SLOT(set_selection_cusp_angle(double)));
+    connect(selection_style,SIGNAL(crossing_distance_changed(double)),
+            v,SLOT(set_selection_crossing_distance(double)));
+    connect(selection_style,SIGNAL(cusp_distance_changed(double)),
+            v,SLOT(set_selection_cusp_distance(double)));
+    connect(selection_style,SIGNAL(handle_length_changed(double)),
+            v,SLOT(set_selection_handle_lenght(double)));
+    connect(selection_style,SIGNAL(cusp_shape_changed(Cusp_Shape*)),
+            v,SLOT(set_selection_cusp_shape(Cusp_Shape*)));
+    connect(selection_style,SIGNAL(enabled_styles_changed(Node_Style::Enabled_Styles)),
+            v,SLOT(set_selection_enabled_styles(Node_Style::Enabled_Styles)));
 
     //export
     ximg_dlg.set_view(v);
@@ -316,6 +330,7 @@ void Main_Window::disconnect_view(Knot_View *v)
         dock_background->disconnect(&v->background_image());
         dock_knot_display->disconnect(v);
         global_style->disconnect(v);
+        selection_style->disconnect(v);
         udate_selection(QList<Node*>());
     }
 }

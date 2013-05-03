@@ -345,8 +345,8 @@ class Node_Style_Basic_Double_Parameter : public Node_Style_Base
 {
     Q_OBJECT
 
-    double before;
-    double after;
+    QList<double> before;
+    QList<double> after;
 
 protected:
 
@@ -354,7 +354,8 @@ protected:
     virtual void apply(Node* node, double value) = 0;
 
 public:
-    Node_Style_Basic_Double_Parameter(QList<Node*> nodes, double before, double after, Knot_View* kv,
+    Node_Style_Basic_Double_Parameter(QList<Node*> nodes, QList<double> before,
+                                      QList<double> after, Knot_View* kv,
                Knot_Macro* parent = nullptr);
     void undo() override;
     void redo() override;
@@ -369,8 +370,9 @@ class Node_Style_Handle_Lenght : public Node_Style_Basic_Double_Parameter
     static int m_id;
 
 public:
-    Node_Style_Handle_Lenght(QList<Node*> nodes, double before, double after, Knot_View* kv,
-               Knot_Macro* parent = nullptr)
+    Node_Style_Handle_Lenght(
+            QList<Node*> nodes, QList<double> before, QList<double> after,
+            Knot_View* kv, Knot_Macro* parent = nullptr)
         : Node_Style_Basic_Double_Parameter(nodes, before,after,kv,parent)
     { }
 
@@ -385,8 +387,9 @@ class Node_Style_Cusp_Distance : public Node_Style_Basic_Double_Parameter
     static int m_id;
 
 public:
-    Node_Style_Cusp_Distance(QList<Node*> nodes, double before, double after, Knot_View* kv,
-               Knot_Macro* parent = nullptr)
+    Node_Style_Cusp_Distance(
+            QList<Node*> nodes, QList<double> before, QList<double> after,
+            Knot_View* kv, Knot_Macro* parent = nullptr)
         : Node_Style_Basic_Double_Parameter(nodes, before,after,kv,parent)
     { }
 
@@ -401,8 +404,9 @@ class Node_Style_Cusp_Angle : public Node_Style_Basic_Double_Parameter
     static int m_id;
 
 public:
-    Node_Style_Cusp_Angle(QList<Node*> nodes, double before, double after, Knot_View* kv,
-               Knot_Macro* parent = nullptr)
+    Node_Style_Cusp_Angle(
+            QList<Node*> nodes, QList<double> before, QList<double> after,
+            Knot_View* kv, Knot_Macro* parent = nullptr)
         : Node_Style_Basic_Double_Parameter(nodes, before,after,kv,parent)
     { }
 
@@ -417,8 +421,9 @@ class Node_Style_Crossing_Distance : public Node_Style_Basic_Double_Parameter
     static int m_id;
 
 public:
-    Node_Style_Crossing_Distance(QList<Node*> nodes, double before, double after, Knot_View* kv,
-               Knot_Macro* parent = nullptr)
+    Node_Style_Crossing_Distance(
+            QList<Node*> nodes, QList<double> before, QList<double> after,
+            Knot_View* kv, Knot_Macro* parent = nullptr)
         : Node_Style_Basic_Double_Parameter(nodes, before,after,kv,parent)
     { }
 
@@ -431,27 +436,29 @@ class Node_Style_Cusp_Shape : public Node_Style_Base
 {
     Q_OBJECT
 
-    Cusp_Shape* before;
-    Cusp_Shape* after;
+    QList<Cusp_Shape*> before;
+    QList<Cusp_Shape*> after;
 
 public:
-    Node_Style_Cusp_Shape(QList<Node*> nodes, Cusp_Shape* before, Cusp_Shape* after, Knot_View* kv,
-               Knot_Macro* parent = nullptr);
+    Node_Style_Cusp_Shape(
+            QList<Node*> nodes, QList<Cusp_Shape*> before, QList<Cusp_Shape*> after,
+            Knot_View* kv, Knot_Macro* parent = nullptr);
     void undo() override;
     void redo() override;
 };
 
-class Knot_Style_Enable : public Node_Style_Base
+class Node_Style_Enable : public Node_Style_Base
 {
     Q_OBJECT
 
-    Node_Style::Enabled_Styles before;
-    Node_Style::Enabled_Styles after;
+    QList<Node_Style::Enabled_Styles> before;
+    QList<Node_Style::Enabled_Styles> after;
 
 public:
-    Knot_Style_Enable(QList<Node*> nodes, Node_Style::Enabled_Styles before,
-                          Node_Style::Enabled_Styles after, Knot_View* kv,
-                           Knot_Macro* parent = nullptr);
+    Node_Style_Enable(QList<Node*> nodes,
+                      QList<Node_Style::Enabled_Styles> before,
+                      QList<Node_Style::Enabled_Styles> after,
+                      Knot_View* kv, Knot_Macro* parent = nullptr);
     void undo() override;
     void redo() override;
 };
