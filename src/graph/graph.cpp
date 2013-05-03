@@ -119,6 +119,11 @@ void Graph::set_join_style(Qt::PenJoinStyle style)
     emit style_changed();
 }
 
+Qt::BrushStyle Graph::brush_style() const
+{
+    return Qt::SolidPattern;
+}
+
 void Graph::set_default_node_style(Node_Style style)
 {
     m_default_node_style = style;

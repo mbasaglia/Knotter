@@ -129,6 +129,8 @@ public:
     Qt::PenJoinStyle join_style() const { return pen().joinStyle(); }
     void set_join_style ( Qt::PenJoinStyle style );
 
+    Qt::BrushStyle brush_style() const;
+
 
     Node_Style default_node_style() const { return m_default_node_style; }
     Node_Style& default_node_style_reference() { return m_default_node_style; }

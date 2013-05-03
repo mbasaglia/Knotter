@@ -17,8 +17,12 @@ INCLUDEPATH += $$PWD
 
 HEADERS += \
     $$PWD/image_exporter.hpp \
-    $$PWD/xml_loader_v2.hpp
+    $$PWD/xml_loader_v2.hpp \
+    $$PWD/xml_loader.hpp \
+    $$PWD/xml_exporter.hpp
 
 SOURCES += \
     $$PWD/image_exporter.cpp \
-    $$PWD/xml_loader_v2.cpp
+    $$PWD/xml_loader_v2.cpp \
+    $$PWD/xml_loader.cpp \
+    $$PWD/xml_exporter.cpp

@@ -14,6 +14,9 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="Extended_TabWidget" name="tabWidget">
+      <property name="elideMode">
+       <enum>Qt::ElideLeft</enum>
+      </property>
       <property name="documentMode">
        <bool>true</bool>
       </property>

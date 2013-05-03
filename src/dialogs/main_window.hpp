@@ -125,6 +125,12 @@ private slots:
      */
     void udate_selection(QList<Node*> nodes);
 
+    /**
+     * \brief Save design to file
+     * \param force_select Whether a file dialog must be shown
+     */
+    void save(bool force_select);
+
     void on_action_Preferences_triggered();
     void on_action_Show_Graph_toggled(bool arg1);
     void on_action_Zoom_In_triggered();
@@ -135,6 +141,8 @@ private slots:
     void on_action_Manual_triggered();
     void on_action_Refresh_Path_triggered();
     void on_action_Open_triggered();
+    void on_action_Save_triggered();
+    void on_action_Save_As_triggered();
 };
 
 #endif // MAIN_WINDOW_HPP

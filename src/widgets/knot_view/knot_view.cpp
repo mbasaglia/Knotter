@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QApplication>
 #include "resource_manager.hpp"
 #include "xml_loader_v2.hpp"
+#include "xml_exporter.hpp"
 
 Knot_View::Knot_View(QString file)
     : mouse_mode(EDIT_GRAPH), last_node(nullptr), m_file_name(file)
@@ -90,6 +91,24 @@ bool Knot_View::load_file(QString fname)
         }
     }
     return false;
+}
+
+bool Knot_View::save_file(QString fname)
+{
+    QFile file(fname);
+
+    if ( ! file.open(QIODevice::WriteOnly | QIODevice::Text) )
+        return false;
+
+    XML_Exporter(&file).export_graph(&graph);
+
+    setWindowFilePath(fname);
+    m_file_name = fname;
+
+    undo_stack.setClean();
+
+    return true;
+
 }
 
 void Knot_View::set_knot_handle_lenght(double v)

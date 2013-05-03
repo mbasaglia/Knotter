@@ -388,6 +388,7 @@ void Main_Window::udate_selection(QList<Node *> nodes)
     selection_style->blockSignals(false);
 }
 
+
 void Main_Window::on_action_Preferences_triggered()
 {
     Preferences_Dialog(this).exec();
@@ -424,8 +425,8 @@ void Main_Window::create_tab(QString file)
 void Main_Window::switch_to_tab(int i)
 {
     tabWidget->setCurrentIndex(i);
-    setWindowTitle(tr("%1 - %2").arg(Resource_Manager::program_name())
-                   .arg(tabWidget->tabText(i)));
+    /*setWindowTitle(tr("%1 - %2").arg(Resource_Manager::program_name())
+                   .arg(tabWidget->tabText(i)));*/
     disconnect_view(view);
     connect_view(dynamic_cast<Knot_View*>(tabWidget->currentWidget()));
     update_title();
@@ -509,4 +510,37 @@ void Main_Window::on_action_Open_triggered()
 
     foreach ( QString file, files )
         create_tab(file);
+}
+
+void Main_Window::on_action_Save_triggered()
+{
+    save(false);
+}
+
+void Main_Window::on_action_Save_As_triggered()
+{
+    save(true);
+}
+
+
+void Main_Window::save(bool force_select)
+{
+    QString file = view->file_name();
+    if ( file.isEmpty() || force_select )
+    {
+        file = QFileDialog::getSaveFileName(this,tr("Save Knot"),
+                    view->file_name(),
+                    "Knot files (*.knot);;XML files (*.xml);;All files (*)" );
+    }
+    if ( !file.isEmpty() )
+    {
+        if ( view->save_file(file) )
+        {
+            update_title();
+            tabWidget->setTabText(tabWidget->currentIndex(),view->windowFilePath());
+        }
+        else
+            QMessageBox::warning(this,tr("File Error"),
+                    tr("Failed to save file \"%1\".").arg(file) );
+    }
 }

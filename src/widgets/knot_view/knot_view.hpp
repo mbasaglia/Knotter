@@ -238,7 +238,20 @@ public slots:
 
     void set_join_style(Qt::PenJoinStyle s);
 
+    /**
+     * \brief Load file and update file name
+     * \post If no problem was encountered, the graph contains the contents of the file
+     *       and the file name is updated to match the parameter
+     * \return Whether the file was loaded successfully
+     */
     bool load_file(QString fname);
+
+    /**
+     * \brief Save file and update file name
+     * \post If no proble was encountered the clean state and file name are updated
+     * \return Whether the file was saved successfully
+     */
+    bool save_file(QString fname);
 
     // knot style
 
