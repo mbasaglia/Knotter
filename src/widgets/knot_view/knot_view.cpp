@@ -373,6 +373,8 @@ bool Knot_View::mouse_select(QList<Node *> nodes, bool modifier, bool clear)
     foreach(Node* itm, nodes)
         itm->setSelected(select);
 
+    emit selection_changed(selected_nodes());
+
     return select;
 }
 

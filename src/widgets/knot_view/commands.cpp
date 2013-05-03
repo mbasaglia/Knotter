@@ -332,7 +332,7 @@ void Knot_Style_Basic_Double_Parameter::redo()
 }
 bool Knot_Style_Basic_Double_Parameter::mergeWith(const QUndoCommand *other)
 {
-    const Knot_Style_Handle_Lenght* cc = static_cast<const Knot_Style_Handle_Lenght*>(other);
+    const Knot_Style_Basic_Double_Parameter* cc = static_cast<const Knot_Style_Basic_Double_Parameter*>(other);
     if ( cc->graph == graph )
     {
         after = cc->after;
@@ -381,3 +381,104 @@ void Knot_Style_Cusp_Shape::redo()
     graph->default_node_style_reference().cusp_shape = after;
     update_knot();
 }
+
+
+
+
+
+Node_Style_Base::Node_Style_Base(QList<Node *> nodes, Knot_View *kv, Knot_Macro *parent)
+    : Knot_Command(kv,parent), nodes(nodes)
+{
+}
+
+Node_Style_Basic_Double_Parameter::Node_Style_Basic_Double_Parameter
+        (QList<Node *> nodes, double before, double after, Knot_View *kv, Knot_Macro *parent)
+    : Node_Style_Base(nodes,kv,parent), before(before), after(after)
+{}
+void Node_Style_Basic_Double_Parameter::undo()
+{
+    foreach(Node* node, nodes)
+        apply(node, before);
+    update_knot();
+}
+void Node_Style_Basic_Double_Parameter::redo()
+{
+    foreach(Node* node, nodes)
+        apply(node,after);
+    update_knot();
+}
+bool Node_Style_Basic_Double_Parameter::mergeWith(const QUndoCommand *other)
+{
+    const Node_Style_Basic_Double_Parameter* cc =
+            static_cast<const Node_Style_Basic_Double_Parameter*>(other);
+    if ( cc->nodes == nodes &&
+         cc->metaObject()->className() == metaObject()->className() )
+    {
+        after = cc->after;
+        return true;
+    }
+    return false;
+}
+
+
+int Node_Style_Handle_Lenght::m_id = generate_id();
+void Node_Style_Handle_Lenght::apply(Node* node, double value)
+{
+    node->style().handle_length = value;
+}
+int Node_Style_Cusp_Distance::m_id = generate_id();
+void Node_Style_Cusp_Distance::apply(Node* node, double value)
+{
+    node->style().cusp_distance = value;
+}
+int Node_Style_Cusp_Angle::m_id = generate_id();
+void Node_Style_Cusp_Angle::apply(Node* node, double value)
+{
+    node->style().cusp_angle = value;
+}
+int Node_Style_Crossing_Distance::m_id = generate_id();
+void Node_Style_Crossing_Distance::apply(Node* node, double value)
+{
+    node->style().crossing_distance = value;
+}
+
+
+Node_Style_Cusp_Shape::Node_Style_Cusp_Shape(QList<Node *> nodes, Cusp_Shape *before,
+                                             Cusp_Shape *after, Knot_View *kv,
+                                             Knot_Macro *parent)
+    :Node_Style_Base(nodes,kv,parent), before(before), after(after)
+{
+}
+void Node_Style_Cusp_Shape::undo()
+{
+    foreach(Node* node, nodes)
+        node->style().cusp_shape = before;
+    update_knot();
+}
+void Node_Style_Cusp_Shape::redo()
+{
+    foreach(Node* node, nodes)
+        node->style().cusp_shape = after;
+    update_knot();
+}
+
+
+Knot_Style_Enable::Knot_Style_Enable(QList<Node *> nodes, Node_Style::Enabled_Styles before,
+                                     Node_Style::Enabled_Styles after,
+                                     Knot_View *kv, Knot_Macro *parent)
+    :Node_Style_Base(nodes,kv,parent), before(before), after(after)
+{
+}
+void Knot_Style_Enable::undo()
+{
+    foreach(Node* node, nodes)
+        node->style().enabled_style = before;
+    update_knot();
+}
+void Knot_Style_Enable::redo()
+{
+    foreach(Node* node, nodes)
+        node->style().enabled_style = after;
+    update_knot();
+}
+

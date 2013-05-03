@@ -296,6 +296,10 @@ void Main_Window::connect_view(Knot_View *v)
     connect(global_style,SIGNAL(cusp_shape_changed(Cusp_Shape*)),
             v,SLOT(set_knot_cusp_shape(Cusp_Shape*)));
 
+    // selection style
+    udate_selection(v->selected_nodes());
+    connect(v,SIGNAL(selection_changed(QList<Node*>)),SLOT(udate_selection(QList<Node*>)));
+
     //export
     ximg_dlg.set_view(v);
 
@@ -305,12 +309,14 @@ void Main_Window::disconnect_view(Knot_View *v)
 {
     if ( v != nullptr )
     {
+        disconnect(v);
         disconnect(v,SIGNAL(zoomed(double)),zoomer,SLOT(setValue(double)));
         disconnect(dock_grid,SIGNAL(move_grid()),v,SLOT(set_mode_move_grid()));
         dock_background->disconnect(v);
         dock_background->disconnect(&v->background_image());
         dock_knot_display->disconnect(v);
         global_style->disconnect(v);
+        udate_selection(QList<Node*>());
     }
 }
 
@@ -350,6 +356,21 @@ void Main_Window::set_tool_button_style(Qt::ToolButtonStyle tbs)
 void Main_Window::apply_zoom()
 {
     view->set_zoom(zoomer->value()/100);
+}
+
+void Main_Window::udate_selection(QList<Node *> nodes)
+{
+    selection_style->setEnabled(!nodes.isEmpty());
+
+    selection_style->blockSignals(true);
+    Node_Style ns = view->get_graph().default_node_style();
+    selection_style->set_style(ns);
+    if ( nodes.isEmpty() )
+        ns.enabled_style = Node_Style::NOTHING;
+    else
+        ns = nodes[0]->style();
+    selection_style->set_style(ns);
+    selection_style->blockSignals(false);
 }
 
 void Main_Window::on_action_Preferences_triggered()

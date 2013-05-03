@@ -67,14 +67,14 @@ public slots:
     void create_tab(QString file = QString());
 
     /**
-     *  Switch to the gien tab
+     *  \brief Switch to the gien tab
      *  \param i tab index
      *  \pre i is a valid index
      */
     void switch_to_tab(int i);
 
     /**
-     *  Close the tab with the given index
+     *  \brief Close the tab with the given index
      *  \param i Tab index
      *  \pre i is a valid index
      *  \post The tab is closed. If it were the last tab, a new one is created
@@ -94,31 +94,36 @@ private:
     void load_config();
 
     /**
-     *  Ensure view is connected to the proper signals/slots
+     *  \brief Ensure view is connected to the proper signals/slots
     */
     void connect_view(Knot_View* v);
     /**
-     *  Ensure view is disconnected connected from the relevant signals/slots
+     *  \brief Ensure view is disconnected connected from the relevant signals/slots
     */
     void disconnect_view(Knot_View* v);
 
 private slots:
     void set_icon_size(int);
     /**
-     *  Toggle tab icon to show whether the file has been modified
+     *  \brief Toggle tab icon to show whether the file has been modified
     */
     void set_clean_icon(bool clean);
     /**
-     *  Update title to current file and add a *star* if there are unsaved changes
+     *  \brief Update title to current file and add a *star* if there are unsaved changes
      */
     void update_title();
     void set_undo_text(QString txt);
     void set_redo_text(QString txt);
     void set_tool_button_style(Qt::ToolButtonStyle);
     /**
-     *  Sets the current view zoom factor to the value of the slider in the statusbar
+     *  \brief Sets the current view zoom factor to the value of the slider in the statusbar
     */
     void apply_zoom();
+
+    /**
+     *  \brief Update selected style dialog
+     */
+    void udate_selection(QList<Node*> nodes);
 
     void on_action_Preferences_triggered();
     void on_action_Show_Graph_toggled(bool arg1);

@@ -259,6 +259,8 @@ signals:
      */
     void zoomed(double percent);
 
+    void selection_changed(QList<Node*>);
+
 protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);

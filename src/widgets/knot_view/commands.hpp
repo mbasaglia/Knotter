@@ -323,6 +323,139 @@ public:
 };
 
 
+// selection style
+
+class Node_Style_Base : public Knot_Command
+{
+    Q_OBJECT
+
+protected:
+    QList<Node*> nodes;
+
+public:
+    Node_Style_Base(QList<Node*> nodes, Knot_View* kv,
+               Knot_Macro* parent = nullptr);
+};
+/**
+ *  \brief Base class for selection style commands
+ *
+ *  Simplifies the implementation of similar commands
+ */
+class Node_Style_Basic_Double_Parameter : public Node_Style_Base
+{
+    Q_OBJECT
+
+    double before;
+    double after;
+
+protected:
+
+    /// Apply the value to the style
+    virtual void apply(Node* node, double value) = 0;
+
+public:
+    Node_Style_Basic_Double_Parameter(QList<Node*> nodes, double before, double after, Knot_View* kv,
+               Knot_Macro* parent = nullptr);
+    void undo() override;
+    void redo() override;
+    bool mergeWith(const QUndoCommand *other) override;
+};
+
+
+class Node_Style_Handle_Lenght : public Node_Style_Basic_Double_Parameter
+{
+    Q_OBJECT
+
+    static int m_id;
+
+public:
+    Node_Style_Handle_Lenght(QList<Node*> nodes, double before, double after, Knot_View* kv,
+               Knot_Macro* parent = nullptr)
+        : Node_Style_Basic_Double_Parameter(nodes, before,after,kv,parent)
+    { }
+
+    void apply(Node* node, double value) override;
+    int id() const override { return m_id; }
+
+};
+class Node_Style_Cusp_Distance : public Node_Style_Basic_Double_Parameter
+{
+    Q_OBJECT
+
+    static int m_id;
+
+public:
+    Node_Style_Cusp_Distance(QList<Node*> nodes, double before, double after, Knot_View* kv,
+               Knot_Macro* parent = nullptr)
+        : Node_Style_Basic_Double_Parameter(nodes, before,after,kv,parent)
+    { }
+
+    void apply(Node* node, double value) override;
+    int id() const override { return m_id; }
+
+};
+class Node_Style_Cusp_Angle : public Node_Style_Basic_Double_Parameter
+{
+    Q_OBJECT
+
+    static int m_id;
+
+public:
+    Node_Style_Cusp_Angle(QList<Node*> nodes, double before, double after, Knot_View* kv,
+               Knot_Macro* parent = nullptr)
+        : Node_Style_Basic_Double_Parameter(nodes, before,after,kv,parent)
+    { }
+
+    void apply(Node* node, double value) override;
+    int id() const override { return m_id; }
+
+};
+class Node_Style_Crossing_Distance : public Node_Style_Basic_Double_Parameter
+{
+    Q_OBJECT
+
+    static int m_id;
+
+public:
+    Node_Style_Crossing_Distance(QList<Node*> nodes, double before, double after, Knot_View* kv,
+               Knot_Macro* parent = nullptr)
+        : Node_Style_Basic_Double_Parameter(nodes, before,after,kv,parent)
+    { }
+
+    void apply(Node* node, double value) override;
+    int id() const override { return m_id; }
+
+};
+
+class Node_Style_Cusp_Shape : public Node_Style_Base
+{
+    Q_OBJECT
+
+    Cusp_Shape* before;
+    Cusp_Shape* after;
+
+public:
+    Node_Style_Cusp_Shape(QList<Node*> nodes, Cusp_Shape* before, Cusp_Shape* after, Knot_View* kv,
+               Knot_Macro* parent = nullptr);
+    void undo() override;
+    void redo() override;
+};
+
+class Knot_Style_Enable : public Node_Style_Base
+{
+    Q_OBJECT
+
+    Node_Style::Enabled_Styles before;
+    Node_Style::Enabled_Styles after;
+
+public:
+    Knot_Style_Enable(QList<Node*> nodes, Node_Style::Enabled_Styles before,
+                          Node_Style::Enabled_Styles after, Knot_View* kv,
+                           Knot_Macro* parent = nullptr);
+    void undo() override;
+    void redo() override;
+};
+
 
 // node style
 #endif // COMMANDS_HPP
