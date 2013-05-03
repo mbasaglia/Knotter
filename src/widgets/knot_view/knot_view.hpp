@@ -268,6 +268,11 @@ public slots:
     void set_selection_cusp_shape(Cusp_Shape* v);
     void set_selection_enabled_styles(Node_Style::Enabled_Styles v);
 
+    // misc
+
+    void flip_horiz_selection();
+    void flip_vert_selection();
+
 signals:
 
     /// emitted when the graph structure or style is changed

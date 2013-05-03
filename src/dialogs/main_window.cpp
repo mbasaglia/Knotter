@@ -544,3 +544,13 @@ void Main_Window::save(bool force_select)
                     tr("Failed to save file \"%1\".").arg(file) );
     }
 }
+
+void Main_Window::on_action_Mirror_Horizontal_triggered()
+{
+    view->flip_horiz_selection();
+}
+
+void Main_Window::on_action_Mirror_Vertical_triggered()
+{
+    view->flip_vert_selection();
+}

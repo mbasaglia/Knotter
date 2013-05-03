@@ -229,6 +229,36 @@ void Knot_View::set_selection_enabled_styles(Node_Style::Enabled_Styles v)
     push_command(new Node_Style_Enable(nodes,before,after,this));
 }
 
+void Knot_View::flip_horiz_selection()
+{
+    QList<Node*> nodes = selected_nodes();
+    double c = 0;
+    foreach(Node* n, nodes)
+    {
+        c += n->x() / nodes.size();
+    }
+    begin_macro(tr("Horizontal Flip"));
+    foreach(Node* n, nodes)
+        push_command(new Move_Node(n,n->pos(),QPointF(c-(n->x()-c),n->y()),this));
+
+    end_macro();
+}
+
+void Knot_View::flip_vert_selection()
+{
+    QList<Node*> nodes = selected_nodes();
+    double c = 0;
+    foreach(Node* n, nodes)
+    {
+        c += n->y() / nodes.size();
+    }
+    begin_macro(tr("Vertical Flip"));
+    foreach(Node* n, nodes)
+        push_command(new Move_Node(n,n->pos(),QPointF(n->x(),c-(n->y()-c)),this));
+
+    end_macro();
+}
+
 bool Knot_View::load_file(QIODevice *device)
 {
 
