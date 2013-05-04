@@ -274,12 +274,17 @@ void Main_Window::connect_view(Knot_View *v)
 
     // display
     dock_knot_display->set_colors(v->knot_colors());
+    dock_knot_display->set_join_style(v->get_graph().join_style());
+    dock_knot_display->set_width(v->get_graph().width());
+    dock_knot_display->toggle_custom_colors(v->get_graph().custom_colors());
     connect(dock_knot_display,SIGNAL(colors_changed(QList<QColor>)),
             v,SLOT(set_knot_colors(QList<QColor>)));
     connect(dock_knot_display,SIGNAL(width_changed(double)),
             v,SLOT(set_stroke_width(double)) );
     connect(dock_knot_display,SIGNAL(join_style_changed(Qt::PenJoinStyle)),
             v,SLOT(set_join_style(Qt::PenJoinStyle)));
+    connect(dock_knot_display,SIGNAL(colors_enabled(bool)),
+            v,SLOT(set_knot_custom_colors(bool)));
 
     // style
     global_style->set_style(v->get_graph().default_node_style());
@@ -553,4 +558,29 @@ void Main_Window::on_action_Mirror_Horizontal_triggered()
 void Main_Window::on_action_Mirror_Vertical_triggered()
 {
     view->flip_vert_selection();
+}
+
+void Main_Window::on_action_Select_All_triggered()
+{
+    foreach(Node* node,view->get_graph().nodes())
+        node->setSelected(true);
+}
+
+void Main_Window::on_actionSelect_Connected_triggered()
+{
+    QList<Node*> nodes = view->selected_nodes();
+    while ( !nodes.empty() )
+    {
+        Node* n1 = nodes.front();
+        nodes.pop_front();
+        foreach(Edge* e, n1->connections() )
+        {
+            Node* n2 = e->other(n1);
+            if ( !n2->isSelected() )
+            {
+                n2->setSelected(true);
+                nodes.push_back(n2);
+            }
+        }
+    }
 }

@@ -145,6 +145,8 @@ private slots:
     void on_action_Save_As_triggered();
     void on_action_Mirror_Horizontal_triggered();
     void on_action_Mirror_Vertical_triggered();
+    void on_action_Select_All_triggered();
+    void on_actionSelect_Connected_triggered();
 };
 
 #endif // MAIN_WINDOW_HPP

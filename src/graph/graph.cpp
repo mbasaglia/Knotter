@@ -35,33 +35,25 @@ Graph::Graph(QObject *parent) :
     auto_color(false)
 {
     m_colors.push_back(Qt::black);
-    m_colors.push_back(Qt::red);
-    m_colors.push_back(Qt::green);
     set_join_style(Qt::MiterJoin);
+    set_width(5);
 }
 
 void Graph::add_node(Node *n)
 {
     m_nodes.append(n);
-    //connect(n,SIGNAL(moved(QPointF)),this,SLOT(render_knot()));
-    emit graph_changed();
 }
 
 void Graph::add_edge(Edge *e)
 {
     m_edges.append(e);
     e->attach();
-
-    emit graph_changed();
 }
 
 void Graph::remove_node(Node *n)
 {
     m_nodes.removeOne(n);
     n->setParentItem(nullptr);
-    //disconnect(n,SIGNAL(moved(QPointF)),this,SLOT(render_knot()));
-
-    emit graph_changed();
 }
 
 void Graph::remove_edge(Edge *e)
@@ -69,8 +61,6 @@ void Graph::remove_edge(Edge *e)
     m_edges.removeOne(e);
     e->detach();
     e->setParentItem(nullptr);
-
-    emit graph_changed();
 }
 
 /*void Graph::clear()
@@ -85,38 +75,31 @@ void Graph::remove_edge(Edge *e)
 void Graph::set_paint_mode(Paint_Mode mode)
 {
     paint_mode = mode;
-    emit style_changed();
 }
 
 void Graph::toggle_paint_flag(Graph::Paint_Mode_Enum flag)
 {
     paint_mode ^= flag;
-    emit style_changed();
 }
 
 void Graph::enable_paint_flag(Graph::Paint_Mode_Enum flag)
 {
     paint_mode |= flag;
-    emit style_changed();
 }
 
 void Graph::disable_paint_flag(Graph::Paint_Mode_Enum flag)
 {
     paint_mode &= ~flag;
-    emit style_changed();
 }
 
 void Graph::set_colors(const QList<QColor> &l)
 {
     m_colors = l;
-    emit style_changed();
 }
 
 void Graph::set_join_style(Qt::PenJoinStyle style)
 {
-
     setPen(QPen(Qt::black,width(),pen().style(),Qt::FlatCap,style));
-    emit style_changed();
 }
 
 Qt::BrushStyle Graph::brush_style() const
@@ -127,13 +110,11 @@ Qt::BrushStyle Graph::brush_style() const
 void Graph::set_default_node_style(Node_Style style)
 {
     m_default_node_style = style;
-    emit graph_changed();
 }
 
 void Graph::set_width(double w)
 {
     setPen(QPen(Qt::black,w,pen().style(),Qt::FlatCap,join_style()));
-    emit style_changed();
 }
 
 void Graph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

@@ -39,6 +39,9 @@ public:
     explicit Dock_Knot_Display(QWidget *parent = 0);
 
     void set_colors(const QList<QColor>& c);
+    void set_join_style(Qt::PenJoinStyle s);
+    void set_width(double w);
+    void toggle_custom_colors(bool b);
     
 protected:
     void changeEvent(QEvent *e);
@@ -55,6 +58,8 @@ signals:
     void width_changed(double);
 
     void join_style_changed(Qt::PenJoinStyle);
+
+    void colors_enabled(bool);
 };
 
 #endif // DOCK_KNOT_DISPLAY_HPP

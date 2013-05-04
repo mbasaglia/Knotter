@@ -230,6 +230,11 @@ public slots:
      */
     void set_knot_colors(const QList<QColor>& l);
 
+    /**
+     *  \brief Enable/Disable custom colors
+     */
+    void set_knot_custom_colors(bool b);
+
 
     /**
      *  \brief Set knot stroke width

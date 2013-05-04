@@ -440,6 +440,11 @@ void Knot_View::set_knot_colors(const QList<QColor> &l)
     push_command(new Change_Colors(graph.colors(),l,this));
 }
 
+void Knot_View::set_knot_custom_colors(bool b)
+{
+    push_command(new Custom_Colors(graph.custom_colors(),b,this));
+}
+
 void Knot_View::set_stroke_width(double w)
 {
     push_command(new Knot_Width(graph.width(),w,this));
@@ -580,29 +585,31 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
             Node* next_node = node_at(snapped_scene_pos);
             Edge* next_edge = last_node && next_node ? last_node->edge_to(next_node) : nullptr;
 
-            QString title;
+            if ( !last_node || next_node != last_node )
+            {
+                QString title;
 
-            if ( next_edge )
-                title = tr("Move Ahead");
-            else if ( !last_node )
-                title = tr("Create Node");
-            else
-                title = tr("Add Edge");
+                if ( next_edge )
+                    title = tr("Move Ahead");
+                else if ( !last_node )
+                    title = tr("Create Node");
+                else
+                    title = tr("Add Edge");
 
-            begin_macro(title);
+                begin_macro(title);
 
-            if ( !next_node )
-                next_node = add_breaking_node(snapped_scene_pos);
+                if ( !next_node )
+                    next_node = add_breaking_node(snapped_scene_pos);
 
-            if ( last_node && !next_edge )
-                add_edge(last_node,next_node);
+                if ( last_node && !next_edge )
+                    add_edge(last_node,next_node);
 
-            push_command(new Last_Node(last_node,next_node,this));
+                push_command(new Last_Node(last_node,next_node,this));
 
-            end_macro();
+                end_macro();
 
-            update_knot();
-
+                update_knot();
+            }
             //if ( !guide.scene() )
             {
                 guide.setLine(QLineF(last_node->pos(),snapped_scene_pos));

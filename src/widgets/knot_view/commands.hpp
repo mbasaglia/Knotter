@@ -214,6 +214,20 @@ public:
     bool mergeWith(const QUndoCommand *other) override;
 };
 
+class Custom_Colors : public Knot_Command
+{
+    Q_OBJECT
+
+
+    bool before;
+    bool after;
+
+public:
+    Custom_Colors(bool before, bool after, Knot_View* kv, Knot_Macro* parent = nullptr);
+    void undo() override;
+    void redo() override;
+};
+
 // knot style
 /**
  *  \brief Base class for Knot style commands

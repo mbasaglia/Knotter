@@ -45,6 +45,8 @@ Dock_Knot_Display::Dock_Knot_Display(QWidget *parent) :
 
     connect(spin_width,SIGNAL(valueChanged(double)), SIGNAL(width_changed(double)));
 
+    connect(check_custom_colors,SIGNAL(toggled(bool)),SIGNAL(colors_enabled(bool)));
+
     combo_joint->setItemData(0,(int)Qt::BevelJoin);
     combo_joint->setItemData(1,(int)Qt::MiterJoin);
     combo_joint->setItemData(2,(int)Qt::RoundJoin);
@@ -54,6 +56,28 @@ Dock_Knot_Display::Dock_Knot_Display(QWidget *parent) :
 void Dock_Knot_Display::set_colors(const QList<QColor> &c)
 {
     list_colors->setColors(c);
+}
+
+void Dock_Knot_Display::set_join_style(Qt::PenJoinStyle s)
+{
+    for ( int i = 0; i < combo_joint->count(); i++ )
+    {
+        if ( combo_joint->itemData(i).toInt() == int(s) )
+        {
+            combo_joint->setCurrentIndex(i);
+            break;
+        }
+    }
+}
+
+void Dock_Knot_Display::set_width(double w)
+{
+    spin_width->setValue(w);
+}
+
+void Dock_Knot_Display::toggle_custom_colors(bool b)
+{
+    check_custom_colors->setChecked(b);
 }
 
 void Dock_Knot_Display::changeEvent(QEvent *e)

@@ -190,6 +190,30 @@ bool Change_Colors::mergeWith(const QUndoCommand *other)
 }
 
 
+
+Custom_Colors::Custom_Colors(bool before, bool after, Knot_View *kv, Knot_Macro *parent)
+    : Knot_Command(kv,parent), before(before), after(after)
+{
+    if ( after )
+        setText(tr("Custom Colors"));
+    else
+        setText(tr("Auto Color"));
+
+}
+
+void Custom_Colors::undo()
+{
+    graph->set_custom_colors(before);
+    scene->invalidate(graph->boundingRect());
+}
+
+void Custom_Colors::redo()
+{
+    graph->set_custom_colors(after);
+    scene->invalidate(graph->boundingRect());
+}
+
+
 Move_Node::Move_Node(Node *node, QPointF before, QPointF after, Knot_View *kv,
                      Knot_Macro* parent)
     : Knot_Command(kv,parent), node(node), before(before), after(after)

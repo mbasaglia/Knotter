@@ -55,8 +55,8 @@ private:
     Node_Style          m_default_node_style;
     QRectF              bounding_box;
     Paint_Mode          paint_mode;
-    QList<QColor>       m_colors;     ///< \todo
-    bool                auto_color; ///< \todo
+    QList<QColor>       m_colors;
+    bool                auto_color;
     QList<QPainterPath> paths;    ///< Rendered knot (one per loop)
 
 public:
@@ -131,6 +131,9 @@ public:
 
     Qt::BrushStyle brush_style() const;
 
+    bool custom_colors() const { return !auto_color; }
+    void set_custom_colors(bool b) { auto_color = !b; }
+
 
     Node_Style default_node_style() const { return m_default_node_style; }
     Node_Style& default_node_style_reference() { return m_default_node_style; }
@@ -168,12 +171,6 @@ private:
                             Path_Builder& path);
 
     void update_bounding_box();
-    
-signals: /// \todo Maybe they are redundant and can be removed, most likely Q_OBJECT is not required for this class
-    /// Emitted when nodes or edges have changed and requires redrawing
-    void graph_changed();
-    /// Emitted when style is changed and requires redrawing but not re-traversing
-    void style_changed();
     
 };
 
