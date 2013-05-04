@@ -1,0 +1,623 @@
+/**
+
+\file
+
+\author Mattia Basaglia
+
+\section License
+This file is part of Knotter.
+
+Copyright (C) 2012-2013  Mattia Basaglia
+
+Knotter is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Knotter is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+#include "main_window.hpp"
+#include "resource_manager.hpp"
+#include <QMessageBox>
+#include "preferences_dialog.hpp"
+#include <QDockWidget>
+#include <QDesktopServices>
+#include <QUrl>
+#include "icon_dock_style.hpp"
+#include <QFileDialog>
+
+
+Main_Window::Main_Window(QWidget *parent) :
+    QMainWindow(parent), zoomer(nullptr), view(nullptr),
+    ximg_dlg(this), about_dialog(this)
+{
+    setupUi(this);
+    setWindowIcon(QIcon(Resource_Manager::data("img/icon-small.svg")));
+
+    setWindowTitle(Resource_Manager::program_name());
+
+    init_statusbar();
+    init_docks();
+
+    create_tab();
+
+    init_menus();
+
+    load_config();
+
+    // init_toolbars must come load_config in order to configure properly user-defined toolbars
+    init_toolbars();
+
+
+    connect(Resource_Manager::pointer,SIGNAL(language_changed()),this,SLOT(retranslate()));
+
+}
+
+void Main_Window::retranslate()
+{
+    retranslateUi(this);
+    setWindowTitle(Resource_Manager::program_name());
+}
+
+Main_Window::~Main_Window()
+{
+    Resource_Manager::settings.save_window(this);
+}
+
+
+void Main_Window::init_menus()
+{
+    // Menu File
+    action_New->setShortcut(QKeySequence::New);
+    action_Open->setShortcut(QKeySequence::Open);
+    action_Save->setShortcut(QKeySequence::Save);
+    action_Save_As->setShortcut(QKeySequence::SaveAs);
+    action_Close->setShortcut(QKeySequence::Close);
+    action_Print->setShortcut(QKeySequence::Print);
+    action_Exit->setShortcut(QKeySequence::Quit);
+    connect(action_Export,SIGNAL(triggered()),&ximg_dlg,SLOT(show()));
+
+    // Menu Edit
+    action_Undo->setShortcut(QKeySequence::Undo);
+    action_Redo->setShortcut(QKeySequence::Redo);
+    action_Cut->setShortcut(QKeySequence::Cut);
+    action_Copy->setShortcut(QKeySequence::Copy);
+    action_Paste->setShortcut(QKeySequence::Paste);
+    action_Select_All->setShortcut(QKeySequence::SelectAll);
+    action_Preferences->setShortcut(QKeySequence::Preferences);
+
+
+    // Menu View
+
+    action_Zoom_In->setShortcut(QKeySequence::ZoomIn);
+    action_Zoom_Out->setShortcut(QKeySequence::ZoomOut);
+
+    // Menu Nodes
+    QActionGroup* transform_mode = new QActionGroup(this);
+    transform_mode->addAction(action_Scale);
+    transform_mode->addAction(action_Rotate);
+
+    QActionGroup* edit_mode = new QActionGroup(this);
+    edit_mode->addAction(action_Edit_Graph);
+    edit_mode->addAction(action_Edge_Loop);
+
+    // Menu Tools
+    action_Refresh_Path->setShortcut(QKeySequence::Refresh);
+
+    // Menu Help
+    action_Manual->setShortcut(QKeySequence::HelpContents);
+    connect(action_About,SIGNAL(triggered()),&about_dialog,SLOT(show()));
+
+
+
+}
+
+void Main_Window::init_toolbars()
+{
+    foreach(QToolBar* tb, findChildren<QToolBar*>())
+        menu_Toolbars->insertAction(0,tb->toggleViewAction());
+}
+
+void Main_Window::init_statusbar()
+{
+    zoomer = new QDoubleSpinBox(this);
+    zoomer->setMinimum(0.01);
+    zoomer->setMaximum(800);
+    zoomer->setSuffix("%");
+    zoomer->setValue(100);
+    statusBar()->addPermanentWidget(new QLabel(tr("Zoom")));
+    statusBar()->addPermanentWidget(zoomer);
+    connect(zoomer,SIGNAL(valueChanged(double)),this,SLOT(apply_zoom()));
+}
+
+void Main_Window::init_docks()
+{
+
+    // Knot Display
+    dock_knot_display = new Dock_Knot_Display(this);
+    addDockWidget(Qt::RightDockWidgetArea,dock_knot_display);
+
+    // Global style
+    global_style = new Cusp_Style_Widget;
+    global_style->hide_checkboxes();
+    QDockWidget* glob_style_widget = new QDockWidget;
+    glob_style_widget->setWidget(global_style);
+    glob_style_widget->setObjectName("global_style_dock");
+    glob_style_widget->setWindowTitle(tr("Knot Style"));
+    addDockWidget(Qt::RightDockWidgetArea,glob_style_widget);
+    tabifyDockWidget(dock_knot_display,glob_style_widget);
+
+    // Selection style
+    selection_style = new Cusp_Style_Widget;
+    QDockWidget* sel_style_widget = new QDockWidget;
+    sel_style_widget->setWidget(selection_style);
+    sel_style_widget->setObjectName("selection_style_dock");
+    sel_style_widget->setWindowTitle(tr("Selection Style"));
+    addDockWidget(Qt::RightDockWidgetArea,sel_style_widget);
+    tabifyDockWidget(glob_style_widget,sel_style_widget);
+    dock_knot_display->raise();
+
+    // Background
+    dock_background = new Dock_Background(this);
+    dock_background->hide();
+    dock_background->setFloating(true);
+
+    // Grid config
+    dock_grid = new Dock_Grid(this);
+    addDockWidget(Qt::RightDockWidgetArea,dock_grid);
+
+    // Action History Dock
+    undo_view = new QUndoView(&undo_group);
+    QDockWidget* undo_dock  = new QDockWidget;
+    undo_dock->setWidget(undo_view);
+    undo_dock->setObjectName("Action_History");
+    undo_dock->setWindowTitle(tr("Action History"));
+    undo_dock->setWindowIcon(QIcon::fromTheme("view-history"));
+    addDockWidget(Qt::RightDockWidgetArea,undo_dock);
+    tabifyDockWidget(undo_dock,dock_grid);
+    undo_dock->raise();
+
+
+    connect(&undo_group,SIGNAL(cleanChanged(bool)),SLOT(set_clean_icon(bool)));
+    connect(&undo_group,SIGNAL(undoTextChanged(QString)),SLOT(set_undo_text(QString)));
+    connect(&undo_group,SIGNAL(redoTextChanged(QString)),SLOT(set_redo_text(QString)));
+    connect(&undo_group,SIGNAL(canUndoChanged(bool)),action_Undo,SLOT(setEnabled(bool)));
+    connect(&undo_group,SIGNAL(canRedoChanged(bool)),action_Redo,SLOT(setEnabled(bool)));
+    connect(action_Undo,SIGNAL(triggered()),&undo_group,SLOT(undo()));
+    connect(action_Redo,SIGNAL(triggered()),&undo_group,SLOT(redo()));
+
+
+
+    // Menu entries
+    foreach(QDockWidget* dw, findChildren<QDockWidget*>())
+    {
+        QAction *a = dw->toggleViewAction();
+        a->setIcon(dw->windowIcon());
+        menu_Docks->insertAction(0,a);
+        dw->setStyle(new Icon_Dock_Style(dw));
+    }
+}
+
+void Main_Window::load_config()
+{
+    connect(&Resource_Manager::settings,SIGNAL(icon_size_changed(int)),this,
+            SLOT(set_icon_size(int)));
+    connect(&Resource_Manager::settings,
+            SIGNAL(tool_button_style_changed(Qt::ToolButtonStyle)),
+            this,SLOT(set_tool_button_style(Qt::ToolButtonStyle)));
+
+    if ( !Resource_Manager::settings.least_version(0,9) )
+    {
+        qWarning() << tr("Warning:")
+                   << tr("Discarding old configuration");
+        return;
+    }
+    if ( !Resource_Manager::settings.current_version() )
+    {
+        int load_old = QMessageBox::question(this,
+                    tr("Load old configuration"),
+                    tr("Knotter has detected configuration for version %1,\n"
+                        "this is version %2.\n"
+                        "Do you want to load it anyways?")
+                        .arg(Resource_Manager::settings.version())
+                        .arg(Resource_Manager::program_version()),
+                QMessageBox::Yes,
+                QMessageBox::No
+        );
+        if ( load_old != QMessageBox::Yes)
+            return;
+    }
+    Resource_Manager::settings.initialize_window(this);
+}
+
+void Main_Window::connect_view(Knot_View *v)
+{
+    // set current
+    view = v;
+    if ( !v ) return;
+
+    // zoom/view
+    zoomer->setValue(v->get_zoom_factor()*100);
+    connect(v,SIGNAL(zoomed(double)),zoomer,SLOT(setValue(double)));
+
+    // edit mode
+    connect(action_Edit_Graph,SIGNAL(triggered()),v,SLOT(set_mode_edit_graph()),
+            Qt::UniqueConnection);
+    connect(action_Edge_Loop,SIGNAL(triggered()),v,SLOT(set_mode_edge_chain()),
+            Qt::UniqueConnection);
+    action_Edit_Graph->setChecked(v->edit_graph_mode_enabled());
+    action_Edge_Loop->setChecked(!v->edit_graph_mode_enabled());
+
+    // undo/redo
+    v->undo_stack_pointer()->setActive(true);
+
+    // grid editor
+    dock_grid->set_grid(&v->grid());
+    connect(dock_grid,SIGNAL(move_grid()),v,SLOT(set_mode_move_grid()));
+
+    // background
+    connect(dock_background,SIGNAL(background_changed(QColor)),
+            v,SLOT(set_background_color(QColor)));
+    connect(dock_background,SIGNAL(image_toogled(bool)),
+            &v->background_image(),SLOT(enable(bool)));
+    connect(dock_background,SIGNAL(image_scaled(double)),
+            &v->background_image(),SLOT(set_scale_percent(double)));
+    connect(dock_background,SIGNAL(image_loaded(QString)),
+            &v->background_image(),SLOT(load_file(QString)));
+    connect(dock_background,SIGNAL(move_image()),
+            v,SLOT(set_mode_move_background()));
+
+    // display
+    dock_knot_display->set_colors(v->knot_colors());
+    dock_knot_display->set_join_style(v->get_graph().join_style());
+    dock_knot_display->set_width(v->get_graph().width());
+    dock_knot_display->toggle_custom_colors(v->get_graph().custom_colors());
+    connect(dock_knot_display,SIGNAL(colors_changed(QList<QColor>)),
+            v,SLOT(set_knot_colors(QList<QColor>)));
+    connect(dock_knot_display,SIGNAL(width_changed(double)),
+            v,SLOT(set_stroke_width(double)) );
+    connect(dock_knot_display,SIGNAL(join_style_changed(Qt::PenJoinStyle)),
+            v,SLOT(set_join_style(Qt::PenJoinStyle)));
+    connect(dock_knot_display,SIGNAL(colors_enabled(bool)),
+            v,SLOT(set_knot_custom_colors(bool)));
+
+    // style
+    global_style->set_style(v->get_graph().default_node_style());
+    connect(global_style,SIGNAL(crossing_distance_changed(double)),
+            v,SLOT(set_knot_crossing_distance(double)));
+    connect(global_style,SIGNAL(cusp_angle_changed(double)),
+            v,SLOT(set_knot_cusp_angle(double)));
+    connect(global_style,SIGNAL(crossing_distance_changed(double)),
+            v,SLOT(set_knot_crossing_distance(double)));
+    connect(global_style,SIGNAL(cusp_distance_changed(double)),
+            v,SLOT(set_knot_cusp_distance(double)));
+    connect(global_style,SIGNAL(handle_length_changed(double)),
+            v,SLOT(set_knot_handle_lenght(double)));
+    connect(global_style,SIGNAL(cusp_shape_changed(Cusp_Shape*)),
+            v,SLOT(set_knot_cusp_shape(Cusp_Shape*)));
+
+    // selection style
+    udate_selection(v->selected_nodes());
+    connect(v,SIGNAL(selection_changed(QList<Node*>)),SLOT(udate_selection(QList<Node*>)));
+    connect(selection_style,SIGNAL(crossing_distance_changed(double)),
+            v,SLOT(set_selection_crossing_distance(double)));
+    connect(selection_style,SIGNAL(cusp_angle_changed(double)),
+            v,SLOT(set_selection_cusp_angle(double)));
+    connect(selection_style,SIGNAL(crossing_distance_changed(double)),
+            v,SLOT(set_selection_crossing_distance(double)));
+    connect(selection_style,SIGNAL(cusp_distance_changed(double)),
+            v,SLOT(set_selection_cusp_distance(double)));
+    connect(selection_style,SIGNAL(handle_length_changed(double)),
+            v,SLOT(set_selection_handle_lenght(double)));
+    connect(selection_style,SIGNAL(cusp_shape_changed(Cusp_Shape*)),
+            v,SLOT(set_selection_cusp_shape(Cusp_Shape*)));
+    connect(selection_style,SIGNAL(enabled_styles_changed(Node_Style::Enabled_Styles)),
+            v,SLOT(set_selection_enabled_styles(Node_Style::Enabled_Styles)));
+
+    //export
+    ximg_dlg.set_view(v);
+
+}
+
+void Main_Window::disconnect_view(Knot_View *v)
+{
+    if ( v != nullptr )
+    {
+        disconnect(v);
+
+        disconnect(v,SIGNAL(zoomed(double)),zoomer,SLOT(setValue(double)));
+
+        disconnect(dock_grid,SIGNAL(move_grid()),v,SLOT(set_mode_move_grid()));
+        dock_grid->unset_grid(&v->grid());
+
+        dock_background->disconnect(v);
+        dock_background->disconnect(&v->background_image());
+
+        dock_knot_display->disconnect(v);
+
+        global_style->disconnect(v);
+
+        selection_style->disconnect(v);
+        udate_selection(QList<Node*>());
+    }
+}
+
+void Main_Window::set_icon_size(int sz)
+{
+    setIconSize(QSize(sz,sz));
+}
+
+void Main_Window::set_clean_icon(bool clean)
+{
+    tabWidget->setTabIcon(tabWidget->currentIndex(),clean ?
+                              QIcon() : QIcon::fromTheme("document-save"));
+    update_title();
+}
+
+void Main_Window::update_title()
+{
+    if ( !view )
+    {
+        setWindowTitle(Resource_Manager::program_name());
+        return;
+    }
+
+    bool clean = view->undo_stack_pointer()->isClean();
+    QString filename = view->windowFilePath();
+    if ( filename.isEmpty() )
+        filename = tr("New Knot");
+
+    /*: Main window title
+     *  %1 is the program name
+     *  %2 is the file name
+     *  %3 is a star * or an empty string depending on whether the file was modified
+     */
+    setWindowTitle(tr("%1 - %2%3").arg(Resource_Manager::program_name())
+                   .arg(filename).arg(clean?"":"*"));
+}
+
+void Main_Window::set_tool_button_style(Qt::ToolButtonStyle tbs)
+{
+    setToolButtonStyle(tbs);
+}
+
+void Main_Window::apply_zoom()
+{
+    view->set_zoom(zoomer->value()/100);
+}
+
+void Main_Window::udate_selection(QList<Node *> nodes)
+{
+    selection_style->setEnabled(!nodes.isEmpty());
+
+    selection_style->blockSignals(true);
+    Node_Style ns = view->get_graph().default_node_style();
+    selection_style->set_style(ns);
+    if ( nodes.isEmpty() )
+        ns.enabled_style = Node_Style::NOTHING;
+    else
+        ns = nodes[0]->style();
+    selection_style->set_style(ns);
+    selection_style->blockSignals(false);
+}
+
+
+void Main_Window::on_action_Preferences_triggered()
+{
+    Preferences_Dialog(this).exec();
+}
+
+
+void Main_Window::create_tab(QString file)
+{
+    bool error = false;
+    if ( view && view->file_name().isEmpty() &&
+             !view->undo_stack_pointer()->canUndo() &&
+             !view->undo_stack_pointer()->canRedo() )
+    {
+        error = !view->load_file(file);
+
+        if ( !error )
+        {
+            global_style->blockSignals(true);
+            global_style->set_style(view->get_graph().default_node_style());
+            global_style->blockSignals(false);
+
+
+            dock_knot_display->blockSignals(true);
+            dock_knot_display->set_colors(view->get_graph().colors());
+            dock_knot_display->set_join_style(view->get_graph().join_style());
+            dock_knot_display->set_width(view->get_graph().width());
+            dock_knot_display->blockSignals(true);
+
+            update_title();
+
+            tabWidget->setTabText(tabWidget->currentIndex(),view->file_name());
+        }
+    }
+    else
+    {
+        Knot_View *v = new Knot_View();
+        error = !v->load_file(file);
+        int t = tabWidget->addTab(v,file.isEmpty() ? tr("New Knot") : file);
+        undo_group.addStack(v->undo_stack_pointer());
+        if ( t != tabWidget->currentIndex() )
+            switch_to_tab(t);
+    }
+
+    if ( error && !file.isEmpty() )
+    {
+        QMessageBox::warning(this,tr("File Error"),
+                             tr("Error while reading \"%1\".").arg(file));
+    }
+}
+
+void Main_Window::switch_to_tab(int i)
+{
+    tabWidget->setCurrentIndex(i);
+    /*setWindowTitle(tr("%1 - %2").arg(Resource_Manager::program_name())
+                   .arg(tabWidget->tabText(i)));*/
+    disconnect_view(view);
+    connect_view(dynamic_cast<Knot_View*>(tabWidget->currentWidget()));
+    update_title();
+}
+
+void Main_Window::close_tab(int i)
+{
+    /// \todo check for edited file
+    Knot_View* kv = dynamic_cast<Knot_View*>(tabWidget->widget(i));
+    if ( kv )
+    {
+        if ( kv == view )
+        {
+            disconnect_view(kv);
+            view = nullptr;
+        }
+        undo_group.removeStack(kv->undo_stack_pointer());
+        delete kv;
+    }
+    tabWidget->removeTab(i);
+    if ( tabWidget->count() == 0 )
+        create_tab();
+}
+
+void Main_Window::on_action_Show_Graph_toggled(bool arg1)
+{
+    /// \todo actually toggle
+    if ( arg1 )
+        action_Show_Graph->setIcon(QIcon::fromTheme("knot-graph-on"));
+    else
+        action_Show_Graph->setIcon(QIcon::fromTheme("knot-graph-off"));
+}
+
+
+void Main_Window::set_undo_text(QString txt)
+{
+    action_Undo->setText(tr("Undo %1").arg(txt));
+}
+
+void Main_Window::set_redo_text(QString txt)
+{
+    action_Redo->setText(tr("Redo %1").arg(txt));
+}
+
+void Main_Window::on_action_Zoom_In_triggered()
+{
+    view->zoom_view(1.25);
+}
+
+void Main_Window::on_action_Zoom_Out_triggered()
+{
+     view->zoom_view(0.8);
+}
+
+void Main_Window::on_action_Reset_Zoom_triggered()
+{
+    view->set_zoom(1);
+}
+
+void Main_Window::on_action_Reset_View_triggered()
+{
+    view->resetTransform();
+}
+
+void Main_Window::on_action_Report_Bugs_triggered()
+{
+    QDesktopServices::openUrl(QUrl(BUG_URL));
+}
+
+void Main_Window::on_action_Manual_triggered()
+{
+    QDesktopServices::openUrl(QUrl(DOC_URL));
+}
+
+void Main_Window::on_action_Refresh_Path_triggered()
+{
+    view->update_knot();
+}
+
+void Main_Window::on_action_Open_triggered()
+{
+
+    QStringList files = QFileDialog::getOpenFileNames(this,tr("Open Knot"),
+                view->file_name(),
+                "Knot files (*.knot);;XML files (*.xml);;All files (*)" );
+
+    foreach ( QString file, files )
+        create_tab(file);
+}
+
+void Main_Window::on_action_Save_triggered()
+{
+    save(false);
+}
+
+void Main_Window::on_action_Save_As_triggered()
+{
+    save(true);
+}
+
+
+void Main_Window::save(bool force_select)
+{
+    QString file = view->file_name();
+    if ( file.isEmpty() || force_select )
+    {
+        file = QFileDialog::getSaveFileName(this,tr("Save Knot"),
+                    view->file_name(),
+                    "Knot files (*.knot);;XML files (*.xml);;All files (*)" );
+    }
+    if ( !file.isEmpty() )
+    {
+        if ( view->save_file(file) )
+        {
+            update_title();
+            tabWidget->setTabText(tabWidget->currentIndex(),view->windowFilePath());
+        }
+        else
+            QMessageBox::warning(this,tr("File Error"),
+                    tr("Failed to save file \"%1\".").arg(file) );
+    }
+}
+
+void Main_Window::on_action_Mirror_Horizontal_triggered()
+{
+    view->flip_horiz_selection();
+}
+
+void Main_Window::on_action_Mirror_Vertical_triggered()
+{
+    view->flip_vert_selection();
+}
+
+void Main_Window::on_action_Select_All_triggered()
+{
+    foreach(Node* node,view->get_graph().nodes())
+        node->setSelected(true);
+}
+
+void Main_Window::on_actionSelect_Connected_triggered()
+{
+    QList<Node*> nodes = view->selected_nodes();
+    while ( !nodes.empty() )
+    {
+        Node* n1 = nodes.front();
+        nodes.pop_front();
+        foreach(Edge* e, n1->connections() )
+        {
+            Node* n2 = e->other(n1);
+            if ( !n2->isSelected() )
+            {
+                n2->setSelected(true);
+                nodes.push_back(n2);
+            }
+        }
+    }
+}

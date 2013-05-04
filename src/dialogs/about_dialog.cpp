@@ -1,5 +1,5 @@
 /**
-
+  
 \file
 
 \author Mattia Basaglia
@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012  Mattia Basaglia
+Copyright (C) 2012-2013  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,43 +23,34 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
+
 #include "about_dialog.hpp"
-#include "resource_loader.hpp"
+#include "resource_manager.hpp"
 
 About_Dialog::About_Dialog(QWidget *parent) :
     QDialog(parent)
 {
     setupUi(this);
-
-    setWindowIcon(load::icon("help-about"));
-
-    QString about_text = tr("Knotter %1").arg(VERSION) + "\n";
-
-    #ifdef NO_BOOST
-        about_text += "\n" + tr("Support for Boost libraries is disabled") + "\n" +
-                      tr("Reduced command line options only") + "\n";
-    #else
-        about_text += "\n" + tr("Support for Boost libraries is enabled") + "\n" +
-                        tr("Full command line options available") + "\n";
-    #endif
-
-    #ifdef TANGO_DEFAULT
-        about_text += "\n" + tr("Using Tango! icon theme") + "\n";
-    #elif TANGO_FALLBACK
-        if ( QIcon::themeName() == "tango-icons" )
-            about_text += "\n" + tr("Using Tango! icon theme as fall back") + "\n";
-    #endif
-
-    about_text += "\n" + tr("Compiled with support for Qt %1").arg(QT_VERSION_STR) + "\n" +
-                       tr("Running on Qt %1").arg(qVersion());
-
-    label_about->setText(about_text);
-
-    label_icon->setPixmap(load::icon("knotter-logo-big").pixmap(64));
-
+    label_title->setText(QString("%1 %2").arg(Resource_Manager::program_name())
+                         .arg(Resource_Manager::program_version() ));
+    label_icon->setPixmap(QIcon(Resource_Manager::data("img/icon-big.svg")).pixmap(64));
+    setWindowTitle(tr("About %1").arg(Resource_Manager::program_name()));
 }
 
-void About_Dialog::on_pushButton_clicked()
+void About_Dialog::changeEvent(QEvent *e)
+{
+    QDialog::changeEvent(e);
+    switch (e->type()) {
+        case QEvent::LanguageChange:
+            retranslateUi(this);
+            setWindowTitle(tr("About %1").arg(Resource_Manager::program_name()));
+            break;
+        default:
+            break;
+    }
+}
+
+void About_Dialog::on_button_qt_clicked()
 {
     QApplication::aboutQt();
 }

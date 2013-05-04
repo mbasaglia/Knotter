@@ -1,0 +1,55 @@
+[Icon Theme]
+Name=Knotter Icons
+Comment=Icons used in Knotter
+
+DisplayDepth=32
+
+Inherits=Oxygen
+# Inherits=hicolor
+
+Example=folder
+
+LinkOverlay=link
+LockOverlay=lockoverlay
+ShareOverlay=share
+ZipOverlay=zip
+
+DesktopDefault=48
+DesktopSizes=16,22,32,48,64,128,256
+ToolbarDefault=22
+ToolbarSizes=16,22,32,48
+MainToolbarDefault=22
+MainToolbarSizes=16,22,32,48
+SmallDefault=16
+SmallSizes=16,22,32,48
+PanelDefault=32
+PanelSizes=16,22,32,48,64,128,256
+DialogDefault=32
+DialogSizes=16,22,32,48,64,128,256
+
+Directories=oxygen/16x16,oxygen/22x22,oxygen/32x32,oxygen/48x48,oxygen/scalable,custom
+
+[custom]
+Size=64
+Type=Scalable
+
+[oxygen/16x16]
+Size=16
+Type=Threshold
+
+[oxygen/22x22]
+Size=22
+Type=Threshold
+
+[oxygen/32x32]
+Size=32
+Type=Threshold
+
+[oxygen/48x48]
+Size=48
+Type=Threshold
+
+[oxygen/scalable]
+Size=64
+Type=Scalable
+

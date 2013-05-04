@@ -1,31 +1,40 @@
+# Copyright (C) 2012-2013  Mattia Basaglia
+#
+# Knotter is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Knotter is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SOURCES += src/main.cpp \
-    src/error_recovery.cpp \
-    src/context_menu.cpp \
-    src/resource_loader.cpp \
-    src/translator.cpp \
-    src/extended_tabwidget.cpp \
-    src/plugin.cpp \
-    src/knot_curve_script.cpp \
-    src/script_wrappers.cpp
+INCLUDEPATH += $$PWD
+
+include($$PWD/dialogs/dialogs.pri)
+include($$PWD/graph/graph.pri)
+include($$PWD/scripting/scripting.pri)
+include($$PWD/io/io.pri)
+
+#widgets
+include($$PWD/widgets/color/color_widgets.pri)
+include($$PWD/widgets/toolbar_editor/toolbar_editor.pri)
+include($$PWD/widgets/tabwidget/extended_tabwidget.pri)
+include($$PWD/widgets/knot_view/knot_view.pri)
 
 
-include(dialogs/dialogs.pri)
-include(graphics/graphics.pri)
-
-OTHER_FILES += \
-    src/README \
-    src/generated/README
+SOURCES += \
+    $$PWD/main.cpp \
+    $$PWD/resource_manager.cpp \
+    $$PWD/settings.cpp \
+    $$PWD/string_toolbar.cpp
 
 HEADERS += \
-    src/color_widget.hpp \
-    src/error_recovery.hpp \
-    src/context_menu.hpp \
-    src/resource_loader.hpp \
-    src/translator.hpp \
-    src/extended_tabwidget.hpp \
-    src/plugin.hpp \
-    src/knot_curve_script.hpp \
-    src/script_wrappers.hpp
-
-INCLUDEPATH += src
+    $$PWD/resource_manager.hpp \
+    $$PWD/settings.hpp \
+    $$PWD/string_toolbar.hpp \
+    $$PWD/c++.hpp

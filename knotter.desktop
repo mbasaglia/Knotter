@@ -2,9 +2,9 @@
 Version=1.0
 Type=Application
 Name=Knotter
-Comment=Celtic knot editor
+Comment=Interactive Celtic Knot Editor
 Exec=knotter
 TryExec=knotter
-Icon=/usr/share/knotter/img/knotter-logo-big.svg
+Icon=/usr/local/share/knotter/img/logo-big.svg
 Terminal=false
 Categories=Graphics;VectorGraphics;Qt;

@@ -1,5 +1,5 @@
-#!/bin/sh
-# Copyright (C) 2012  Mattia Basaglia
+#!/bin/bash
+# Copyright (C) 2012-2013  Mattia Basaglia
 #
 # Knotter is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,32 +14,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#project file, used to detect program name and version and passed to qmake
-qmake_pro_file=knotter.pro
-
-#initialize values from project files
-get_project_var() {
-    grep -E "^\s*$1\s*=\s*([-a-zA-Z0-9._]*)" $qmake_pro_file | sed "s/\s*$1\s*=\s*//"
-}
-program_name=`get_project_var TARGET`
-program_version=`get_project_var VERSION`
+# get package info
+source knotter_info.pri 
 
 #initialize default directories
 #prefix=/usr/local
 #exec_prefix=$prefix
 #bindir=${exec_prefix}/bin
 #libdir=${exec_prefix}/lib
-#includedir=${prefix}/include/$program_name
+#includedir=${prefix}/include/$TARGET
 #datarootdir=${prefix}/share
-#datadir=${datarootdir}/$program_name
-#docdir=${datarootdir}/doc/$program_name
-#mandir=${datarootdir}/man/$program_name
+#datadir=${datarootdir}/$TARGET
+#docdir=${datarootdir}/doc/$TARGET
+#mandir=${datarootdir}/man/$TARGET
 
 #initialize misc options
 qmake_opts=""
-with_boost=yes
-tango=no
-
 
 dirlist="prefix
          exec_prefix
@@ -65,8 +55,8 @@ deflist="/usr/local
         EXEC_PREFIX/lib
         PREFIX/include
         PREFIX/share
-        PREFIX/share/$program_name
-        PREFIX/share/doc/$program_name
+        PREFIX/share/$TARGET
+        PREFIX/share/doc/$TARGET
         PREFIX/share/man"
 
 #print directory option, description and current value
@@ -81,7 +71,8 @@ help_dirs() {
 
         eval "val=\$$key"
 
-        if [ -z "$val" ]; then
+        if [ -z "$val" ]
+        then
             val=`echo $deftail | sed "s/\s.*//" `
         fi
         deftail=`echo $deftail | sed "s/[^ ]*\s*//"`
@@ -93,26 +84,20 @@ help_dirs() {
 #print the help message
 show_help() {
 cat <<_HELP_
-Configuration script for $program_name $program_version
+Configuration script for $TARGET $VERSION
 
 Usage: $0 [OPTION]... [VARIABLE=VALUE]...
 
 Options:
     --help -h           Show this help message and exit
-    --name              Print the program name ($program_name) and exit.
-    --version           Print the program version ($program_version) and exit.
+    --name              Print the program name ($TARGET) and exit.
+    --version           Print the program version ($VERSION) and exit.
 
 Installation directories:
 _HELP_
     help_dirs | column -t -s :
 
 cat <<_HELP_
-
-Optional components:
-    --with-tango        Use Tango icons as fallback if no system theme is found
-    --with-tango-default Use Tango icons as default icon theme
-    --without-boost     Disable dependency on Boost library
-    --with-boost        Use Boost without running checks
 
 Environment variables:
     QMAKE               Override qmake command
@@ -148,24 +133,12 @@ do
             exit 0
             ;;
         --version)
-            echo $program_version
+            echo $VERSION
             exit 0
             ;;
         --name)
-            echo $program_name
+            echo $TARGET
             exit 0
-            ;;
-        --with-tango)
-            tango=fallback
-            ;;
-        --with-tango-default)
-            tango=default
-            ;;
-        --without-boost)
-            with_boost=no
-            ;;
-        --with-boost)
-            with_boost=force
             ;;
         *)
             echo "Ignoring option $arg"
@@ -187,9 +160,9 @@ done
 
 # set installation directories to default value if not overriden by the user
 for dir in 'prefix=/usr/local' 'exec_prefix=$prefix' 'bindir=${exec_prefix}/bin' \
-           'libdir=${exec_prefix}/lib' 'includedir=${prefix}/include/$program_name' \
-           'datarootdir=${prefix}/share' 'datadir=${datarootdir}/$program_name' \
-           'docdir=${datarootdir}/doc/$program_name' 'mandir=${datarootdir}/man'
+           'libdir=${exec_prefix}/lib' 'includedir=${prefix}/include/$TARGET' \
+           'datarootdir=${prefix}/share' 'datadir=${datarootdir}/$TARGET' \
+           'docdir=${datarootdir}/doc/$TARGET' 'mandir=${datarootdir}/man'
 do
     eval "usr_dir=\$${dir%%\=*}"
     if [ -z "$usr_dir" ]
@@ -200,7 +173,8 @@ done
 
 #create a temporary file with given extension
 mk_tempfile() {
-    if [ -x "`which tempfile`" ] ; then
+    if [ -x "`which tempfile`" ]
+    then
         tempfile -s $1
     else
         name=/tmp/file-`date +%s%N`$1
@@ -219,8 +193,10 @@ check_cxx_library() {
 
     cxx_test=$CXX
 
-    if [ -z "$cxx_test" ]; then
-        if  which c++; then
+    if [ -z "$cxx_test" ]
+    then
+        if  which c++
+        then
             cxx_test=c++
         else
             echo 1>&2 "Cannot determine whether library $name exists!"
@@ -238,7 +214,8 @@ _HEADER_
 
     echo "Checking library $name..."
 
-    if  ! $cxx_test $CXXFLAGS -c $tempcxx -o $tempobj 2>/dev/null ; then
+    if  ! $cxx_test $CXXFLAGS -c $tempcxx -o $tempobj 2>/dev/null 
+    then
         echo 1>&2 "    Header $header not found"
         rm -f $tempcxx $tempobj
         return 1
@@ -247,17 +224,20 @@ _HEADER_
     fi
 
 
-    if [ -n "$binary" ] ; then
+    if [ -n "$binary" ] 
+    then
 
         tempbin=`mk_tempfile .out`
 
-        if [ -z "$LINK" ]; then
+        if [ -z "$LINK" ]
+        then
             ld_test=$cxx_test
         else
             ld_test=$LINK
         fi
 
-        if ! $ld_test -l$binary $tempobj -o $tempbin 2>/dev/null ; then
+        if ! $ld_test -l$binary $tempobj -o $tempbin 2>/dev/null 
+        then
             echo 1>&2 "    Library $binary not found"
             rm -f $tempcxx $tempobj
             return 2
@@ -272,24 +252,28 @@ _HEADER_
 
 ##### BEGIN CONFIGURATION #####
 
-echo "Configuring $program_name $program_version"
+echo "Configuring $TARGET $VERSION"
 
 echo "Using the following install directories:"
 dir_status | column -t -s :
 
 # determine the command to run qmake
-if [ -n "$QMAKE" ]; then
-    if $QMAKE -v 2>/dev/null; then
+if [ -n "$QMAKE" ]
+then
+    if $QMAKE -v 2>/dev/null
+    then
         echo "Using $QMAKE"
         qmake_opts="$qmake_opts QMAKE_QMAKE=$QMAKE"
     else
         echo >&2 "\$QMAKE is set to $QMAKE but not working"
         exit 1
     fi
-elif qmake -v 2>/dev/null; then
+elif qmake -v 2>/dev/null
+then
     QMAKE=`which qmake`
     echo "Using $QMAKE"
-elif qmake-qt4 -v 2>/dev/null; then
+elif qmake-qt4 -v 2>/dev/null
+then
     QMAKE=`which qmake-qt4`
     echo "Using $QMAKE"
 else
@@ -301,39 +285,30 @@ fi
 
 #misc env vars
 
-if [ -n "$CXX" ]; then
+if [ -n "$CXX" ]
+then
     qmake_opts="$qmake_opts QMAKE_CXX=$CXX"
     echo "Using $CXX compiler"
 fi
 
-if [ -n "$CXXFLAGS" ]; then
+if [ -n "$CXXFLAGS" ]
+then
     qmake_opts="$qmake_opts QMAKE_CXXFLAGS+=$CXXFLAGS"
     echo "Extra compiler flags: $CXXFLAGS"
 fi
 
-if [ -n "$LINK" ]; then
+if [ -n "$LINK" ]
+then
     qmake_opts="$qmake_opts QMAKE_LINK=$LINK"
     echo "Using $LINK linker"
 fi
 
-if [ -n "$LIBDIR" ]; then
+if [ -n "$LIBDIR" ]
+then
     qmake_opts="$qmake_opts QMAKE_LIBDIR+=$LIBDIR"
     echo "Extra library path: $LIBDIR"
 fi
 
-#check dependencies
-if [ "$with_boost" = "no" ] ; then
-    echo "Boost is disabled"
-    qmake_opts="$qmake_opts BOOST=no"
-elif [ "$with_boost" = "force" ] ; then
-    echo "Boost is enabled"
-    qmake_opts="$qmake_opts BOOST=yes"
-elif  check_cxx_library "Boost::program_options" boost/program_options.hpp boost_program_options ; then
-    qmake_opts="$qmake_opts BOOST=yes"
-else
-    echo "Dependency from Boost::program_options has been disabled"
-    qmake_opts="$qmake_opts BOOST=no"
-fi
 
 #clean old make output
 if [ -f Makefile ]
@@ -343,7 +318,7 @@ then
 fi
 
 qmake_opts="$qmake_opts BINDIR=$bindir DATADIR=$datadir DOCDIR=$docdir \
-            MANDIR=$mandir DATAROOTDIR=$datarootdir TANGO=$tango"
+            MANDIR=$mandir DATAROOTDIR=$datarootdir"
 qmake_command="$QMAKE $qmake_opts $qmake_pro_file"
 echo $qmake_command
 if $qmake_command && [ -f Makefile ]
@@ -364,33 +339,29 @@ else
     exit 1
 fi
 
-cat >get_info.sh <<_GET_DIR_
+cat >configured_directories.sh <<_GET_DIR_
 #!/bin/sh
 # This file has been generated by configure.sh
-# It will output the installation directories and other program info
-# Usage: get_info.sh info_type
-# where info_type is one of prefix, bindir etc or name, version etc.
+# It will output the installation directories
+# Usage: configured_directories.sh info_type
+# where info_type is one of prefix, bindir etc.
 
 case \$1 in
-    name) echo $program_name ;;
-    version) echo $program_version ;;
-    author) echo "Mattia Basaglia" ;;
-    email) echo "knotter@knotdraw.org" ;;
-    title) echo Knotter ;;
-    desc) echo "Celtic knot editor" ;;
-    long-desc) echo "Knotter is an editor for interlace patterns."
-               echo " Knots drawn with Knotter can be exported as SVG or raster images."
-    ;;
-    website) echo "http://knotter.mattbas.org/" ;;
-    download) echo "http://sourceforge.net/projects/knotter/files/latest/download" ;;
-    icon) echo "$datadir/img/$program_name-logo-big.svg" ;;
 _GET_DIR_
 
 for key in $dirlist
 do
     eval "val=\$$key"
-    echo "    $key) echo $val ;;" >>get_info.sh
+    echo "    $key) echo $val ;;" >>configured_directories.sh
 done
 
-echo "esac" >>get_info.sh
-chmod a+x get_info.sh
+echo "esac" >>configured_directories.sh
+chmod a+x configured_directories.sh
+
+echo "Generating processed files"
+for f in 'Doxyfile' $TARGET.desktop 
+do
+    ./info_preprocessor.sh $f.in >$f && echo $f created
+done
+
+echo "Configuration Successful"
