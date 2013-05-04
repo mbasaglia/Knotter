@@ -23,7 +23,8 @@ HEADERS += \
     $$PWD/dock_knot_display.hpp \
     $$PWD/icon_dock_style.hpp \
     $$PWD/dock_background.hpp \
-    $$PWD/cusp_style_widget.hpp
+    $$PWD/cusp_style_widget.hpp \
+    $$PWD/about_dialog.hpp
 
 SOURCES += \
     $$PWD/main_window.cpp \
@@ -32,7 +33,8 @@ SOURCES += \
     $$PWD/dock_grid.cpp \
     $$PWD/dock_knot_display.cpp \
     $$PWD/dock_background.cpp \
-    $$PWD/cusp_style_widget.cpp
+    $$PWD/cusp_style_widget.cpp \
+    $$PWD/about_dialog.cpp
 
 FORMS += \
     $$PWD/main_window.ui \
@@ -41,4 +43,5 @@ FORMS += \
     $$PWD/dock_grid.ui \
     $$PWD/dock_knot_display.ui \
     $$PWD/dock_background.ui \
-    $$PWD/cusp_style_widget.ui
+    $$PWD/cusp_style_widget.ui \
+    $$PWD/about_dialog.ui

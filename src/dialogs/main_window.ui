@@ -173,7 +173,6 @@
     <addaction name="separator"/>
     <addaction name="action_Report_Bugs"/>
     <addaction name="separator"/>
-    <addaction name="action_About_Qt"/>
     <addaction name="action_About"/>
    </widget>
    <widget class="QMenu" name="menu_Plugins">
@@ -762,11 +761,6 @@
    </property>
    <property name="text">
     <string>&amp;Configure Plugins...</string>
-   </property>
-  </action>
-  <action name="action_About_Qt">
-   <property name="text">
-    <string>About &amp;Qt...</string>
    </property>
   </action>
   <action name="action_Report_Bugs">

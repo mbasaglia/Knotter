@@ -35,7 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 Main_Window::Main_Window(QWidget *parent) :
-    QMainWindow(parent), zoomer(nullptr), view(nullptr), ximg_dlg(this)
+    QMainWindow(parent), zoomer(nullptr), view(nullptr),
+    ximg_dlg(this), about_dialog(this)
 {
     setupUi(this);
     setWindowIcon(QIcon(Resource_Manager::data("img/icon-small.svg")));
@@ -112,7 +113,7 @@ void Main_Window::init_menus()
 
     // Menu Help
     action_Manual->setShortcut(QKeySequence::HelpContents);
-    connect(action_About_Qt,SIGNAL(triggered()),qApp, SLOT(aboutQt()));
+    connect(action_About,SIGNAL(triggered()),&about_dialog,SLOT(show()));
 
 
 
