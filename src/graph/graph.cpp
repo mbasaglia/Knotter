@@ -107,6 +107,11 @@ Qt::BrushStyle Graph::brush_style() const
     return Qt::SolidPattern;
 }
 
+void Graph::set_brush_style(Qt::BrushStyle)
+{
+    /// \todo brush style
+}
+
 void Graph::set_default_node_style(Node_Style style)
 {
     m_default_node_style = style;

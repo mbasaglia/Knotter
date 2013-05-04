@@ -43,6 +43,9 @@ public:
     explicit Dock_Grid(QWidget *parent = 0);
 
     void set_grid(Snapping_Grid* target_grid);
+
+    /// if grid is target grid, clear target grid
+    void unset_grid(Snapping_Grid* grid);
     
 protected:
     void changeEvent(QEvent *e);

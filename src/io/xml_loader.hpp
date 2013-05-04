@@ -30,50 +30,58 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDomDocument>
 #include "graph.hpp"
 
-class XML_Loader
+class XML_Loader : QObject
 {
+    Q_OBJECT
 
     QMap<QString,Node*> nodes;
     QDomDocument xml;
     int m_version;
-    static const int accept_version = 3;
+
+    static const int min_version = 3;
+    static const int max_version = 3;
+
+    Node* get_node(QDomElement element);
+
+
+    Edge* get_edge(QDomElement element);
 
     /**
-     *  \brief get node with given ID
-     *
-     *  If no node is found, a new one is created
+     *  \brief Parse /knot/style/cusp or //node/shape
+     *  \param element      Element containing the data
+     *  \param everything   If true will always enable all styles
      */
-    Node* node(QString id);
+    Node_Style get_node_style ( QDomElement element, bool everything );
 
-    Node_Style get_node_style ( QDomElement element );
+    /// Parse /knot/style
+    void get_style(QDomElement element, Graph* graph);
+
+    /// Parse /knot/graph
+    void get_graph(QDomElement element, Graph* graph);
+
+    QColor get_color(QDomElement e);
+
 
 public:
+    XML_Loader() : m_version(0) {}
 
     /**
      *  \brief Load file
      *
      *  \param input    Input file
+     *  \param[out] graph   Graph into which the file will be loaded
      *
      *  \return True if file has been loaded correctly
      *
-     *  \post if the file is a Knot file versions() returns the file version
-     */
-    bool load(QIODevice *input);
-
-    /**
-     *  \brief Load graph from XML
-     *
-     *  \param[out] graph   Graph into which the file will be loaded
-     *
-     *  \return True if the graph has been loaded correctly
-     *
-     *  \pre load() has been called successfully
+     *  \post If the file is a Knot file versions() returns the file version
      *  \post If the input file is valid, its contents will be appended to the graph
      */
-    bool load_graph(Graph* graph);
+    bool load(QIODevice *input, Graph* graph);
 
     /**
-     * \brief Version of the oaded Knot file
+     * \brief Version of the loaded Knot file
+     *
+     *  If the loaded file is not recognised as a Knot file it will return 0
      */
     int version();
 };

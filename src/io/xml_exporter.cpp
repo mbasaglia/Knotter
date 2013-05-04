@@ -101,7 +101,7 @@ void XML_Exporter::save_style(const Graph *graph)
     const QMetaObject& mo = staticQtMetaObject;
 
     QMetaEnum bs_me = mo.enumerator(mo.indexOfEnumerator("BrushStyle"));
-    xml.writeTextElement("join",bs_me.valueToKey(graph->brush_style()));
+    xml.writeTextElement("style",bs_me.valueToKey(graph->brush_style()));
 
 
     QMetaEnum pjs_me = mo.enumerator(mo.indexOfEnumerator("PenJoinStyle"));

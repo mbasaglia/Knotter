@@ -376,6 +376,9 @@ QList<Node *> Knot_View::selected_nodes() const
 
 void Knot_View::zoom_view(double factor)
 {
+    if ( get_zoom_factor()*factor < 0.01 )
+        return;
+
     QPoint mp = mapFromGlobal(QCursor::pos());
     QPointF sp1 = mapToScene(mp);
     scale(factor,factor);
@@ -392,6 +395,8 @@ void Knot_View::zoom_view(double factor)
 
 void Knot_View::set_zoom(double factor)
 {
+    if ( factor < 0.01 )
+        return;
     QTransform t ( factor,           transform().m12(), transform().m13(),
                    transform().m21(),factor,            transform().m23(),
                    transform().m31(),transform().m32(), transform().m33()

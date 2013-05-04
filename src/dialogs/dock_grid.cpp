@@ -36,11 +36,6 @@ Dock_Grid::Dock_Grid(QWidget *parent) :
 
 void Dock_Grid::set_grid(Snapping_Grid *target_grid)
 {
-    if ( target )
-    {
-        target->disconnect(this);
-        disconnect(target);
-    }
 
     target = target_grid;
 
@@ -71,6 +66,18 @@ void Dock_Grid::set_grid(Snapping_Grid *target_grid)
     {
         check_enable->setChecked(false);
         setEnabled(false);
+    }
+}
+
+void Dock_Grid::unset_grid(Snapping_Grid *grid)
+{
+    if ( target == grid )
+    {
+        grid->disconnect(this);
+        disconnect(grid);
+        check_enable->disconnect(grid);
+        spin_size->disconnect(grid);
+        set_grid( nullptr );
     }
 }
 

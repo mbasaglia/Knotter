@@ -126,10 +126,14 @@ public:
 
     /// get stroke width
     double width() const { return pen().widthF();}
+    /// set stroke width
+    void set_width(double w);
+
     Qt::PenJoinStyle join_style() const { return pen().joinStyle(); }
     void set_join_style ( Qt::PenJoinStyle style );
 
     Qt::BrushStyle brush_style() const;
+    void set_brush_style(Qt::BrushStyle);
 
     bool custom_colors() const { return !auto_color; }
     void set_custom_colors(bool b) { auto_color = !b; }
@@ -149,13 +153,9 @@ public:
     int type() const override { return UserType+0x03; }
 
 
-public slots:
-
     /// Traverse graph and update internal painter paths
     void render_knot();
 
-    /// set stroke width
-    void set_width(double w);
 
 private:
 

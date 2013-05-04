@@ -240,6 +240,7 @@ void Main_Window::connect_view(Knot_View *v)
 {
     // set current
     view = v;
+    if ( !v ) return;
 
     // zoom/view
     zoomer->setValue(v->get_zoom_factor()*100);
@@ -329,12 +330,19 @@ void Main_Window::disconnect_view(Knot_View *v)
     if ( v != nullptr )
     {
         disconnect(v);
+
         disconnect(v,SIGNAL(zoomed(double)),zoomer,SLOT(setValue(double)));
+
         disconnect(dock_grid,SIGNAL(move_grid()),v,SLOT(set_mode_move_grid()));
+        dock_grid->unset_grid(&v->grid());
+
         dock_background->disconnect(v);
         dock_background->disconnect(&v->background_image());
+
         dock_knot_display->disconnect(v);
+
         global_style->disconnect(v);
+
         selection_style->disconnect(v);
         udate_selection(QList<Node*>());
     }
@@ -354,6 +362,12 @@ void Main_Window::set_clean_icon(bool clean)
 
 void Main_Window::update_title()
 {
+    if ( !view )
+    {
+        setWindowTitle(Resource_Manager::program_name());
+        return;
+    }
+
     bool clean = view->undo_stack_pointer()->isClean();
     QString filename = view->windowFilePath();
     if ( filename.isEmpty() )
@@ -408,6 +422,24 @@ void Main_Window::create_tab(QString file)
              !view->undo_stack_pointer()->canRedo() )
     {
         error = !view->load_file(file);
+
+        if ( !error )
+        {
+            global_style->blockSignals(true);
+            global_style->set_style(view->get_graph().default_node_style());
+            global_style->blockSignals(false);
+
+
+            dock_knot_display->blockSignals(true);
+            dock_knot_display->set_colors(view->get_graph().colors());
+            dock_knot_display->set_join_style(view->get_graph().join_style());
+            dock_knot_display->set_width(view->get_graph().width());
+            dock_knot_display->blockSignals(true);
+
+            update_title();
+
+            tabWidget->setTabText(tabWidget->currentIndex(),view->file_name());
+        }
     }
     else
     {
@@ -415,12 +447,11 @@ void Main_Window::create_tab(QString file)
         error = !v->load_file(file);
         int t = tabWidget->addTab(v,file.isEmpty() ? tr("New Knot") : file);
         undo_group.addStack(v->undo_stack_pointer());
-        switch_to_tab(t);
-        if ( error && file.isEmpty() )
-            error = false;
+        if ( t != tabWidget->currentIndex() )
+            switch_to_tab(t);
     }
 
-    if ( error )
+    if ( error && !file.isEmpty() )
     {
         QMessageBox::warning(this,tr("File Error"),
                              tr("Error while reading \"%1\".").arg(file));
@@ -443,6 +474,11 @@ void Main_Window::close_tab(int i)
     Knot_View* kv = dynamic_cast<Knot_View*>(tabWidget->widget(i));
     if ( kv )
     {
+        if ( kv == view )
+        {
+            disconnect_view(kv);
+            view = nullptr;
+        }
         undo_group.removeStack(kv->undo_stack_pointer());
         delete kv;
     }
