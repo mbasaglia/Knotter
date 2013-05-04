@@ -25,4 +25,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "xml_loader.hpp"
+#include "xml_loader_v2.hpp"
 
+bool import_xml(QIODevice* file, Graph& graph)
+{
+
+    XML_Loader_v2 xml;
+
+    if ( !xml.load(file) )
+        return false;
+
+    xml.get_graph(graph);
+
+    return true;
+}

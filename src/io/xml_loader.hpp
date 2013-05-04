@@ -76,10 +76,8 @@ public:
      * \brief Version of the oaded Knot file
      */
     int version();
-
-
-
-
 };
+
+bool import_xml(QIODevice* file, Graph& graph);
 
 #endif // XML_LOADER_HPP

@@ -509,3 +509,37 @@ void Node_Style_Enable::redo()
     update_knot();
 }
 
+
+Knot_Style_All::Knot_Style_All(Node_Style before, Node_Style after, Knot_View *kv, Knot_Macro *parent)
+    : Knot_Command(kv,parent), before(before), after(after)
+{}
+
+void Knot_Style_All::undo()
+{
+    graph->set_default_node_style(before);
+    update_knot();
+}
+
+void Knot_Style_All::redo()
+{
+    graph->set_default_node_style(after);
+    update_knot();
+}
+
+
+/*Node_Style_All::Node_Style_All(Node *node, Node_Style before, Node_Style after, Knot_View *kv, Knot_Macro *parent)
+    : Knot_Command(kv,parent), before(before), after(after), node(node)
+{
+}
+
+void Node_Style_All::undo()
+{
+    node->set_style(before);
+    update_knot();
+}
+
+void Node_Style_All::redo()
+{
+    node->set_style(after);
+    update_knot();
+}*/

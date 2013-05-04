@@ -177,3 +177,13 @@ int XML_Exporter::node_id(Node *node)
         return node_ids[node] = node_ids.size();
 }
 
+
+bool export_xml(const Graph& graph, QIODevice &file )
+{
+    if ( ! file.open(QIODevice::WriteOnly | QIODevice::Text) )
+        return false;
+
+    XML_Exporter(&file).export_graph(&graph);
+
+    return true;
+}

@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "commands.hpp"
 #include <QApplication>
 #include "resource_manager.hpp"
-#include "xml_loader_v2.hpp"
+#include "xml_loader.hpp"
 #include "xml_exporter.hpp"
 
 Knot_View::Knot_View(QString file)
@@ -96,19 +96,15 @@ bool Knot_View::load_file(QString fname)
 bool Knot_View::save_file(QString fname)
 {
     QFile file(fname);
+    if ( export_xml(graph,file) )
+    {
+        setWindowFilePath(fname);
+        m_file_name = fname;
 
-    if ( ! file.open(QIODevice::WriteOnly | QIODevice::Text) )
-        return false;
-
-    XML_Exporter(&file).export_graph(&graph);
-
-    setWindowFilePath(fname);
-    m_file_name = fname;
-
-    undo_stack.setClean();
-
-    return true;
-
+        undo_stack.setClean();
+        return true;
+    }
+    return false;
 }
 
 void Knot_View::set_knot_handle_lenght(double v)
@@ -261,10 +257,8 @@ void Knot_View::flip_vert_selection()
 
 bool Knot_View::load_file(QIODevice *device)
 {
-
-    XML_Loader_v2 xml;
-
-    if ( !xml.load(device) )
+    Graph loaded;
+    if (  !import_xml(device,loaded) )
         return false;
 
     begin_macro(tr("Load File"));
@@ -279,17 +273,16 @@ bool Knot_View::load_file(QIODevice *device)
         push_command(new Remove_Edge(e,this));
     }
 
-    Graph loaded;
-    xml.get_graph(loaded);
-
     push_command(new Knot_Width(graph.width(),loaded.width(),this));
     push_command(new Change_Colors(graph.colors(),loaded.colors(),this));
-    /// \todo commands for missing style features
+    push_command(new Custom_Colors(graph.custom_colors(),loaded.custom_colors(),this));
+    push_command(new Pen_Join_Style(graph.join_style(),loaded.join_style(),this));
+    push_command(new Knot_Style_All(graph.default_node_style(),
+                                    loaded.default_node_style(), this));
 
     foreach(Node* n,loaded.nodes())
     {
         push_command(new Create_Node(n,this));
-        /// \todo commands for style
     }
     foreach(Edge* e,loaded.edges())
     {

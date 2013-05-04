@@ -253,6 +253,25 @@ public:
     bool mergeWith(const QUndoCommand *other) override;
 };
 
+/**
+ *  \brief Set all knot style features at once
+ *
+ *  For internal use only (ie when loading files and such)
+ */
+class Knot_Style_All : public Knot_Command
+{
+    Q_OBJECT
+
+    Node_Style before;
+    Node_Style after;
+
+public:
+    Knot_Style_All(Node_Style before, Node_Style after, Knot_View* kv,
+               Knot_Macro* parent = nullptr);
+    void undo() override;
+    void redo() override;
+};
+
 class Knot_Style_Handle_Lenght : public Knot_Style_Basic_Double_Parameter
 {
     Q_OBJECT
@@ -476,6 +495,22 @@ public:
     void undo() override;
     void redo() override;
 };
+
+
+/*class Node_Style_All : public Knot_Command
+{
+    Q_OBJECT
+
+    Node_Style before;
+    Node_Style after;
+    Node* node;
+
+public:
+    Node_Style_All(Node* node, Node_Style before, Node_Style after, Knot_View* kv,
+               Knot_Macro* parent = nullptr);
+    void undo() override;
+    void redo() override;
+};*/
 
 
 // node style

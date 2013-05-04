@@ -72,4 +72,7 @@ protected:
     int node_id ( Node* node );
 };
 
+
+bool export_xml(const Graph& graph, QIODevice &file );
+
 #endif // XML_EXPORTER_HPP
