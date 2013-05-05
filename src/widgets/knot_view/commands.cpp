@@ -293,12 +293,14 @@ Remove_Node::Remove_Node(Node *node, Knot_View *kv, Knot_Macro *parent)
 void Remove_Node::undo()
 {
     graph->add_node(node);
+    scene->addItem(node);
     update_knot();
 }
 
 void Remove_Node::redo()
 {
     graph->remove_node(node);
+    scene->removeItem(node);
     update_knot();
 }
 

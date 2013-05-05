@@ -27,6 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "xml_exporter.hpp"
 #include "resource_manager.hpp"
 #include <QMetaEnum>
+#include <QBuffer>
+#include "image_exporter.hpp"
 
 XML_Exporter::XML_Exporter(QIODevice *output)
     : xml ( output )
@@ -180,10 +182,26 @@ int XML_Exporter::node_id(Node *node)
 
 bool export_xml(const Graph& graph, QIODevice &file )
 {
-    if ( ! file.open(QIODevice::WriteOnly | QIODevice::Text) )
+    if ( !file.isWritable() && !file.open(QIODevice::WriteOnly | QIODevice::Text) )
         return false;
 
     XML_Exporter(&file).export_graph(&graph);
 
     return true;
+}
+
+void export_xml_mime_data(const Graph& graph, QMimeData* data)
+{
+
+    QByteArray knot_xml;
+    QBuffer xml_stream(&knot_xml);
+    export_xml(graph,xml_stream);
+
+    data->setData("application/x-knotter",knot_xml);
+    data->setData("text/xml",knot_xml);
+
+    QByteArray knot_svg;
+    QBuffer svg_stream(&knot_svg);
+    export_svg(graph,svg_stream,false);
+    data->setData("image/svg+xml",knot_svg);
 }

@@ -130,9 +130,14 @@ public:
     Edge* add_edge(Node*n1,Node*n2);
 
     /**
-     *  \brief Removes an edge from the view and grph
+     *  \brief Removes an edge from the view and graph
     */
     void remove_edge(Edge* edge);
+
+    /**
+     *  \brief Removes a node and connected edges
+    */
+    void remove_node(Node* node);
 
     /**
      *  \brief Begins a command macro

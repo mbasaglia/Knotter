@@ -32,7 +32,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QUrl>
 #include "icon_dock_style.hpp"
 #include <QFileDialog>
-
+#include "xml_exporter.hpp"
+#include <QClipboard>
+#include <QBuffer>
+#include "xml_loader.hpp"
 
 Main_Window::Main_Window(QWidget *parent) :
     QMainWindow(parent), zoomer(nullptr), view(nullptr),
@@ -676,4 +679,48 @@ void Main_Window::on_action_Insert_Polygon_triggered()
         view->insert(g,tr("Insert Polygon"));
 
     }
+}
+
+void Main_Window::on_action_Copy_triggered()
+{
+    Graph copy = view->get_graph().sub_graph(view->selected_nodes());
+    QMimeData* mime_data = new QMimeData;
+    export_xml_mime_data(copy,mime_data);
+    QApplication::clipboard()->setMimeData(mime_data);
+}
+
+void Main_Window::on_action_Paste_triggered()
+{
+    const QMimeData *mimeData = QApplication::clipboard()->mimeData();
+
+    Graph graph;
+
+    QByteArray clip_data;
+
+    if ( mimeData->hasFormat("application/x-knotter") )
+    {
+        clip_data = mimeData->data("application/x-knotter");
+    }
+    else if ( mimeData->hasFormat("text/xml") )
+    {
+        clip_data = mimeData->data("text/xml");
+    }
+    else
+        return; // invalid data MIME type
+
+    QBuffer read_data(&clip_data);
+
+    if ( !import_xml(&read_data,graph) )
+        return; // invalid data
+
+    view->insert(graph, tr("Paste") );
+}
+
+void Main_Window::on_action_Cut_triggered()
+{
+    on_action_Copy_triggered();
+    view->begin_macro(tr("Cut"));
+    foreach(Node*n, view->selected_nodes() )
+        view->remove_node(n);
+    view->end_macro();
 }

@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define XML_EXPORTER_HPP
 #include <QXmlStreamWriter>
 #include "graph.hpp"
+#include <QMimeData>
 
 class XML_Exporter : public QObject
 {
@@ -74,5 +75,7 @@ protected:
 
 
 bool export_xml(const Graph& graph, QIODevice &file );
+
+void export_xml_mime_data(const Graph& graph, QMimeData* data);
 
 #endif // XML_EXPORTER_HPP

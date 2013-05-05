@@ -39,7 +39,8 @@ Node::Node(QPointF pos)
 
 void Node::add_edge(Edge *e)
 {
-    edges.append(e);
+    if ( !edges.contains(e) )
+        edges.append(e);
 }
 
 void Node::remove_edge(Edge *e)

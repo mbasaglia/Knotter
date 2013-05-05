@@ -347,6 +347,15 @@ void Knot_View::remove_edge(Edge *edge)
     push_command(new Remove_Edge(edge,this));
 }
 
+void Knot_View::remove_node(Node *node)
+{
+    begin_macro(tr("Remove Node"));
+    foreach(Edge* e, node->connections())
+        remove_edge(e);
+    push_command(new Remove_Node(node,this));
+    end_macro();
+}
+
 void Knot_View::begin_macro(QString name)
 {
     macro_stack.push( new Knot_Macro(name,this,nullptr) );
@@ -550,7 +559,6 @@ void Knot_View::insert(const Graph &graph, QString macro_name)
 
     foreach(Edge* e, graph.edges())
     {
-        e->detach();
         push_command(new Create_Edge(e,this));
     }
 
@@ -641,7 +649,9 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
 
                 if ( next_edge )
                     title = tr("Move Ahead");
-                else if ( !last_node )
+                else if ( !last_node && next_node )
+                    title = tr("Start Chain");
+                else if ( !last_node)
                     title = tr("Create Node");
                 else
                     title = tr("Add Edge");

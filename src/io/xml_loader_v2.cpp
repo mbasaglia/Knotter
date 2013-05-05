@@ -55,7 +55,7 @@ void XML_Loader_v2::get_graph(Graph &kv)
 
     if ( enter("style") )
     {
-        QPen stroke(kv.brush(),kv.width());
+        QPen stroke(Qt::black,kv.width());
         stroke.setJoinStyle(kv.join_style());
         stroke = get_pen("stroke",stroke);
         kv.set_colors(QList<QColor>() << stroke.color());

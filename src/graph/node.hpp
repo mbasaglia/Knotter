@@ -57,7 +57,6 @@ public:
     /**
      *  Add edge to node
      *  \param e Edge to be added
-     *  \pre e is not already in the list of edges and this is one of its vertices
      */
     void add_edge(Edge* e);
     /**

@@ -38,9 +38,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *  \note Never takes ownership of edges and nodes
  */
-class Graph : public QObject, public QAbstractGraphicsShapeItem
+class Graph : public QGraphicsItem
 {
-    Q_OBJECT
     Q_FLAGS(Paint_Mode_Enum Paint_Mode)
 public:
     enum Paint_Mode_Enum {
@@ -58,9 +57,12 @@ private:
     QList<QColor>       m_colors;
     bool                auto_color;
     QList<QPainterPath> paths;    ///< Rendered knot (one per loop)
+    QPen                pen;
 
 public:
-    explicit Graph(QObject *parent = 0);
+    explicit Graph();
+    Graph(const Graph& other);
+    Graph& operator= (const Graph& other);
 
     /**
      *  Add node to graph
@@ -128,11 +130,11 @@ public:
     void set_colors(const QList<QColor>& l);
 
     /// get stroke width
-    double width() const { return pen().widthF();}
+    double width() const { return pen.widthF();}
     /// set stroke width
     void set_width(double w);
 
-    Qt::PenJoinStyle join_style() const { return pen().joinStyle(); }
+    Qt::PenJoinStyle join_style() const { return pen.joinStyle(); }
     void set_join_style ( Qt::PenJoinStyle style );
 
     Qt::BrushStyle brush_style() const;
@@ -158,6 +160,17 @@ public:
 
     /// Traverse graph and update internal painter paths
     void render_knot();
+
+    /**
+     *  \brief Get a subgraph
+     *
+     *  \returns A graph with the same settings as this but containing only the
+     *           nodes in the list
+     *
+     *  \note This will copy the pointers to nodes/edges so any change to them will
+     *          occur on both graphs.
+     */
+    Graph sub_graph(QList<Node*> nodes) const;
 
 
 private:

@@ -27,8 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "edge_style.hpp"
 #include "resource_manager.hpp"
 
-Graph::Graph(QObject *parent) :
-    QObject(parent),
+Graph::Graph() :
     m_default_node_style(225,24,10,32,Resource_Manager::default_cusp_shape(),
                   Node_Style::EVERYTHING),
     m_paint_mode(PAINT_KNOT),
@@ -37,6 +36,29 @@ Graph::Graph(QObject *parent) :
     m_colors.push_back(Qt::black);
     set_join_style(Qt::MiterJoin);
     set_width(5);
+}
+
+Graph::Graph(const Graph &other)
+    : QGraphicsItem()
+{
+    *this = other;
+}
+
+Graph &Graph::operator= ( const Graph &o )
+{
+    m_edges = o.m_edges;
+    m_colors = o.m_colors;
+    m_default_node_style = o.m_default_node_style;
+    m_nodes = o.m_nodes;
+    m_paint_mode = o.m_paint_mode;
+    bounding_box = o.bounding_box;
+    auto_color = o.auto_color;
+    paths = o.paths;
+    pen = o.pen;
+    setPos(o.pos());
+    setTransform(o.transform());
+    setVisible(o.isVisible());
+    return *this;
 }
 
 void Graph::add_node(Node *n)
@@ -55,14 +77,14 @@ void Graph::add_edge(Edge *e)
 void Graph::remove_node(Node *n)
 {
     m_nodes.removeOne(n);
-    n->setParentItem(nullptr);
+    //n->setParentItem(nullptr);
 }
 
 void Graph::remove_edge(Edge *e)
 {
     m_edges.removeOne(e);
     e->detach();
-    e->setParentItem(nullptr);
+    //e->setParentItem(nullptr);
 }
 
 /*void Graph::clear()
@@ -77,12 +99,6 @@ void Graph::remove_edge(Edge *e)
 void Graph::set_paint_mode(Paint_Mode mode)
 {
     m_paint_mode = mode;
-
-    foreach ( Node* n, m_nodes )
-        n->set_visible( mode & PAINT_GRAPH );
-
-    foreach ( Edge* e, m_edges )
-        e->set_visible( mode & PAINT_GRAPH );
 }
 
 void Graph::toggle_paint_flag(Graph::Paint_Mode_Enum flag)
@@ -107,7 +123,7 @@ void Graph::set_colors(const QList<QColor> &l)
 
 void Graph::set_join_style(Qt::PenJoinStyle style)
 {
-    setPen(QPen(Qt::black,width(),pen().style(),Qt::FlatCap,style));
+    pen.setJoinStyle(style);
 }
 
 Qt::BrushStyle Graph::brush_style() const
@@ -127,7 +143,7 @@ void Graph::set_default_node_style(Node_Style style)
 
 void Graph::set_width(double w)
 {
-    setPen(QPen(Qt::black,w,pen().style(),Qt::FlatCap,join_style()));
+    pen.setWidthF(w);
 }
 
 void Graph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -153,7 +169,7 @@ void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     if ( mode & PAINT_KNOT && ! m_colors.empty() )
     {
         painter->setBrush(Qt::NoBrush);
-        QPen p = pen();
+        QPen p = pen;
         for ( int i = 0; i < paths.size(); ++i )
         {
             if ( auto_color )
@@ -179,6 +195,42 @@ void Graph::render_knot()
     paths = path.build();
     update_bounding_box();
     update();
+}
+
+Graph Graph::sub_graph(QList<Node *> nodes) const
+{
+    Graph graph(*this);
+    graph.m_nodes.clear();
+    graph.m_edges.clear();
+
+    graph.m_nodes.reserve(nodes.size());
+    graph.m_edges.reserve(nodes.size());
+
+    graph.set_brush_style(brush_style());
+    graph.set_colors(colors());
+    graph.set_custom_colors(custom_colors());
+    graph.set_default_node_style(default_node_style());
+    graph.set_join_style(join_style());
+    graph.set_paint_mode(paint_mode());
+    graph.set_width(width());
+
+
+    foreach ( Node* n, nodes )
+    {
+        graph.m_nodes.push_back(n);
+
+        foreach ( Edge* e, n->connections() )
+        {
+            if ( nodes.contains(e->other(n)) &&
+                 !graph.m_edges.contains(e) )
+            {
+                graph.m_edges.push_back(e);
+            }
+        }
+    }
+
+    return graph;
+
 }
 
 void Graph::traverse(Path_Builder &path)
