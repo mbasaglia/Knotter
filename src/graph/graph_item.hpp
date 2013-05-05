@@ -44,6 +44,8 @@ public:
     Graph_Item();
 
     //virtual double distance_squared(QPointF to) const = 0;
+
+    void set_highlighted(bool h) { highlighted = h; }
 };
 
 #endif // GRAPH_ITEM_HPP

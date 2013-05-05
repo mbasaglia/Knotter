@@ -327,6 +327,7 @@ private:
     /**
      *  \brief Get node at location
      *  \return The found node or NULL
+     *  \sa edge_at item_at
     */
     Node* node_at(QPointF p) const;
 
@@ -337,8 +338,16 @@ private:
     /**
      *  \brief Get edge at location
      *  \return The found edge or NULL
+     *  \sa node_at item_at
     */
     Edge *edge_at(QPointF p) const;
+
+    /**
+     *  \brief Get item at location
+     *  \return The found edge or NULL
+     *  \sa node_at edge_at
+    */
+    Graph_Item* item_at(QPointF p) const;
 
 
 };

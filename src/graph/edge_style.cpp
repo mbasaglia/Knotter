@@ -283,12 +283,15 @@ QLineF Edge_Hole::handle(const Edge *edge, Edge::Handle handle,
 
 void Edge_Hole::paint(QPainter *painter, const Edge &edge)
 {
-    QLineF l = edge.to_line().normalVector();
-    l.setLength(5);
-    l.translate((edge.vertex1()->pos()-edge.vertex2()->pos())/2);
-    painter->drawLine(l);
-    l.setLength(-5);
-    painter->drawLine(l);
+
+    painter->drawLine(edge.to_line());
+
+    long double angle = deg2rad(edge.to_line().angle()) + pi() / 2;
+    const double length = 5;
+    QPointF p = edge.midpoint();
+
+    painter->drawLine( p.x()+length*qCos(angle), p.y()-length*qSin(angle),
+                       p.x()-length*qCos(angle), p.y()+length*qSin(angle)  );
 }
 
 Edge::Handle Edge_Hole::traverse(Edge *edge, Edge::Handle handle,

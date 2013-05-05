@@ -519,6 +519,11 @@ Edge *Knot_View::edge_at(QPointF p) const
     return dynamic_cast<Edge*>(scene()->itemAt(p,QTransform()));
 }
 
+Graph_Item *Knot_View::item_at(QPointF p) const
+{
+    return dynamic_cast<Graph_Item*>(scene()->itemAt(p,QTransform()));
+}
+
 void Knot_View::mousePressEvent(QMouseEvent *event)
 {
     QPoint mpos = event->pos();
@@ -688,6 +693,19 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
         if ( last_node )
             guide.setLine(QLineF(last_node->pos(),snapped_scene_pos));
     }
+
+
+    // highlight item under cursor
+    foreach ( QGraphicsItem* gi, scene()->items() )
+    {
+        Graph_Item* ci = dynamic_cast<Graph_Item*>(gi);
+        if ( ci )
+            ci->set_highlighted(false);
+    }
+    Graph_Item* ci = item_at(scene_pos);
+    if ( ci )
+        ci->set_highlighted(true);
+
 
     move_center = mpos;
     scene()->invalidate();
