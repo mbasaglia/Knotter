@@ -24,7 +24,8 @@ HEADERS += \
     $$PWD/icon_dock_style.hpp \
     $$PWD/dock_background.hpp \
     $$PWD/cusp_style_widget.hpp \
-    $$PWD/about_dialog.hpp
+    $$PWD/about_dialog.hpp \
+    src/dialogs/dialog_insert_polygon.hpp
 
 SOURCES += \
     $$PWD/main_window.cpp \
@@ -34,7 +35,8 @@ SOURCES += \
     $$PWD/dock_knot_display.cpp \
     $$PWD/dock_background.cpp \
     $$PWD/cusp_style_widget.cpp \
-    $$PWD/about_dialog.cpp
+    $$PWD/about_dialog.cpp \
+    src/dialogs/dialog_insert_polygon.cpp
 
 FORMS += \
     $$PWD/main_window.ui \
@@ -44,4 +46,5 @@ FORMS += \
     $$PWD/dock_knot_display.ui \
     $$PWD/dock_background.ui \
     $$PWD/cusp_style_widget.ui \
-    $$PWD/about_dialog.ui
+    $$PWD/about_dialog.ui \
+    src/dialogs/dialog_insert_polygon.ui

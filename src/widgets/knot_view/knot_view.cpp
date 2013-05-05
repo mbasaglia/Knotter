@@ -70,8 +70,6 @@ Knot_View::Knot_View(QString file)
     connect(&m_grid,SIGNAL(grid_changed()),scene,SLOT(invalidate()));
     connect(&bg_img,SIGNAL(changed()),scene,SLOT(invalidate()));
 
-    connect(&graph,SIGNAL(style_changed()),scene,SLOT(invalidate()));
-
     load_file(file);
 
 }
@@ -533,6 +531,46 @@ Graph_Item *Knot_View::item_at(QPointF p) const
     return dynamic_cast<Graph_Item*>(scene()->itemAt(p,QTransform()));
 }
 
+
+
+
+void Knot_View::insert(const Graph &graph, QString macro_name)
+{
+    if ( graph.nodes().isEmpty() )
+        return;
+
+    scene()->clearSelection();
+    macro_stack.push( new Knot_Insert_Macro(false,macro_name,this));
+
+    foreach(Node* n, graph.nodes())
+    {
+        push_command(new Create_Node(n,this));
+        n->setSelected(true);
+    }
+
+    foreach(Edge* e, graph.edges())
+    {
+        e->detach();
+        push_command(new Create_Edge(e,this));
+    }
+
+
+    last_node = graph.nodes().front();
+
+    mouse_mode |= MOVE_NODES;
+    mouse_mode |= EXTERNAL;
+    node_mover = Node_Mover(graph.nodes(),last_node->pos());
+    QPointF p =  mapToScene(mapFromGlobal(QCursor::pos()));
+    node_mover.move(p-last_node->pos());
+    move_center = mapFromGlobal(QCursor::pos());
+    //node_mover.deploy(this);
+    setCursor(Qt::DragCopyCursor);
+
+    end_macro();
+    macro_stack.push( new Knot_Insert_Macro(true,macro_name,this));
+}
+
+
 void Knot_View::mousePressEvent(QMouseEvent *event)
 {
     QPoint mpos = event->pos();
@@ -552,7 +590,7 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
     {
         mouse_mode &= ~MOVE_BACK;
     }
-    else
+    else if ( !(mouse_mode & EXTERNAL) )
     {
         if ( mouse_mode & EDIT_GRAPH && event->buttons() & Qt::LeftButton )
         {
@@ -743,6 +781,13 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
         mouse_mode &=~ MOVE_NODES;
         node_mover.deploy(this);
         update_knot();
+
+
+        if ( mouse_mode & EXTERNAL )
+        {
+            mouse_mode &=~ EXTERNAL;
+            end_macro();
+        }
     }
     else if ( mouse_mode & MOVE_BACK )
     {

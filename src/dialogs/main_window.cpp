@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Main_Window::Main_Window(QWidget *parent) :
     QMainWindow(parent), zoomer(nullptr), view(nullptr),
-    ximg_dlg(this), about_dialog(this)
+    dialog_export_image(this), about_dialog(this), dialog_insert_polygon(this)
 {
     setupUi(this);
     setWindowIcon(QIcon(Resource_Manager::data("img/icon-small.svg")));
@@ -82,7 +82,7 @@ void Main_Window::init_menus()
     action_Close->setShortcut(QKeySequence::Close);
     action_Print->setShortcut(QKeySequence::Print);
     action_Exit->setShortcut(QKeySequence::Quit);
-    connect(action_Export,SIGNAL(triggered()),&ximg_dlg,SLOT(show()));
+    connect(action_Export,SIGNAL(triggered()),&dialog_export_image,SLOT(show()));
 
     // Menu Edit
     action_Undo->setShortcut(QKeySequence::Undo);
@@ -257,6 +257,8 @@ void Main_Window::connect_view(Knot_View *v)
 
     // undo/redo
     v->undo_stack_pointer()->setActive(true);
+    undo_group.setActiveStack(v->undo_stack_pointer());
+    //undo_view->setStack(v->undo_stack_pointer());
 
     // grid editor
     dock_grid->set_grid(&v->grid());
@@ -322,7 +324,7 @@ void Main_Window::connect_view(Knot_View *v)
             v,SLOT(set_selection_enabled_styles(Node_Style::Enabled_Styles)));
 
     //export
-    ximg_dlg.set_view(v);
+    dialog_export_image.set_view(v);
 
     // paint mode
     v->set_paint_mode(Graph::PAINT_GRAPH,action_Display_Graph->isChecked());
@@ -628,4 +630,50 @@ void Main_Window::on_action_Display_Graph_toggled(bool checked)
 void Main_Window::on_action_Display_Knot_triggered(bool checked)
 {
     view->set_paint_mode(Graph::PAINT_KNOT,checked);
+}
+
+void Main_Window::on_action_Insert_Polygon_triggered()
+{
+    if ( dialog_insert_polygon.exec() )
+    {
+        Graph g;
+
+        Node* middle = nullptr;
+        if ( dialog_insert_polygon.middle_node() )
+        {
+            middle = new Node(QPointF(0,0));
+            g.add_node(middle);
+        }
+
+        Node* last = nullptr;
+        Node* first = nullptr;
+
+        double radius = view->grid().is_enabled() ? view->grid().size() : 32;
+
+        for ( int i = 0; i < dialog_insert_polygon.sides(); i++ )
+        {
+            double angle = 2*pi()*i/dialog_insert_polygon.sides();
+
+            Node* next = new Node(QPointF(radius*qCos(angle),-radius*qSin(angle)));
+
+            g.add_node(next);
+
+            if ( !first )
+                first = next;
+
+            if ( middle )
+                g.add_edge(new Edge(middle,next,Resource_Manager::default_edge_style()));
+
+            if ( last )
+                g.add_edge(new Edge(last,next,Resource_Manager::default_edge_style()));
+
+            last = next;
+
+        }
+        g.add_edge(new Edge(last,first,Resource_Manager::default_edge_style()));
+
+        //: Name of the undo command triggered when inserting a polygon
+        view->insert(g,tr("Insert Polygon"));
+
+    }
 }

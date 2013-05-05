@@ -164,13 +164,13 @@ Change_Colors::Change_Colors(QList<QColor> before, QList<QColor> after, Knot_Vie
 void Change_Colors::undo()
 {
     graph->set_colors(before);
-    scene->invalidate(graph->boundingRect());
+    scene->invalidate();
 }
 
 void Change_Colors::redo()
 {
     graph->set_colors(after);
-    scene->invalidate(graph->boundingRect());
+    scene->invalidate();
 }
 
 int Change_Colors::id() const
@@ -204,13 +204,13 @@ Custom_Colors::Custom_Colors(bool before, bool after, Knot_View *kv, Knot_Macro 
 void Custom_Colors::undo()
 {
     graph->set_custom_colors(before);
-    scene->invalidate(graph->boundingRect());
+    scene->invalidate();
 }
 
 void Custom_Colors::redo()
 {
     graph->set_custom_colors(after);
-    scene->invalidate(graph->boundingRect());
+    scene->invalidate();
 }
 
 
@@ -571,6 +571,19 @@ bool Change_Edge_Style::mergeWith(const QUndoCommand *other)
     if ( cc->edge == edge )
     {
         after = cc->after;
+        return true;
+    }
+    return false;
+}
+
+
+int Knot_Insert_Macro::m_id = generate_id();
+bool Knot_Insert_Macro::mergeWith(const QUndoCommand *other)
+{
+
+    const Knot_Insert_Macro* cc = static_cast<const Knot_Insert_Macro*>(other);
+    if ( cc->mergeable )
+    {;
         return true;
     }
     return false;

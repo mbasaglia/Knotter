@@ -37,23 +37,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "dock_background.hpp"
 #include "cusp_style_widget.hpp"
 #include "about_dialog.hpp"
+#include "dialog_insert_polygon.hpp"
 
 class Main_Window : public QMainWindow, private Ui::Main_Window
 {
     Q_OBJECT
 
 private:
-    QDoubleSpinBox*     zoomer;     ///< Zoom on statusbar
-    Knot_View*          view;       ///< Active Knot_View (hopefully never NULL)
-    QUndoView*          undo_view;  ///< Action history
-    QUndoGroup          undo_group; ///< Groups undo stacks
-    Export_Image_Dialog ximg_dlg;
-    Dock_Grid*          dock_grid;  ///< Grid conf dock
-    Dock_Knot_Display*  dock_knot_display;///< Display conf dock
-    Dock_Background*    dock_background;
-    Cusp_Style_Widget*  global_style;
-    Cusp_Style_Widget*  selection_style;
-    About_Dialog        about_dialog;
+    QDoubleSpinBox*         zoomer;     ///< Zoom on statusbar
+    Knot_View*              view;       ///< Active Knot_View (hopefully never NULL)
+    QUndoView*              undo_view;  ///< Action history
+    QUndoGroup              undo_group; ///< Groups undo stacks
+    Export_Image_Dialog     dialog_export_image;
+    Dock_Grid*              dock_grid;  ///< Grid conf dock
+    Dock_Knot_Display*      dock_knot_display;///< Display conf dock
+    Dock_Background*        dock_background;
+    Cusp_Style_Widget*      global_style;
+    Cusp_Style_Widget*      selection_style;
+    About_Dialog            about_dialog;
+    Dialog_Insert_Polygon   dialog_insert_polygon;
 
 public:
     explicit Main_Window(QWidget *parent = 0);
@@ -150,6 +152,7 @@ private slots:
     void on_action_Select_All_triggered();
     void on_actionSelect_Connected_triggered();
     void on_action_Display_Knot_triggered(bool checked);
+    void on_action_Insert_Polygon_triggered();
 };
 
 #endif // MAIN_WINDOW_HPP

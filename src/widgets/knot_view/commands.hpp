@@ -83,6 +83,21 @@ public:
     void redo() override;
 };
 
+/**
+ *  \brief Special Macro used when inserting graphs
+ */
+class Knot_Insert_Macro : public Knot_Macro
+{
+    static int m_id;
+    /// Whether should be meged with command below
+    bool mergeable;
+public:
+    Knot_Insert_Macro(bool mergeable, QString text,Knot_View*kv, Knot_Macro* parent = nullptr)
+        : Knot_Macro(text, kv,parent), mergeable(mergeable) {}
+    int id() const override { return m_id; }
+    bool mergeWith(const QUndoCommand *other) override;
+};
+
 // graph editing
 class Create_Node : public Knot_Command
 {

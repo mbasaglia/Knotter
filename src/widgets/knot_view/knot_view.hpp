@@ -51,7 +51,14 @@ class Knot_View : public QGraphicsView
         MOVE_BACK= MOVE_GRID|MOVE_BG_IMG, ///< Mask with both MOVE_GRID and MOVE_BG_IMG
 
         RUBBERBAND = 0x200, ///< Dragging the rubberband
-        MOVE_NODES = 0x400  ///< Moving the selection
+
+        MOVE_NODES = 0x400, ///< Moving the selection
+        /**
+         *  Used with MOVE_NODES when the movement is triggered
+         *  by an external factor (such as pasting)
+         *  \sa insert
+         */
+        EXTERNAL   = 0x800
     };
     Q_DECLARE_FLAGS(Mouse_Mode,Mouse_Mode_Enum)
 
@@ -177,6 +184,19 @@ public:
     bool load_file(QIODevice* device);
 
     void set_paint_mode(Graph::Paint_Mode_Enum pm, bool enable);
+
+    /**
+     *  \brief Place new nodes on the view
+     *
+     *  Takes ownership of every object inside graph and adds them to the viewed graph.
+     *  The inserted nodes will follow the mouse until the next click.
+     *  The first node of the graph is taken as pivot point
+     *
+     *  \param graph        Graph that needs to be inserted.
+     *  \param macro_name   Name of the undo command associated with the
+     *                      insertion of the graph
+     */
+    void insert(const Graph& graph, QString macro_name );
 
 public slots:
     /**
