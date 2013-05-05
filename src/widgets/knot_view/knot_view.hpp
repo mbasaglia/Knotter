@@ -176,6 +176,8 @@ public:
 
     bool load_file(QIODevice* device);
 
+    void set_paint_mode(Graph::Paint_Mode_Enum pm, bool enable);
+
 public slots:
     /**
      * \brief Zoom view by factor

@@ -324,6 +324,10 @@ void Main_Window::connect_view(Knot_View *v)
     //export
     ximg_dlg.set_view(v);
 
+    // paint mode
+    v->set_paint_mode(Graph::PAINT_GRAPH,action_Display_Graph->isChecked());
+    v->set_paint_mode(Graph::PAINT_KNOT,action_Display_Knot->isChecked());
+
 }
 
 void Main_Window::disconnect_view(Knot_View *v)
@@ -488,15 +492,6 @@ void Main_Window::close_tab(int i)
         create_tab();
 }
 
-void Main_Window::on_action_Show_Graph_toggled(bool arg1)
-{
-    /// \todo actually toggle
-    if ( arg1 )
-        action_Show_Graph->setIcon(QIcon::fromTheme("knot-graph-on"));
-    else
-        action_Show_Graph->setIcon(QIcon::fromTheme("knot-graph-off"));
-}
-
 
 void Main_Window::set_undo_text(QString txt)
 {
@@ -620,4 +615,17 @@ void Main_Window::on_actionSelect_Connected_triggered()
             }
         }
     }
+}
+
+void Main_Window::on_action_Display_Graph_toggled(bool checked)
+{
+    action_Display_Graph->setIcon(QIcon::fromTheme(
+                                   checked ? "knot-graph-on" : "knot-graph-off"
+                                   ));
+    view->set_paint_mode(Graph::PAINT_GRAPH,checked);
+}
+
+void Main_Window::on_action_Display_Knot_triggered(bool checked)
+{
+    view->set_paint_mode(Graph::PAINT_KNOT,checked);
 }

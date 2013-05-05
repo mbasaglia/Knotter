@@ -31,7 +31,7 @@ Graph::Graph(QObject *parent) :
     QObject(parent),
     m_default_node_style(225,24,10,32,Resource_Manager::default_cusp_shape(),
                   Node_Style::EVERYTHING),
-    paint_mode(PAINT_KNOT),
+    m_paint_mode(PAINT_KNOT),
     auto_color(false)
 {
     m_colors.push_back(Qt::black);
@@ -42,11 +42,13 @@ Graph::Graph(QObject *parent) :
 void Graph::add_node(Node *n)
 {
     m_nodes.append(n);
+    n->set_visible( m_paint_mode & PAINT_GRAPH );
 }
 
 void Graph::add_edge(Edge *e)
 {
     m_edges.append(e);
+    e->set_visible( m_paint_mode & PAINT_GRAPH );
     e->attach();
 }
 
@@ -74,22 +76,28 @@ void Graph::remove_edge(Edge *e)
 
 void Graph::set_paint_mode(Paint_Mode mode)
 {
-    paint_mode = mode;
+    m_paint_mode = mode;
+
+    foreach ( Node* n, m_nodes )
+        n->set_visible( mode & PAINT_GRAPH );
+
+    foreach ( Edge* e, m_edges )
+        e->set_visible( mode & PAINT_GRAPH );
 }
 
 void Graph::toggle_paint_flag(Graph::Paint_Mode_Enum flag)
 {
-    paint_mode ^= flag;
+    set_paint_mode ( m_paint_mode ^ flag );
 }
 
 void Graph::enable_paint_flag(Graph::Paint_Mode_Enum flag)
 {
-    paint_mode |= flag;
+    set_paint_mode ( m_paint_mode | flag );
 }
 
 void Graph::disable_paint_flag(Graph::Paint_Mode_Enum flag)
 {
-    paint_mode &= ~flag;
+    set_paint_mode ( m_paint_mode & ~flag );
 }
 
 void Graph::set_colors(const QList<QColor> &l)
@@ -124,7 +132,7 @@ void Graph::set_width(double w)
 
 void Graph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    const_paint(painter,option,widget,paint_mode);
+    const_paint(painter,option,widget,m_paint_mode);
 }
 
 void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *option,

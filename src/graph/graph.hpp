@@ -54,7 +54,7 @@ private:
     QList<Edge*>        m_edges;
     Node_Style          m_default_node_style;
     QRectF              bounding_box;
-    Paint_Mode          paint_mode;
+    Paint_Mode          m_paint_mode;
     QList<QColor>       m_colors;
     bool                auto_color;
     QList<QPainterPath> paths;    ///< Rendered knot (one per loop)
@@ -120,6 +120,9 @@ public:
      *  Performs paint_mode NAND flag
     */
     void disable_paint_flag ( Paint_Mode_Enum flag );
+
+    /// Get paint mode
+    Paint_Mode paint_mode() const { return m_paint_mode; }
 
     const QList<QColor>& colors() const { return m_colors; }
     void set_colors(const QList<QColor>& l);

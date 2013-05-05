@@ -70,9 +70,9 @@ Edge_Style *Edge::style() const
 
 void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    if ( isVisible() && highlighted )
+    if ( visible && highlighted )
         m_style->paint_highlighted(painter,*this);
-    else if ( isVisible() || highlighted )
+    else if ( visible || highlighted )
         m_style->paint_regular(painter,*this);
 
 }

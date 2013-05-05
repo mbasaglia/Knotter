@@ -131,7 +131,7 @@
     <addaction name="menu_Zoom"/>
     <addaction name="action_Reset_View"/>
     <addaction name="separator"/>
-    <addaction name="action_Show_Graph"/>
+    <addaction name="action_Display_Graph"/>
     <addaction name="action_Display_Knot"/>
     <addaction name="separator"/>
    </widget>
@@ -258,7 +258,7 @@
    <addaction name="action_Zoom_In"/>
    <addaction name="action_Zoom_Out"/>
    <addaction name="separator"/>
-   <addaction name="action_Show_Graph"/>
+   <addaction name="action_Display_Graph"/>
   </widget>
   <widget class="QToolBar" name="toolbar_draw">
    <property name="windowTitle">
@@ -510,7 +510,7 @@
     <string>Ctrl+0</string>
    </property>
   </action>
-  <action name="action_Show_Graph">
+  <action name="action_Display_Graph">
    <property name="checkable">
     <bool>true</bool>
    </property>

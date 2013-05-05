@@ -295,6 +295,15 @@ bool Knot_View::load_file(QIODevice *device)
     return true;
 }
 
+void Knot_View::set_paint_mode(Graph::Paint_Mode_Enum pm, bool enable)
+{
+    if ( enable )
+        graph.enable_paint_flag(pm);
+    else
+        graph.disable_paint_flag(pm);
+    scene()->invalidate(graph.boundingRect());
+}
+
 void Knot_View::translate_view(QPointF delta)
 {
     translate(delta);

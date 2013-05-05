@@ -86,12 +86,12 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 
     painter->setPen(Qt::black);
 
-    if ( isVisible() && highlighted )
+    if ( visible && highlighted )
     {
         painter->setBrush(QColor("#ffcc00"));
         r = boundingRect();
     }
-    else if ( isVisible() || highlighted )
+    else if ( visible || highlighted )
         painter->setBrush(QColor("#ff4400"));
     else
         return;

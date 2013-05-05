@@ -134,7 +134,7 @@ private slots:
     void save(bool force_select);
 
     void on_action_Preferences_triggered();
-    void on_action_Show_Graph_toggled(bool arg1);
+    void on_action_Display_Graph_toggled(bool arg1);
     void on_action_Zoom_In_triggered();
     void on_action_Zoom_Out_triggered();
     void on_action_Reset_Zoom_triggered();
@@ -149,6 +149,7 @@ private slots:
     void on_action_Mirror_Vertical_triggered();
     void on_action_Select_All_triggered();
     void on_actionSelect_Connected_triggered();
+    void on_action_Display_Knot_triggered(bool checked);
 };
 
 #endif // MAIN_WINDOW_HPP

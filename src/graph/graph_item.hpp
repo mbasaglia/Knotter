@@ -39,6 +39,7 @@ class Graph_Item : public QGraphicsObject
 
 protected:
     bool            highlighted;
+    bool            visible;
 
 public:
     Graph_Item();
@@ -46,6 +47,7 @@ public:
     //virtual double distance_squared(QPointF to) const = 0;
 
     void set_highlighted(bool h) { highlighted = h; }
+    void set_visible(bool h) { visible = h; }
 };
 
 #endif // GRAPH_ITEM_HPP
