@@ -41,9 +41,9 @@ int main(int argc, char *argv[])
     Resource_Manager::register_cusp_shape(new Cusp_Ogee);
 
     Resource_Manager::register_edge_style(new Edge_Normal);
-   /* Resource_Manager::register_edge_style(new Edge_Inverted,"inverted");
-    Resource_Manager::register_edge_style(new Edge_Hole,"hole");
-    Resource_Manager::register_edge_style(new Edge_Wall,"wall");*/
+    Resource_Manager::register_edge_style(new Edge_Inverted);
+    Resource_Manager::register_edge_style(new Edge_Wall);
+    Resource_Manager::register_edge_style(new Edge_Hole);
     Resource_Manager::initialize();
 
     Main_Window mw;

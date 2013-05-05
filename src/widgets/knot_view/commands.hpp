@@ -513,5 +513,22 @@ public:
 };*/
 
 
-// node style
+// edge style
+class Change_Edge_Style : public Knot_Command
+{
+    Q_OBJECT
+    static int m_id;
+    Edge*       edge;
+    Edge_Style* before;
+    Edge_Style* after;
+public:
+    Change_Edge_Style(Edge*edge, Edge_Style*before, Edge_Style* after,
+                          Knot_View* kv, Knot_Macro* parent = nullptr);
+    void undo() override;
+    void redo() override;
+    int id() const override { return m_id; }
+    bool mergeWith(const QUndoCommand *other) override;
+};
+
+
 #endif // COMMANDS_HPP

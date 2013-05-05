@@ -130,6 +130,24 @@ public:
     static QVector<Edge_Style*> edge_styles() { return singleton.m_edge_styles; }
 
     /**
+     *  \brief Cycle edge styles
+     *
+     *  Returns a different edge style so that calling next_edge_style n times
+     *  ( where n is edge_styles().size() ) will return all installed styles.
+     *
+     *  Only returns NULL if there is no style available
+     */
+    static Edge_Style* next_edge_style(Edge_Style* style);
+    /**
+     *  \brief Cycle edge styles
+     *
+     *  Same as next_edge_style() but reversed
+     *
+     *  \sa next_edge_style
+     */
+    static Edge_Style* prev_edge_style(Edge_Style* style);
+
+    /**
      *  \brief Get edge style from its machine-readable name
      *
      *  Scans every register style to check a match to the given name,

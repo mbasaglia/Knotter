@@ -752,6 +752,18 @@ void Knot_View::wheelEvent(QWheelEvent *event)
         else
             zoom_view(1.25);
     }
+    else
+    {
+        QPointF p = mapToScene(event->pos());
+        Edge* e = edge_at(p);
+        if ( e )
+        {
+            Edge_Style* st = event->delta() < 0 ?
+                                Resource_Manager::next_edge_style(e->style()) :
+                                Resource_Manager::prev_edge_style(e->style()) ;
+            push_command(new Change_Edge_Style(e,e->style(),st,this));
+        }
+    }
 }
 
 

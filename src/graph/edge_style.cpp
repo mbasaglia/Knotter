@@ -54,73 +54,32 @@ void Edge_Style::paint(QPainter *painter, const Edge &edge)
     painter->drawLine(edge.to_line());
 }
 
-QLineF Edge_Style::handle(const Edge *edge, Edge::Handle handle,
+QLineF Edge_Normal::handle(const Edge *edge, Edge::Handle handle,
                           const Node_Style &default_style) const
 {
-    // set line from center to path point
-    QLineF line = edge->to_line();
-    line.setP1(edge->midpoint());
 
-    double handle_angle = 0;
+    long double handle_angle = 0;
     if ( handle == Edge::TOP_RIGHT )
-        handle_angle = 45;
+        handle_angle = pi()/4.0;
     else if ( handle == Edge::TOP_LEFT )
-        handle_angle = 135;
+        handle_angle = pi()*3.0/4.0;
     else if ( handle == Edge::BOTTOM_LEFT )
-        handle_angle = 225;
+        handle_angle = pi()*5.0/4.0;
     else if ( handle == Edge::BOTTOM_RIGHT )
-        handle_angle = 315;
+        handle_angle = pi()*7.0/4.0;
 
-    line.setAngle(line.angle()+handle_angle);
-    Node_Style s = edge->vertex_for(handle)->style().default_to(default_style);
-    line.setLength( s.crossing_distance/2 );
+    handle_angle += deg2rad(edge->to_line().angle());
+    QPointF p1 = edge->midpoint();
+    p1.setX(p1.x()+default_style.crossing_distance/2*qCos(handle_angle));
+    p1.setY(p1.y()-default_style.crossing_distance/2*qSin(handle_angle));
 
-    // set line from path point to control point
-    QLineF nextline;
-    nextline.setP1(line.p2());
-    nextline.setAngle(line.angle());
-    nextline.setLength(s.handle_length);
+    QPointF p2;
+    p2.setX(p1.x()+default_style.handle_length*qCos(handle_angle));
+    p2.setY(p1.y()-default_style.handle_length*qSin(handle_angle));
 
-    return nextline;
+    return QLineF(p1,p2);
 }
 
-
-void Edge_Inverted::paint(QPainter *painter, const Edge &edge)
-{
-    QPen pen = painter->pen();
-    pen.setStyle(Qt::DashLine);
-    painter->setPen(pen);
-
-    painter->drawLine(edge.to_line());
-}
-
-
-void Edge_Wall::paint(QPainter *painter, const Edge &edge)
-{
-    QPen pen = painter->pen();
-    pen.setWidth(pen.width()*3);
-    painter->setPen(pen);
-
-    painter->drawLine(edge.to_line());
-
-
-    QPen p(Qt::white,pen.width()/3);
-    p.setCosmetic(true);
-    painter->setPen(p);
-
-    painter->drawLine(edge.to_line());
-}
-
-
-void Edge_Hole::paint(QPainter *painter, const Edge &edge)
-{
-    QLineF l = edge.to_line().normalVector();
-    l.setLength(5);
-    l.translate((edge.vertex1()->pos()-edge.vertex2()->pos())/2);
-    painter->drawLine(l);
-    l.setLength(-5);
-    painter->drawLine(l);
-}
 
 
 Edge::Handle Edge_Normal::traverse(Edge *edge, Edge::Handle hand,
@@ -154,4 +113,202 @@ QString Edge_Normal::name() const
 QString Edge_Normal::machine_name() const
 {
     return "regular";
+}
+
+
+QString Edge_Inverted::machine_name() const
+{
+    return "inverted";
+}
+
+
+QString Edge_Inverted::name() const
+{
+    return QObject::tr("Inverted");
+}
+
+
+
+void Edge_Inverted::paint(QPainter *painter, const Edge &edge)
+{
+    QPen pen = painter->pen();
+    pen.setStyle(Qt::DashLine);
+    painter->setPen(pen);
+
+    painter->drawLine(edge.to_line());
+}
+
+Edge::Handle Edge_Inverted::traverse(Edge *edge, Edge::Handle hand,
+                    Path_Builder &path, const Node_Style &default_style) const
+{
+    Edge::Handle next = Edge::NO_HANDLE;
+    if ( hand == Edge::TOP_RIGHT )
+        next = Edge::BOTTOM_LEFT;
+    else if ( hand == Edge::BOTTOM_RIGHT )
+        next = Edge::TOP_LEFT;
+    else if ( hand == Edge::BOTTOM_LEFT )
+        next = Edge::TOP_RIGHT;
+    else if ( hand == Edge::TOP_LEFT )
+        next = Edge::BOTTOM_RIGHT;
+
+
+   if ( hand == Edge::TOP_RIGHT || next == Edge::TOP_RIGHT )
+       path.add_line(handle(edge,hand,default_style).p1(),
+                     handle(edge,next,default_style).p1()
+                     );
+
+   return next ;
+}
+
+
+
+void Edge_Wall::paint(QPainter *painter, const Edge &edge)
+{
+    QPen pen = painter->pen();
+    pen.setWidth(pen.width()*3);
+    painter->setPen(pen);
+
+    painter->drawLine(edge.to_line());
+
+
+    QPen p(Qt::white,pen.width()/3);
+    p.setCosmetic(true);
+    painter->setPen(p);
+
+    painter->drawLine(edge.to_line());
+}
+
+Edge::Handle Edge_Wall::traverse(Edge *edge, Edge::Handle handle,
+                        Path_Builder &path, const Node_Style &default_style) const
+{
+    Edge::Handle next = Edge::NO_HANDLE;
+    if ( handle == Edge::TOP_RIGHT )
+        next = Edge::TOP_LEFT;
+    else if ( handle == Edge::BOTTOM_RIGHT )
+        next = Edge::BOTTOM_LEFT;
+    else if ( handle == Edge::BOTTOM_LEFT )
+        next = Edge::BOTTOM_RIGHT;
+    else if ( handle == Edge::TOP_LEFT )
+        next = Edge::TOP_RIGHT;
+
+    Q_UNUSED(edge);
+    Q_UNUSED(path);
+    Q_UNUSED(default_style);
+
+   return next ;
+}
+
+
+QString Edge_Wall::name() const
+{
+    return QObject::tr("Wall");
+}
+
+QString Edge_Wall::machine_name() const
+{
+    return "wall";
+}
+
+QLineF Edge_Wall::handle(const Edge *edge, Edge::Handle handle,
+                         const Node_Style &default_style) const
+{
+
+    long double handle_angle = 0;
+    if ( handle == Edge::TOP_RIGHT || handle == Edge::TOP_LEFT )
+        handle_angle = pi()/2.0;
+    else
+        handle_angle = pi()*3.0/2.0;
+
+    long double edge_angle = deg2rad(edge->to_line().angle());
+    handle_angle += edge_angle;
+
+    QPointF p1 = edge->midpoint();
+    p1.setX(p1.x()+default_style.crossing_distance*qCos(handle_angle));
+    p1.setY(p1.y()-default_style.crossing_distance*qSin(handle_angle));
+
+
+    if ( handle == Edge::TOP_RIGHT || handle == Edge::BOTTOM_RIGHT )
+        handle_angle = 0;
+    else
+        handle_angle = pi();
+    handle_angle += edge_angle;
+
+    QPointF p2;
+    p2.setX(p1.x()+default_style.handle_length*qCos(handle_angle));
+    p2.setY(p1.y()-default_style.handle_length*qSin(handle_angle));
+
+    return QLineF(p1,p2);
+}
+
+
+QString Edge_Hole::name() const
+{
+    return QObject::tr("Hole");
+}
+
+QString Edge_Hole::machine_name() const
+{
+    return "hole";
+}
+
+QLineF Edge_Hole::handle(const Edge *edge, Edge::Handle handle,
+                         const Node_Style &default_style) const
+{
+    long double handle_angle = 0;
+    if ( handle == Edge::BOTTOM_LEFT || handle == Edge::TOP_LEFT )
+        handle_angle = pi();
+
+    long double edge_angle = deg2rad(edge->to_line().angle());
+    handle_angle += edge_angle;
+
+    QPointF p1 = edge->midpoint();
+    p1.setX(p1.x()+default_style.crossing_distance/2*qCos(handle_angle));
+    p1.setY(p1.y()-default_style.crossing_distance/2*qSin(handle_angle));
+
+
+    if ( handle == Edge::TOP_RIGHT || handle == Edge::TOP_LEFT )
+        handle_angle = pi()/2.0;
+    else
+        handle_angle = pi()*3.0/2.0;
+    handle_angle += edge_angle;
+
+    QPointF p2;
+    p2.setX(p1.x()+default_style.handle_length*qCos(handle_angle));
+    p2.setY(p1.y()-default_style.handle_length*qSin(handle_angle));
+
+    return QLineF(p1,p2);
+
+}
+
+
+void Edge_Hole::paint(QPainter *painter, const Edge &edge)
+{
+    QLineF l = edge.to_line().normalVector();
+    l.setLength(5);
+    l.translate((edge.vertex1()->pos()-edge.vertex2()->pos())/2);
+    painter->drawLine(l);
+    l.setLength(-5);
+    painter->drawLine(l);
+}
+
+Edge::Handle Edge_Hole::traverse(Edge *edge, Edge::Handle handle,
+                                 Path_Builder &path,
+                                 const Node_Style &default_style) const
+{
+
+    Edge::Handle next = Edge::NO_HANDLE;
+    if ( handle == Edge::TOP_RIGHT )
+        next = Edge::BOTTOM_RIGHT;
+    else if ( handle == Edge::BOTTOM_RIGHT )
+        next = Edge::TOP_RIGHT;
+    else if ( handle == Edge::BOTTOM_LEFT )
+        next = Edge::TOP_LEFT;
+    else if ( handle == Edge::TOP_LEFT )
+        next = Edge::BOTTOM_LEFT;
+
+    Q_UNUSED(edge);
+    Q_UNUSED(path);
+    Q_UNUSED(default_style);
+
+   return next ;
 }

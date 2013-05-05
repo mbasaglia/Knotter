@@ -247,6 +247,31 @@ Edge_Style *Resource_Manager::default_edge_style()
     return singleton.m_edge_styles.front();
 }
 
+Edge_Style *Resource_Manager::next_edge_style(Edge_Style *style)
+{
+    int sz = singleton.m_edge_styles.size();
+    for ( int i = 0; i < sz; i++ )
+        if ( singleton.m_edge_styles[i] == style )
+            return singleton.m_edge_styles[(i+1)%sz];
+    return default_edge_style();
+}
+
+Edge_Style *Resource_Manager::prev_edge_style(Edge_Style *style)
+{
+    int sz = singleton.m_edge_styles.size();
+    for ( int i = sz-1; i >= 0; i-- )
+    {
+        if ( singleton.m_edge_styles[i] == style )
+        {
+            if ( i == 0 )
+                return singleton.m_edge_styles.back();
+
+            return singleton.m_edge_styles[i-1];
+        }
+    }
+    return default_edge_style();
+}
+
 Edge_Style *Resource_Manager::edge_style_from_machine_name(QString name)
 {
     foreach(Edge_Style* st, singleton.m_edge_styles )

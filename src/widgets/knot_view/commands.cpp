@@ -543,3 +543,35 @@ void Node_Style_All::redo()
     node->set_style(after);
     update_knot();
 }*/
+
+
+int Change_Edge_Style::m_id = generate_id();
+Change_Edge_Style::Change_Edge_Style(Edge *edge, Edge_Style *before, Edge_Style *after,
+                                     Knot_View *kv, Knot_Macro *parent)
+    :Knot_Command(kv,parent), edge(edge), before(before), after(after)
+{
+    setText(tr("Change Edge Type"));
+}
+
+void Change_Edge_Style::undo()
+{
+    edge->set_style(before);
+    update_knot();
+}
+
+void Change_Edge_Style::redo()
+{
+    edge->set_style(after);
+    update_knot();
+}
+
+bool Change_Edge_Style::mergeWith(const QUndoCommand *other)
+{
+    const Change_Edge_Style* cc = static_cast<const Change_Edge_Style*>(other);
+    if ( cc->edge == edge )
+    {
+        after = cc->after;
+        return true;
+    }
+    return false;
+}

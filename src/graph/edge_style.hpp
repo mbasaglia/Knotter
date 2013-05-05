@@ -55,7 +55,7 @@ public:
      *  p1 is the point where the path line should pass, p2 the control point
      */
     virtual QLineF handle(const Edge *edge, Edge::Handle handle,
-                          const Node_Style &default_style) const;
+                          const Node_Style &default_style) const = 0;
 
     /// (Translated) Human-readable name, used in the UI
     virtual QString name() const = 0;
@@ -68,31 +68,52 @@ public:
 
 class Edge_Normal : public Edge_Style
 {
-
+public:
     /**
      *  \brief Perform any rendering to path and return the next handle
     */
-    virtual Edge::Handle traverse(Edge* edge, Edge::Handle handle,Path_Builder& path,
+    Edge::Handle traverse(Edge* edge, Edge::Handle handle,Path_Builder& path,
+                          const Node_Style& default_style ) const override;
+    QString name() const override;
+    QString machine_name() const override;
+    QLineF handle(const Edge *edge, Edge::Handle handle,
+                  const Node_Style &default_style) const override;
+};
+
+
+class Edge_Inverted : public Edge_Normal
+{
+public:
+    void paint(QPainter*painter, const Edge& edge) override;
+    Edge::Handle traverse(Edge* edge, Edge::Handle handle,Path_Builder& path,
                           const Node_Style& default_style ) const override;
     QString name() const override;
     QString machine_name() const override;
 };
 
-
-class Edge_Inverted : public Edge_Style
-{
-    void paint(QPainter*painter, const Edge& edge) override;
-};
-
 class Edge_Wall : public Edge_Style
 {
+public:
     void paint(QPainter*painter, const Edge& edge) override;
+    Edge::Handle traverse(Edge* edge, Edge::Handle handle,Path_Builder& path,
+                          const Node_Style& default_style ) const override;
+    QString name() const override;
+    QString machine_name() const override;
+    QLineF handle(const Edge *edge, Edge::Handle handle,
+                  const Node_Style &default_style) const override;
 };
 
 
 class Edge_Hole : public Edge_Style
 {
+public:
     void paint(QPainter*painter, const Edge& edge) override;
+    Edge::Handle traverse(Edge* edge, Edge::Handle handle,Path_Builder& path,
+                          const Node_Style& default_style ) const override;
+    QString name() const override;
+    QString machine_name() const override;
+    QLineF handle(const Edge *edge, Edge::Handle handle,
+                  const Node_Style &default_style) const override;
 };
 
 

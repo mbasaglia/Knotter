@@ -66,4 +66,8 @@ inline QPointF project(QPointF point, QLineF line)
     return intersection;
 }
 
+Q_DECL_CONSTEXPR inline long double pi() { return 3.1415926535897932384626433832L; }
+Q_DECL_CONSTEXPR inline long double deg2rad(long double deg ) { return deg/180*pi(); }
+Q_DECL_CONSTEXPR inline long double rad2deg(long double rad ) { return rad*180/pi(); }
+
 #endif // POINT_MATH_HPP
