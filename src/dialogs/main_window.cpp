@@ -253,6 +253,9 @@ void Main_Window::connect_view(Knot_View *v)
     zoomer->setValue(v->get_zoom_factor()*100);
     connect(v,SIGNAL(zoomed(double)),zoomer,SLOT(setValue(double)));
 
+    // statusbar
+    connect(v,SIGNAL(mose_position_changed(QPointF)),SLOT(update_mouse_pos(QPointF)));
+
     // edit mode
     connect(action_Edit_Graph,SIGNAL(triggered()),v,SLOT(set_mode_edit_graph()),
             Qt::UniqueConnection);
@@ -586,6 +589,12 @@ void Main_Window::save(bool force_select)
             QMessageBox::warning(this,tr("File Error"),
                     tr("Failed to save file \"%1\".").arg(file) );
     }
+}
+
+void Main_Window::update_mouse_pos(QPointF pos)
+{
+    //: Displaying mouse position, %1 = x, %2 = y
+    statusBar()->showMessage(tr("(%1,%2)").arg(pos.x()).arg(pos.y()));
 }
 
 void Main_Window::on_action_Mirror_Horizontal_triggered()

@@ -139,6 +139,8 @@ private slots:
      */
     void save(bool force_select);
 
+    void update_mouse_pos(QPointF pos);
+
     void on_action_Preferences_triggered();
     void on_action_Display_Graph_toggled(bool arg1);
     void on_action_Zoom_In_triggered();

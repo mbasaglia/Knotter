@@ -699,6 +699,7 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
     QPoint mpos = event->pos();
     QPointF scene_pos = mapToScene(mpos);
     QPointF snapped_scene_pos = m_grid.nearest(scene_pos);
+    QPointF emitted_pos = scene_pos;
 
     if ( event->buttons() & Qt::MiddleButton  )
     {
@@ -748,11 +749,15 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
             /// \todo if fluid refresh
             update_knot();
         }
+        emitted_pos = snapped_scene_pos;
+
     }
     else if ( mouse_mode & EDGE_CHAIN )
     {
         if ( last_node )
             guide.setLine(QLineF(last_node->pos(),snapped_scene_pos));
+
+        emitted_pos = snapped_scene_pos;
     }
 
 
@@ -770,6 +775,7 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
 
     move_center = mpos;
     scene()->invalidate();
+    emit mose_position_changed(emitted_pos);
 }
 
 

@@ -319,6 +319,8 @@ signals:
 
     void selection_changed(QList<Node*>);
 
+    void mose_position_changed(QPointF);
+
 protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
