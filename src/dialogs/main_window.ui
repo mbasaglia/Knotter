@@ -146,8 +146,6 @@
     <addaction name="action_Merge"/>
     <addaction name="action_Erase"/>
     <addaction name="separator"/>
-    <addaction name="action_Snap_to_Grid"/>
-    <addaction name="separator"/>
     <addaction name="actionSelect_Connected"/>
     <addaction name="separator"/>
     <addaction name="action_Mirror_Horizontal"/>
@@ -215,10 +213,18 @@
     <addaction name="separator"/>
     <addaction name="action_Configure_Plugins"/>
    </widget>
+   <widget class="QMenu" name="menu_Grid">
+    <property name="title">
+     <string>&amp;Grid</string>
+    </property>
+    <addaction name="action_Snap_to_Grid"/>
+    <addaction name="action_Enable_Grid"/>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
    <addaction name="menu_View"/>
    <addaction name="menu_Nodes"/>
+   <addaction name="menu_Grid"/>
    <addaction name="menu_Tools"/>
    <addaction name="menu_Plugins"/>
    <addaction name="menu_Help"/>
@@ -770,6 +776,20 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="action_Enable_Grid">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="grid-square"/>
+   </property>
+   <property name="text">
+    <string>&amp;Enable Grid</string>
    </property>
   </action>
  </widget>

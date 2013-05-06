@@ -48,7 +48,8 @@ void Dock_Grid::set_grid(Snapping_Grid *target_grid)
         combo_shape->setCurrentIndex(target->shape());
 
         check_enable->setChecked(target->is_enabled());
-        connect(check_enable,SIGNAL(toggled(bool)),target,SLOT(enable(bool)));
+        connect(check_enable,SIGNAL(clicked(bool)),target,SLOT(enable(bool)));
+        connect(target,SIGNAL(enabled(bool)),check_enable,SLOT(setChecked(bool)));
 
         spin_x->blockSignals(true);
         spin_x->setValue(target->origin().x());
@@ -76,6 +77,7 @@ void Dock_Grid::unset_grid(Snapping_Grid *grid)
         grid->disconnect(this);
         disconnect(grid);
         check_enable->disconnect(grid);
+        grid->disconnect(check_enable);
         spin_size->disconnect(grid);
         set_grid( nullptr );
     }

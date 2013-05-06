@@ -152,14 +152,25 @@
           <property name="verticalSpacing">
            <number>3</number>
           </property>
+          <item row="2" column="0">
+           <widget class="QPushButton" name="button_reset">
+            <property name="text">
+             <string>Reset</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QDoubleSpinBox" name="spin_y">
+            <property name="minimum">
+             <double>-8192.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>8192.000000000000000</double>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_3">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
             <property name="text">
              <string>x</string>
             </property>
@@ -175,34 +186,17 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_4">
-            <property name="text">
-             <string>y</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QDoubleSpinBox" name="spin_y">
-            <property name="minimum">
-             <double>-8192.000000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>8192.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QPushButton" name="button_reset">
-            <property name="text">
-             <string>Reset</string>
-            </property>
-           </widget>
-          </item>
           <item row="2" column="1">
            <widget class="QPushButton" name="button_move">
             <property name="text">
              <string>Move...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>y</string>
             </property>
            </widget>
           </item>

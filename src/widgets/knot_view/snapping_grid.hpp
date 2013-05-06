@@ -83,7 +83,8 @@ public slots:
 signals:
     void grid_changed();
     void moved(QPointF);
-    
+    void shape_changed(int);
+    void enabled(bool);
 };
 
 #endif // SNAPPING_GRID_HPP

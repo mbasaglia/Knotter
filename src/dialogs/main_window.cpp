@@ -38,6 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "xml_loader.hpp"
 #include <QDrag>
 #include <QMouseEvent>
+#include "commands.hpp"
 
 
 Main_Window::Main_Window(QWidget *parent) :
@@ -178,6 +179,7 @@ void Main_Window::init_docks()
     // Grid config
     dock_grid = new Dock_Grid(this);
     addDockWidget(Qt::RightDockWidgetArea,dock_grid);
+    menu_Grid->insertAction(0,dock_grid->toggleViewAction());
 
     // Action History Dock
     undo_view = new QUndoView(&undo_group);
@@ -272,6 +274,10 @@ void Main_Window::connect_view(Knot_View *v)
     // grid editor
     dock_grid->set_grid(&v->grid());
     connect(dock_grid,SIGNAL(move_grid()),v,SLOT(set_mode_move_grid()));
+    action_Enable_Grid->setChecked(v->grid().is_enabled());
+    connect(action_Enable_Grid,SIGNAL(triggered(bool)),&v->grid(),SLOT(enable(bool)));
+    connect(&v->grid(),SIGNAL(enabled(bool)),action_Enable_Grid,SLOT(setChecked(bool)));
+    connect(&v->grid(),SIGNAL(shape_changed(int)),SLOT(update_grid_icon(int)));
 
     // background
     connect(dock_background,SIGNAL(background_changed(QColor)),
@@ -348,8 +354,11 @@ void Main_Window::disconnect_view(Knot_View *v)
 
         disconnect(v,SIGNAL(zoomed(double)),zoomer,SLOT(setValue(double)));
 
-        disconnect(dock_grid,SIGNAL(move_grid()),v,SLOT(set_mode_move_grid()));
+        dock_grid->disconnect(v);
         dock_grid->unset_grid(&v->grid());
+        v->grid().disconnect(this);
+        v->grid().disconnect(action_Enable_Grid);
+        action_Enable_Grid->disconnect(&v->grid());
 
         dock_background->disconnect(v);
         dock_background->disconnect(&v->background_image());
@@ -597,6 +606,19 @@ void Main_Window::update_mouse_pos(QPointF pos)
     statusBar()->showMessage(tr("(%1,%2)").arg(pos.x()).arg(pos.y()));
 }
 
+void Main_Window::update_grid_icon(int shape)
+{
+    QAction* act = findChild<QAction*>("action_Enable_Grid");
+    if ( !act )
+        return;
+    if ( shape == Snapping_Grid::TRIANGLE1 )
+        act->setIcon(QIcon::fromTheme("grid-triangle-h"));
+    else if ( shape == Snapping_Grid::TRIANGLE2 )
+        act->setIcon(QIcon::fromTheme("grid-triangle-v"));
+    else
+        act->setIcon(QIcon::fromTheme("grid-square"));
+}
+
 void Main_Window::on_action_Mirror_Horizontal_triggered()
 {
     view->flip_horiz_selection();
@@ -777,4 +799,16 @@ void Main_Window::dropEvent(QDropEvent *event)
         QBuffer read_data(&clip_data);
         view->load_file(&read_data,tr("Drop"));
     }
+}
+
+void Main_Window::on_action_Snap_to_Grid_triggered()
+{
+    view->begin_macro(tr("Snap to Grid"));
+    foreach(Node*node, view->selected_nodes())
+    {
+        view->push_command(new Move_Node(node,node->pos(),
+                                         view->grid().nearest(node->pos()),view));
+    }
+
+    view->end_macro();
 }

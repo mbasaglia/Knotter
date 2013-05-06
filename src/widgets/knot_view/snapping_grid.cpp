@@ -157,9 +157,10 @@ void Snapping_Grid::render(QPainter *painter, const QRectF &rect) const
     painter->drawLines(lines.data(), lines.size());
 }
 
-void Snapping_Grid::enable(bool enabled)
+void Snapping_Grid::enable(bool enable)
 {
-    m_enabled = enabled;
+    m_enabled = enable;
+    emit enabled(enable);
     emit grid_changed();
 }
 
@@ -175,6 +176,7 @@ void Snapping_Grid::set_size(int size)
 void Snapping_Grid::set_shape(Snapping_Grid::Grid_Shape shape)
 {
     m_shape = shape;
+    emit shape_changed(int(shape));
     emit grid_changed();
 }
 
@@ -184,3 +186,4 @@ void Snapping_Grid::set_origin(QPointF origin)
     emit grid_changed();
     emit moved(origin);
 }
+

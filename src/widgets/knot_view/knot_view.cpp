@@ -827,7 +827,11 @@ void Knot_View::mouseDoubleClickEvent(QMouseEvent *event)
         Node *node=node_at(scene_pos);
 
         if ( node )
-            node->setPos(snapped_scene_pos);
+        {
+            begin_macro(tr("Snap to Grid"));
+            push_command(new Move_Node(node,node->pos(),snapped_scene_pos,this));
+            end_macro();
+        }
         else
             add_breaking_node(snapped_scene_pos);
 
