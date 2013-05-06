@@ -74,6 +74,7 @@ class Knot_View : public QGraphicsView
     QGraphicsRectItem   rubberband;  ///< Draggable selection rectangle
     Node_Mover          node_mover;  ///< Helper to manage movement of the nodes
     QString             m_file_name; ///< Full name of the open file
+    bool                paint_graph; ///< Whether to paint the graph
 
 public:
 
@@ -186,9 +187,9 @@ public:
      */
     bool edit_graph_mode_enabled() const { return mouse_mode & EDIT_GRAPH; }
 
-    bool load_file(QIODevice* device);
+    bool load_file(QIODevice* device, QString action_name);
 
-    void set_paint_mode(Graph::Paint_Mode_Enum pm, bool enable);
+    void set_display_graph(bool enable);
 
     /**
      *  \brief Place new nodes on the view

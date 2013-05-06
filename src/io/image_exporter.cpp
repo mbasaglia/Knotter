@@ -33,10 +33,9 @@ void paint_knot(const Graph& graph , QPaintDevice *device, bool draw_graph)
     QPainter painter;
     painter.begin(device);
 
-    Graph::Paint_Mode mode = Graph::PAINT_KNOT;
     if ( draw_graph )
-        mode |=  Graph::PAINT_GRAPH;
-    graph.const_paint(&painter,mode);
+        graph.paint_graph(&painter);
+    graph.const_paint(&painter);
 
     painter.end();
 }
@@ -82,10 +81,9 @@ void export_raster(const Graph& graph, QIODevice &file, QColor background,
     painter.translate(offset);
     painter.scale(scale_x,scale_y);
 
-    Graph::Paint_Mode mode = Graph::PAINT_KNOT;
     if ( draw_graph )
-        mode |=  Graph::PAINT_GRAPH;
-    graph.const_paint(&painter,mode);
+        graph.paint_graph(&painter);
+    graph.const_paint(&painter);
 
     painter.end();
 

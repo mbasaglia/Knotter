@@ -48,14 +48,17 @@ protected:
     QGraphicsScene* scene;
 
     /**
-     *  Adjust view->last_node and view->guide
+     *  \brief Adjust view->last_node and view->guide
      */
     void set_last_node(Node* n);
 
     /**
-     *  Update knot only if has no parent
+     *  \brief Update knot only if has no parent
      */
     void update_knot() const;
+
+    /// Whether the path items shoud be visible
+    bool graph_visible() const { return view->paint_graph; }
 
 public:
     Knot_Command(Knot_View* view, Knot_Macro* parent );

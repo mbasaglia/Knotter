@@ -70,8 +70,8 @@ QLineF Edge_Normal::handle(const Edge *edge, Edge::Handle handle,
 
     handle_angle += deg2rad(edge->to_line().angle());
     QPointF p1 = edge->midpoint();
-    p1.setX(p1.x()+default_style.crossing_distance/2*qCos(handle_angle));
-    p1.setY(p1.y()-default_style.crossing_distance/2*qSin(handle_angle));
+    p1.setX(p1.x()+default_style.crossing_distance*qCos(handle_angle));
+    p1.setY(p1.y()-default_style.crossing_distance*qSin(handle_angle));
 
     QPointF p2;
     p2.setX(p1.x()+default_style.handle_length*qCos(handle_angle));

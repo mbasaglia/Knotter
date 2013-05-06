@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Graph::Graph() :
     m_default_node_style(225,24,10,32,Resource_Manager::default_cusp_shape(),
                   Node_Style::EVERYTHING),
-    m_paint_mode(PAINT_KNOT),
     auto_color(false)
 {
     m_colors.push_back(Qt::black);
@@ -50,7 +49,6 @@ Graph &Graph::operator= ( const Graph &o )
     m_colors = o.m_colors;
     m_default_node_style = o.m_default_node_style;
     m_nodes = o.m_nodes;
-    m_paint_mode = o.m_paint_mode;
     bounding_box = o.bounding_box;
     auto_color = o.auto_color;
     paths = o.paths;
@@ -64,13 +62,11 @@ Graph &Graph::operator= ( const Graph &o )
 void Graph::add_node(Node *n)
 {
     m_nodes.append(n);
-    n->set_visible( m_paint_mode & PAINT_GRAPH );
 }
 
 void Graph::add_edge(Edge *e)
 {
     m_edges.append(e);
-    e->set_visible( m_paint_mode & PAINT_GRAPH );
     e->attach();
 }
 
@@ -95,26 +91,6 @@ void Graph::remove_edge(Edge *e)
     foreach(Node* n, m_nodes)
         remove_node(n);
 }*/
-
-void Graph::set_paint_mode(Paint_Mode mode)
-{
-    m_paint_mode = mode;
-}
-
-void Graph::toggle_paint_flag(Graph::Paint_Mode_Enum flag)
-{
-    set_paint_mode ( m_paint_mode ^ flag );
-}
-
-void Graph::enable_paint_flag(Graph::Paint_Mode_Enum flag)
-{
-    set_paint_mode ( m_paint_mode | flag );
-}
-
-void Graph::disable_paint_flag(Graph::Paint_Mode_Enum flag)
-{
-    set_paint_mode ( m_paint_mode & ~flag );
-}
 
 void Graph::set_colors(const QList<QColor> &l)
 {
@@ -148,25 +124,13 @@ void Graph::set_width(double w)
 
 void Graph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    const_paint(painter,option,widget,m_paint_mode);
+    const_paint(painter,option,widget);
 }
 
-void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                        QWidget *widget, Paint_Mode mode) const
+void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) const
 {
-    if ( mode & PAINT_GRAPH )
-    {
-        foreach(Edge* e, m_edges)
-            e->paint(painter,option,widget);
-        foreach(Node* n, m_nodes)
-        {
-            painter->translate(n->pos());
-            n->paint(painter,option,widget);
-            painter->translate(-n->pos());
-        }
-    }
 
-    if ( mode & PAINT_KNOT && ! m_colors.empty() )
+    if ( ! m_colors.empty() )
     {
         painter->setBrush(Qt::NoBrush);
         QPen p = pen;
@@ -182,9 +146,17 @@ void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     }
 }
 
-void Graph::const_paint(QPainter *painter, Paint_Mode mode) const
+void Graph::paint_graph(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) const
 {
-    const_paint(painter,nullptr,nullptr,mode);
+
+    foreach(Edge* e, m_edges)
+        e->paint(painter,option,widget);
+    foreach(Node* n, m_nodes)
+    {
+        painter->translate(n->pos());
+        n->paint(painter,option,widget);
+        painter->translate(-n->pos());
+    }
 }
 
 void Graph::render_knot()
@@ -206,13 +178,6 @@ Graph Graph::sub_graph(QList<Node *> nodes) const
     graph.m_nodes.reserve(nodes.size());
     graph.m_edges.reserve(nodes.size());
 
-    graph.set_brush_style(brush_style());
-    graph.set_colors(colors());
-    graph.set_custom_colors(custom_colors());
-    graph.set_default_node_style(default_node_style());
-    graph.set_join_style(join_style());
-    graph.set_paint_mode(paint_mode());
-    graph.set_width(width());
 
 
     foreach ( Node* n, nodes )

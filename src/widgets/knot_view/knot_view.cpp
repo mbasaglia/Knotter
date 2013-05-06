@@ -75,13 +75,54 @@ Knot_View::Knot_View(QString file)
 }
 
 
+bool Knot_View::load_file(QIODevice *device, QString action_name )
+{
+    Graph loaded;
+    if (  !import_xml(device,loaded) )
+        return false;
+
+
+    begin_macro(action_name);
+
+
+    foreach(Node* n,graph.nodes())
+    {
+        push_command(new Remove_Node(n,this));
+    }
+    foreach(Edge* e,graph.edges())
+    {
+        push_command(new Remove_Edge(e,this));
+    }
+
+    push_command(new Knot_Width(graph.width(),loaded.width(),this));
+    push_command(new Change_Colors(graph.colors(),loaded.colors(),this));
+    push_command(new Custom_Colors(graph.custom_colors(),loaded.custom_colors(),this));
+    push_command(new Pen_Join_Style(graph.join_style(),loaded.join_style(),this));
+    push_command(new Knot_Style_All(graph.default_node_style(),
+                                    loaded.default_node_style(), this));
+
+    foreach(Node* n,loaded.nodes())
+    {
+        push_command(new Create_Node(n,this));
+    }
+    foreach(Edge* e,loaded.edges())
+    {
+        push_command(new Create_Edge(e,this));
+        /// \todo commands for style
+    }
+
+    end_macro();
+
+    return true;
+}
+
 
 bool Knot_View::load_file(QString fname)
 {
     if ( !fname.isEmpty() )
     {
         QFile file(fname);
-        if ( load_file(&file) )
+        if ( load_file(&file,tr("Load File")) )
         {
             setWindowFilePath(fname);
             m_file_name = fname;
@@ -253,54 +294,17 @@ void Knot_View::flip_vert_selection()
     end_macro();
 }
 
-bool Knot_View::load_file(QIODevice *device)
+void Knot_View::set_display_graph(bool enable)
 {
-    Graph loaded;
-    if (  !import_xml(device,loaded) )
-        return false;
+    paint_graph = enable;
 
-    begin_macro(tr("Load File"));
+    foreach ( Node* n, graph.nodes() )
+        n->set_visible( enable );
 
-
-    foreach(Node* n,graph.nodes())
-    {
-        push_command(new Remove_Node(n,this));
-    }
-    foreach(Edge* e,graph.edges())
-    {
-        push_command(new Remove_Edge(e,this));
-    }
-
-    push_command(new Knot_Width(graph.width(),loaded.width(),this));
-    push_command(new Change_Colors(graph.colors(),loaded.colors(),this));
-    push_command(new Custom_Colors(graph.custom_colors(),loaded.custom_colors(),this));
-    push_command(new Pen_Join_Style(graph.join_style(),loaded.join_style(),this));
-    push_command(new Knot_Style_All(graph.default_node_style(),
-                                    loaded.default_node_style(), this));
-
-    foreach(Node* n,loaded.nodes())
-    {
-        push_command(new Create_Node(n,this));
-    }
-    foreach(Edge* e,loaded.edges())
-    {
-        push_command(new Create_Edge(e,this));
-        /// \todo commands for style
-    }
-
-    end_macro();
-
-    return true;
+    foreach ( Edge* e, graph.edges() )
+        e->set_visible( enable);
 }
 
-void Knot_View::set_paint_mode(Graph::Paint_Mode_Enum pm, bool enable)
-{
-    if ( enable )
-        graph.enable_paint_flag(pm);
-    else
-        graph.disable_paint_flag(pm);
-    scene()->invalidate(graph.boundingRect());
-}
 
 void Knot_View::translate_view(QPointF delta)
 {

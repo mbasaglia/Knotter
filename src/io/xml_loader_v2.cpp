@@ -201,7 +201,7 @@ Node_Style XML_Loader_v2::get_cusp(QString name)
     QDomElement egap = cusp.firstChildElement("gap");
     if ( !egap.isNull() )
     {
-        cusp_style_info.crossing_distance =  2*egap.text().toDouble();
+        cusp_style_info.crossing_distance =  egap.text().toDouble();
         cusp_style_info.enabled_style |= Node_Style::CROSSING_DISTANCE;
     }
 

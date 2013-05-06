@@ -40,20 +40,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 class Graph : public QGraphicsItem
 {
-    Q_FLAGS(Paint_Mode_Enum Paint_Mode)
-public:
-    enum Paint_Mode_Enum {
-        PAINT_GRAPH = 0x01, ///< renders the graph
-        PAINT_KNOT  = 0x02  ///< renders the knot
-    };
-    Q_DECLARE_FLAGS(Paint_Mode,Paint_Mode_Enum)
 
 private:
     QList<Node*>        m_nodes;
     QList<Edge*>        m_edges;
     Node_Style          m_default_node_style;
     QRectF              bounding_box;
-    Paint_Mode          m_paint_mode;
     QList<QColor>       m_colors;
     bool                auto_color;
     QList<QPainterPath> paths;    ///< Rendered knot (one per loop)
@@ -100,31 +92,6 @@ public:
     QList<Node*> nodes() const { return m_nodes; }
     QList<Edge*> edges() const { return m_edges; }
 
-    /**
-     *  \brief Set the paint mode to the given paint mode
-    */
-    void set_paint_mode( Paint_Mode mode );
-    /**
-     *  \brief Toggles the given flag from the paint mode
-     *
-     *  Performs paint_mode XOR flag
-    */
-    void toggle_paint_flag ( Paint_Mode_Enum flag );
-    /**
-     *  \brief Enables the given flag in the paint mode
-     *
-     *  Performs paint_mode OR flag
-    */
-    void enable_paint_flag ( Paint_Mode_Enum flag );
-    /**
-     *  \brief Disables the given flag from the paint mode
-     *
-     *  Performs paint_mode NAND flag
-    */
-    void disable_paint_flag ( Paint_Mode_Enum flag );
-
-    /// Get paint mode
-    Paint_Mode paint_mode() const { return m_paint_mode; }
 
     const QList<QColor>& colors() const { return m_colors; }
     void set_colors(const QList<QColor>& l);
@@ -152,8 +119,10 @@ public:
                QWidget *widget=nullptr);
     void const_paint(QPainter *painter,
                      const QStyleOptionGraphicsItem *option=nullptr,
-                     QWidget *widget=nullptr, Paint_Mode mode = PAINT_KNOT ) const;
-    void const_paint(QPainter *painter, Paint_Mode mode) const;
+                     QWidget *widget=nullptr ) const;
+    /// Paint edges and nodes
+    void paint_graph(QPainter *painter,const QStyleOptionGraphicsItem *option=nullptr,
+                     QWidget *widget=nullptr) const;
     QRectF boundingRect() const override { return bounding_box; }
     int type() const override { return UserType+0x03; }
 

@@ -81,6 +81,7 @@ void Create_Node::redo()
 {
     graph->add_node(node);
     scene->addItem(node);
+    node->set_visible(graph_visible());
     update_knot();
 }
 
@@ -101,12 +102,15 @@ void Create_Edge::undo()
 {
     graph->remove_edge(edge);
     scene->removeItem(edge);
+    update_knot();
 }
 
 void Create_Edge::redo()
 {
     graph->add_edge(edge);
     scene->addItem(edge);
+    edge->set_visible(graph_visible());
+    update_knot();
 }
 
 
@@ -149,6 +153,7 @@ void Remove_Edge::undo()
 {
     graph->add_edge(edge);
     scene->addItem(edge);
+    edge->set_visible(graph_visible());
     update_knot();
 }
 
@@ -294,6 +299,7 @@ void Remove_Node::undo()
 {
     graph->add_node(node);
     scene->addItem(node);
+    node->set_visible(graph_visible());
     update_knot();
 }
 

@@ -85,6 +85,10 @@ public slots:
      */
     void close_tab(int i);
 
+protected:
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dropEvent(QDropEvent *) override;
+
 private:
     /// Initialize menus
     void init_menus();
@@ -151,11 +155,11 @@ private slots:
     void on_action_Mirror_Vertical_triggered();
     void on_action_Select_All_triggered();
     void on_actionSelect_Connected_triggered();
-    void on_action_Display_Knot_triggered(bool checked);
     void on_action_Insert_Polygon_triggered();
     void on_action_Copy_triggered();
     void on_action_Paste_triggered();
     void on_action_Cut_triggered();
+    void on_tabWidget_dragAway(int tab);
 };
 
 #endif // MAIN_WINDOW_HPP

@@ -36,6 +36,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QClipboard>
 #include <QBuffer>
 #include "xml_loader.hpp"
+#include <QDrag>
+#include <QMouseEvent>
+
 
 Main_Window::Main_Window(QWidget *parent) :
     QMainWindow(parent), zoomer(nullptr), view(nullptr),
@@ -330,8 +333,7 @@ void Main_Window::connect_view(Knot_View *v)
     dialog_export_image.set_view(v);
 
     // paint mode
-    v->set_paint_mode(Graph::PAINT_GRAPH,action_Display_Graph->isChecked());
-    v->set_paint_mode(Graph::PAINT_KNOT,action_Display_Knot->isChecked());
+    v->set_display_graph(action_Display_Graph->isChecked());
 
 }
 
@@ -497,7 +499,6 @@ void Main_Window::close_tab(int i)
         create_tab();
 }
 
-
 void Main_Window::set_undo_text(QString txt)
 {
     action_Undo->setText(tr("Undo %1").arg(txt));
@@ -627,12 +628,7 @@ void Main_Window::on_action_Display_Graph_toggled(bool checked)
     action_Display_Graph->setIcon(QIcon::fromTheme(
                                    checked ? "knot-graph-on" : "knot-graph-off"
                                    ));
-    view->set_paint_mode(Graph::PAINT_GRAPH,checked);
-}
-
-void Main_Window::on_action_Display_Knot_triggered(bool checked)
-{
-    view->set_paint_mode(Graph::PAINT_KNOT,checked);
+    view->set_display_graph(checked);
 }
 
 void Main_Window::on_action_Insert_Polygon_triggered()
@@ -723,4 +719,53 @@ void Main_Window::on_action_Cut_triggered()
     foreach(Node*n, view->selected_nodes() )
         view->remove_node(n);
     view->end_macro();
+}
+
+
+void Main_Window::dragEnterEvent(QDragEnterEvent *event)
+{
+    if (event->mimeData()->hasFormat("text/uri-list") ||
+        event->mimeData()->hasFormat("application/x-knotter") )
+        event->acceptProposedAction();
+}
+
+void Main_Window::on_tabWidget_dragAway(int tab)
+{
+    Knot_View* v = dynamic_cast<Knot_View*>(tabWidget->widget(tab));
+    if ( v )
+    {
+        const Graph& graph = v->get_graph();
+        QMimeData *data = new QMimeData;
+
+        export_xml_mime_data(graph,data);
+
+        QDrag* drag = new QDrag(this);
+        drag->setMimeData(data);
+        drag->exec();
+
+    }
+}
+
+void Main_Window::dropEvent(QDropEvent *event)
+{
+    if ( event->mimeData()->hasUrls() )
+    {
+        foreach ( QUrl url, event->mimeData()->urls() )
+        {
+#ifdef HAS_QT_4_8
+            if ( url.isLocalFile() )
+#endif
+            {
+                create_tab(url.toLocalFile());
+            }
+        }
+    }
+    if ( event->mimeData()->hasFormat("application/x-knotter") )
+    {
+        create_tab();
+
+        QByteArray clip_data = event->mimeData()->data("application/x-knotter");
+        QBuffer read_data(&clip_data);
+        view->load_file(&read_data,tr("Drop"));
+    }
 }
