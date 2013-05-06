@@ -848,6 +848,14 @@ void Knot_View::wheelEvent(QWheelEvent *event)
         else
             zoom_view(1.25);
     }
+    else if ( mouse_mode & MOVE_NODES )
+    {
+        if ( event->modifiers() & Qt::ShiftModifier )
+            node_mover.rotate(15*(event->delta()>0?1:-1));
+        else
+            node_mover.fixed_scale( event->delta() < 0, m_grid.size() );
+        update_knot();
+    }
     else
     {
         QPointF p = mapToScene(event->pos());

@@ -39,6 +39,11 @@ private:
     QPointF         pivot; ///< Pivot point for movement
     QPointF         start_pos;///< Starting pivot point position
     QList<QPointF>  offset; ///< Offset of each node from pivot
+    double          scale_factor;
+    int             scale_count; ///< Number of size units when using fixed_scale
+    double          rotate_angle;
+    QSizeF          m_initial_size; ///< Size of the selection on construction
+
 public:
     /// Initialize movement
     Node_Mover(QList<Node*> nodes = QList<Node*>(), QPointF pivot = QPointF() );
@@ -46,8 +51,28 @@ public:
     /// Apply movement by delta to each node
     void move(QPointF delta);
 
+    /**
+     *  \brief Rotate nodes by angle
+     *
+     *  \param angle Angle in degrees
+     */
+    void rotate(double angle);
+
+    void scale(double factor);
+
+    /**
+     *  \brief Scale the selection so that \[ width = width_{start} + n * step-size \]
+     *
+     *  \param increase  If true increase \i n otherwise decrease it
+     *
+     *  \param step_size Size of the step
+     */
+    void fixed_scale(bool increase, double step_size);
+
     /// Create required commands
     void deploy(class Knot_View *view);
+
+    QSizeF initial_size() const { return m_initial_size; }
 };
 
 #endif // NODE_MOVER_HPP

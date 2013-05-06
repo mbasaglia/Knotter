@@ -31,13 +31,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 Node_Mover::Node_Mover(QList<Node *> nodes, QPointF pivot)
-    : nodes(nodes), pivot(pivot), start_pos(pivot)
+    : nodes(nodes), pivot(pivot), start_pos(pivot),
+      scale_factor(1), scale_count(0), rotate_angle(0)
 {
     offset.reserve(nodes.size());
+
+    QPointF min, max;
+    if ( ! nodes.empty() )
+        min = max = nodes[0]->pos();
+
     foreach(Node* n,nodes)
     {
         offset.push_back(n->pos() - pivot);
+
+        if ( n->x() < min.x() )
+            min.setX(n->x());
+        else if ( n->x() > max.x() )
+            max.setX(n->x());
+        if ( n->y() < min.y() )
+            min.setY(n->y());
+        else if ( n->y() > max.y() )
+            max.setY(n->y());
     }
+
+    m_initial_size.setWidth(max.x()-min.x());
+    m_initial_size.setHeight(max.y()-min.y());
 }
 
 void Node_Mover::move(QPointF delta)
@@ -46,6 +64,46 @@ void Node_Mover::move(QPointF delta)
     foreach(Node* n,nodes)
     {
         n->setPos(n->pos()+delta);
+    }
+}
+
+void Node_Mover::rotate(double angle)
+{
+    rotate_angle += angle;
+    foreach(Node* n,nodes)
+    {
+        QLineF ray(pivot,n->pos());
+        ray.setAngle(ray.angle()+angle);
+        n->setPos(ray.p2());
+    }
+
+}
+
+void Node_Mover::scale(double factor)
+{
+    scale_factor *= factor;
+    for ( int i = 0; i < nodes.size(); i++ )
+    {
+        QLineF ray(QPointF(0,0),offset[i]);
+        ray.setLength(ray.length()*scale_factor);
+        ray.setAngle(ray.angle()+rotate_angle);
+        nodes[i]->setPos(pivot+ray.p2());
+    }
+}
+
+void Node_Mover::fixed_scale(bool increase, double step_size)
+{
+    scale_count += increase ? +1 : -1;
+
+    double factor = ( m_initial_size.width() + scale_count*step_size ) /
+                                m_initial_size.width();
+    scale_factor = factor;
+    for ( int i = 0; i < nodes.size(); i++ )
+    {
+        QLineF ray(QPointF(0,0),offset[i]);
+        ray.setLength(ray.length()*scale_factor);
+        ray.setAngle(ray.angle()+rotate_angle);
+        nodes[i]->setPos(pivot+ray.p2());
     }
 }
 
