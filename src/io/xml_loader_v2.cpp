@@ -65,7 +65,11 @@ void XML_Loader_v2::get_graph(Graph &kv)
         /// \todo re-introduce once (if) borders are implemented
         //kv.setPen ( get_pen("outline", kv.pen() ) );
 
-        kv.set_default_node_style ( get_cusp( "cusp" ) );
+        Node_Style ns = get_cusp( "cusp" );
+        ns.enabled_style = Node_Style::EVERYTHING;
+        if ( !ns.cusp_shape )
+            ns.cusp_shape = Resource_Manager::default_cusp_shape();
+        kv.set_default_node_style ( ns );
 
         leave();
     }

@@ -64,7 +64,7 @@ void Cusp_Style_Widget::set_style(const Node_Style &st)
         for(int i = 0; i < combo_cusp_shape->count(); i++ )
         {
             Cusp_Shape* cs = cusp_shape(i);
-            if ( cs->name() == st.cusp_shape->name() )
+            if ( st.cusp_shape && cs->name() == st.cusp_shape->name() )
             {
                 combo_cusp_shape->setCurrentIndex(i);
                 break;
