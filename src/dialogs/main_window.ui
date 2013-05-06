@@ -135,7 +135,6 @@
     <addaction name="action_Reset_View"/>
     <addaction name="separator"/>
     <addaction name="action_Display_Graph"/>
-    <addaction name="action_Display_Knot"/>
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menu_Nodes">
@@ -527,17 +526,6 @@
    </property>
    <property name="text">
     <string>Display &amp;Graph</string>
-   </property>
-  </action>
-  <action name="action_Display_Knot">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Display &amp;Knot</string>
    </property>
   </action>
   <action name="action_Connect">

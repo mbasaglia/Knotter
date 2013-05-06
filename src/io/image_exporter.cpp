@@ -32,6 +32,7 @@ void paint_knot(const Graph& graph , QPaintDevice *device, bool draw_graph)
 {
     QPainter painter;
     painter.begin(device);
+    painter.translate(-graph.boundingRect().topLeft());
 
     if ( draw_graph )
         graph.paint_graph(&painter);

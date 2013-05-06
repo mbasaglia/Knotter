@@ -338,6 +338,7 @@ void Graph::update_bounding_box()
     {
         foreach(const QPainterPath&pp, paths)
             bounding_box |= pp.controlPointRect();
+        bounding_box.adjust(-width()/2,-width()/2,width()/2,width()/2);
     }
 }
 
