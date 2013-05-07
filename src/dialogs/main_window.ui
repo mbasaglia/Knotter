@@ -640,7 +640,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="draw-line">
+    <iconset theme="edit-select">
      <normaloff/>
     </iconset>
    </property>
@@ -786,7 +786,9 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="grid-square"/>
+    <iconset theme="grid-square">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Enable Grid</string>

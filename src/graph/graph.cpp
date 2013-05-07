@@ -35,6 +35,7 @@ Graph::Graph() :
     m_colors.push_back(Qt::black);
     set_join_style(Qt::MiterJoin);
     set_width(5);
+    pen.setCapStyle(Qt::FlatCap);
 }
 
 Graph::Graph(const Graph &other)
