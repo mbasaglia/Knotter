@@ -61,6 +61,15 @@ void Knot_Command::update_knot() const
         view->update_knot();
 }
 
+void Knot_Command::update_view() const
+{
+    if ( qobject_cast<Knot_Macro*>(parent()) == nullptr )
+    {
+        graph->update();
+        scene->invalidate();
+    }
+}
+
 
 
 Create_Node::Create_Node(Node *node, Knot_View *kv, Knot_Macro* parent)
@@ -169,13 +178,13 @@ Change_Colors::Change_Colors(QList<QColor> before, QList<QColor> after, Knot_Vie
 void Change_Colors::undo()
 {
     graph->set_colors(before);
-    scene->invalidate();
+    graph->update();
 }
 
 void Change_Colors::redo()
 {
     graph->set_colors(after);
-    scene->invalidate();
+    graph->update();
 }
 
 int Change_Colors::id() const
@@ -209,13 +218,13 @@ Custom_Colors::Custom_Colors(bool before, bool after, Knot_View *kv, Knot_Macro 
 void Custom_Colors::undo()
 {
     graph->set_custom_colors(before);
-    scene->invalidate();
+    graph->update();
 }
 
 void Custom_Colors::redo()
 {
     graph->set_custom_colors(after);
-    scene->invalidate();
+    graph->update();
 }
 
 
@@ -250,11 +259,13 @@ Knot_Width::Knot_Width(double before, double after, Knot_View *kv, Knot_Macro* p
 void Knot_Width::undo()
 {
     graph->set_width(before);
+    update_view();
 }
 
 void Knot_Width::redo()
 {
     graph->set_width(after);
+    update_view();
 }
 
 int Knot_Width::id() const
@@ -323,11 +334,13 @@ Pen_Join_Style::Pen_Join_Style(Qt::PenJoinStyle before, Qt::PenJoinStyle after,
 void Pen_Join_Style::undo()
 {
     graph->set_join_style(before);
+    update_view();
 }
 
 void Pen_Join_Style::redo()
 {
     graph->set_join_style(after);
+    update_view();
 }
 
 int Pen_Join_Style::id() const
@@ -591,7 +604,7 @@ bool Knot_Insert_Macro::mergeWith(const QUndoCommand *other)
 
     const Knot_Insert_Macro* cc = static_cast<const Knot_Insert_Macro*>(other);
     if ( cc->mergeable )
-    {;
+    {
         return true;
     }
     return false;

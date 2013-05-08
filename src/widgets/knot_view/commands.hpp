@@ -53,9 +53,14 @@ protected:
     void set_last_node(Node* n);
 
     /**
-     *  \brief Update knot only if has no parent
+     *  \brief Render knot only if has no parent
      */
     void update_knot() const;
+
+    /**
+     *  \brief Update view only if has no parent
+     */
+    void update_view() const;
 
     /// Whether the path items shoud be visible
     bool graph_visible() const { return view->paint_graph; }

@@ -569,30 +569,35 @@ void Main_Window::on_action_Open_triggered()
 
 void Main_Window::on_action_Save_triggered()
 {
-    save(false);
+    save(false,tabWidget->currentIndex());
 }
 
 void Main_Window::on_action_Save_As_triggered()
 {
-    save(true);
+    save(true,tabWidget->currentIndex());
 }
 
 
-void Main_Window::save(bool force_select)
+void Main_Window::save(bool force_select, int tab_index)
 {
-    QString file = view->file_name();
+    Knot_View *v = qobject_cast<Knot_View*>(tabWidget->widget(tab_index));
+
+    if ( !v )
+        return;
+
+    QString file = v->file_name();
     if ( file.isEmpty() || force_select )
     {
         file = QFileDialog::getSaveFileName(this,tr("Save Knot"),
-                    view->file_name(),
+                    v->file_name(),
                     "Knot files (*.knot);;XML files (*.xml);;All files (*)" );
     }
     if ( !file.isEmpty() )
     {
-        if ( view->save_file(file) )
+        if ( v->save_file(file) )
         {
             update_title();
-            tabWidget->setTabText(tabWidget->currentIndex(),view->windowFilePath());
+            tabWidget->setTabText(tab_index,v->windowFilePath());
         }
         else
             QMessageBox::warning(this,tr("File Error"),
@@ -811,4 +816,33 @@ void Main_Window::on_action_Snap_to_Grid_triggered()
     }
 
     view->end_macro();
+}
+
+void Main_Window::on_action_Erase_triggered()
+{
+    QList<Node*> nodes = view->selected_nodes();
+    if ( !nodes.empty() )
+    {
+        view->begin_macro(tr("Delete"));
+        foreach(Node*n, nodes )
+            view->remove_node(n);
+        view->end_macro();
+    }
+}
+
+void Main_Window::on_action_Close_triggered()
+{
+    close_tab(tabWidget->currentIndex());
+}
+
+void Main_Window::on_action_Close_All_triggered()
+{
+    for ( int i = 0, c = tabWidget->count(); i < c ; i++ )
+        close_tab(0);
+}
+
+void Main_Window::on_action_Save_All_triggered()
+{
+    for ( int i = 0; i < tabWidget->count(); i++ )
+        save(false,i);
 }

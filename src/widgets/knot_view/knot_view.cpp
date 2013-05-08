@@ -303,6 +303,8 @@ void Knot_View::set_display_graph(bool enable)
 
     foreach ( Edge* e, graph.edges() )
         e->set_visible( enable);
+
+    scene()->invalidate();
 }
 
 
@@ -401,12 +403,18 @@ void Knot_View::zoom_view(double factor)
 
     QPoint mp = mapFromGlobal(QCursor::pos());
     QPointF sp1 = mapToScene(mp);
+
+    QRectF r ( mapToScene(0,0), mapToScene(width()/factor,height()/factor));
+    r.translate(-r.bottomRight()/2);
+    setSceneRect(sceneRect().united(r));
+
     scale(factor,factor);
     // Anchor on mouse
     if ( rect().contains(mp) )
     {
         QPointF sp2 = mapToScene(mp);
         translate(sp2-sp1);
+
     }
     expand_scene_rect();
 
@@ -866,6 +874,14 @@ void Knot_View::wheelEvent(QWheelEvent *event)
                                 Resource_Manager::next_edge_style(e->style()) :
                                 Resource_Manager::prev_edge_style(e->style()) ;
             push_command(new Change_Edge_Style(e,e->style(),st,this));
+        }
+        else // scroll
+        {
+            QScrollBar* sb = verticalScrollBar();
+            int d = event->delta() > 0 ? -1 : +1;
+            if ( event->modifiers() & Qt::ShiftModifier )
+                sb = horizontalScrollBar();
+            sb->setValue(sb->value()+d*sb->singleStep());
         }
     }
 }

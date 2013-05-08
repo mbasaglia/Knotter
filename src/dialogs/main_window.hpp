@@ -137,7 +137,7 @@ private slots:
      * \brief Save design to file
      * \param force_select Whether a file dialog must be shown
      */
-    void save(bool force_select);
+    void save(bool force_select, int tab_index);
 
     void update_mouse_pos(QPointF pos);
 
@@ -165,6 +165,10 @@ private slots:
     void on_action_Cut_triggered();
     void on_tabWidget_dragAway(int tab);
     void on_action_Snap_to_Grid_triggered();
+    void on_action_Erase_triggered();
+    void on_action_Close_triggered();
+    void on_action_Close_All_triggered();
+    void on_action_Save_All_triggered();
 };
 
 #endif // MAIN_WINDOW_HPP

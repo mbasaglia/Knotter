@@ -85,7 +85,6 @@
     <addaction name="action_Cut"/>
     <addaction name="action_Copy"/>
     <addaction name="action_Paste"/>
-    <addaction name="action_Delete"/>
     <addaction name="separator"/>
     <addaction name="action_Select_All"/>
     <addaction name="separator"/>
@@ -443,16 +442,6 @@
    </property>
    <property name="text">
     <string>Cu&amp;t</string>
-   </property>
-  </action>
-  <action name="action_Delete">
-   <property name="icon">
-    <iconset theme="edit-delete">
-     <normaloff/>
-    </iconset>
-   </property>
-   <property name="text">
-    <string>&amp;Delete</string>
    </property>
   </action>
   <action name="action_Select_All">
