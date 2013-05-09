@@ -79,8 +79,8 @@ void Settings::load_config()
 
     m_icon_size = settings.value("icon_size",m_icon_size).toInt();
 
-    tool_button_style = settings.value("buttons",tool_button_style).
-            value<Qt::ToolButtonStyle>();
+    tool_button_style = Qt::ToolButtonStyle(
+                settings.value("buttons",tool_button_style).toInt() );
 
     settings.endGroup();//gui
 
@@ -127,7 +127,7 @@ void Settings::save_config()
 
     settings.setValue("icon_size",m_icon_size);
 
-    settings.setValue("buttons",tool_button_style);
+    settings.setValue("buttons",int(tool_button_style));
 
     settings.endGroup();//gui
 }

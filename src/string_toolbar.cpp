@@ -49,11 +49,11 @@ QToolBar *String_Toolbar::create(QMainWindow *w) const
             toolbar->addSeparator();
         else
         {
-            QAction* act = w->findChild<QAction*>(name);
+            QAction* act = w->findChild<QAction*>(item);
 
             if ( !act )
             {
-                QMenu *menu = w->findChild<QMenu*>(name);
+                QMenu *menu = w->findChild<QMenu*>(item);
                 if ( menu )
                     act = menu->menuAction();
             }

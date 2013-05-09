@@ -19,13 +19,15 @@ HEADERS += \
     $$PWD/snapping_grid.hpp \
     $$PWD/background_image.hpp \
     $$PWD/node_mover.hpp \
-    src/widgets/knot_view/pen_join_style_metatype.hpp
+    $$PWD/pen_join_style_metatype.hpp \
+    $$PWD/context_menu_node.hpp
 
 SOURCES += \
     $$PWD/knot_view.cpp \
     $$PWD/commands.cpp \
     $$PWD/snapping_grid.cpp \
     $$PWD/background_image.cpp \
-    $$PWD/node_mover.cpp
+    $$PWD/node_mover.cpp \
+    $$PWD/context_menu_node.cpp
 
 INCLUDEPATH += $$PWD
