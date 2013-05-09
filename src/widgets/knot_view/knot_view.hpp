@@ -75,6 +75,7 @@ class Knot_View : public QGraphicsView
     Node_Mover          node_mover;  ///< Helper to manage movement of the nodes
     QString             m_file_name; ///< Full name of the open file
     bool                paint_graph; ///< Whether to paint the graph
+    bool                m_fluid_refresh; ///< Whether to update the graph while moving nodes
 
 public:
 
@@ -203,6 +204,12 @@ public:
      *                      insertion of the graph
      */
     void insert(const Graph& graph, QString macro_name );
+
+    void enable_cache(bool enable) { graph.enable_cache(enable); }
+    bool cache_enabled() const { return graph.cache_enabled(); }
+
+    void set_fluid_refresh(bool enable);
+    bool fluid_refresh() const { return m_fluid_refresh; }
 
 public slots:
     /**

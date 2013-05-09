@@ -169,6 +169,9 @@ private slots:
     void on_action_Close_triggered();
     void on_action_Close_All_triggered();
     void on_action_Save_All_triggered();
+    void on_action_Connect_triggered();
+    void on_action_Disconnect_triggered();
+    void on_action_Merge_triggered();
 };
 
 #endif // MAIN_WINDOW_HPP

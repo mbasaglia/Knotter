@@ -78,7 +78,7 @@
       <bool>false</bool>
      </property>
      <property name="toolTip">
-      <string>Distance between the ends of the a thread passing under another thread</string>
+      <string>Distance between the ends of a thread passing under another thread</string>
      </property>
      <property name="suffix">
       <string>px</string>

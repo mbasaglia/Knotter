@@ -57,6 +57,7 @@ Graph &Graph::operator= ( const Graph &o )
     setPos(o.pos());
     setTransform(o.transform());
     setVisible(o.isVisible());
+    setCacheMode(o.cacheMode());
     return *this;
 }
 
@@ -197,6 +198,16 @@ Graph Graph::sub_graph(QList<Node *> nodes) const
 
     return graph;
 
+}
+
+void Graph::enable_cache(bool enable)
+{
+    setCacheMode(enable?DeviceCoordinateCache:NoCache);
+}
+
+bool Graph::cache_enabled() const
+{
+    return cacheMode() != NoCache;
 }
 
 void Graph::traverse(Path_Builder &path)

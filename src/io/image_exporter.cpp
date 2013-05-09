@@ -48,6 +48,7 @@ void export_svg(const Graph& graph, QIODevice &file, bool draw_graph)
     gen.setOutputDevice(&file);
     gen.setTitle("");
     gen.setDescription("");
+    gen.setViewBox(QRect(QPoint(0,0),graph.boundingRect().size().toSize()));
 
     paint_knot ( graph, &gen, draw_graph );
 }

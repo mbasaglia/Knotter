@@ -141,6 +141,13 @@ public:
      */
     Graph sub_graph(QList<Node*> nodes) const;
 
+    /**
+     *  \brief Toggle DeviceCoordinateCache
+     */
+    void enable_cache(bool enable);
+
+    bool cache_enabled() const;
+
 
 private:
 

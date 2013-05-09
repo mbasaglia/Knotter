@@ -35,7 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "xml_exporter.hpp"
 
 Knot_View::Knot_View(QString file)
-    : mouse_mode(EDIT_GRAPH), last_node(nullptr), m_file_name(file)
+    : mouse_mode(EDIT_GRAPH), last_node(nullptr), m_file_name(file),
+      paint_graph(true), m_fluid_refresh(true)
 {
 
     setWindowFilePath(file);
@@ -588,6 +589,13 @@ void Knot_View::insert(const Graph &graph, QString macro_name)
 
     end_macro();
     macro_stack.push( new Knot_Insert_Macro(true,macro_name,this));
+}
+
+void Knot_View::set_fluid_refresh(bool enable)
+{
+    m_fluid_refresh = enable;
+    if ( enable )
+        update_knot();
 }
 
 

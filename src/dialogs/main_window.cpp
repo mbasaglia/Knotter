@@ -458,7 +458,7 @@ void Main_Window::create_tab(QString file)
             dock_knot_display->set_colors(view->get_graph().colors());
             dock_knot_display->set_join_style(view->get_graph().join_style());
             dock_knot_display->set_width(view->get_graph().width());
-            dock_knot_display->blockSignals(true);
+            dock_knot_display->blockSignals(false);
 
             update_title();
 
@@ -845,4 +845,69 @@ void Main_Window::on_action_Save_All_triggered()
 {
     for ( int i = 0; i < tabWidget->count(); i++ )
         save(false,i);
+}
+
+void Main_Window::on_action_Connect_triggered()
+{
+    QList<Node*> nodes = view->selected_nodes();
+
+    if ( nodes.size() < 2 )
+        return;
+
+    view->begin_macro(tr("Connect Nodes"));
+
+    for(QList<Node*>::iterator i = nodes.begin(); i != nodes.end(); i++)
+    {
+        for(QList<Node*>::iterator j = i+1; j != nodes.end(); j++)
+            if ( !(*i)->has_edge_to(*j) )
+                view->add_edge(*i,*j);
+    }
+    view->end_macro();
+}
+
+void Main_Window::on_action_Disconnect_triggered()
+{
+
+    QList<Node*> nodes = view->selected_nodes();
+
+    if ( nodes.size() < 2 )
+        return;
+
+    view->begin_macro(tr("Disconnect Nodes"));
+    for(QList<Node*>::iterator i = nodes.begin(); i != nodes.end(); i++)
+    {
+        for(QList<Node*>::iterator j = i+1; j != nodes.end(); j++)
+            if ( (*i)->has_edge_to(*j) )
+                view->remove_edge((*i)->edge_to(*j));
+    }
+    view->end_macro();
+}
+
+void Main_Window::on_action_Merge_triggered()
+{
+
+    QList<Node*> nodes = view->selected_nodes();
+
+    if ( nodes.size() < 2 )
+        return;
+
+    view->begin_macro(tr("Merge Nodes"));
+
+    QPointF pos;
+    QList<Node*> outlinks;
+
+    for(QList<Node*>::iterator i = nodes.begin(); i != nodes.end(); i++)
+    {
+        pos += (*i)->pos() / nodes.size();
+        foreach(Edge* e, (*i)->connections() )
+            if ( !nodes.contains(e->other(*i)) && !outlinks.contains(e->other(*i)) )
+                outlinks.push_back(e->other(*i));
+        view->remove_node(*i);
+    }
+
+    Node* newn = view->add_node(pos);
+    foreach(Node* o, outlinks)
+        view->add_edge(newn,o);
+
+    view->end_macro();
 }
