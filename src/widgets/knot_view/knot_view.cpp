@@ -33,10 +33,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_manager.hpp"
 #include "xml_loader.hpp"
 #include "xml_exporter.hpp"
+#include "context_menu_node.hpp"
 
 Knot_View::Knot_View(QString file)
     : mouse_mode(EDIT_GRAPH), last_node(nullptr), m_file_name(file),
-      paint_graph(true), m_fluid_refresh(true)
+      paint_graph(true), m_fluid_refresh(true),
+      context_menu_node(new Context_Menu_Node(this))
 {
 
     setWindowFilePath(file);
@@ -654,9 +656,12 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
                 }
             }
         }
-        else if ( mouse_mode & EDIT_GRAPH || event->buttons() & Qt::RightButton )
+        else if ( mouse_mode & EDIT_GRAPH || event->button() & Qt::RightButton )
         {
-            mouse_mode |= RUBBERBAND;
+            Node* n = node_at(scene_pos);
+            Edge* e = edge_at(scene_pos);
+            if ( event->button() != Qt::RightButton || (!n && !e) )
+                mouse_mode |= RUBBERBAND;
         }
         else if ( mouse_mode & EDGE_CHAIN  && event->button() == Qt::LeftButton )
         {
@@ -804,8 +809,6 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
         // select from rubberband;
         scene()->removeItem(&rubberband);
 
-        QPainterPath pp;
-
         mouse_select(nodes_in_rubberband(),
                      event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier) );
 
@@ -830,7 +833,18 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
         if ( event->button() == Qt::MiddleButton )
             setCursor(Qt::SizeAllCursor);
     }
+    else if ( event->button() == Qt::RightButton )
+    {
+        QPoint mpos = event->pos();
+        QPointF scene_pos = mapToScene(mpos);
 
+        Node* n = node_at(scene_pos);
+        if ( n )
+        {
+            context_menu_node->set_node(n);
+            context_menu_node->popup(mapToGlobal(mpos));
+        }
+    }
 }
 
 void Knot_View::mouseDoubleClickEvent(QMouseEvent *event)

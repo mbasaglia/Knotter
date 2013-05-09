@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMainWindow>
 #include "string_toolbar.hpp"
 #include <QMetaType>
+#include "snapping_grid.hpp"
 
 class Settings : public QObject
 {
@@ -48,15 +49,18 @@ private:
     // style
     // grid
 
-    QList<String_Toolbar>   toolbars;
-    bool                    m_save_ui; ///< Whether the GUI state must be loaded between sessions
-    QByteArray              m_window_state;
-    QByteArray              m_window_geometry;
-    Qt::ToolButtonStyle     tool_button_style;
-    bool                    m_graph_cache;
-    bool                    m_fluid_refresh;
-    QStringList             m_recent_files;
-    int                     m_max_recent_files;
+    QList<String_Toolbar>       toolbars;
+    bool                        m_save_ui; ///< Whether the GUI state must be loaded between sessions
+    QByteArray                  m_window_state;
+    QByteArray                  m_window_geometry;
+    Qt::ToolButtonStyle         tool_button_style;
+    bool                        m_graph_cache;
+    bool                        m_fluid_refresh;
+    QStringList                 m_recent_files;
+    int                         m_max_recent_files;
+    double                      m_grid_size; ///< \todo
+    Snapping_Grid::Grid_Shape   m_grid_shape; ///< \todo
+
 
 private:
     Settings();

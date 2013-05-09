@@ -36,6 +36,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QStack>
 #include "pen_join_style_metatype.hpp"
 
+class Context_Menu_Node;
+class Context_Menu_Edge;
+
 class Knot_View : public QGraphicsView
 {
     Q_OBJECT
@@ -76,6 +79,8 @@ class Knot_View : public QGraphicsView
     QString             m_file_name; ///< Full name of the open file
     bool                paint_graph; ///< Whether to paint the graph
     bool                m_fluid_refresh; ///< Whether to update the graph while moving nodes
+    Context_Menu_Node*  context_menu_node;
+    Context_Menu_Edge*  context_menu_edge;
 
 public:
 

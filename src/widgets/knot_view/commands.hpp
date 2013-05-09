@@ -515,12 +515,17 @@ public:
                       QList<Node_Style::Enabled_Styles> before,
                       QList<Node_Style::Enabled_Styles> after,
                       Knot_View* kv, Knot_Macro* parent = nullptr);
+    Node_Style_Enable(Node* node,
+                      Node_Style::Enabled_Styles before,
+                      Node_Style::Enabled_Styles after,
+                      QString text,
+                      Knot_View* kv, Knot_Macro* parent = nullptr);
     void undo() override;
     void redo() override;
 };
 
 
-/*class Node_Style_All : public Knot_Command
+class Node_Style_All : public Knot_Command
 {
     Q_OBJECT
 
@@ -533,7 +538,7 @@ public:
                Knot_Macro* parent = nullptr);
     void undo() override;
     void redo() override;
-};*/
+};
 
 
 // edge style

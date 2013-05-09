@@ -24,31 +24,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef CONTEXT_MENU_NODE_HPP
-#define CONTEXT_MENU_NODE_HPP
+#ifndef CUSP_STYLE_DIALOG_HPP
+#define CUSP_STYLE_DIALOG_HPP
 
-#include <QMenu>
-#include "knot_view.hpp"
+#include "ui_cusp_style_dialog.h"
 
-class Context_Menu_Node : public QMenu
+class Cusp_Style_Dialog : public QDialog, private Ui::Cusp_Style_Dialog
 {
     Q_OBJECT
-private:
-    Knot_View*  view;
-    Node*       node;
-    QAction*    action_snap;
-    QAction*    action_reset_style;
-public:
-    explicit Context_Menu_Node(Knot_View *parent = 0);
-
-    void set_node(Node*n);
-
-public slots:
-    void reset_custom_style();
-    void properties();
-    void snap();
-    void remove();
     
+public:
+    explicit Cusp_Style_Dialog(QWidget *parent = 0);
+
+    void set_style(const Node_Style &style);
+    Node_Style node_style() const;
+    
+protected:
+    void changeEvent(QEvent *e);
 };
 
-#endif // CONTEXT_MENU_NODE_HPP
+#endif // CUSP_STYLE_DIALOG_HPP

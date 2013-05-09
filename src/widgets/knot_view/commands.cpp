@@ -517,6 +517,19 @@ Node_Style_Enable::Node_Style_Enable(
 {
     setText(tr("Toggle Selection Style Property"));
 }
+
+Node_Style_Enable::Node_Style_Enable(Node *node,
+                                     Node_Style::Enabled_Styles before,
+                                     Node_Style::Enabled_Styles after,
+                                     QString text,
+                                     Knot_View *kv, Knot_Macro *parent)
+    : Node_Style_Base(QList<Node*>()<<node,kv,parent),
+      before(QList<Node_Style::Enabled_Styles>()<<before),
+      after(QList<Node_Style::Enabled_Styles>()<<after)
+{
+    setText(text);
+}
+
 void Node_Style_Enable::undo()
 {
     for( int i = 0; i < nodes.size(); i++)
@@ -548,9 +561,11 @@ void Knot_Style_All::redo()
 }
 
 
-/*Node_Style_All::Node_Style_All(Node *node, Node_Style before, Node_Style after, Knot_View *kv, Knot_Macro *parent)
+Node_Style_All::Node_Style_All(Node *node, Node_Style before, Node_Style after,
+                               Knot_View *kv, Knot_Macro *parent)
     : Knot_Command(kv,parent), before(before), after(after), node(node)
 {
+    setText(tr("Change Node Style"));
 }
 
 void Node_Style_All::undo()
@@ -563,7 +578,7 @@ void Node_Style_All::redo()
 {
     node->set_style(after);
     update_knot();
-}*/
+}
 
 
 int Change_Edge_Style::m_id = generate_id();
