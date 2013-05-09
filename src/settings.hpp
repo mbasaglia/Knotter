@@ -50,8 +50,8 @@ private:
 
     QList<String_Toolbar>   toolbars;
     bool                    m_save_ui; ///< Whether the GUI state must be loaded between sessions
-    QByteArray              window_state;
-    QByteArray              window_geometry;
+    QByteArray              m_window_state;
+    QByteArray              m_window_geometry;
     Qt::ToolButtonStyle     tool_button_style;
     bool                    m_graph_cache;
     bool                    m_fluid_refresh;

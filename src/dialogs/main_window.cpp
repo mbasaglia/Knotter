@@ -73,10 +73,6 @@ void Main_Window::retranslate()
     setWindowTitle(Resource_Manager::program_name());
 }
 
-Main_Window::~Main_Window()
-{
-    Resource_Manager::settings.save_window(this);
-}
 
 
 void Main_Window::init_menus()
@@ -844,6 +840,12 @@ void Main_Window::dropEvent(QDropEvent *event)
         QBuffer read_data(&clip_data);
         view->load_file(&read_data,tr("Drop"));
     }
+}
+
+void Main_Window::closeEvent(QCloseEvent * ev)
+{
+    Resource_Manager::settings.save_window(this);
+    QMainWindow::closeEvent(ev);
 }
 
 void Main_Window::on_action_Snap_to_Grid_triggered()

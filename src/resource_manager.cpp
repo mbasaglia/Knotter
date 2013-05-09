@@ -90,6 +90,8 @@ void Resource_Manager::initialize(QString default_lang_code)
 
     QIcon::setThemeName("knotter-icons");
 
+    change_lang_code(QLocale::system().name());
+
     // Load Settings
     settings.load_config();
 
@@ -121,15 +123,13 @@ void Resource_Manager::initialize(QString default_lang_code)
                           .arg(file);
     }
 
-    change_lang_code(QLocale::system().name());
+    connect(qApp,SIGNAL(aboutToQuit()),&singleton,SLOT(save_settings()));
+
 }
 
 
 Resource_Manager::~Resource_Manager()
 {
-    settings.save_config();
-
-
     foreach ( QTranslator* tr, translators.values() )
         delete tr;
 
@@ -232,6 +232,11 @@ void Resource_Manager::change_lang_code(QString code)
 void Resource_Manager::change_lang_name(QString name)
 {
     change_lang_code(singleton.lang_names[name]);
+}
+
+void Resource_Manager::save_settings()
+{
+    settings.save_config();
 }
 
 

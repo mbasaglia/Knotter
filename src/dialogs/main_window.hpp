@@ -61,7 +61,6 @@ public:
     explicit Main_Window(QWidget *parent = 0);
 
 
-    ~Main_Window();
 
 public slots:
     /// Change all the strings to their translated version
@@ -88,6 +87,7 @@ public slots:
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;
     void dropEvent(QDropEvent *) override;
+    void closeEvent(QCloseEvent *) override;
 
 private:
     /// Initialize menus

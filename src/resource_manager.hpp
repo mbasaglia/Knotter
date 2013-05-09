@@ -185,6 +185,8 @@ public slots:
     static void change_lang_code ( QString code );
     static void change_lang_name ( QString name );
 
+    void save_settings();
+
 signals:
 
     void language_changed();

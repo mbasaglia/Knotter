@@ -31,15 +31,21 @@ void Settings::load_config()
 {
     QSettings settings("knotter","knotter");
 
-    config_version = settings.value("version",VERSION).toString();
+    config_version = settings.value("version",Resource_Manager::program_version()).toString();
 
-    /// \todo Language
+    Resource_Manager::change_lang_code( settings.value("language",
+                            Resource_Manager::current_lang_code()).toString() );
 
-    /// \todo performance
 
-    /// \todo recent files
+    settings.beginGroup("recent_files");
+    m_recent_files = settings.value("list").toStringList();
+    set_max_recent_files ( settings.value("max",m_max_recent_files).toInt() );
+    settings.endGroup();// recent_files
 
-    /// \todo render mode (plain or loops)
+    m_graph_cache = settings.value("performance/cache",m_graph_cache).toBool();
+    m_fluid_refresh = settings.value("performance/fluid_refresh",m_fluid_refresh).toBool();
+
+    /// \todo style, grid
 
     settings.beginGroup("gui");
 
@@ -68,8 +74,8 @@ void Settings::load_config()
 
 
     m_save_ui = settings.value("save",m_save_ui).toBool();
-    window_state = settings.value("geometry").toByteArray();
-    window_geometry = settings.value("state").toByteArray();
+    m_window_geometry = settings.value("geometry").toByteArray();
+    m_window_state = settings.value("state").toByteArray();
 
     m_icon_size = settings.value("icon_size",m_icon_size).toInt();
 
@@ -79,13 +85,51 @@ void Settings::load_config()
     settings.endGroup();//gui
 
 
-    /// \todo style, grid
 
 }
 
 void Settings::save_config()
 {
-    /// \todo
+    QSettings settings("knotter","knotter");
+
+    settings.setValue("version",Resource_Manager::program_version());
+
+
+    settings.setValue("language", Resource_Manager::current_lang_code());
+
+
+    settings.beginGroup("recent_files");
+    settings.setValue("list",m_recent_files);
+    settings.setValue("max",m_max_recent_files );
+    settings.endGroup();// recent_files
+
+    settings.setValue("performance/cache",m_graph_cache);
+    settings.setValue("performance/fluid_refresh",m_fluid_refresh);
+
+    /// \todo style, grid
+
+    settings.beginGroup("gui");
+
+    settings.beginWriteArray("toolbar",toolbars.size());
+    for(int i = 0; i < toolbars.size(); i++ )
+    {
+        settings.setArrayIndex(i);
+        settings.setValue("name",toolbars[i].name);
+        settings.setValue("title",toolbars[i].title);
+        settings.setValue("items",toolbars[i].actions);
+    }
+    settings.endArray();
+
+
+    settings.setValue("save",m_save_ui);
+    settings.setValue("geometry",m_window_geometry);
+    settings.setValue("state",m_window_state);
+
+    settings.setValue("icon_size",m_icon_size);
+
+    settings.setValue("buttons",tool_button_style);
+
+    settings.endGroup();//gui
 }
 
 
@@ -101,8 +145,8 @@ void Settings::initialize_window(QMainWindow *w)
 
     if ( m_save_ui )
     {
-        w->restoreGeometry(window_geometry);
-        w->restoreState(window_state);
+        w->restoreGeometry(m_window_geometry);
+        w->restoreState(m_window_state);
         w->setIconSize(QSize(m_icon_size,m_icon_size));
         w->setToolButtonStyle(tool_button_style);
     }
@@ -116,6 +160,8 @@ void Settings::save_window(QMainWindow *w)
         toolbars.append(tb);
     m_icon_size = w->iconSize().width();
     tool_button_style = w->toolButtonStyle();
+    m_window_geometry = w->saveGeometry();
+    m_window_state = w->saveState();
 }
 
 QString Settings::version() const

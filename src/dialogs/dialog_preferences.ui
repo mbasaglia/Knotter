@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>636</width>
+    <width>602</width>
     <height>387</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Preferences</string>
+  </property>
+  <property name="windowIcon">
+   <iconset theme="configure"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -241,8 +244,11 @@
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
              <widget class="QCheckBox" name="check_save_geometry">
+              <property name="toolTip">
+               <string>Toobars, dialogs, window size and position</string>
+              </property>
               <property name="text">
-               <string>Window geometry</string>
+               <string>User Interface</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -256,6 +262,16 @@
               </property>
               <property name="text">
                <string>Knot style settings</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="check_save_grid">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>Grid</string>
               </property>
              </widget>
             </item>
@@ -295,7 +311,7 @@
             <string>Redraw the knot while moving nodes</string>
            </property>
            <property name="whatsThis">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When selected the knot will be updated fluidly when moving nodes.&lt;/p&gt;&lt;p&gt;When not, will update only after the node has been moved.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When selected the knot will be updated fluidly when moving nodes.&lt;/p&gt;&lt;p&gt;When disabled, will update only after the nodes have been moved.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
             <string>Fluid refresh</string>
