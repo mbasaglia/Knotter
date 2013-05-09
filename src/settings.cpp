@@ -67,7 +67,7 @@ void Settings::load_config()
     settings.endArray();//toolbars
 
 
-    save_ui = settings.value("save",save_ui).toBool();
+    m_save_ui = settings.value("save",m_save_ui).toBool();
     window_state = settings.value("geometry").toByteArray();
     window_geometry = settings.value("state").toByteArray();
 
@@ -99,13 +99,14 @@ void Settings::initialize_window(QMainWindow *w)
             tb.create(w);
     }
 
-    if ( save_ui )
+    if ( m_save_ui )
     {
         w->restoreGeometry(window_geometry);
         w->restoreState(window_state);
         w->setIconSize(QSize(m_icon_size,m_icon_size));
         w->setToolButtonStyle(tool_button_style);
     }
+
 }
 
 void Settings::save_window(QMainWindow *w)
@@ -145,6 +146,31 @@ void Settings::button_style(Qt::ToolButtonStyle bs)
 }
 
 Settings::Settings()
-    : m_icon_size(22), save_ui(true), tool_button_style(Qt::ToolButtonFollowStyle)
+    : m_icon_size(22), m_save_ui(true), tool_button_style(Qt::ToolButtonFollowStyle),
+      m_graph_cache(false), m_fluid_refresh(true),m_max_recent_files(5)
 {
+}
+
+void Settings::add_recent_file(QString file_name)
+{
+
+    m_recent_files.push_front(file_name);
+    m_recent_files.removeDuplicates();
+    while ( m_recent_files.size() > m_max_recent_files )
+        m_recent_files.pop_back();
+
+}
+
+void Settings::set_max_recent_files(int max)
+{
+    m_max_recent_files = max;
+    if ( m_recent_files.size() > max )
+    {
+        m_recent_files.erase(m_recent_files.begin()+max,m_recent_files.end());
+    }
+}
+
+void Settings::clear_recent_files()
+{
+    m_recent_files.clear();
 }

@@ -24,18 +24,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef PREFERENCES_DIALOG_HPP
-#define PREFERENCES_DIALOG_HPP
+#ifndef DIALOG_PREFERENCES_HPP
+#define DIALOG_PREFERENCES_HPP
 
-#include "ui_preferences_dialog.h"
+#include "ui_dialog_preferences.h"
 #include <QMainWindow>
 
-class Preferences_Dialog : public QDialog, private Ui::Preferences_Dialog
+class Dialog_Preferences : public QDialog, private Ui::Dialog_Preferences
 {
     Q_OBJECT
     
 public:
-    explicit Preferences_Dialog(QMainWindow *parent);
+    explicit Dialog_Preferences(QMainWindow *parent);
 
 private:
     void init_combos();
@@ -45,6 +45,8 @@ protected slots:
 
 public slots:
     void retranslate();
+private slots:
+    void on_button_clear_recent_clicked();
 };
 
-#endif // PREFERENCES_DIALOG_HPP
+#endif // DIALOG_PREFERENCES_HPP

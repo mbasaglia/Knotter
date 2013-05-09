@@ -24,10 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "preferences_dialog.hpp"
+#include "dialog_preferences.hpp"
 #include "resource_manager.hpp"
 
-Preferences_Dialog::Preferences_Dialog(QMainWindow *parent) :
+Dialog_Preferences::Dialog_Preferences(QMainWindow *parent) :
     QDialog(parent)
 {
     setupUi(this);
@@ -40,9 +40,15 @@ Preferences_Dialog::Preferences_Dialog(QMainWindow *parent) :
     combo_language->setCurrentIndex ( combo_language->findText(Resource_Manager::current_lang_name()) );
 
     connect(Resource_Manager::pointer,SIGNAL(language_changed()),this,SLOT(retranslate()));
+
+    check_fluid_refresh->setChecked(Resource_Manager::settings.fluid_refresh());
+    check_cache_image->setChecked(Resource_Manager::settings.graph_cache());
+
+    spin_recent_files->setValue(Resource_Manager::settings.max_recent_files());
+    check_save_geometry->setChecked(Resource_Manager::settings.save_ui());
 }
 
-void Preferences_Dialog::init_combos()
+void Dialog_Preferences::init_combos()
 {
     combo_icon_size->clear();
     combo_icon_size->addItem(tr("Small (16x16)"),16);
@@ -64,7 +70,7 @@ void Preferences_Dialog::init_combos()
                                 Resource_Manager::settings.button_style()));
 }
 
-void Preferences_Dialog::set_preferences()
+void Dialog_Preferences::set_preferences()
 {
     toolbar_editor->apply();
     Resource_Manager::settings.icon_size(combo_icon_size->itemData(
@@ -74,9 +80,15 @@ void Preferences_Dialog::set_preferences()
 
     Resource_Manager::change_lang_name(combo_language->currentText());
 
+    Resource_Manager::settings.set_fluid_refresh(check_fluid_refresh->isChecked());
+    Resource_Manager::settings.set_graph_cache(check_cache_image->isChecked());
+
+    Resource_Manager::settings.set_max_recent_files(spin_recent_files->value());
+    Resource_Manager::settings.set_save_ui(check_save_geometry->isChecked());
+
 }
 
-void Preferences_Dialog::retranslate()
+void Dialog_Preferences::retranslate()
 {
     retranslateUi(this);
 
@@ -84,3 +96,8 @@ void Preferences_Dialog::retranslate()
 }
 
 
+
+void Dialog_Preferences::on_button_clear_recent_clicked()
+{
+    Resource_Manager::settings.clear_recent_files();
+}

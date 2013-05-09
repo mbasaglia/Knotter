@@ -49,10 +49,14 @@ private:
     // grid
 
     QList<String_Toolbar>   toolbars;
-    bool                    save_ui; ///< Whether the GUI state must be loaded between sessions
+    bool                    m_save_ui; ///< Whether the GUI state must be loaded between sessions
     QByteArray              window_state;
     QByteArray              window_geometry;
     Qt::ToolButtonStyle     tool_button_style;
+    bool                    m_graph_cache;
+    bool                    m_fluid_refresh;
+    QStringList             m_recent_files;
+    int                     m_max_recent_files;
 
 private:
     Settings();
@@ -74,7 +78,31 @@ public:
     int icon_size() const { return m_icon_size; }
 
     Qt::ToolButtonStyle button_style() const { return tool_button_style; }
+
     void button_style(Qt::ToolButtonStyle);
+
+    bool graph_cache() const { return m_graph_cache; }
+    bool fluid_refresh() const { return m_fluid_refresh; }
+
+    void set_graph_cache(bool enable) { m_graph_cache = enable; }
+    void set_fluid_refresh(bool enable) { m_fluid_refresh = enable; }
+
+    bool save_ui() const { return m_save_ui; }
+    void set_save_ui(bool save) { m_save_ui = save; }
+
+    QStringList recent_files() const { return m_recent_files; }
+
+    /**
+     *  \brief Push a file name to the top of the recent files list
+     *
+     *  If the file is already in the list, it is moved to the top.
+     */
+    void add_recent_file(QString file_name);
+
+    int max_recent_files() const { return m_max_recent_files; }
+    void set_max_recent_files(int max);
+    void clear_recent_files();
+
 signals:
     void icon_size_changed(int);
     void tool_button_style_changed(Qt::ToolButtonStyle);

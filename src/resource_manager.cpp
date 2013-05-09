@@ -62,10 +62,10 @@ QString Resource_Manager::data(QString name)
     QDir path ( DATA_DIR ); // install dir
 
     if ( !path.exists(name) )
-        path.setPath( QCoreApplication::applicationDirPath() ); // executable dir
+        path.setPath( QCoreApplication::applicationDirPath()+"/data" ); // executable dir
 
     if ( !path.exists(name) )
-        path.setPath( QDir::currentPath() ); // current dir
+        path.setPath( QDir::currentPath()+"/data" ); // current dir
 
 
     if ( !path.exists(name) )

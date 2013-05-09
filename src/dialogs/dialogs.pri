@@ -17,7 +17,7 @@ INCLUDEPATH += $$PWD
 
 HEADERS += \
     $$PWD/main_window.hpp \
-    $$PWD/preferences_dialog.hpp \
+    $$PWD/dialog_preferences.hpp \
     $$PWD/export_image_dialog.hpp \
     $$PWD/dock_grid.hpp \
     $$PWD/dock_knot_display.hpp \
@@ -29,7 +29,7 @@ HEADERS += \
 
 SOURCES += \
     $$PWD/main_window.cpp \
-    $$PWD/preferences_dialog.cpp \
+    $$PWD/dialog_preferences.cpp \
     $$PWD/export_image_dialog.cpp \
     $$PWD/dock_grid.cpp \
     $$PWD/dock_knot_display.cpp \
@@ -40,7 +40,7 @@ SOURCES += \
 
 FORMS += \
     $$PWD/main_window.ui \
-    $$PWD/preferences_dialog.ui \
+    $$PWD/dialog_preferences.ui \
     $$PWD/export_image_dialog.ui \
     $$PWD/dock_grid.ui \
     $$PWD/dock_knot_display.ui \

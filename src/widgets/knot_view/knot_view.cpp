@@ -762,8 +762,8 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
         {
             QPointF delta = snapped_scene_pos-last_node->pos();
             node_mover.move(delta);
-            /// \todo if fluid refresh
-            update_knot();
+            if ( m_fluid_refresh )
+                update_knot();
         }
         emitted_pos = snapped_scene_pos;
 

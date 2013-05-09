@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "main_window.hpp"
 #include "resource_manager.hpp"
 #include <QMessageBox>
-#include "preferences_dialog.hpp"
+#include "dialog_preferences.hpp"
 #include <QDockWidget>
 #include <QDesktopServices>
 #include <QUrl>
@@ -90,6 +90,7 @@ void Main_Window::init_menus()
     action_Print->setShortcut(QKeySequence::Print);
     action_Exit->setShortcut(QKeySequence::Quit);
     connect(action_Export,SIGNAL(triggered()),&dialog_export_image,SLOT(show()));
+    update_recent_files();
 
     // Menu Edit
     action_Undo->setShortcut(QKeySequence::Undo);
@@ -344,6 +345,10 @@ void Main_Window::connect_view(Knot_View *v)
     // paint mode
     v->set_display_graph(action_Display_Graph->isChecked());
 
+    // Performance
+    v->set_fluid_refresh(Resource_Manager::settings.fluid_refresh());
+    v->enable_cache(Resource_Manager::settings.graph_cache());
+
 }
 
 void Main_Window::disconnect_view(Knot_View *v)
@@ -434,7 +439,10 @@ void Main_Window::udate_selection(QList<Node *> nodes)
 
 void Main_Window::on_action_Preferences_triggered()
 {
-    Preferences_Dialog(this).exec();
+    Dialog_Preferences(this).exec();
+    view->set_fluid_refresh(Resource_Manager::settings.fluid_refresh());
+    view->enable_cache(Resource_Manager::settings.graph_cache());
+    update_recent_files();
 }
 
 
@@ -479,6 +487,11 @@ void Main_Window::create_tab(QString file)
     {
         QMessageBox::warning(this,tr("File Error"),
                              tr("Error while reading \"%1\".").arg(file));
+    }
+    else if ( !error && !file.isEmpty() )
+    {
+        Resource_Manager::settings.add_recent_file(file);
+        update_recent_files();
     }
 }
 
@@ -598,6 +611,9 @@ void Main_Window::save(bool force_select, int tab_index)
         {
             update_title();
             tabWidget->setTabText(tab_index,v->windowFilePath());
+
+            Resource_Manager::settings.add_recent_file(file);
+            update_recent_files();
         }
         else
             QMessageBox::warning(this,tr("File Error"),
@@ -622,6 +638,30 @@ void Main_Window::update_grid_icon(int shape)
         act->setIcon(QIcon::fromTheme("grid-triangle-v"));
     else
         act->setIcon(QIcon::fromTheme("grid-square"));
+}
+
+void Main_Window::update_recent_files()
+{
+    menu_Open_Recent->clear();
+
+    if ( Resource_Manager::settings.recent_files().empty() )
+        menu_Open_Recent->addAction(tr("No recent files"))->setEnabled(false);
+    else
+        foreach ( QString savefile, Resource_Manager::settings.recent_files() )
+        {
+            QAction *a = menu_Open_Recent->addAction(
+                        QIcon(Resource_Manager::data("img/icon-small.svg")),
+                        savefile);
+            connect(a, SIGNAL(triggered()), this, SLOT(click_recent_file()));
+        }
+}
+
+void Main_Window::click_recent_file()
+{
+
+    QAction*a = qobject_cast<QAction*>(sender());
+    if ( a )
+        create_tab(a->text());
 }
 
 void Main_Window::on_action_Mirror_Horizontal_triggered()
