@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RESOURCE_MANAGER_HPP
 
 #include <QObject>
-#include <QDebug>
 #include "settings.hpp"
 #include <QTranslator>
 #include "c++.hpp"

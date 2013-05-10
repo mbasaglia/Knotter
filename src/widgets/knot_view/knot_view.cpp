@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "knot_view.hpp"
 #include <QMouseEvent>
 #include <QScrollBar>
-#include <QDebug>
 #include "commands.hpp"
 #include <QApplication>
 #include "resource_manager.hpp"
@@ -113,7 +112,6 @@ bool Knot_View::load_file(QIODevice *device, QString action_name )
     foreach(Edge* e,loaded.edges())
     {
         push_command(new Create_Edge(e,this));
-        /// \todo commands for style
     }
 
     end_macro();

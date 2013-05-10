@@ -164,7 +164,7 @@ void Resource_Manager::register_translation(QString name, QString code, QString 
     {
         QTranslator* ntrans = new QTranslator;
         if ( ! ntrans->load(file) )
-            qDebug() << tr("Warning:") <<
+            qWarning() << tr("Warning:") <<
             /*: %1 is the file name,
              *  %2 is the human-readable language code
              *  %3 is the ISO language code
@@ -206,8 +206,7 @@ void Resource_Manager::change_lang_code(QString code)
         bool found = false;
         foreach ( QString installed_code, singleton.translators.keys() )
         {
-            QString debug_string = installed_code.left(installed_code.lastIndexOf('_'));
-            if ( debug_string == base_code )
+            if ( installed_code.left(installed_code.lastIndexOf('_')) == base_code )
             {
                 code = installed_code;
                 found = true;
