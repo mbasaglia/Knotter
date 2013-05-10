@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "dock_grid.hpp"
+#include "resource_manager.hpp"
 
 Dock_Grid::Dock_Grid(QWidget *parent) :
     QDockWidget(parent), target(nullptr)
@@ -32,6 +33,11 @@ Dock_Grid::Dock_Grid(QWidget *parent) :
     setupUi(this);
     setWidget(central_widget);
     connect(button_move,SIGNAL(clicked()),SIGNAL(move_grid()));
+    connect(spin_size,SIGNAL(valueChanged(int)),
+            &Resource_Manager::settings, SLOT(set_grid_size(int)));
+    connect(check_enable,SIGNAL(toggled(bool)),
+            &Resource_Manager::settings, SLOT(set_grid_enabled(bool)));
+
 }
 
 void Dock_Grid::set_grid(Snapping_Grid *target_grid)
@@ -120,5 +126,6 @@ void Dock_Grid::on_combo_shape_currentIndexChanged(int index)
     if ( target )
     {
         target->set_shape(Snapping_Grid::Grid_Shape(index));
+        Resource_Manager::settings.set_grid_shape(target->shape());
     }
 }

@@ -472,6 +472,9 @@ void Main_Window::create_tab(QString file)
     else
     {
         Knot_View *v = new Knot_View();
+        v->grid().set_shape(Resource_Manager::settings.grid_shape());
+        v->grid().set_size(Resource_Manager::settings.grid_size());
+        v->grid().enable(Resource_Manager::settings.grid_enabled());
         error = !v->load_file(file);
         int t = tabWidget->addTab(v,file.isEmpty() ? tr("New Knot") : file);
         undo_group.addStack(v->undo_stack_pointer());

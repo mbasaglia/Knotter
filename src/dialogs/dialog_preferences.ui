@@ -14,7 +14,9 @@
    <string>Preferences</string>
   </property>
   <property name="windowIcon">
-   <iconset theme="configure"/>
+   <iconset theme="configure">
+    <normaloff/>
+   </iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -267,9 +269,6 @@
             </item>
             <item>
              <widget class="QCheckBox" name="check_save_grid">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
               <property name="text">
                <string>Grid</string>
               </property>

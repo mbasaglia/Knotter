@@ -27,6 +27,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_manager.hpp"
 #include <QSettings>
 
+Settings::Settings()
+    : save_nothing(false),
+      m_save_ui(true), m_icon_size(22), tool_button_style(Qt::ToolButtonFollowStyle),
+      m_max_recent_files(5),
+      m_graph_cache(false), m_fluid_refresh(true),
+      m_save_grid(true), m_grid_enabled(true), m_grid_size(32), m_grid_shape(Snapping_Grid::SQUARE)
+{
+}
+
 void Settings::load_config()
 {
     QSettings settings("knotter","knotter");
@@ -38,14 +47,23 @@ void Settings::load_config()
 
 
     settings.beginGroup("recent_files");
-    m_recent_files = settings.value("list").toStringList();
+    m_recent_files = settings.value("list",m_recent_files).toStringList();
     set_max_recent_files ( settings.value("max",m_max_recent_files).toInt() );
     settings.endGroup();// recent_files
 
     m_graph_cache = settings.value("performance/cache",m_graph_cache).toBool();
     m_fluid_refresh = settings.value("performance/fluid_refresh",m_fluid_refresh).toBool();
 
-    /// \todo style, grid
+    /// \todo style
+
+    settings.beginGroup("grid");
+    m_save_grid = settings.value("save",m_save_grid).toBool();
+    m_grid_enabled = settings.value("enabled",m_grid_enabled).toBool();
+    m_grid_size = settings.value("size",m_grid_size).toInt();
+    m_grid_shape = Snapping_Grid::Grid_Shape(settings.value("shape",int(m_grid_shape)).toInt());
+    settings.endGroup();
+
+
 
     settings.beginGroup("gui");
 
@@ -90,6 +108,9 @@ void Settings::load_config()
 
 void Settings::save_config()
 {
+    if ( save_nothing )
+        return;
+
     QSettings settings("knotter","knotter");
 
     settings.setValue("version",Resource_Manager::program_version());
@@ -106,7 +127,15 @@ void Settings::save_config()
     settings.setValue("performance/cache",m_graph_cache);
     settings.setValue("performance/fluid_refresh",m_fluid_refresh);
 
-    /// \todo style, grid
+    /// \todo style
+
+
+    settings.beginGroup("grid");
+    settings.setValue("enabled",m_grid_enabled);
+    settings.setValue("save",m_save_grid);
+    settings.setValue("size",m_grid_size);
+    settings.setValue("shape",int(m_grid_shape));
+    settings.endGroup();
 
     settings.beginGroup("gui");
 
@@ -130,6 +159,14 @@ void Settings::save_config()
     settings.setValue("buttons",int(tool_button_style));
 
     settings.endGroup();//gui
+}
+
+void Settings::clear_config()
+{
+    save_nothing = true;
+
+    QSettings settings("knotter","knotter");
+    settings.clear();
 }
 
 
@@ -191,11 +228,6 @@ void Settings::button_style(Qt::ToolButtonStyle bs)
     emit tool_button_style_changed(bs);
 }
 
-Settings::Settings()
-    : m_icon_size(22), m_save_ui(true), tool_button_style(Qt::ToolButtonFollowStyle),
-      m_graph_cache(false), m_fluid_refresh(true),m_max_recent_files(5)
-{
-}
 
 void Settings::add_recent_file(QString file_name)
 {

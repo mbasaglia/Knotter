@@ -40,26 +40,29 @@ public:
     //typedef Qt::ToolButtonStyle ToolButtonStyle;
 
 private:
-    QString                 config_version; ///< Version of the setting file
+    QString                     config_version; ///< Version of the loaded settings file
 
-    int                     m_icon_size;
-    // language
-    // performace
-    // recent files
-    // style
-    // grid
+    bool                        save_nothing; ///< Whether to skip save_config (when clearing the saved conf)
+
 
     QList<String_Toolbar>       toolbars;
+
     bool                        m_save_ui; ///< Whether the GUI state must be loaded between sessions
+    int                         m_icon_size;
     QByteArray                  m_window_state;
     QByteArray                  m_window_geometry;
     Qt::ToolButtonStyle         tool_button_style;
-    bool                        m_graph_cache;
-    bool                        m_fluid_refresh;
+
     QStringList                 m_recent_files;
     int                         m_max_recent_files;
-    double                      m_grid_size; ///< \todo
-    Snapping_Grid::Grid_Shape   m_grid_shape; ///< \todo
+
+    bool                        m_graph_cache;
+    bool                        m_fluid_refresh;
+
+    bool                        m_save_grid;
+    bool                        m_grid_enabled;
+    int                         m_grid_size;
+    Snapping_Grid::Grid_Shape   m_grid_shape;
 
 
 private:
@@ -106,6 +109,19 @@ public:
     int max_recent_files() const { return m_max_recent_files; }
     void set_max_recent_files(int max);
     void clear_recent_files();
+
+    bool save_grid() const { return m_save_grid; }
+    void set_save_grid(bool enable) { m_save_grid = enable; }
+    int grid_size() const { return m_grid_size; }
+    Snapping_Grid::Grid_Shape grid_shape() const { return m_grid_shape; }
+    void set_grid_shape(Snapping_Grid::Grid_Shape gs) { m_grid_shape = gs; }
+    bool grid_enabled() const { return m_grid_enabled; }
+
+public slots:
+    void clear_config();
+
+    void set_grid_size(int sz) { if ( sz > 0 ) m_grid_size = sz; }
+    void set_grid_enabled(bool enable) { m_grid_enabled = enable; }
 
 signals:
     void icon_size_changed(int);

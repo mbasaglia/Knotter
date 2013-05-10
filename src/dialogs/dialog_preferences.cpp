@@ -46,6 +46,9 @@ Dialog_Preferences::Dialog_Preferences(QMainWindow *parent) :
 
     spin_recent_files->setValue(Resource_Manager::settings.max_recent_files());
     check_save_geometry->setChecked(Resource_Manager::settings.save_ui());
+
+    connect(button_clear_settings,SIGNAL(clicked()),
+            &Resource_Manager::settings,SLOT(clear_config()));
 }
 
 void Dialog_Preferences::init_combos()
@@ -85,6 +88,8 @@ void Dialog_Preferences::set_preferences()
 
     Resource_Manager::settings.set_max_recent_files(spin_recent_files->value());
     Resource_Manager::settings.set_save_ui(check_save_geometry->isChecked());
+
+    Resource_Manager::settings.set_save_grid(check_save_grid->isChecked());
 
 }
 
