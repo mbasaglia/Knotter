@@ -34,11 +34,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "xml_loader.hpp"
 #include "xml_exporter.hpp"
 #include "context_menu_node.hpp"
+#include "context_menu_edge.hpp"
 
 Knot_View::Knot_View(QString file)
     : mouse_mode(EDIT_GRAPH), last_node(nullptr), m_file_name(file),
       paint_graph(true), m_fluid_refresh(true),
-      context_menu_node(new Context_Menu_Node(this))
+      context_menu_node(new Context_Menu_Node(this)),
+      context_menu_edge(new Context_Menu_Edge(this))
 {
 
     setWindowFilePath(file);
@@ -839,11 +841,11 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
         QPointF scene_pos = mapToScene(mpos);
 
         Node* n = node_at(scene_pos);
+        Edge* e = edge_at(scene_pos);
         if ( n )
-        {
-            context_menu_node->set_node(n);
-            context_menu_node->popup(mapToGlobal(mpos));
-        }
+            context_menu_node->popup(n,mapToGlobal(mpos));
+        else if ( e )
+            context_menu_edge->popup(e,mapToGlobal(mpos));
     }
 }
 

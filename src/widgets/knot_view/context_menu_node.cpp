@@ -38,11 +38,13 @@ Context_Menu_Node::Context_Menu_Node(Knot_View *parent) :
     action_reset_style = addAction(tr("Reset custom style"),this,SLOT(reset_custom_style()));
 }
 
-void Context_Menu_Node::set_node(Node *n)
+void Context_Menu_Node::popup(Node *n, QPoint pos)
 {
     node = n;
     action_snap->setEnabled( view->grid().is_enabled() );
     action_reset_style->setEnabled(node->style().enabled_style != Node_Style::NOTHING);
+
+    QMenu::popup(pos);
 }
 
 void Context_Menu_Node::reset_custom_style()

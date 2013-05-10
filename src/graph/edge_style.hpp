@@ -64,6 +64,9 @@ public:
     /// Machine-readable (unique) name, used as identifier
     virtual QString machine_name() const = 0;
 
+    /// Icon showing the style
+    virtual QIcon icon() const = 0;
+
 };
 
 class Edge_Normal : public Edge_Style
@@ -78,6 +81,7 @@ public:
     QString machine_name() const override;
     QLineF handle(const Edge *edge, Edge::Handle handle,
                   const Node_Style &default_style) const override;
+    QIcon icon() const override { return QIcon::fromTheme("edge-crossing"); }
 };
 
 
@@ -89,6 +93,7 @@ public:
                           const Node_Style& default_style ) const override;
     QString name() const override;
     QString machine_name() const override;
+    QIcon icon() const override { return QIcon::fromTheme("edge-inverted"); }
 };
 
 class Edge_Wall : public Edge_Style
@@ -101,6 +106,7 @@ public:
     QString machine_name() const override;
     QLineF handle(const Edge *edge, Edge::Handle handle,
                   const Node_Style &default_style) const override;
+    QIcon icon() const override { return QIcon::fromTheme("edge-wall"); }
 };
 
 
@@ -114,6 +120,7 @@ public:
     QString machine_name() const override;
     QLineF handle(const Edge *edge, Edge::Handle handle,
                   const Node_Style &default_style) const override;
+    QIcon icon() const override { return QIcon::fromTheme("edge-hole"); }
 };
 
 

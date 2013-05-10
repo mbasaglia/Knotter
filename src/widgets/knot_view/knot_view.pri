@@ -20,7 +20,8 @@ HEADERS += \
     $$PWD/background_image.hpp \
     $$PWD/node_mover.hpp \
     $$PWD/pen_join_style_metatype.hpp \
-    $$PWD/context_menu_node.hpp
+    $$PWD/context_menu_node.hpp \
+    src/widgets/knot_view/context_menu_edge.hpp
 
 SOURCES += \
     $$PWD/knot_view.cpp \
@@ -28,6 +29,7 @@ SOURCES += \
     $$PWD/snapping_grid.cpp \
     $$PWD/background_image.cpp \
     $$PWD/node_mover.cpp \
-    $$PWD/context_menu_node.cpp
+    $$PWD/context_menu_node.cpp \
+    src/widgets/knot_view/context_menu_edge.cpp
 
 INCLUDEPATH += $$PWD

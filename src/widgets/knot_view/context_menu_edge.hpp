@@ -24,31 +24,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef CONTEXT_MENU_NODE_HPP
-#define CONTEXT_MENU_NODE_HPP
+#ifndef CONTEXT_MENU_EDGE_HPP
+#define CONTEXT_MENU_EDGE_HPP
 
 #include <QMenu>
 #include "knot_view.hpp"
+#include <QSignalMapper>
 
-class Context_Menu_Node : public QMenu
+class Context_Menu_Edge : public QMenu
 {
     Q_OBJECT
 private:
-    Knot_View*  view;
-    Node*       node;
-    QAction*    action_snap;
-    QAction*    action_reset_style;
-public:
-    explicit Context_Menu_Node(Knot_View *parent = 0);
+    Knot_View*      view;
+    Edge*           edge;
+    QAction*        action_snap;
+    QMenu*          menu_edge_types;
+    QSignalMapper   mapper;
+    QActionGroup*   edge_type_actions;
 
-    void popup(Node*n,QPoint pos);
+public:
+    explicit Context_Menu_Edge(Knot_View *parent = 0);
+
+    void popup(Edge*e, QPoint pos);
 
 public slots:
-    void reset_custom_style();
-    void properties();
     void snap();
+    void change_edge_type(QString type_name);
     void remove();
+    void break_intersections();
+    void subdivide();
     
 };
 
-#endif // CONTEXT_MENU_NODE_HPP
+#endif // CONTEXT_MENU_EDGE_HPP
