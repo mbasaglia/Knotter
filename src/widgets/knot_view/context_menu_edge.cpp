@@ -87,9 +87,77 @@ void Context_Menu_Edge::remove()
     view->remove_edge(edge);
 }
 
+
+struct Node_Comparator
+{
+    QPointF base;
+
+    Node_Comparator(Node*node) :base(node->pos()) {}
+
+
+    bool operator() (Node* a, Node* b)
+    {
+        return point_distance_squared(base,a->pos()) < point_distance_squared(base,b->pos());
+    }
+};
+
 void Context_Menu_Edge::break_intersections()
 {
-    /// \todo
+
+    QList<Edge*> intersected;
+
+    foreach ( QGraphicsItem* ietm, edge->collidingItems() )
+    {
+        Edge* other_edge = dynamic_cast<Edge*>(ietm);
+        if ( other_edge && !other_edge->is_vertex(edge->vertex1())
+             && !other_edge->is_vertex(edge->vertex2()) )
+            intersected.push_back(other_edge);
+    }
+
+    if ( intersected.empty() )
+        return;
+
+    view->begin_macro("Break edge");
+
+
+    QLineF start_line = edge->to_line();
+
+    QList<Node*> new_nodes;
+
+    foreach ( Edge* o, intersected )
+    {
+        QLineF intersect_line  = o->to_line();
+        QPointF intersect_point;
+        start_line.intersect(intersect_line,&intersect_point);
+
+        Node* next_node = view->add_node(intersect_point);
+
+        new_nodes.push_back(next_node);
+
+        // break other edge (1)
+        Edge* next_edge = view->add_edge(o->vertex1(),next_node);
+        next_edge->set_style(o->style());
+        // break other edge (2)
+        next_edge = view->add_edge(next_node,o->vertex2());
+        next_edge->set_style(o->style());
+
+        view->remove_edge(o);
+    }
+
+    qSort(new_nodes.begin(),new_nodes.end(),Node_Comparator(edge->vertex1()));
+    new_nodes.push_front(edge->vertex1());
+    new_nodes.push_back(edge->vertex2());
+
+    for ( int i = 0; i < new_nodes.size()-1; i++ )
+    {
+        Edge* next_edge = view->add_edge(new_nodes[i],new_nodes[i+1]);
+        next_edge->set_style(edge->style());
+    }
+
+    view->remove_edge ( edge );
+
+
+    view->end_macro();
 }
 
 void Context_Menu_Edge::subdivide()

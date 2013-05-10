@@ -36,13 +36,13 @@ inline bool qFuzzyCompare ( QPointF p1, QPointF p2 )
     return qFuzzyCompare(p1.x(),p2.x()) && qFuzzyCompare(p1.y(),p2.y());
 }
 
-/*inline double point_distance_squared(const QPointF &p1, const QPointF &p2 )
+inline double point_distance_squared(const QPointF &p1, const QPointF &p2 )
 {
     QPointF d = p1-p2;
     return d.x()*d.x() + d.y()*d.y();
 }
 
-inline double line_point_distance_squared(const QPointF& p1, const QPointF &p2,
+/*inline double line_point_distance_squared(const QPointF& p1, const QPointF &p2,
                                           const QPointF &to)
 {
     double a = qSqrt(point_distance_squared(p1,p2));
