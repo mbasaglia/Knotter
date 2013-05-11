@@ -231,7 +231,7 @@
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolbar_main">
    <property name="windowTitle">
-    <string>Main Toolbar</string>
+    <string notr="true">Main Toolbar</string>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -254,7 +254,7 @@
   </widget>
   <widget class="QToolBar" name="toolbar_view">
    <property name="windowTitle">
-    <string>View Toolbar</string>
+    <string notr="true">View Toolbar</string>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -269,7 +269,7 @@
   </widget>
   <widget class="QToolBar" name="toolbar_draw">
    <property name="windowTitle">
-    <string>Drawing Toolbar</string>
+    <string notr="true">Drawing Toolbar</string>
    </property>
    <attribute name="toolBarArea">
     <enum>LeftToolBarArea</enum>
@@ -289,7 +289,7 @@
   </widget>
   <widget class="QToolBar" name="toolbar_transform">
    <property name="windowTitle">
-    <string>Transformation Toolbar</string>
+    <string notr="true">Transformation Toolbar</string>
    </property>
    <attribute name="toolBarArea">
     <enum>LeftToolBarArea</enum>
@@ -756,7 +756,7 @@
     </iconset>
    </property>
    <property name="text">
-    <string>Report &amp;Bugs..</string>
+    <string>Report &amp;Bugs...</string>
    </property>
   </action>
   <action name="actionSelect_Connected">

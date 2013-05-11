@@ -41,7 +41,7 @@
       <item>
        <widget class="QPushButton" name="button_svg">
         <property name="text">
-         <string>Export &amp;SVG..</string>
+         <string>Export &amp;SVG...</string>
         </property>
         <property name="icon">
          <iconset theme="image-svg+xml">
