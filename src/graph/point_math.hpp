@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPointF>
 #include <QLineF>
 #include <qmath.h>
+#include "c++.hpp"
 
 inline bool qFuzzyCompare ( QPointF p1, QPointF p2 )
 {

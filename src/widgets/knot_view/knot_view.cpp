@@ -74,6 +74,8 @@ Knot_View::Knot_View(QString file)
     connect(&m_grid,SIGNAL(grid_changed()),scene,SLOT(invalidate()));
     connect(&bg_img,SIGNAL(changed()),scene,SLOT(invalidate()));
 
+    node_mover.add_handles_to_scene(scene);
+
     load_file(file);
 
 }

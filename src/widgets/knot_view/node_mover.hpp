@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "node.hpp"
 #include <QUndoStack>
+#include "transform_handle.hpp"
 /**
  *  Class that manages all the stuff needed to transform nodes
 */
@@ -43,6 +44,8 @@ private:
     int             scale_count; ///< Number of size units when using fixed_scale
     double          rotate_angle;
     QRectF          initial_box; ///< Bounding box of the selection on initialization
+    static const int n_handles = 4; ///< size of transform_handles
+    Transform_Handle transform_handles[n_handles];
 
 public:
     /// Initialize movement
@@ -78,6 +81,10 @@ public:
 
     void set_nodes(QList<Node*> nodes);
     QList<Node*> nodes() const { return m_nodes; }
+
+    /// Update position and visibility of the transform handles
+    void update_transform_handles();
+    void add_handles_to_scene(QGraphicsScene* scene);
 };
 
 #endif // NODE_MOVER_HPP
