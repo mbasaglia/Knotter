@@ -95,7 +95,7 @@ MYDISTDIRS  =  src data
 MYDIST_NAME = "$$TARGET-$${VERSION}"
 MYDIST_TAR_GZ = "$${MYDIST_NAME}.tar.gz"
 MYDIST_TMP = ".tmp/$${MYDIST_NAME}"
-mydist.depends = doc man desktop_file
+mydist.depends = $${TARGET}.desktop
                                                                             #
 mydist.commands =                                                           \
         (                                                                   \
@@ -120,14 +120,14 @@ mydistclean.commands = $(DEL_FILE) $$MYDIST_TAR_GZ Makefile $(TARGET)
 QMAKE_EXTRA_TARGETS += mydist mydistclean
 
 #src_doc
-Doxyfile.commands = ./info_preprocessor.sh Doxyfile.in > Doxyfile
+Doxyfile.commands = $$PWD/info_preprocessor.sh Doxyfile.in > Doxyfile
 Doxyfile.depends = Doxyfile.in
 src_doc.depends = Doxyfile FORCE
 src_doc.commands = doxygen Doxyfile
 
 #desktop
-$${TARGET}.desktop.depends=$${TARGET}.desktop.in
-$${TARGET}.desktop.commands=./info_preprocessor.sh $${TARGET}.desktop.in > $${TARGET}.desktop
+$${TARGET}.desktop.depends=$$PWD/$${TARGET}.desktop.in
+$${TARGET}.desktop.commands=$$PWD/info_preprocessor.sh $$PWD/$${TARGET}.desktop.in > $${TARGET}.desktop
 
 QMAKE_EXTRA_TARGETS += src_doc Doxyfile $${TARGET}.desktop
 
