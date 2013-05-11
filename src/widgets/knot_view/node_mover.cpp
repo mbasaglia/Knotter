@@ -30,19 +30,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "point_math.hpp"
 
 
-Node_Mover::Node_Mover(QList<Node *> nodes, QPointF pivot)
-    : nodes(nodes), pivot(pivot), start_pos(pivot),
-      scale_factor(1), scale_count(0), rotate_angle(0)
+Node_Mover::Node_Mover()
+    : scale_factor(1), scale_count(0), rotate_angle(0)
 {
-    offset.reserve(nodes.size());
+}
+
+
+void Node_Mover::set_nodes(QList<Node *> nodes)
+{
+    m_nodes = nodes;
+
 
     QPointF min, max;
-    if ( ! nodes.empty() )
-        min = max = nodes[0]->pos();
+    if ( ! m_nodes.empty() )
+        min = max = m_nodes[0]->pos();
 
-    foreach(Node* n,nodes)
+    foreach(Node* n,m_nodes)
     {
-        offset.push_back(n->pos() - pivot);
 
         if ( n->x() < min.x() )
             min.setX(n->x());
@@ -53,15 +57,29 @@ Node_Mover::Node_Mover(QList<Node *> nodes, QPointF pivot)
         else if ( n->y() > max.y() )
             max.setY(n->y());
     }
+    initial_box.setTopLeft(min);
+    initial_box.setBottomRight(max);
+}
 
-    m_initial_size.setWidth(max.x()-min.x());
-    m_initial_size.setHeight(max.y()-min.y());
+void Node_Mover::initialize_movement(QPointF pivot)
+{
+    start_pos = this->pivot = pivot;
+
+    scale_factor = 1;
+    scale_count = 0;
+    rotate_angle = 0;
+
+    offset.clear();
+    offset.reserve(m_nodes.size());
+
+    foreach(Node* n,m_nodes)
+        offset.push_back(n->pos() - pivot);
 }
 
 void Node_Mover::move(QPointF delta)
 {
     pivot += delta;
-    foreach(Node* n,nodes)
+    foreach(Node* n,m_nodes)
     {
         n->setPos(n->pos()+delta);
     }
@@ -70,7 +88,7 @@ void Node_Mover::move(QPointF delta)
 void Node_Mover::rotate(double angle)
 {
     rotate_angle += angle;
-    foreach(Node* n,nodes)
+    foreach(Node* n,m_nodes)
     {
         QLineF ray(pivot,n->pos());
         ray.setAngle(ray.angle()+angle);
@@ -82,12 +100,12 @@ void Node_Mover::rotate(double angle)
 void Node_Mover::scale(double factor)
 {
     scale_factor *= factor;
-    for ( int i = 0; i < nodes.size(); i++ )
+    for ( int i = 0; i < m_nodes.size(); i++ )
     {
         QLineF ray(QPointF(0,0),offset[i]);
         ray.setLength(ray.length()*scale_factor);
         ray.setAngle(ray.angle()+rotate_angle);
-        nodes[i]->setPos(pivot+ray.p2());
+        m_nodes[i]->setPos(pivot+ray.p2());
     }
 }
 
@@ -95,15 +113,15 @@ void Node_Mover::fixed_scale(bool increase, double step_size)
 {
     scale_count += increase ? +1 : -1;
 
-    double factor = ( m_initial_size.width() + scale_count*step_size ) /
-                                m_initial_size.width();
+    double factor = ( initial_box.width() + scale_count*step_size ) /
+                                initial_box.width();
     scale_factor = factor;
-    for ( int i = 0; i < nodes.size(); i++ )
+    for ( int i = 0; i < m_nodes.size(); i++ )
     {
         QLineF ray(QPointF(0,0),offset[i]);
         ray.setLength(ray.length()*scale_factor);
         ray.setAngle(ray.angle()+rotate_angle);
-        nodes[i]->setPos(pivot+ray.p2());
+        m_nodes[i]->setPos(pivot+ray.p2());
     }
 }
 
@@ -111,23 +129,24 @@ void Node_Mover::deploy(Knot_View *view)
 {
     if ( !qFuzzyCompare(pivot,start_pos) )
     {
-        if ( nodes.size() > 1 )
+        if ( m_nodes.size() > 1 )
         {
             view->begin_macro(QObject::tr("Move Nodes"));
-            for ( int i = 0; i < nodes.size(); i++ )
+            for ( int i = 0; i < m_nodes.size(); i++ )
             {
-                Node* n = nodes[i];
+                Node* n = m_nodes[i];
                 view->push_command(new Move_Node(n,offset[i]+start_pos,n->pos(),view));
             }
             view->end_macro();
         }
-        else if ( nodes.size() == 1 )
+        else if ( m_nodes.size() == 1 )
         {
-            Node* n = nodes[0];
+            Node* n = m_nodes[0];
             view->push_command(new Move_Node(n,offset[0]+start_pos,n->pos(),view));
         }
     }
 
-    nodes.clear();
+    m_nodes.clear();
     offset.clear();
 }
+

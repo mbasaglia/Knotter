@@ -35,18 +35,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class Node_Mover
 {
 private:
-    QList<Node*>    nodes;
+    QList<Node*>    m_nodes;
     QPointF         pivot; ///< Pivot point for movement
     QPointF         start_pos;///< Starting pivot point position
     QList<QPointF>  offset; ///< Offset of each node from pivot
     double          scale_factor;
     int             scale_count; ///< Number of size units when using fixed_scale
     double          rotate_angle;
-    QSizeF          m_initial_size; ///< Size of the selection on construction
+    QRectF          initial_box; ///< Bounding box of the selection on initialization
 
 public:
     /// Initialize movement
-    Node_Mover(QList<Node*> nodes = QList<Node*>(), QPointF pivot = QPointF() );
+    Node_Mover();
+
+    void initialize_movement(QPointF pivot = QPointF());
 
     /// Apply movement by delta to each node
     void move(QPointF delta);
@@ -72,7 +74,10 @@ public:
     /// Create required commands
     void deploy(class Knot_View *view);
 
-    QSizeF initial_size() const { return m_initial_size; }
+    QSizeF initial_size() const { return initial_box.size(); }
+
+    void set_nodes(QList<Node*> nodes);
+    QList<Node*> nodes() const { return m_nodes; }
 };
 
 #endif // NODE_MOVER_HPP

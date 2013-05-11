@@ -27,6 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define STRING_TOOLBAR_HPP
 #include <QString>
 #include <QToolBar>
+#include "c++.hpp"
+
 /**
  *  This class holds a string definition of toolbars and actions
  *

@@ -534,7 +534,9 @@ bool Knot_View::mouse_select(QList<Node *> nodes, bool modifier, bool clear)
     foreach(Node* itm, nodes)
         itm->setSelected(select);
 
-    emit selection_changed(selected_nodes());
+    node_mover.set_nodes(selected_nodes());
+
+    emit selection_changed(node_mover.nodes());
 
     return select;
 }
@@ -582,7 +584,11 @@ void Knot_View::insert(const Graph &graph, QString macro_name)
 
     mouse_mode |= MOVE_NODES;
     mouse_mode |= EXTERNAL;
-    node_mover = Node_Mover(graph.nodes(),last_node->pos());
+
+    node_mover.set_nodes(graph.nodes());
+    node_mover.initialize_movement(last_node->pos());
+    emit selection_changed(node_mover.nodes());
+
     QPointF p =  mapToScene(mapFromGlobal(QCursor::pos()));
     node_mover.move(p-last_node->pos());
     move_center = mapFromGlobal(QCursor::pos());
@@ -591,6 +597,7 @@ void Knot_View::insert(const Graph &graph, QString macro_name)
 
     end_macro();
     macro_stack.push( new Knot_Insert_Macro(true,macro_name,this));
+
 }
 
 void Knot_View::set_fluid_refresh(bool enable)
@@ -652,7 +659,7 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
                 if ( b )
                 {
                     mouse_mode |= MOVE_NODES;
-                    node_mover = Node_Mover(selected_nodes(),last_node->pos());
+                    node_mover.initialize_movement(last_node->pos());
                 }
             }
         }
