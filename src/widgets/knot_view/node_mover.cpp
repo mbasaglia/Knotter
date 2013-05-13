@@ -70,8 +70,7 @@ void Node_Mover::set_nodes(QList<Node *> nodes)
 
 void Node_Mover::update_transform_handles()
 {
-    for ( int i = 0; i < n_handles; i++ )
-        transform_handles[i].setVisible(nodes().size() >= 3);
+
 
     transform_handles[0].setPos(initial_box.topLeft());
     transform_handles[1].setPos(initial_box.bottomLeft());
@@ -80,6 +79,9 @@ void Node_Mover::update_transform_handles()
 
     for ( int i = 0; i < n_handles; i++ )
     {
+        transform_handles[i].setVisible(nodes().size() >= 3);
+        transform_handles[i].set_angle(rotate_angle);
+
         QPointF off = transform_handles[i].pos()-start_pos;
         QLineF ray(QPointF(0,0),off);
         ray.setLength(ray.length()*scale_factor);
@@ -107,6 +109,8 @@ void Node_Mover::initialize_movement(QPointF pivot)
 
     foreach(Node* n,m_nodes)
         offset.push_back(n->pos() - pivot);
+
+    update_transform_handles();
 }
 
 void Node_Mover::move(QPointF delta)
@@ -188,5 +192,11 @@ void Node_Mover::deploy(Knot_View *view)
 
     m_nodes.clear();
     offset.clear();
+
+
+    start_pos = pivot;
+    scale_factor = 1;
+    scale_count = 0;
+    rotate_angle = 0;
 }
 

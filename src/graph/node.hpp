@@ -92,6 +92,8 @@ public:
      */
     void move(QPointF p);
 
+    static int external_radius() { return xradius; }
+
 signals:
     void moved(QPointF);
 

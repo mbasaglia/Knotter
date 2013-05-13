@@ -32,6 +32,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Transform_Handle : public Graph_Item
 {
+
+public:
+    /// What kind of transformation this handle applies
+    enum Mode { SCALE, ROTATE };
+
 protected:
     static QSvgRenderer scale_rest; ///< SVG Image to display while at rest
     static QSvgRenderer scale_active;///< SVG Image to display when highlight == true
@@ -40,21 +45,16 @@ protected:
     static double       m_image_size; ///< Size of the image
     static bool         images_initialized; ///< whether static images have been initialized
 
-public:
-    /// What kind of transformation this handle applies
-    enum Mode { SCALE, ROTATE };
 
 
-    Mode m_mode;
-    int m_image_angle;///< Angle for which the image has to be rotated
+    Mode    m_mode;
+    int     m_image_angle;///< Angle for which the image has to be rotated
+    double  m_angle;      ///< Dynamic rotation
 
 public:
     explicit Transform_Handle(Mode mode = SCALE, int image_angle = 0);
 
-    QRectF boundingRect() const override
-    {
-        return QRectF(QPointF(-m_image_size/2,-m_image_size/2),QSizeF(m_image_size,m_image_size));
-    }
+    QRectF boundingRect() const override;
 
     void set_mode ( Mode mode );
     Mode mode() const { return m_mode; }
@@ -63,6 +63,8 @@ public:
     void set_image_angle( int angle );
 
     static double image_size() { return image_size(); }
+
+    void set_angle(double angle);
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "transform_handle.hpp"
 #include "resource_manager.hpp"
+#include "node.hpp"
 
 
 QSvgRenderer Transform_Handle::scale_rest;
@@ -36,7 +37,7 @@ double Transform_Handle::m_image_size = 24;
 bool Transform_Handle::images_initialized = false;
 
 Transform_Handle::Transform_Handle(Mode mode, int image_angle)
-    : m_mode(mode), m_image_angle(image_angle)
+    : m_mode(mode), m_image_angle(image_angle), m_angle(0)
 {
     if ( !images_initialized )
     {
@@ -47,6 +48,13 @@ Transform_Handle::Transform_Handle(Mode mode, int image_angle)
         rotate_rest.load(Resource_Manager::data("img/handle_rotate_rest.svg"));
         rotate_active.load(Resource_Manager::data("img/handle_rotate_active.svg"));
     }
+    setFlag(QGraphicsItem::ItemIgnoresTransformations);
+}
+
+QRectF Transform_Handle::boundingRect() const
+{
+    const double sz = m_image_size+Node::external_radius();
+    return QRectF(QPointF(-sz,-sz),QSizeF(sz*2,sz*2));
 }
 
 void Transform_Handle::set_mode(Transform_Handle::Mode mode)
@@ -59,6 +67,11 @@ void Transform_Handle::set_image_angle(int angle)
     m_image_angle = angle;
 }
 
+void Transform_Handle::set_angle(double angle)
+{
+    m_angle = angle;
+}
+
 void Transform_Handle::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     QSvgRenderer* rend;
@@ -67,8 +80,9 @@ void Transform_Handle::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     else
         rend = highlighted ? &scale_active : &scale_rest;
 
-    painter->rotate(-m_image_angle);
-    painter->translate(-m_image_size/2,-m_image_size/2);
-    rend->render(painter,boundingRect());
+    painter->rotate(-m_image_angle-m_angle);
+    painter->translate(-m_image_size/2-Node::external_radius(),
+                       -m_image_size/2-Node::external_radius());
+    rend->render(painter,QRectF(-m_image_size/2,-m_image_size/2,m_image_size,m_image_size));
 
 }
