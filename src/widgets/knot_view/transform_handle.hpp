@@ -37,7 +37,7 @@ protected:
     static QSvgRenderer scale_active;///< SVG Image to display when highlight == true
     static QSvgRenderer rotate_rest; ///< SVG Image to display while at rest
     static QSvgRenderer rotate_active;///< SVG Image to display when highlight == true
-    static double       image_size; ///< Size of the image
+    static double       m_image_size; ///< Size of the image
     static bool         images_initialized; ///< whether static images have been initialized
 
 public:
@@ -53,7 +53,7 @@ public:
 
     QRectF boundingRect() const override
     {
-        return QRectF(QPointF(-image_size/2,-image_size/2),QSizeF(image_size,image_size));
+        return QRectF(QPointF(-m_image_size/2,-m_image_size/2),QSizeF(m_image_size,m_image_size));
     }
 
     void set_mode ( Mode mode );
@@ -61,6 +61,8 @@ public:
 
     int image_angle() const { return m_image_angle; }
     void set_image_angle( int angle );
+
+    static double image_size() { return image_size(); }
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

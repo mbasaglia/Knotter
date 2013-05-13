@@ -34,7 +34,10 @@ Node_Mover::Node_Mover()
     : scale_factor(1), scale_count(0), rotate_angle(0)
 {
     for ( int i = 0; i < n_handles; i++ )
+    {
         transform_handles[i].set_image_angle(90*i);
+        transform_handles[i].setVisible(false);
+    }
 }
 
 
@@ -69,11 +72,20 @@ void Node_Mover::update_transform_handles()
 {
     for ( int i = 0; i < n_handles; i++ )
         transform_handles[i].setVisible(nodes().size() >= 3);
-    const QPointF p;// = pivot-initial_box.center();
-    transform_handles[0].setPos(p+initial_box.topLeft()*scale_factor);
-    transform_handles[1].setPos(p+initial_box.bottomLeft()*scale_factor);
-    transform_handles[2].setPos(p+initial_box.bottomRight()*scale_factor);
-    transform_handles[3].setPos(p+initial_box.topRight()*scale_factor);
+
+    transform_handles[0].setPos(initial_box.topLeft());
+    transform_handles[1].setPos(initial_box.bottomLeft());
+    transform_handles[2].setPos(initial_box.bottomRight());
+    transform_handles[3].setPos(initial_box.topRight());
+
+    for ( int i = 0; i < n_handles; i++ )
+    {
+        QPointF off = transform_handles[i].pos()-start_pos;
+        QLineF ray(QPointF(0,0),off);
+        ray.setLength(ray.length()*scale_factor);
+        ray.setAngle(ray.angle()+rotate_angle);
+        transform_handles[i].setPos(pivot+ray.p2());
+    }
 }
 
 void Node_Mover::add_handles_to_scene(QGraphicsScene *scene)
@@ -105,8 +117,10 @@ void Node_Mover::move(QPointF delta)
         n->setPos(n->pos()+delta);
     }
 
-    for ( int i = 0; i < n_handles; i++ )
-        transform_handles[i].setPos(transform_handles[i].pos()+delta);
+
+    update_transform_handles();
+    //for ( int i = 0; i < n_handles; i++ )
+    //    transform_handles[i].setPos(transform_handles[i].pos()+delta);
 }
 
 void Node_Mover::rotate(double angle)
@@ -118,6 +132,7 @@ void Node_Mover::rotate(double angle)
         ray.setAngle(ray.angle()+angle);
         n->setPos(ray.p2());
     }
+    update_transform_handles();
 }
 
 void Node_Mover::scale(double factor)

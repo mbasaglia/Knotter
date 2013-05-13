@@ -32,7 +32,7 @@ QSvgRenderer Transform_Handle::scale_rest;
 QSvgRenderer Transform_Handle::scale_active;
 QSvgRenderer Transform_Handle::rotate_rest;
 QSvgRenderer Transform_Handle::rotate_active;
-double Transform_Handle::image_size = 24;
+double Transform_Handle::m_image_size = 24;
 bool Transform_Handle::images_initialized = false;
 
 Transform_Handle::Transform_Handle(Mode mode, int image_angle)
@@ -67,7 +67,8 @@ void Transform_Handle::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     else
         rend = highlighted ? &scale_active : &scale_rest;
 
-    painter->rotate(m_image_angle);
+    painter->rotate(-m_image_angle);
+    painter->translate(-m_image_size/2,-m_image_size/2);
     rend->render(painter,boundingRect());
 
 }
