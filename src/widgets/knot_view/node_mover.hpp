@@ -85,6 +85,9 @@ public:
     /// Update position and visibility of the transform handles
     void update_transform_handles();
     void add_handles_to_scene(QGraphicsScene* scene);
+
+    void set_mode(Transform_Handle::Mode mode);
+    Transform_Handle::Mode mode() const { return transform_handles[0].mode(); }
 };
 
 #endif // NODE_MOVER_HPP

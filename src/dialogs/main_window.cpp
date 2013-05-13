@@ -338,8 +338,10 @@ void Main_Window::connect_view(Knot_View *v)
     //export
     dialog_export_image.set_view(v);
 
-    // paint mode
+    // modes
     v->set_display_graph(action_Display_Graph->isChecked());
+    action_Rotate->setChecked(v->transform_mode() == Transform_Handle::ROTATE);
+    action_Scale->setChecked(v->transform_mode() == Transform_Handle::SCALE);
 
     // Performance
     v->set_fluid_refresh(Resource_Manager::settings.fluid_refresh());
@@ -955,4 +957,17 @@ void Main_Window::on_action_Merge_triggered()
         view->add_edge(newn,o);
 
     view->end_macro();
+}
+
+void Main_Window::on_action_Rotate_triggered(bool checked)
+{
+    if ( checked )
+        view->set_transform_mode(Transform_Handle::ROTATE);
+}
+
+void Main_Window::on_action_Scale_triggered(bool checked)
+{
+
+    if ( checked )
+        view->set_transform_mode(Transform_Handle::SCALE);
 }

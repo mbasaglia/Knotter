@@ -216,6 +216,9 @@ public:
     void set_fluid_refresh(bool enable);
     bool fluid_refresh() const { return m_fluid_refresh; }
 
+    void set_transform_mode(Transform_Handle::Mode mode) { node_mover.set_mode(mode); }
+    Transform_Handle::Mode transform_mode() const { return node_mover.mode(); }
+
 public slots:
     /**
      * \brief Zoom view by factor

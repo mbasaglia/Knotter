@@ -96,6 +96,15 @@ void Node_Mover::add_handles_to_scene(QGraphicsScene *scene)
         scene->addItem(&transform_handles[i]);
 }
 
+void Node_Mover::set_mode(Transform_Handle::Mode mode)
+{
+    for ( int i = 0; i < n_handles; i++ )
+    {
+        transform_handles[i].set_mode(mode);
+        transform_handles[i].update();
+    }
+}
+
 void Node_Mover::initialize_movement(QPointF pivot)
 {
     start_pos = this->pivot = pivot;

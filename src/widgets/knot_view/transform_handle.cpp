@@ -49,6 +49,7 @@ Transform_Handle::Transform_Handle(Mode mode, int image_angle)
         rotate_active.load(Resource_Manager::data("img/handle_rotate_active.svg"));
     }
     setFlag(QGraphicsItem::ItemIgnoresTransformations);
+    setZValue(10);
 }
 
 QRectF Transform_Handle::boundingRect() const
