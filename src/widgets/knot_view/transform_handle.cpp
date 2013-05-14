@@ -49,12 +49,11 @@ Transform_Handle::Transform_Handle(Mode mode, int image_angle)
         rotate_active.load(Resource_Manager::data("img/handle_rotate_active.svg"));
     }
     setFlag(QGraphicsItem::ItemIgnoresTransformations);
-    setZValue(10);
 }
 
 QRectF Transform_Handle::boundingRect() const
 {
-    const double sz = m_image_size+Node::external_radius();
+    const double sz = m_image_size;
     return QRectF(QPointF(-sz,-sz),QSizeF(sz*2,sz*2));
 }
 
@@ -82,8 +81,8 @@ void Transform_Handle::paint(QPainter *painter, const QStyleOptionGraphicsItem *
         rend = highlighted ? &scale_active : &scale_rest;
 
     painter->rotate(-m_image_angle-m_angle);
-    painter->translate(-m_image_size/2-Node::external_radius(),
-                       -m_image_size/2-Node::external_radius());
+    painter->translate(-m_image_size/2,
+                       -m_image_size/2);
     rend->render(painter,QRectF(-m_image_size/2,-m_image_size/2,m_image_size,m_image_size));
 
 }

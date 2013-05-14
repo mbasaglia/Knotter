@@ -106,24 +106,48 @@ void Node_Mover::set_mode(Transform_Handle::Mode mode)
     }
 }
 
-void Node_Mover::set_dragged_handle(Transform_Handle *handle)
+void Node_Mover::set_dragged_handle(Transform_Handle *handle, bool anchor_angle)
 {
-    initialize_movement_internal(m_initial_box.center());
     dragged_handle = handle;
+
+    QPointF sp = m_initial_box.center();
+
+    if ( anchor_angle )
+    {
+        for ( int i = 0; i < n_handles; i++ )
+            if ( &transform_handles[i] == dragged_handle )
+            {
+                switch(i)
+                {
+                    case 0: sp = m_initial_box.bottomRight(); break;
+                    case 1: sp = m_initial_box.topRight(); break;
+                    case 2: sp = m_initial_box.topLeft(); break;
+                    case 3: sp = m_initial_box.bottomLeft(); break;
+                }
+                break;
+            }
+    }
+
+    initialize_movement_internal(sp);
 }
 
-void Node_Mover::drag_handle(QPointF p)
+void Node_Mover::drag_handle(QPointF p, bool fixed, double step_size )
 {
     if ( !dragged_handle )
         return;
+
 
     if ( mode() == Transform_Handle::ROTATE )
     {
         QLineF l1 (pivot,dragged_handle->pos());
         QLineF l2 (pivot,p);
-        rotate(l2.angle()-l1.angle());
+        double angle = l2.angle()-l1.angle();
+        if ( fixed )
+            angle = int(angle) / 15 * 15;
+        rotate(angle);
     }
     /// \todo scale
+
 }
 
 void Node_Mover::initialize_movement_internal(QPointF pivot)
@@ -225,13 +249,13 @@ void Node_Mover::deploy(Knot_View *view,QString message)
         }
     }
 
-    m_nodes.clear();
+    /*m_nodes.clear();
     offset.clear();
 
 
     start_pos = pivot;
     scale_factor = 1;
     scale_count = 0;
-    rotate_angle = 0;
+    rotate_angle = 0;*/
 }
 

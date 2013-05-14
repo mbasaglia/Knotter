@@ -655,7 +655,12 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
             else if ( th )
             {
                 node_mover.set_nodes(selected_nodes());
-                node_mover.set_dragged_handle(th);
+
+                double anchor_angle = event->modifiers() & Qt::ShiftModifier;
+                if ( transform_mode() == Transform_Handle::SCALE )
+                    anchor_angle  = !anchor_angle;
+
+                node_mover.set_dragged_handle(th,anchor_angle);
                 mouse_mode |= DRAG_HANDLE;
             }
             else
@@ -801,7 +806,10 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
     }
     else if ( mouse_mode & DRAG_HANDLE )
     {
-        node_mover.drag_handle(scene_pos);
+
+        node_mover.drag_handle(scene_pos,
+                               event->modifiers() & Qt::ControlModifier,
+                               m_grid.size());
         if ( m_fluid_refresh )
             update_knot();
     }

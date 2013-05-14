@@ -95,9 +95,20 @@ public:
      *  \brief Initialize handle drag
      *
      *  Will initialize movement to the bounding box center
+     *
+     *  \param handle       Dragged hadle
+     *  \param anchor_angle Whether to anchor the transformation to the bounding box vertices
      */
-    void set_dragged_handle(Transform_Handle* handle);
-    void drag_handle(QPointF p);
+    void set_dragged_handle(Transform_Handle* handle, bool anchor_angle);
+
+    /**
+     *  \brief Drag dragged_handle
+     *
+     *  \param p            Suggested new position
+     *  \param fixed        Whether to thransform using fixed steps
+     *  \param step_size    Fixed scale size
+     */
+    void drag_handle(QPointF p, bool fixed, double step_size);
 
 private:
     /// Initialize movement without updating handles

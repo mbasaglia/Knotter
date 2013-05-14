@@ -33,6 +33,7 @@ Edge::Edge(Node *v1, Node *v2, Edge_Style* e_style) :
     available_handles(TOP_LEFT|TOP_RIGHT|BOTTOM_LEFT|BOTTOM_RIGHT)
 {
     attach();
+    setZValue(1);
 }
 
 QRectF Edge::boundingRect() const
