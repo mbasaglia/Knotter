@@ -13,7 +13,7 @@ notice and there may be some bugs.
 Contacts
 ---------------------------------------
 Mattia Basaglia <mattia.basaglia@gmail.com>
-[Knotter Website](http://www.knotdraw.org/)
+[Knotter Website](http://knotter.mattbas.org/)
 
 If you have any suggestion, criticism, feature request or bug report please let me know
 
@@ -58,7 +58,7 @@ The default install prefix is /usr/local (see ./configure.sh --help)
 Dependencies
 ---------------------------------------
 
-* Qt Framework, should work with versions 4.8 and 5.0
+* Qt Framework, should work with 4.8 or later
 
 Misc build targets
 ---------------------------------------
@@ -79,7 +79,7 @@ Some tarballs can be downloaded from https://sourceforge.net/projects/knotter/fi
 ### Cloning from Git ###
 
 This source tree uses git submodules, this means that the submodules need to
-be initialized when the repo is coloned:
+be initialized when the repo is cloned:
 
     # Clone repo
     git clone git://github.com/mbasaglia/Knotter.git
