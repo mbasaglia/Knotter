@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 Node_Mover::Node_Mover()
-    : scale_factor(1), scale_count(0), rotate_angle(0)
+    : scale_factor(1), scale_count(0), rotate_angle(0), dragged_handle(nullptr)
 {
     for ( int i = 0; i < n_handles; i++ )
     {
@@ -62,8 +62,9 @@ void Node_Mover::set_nodes(QList<Node *> nodes)
         else if ( n->y() > max.y() )
             max.setY(n->y());
     }
-    initial_box.setTopLeft(min);
-    initial_box.setBottomRight(max);
+    m_initial_box.setTopLeft(min);
+    m_initial_box.setBottomRight(max);
+
 
     update_transform_handles();
 }
@@ -72,10 +73,10 @@ void Node_Mover::update_transform_handles()
 {
 
 
-    transform_handles[0].setPos(initial_box.topLeft());
-    transform_handles[1].setPos(initial_box.bottomLeft());
-    transform_handles[2].setPos(initial_box.bottomRight());
-    transform_handles[3].setPos(initial_box.topRight());
+    transform_handles[0].setPos(m_initial_box.topLeft());
+    transform_handles[1].setPos(m_initial_box.bottomLeft());
+    transform_handles[2].setPos(m_initial_box.bottomRight());
+    transform_handles[3].setPos(m_initial_box.topRight());
 
     for ( int i = 0; i < n_handles; i++ )
     {
@@ -105,7 +106,27 @@ void Node_Mover::set_mode(Transform_Handle::Mode mode)
     }
 }
 
-void Node_Mover::initialize_movement(QPointF pivot)
+void Node_Mover::set_dragged_handle(Transform_Handle *handle)
+{
+    initialize_movement_internal(m_initial_box.center());
+    dragged_handle = handle;
+}
+
+void Node_Mover::drag_handle(QPointF p)
+{
+    if ( !dragged_handle )
+        return;
+
+    if ( mode() == Transform_Handle::ROTATE )
+    {
+        QLineF l1 (pivot,dragged_handle->pos());
+        QLineF l2 (pivot,p);
+        rotate(l2.angle()-l1.angle());
+    }
+    /// \todo scale
+}
+
+void Node_Mover::initialize_movement_internal(QPointF pivot)
 {
     start_pos = this->pivot = pivot;
 
@@ -118,7 +139,11 @@ void Node_Mover::initialize_movement(QPointF pivot)
 
     foreach(Node* n,m_nodes)
         offset.push_back(n->pos() - pivot);
+}
 
+void Node_Mover::initialize_movement(QPointF pivot)
+{
+    initialize_movement_internal(pivot);
     update_transform_handles();
 }
 
@@ -165,8 +190,8 @@ void Node_Mover::fixed_scale(bool increase, double step_size)
 {
     scale_count += increase ? +1 : -1;
 
-    double factor = ( initial_box.width() + scale_count*step_size ) /
-                                initial_box.width();
+    double factor = ( m_initial_box.width() + scale_count*step_size ) /
+                                m_initial_box.width();
     scale_factor = factor;
     for ( int i = 0; i < m_nodes.size(); i++ )
     {
@@ -178,13 +203,14 @@ void Node_Mover::fixed_scale(bool increase, double step_size)
     update_transform_handles();
 }
 
-void Node_Mover::deploy(Knot_View *view)
+void Node_Mover::deploy(Knot_View *view,QString message)
 {
-    if ( !qFuzzyCompare(pivot,start_pos) )
+    if ( !qFuzzyCompare(pivot,start_pos) || !qFuzzyCompare(rotate_angle+1,1)
+         || !qFuzzyCompare(scale_factor,1) )
     {
         if ( m_nodes.size() > 1 )
         {
-            view->begin_macro(QObject::tr("Move Nodes"));
+            view->begin_macro(message);
             for ( int i = 0; i < m_nodes.size(); i++ )
             {
                 Node* n = m_nodes[i];

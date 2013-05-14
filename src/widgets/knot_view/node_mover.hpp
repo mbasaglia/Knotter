@@ -36,22 +36,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class Node_Mover
 {
 private:
-    QList<Node*>    m_nodes;
-    QPointF         pivot; ///< Pivot point for movement
-    QPointF         start_pos;///< Starting pivot point position
-    QList<QPointF>  offset; ///< Offset of each node from pivot
-    double          scale_factor;
-    int             scale_count; ///< Number of size units when using fixed_scale
-    double          rotate_angle;
-    QRectF          initial_box; ///< Bounding box of the selection on initialization
-    static const int n_handles = 4; ///< size of transform_handles
-    Transform_Handle transform_handles[n_handles];
+    QList<Node*>        m_nodes;
+    QPointF             pivot; ///< Pivot point for movement
+    QPointF             start_pos;///< Starting pivot point position
+    QList<QPointF>      offset; ///< Offset of each node from pivot
+    double              scale_factor;
+    int                 scale_count; ///< Number of size units when using fixed_scale
+    double              rotate_angle;
+    QRectF              m_initial_box; ///< Bounding box of the selection on initialization
+    static const int    n_handles = 4; ///< size of transform_handles
+    Transform_Handle    transform_handles[n_handles];
+    Transform_Handle*   dragged_handle; ///< Transform_Handle being dragged
 
 public:
     /// Initialize movement
     Node_Mover();
 
-    void initialize_movement(QPointF pivot = QPointF());
+    void initialize_movement(QPointF pivot );
 
     /// Apply movement by delta to each node
     void move(QPointF delta);
@@ -75,9 +76,10 @@ public:
     void fixed_scale(bool increase, double step_size);
 
     /// Create required commands
-    void deploy(class Knot_View *view);
+    void deploy(class Knot_View *view, QString message);
 
-    QSizeF initial_size() const { return initial_box.size(); }
+    QSizeF initial_size() const { return m_initial_box.size(); }
+    QRectF initial_box() const { return m_initial_box; }
 
     void set_nodes(QList<Node*> nodes);
     QList<Node*> nodes() const { return m_nodes; }
@@ -88,6 +90,20 @@ public:
 
     void set_mode(Transform_Handle::Mode mode);
     Transform_Handle::Mode mode() const { return transform_handles[0].mode(); }
+
+    /**
+     *  \brief Initialize handle drag
+     *
+     *  Will initialize movement to the bounding box center
+     */
+    void set_dragged_handle(Transform_Handle* handle);
+    void drag_handle(QPointF p);
+
+private:
+    /// Initialize movement without updating handles
+    void initialize_movement_internal(QPointF pivot );
+
+
 };
 
 #endif // NODE_MOVER_HPP

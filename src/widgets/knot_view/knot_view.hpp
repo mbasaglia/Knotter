@@ -53,8 +53,8 @@ class Knot_View : public QGraphicsView
         MOVE_BG_IMG= 0x020, ///<  Move background image
         MOVE_BACK= MOVE_GRID|MOVE_BG_IMG, ///< Mask with both MOVE_GRID and MOVE_BG_IMG
 
+        DRAG_HANDLE= 0x100, ///< Dragging a transform handle
         RUBBERBAND = 0x200, ///< Dragging the rubberband
-
         MOVE_NODES = 0x400, ///< Moving the selection
         /**
          *  Used with MOVE_NODES when the movement is triggered

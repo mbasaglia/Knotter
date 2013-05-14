@@ -635,6 +635,10 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
         {
             Node* n = node_at(scene_pos);
             Edge* e = edge_at(scene_pos);
+            Transform_Handle *th = dynamic_cast<Transform_Handle*>(
+                                    scene()->itemAt(scene_pos,QTransform()));
+
+
             QList<Node*> nodes;
             if ( n )
             {
@@ -648,10 +652,16 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
                 nodes.push_back(e->vertex2());
 
             }
+            else if ( th )
+            {
+                node_mover.set_nodes(selected_nodes());
+                node_mover.set_dragged_handle(th);
+                mouse_mode |= DRAG_HANDLE;
+            }
             else
                 mouse_mode |= RUBBERBAND;
 
-            if ( !(mouse_mode & RUBBERBAND) )
+            if ( !(mouse_mode & (RUBBERBAND|DRAG_HANDLE) ) )
             {
                 // not directly in condition because has side-effect
                 bool b = mouse_select(nodes,event->modifiers() &
@@ -789,6 +799,12 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
 
         emitted_pos = snapped_scene_pos;
     }
+    else if ( mouse_mode & DRAG_HANDLE )
+    {
+        node_mover.drag_handle(scene_pos);
+        if ( m_fluid_refresh )
+            update_knot();
+    }
 
 
     // highlight item under cursor
@@ -827,7 +843,7 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
     {
         last_node = nullptr;
         mouse_mode &=~ MOVE_NODES;
-        node_mover.deploy(this);
+        node_mover.deploy(this,tr("Move Nodes"));
         update_knot();
 
 
@@ -841,6 +857,13 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
     {
         if ( event->button() == Qt::MiddleButton )
             setCursor(Qt::SizeAllCursor);
+    }
+    else if ( mouse_mode & DRAG_HANDLE )
+    {
+        node_mover.deploy(this,
+                          node_mover.mode() == Transform_Handle::ROTATE ?
+                              tr("Rotate Nodes") : tr("Scale Nodes") );
+        mouse_mode &= ~DRAG_HANDLE;
     }
     else if ( event->button() == Qt::RightButton )
     {
