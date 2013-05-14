@@ -705,7 +705,7 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
                 if ( !next_node )
                     next_node = add_breaking_node(snapped_scene_pos);
 
-                if ( last_node && !next_edge )
+                if ( last_node && !next_edge && !last_node->has_edge_to(next_node))
                     add_edge(last_node,next_node);
 
                 push_command(new Last_Node(last_node,next_node,this));
