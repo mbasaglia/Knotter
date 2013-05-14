@@ -136,17 +136,34 @@ void Node_Mover::drag_handle(QPointF p, bool fixed, double step_size )
     if ( !dragged_handle )
         return;
 
+    QLineF l1 (pivot,dragged_handle->pos());
+    QLineF l2 (pivot,p);
 
     if ( mode() == Transform_Handle::ROTATE )
     {
-        QLineF l1 (pivot,dragged_handle->pos());
-        QLineF l2 (pivot,p);
         double angle = l2.angle()-l1.angle();
         if ( fixed )
             angle = int(angle) / 15 * 15;
         rotate(angle);
     }
-    /// \todo scale
+    else if ( qAbs( l2.angle() - l1.angle()) > 90 )
+    {
+        scale(-1);
+    }
+    else if ( fixed )
+    {
+        if ( qAbs(l2.length() - l1.length()) > step_size )
+        {
+            fixed_scale(l2.length() > l1.length(),step_size);
+        }
+    }
+    else
+    {
+        //if ( qFuzzyCompare(l2.length()+1,l1.length()+1) )
+        //    scale(-1);
+        //else
+            scale(l2.length()/l1.length());
+    }
 
 }
 
