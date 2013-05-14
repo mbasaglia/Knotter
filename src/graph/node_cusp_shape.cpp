@@ -28,37 +28,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "edge_style.hpp"
 #include "traversal_info.hpp"
 
-QPointF Cusp_Shape::cusp_point(QLineF start, QLineF finish,
-                                    const Traversal_Info &ti,
-                                    double def_dist) const
+QPointF Cusp_Shape::cusp_point(const Traversal_Info &ti, double def_dist) const
 {
-    /// \todo try to find a cleaner algorithm
 
     QLineF bisect(0,0,1,1);
     // place line in the cusp node and give it the right direction
     bisect.setP1(ti.node->pos());
-    bisect.setAngle((ti.in.angle+ti.out.angle)/2);
-
-    // make a line parallel to the input edge and place it in the start handle endpoint
-    QLineF parallel = ti.in.edge->to_line();
-    parallel.setLength(parallel.length()/2);
-    parallel.translate(start.p2()-parallel.p1());
-
-    QPointF intersect = bisect.p2();
-    if ( ti.angle_delta < 350 )
-    {
-        // find the intersection between the bisector and the parallel line
-        parallel.intersect(bisect,&intersect);
-        bisect.setP2(intersect);
-    }
-    else
-        bisect.setAngle((ti.in.angle+ti.out.angle)/2+180);
-
+    int d = 1;
+    if ( ti.handside == Traversal_Info::LEFT )
+        d = -1;
+    double delta = ti.in.angle+d*ti.angle_delta/2;
+    bisect.setAngle(delta);
     bisect.setLength(def_dist);
-
-    Q_UNUSED(finish);
-
-
     return bisect.p2();
 }
 
@@ -72,7 +53,7 @@ void Cusp_Rounded::draw_joint(Path_Builder &path, const Traversal_Info &ti,
 
     if ( ti.angle_delta > style.cusp_angle  ) // draw cusp
     {
-        QPointF cusp_pt = cusp_point(start, finish,ti,style.cusp_distance);
+        QPointF cusp_pt = cusp_point(ti,style.cusp_distance);
 
         QLineF handle( start.p1(),finish.p1() );
         handle.translate(cusp_pt-start.p1());
@@ -99,7 +80,7 @@ void Cusp_Pointed::draw_joint(Path_Builder &path, const Traversal_Info &ti, cons
 
     if ( ti.angle_delta > style.cusp_angle  ) // draw cusp
     {
-        QPointF cusp_pt = cusp_point(start, finish,ti,style.cusp_distance);
+        QPointF cusp_pt = cusp_point(ti,style.cusp_distance);
 
 
         path.add_quad(start.p1(),start.p2(),cusp_pt);
@@ -120,7 +101,7 @@ void Cusp_Ogee::draw_joint(Path_Builder &path, const Traversal_Info &ti, const N
 
     if ( ti.angle_delta > style.cusp_angle  ) // draw cusp
     {
-        QPointF cusp_pt = cusp_point(start, finish,ti,style.cusp_distance);
+        QPointF cusp_pt = cusp_point(ti,style.cusp_distance);
 
         QLineF bar (start.p1(), finish.p1()); // join handle base
         bar.setLength(bar.length()/5); // get 1 fifth
@@ -150,7 +131,7 @@ void Cusp_Polygonal::draw_joint(Path_Builder &path, const Traversal_Info &ti, co
 
     if ( ti.angle_delta > style.cusp_angle  ) // draw cusp
     {
-        QPointF cusp_pt = cusp_point(start, finish,ti,style.cusp_distance);
+        QPointF cusp_pt = cusp_point(ti,style.cusp_distance);
 
         path.add_line(start.p1(),start.p2());
         path.add_line(start.p2(),cusp_pt);

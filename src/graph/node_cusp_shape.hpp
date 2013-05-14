@@ -58,9 +58,7 @@ protected:
         \param ti           traversal info
         \param def_dist     default distance from node (only if delta ~ 360)
     */
-    QPointF cusp_point ( QLineF start,
-                         QLineF finish,
-                         const Traversal_Info& ti,
+    QPointF cusp_point (const Traversal_Info& ti,
                          double def_dist ) const;
 };
 
