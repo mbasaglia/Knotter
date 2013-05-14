@@ -1,6 +1,7 @@
 [submodule "src/widgets/color"]
 	path = src/widgets/color
 	url = git://github.com/mbasaglia/Qt-Color-Picker.git
+	ignore=dirty
 [submodule "src/widgets/toolbar_editor"]
 	path = src/widgets/toolbar_editor
 	url = https://github.com/mbasaglia/Qt-Toolbar-Editor
