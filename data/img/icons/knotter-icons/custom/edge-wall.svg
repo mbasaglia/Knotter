@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg4074"
+   height="48px"
+   width="48px"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="edge-wall.svg">
+  <defs
+     id="defs3019" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1215"
+     inkscape:window-height="749"
+     id="namedview3017"
+     showgrid="false"
+     inkscape:zoom="4.9166667"
+     inkscape:cx="-0.20338983"
+     inkscape:cy="51.277482"
+     inkscape:window-x="38"
+     inkscape:window-y="-4"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4074" />
+  <metadata
+     id="metadata4079">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+     id="path3945"
+     style="direction:ltr;enable-background:accumulate;baseline-shift:baseline;block-progression:tb;text-indent:0;color:#000000;text-transform:none;text-align:start;"
+     fill="#08F"
+     d="m0,25,0,2,48,0,0-2-48,0zm0-4,0,2,48,0,0-2-48,0z" />
+  <path
+     id="path3927"
+     d="m 0,34.938 0,5.094 c 9.5757,1.029 17.609,1.562 24,1.562 6.3911,0 14.424,-0.53324 24,-1.5625 v -5.0938 c -9.718,1.071 -17.809,1.656 -24,1.656 -6.191,0 -14.282,-0.585 -24,-1.656 z M 24,6.406 c -6.3911,0 -14.424,0.5078 -24,1.5312 v 5.125 c 9.7176,-1.071 17.809,-1.656 24,-1.656 6.1914,0 14.282,0.58468 24,1.6562 V 7.9374 C 38.424,6.9148 30.391,6.4068 24,6.4068 z"
+     inkscape:connector-curvature="0"
+     style="fill:#000000" />
+</svg>
