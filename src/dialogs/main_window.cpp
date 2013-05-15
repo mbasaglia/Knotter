@@ -39,7 +39,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDrag>
 #include <QMouseEvent>
 #include "commands.hpp"
-
+#include <QPrintDialog>
+#include <QPageSetupDialog>
+#include <QPrintPreviewDialog>
 
 Main_Window::Main_Window(QWidget *parent) :
     QMainWindow(parent), zoomer(nullptr), view(nullptr),
@@ -525,6 +527,7 @@ void Main_Window::close_tab(int i)
         create_tab();
 }
 
+
 void Main_Window::set_undo_text(QString txt)
 {
     action_Undo->setText(tr("Undo %1").arg(txt));
@@ -970,4 +973,35 @@ void Main_Window::on_action_Scale_triggered(bool checked)
 
     if ( checked )
         view->set_transform_mode(Transform_Handle::SCALE);
+}
+
+
+void Main_Window::print(QPrinter *pr)
+{
+    QPainter painter(pr);
+    painter.setRenderHints(QPainter::Antialiasing|QPainter::HighQualityAntialiasing);
+    painter.scale(view->get_zoom_factor(),view->get_zoom_factor());
+    painter.translate(-view->mapToScene(0,0));
+    view->get_graph().const_paint(&painter);
+}
+
+void Main_Window::on_action_Print_triggered()
+{
+    QPrintDialog dialog(&printer, this);
+    if (dialog.exec())
+    {
+        print(&printer);
+    }
+}
+
+void Main_Window::on_action_Page_Setup_triggered()
+{
+    QPageSetupDialog(&printer,this).exec();
+}
+
+void Main_Window::on_action_Print_Preview_triggered()
+{
+    QPrintPreviewDialog dialog(&printer,this);
+    connect(&dialog,SIGNAL(paintRequested(QPrinter*)),SLOT(print(QPrinter*)));
+    dialog.exec();
 }

@@ -38,6 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "cusp_style_widget.hpp"
 #include "about_dialog.hpp"
 #include "dialog_insert_polygon.hpp"
+#include <QPrinter>
 
 class Main_Window : public QMainWindow, private Ui::Main_Window
 {
@@ -56,6 +57,7 @@ private:
     Cusp_Style_Widget*      selection_style;
     About_Dialog            about_dialog;
     Dialog_Insert_Polygon   dialog_insert_polygon;
+    QPrinter                printer;
 
 public:
     explicit Main_Window(QWidget *parent = 0);
@@ -83,6 +85,8 @@ public slots:
      *  \post The tab is closed. If it were the last tab, a new one is created
      */
     void close_tab(int i);
+
+    void print (QPrinter* pr);
 
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;
@@ -177,6 +181,9 @@ private slots:
     void on_action_Merge_triggered();
     void on_action_Rotate_triggered(bool checked);
     void on_action_Scale_triggered(bool checked);
+    void on_action_Print_triggered();
+    void on_action_Page_Setup_triggered();
+    void on_action_Print_Preview_triggered();
 };
 
 #endif // MAIN_WINDOW_HPP

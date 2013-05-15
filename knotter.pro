@@ -71,7 +71,7 @@ contains(CONFIG,debug) {
     DEFINES += HAS_QT_4_8
 }
 greaterThan(QT_MAJOR_VERSION, 4) {
-    DEFINES += HAS_QT_5
+    DEFINES += HAS_QT_4_8 HAS_QT_5
     QT += widgets printsupport
 }
 contains(CONFIG,c++11) {

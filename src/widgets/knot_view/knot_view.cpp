@@ -60,7 +60,7 @@ Knot_View::Knot_View(QString file)
     connect(verticalScrollBar(),SIGNAL(valueChanged(int)),
             this,SLOT(update_scrollbars()));
 
-    guide.setPen(QPen(Qt::gray,1,Qt::DashLine));
+    guide.setPen(QPen(Qt::gray,0,Qt::DashLine));
 
 
     QColor bg = QApplication::palette().color(QPalette::Highlight);
