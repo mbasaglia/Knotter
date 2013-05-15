@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Copyright (C) 2012-2013  Mattia Basaglia
 #
 # Knotter is free software: you can redistribute it and/or modify
@@ -23,8 +23,8 @@ src_dir=`dirname ${BASH_SOURCE[0]}`
 
 if  ! grep -q "$check_string" Makefile ; then
     sed -i -e "s/^dist/buggydist/g" -e "s/mydist/dist/g" Makefile # fix dist target
-    sed -i -e "s/Makefile: /Makefile: $src_dir/fix_makefile.sh /" Makefile # add this as dependency
-    sed -ri -e 's/(\$\(QMAKE\).*)/\1 ; '$src_dir'/fix_makefile.sh/g' Makefile # add this on regenerate
+    sed -i -e "s~Makefile: ~Makefile: $src_dir/fix_makefile.sh ~" Makefile # add this as dependency
+    sed -ri -e 's~(\$\(QMAKE\).*)~\1 ; '$src_dir'/fix_makefile.sh~g' Makefile # add this on regenerate
     echo $check_string >>Makefile #add trailing line to avoid re-execution of this
 fi
 

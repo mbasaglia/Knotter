@@ -47,8 +47,8 @@ Dialog_Preferences::Dialog_Preferences(QMainWindow *parent) :
     spin_recent_files->setValue(Resource_Manager::settings.max_recent_files());
     check_save_geometry->setChecked(Resource_Manager::settings.save_ui());
 
-    connect(button_clear_settings,SIGNAL(clicked()),
-            &Resource_Manager::settings,SLOT(clear_config()));
+    check_save_grid->setChecked(Resource_Manager::settings.save_grid());
+    check_save_toolbars->setChecked(Resource_Manager::settings.save_toolbars());
 }
 
 void Dialog_Preferences::init_combos()
@@ -91,6 +91,8 @@ void Dialog_Preferences::set_preferences()
 
     Resource_Manager::settings.set_save_grid(check_save_grid->isChecked());
 
+    Resource_Manager::settings.set_save_toolbars(check_save_toolbars->isChecked());
+
 }
 
 void Dialog_Preferences::retranslate()
@@ -105,4 +107,10 @@ void Dialog_Preferences::retranslate()
 void Dialog_Preferences::on_button_clear_recent_clicked()
 {
     Resource_Manager::settings.clear_recent_files();
+}
+
+void Dialog_Preferences::on_button_clear_settings_clicked()
+{
+    Resource_Manager::settings.clear_config();
+    group_save->setEnabled(false);
 }

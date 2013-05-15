@@ -44,7 +44,7 @@ private:
 
     bool                        save_nothing; ///< Whether to skip save_config (when clearing the saved conf)
 
-
+    bool                        m_save_toolbars;
     QList<String_Toolbar>       toolbars;
 
     bool                        m_save_ui; ///< Whether the GUI state must be loaded between sessions
@@ -116,6 +116,10 @@ public:
     Snapping_Grid::Grid_Shape grid_shape() const { return m_grid_shape; }
     void set_grid_shape(Snapping_Grid::Grid_Shape gs) { m_grid_shape = gs; }
     bool grid_enabled() const { return m_grid_enabled; }
+
+
+    bool save_toolbars() const { return m_save_toolbars; }
+    void set_save_toolbars(bool save) { m_save_toolbars = save; }
 
 public slots:
     void clear_config();

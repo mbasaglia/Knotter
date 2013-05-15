@@ -34,9 +34,13 @@ WEBSITE="http://knotter.mattbas.org/"
 DOWNLOAD="http://sourceforge.net/projects/knotter/files/latest/download"
 # Repo browser URL
 REPO="https://github.com/mbasaglia/Knotter"
+# Git Repo
+REPO_GIT="git://github.com/mbasaglia/Knotter.git"
 # Bug tacker URL
 BUGS="https://github.com/mbasaglia/Knotter/issues"
 # URL for on-line user manual
 DOC_URL="http://knotter.mattbas.org/manual"
 # Icon path relative to datadir
 ICON_RELPATH="img/logo-big.svg"
+#Copyright years
+COPY_YEARS="2012-2013"

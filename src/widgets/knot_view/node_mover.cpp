@@ -81,12 +81,16 @@ void Node_Mover::update_transform_handles()
     for ( int i = 0; i < n_handles; i++ )
     {
         transform_handles[i].setVisible(nodes().size() >= 3);
-        transform_handles[i].set_angle(rotate_angle);
+        if ( scale_factor < 0 )
+            transform_handles[i].set_angle(rotate_angle+180);
+        else
+            transform_handles[i].set_angle(rotate_angle);
 
         QPointF off = transform_handles[i].pos()-start_pos;
         QLineF ray(QPointF(0,0),off);
         ray.setLength(ray.length()*scale_factor);
         ray.setAngle(ray.angle()+rotate_angle);
+
         transform_handles[i].setPos(pivot+ray.p2());
     }
 }
@@ -159,10 +163,7 @@ void Node_Mover::drag_handle(QPointF p, bool fixed, double step_size )
     }
     else
     {
-        //if ( qFuzzyCompare(l2.length()+1,l1.length()+1) )
-        //    scale(-1);
-        //else
-            scale(l2.length()/l1.length());
+        scale(l2.length()/l1.length());
     }
 
 }

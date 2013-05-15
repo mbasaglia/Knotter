@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Settings::Settings()
     : save_nothing(false),
+      m_save_toolbars(true),
       m_save_ui(true), m_icon_size(22), tool_button_style(Qt::ToolButtonFollowStyle),
       m_max_recent_files(5),
       m_graph_cache(false), m_fluid_refresh(true),
@@ -67,7 +68,7 @@ void Settings::load_config()
 
     settings.beginGroup("gui");
 
-
+    m_save_toolbars = settings.value("save_toolbars",m_save_toolbars).toBool();
     int ntoolbars = settings.beginReadArray("toolbar");
     for ( int i = 0; i < ntoolbars; i++ )
     {
@@ -139,6 +140,7 @@ void Settings::save_config()
 
     settings.beginGroup("gui");
 
+    settings.setValue("save_toolbars",m_save_toolbars);
     settings.beginWriteArray("toolbar",toolbars.size());
     for(int i = 0; i < toolbars.size(); i++ )
     {
@@ -172,7 +174,7 @@ void Settings::clear_config()
 
 void Settings::initialize_window(QMainWindow *w)
 {
-    if ( !toolbars.empty() )
+    if ( !toolbars.empty() && m_save_toolbars )
     {
         foreach(QToolBar* tb, w->findChildren<QToolBar*>() )
             delete tb;

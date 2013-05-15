@@ -47,6 +47,7 @@ public slots:
     void retranslate();
 private slots:
     void on_button_clear_recent_clicked();
+    void on_button_clear_settings_clicked();
 };
 
 #endif // DIALOG_PREFERENCES_HPP
