@@ -86,6 +86,6 @@ public:
     int version();
 };
 
-bool import_xml(QIODevice* file, Graph& graph);
+bool import_xml(QIODevice& file, Graph& graph);
 
 #endif // XML_LOADER_HPP

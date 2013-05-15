@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QSvgGenerator>
 
-void paint_knot(const Graph& graph , QPaintDevice *device, bool draw_graph)
+void paint_knot(QPaintDevice *device, const Graph& graph, bool draw_graph)
 {
     QPainter painter;
     painter.begin(device);
@@ -42,21 +42,32 @@ void paint_knot(const Graph& graph , QPaintDevice *device, bool draw_graph)
 }
 
 
-void export_svg(const Graph& graph, QIODevice &file, bool draw_graph)
+void export_svg(QIODevice &file, const Graph& graph, bool draw_graph)
 {
+    if ( !file.isWritable() && !file.open(QIODevice::WriteOnly|QIODevice::Text))
+    {
+        return;
+    }
+
     QSvgGenerator gen;
     gen.setOutputDevice(&file);
     gen.setTitle("");
     gen.setDescription("");
     gen.setViewBox(QRect(QPoint(0,0),graph.boundingRect().size().toSize()));
 
-    paint_knot ( graph, &gen, draw_graph );
+    paint_knot ( &gen, graph, draw_graph );
 }
 
 
-void export_raster(const Graph& graph, QIODevice &file, QColor background,
+void export_raster(QIODevice &file, const Graph& graph, QColor background,
                    bool antialias, QSize img_size, int quality, bool draw_graph )
 {
+
+    if ( !file.isWritable() && !file.open(QIODevice::WriteOnly))
+    {
+        return;
+    }
+
 
     QSizeF actual_size = graph.boundingRect().size();
     double scale_x = img_size.width() / actual_size.width();

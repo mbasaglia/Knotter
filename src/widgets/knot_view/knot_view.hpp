@@ -193,7 +193,7 @@ public:
      */
     bool edit_graph_mode_enabled() const { return mouse_mode & EDIT_GRAPH; }
 
-    bool load_file(QIODevice* device, QString action_name);
+    bool load_file(QIODevice &device, QString action_name);
 
     void set_display_graph(bool enable);
 

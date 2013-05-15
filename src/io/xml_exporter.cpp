@@ -190,7 +190,7 @@ bool export_xml(const Graph& graph, QIODevice &file )
     return true;
 }
 
-void export_xml_mime_data(const Graph& graph, QMimeData* data)
+void export_xml_mime_data(QMimeData* data, const Graph& graph)
 {
 
     QByteArray knot_xml;
@@ -202,6 +202,6 @@ void export_xml_mime_data(const Graph& graph, QMimeData* data)
 
     QByteArray knot_svg;
     QBuffer svg_stream(&knot_svg);
-    export_svg(graph,svg_stream,false);
+    export_svg(svg_stream,graph,false);
     data->setData("image/svg+xml",knot_svg);
 }

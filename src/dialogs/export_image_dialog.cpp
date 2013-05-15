@@ -97,7 +97,7 @@ void Export_Image_Dialog::on_button_svg_clicked()
     file_name = exname;
 
 
-    export_svg(view->get_graph(),quf,check_graph->isChecked());
+    export_svg(quf,view->get_graph(),check_graph->isChecked());
 
     quf.close();
 
@@ -105,7 +105,7 @@ void Export_Image_Dialog::on_button_svg_clicked()
 
 bool Export_Image_Dialog::file_ok(QFile &file)
 {
-    if ( ! file.open(QIODevice::WriteOnly | QIODevice::Text) )
+    if ( ! file.open(QIODevice::WriteOnly) )
     {
         QMessageBox::warning(this,tr("File Error"),tr("Could not write to \"%1\".")
                              .arg(file.fileName()));
@@ -160,7 +160,7 @@ void Export_Image_Dialog::on_button_image_clicked()
     if ( name_filter == png )
         back = Qt::transparent;
 
-    export_raster(view->get_graph(),quf,back,check_antialiasing->isChecked(),
+    export_raster(quf,view->get_graph(),back,check_antialiasing->isChecked(),
                   QSize(spin_width->value(),spin_height->value()),
                   slider_quality->value(), check_graph->isChecked());
 

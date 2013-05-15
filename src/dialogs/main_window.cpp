@@ -758,7 +758,7 @@ void Main_Window::on_action_Copy_triggered()
 {
     Graph copy = view->get_graph().sub_graph(view->selected_nodes());
     QMimeData* mime_data = new QMimeData;
-    export_xml_mime_data(copy,mime_data);
+    export_xml_mime_data(mime_data,copy);
     QApplication::clipboard()->setMimeData(mime_data);
 }
 
@@ -783,7 +783,7 @@ void Main_Window::on_action_Paste_triggered()
 
     QBuffer read_data(&clip_data);
 
-    if ( !import_xml(&read_data,graph) )
+    if ( !import_xml(read_data,graph) )
         return; // invalid data
 
     view->insert(graph, tr("Paste") );
@@ -814,7 +814,7 @@ void Main_Window::on_tabWidget_dragAway(int tab)
         const Graph& graph = v->get_graph();
         QMimeData *data = new QMimeData;
 
-        export_xml_mime_data(graph,data);
+        export_xml_mime_data(data,graph);
 
         QDrag* drag = new QDrag(this);
         drag->setMimeData(data);
@@ -843,7 +843,7 @@ void Main_Window::dropEvent(QDropEvent *event)
 
         QByteArray clip_data = event->mimeData()->data("application/x-knotter");
         QBuffer read_data(&clip_data);
-        view->load_file(&read_data,tr("Drop"));
+        view->load_file(read_data,tr("Drop"));
     }
 }
 

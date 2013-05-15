@@ -21,8 +21,8 @@ HEADERS += \
     $$PWD/node_mover.hpp \
     $$PWD/pen_join_style_metatype.hpp \
     $$PWD/context_menu_node.hpp \
-    src/widgets/knot_view/context_menu_edge.hpp \
-    src/widgets/knot_view/transform_handle.hpp
+    $$PWD/context_menu_edge.hpp \
+    $$PWD/transform_handle.hpp
 
 SOURCES += \
     $$PWD/knot_view.cpp \
@@ -31,7 +31,7 @@ SOURCES += \
     $$PWD/background_image.cpp \
     $$PWD/node_mover.cpp \
     $$PWD/context_menu_node.cpp \
-    src/widgets/knot_view/context_menu_edge.cpp \
-    src/widgets/knot_view/transform_handle.cpp
+    $$PWD/context_menu_edge.cpp \
+    $$PWD/transform_handle.cpp
 
 INCLUDEPATH += $$PWD

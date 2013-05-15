@@ -76,6 +76,6 @@ protected:
 
 bool export_xml(const Graph& graph, QIODevice &file );
 
-void export_xml_mime_data(const Graph& graph, QMimeData* data);
+void export_xml_mime_data(QMimeData* data, const Graph& graph);
 
 #endif // XML_EXPORTER_HPP

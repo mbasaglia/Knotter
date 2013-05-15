@@ -81,7 +81,7 @@ Knot_View::Knot_View(QString file)
 }
 
 
-bool Knot_View::load_file(QIODevice *device, QString action_name )
+bool Knot_View::load_file(QIODevice &device, QString action_name )
 {
     Graph loaded;
     if (  !import_xml(device,loaded) )
@@ -127,7 +127,7 @@ bool Knot_View::load_file(QString fname)
     if ( !fname.isEmpty() )
     {
         QFile file(fname);
-        if ( load_file(&file,tr("Load File")) )
+        if ( load_file(file,tr("Load File")) )
         {
             setWindowFilePath(fname);
             m_file_name = fname;

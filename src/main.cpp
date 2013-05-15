@@ -27,9 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "main_window.hpp"
 #include "resource_manager.hpp"
 #include "edge_style.hpp"
-
-/*#include <QSvgGenerator>
-#include "graph.hpp"*/
+#include "command_line.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -46,26 +44,16 @@ int main(int argc, char *argv[])
     Resource_Manager::register_edge_style(new Edge_Hole);
     Resource_Manager::initialize();
 
+    Command_Line cmd(argc, argv);
+
+    if ( !cmd.load_ui() )
+        return 0;
+
     Main_Window mw;
     mw.show();
 
-    /*Graph g;
-    Node * last = 0;
-    for ( int i = 0; i < 10; i++)
-    {
-        Node* nn = new Node(QPointF(i*16,(i%2)*64),&g);
-        g.add_node(nn);
-        if ( last != 0 )
-            g.add_edge(new Edge(nn,last,new Edge_Normal,&g));
-        last = nn;
-    }
-    QSvgGenerator generator;
-    generator.setFileName("../../misc/foo.svg");
-    QPainter painter;
-    painter.begin(&generator);
-    g.paint(&painter);
-    painter.end();*/
-
+    foreach(QString s, cmd.files())
+        mw.create_tab(s);
 
     return a.exec();
 }

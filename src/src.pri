@@ -31,10 +31,12 @@ SOURCES += \
     $$PWD/main.cpp \
     $$PWD/resource_manager.cpp \
     $$PWD/settings.cpp \
-    $$PWD/string_toolbar.cpp
+    $$PWD/string_toolbar.cpp \
+    $$PWD/command_line.cpp
 
 HEADERS += \
     $$PWD/resource_manager.hpp \
     $$PWD/settings.hpp \
     $$PWD/string_toolbar.hpp \
-    $$PWD/c++.hpp
+    $$PWD/c++.hpp \
+    $$PWD/command_line.hpp

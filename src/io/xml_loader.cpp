@@ -29,23 +29,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMetaEnum>
 #include "resource_manager.hpp"
 
-bool import_xml(QIODevice* file, Graph& graph)
+bool import_xml(QIODevice &file, Graph& graph)
 {
-    if ( !file->isOpen() && !file->open(QIODevice::ReadOnly|QIODevice::Text))
+    if ( !file.isOpen() && !file.open(QIODevice::ReadOnly|QIODevice::Text))
     {
         return false;
     }
 
     XML_Loader xml;
 
-    if ( xml.load(file,&graph) )
+    if ( xml.load(&file,&graph) )
         return true;
     else if ( xml.version() > 0 && xml.version() < 3 )
     {
-        file->seek(0);
+        file.seek(0);
         XML_Loader_v2 xml2;
 
-        if ( !xml2.load(file) )
+        if ( !xml2.load(&file) )
             return false;
 
         xml2.get_graph(graph);
