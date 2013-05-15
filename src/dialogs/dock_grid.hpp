@@ -59,6 +59,7 @@ private slots:
     void grid_moved(QPointF p);
     void on_button_reset_clicked();
     void on_combo_shape_currentIndexChanged(int index);
+    void on_check_enable_toggled(bool arg1);
 };
 
 #endif // DOCK_GRID_HPP
