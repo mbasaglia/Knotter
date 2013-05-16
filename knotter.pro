@@ -80,13 +80,6 @@ contains(CONFIG,c++11) {
 }
 
 
-
-# Windows-specific stuff
-win32 {
-    # Remove non-numeric stuff from version as Windows RC doesn't like it
-    VERSION ~= s/[-_a-zA-Z]+//
-}
-
 #Extra make targets
 
 #dist
@@ -149,3 +142,11 @@ target.path = $$BINDIR
 INSTALLS += target
 
 
+
+
+
+# Windows-specific stuff
+win32 {
+    # Remove non-numeric stuff from version as Windows RC doesn't like it
+    VERSION ~= s/[-_a-zA-Z]+//
+}
