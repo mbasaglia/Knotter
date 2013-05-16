@@ -33,6 +33,11 @@ Directories=oxygen/16x16,oxygen/22x22,oxygen/32x32,oxygen/48x48,oxygen/scalable,
 Size=64
 Type=Scalable
 
+
+[custom_22]
+Size=22
+Type=Threshold
+
 [oxygen/16x16]
 Size=16
 Type=Threshold
