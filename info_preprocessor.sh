@@ -43,7 +43,7 @@ fi
 source $src_dir/knotter_info.pri
 
 
-if  [ ! -f "$1" ] ; then
+if  [ ! -f "$1" -a ! -z "$1" ] ; then
     echo 1>&2 "$1 not found"
     exit 1
 else

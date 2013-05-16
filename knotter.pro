@@ -45,13 +45,13 @@ OTHER_FILES = \
 # configured directories
 
 isEmpty(DATADIR){
-    DATADIR=$$PWD/data
+    DATADIR=./data
 }
 isEmpty(DATAROOTDIR){
-    DATAROOTDIR=$$PWD
+    DATAROOTDIR=.
 }
 isEmpty(BINDIR){
-    BINDIR=$$PWD
+    BINDIR=.
 }
 
 
