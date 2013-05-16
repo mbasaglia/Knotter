@@ -321,6 +321,11 @@ public slots:
     void flip_horiz_selection();
     void flip_vert_selection();
 
+    /**
+     *  \brief updates the transform handles
+     */
+    void update_selection();
+
 signals:
 
     /// emitted when the graph structure or style is changed

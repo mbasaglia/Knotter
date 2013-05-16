@@ -58,7 +58,10 @@ void Knot_Command::set_last_node(Node *n)
 void Knot_Command::update_knot() const
 {
     if ( qobject_cast<Knot_Macro*>(parent()) == nullptr )
+    {
         view->update_knot();
+        view->update_selection();
+    }
 }
 
 void Knot_Command::update_view() const

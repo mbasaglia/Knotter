@@ -30,14 +30,17 @@
 # repo      Repo browser URL
 # icon      Program icon (for desktop file and such)
 
+src_dir=`dirname ${BASH_SOURCE[0]}`
 
 if [ -x configured_directories.sh ] ; then
-    datadir=`./configured_directories.sh datadir`
+    datadir=`$src_dir/configured_directories.sh datadir`
 else
-    datadir=`pwd`/data
+    datadir=$src_dir/data
 fi
 
-source knotter_info.pri
+
+# get package info
+source $src_dir/knotter_info.pri
 
 
 if  [ ! -f "$1" ] ; then

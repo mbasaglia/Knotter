@@ -682,6 +682,8 @@ void Main_Window::on_action_Select_All_triggered()
 {
     foreach(Node* node,view->get_graph().nodes())
         node->setSelected(true);
+
+    view->update_selection();
 }
 
 void Main_Window::on_actionSelect_Connected_triggered()

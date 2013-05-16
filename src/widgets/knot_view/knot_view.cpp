@@ -299,6 +299,11 @@ void Knot_View::flip_vert_selection()
     end_macro();
 }
 
+void Knot_View::update_selection()
+{
+    node_mover.set_nodes(selected_nodes());
+}
+
 void Knot_View::set_display_graph(bool enable)
 {
     paint_graph = enable;

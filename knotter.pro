@@ -39,7 +39,8 @@ OTHER_FILES = \
     knotter.desktop \
     fix_makefile.sh \
     knotter_info.pri \
-    translations.pri
+    translations.pri \
+    info_preprocessor.sh
 
 # configured directories
 
