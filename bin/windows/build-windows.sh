@@ -10,13 +10,13 @@ then
 fi
 mkdir $package
 
-if [ -f $package.zip ]
+if [ -f $package-windows.zip ]
 then
-  rm -f $package.zip
+  rm -f $package-windows.zip
 fi
 
 make || exit
 
 cp release/knotter.exe $package
 cp -R $srcdir/data $package
-zip -r $package.zip $package
+zip -r $package-windows.zip $package
