@@ -33,7 +33,7 @@
 src_dir=`dirname ${BASH_SOURCE[0]}`
 
 if [ -x configured_directories.sh ] ; then
-    datadir=`$src_dir/configured_directories.sh datadir`
+    datadir=`./configured_directories.sh datadir`
 else
     datadir=$src_dir/data
 fi
