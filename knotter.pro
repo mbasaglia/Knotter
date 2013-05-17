@@ -143,9 +143,9 @@ data.path = $${DATADIR}
 desktop_file.files=$${TARGET}.desktop
 desktop_file.path=$${DATAROOTDIR}/applications
 man_page.files=man/$${TARGET}.1
-desktop_file.path=$${MANDIR}/man1
+man_page.path=$${MANDIR}/man1
 
-INSTALLS += data desktop_file
+INSTALLS += data desktop_file man_page
 
 
 target.path = $$BINDIR
