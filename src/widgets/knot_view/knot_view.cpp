@@ -119,6 +119,7 @@ bool Knot_View::load_file(QIODevice &device, QString action_name )
     }
 
     end_macro();
+    undo_stack.setClean();
 
     return true;
 }

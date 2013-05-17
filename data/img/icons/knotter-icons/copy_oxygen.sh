@@ -5,6 +5,8 @@ icons='application-exit
         arrow-up
         configure-toolbars
         configure
+        dialog-cancel
+        dialog-close
         document-close
         document-export
         document-import

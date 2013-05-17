@@ -42,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPrintDialog>
 #include <QPageSetupDialog>
 #include <QPrintPreviewDialog>
+#include "dialog_confirm_close.hpp"
 
 Main_Window::Main_Window(QWidget *parent) :
     QMainWindow(parent), zoomer(nullptr), view(nullptr),
@@ -511,17 +512,31 @@ void Main_Window::switch_to_tab(int i)
     update_title();
 }
 
-void Main_Window::close_tab(int i)
+void Main_Window::close_tab(int i, bool confirm_if_changed)
 {
-    /// \todo check for edited file
     Knot_View* kv = dynamic_cast<Knot_View*>(tabWidget->widget(i));
     if ( kv )
     {
+        if ( confirm_if_changed && !kv->undo_stack_pointer()->isClean() )
+        {
+            int r = QMessageBox::question(this,tr("Close File"),
+                    tr("The file \"%1\" has been modified.\nDo you want to save changes?")
+                        .arg(tabWidget->tabText(i)),
+                    QMessageBox::Yes|QMessageBox::No|QMessageBox::Cancel
+                    );
+            if ( r == QMessageBox::Yes )
+                save(false,i);
+            else if ( r == QMessageBox::Cancel )
+                return;
+        }
+
         if ( kv == view )
         {
             disconnect_view(kv);
             view = nullptr;
         }
+
+
         undo_group.removeStack(kv->undo_stack_pointer());
         delete kv;
     }
@@ -857,6 +872,12 @@ void Main_Window::dropEvent(QDropEvent *event)
 
 void Main_Window::closeEvent(QCloseEvent * ev)
 {
+    if ( !check_close_all() )
+    {
+        ev->ignore();
+        return;
+    }
+
     Resource_Manager::settings.save_window(this);
     QMainWindow::closeEvent(ev);
 }
@@ -887,13 +908,47 @@ void Main_Window::on_action_Erase_triggered()
 
 void Main_Window::on_action_Close_triggered()
 {
-    close_tab(tabWidget->currentIndex());
+    close_tab(tabWidget->currentIndex(),true);
 }
 
 void Main_Window::on_action_Close_All_triggered()
 {
-    for ( int i = 0, c = tabWidget->count(); i < c ; i++ )
-        close_tab(0);
+    if ( check_close_all() )
+        for ( int i = 0, c = tabWidget->count(); i < c ; i++ )
+            close_tab(0,false);
+}
+
+
+
+bool Main_Window::check_close_all()
+{
+    Dialog_Confirm_Close dialog;
+
+    for ( int i = 0; i < tabWidget->count(); i++ )
+    {
+        Knot_View* kv = dynamic_cast<Knot_View*>(tabWidget->widget(i));
+        if ( kv  && !kv->undo_stack_pointer()->isClean() )
+            dialog.add_file(i,tabWidget->tabText(i));
+    }
+
+    if ( dialog.has_files() )
+    {
+
+        int r = dialog.exec();
+        if ( r == Dialog_Confirm_Close::Accepted )
+        {
+            foreach( int i, dialog.save_files() )
+            {
+                save(false,i);
+            }
+            return true;
+        }
+        else if ( r == Dialog_Confirm_Close::DontSave )
+            return true; // Close without saving
+        else // if ( r == Dialog_Confirm_Close::Rejected )
+            return false; // Don't close
+    }
+    return true;
 }
 
 void Main_Window::on_action_Save_All_triggered()

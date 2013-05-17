@@ -142,6 +142,7 @@ data.path = $${DATADIR}
 
 desktop_file.files=$${TARGET}.desktop
 desktop_file.path=$${DATAROOTDIR}/applications
+
 man_page.files=man/$${TARGET}.1
 man_page.path=$${MANDIR}/man1
 

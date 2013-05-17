@@ -81,10 +81,11 @@ public slots:
     /**
      *  \brief Close the tab with the given index
      *  \param i Tab index
+     *  \param confirm_if_changed Whether to show a dialog asking to save the file
      *  \pre i is a valid index
      *  \post The tab is closed. If it were the last tab, a new one is created
      */
-    void close_tab(int i);
+    void close_tab(int i, bool confirm_if_changed = true);
 
     void print (QPrinter* pr);
 
@@ -113,6 +114,12 @@ private:
      *  \brief Ensure view is disconnected connected from the relevant signals/slots
     */
     void disconnect_view(Knot_View* v);
+
+    /**
+     * \brief Display a dialog to select unsaved files to be saved
+     * \return False if the user does not want to close any more
+     */
+    bool check_close_all();
 
 private slots:
     void set_icon_size(int);
@@ -149,6 +156,7 @@ private slots:
 
     void update_recent_files();
     void click_recent_file();
+
 
     void on_action_Preferences_triggered();
     void on_action_Display_Graph_toggled(bool arg1);
