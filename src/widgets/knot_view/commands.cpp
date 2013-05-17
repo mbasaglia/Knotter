@@ -363,6 +363,43 @@ bool Pen_Join_Style::mergeWith(const QUndoCommand *other)
 }
 
 
+int Brush_Style::m_id = generate_id();
+
+Brush_Style::Brush_Style(Qt::BrushStyle before, Qt::BrushStyle after,
+                               Knot_View *kv, Knot_Macro *parent)
+    : Knot_Command(kv,parent), before(before), after(after)
+{
+    setText(tr("Change Brush Style"));
+}
+
+void Brush_Style::undo()
+{
+    graph->set_brush_style(before);
+    update_view();
+}
+
+void Brush_Style::redo()
+{
+    graph->set_brush_style(after);
+    update_view();
+}
+
+int Brush_Style::id() const
+{
+    return m_id;
+}
+
+bool Brush_Style::mergeWith(const QUndoCommand *other)
+{
+    const Brush_Style* cc = static_cast<const Brush_Style*>(other);
+    if ( cc->graph == graph )
+    {
+        after = cc->after;
+        return true;
+    }
+    return false;
+}
+
 
 Knot_Style_Basic_Double_Parameter::Knot_Style_Basic_Double_Parameter
         (double before, double after, Knot_View *kv, Knot_Macro *parent)

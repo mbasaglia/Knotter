@@ -104,6 +104,7 @@ bool Knot_View::load_file(QIODevice &device, QString action_name )
     push_command(new Change_Colors(graph.colors(),loaded.colors(),this));
     push_command(new Custom_Colors(graph.custom_colors(),loaded.custom_colors(),this));
     push_command(new Pen_Join_Style(graph.join_style(),loaded.join_style(),this));
+    push_command(new Brush_Style(graph.brush_style(),loaded.brush_style(),this));
     push_command(new Knot_Style_All(graph.default_node_style(),
                                     loaded.default_node_style(), this));
 
@@ -490,6 +491,11 @@ void Knot_View::set_join_style(Qt::PenJoinStyle s)
 {
 
     push_command(new Pen_Join_Style(graph.join_style(),s,this));
+}
+
+void Knot_View::set_brush_style(Qt::BrushStyle s)
+{
+    push_command(new Brush_Style(graph.brush_style(),s,this));
 }
 
 void Knot_View::expand_scene_rect(int margin)

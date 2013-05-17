@@ -40,16 +40,23 @@ public:
 
     void set_colors(const QList<QColor>& c);
     void set_join_style(Qt::PenJoinStyle s);
+    void set_brush_style(Qt::BrushStyle s);
     void set_width(double w);
     void toggle_custom_colors(bool b);
     
 protected:
     void changeEvent(QEvent *e);
 
+
+private:
+    void add_brush_style(Qt::BrushStyle bs);
+
 private slots:
     void on_list_colors_removed(int arg1);
 
     void on_combo_joint_currentIndexChanged(int index);
+
+    void on_combo_brush_style_currentIndexChanged(int index);
 
 signals:
 
@@ -60,6 +67,8 @@ signals:
     void join_style_changed(Qt::PenJoinStyle);
 
     void colors_enabled(bool);
+
+    void brush_style_changed(Qt::BrushStyle);
 };
 
 #endif // DOCK_KNOT_DISPLAY_HPP

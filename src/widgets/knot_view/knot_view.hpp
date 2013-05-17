@@ -285,6 +285,7 @@ public slots:
     void set_stroke_width(double w);
 
     void set_join_style(Qt::PenJoinStyle s);
+    void set_brush_style(Qt::BrushStyle s);
 
     /**
      * \brief Load file and update file name

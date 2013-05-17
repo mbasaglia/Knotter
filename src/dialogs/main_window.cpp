@@ -293,6 +293,7 @@ void Main_Window::connect_view(Knot_View *v)
     // display
     dock_knot_display->set_colors(v->knot_colors());
     dock_knot_display->set_join_style(v->get_graph().join_style());
+    dock_knot_display->set_brush_style(v->get_graph().brush_style());
     dock_knot_display->set_width(v->get_graph().width());
     dock_knot_display->toggle_custom_colors(v->get_graph().custom_colors());
     connect(dock_knot_display,SIGNAL(colors_changed(QList<QColor>)),
@@ -303,6 +304,8 @@ void Main_Window::connect_view(Knot_View *v)
             v,SLOT(set_join_style(Qt::PenJoinStyle)));
     connect(dock_knot_display,SIGNAL(colors_enabled(bool)),
             v,SLOT(set_knot_custom_colors(bool)));
+    connect(dock_knot_display,SIGNAL(brush_style_changed(Qt::BrushStyle)),
+            v,SLOT(set_brush_style(Qt::BrushStyle)));
 
     // style
     global_style->set_style(v->get_graph().default_node_style());
@@ -454,7 +457,6 @@ void Main_Window::create_tab(QString file)
              !view->undo_stack_pointer()->canRedo() )
     {
         error = !view->load_file(file);
-
         if ( !error )
         {
             global_style->blockSignals(true);
@@ -465,6 +467,7 @@ void Main_Window::create_tab(QString file)
             dock_knot_display->blockSignals(true);
             dock_knot_display->set_colors(view->get_graph().colors());
             dock_knot_display->set_join_style(view->get_graph().join_style());
+            dock_knot_display->set_brush_style(view->get_graph().brush_style());
             dock_knot_display->set_width(view->get_graph().width());
             dock_knot_display->blockSignals(false);
 

@@ -106,12 +106,14 @@ void Graph::set_join_style(Qt::PenJoinStyle style)
 
 Qt::BrushStyle Graph::brush_style() const
 {
-    return Qt::SolidPattern;
+    return pen.brush().style();
 }
 
-void Graph::set_brush_style(Qt::BrushStyle)
+void Graph::set_brush_style(Qt::BrushStyle s)
 {
-    /// \todo brush style
+    QBrush b = pen.brush();
+    b.setStyle(s);
+    pen.setBrush(b);
 }
 
 void Graph::set_default_node_style(Node_Style style)
@@ -139,9 +141,11 @@ void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
         for ( int i = 0; i < paths.size(); ++i )
         {
             if ( auto_color )
-                p.setColor(QColor::fromHsv(i*360/paths.size(),192,170));
+                p.setBrush(QBrush(QColor::fromHsv(i*360/paths.size(),192,170),
+                                  pen.brush().style()));
             else
-                p.setColor(m_colors[i%m_colors.size()]);
+                p.setBrush(QBrush(m_colors[i%m_colors.size()],
+                           pen.brush().style()));
             painter->setPen(p);
             painter->drawPath(paths[i]);
         }

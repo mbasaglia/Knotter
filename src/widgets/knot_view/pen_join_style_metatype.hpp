@@ -30,5 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMetaType>
 
 Q_DECLARE_METATYPE(Qt::PenJoinStyle)
+Q_DECLARE_METATYPE(Qt::BrushStyle)
 
 #endif // PEN_JOIN_STYLE_METATYPE_HPP

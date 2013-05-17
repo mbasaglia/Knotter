@@ -28,6 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "color_delegate.hpp"
 
 #include "color_selector.hpp"
+#include <QPainter>
+#include <QMetaEnum>
 
 Dock_Knot_Display::Dock_Knot_Display(QWidget *parent) :
     QDockWidget(parent)
@@ -51,6 +53,20 @@ Dock_Knot_Display::Dock_Knot_Display(QWidget *parent) :
     combo_joint->setItemData(1,(int)Qt::MiterJoin);
     combo_joint->setItemData(2,(int)Qt::RoundJoin);
 
+    add_brush_style(Qt::SolidPattern);
+    add_brush_style(Qt::Dense1Pattern);
+    add_brush_style(Qt::Dense2Pattern);
+    add_brush_style(Qt::Dense3Pattern);
+    add_brush_style(Qt::Dense4Pattern);
+    add_brush_style(Qt::Dense5Pattern);
+    add_brush_style(Qt::Dense6Pattern);
+    add_brush_style(Qt::Dense7Pattern);
+    add_brush_style(Qt::HorPattern);
+    add_brush_style(Qt::VerPattern);
+    add_brush_style(Qt::CrossPattern);
+    add_brush_style(Qt::BDiagPattern);
+    add_brush_style(Qt::FDiagPattern);
+    add_brush_style(Qt::DiagCrossPattern);
 }
 
 void Dock_Knot_Display::set_colors(const QList<QColor> &c)
@@ -65,6 +81,18 @@ void Dock_Knot_Display::set_join_style(Qt::PenJoinStyle s)
         if ( combo_joint->itemData(i).toInt() == int(s) )
         {
             combo_joint->setCurrentIndex(i);
+            break;
+        }
+    }
+}
+
+void Dock_Knot_Display::set_brush_style(Qt::BrushStyle s)
+{
+    for ( int i = 0; i < combo_brush_style->count(); i++ )
+    {
+        if ( combo_brush_style->itemData(i).toInt() == int(s) )
+        {
+            combo_brush_style->setCurrentIndex(i);
             break;
         }
     }
@@ -92,6 +120,21 @@ void Dock_Knot_Display::changeEvent(QEvent *e)
     }
 }
 
+void Dock_Knot_Display::add_brush_style(Qt::BrushStyle bs)
+{
+    const QMetaObject& mo = staticQtMetaObject;
+    QMetaEnum bs_me = mo.enumerator(mo.indexOfEnumerator("BrushStyle"));
+
+    QPixmap pix(32,16);
+    pix.fill(Qt::transparent);
+    QPainter p;
+    p.begin(&pix);
+    p.fillRect(0,1,pix.width(),pix.height(),QBrush(Qt::black,bs));
+    p.end();
+
+    combo_brush_style->addItem(QIcon(pix),bs_me.valueToKey(bs),(int)bs);
+}
+
 void Dock_Knot_Display::on_list_colors_removed(int)
 {
     if ( list_colors->count() == 0 )
@@ -101,4 +144,9 @@ void Dock_Knot_Display::on_list_colors_removed(int)
 void Dock_Knot_Display::on_combo_joint_currentIndexChanged(int index)
 {
     emit join_style_changed(Qt::PenJoinStyle(combo_joint->itemData(index).toInt()));
+}
+
+void Dock_Knot_Display::on_combo_brush_style_currentIndexChanged(int index)
+{
+    emit brush_style_changed(Qt::BrushStyle(combo_brush_style->itemData(index).toInt()));
 }
