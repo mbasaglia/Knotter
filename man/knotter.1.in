@@ -1,0 +1,59 @@
+.TH __name__ 1 "" "__name__-__version__" __title__
+
+.SH NAME
+__title__ - __desc__
+
+.SH SYNOPSIS
+.B __name__  \-h\fR|\fB\-v\fR|\fB\-l
+
+.B __name__ 
+[args 
+.I file 
+.RB [ -o 
+.IR output ]
+\&...] 
+.RI [ qt-options ]
+
+
+.SH DESCRIPTION
+.B __title__
+
+__long_desc__
+
+.SH  OPTIONS 
+
+.SS Information
+.TP
+.B -h\fR, \fB--help
+Print help and exit.
+.TP
+.B -v\fR, \fB--version
+Display version information and exit.
+.TP
+.B -l\fR, \fB--license
+Display license and exit.
+
+.SS Output
+.TP
+.B -o \fIfile\fR, \fB\-\-output \fIfile
+Export last loaded file. Format is deducend from the extension.
+.TP
+.B -a\fR, \fB--antialias
+Enable antialiasing for the following exports.
+.TP
+.B -na\fR, \fB--no-antialias
+Disable antialiasing for the following exports.
+.TP
+.B -g\fR, \fB--graph
+Enable graph output for the following exports.
+.TP
+.B -ng\fR, \fB--no-graph
+Disable graph output for the following exports.
+
+.SS Misc
+.TP 
+.B -b\fR, \fB--no-gui
+Don't start the gui after parsing the command line.
+
+.SH AUTHOR
+__author__ <__email__>

@@ -1,0 +1,1381 @@
+'\" t
+.\" ** The above line should force tbl to be a preprocessor **
+.\" Man page for man
+.\"
+.\" Copyright (C) 1994, 1995, Graeme W. Wilford. (Wilf.)
+.\" Copyright (C) 2001, 2002, 2003, 2006, 2007, 2008 Colin Watson.
+.\"
+.\" You may distribute under the terms of the GNU General Public
+.\" License as specified in the file COPYING that comes with the
+.\" man-db distribution.
+.\"
+.\" Sat Oct 29 13:09:31 GMT 1994  Wilf. (G.Wilford@ee.surrey.ac.uk)
+.\"
+.pc
+.TH MAN 1 "2012-02-14" "2.6.1" "Manual pager utils"
+.SH NAME
+man \- an interface to the on-line reference manuals
+.SH SYNOPSIS
+.\" The general command line
+.B man
+.RB [\| \-C
+.IR file \|]
+.RB [\| \-d \|]
+.RB [\| \-D \|]
+.RB [\| \-\-warnings \|\c
+.RI [\|= warnings \|]\|]
+.RB [\| \-R
+.IR encoding \|]
+.RB [\| \-L
+.IR locale \|]
+.RB [\| \-m
+.IR system \|[\|,.\|.\|.\|]\|]
+.RB [\| \-M
+.IR path \|]
+.RB [\| \-S
+.IR list \|]
+.RB [\| \-e
+.IR extension \|]
+.RB [\| \-i \||\| \-I \|]
+.RB [\| \-\-regex \||\| \-\-wildcard \|]
+.RB [\| \-\-names\-only \|]
+.RB [\| \-a \|]
+.RB [\| \-u \|]
+.RB [\| \-\-no\-subpages \|]
+.RB [\| \-P
+.IR pager \|]
+.RB [\| \-r
+.IR prompt \|]
+.RB [\| \-7 \|]
+.RB [\| \-E
+.IR encoding \|]
+.RB [\| \-\-no\-hyphenation \|]
+.RB [\| \-\-no\-justification \|]
+.RB [\| \-p
+.IR string \|]
+.RB [\| \-t \|]
+.RB [\| \-T \|\c
+.RI [\| device \|]\|]
+.RB [\| \-H \|\c
+.RI [\| browser \|]\|]
+.RB [\| \-X \|\c
+.RI [\| dpi \|]\|]
+.RB [\| \-Z \|]
+.RI [\|[\| section \|]
+.IR page \ .\|.\|.\|]\ .\|.\|.
+.\" The apropos command line
+.br
+.B man
+.B \-k
+.RI [\| apropos
+.IR options \|]
+.I regexp
+\&.\|.\|.
+.\" The --global-apropos command line
+.br
+.B man
+.B \-K
+.RB [\| \-w \||\| \-W \|]
+.RB [\| \-S
+.IR list \|]
+.RB [\| \-i \||\| \-I \|]
+.RI [\| \-\-regex \|]
+.RI [\| section \|]
+.IR term \ .\|.\|.
+.\" The whatis command line
+.br
+.B man
+.B \-f
+.RI [\| whatis
+.IR options \|]
+.I page
+\&.\|.\|.
+.\" The --local command line
+.br
+.B man
+.B \-l
+.RB [\| \-C
+.IR file \|]
+.RB [\| \-d \|]
+.RB [\| \-D \|]
+.RB [\| \-\-warnings \|\c
+.RI [\|= warnings \|]\|]
+.RB [\| \-R
+.IR encoding \|]
+.RB [\| \-L
+.IR locale \|]
+.RB [\| \-P
+.IR pager \|]
+.RB [\| \-r
+.IR prompt \|]
+.RB [\| \-7 \|]
+.RB [\| \-E
+.IR encoding \|]
+.RB [\| \-p
+.IR string \|]
+.RB [\| \-t \|]
+.RB [\| \-T \|\c
+.RI [\| device \|]\|]
+.RB [\| \-H \|\c
+.RI [\| browser \|]\|]
+.RB [\| \-X \|\c
+.RI [\| dpi \|]\|]
+.RB [\| \-Z \|]
+.I file
+\&.\|.\|.
+.\" The --where/--where-cat command line
+.br
+.B man
+.BR \-w \||\| \-W
+.RB [\| \-C
+.IR file \|]
+.RB [\| \-d \|]
+.RB [\| \-D \|]
+.I page
+\&.\|.\|.
+.\" The --catman command line
+.br
+.B man
+.B \-c
+.RB [\| \-C
+.IR file \|]
+.RB [\| \-d \|]
+.RB [\| \-D \|]
+.I page
+\&.\|.\|.
+.\" --help and --version
+.br
+.B man
+.RB [\| \-hV \|]
+.SH DESCRIPTION
+.B man
+is the system's manual pager. Each
+.I page
+argument given to
+.B man
+is normally the name of a program, utility or function.
+The
+.I manual page
+associated with each of these arguments is then found and displayed. A
+.IR section ,
+if provided, will direct
+.B man
+to look only in that
+.I section
+of the manual.
+The default action is to search in all of the available
+.IR sections ,
+following a pre-defined order and to show only the first
+.I page
+found, even if
+.I page
+exists in several
+.IR sections .
+
+The table below shows the
+.I section
+numbers of the manual followed by the types of pages they contain.
+
+.TS
+tab (@);
+l lx.
+1@T{
+Executable programs or shell commands
+T}
+2@T{
+System calls (functions provided by the kernel)
+T}
+3@T{
+Library calls (functions within program libraries)
+T}
+4@T{
+Special files (usually found in \fI/dev\fR)
+T}
+5@T{
+File formats and conventions eg \fI/etc/passwd\fR
+T}
+6@T{
+Games
+T}
+7@T{
+Miscellaneous (including macro packages and conventions),
+e.g. \fBman\fR(7), \fBgroff\fR(7)
+T}
+8@T{
+System administration commands (usually only for root)
+T}
+9@T{
+Kernel routines [\|Non standard\|]
+T}
+.TE
+
+A manual
+.I page
+consists of several sections.
+
+Conventional section names include
+.BR NAME ,
+.BR SYNOPSIS ,
+.BR CONFIGURATION ,
+.BR DESCRIPTION ,
+.BR OPTIONS ,
+.BR EXIT\ STATUS ,
+.BR RETURN\ VALUE ,
+.BR ERRORS ,
+.BR ENVIRONMENT ,
+.BR FILES ,
+.BR VERSIONS ,
+.BR CONFORMING\ TO ,
+.BR NOTES ,
+.BR BUGS ,
+.BR EXAMPLE ,
+.BR AUTHORS ,
+and
+.BR SEE\ ALSO .
+
+The following conventions apply to the
+.B SYNOPSIS
+section and can be used as a guide in other sections.
+
+.TS
+tab (@);
+l lx.
+\fBbold text\fR@T{
+type exactly as shown.
+T}
+\fIitalic text\fR@T{
+replace with appropriate argument.
+T}
+[\|\fB\-abc\fR\|]@T{
+any or all arguments within [ ] are optional.
+T}
+\fB\-a\|\fR|\|\fB\-b\fR@T{
+options delimited by | cannot be used together.
+T}
+\fIargument\fR .\|.\|.@T{
+\fIargument\fR is repeatable.
+T}
+[\|\fIexpression\fR\|]\fR .\|.\|.@T{
+\fRentire \fIexpression\fR\ within [ ] is repeatable.
+T}
+.TE
+
+Exact rendering may vary depending on the output device.
+For instance, man will usually not be able to render italics when running in
+a terminal, and will typically use underlined or coloured text instead.
+
+The command or function illustration is a pattern that should match all
+possible invocations.
+In some cases it is advisable to illustrate several exclusive invocations
+as is shown in the
+.B SYNOPSIS
+section of this manual page.
+.SH EXAMPLES
+.TP \w'man\ 'u
+.BI man \ ls
+Display the manual page for the
+.I item
+(program)
+.IR ls .
+.TP
+.BI man\ \-a \ intro
+Display, in succession, all of the available
+.I intro
+manual pages contained within the manual.
+It is possible to quit between successive displays or skip any of them.
+.TP
+\fBman \-t \fIalias \fR|\fI lpr \-Pps
+Format the manual page referenced by
+.RI ` alias ',
+usually a shell manual page, into the default
+.B troff
+or
+.B groff
+format and pipe it to the printer named
+.IR ps .
+The default output for
+.B groff
+is usually PostScript.
+.B man \-\-help
+should advise as to which processor is bound to the
+.B \-t
+option.
+.TP
+.BI man\ \-l\ \-T dvi\ ./foo.1x.gz \ >\  ./foo.1x.dvi
+This command will decompress and format the nroff source manual page
+.I ./foo.1x.gz
+into a
+.B device independent (dvi)
+file.
+The redirection is necessary as the
+.B \-T
+flag causes output to be directed to
+.B stdout
+with no pager.
+The output could be viewed with a program such as
+.B xdvi
+or further processed into PostScript using a program such as
+.BR dvips.
+.TP
+.BI man\ \-k \ printf
+Search the short descriptions and manual page names for the keyword
+.I printf
+as regular expression.
+Print out any matches.
+Equivalent to
+.BI apropos\ \-r \ printf .
+.TP
+.BI man\ \-f \ smail
+Lookup the manual pages referenced by
+.I smail
+and print out the short descriptions of any found.
+Equivalent to
+.BI whatis\ \-r \ smail .
+.SH OVERVIEW
+Many options are available to
+.B man
+in order to give as much flexibility as possible to the user.
+Changes can be made to the search path, section order, output processor,
+and other behaviours and operations detailed below.
+
+If set, various environment variables are interrogated to determine
+the operation of
+.BR man .
+It is possible to set the `catch all' variable
+.RB $ MANOPT
+to any string in command line format with the exception that any spaces
+used as part of an option's argument must be escaped (preceded by a
+backslash).
+.B man
+will parse
+.RB $ MANOPT
+prior to parsing its own command line.
+Those options requiring an argument will be overridden by the same options
+found on the command line.
+To reset all of the options set in
+.RB $ MANOPT ,
+.B \-D
+can be specified as the initial command line option.
+This will allow man to `forget' about the options specified in
+.RB $ MANOPT
+although they must still have been valid.
+
+The manual pager utilities packaged as
+.B man-db
+make extensive use of
+.B index
+database caches.
+These caches contain information such as where each manual page can be
+found on the filesystem and what its
+.I whatis
+(short one line description of the man page) contains, and allow
+.B man
+to run faster than if it had to search the filesystem each time to find the
+appropriate manual page.
+If requested using the
+.B \-u
+option,
+.B man
+will ensure that the caches remain consistent, which can obviate the
+need to manually run software to update traditional
+.I whatis
+text databases.
+
+If
+.B man
+cannot find a
+.B mandb
+initiated
+.B index
+database for a particular manual page hierarchy, it will still search for
+the requested manual pages, although file globbing will be necessary to
+search within that hierarchy.
+If
+.B whatis
+or
+.B apropos
+fails to find an
+.B index
+it will try to extract information from a traditional
+.I whatis
+database instead.
+.\"`User' manual page hierarchies will have
+.\".B index
+.\"caches created `on the fly'.
+
+These utilities support compressed source nroff files having, by default, the
+extensions of
+.BR .Z ", " .z " and " .gz .
+It is possible to deal with any compression extension, but this information
+must be known at compile time.
+Also, by default, any cat pages produced are compressed using
+.BR gzip .
+Each `global' manual page hierarchy such as
+.I /usr/share/man
+or
+.I /usr/X11R6/man
+may have any directory as its cat page hierarchy.
+Traditionally the cat pages are stored under the same hierarchy as the man
+pages, but for reasons such as those specified in the
+.BR "File Hierarchy Standard (FHS)" ,
+it may be better to store them elsewhere.
+For details on how to do this, please read
+.BR manpath (5).
+For details on why to do this, read the standard.
+
+International support is available with this package.
+Native language manual pages are accessible (if available on your system)
+via use of
+.I locale
+functions.
+To activate such support, it is necessary to set either
+.RB $ LC_MESSAGES ,
+.RB $ LANG
+or another system dependent environment variable to your language locale,
+usually specified in the
+.B POSIX 1003.1
+based format:
+
+.\"
+.\" Need a \c to make sure we don't get a space where we don't want one
+.\"
+.RI < language >[\|\c
+.B _\c
+.RI < territory >\|[\|\c
+.B .\c
+.RI < character-set >\|[\|\c
+.B ,\c
+.RI < version >\|]\|]\|]
+
+If the desired page is available in your
+.IR locale ,
+it will be displayed in lieu of the standard
+(usually American English) page.
+
+Support for international message catalogues is also featured in this
+package and can be activated in the same way, again if available.
+If you find that the manual pages and message catalogues supplied with this
+package are not available in your native language and you would like to
+supply them, please contact the maintainer who will be coordinating such
+activity.
+
+For information regarding other features and extensions available with this
+manual pager, please read the documents supplied with the package.
+.SH DEFAULTS
+.B man
+will search for the desired manual pages within the
+.I index
+database caches. If the
+.B \-u
+option is given, a cache consistency check is performed to ensure the
+databases accurately reflect the filesystem.
+If this option is always given, it is not generally necessary to run
+.B mandb
+after the caches are initially created, unless a cache becomes corrupt.
+However, the cache consistency check can be slow on systems with many
+manual pages installed, so it is not performed by default, and system
+administrators may wish to run
+.B mandb
+every week or so to keep the database caches fresh.
+To forestall problems caused by outdated caches,
+.B man
+will fall back to file globbing if a cache lookup fails, just as it would
+if no cache was present.
+
+Once a manual page has been located, a check is performed to find out if a
+relative preformatted `cat' file already exists and is newer than the nroff
+file.
+If it does and is, this preformatted file is (usually) decompressed and then
+displayed, via use of a pager.
+The pager can be specified in a number of ways, or else will fall back to a
+default is used (see option
+.B \-P
+for details).
+If no cat is found or is older than the nroff file, the nroff is filtered
+through various programs and is shown immediately.
+
+If a cat file can be produced (a relative cat directory exists and has
+appropriate permissions),
+.B man
+will compress and store the cat file in the background.
+
+The filters are deciphered by a number of means. Firstly, the command
+line option
+.B \-p
+or the environment variable
+.RB $ MANROFFSEQ
+is interrogated. If
+.B \-p
+was not used and the environment variable was not set, the initial line of
+the nroff file is parsed for a preprocessor string.
+To contain a valid preprocessor string, the first line must resemble
+
+.B '\e"
+.RB < string >
+
+where
+.B string
+can be any combination of letters described by option
+.B \-p
+below.
+
+If none of the above methods provide any filter information, a default set
+is used.
+
+A formatting pipeline is formed from the filters and the primary
+formatter
+.RB ( nroff
+or
+.RB [ tg ] roff
+with
+.BR \-t )
+and executed.
+Alternatively, if an executable program
+.I mandb_nfmt
+(or
+.I mandb_tfmt
+with
+.BR \-t )
+exists in the man tree root, it is executed instead.
+It gets passed the manual source file, the preprocessor string, and
+optionally the device specified with
+.BR \-T " or " \-E
+as arguments.
+.\" ********************************************************************
+.SH OPTIONS
+Non argument options that are duplicated either on the command line, in
+.RB $ MANOPT ,
+or both, are not harmful.
+For options that require an argument, each duplication will override the
+previous argument value.
+.SS "General options"
+.TP
+.BI \-C\  file \fR,\ \fB\-\-config\-file= file
+Use this user configuration file rather than the default of
+.IR ~/.manpath .
+.TP
+.BR \-d ", " \-\-debug
+Print debugging information.
+.TP
+.BR \-D ", " \-\-default
+This option is normally issued as the very first option and resets
+.B man's
+behaviour to its default.
+Its use is to reset those options that may have been set in
+.RB $ MANOPT .
+Any options that follow
+.B \-D
+will have their usual effect.
+.TP
+\fB\-\-warnings\fP[=\fIwarnings\fP]
+Enable warnings from
+.IR groff .
+This may be used to perform sanity checks on the source text of manual
+pages.
+.I warnings
+is a comma-separated list of warning names; if it is not supplied, the
+default is "mac".
+See the \(lqWarnings\(rq node in
+.B info groff
+for a list of available warning names.
+.SS "Main modes of operation"
+.TP
+.BR \-f ", " \-\-whatis
+Equivalent to
+.BR whatis .
+Display a short description from the manual page, if available. See
+.BR whatis (1)
+for details.
+.TP
+.BR \-k ", " \-\-apropos
+Equivalent to
+.BR apropos .
+Search the short manual page descriptions for keywords and display any
+matches.
+See
+.BR apropos (1)
+for details.
+.TP
+.BR \-K ", " \-\-global\-apropos
+Search for text in all manual pages.
+This is a brute-force search, and is likely to take some time; if you can,
+you should specify a section to reduce the number of pages that need to be
+searched.
+Search terms may be simple strings (the default), or regular expressions if
+the
+.B \-\-regex
+option is used.
+.TP
+.BR \-l ", " \-\-local\-file
+Activate `local' mode.
+Format and display local manual files instead of searching through the
+system's manual collection.
+Each manual page argument will be interpreted as an nroff source file in the
+correct format.
+.\" Compressed nroff source files with a supported compression
+.\" extension will be decompressed by man prior to being displaying via the
+.\" usual filters.
+No cat file is produced.
+If '\-' is listed as one of the arguments, input will be taken from stdin.
+When this option is not used, and man fails to find the page required,
+before displaying the error message, it attempts to act as if this
+option was supplied, using the name as a filename and looking for an
+exact match.
+.TP
+.BR \-w ", " \-\-where ", " \-\-location
+Don't actually display the manual pages, but do print the location(s) of
+the source nroff files that would be formatted.
+.TP
+.BR \-W ", " \-\-where\-cat ", " \-\-location\-cat
+Don't actually display the manual pages, but do print the location(s) of
+the cat files that would be displayed.
+If \-w and \-W are both specified, print both separated by a space.
+.TP
+.BR \-c ", " \-\-catman
+This option is not for general use and should only be used by the
+.B catman
+program.
+.TP
+.BI \-R\  encoding\fR,\ \fI \-\-recode\fR=\fIencoding
+Instead of formatting the manual page in the usual way, output its source
+converted to the specified
+.IR encoding .
+If you already know the encoding of the source file, you can also use
+.BR manconv (1)
+directly.
+However, this option allows you to convert several manual pages to a single
+encoding without having to explicitly state the encoding of each, provided
+that they were already installed in a structure similar to a manual page
+hierarchy.
+.SS "Finding manual pages"
+.TP
+.BI \-L\  locale \fR,\ \fB\-\-locale= locale
+.B man
+will normally determine your current locale by a call to the C function
+.BR setlocale (3)
+which interrogates various environment variables, possibly including
+.RB $ LC_MESSAGES
+and
+.RB $ LANG .
+To temporarily override the determined value, use this option to supply a
+.I locale
+string directly to
+.BR man .
+Note that it will not take effect until the search for pages actually
+begins.
+Output such as the help message will always be displayed in the initially
+determined locale.
+.\"
+.\" Due to the rather silly limit of 6 args per request in some `native'
+.\" *roff compilers, we have do the following to get the two-line
+.\" hanging tag on one line. .PP to begin a new paragraph, then the
+.\" tag, then .RS (start relative indent), the text, finally .RE
+.\" (end relative indent).
+.\"
+.PP
+.B \-m
+.I system\c
+\|[\|,.\|.\|.\|]\|,
+.BI \-\-systems= system\c
+\|[\|,.\|.\|.\|]
+.RS
+If this system has access to other operating system's manual pages, they can
+be accessed using this option.
+To search for a manual page from NewOS's manual page collection,
+use the option
+.B \-m
+.BR NewOS .
+
+The
+.I system
+specified can be a combination of comma delimited operating system names.
+To include a search of the native operating system's manual pages,
+include the system name
+.B man
+in the argument string.
+This option will override the
+.RB $ SYSTEM
+environment variable.
+.RE
+.TP
+.BI \-M\  path \fR,\ \fB\-\-manpath= path
+Specify an alternate manpath to use.
+By default,
+.B man
+uses
+.B manpath
+derived code to determine the path to search.
+This option overrides the
+.RB $ MANPATH
+environment variable and causes option
+.B \-m
+to be ignored.
+
+A path specified as a manpath must be the root of a manual page hierarchy
+structured into sections as described in the man-db manual (under "The
+manual page system").
+To view manual pages outside such hierarchies, see the
+.B \-l
+option.
+.TP
+.BI \-S\  list \fR,\ \fB\-s\  list \fR,\ \fB\-\-sections= list
+List is a colon- or comma-separated list of `order specific' manual sections
+to search.
+This option overrides the
+.RB $ MANSECT
+environment variable.
+(The
+.B \-s
+spelling is for compatibility with System V.)
+.TP
+.BI \-e\  sub-extension \fR,\ \fB\-\-extension= sub-extension
+Some systems incorporate large packages of manual pages, such as those that
+accompany the
+.B Tcl
+package, into the main manual page hierarchy.
+To get around the problem of having two manual pages with the same name
+such as
+.BR exit (3),
+the
+.B Tcl
+pages were usually all assigned to section
+.BR l .
+As this is unfortunate, it is now possible to put the pages in the correct
+section, and to assign a specific `extension' to them, in this case,
+.BR exit (3tcl).
+Under normal operation,
+.B man
+will display
+.BR exit (3)
+in preference to
+.BR exit (3tcl).
+To negotiate this situation and to avoid having to know which section the
+page you require resides in, it is now possible to give
+.B man
+a
+.I sub-extension
+string indicating which package the page must belong to.
+Using the above example, supplying the option
+.B \-e\ tcl
+to
+.B man
+will restrict the search to pages having an extension of
+.BR *tcl .
+.TP
+.BR \-i ", " \-\-ignore\-case
+Ignore case when searching for manual pages.
+This is the default.
+.TP
+.BR \-I ", " \-\-match\-case
+Search for manual pages case-sensitively.
+.TP
+.B \-\-regex
+Show all pages with any part of either their names or their descriptions
+matching each
+.I page
+argument as a regular expression, as with
+.BR apropos (1).
+Since there is usually no reasonable way to pick a "best" page when
+searching for a regular expression, this option implies
+.BR \-a .
+.TP
+.B \-\-wildcard
+Show all pages with any part of either their names or their descriptions
+matching each
+.I page
+argument using shell-style wildcards, as with
+.BR apropos (1)
+.BR \-\-wildcard .
+The
+.I page
+argument must match the entire name or description, or match on word
+boundaries in the description.
+Since there is usually no reasonable way to pick a "best" page when
+searching for a wildcard, this option implies
+.BR \-a .
+.TP
+.B \-\-names\-only
+If the
+.B \-\-regex
+or
+.B \-\-wildcard
+option is used, match only page names, not page descriptions, as with
+.BR whatis (1).
+Otherwise, no effect.
+.TP
+.BR \-a ", " \-\-all
+By default,
+.B man
+will exit after displaying the most suitable manual page it finds.
+Using this option forces
+.B man
+to display all the manual pages with names that match the search criteria.
+.TP
+.BR \-u ", " \-\-update
+This option causes
+.B man
+to perform an `inode level' consistency check on its database caches to
+ensure that they are an accurate representation of the filesystem.
+It will only have a useful effect if
+.B man
+is installed with the setuid bit set.
+.TP
+.B \-\-no\-subpages
+By default,
+.B man
+will try to interpret pairs of manual page names given on the command line
+as equivalent to a single manual page name containing a hyphen or an
+underscore.
+This supports the common pattern of programs that implement a number of
+subcommands, allowing them to provide manual pages for each that can be
+accessed using similar syntax as would be used to invoke the subcommands
+themselves.
+For example:
+
+.nf
+\&  $ man \-aw git diff
+\&  /usr/share/man/man1/git\-diff.1.gz
+.fi
+
+To disable this behaviour, use the
+.B \-\-no\-subpages
+option.
+
+.nf
+\&  $ man \-aw \-\-no\-subpages git diff
+\&  /usr/share/man/man1/git.1.gz
+\&  /usr/share/man/man3/Git.3pm.gz
+\&  /usr/share/man/man1/diff.1.gz
+.fi
+.SS "Controlling formatted output"
+.TP
+.BI \-P\  pager \fR,\ \fB\-\-pager= pager
+Specify which output pager to use.
+By default,
+.B man
+uses
+.BR "pager -s" .
+This option overrides the
+.RB $ MANPAGER
+environment variable, which in turn overrides the
+.RB $ PAGER
+environment variable.
+It is not used in conjunction with
+.B \-f
+or
+.BR \-k .
+
+The value may be a simple command name or a command with arguments, and may
+use shell quoting (backslashes, single quotes, or double quotes).
+It may not use pipes to connect multiple commands; if you need that, use a
+wrapper script, which may take the file to display either as an argument or
+on standard input.
+.TP
+.BI \-r\  prompt \fR,\ \fB\-\-prompt= prompt
+If a recent version of
+.B less
+is used as the pager,
+.B man
+will attempt to set its prompt and some sensible options.
+The default prompt looks like
+
+.B \ Manual page\c
+.IB \ name ( sec )\c
+.BI \ line \ x
+
+where
+.I name
+denotes the manual page name,
+.I sec
+denotes the section it was found under and
+.IR x
+the current line number.
+.\"The default options are
+.\".BR \-six8 .
+This is achieved by using the
+.RB $ LESS
+environment variable.
+.\"The actual default will depend on your chosen
+.\".BR locale .
+
+Supplying
+.B \-r
+with a string will override this default.
+.\"You may need to do this if your
+.\"version of
+.\".B less
+.\"rejects the default options or if you prefer a different prompt.
+The string may contain the text
+.B $MAN_PN
+which will be expanded to the name of the current manual page and its
+section name surrounded by `(' and `)'.
+The string used to produce the default could be expressed as
+
+.B \e\ Manual\e\ page\e\ \e$MAN_PN\e\ ?ltline\e\ %lt?L/%L.:
+.br
+.B byte\e\ %bB?s/%s..?\e\ (END):?pB\e\ %pB\e\e%..
+.br
+.B (press h for help or q to quit)
+
+It is broken into three lines here for the sake of readability only.
+For its meaning see the
+.BR less (1)
+manual page.
+The prompt string is first evaluated by the shell.
+All double quotes, back-quotes and backslashes in the prompt must be escaped
+by a preceding backslash.
+The prompt string may end in an escaped $ which may be followed by further
+options for less.
+By default
+.B man
+sets the
+.B \-ix8
+options.
+
+If you want to override
+.BR man 's
+prompt string processing completely, use the
+.RB $ MANLESS
+environment variable described below.
+.TP
+.BR \-7 ", " \-\-ascii
+When viewing a pure
+.IR ascii (7)
+manual page on a 7 bit terminal or terminal emulator, some characters may
+not display correctly when using the
+.IR latin1 (7)
+device description with
+.B GNU
+.BR nroff .
+This option allows pure
+.I ascii
+manual pages to be displayed in
+.I ascii
+with the
+.I latin1
+device.
+It will not translate any
+.I latin1
+text.
+The following table shows the translations performed: some parts of it may
+only be displayed properly when using
+.B GNU
+.BR nroff 's
+.IR latin1 (7)
+device.
+
+.ie c \[shc] \
+.  ds softhyphen \[shc]
+.el \
+.  ds softhyphen \(hy
+.TS
+tab (@);
+l c c c.
+Description@Octal@latin1@ascii
+_
+T{
+continuation hyphen
+T}@255@\*[softhyphen]@-
+T{
+bullet (middle dot)
+T}@267@\(bu@o
+T{
+acute accent
+T}@264@\(aa@'
+T{
+multiplication sign
+T}@327@\(mu@x
+.TE
+
+If the
+.I latin1
+column displays correctly, your terminal may be set up for
+.I latin1
+characters and this option is not necessary.
+If the
+.I latin1
+and
+.I ascii
+columns are identical, you are reading this page using this option or
+.B man
+did not format this page using the
+.I latin1
+device description.
+If the
+.I latin1
+column is missing or corrupt, you may need to view manual pages with this
+option.
+
+This option is ignored when using options
+.BR \-t ,
+.BR \-H ,
+.BR \-T ,
+or
+.B \-Z
+and may be useless for
+.B nroff
+other than
+.BR GNU's .
+.TP
+.BI \-E\  encoding\fR,\ \fI \-\-encoding\fR=\fIencoding
+Generate output for a character encoding other than the default.
+For backward compatibility,
+.I encoding
+may be an
+.B nroff
+device such as
+.BR ascii ", " latin1 ", or " utf8
+as well as a true character encoding such as
+.BR UTF\-8 .
+.TP
+.BR \-\-no\-hyphenation ", " \-\-nh
+Normally,
+.B nroff
+will automatically hyphenate text at line breaks even in words that do not
+contain hyphens, if it is necessary to do so to lay out words on a line
+without excessive spacing.
+This option disables automatic hyphenation, so words will only be hyphenated
+if they already contain hyphens.
+
+If you are writing a manual page and simply want to prevent
+.B nroff
+from hyphenating a word at an inappropriate point, do not use this option,
+but consult the
+.B nroff
+documentation instead; for instance, you can put "\e%" inside a word to
+indicate that it may be hyphenated at that point, or put "\e%" at the start
+of a word to prevent it from being hyphenated.
+.TP
+.BR \-\-no\-justification ", " \-\-nj
+Normally,
+.B nroff
+will automatically justify text to both margins.
+This option disables full justification, leaving justified only to the left
+margin, sometimes called "ragged-right" text.
+
+If you are writing a manual page and simply want to prevent
+.B nroff
+from justifying certain paragraphs, do not use this option, but consult the
+.B nroff
+documentation instead; for instance, you can use the ".na", ".nf", ".fi",
+and ".ad" requests to temporarily disable adjusting and filling.
+.TP
+.BI \-p\  string \fR,\ \fB\-\-preprocessor= string
+Specify the sequence of preprocessors to run before
+.B nroff
+or
+.BR troff / groff .
+Not all installations will have a full set of preprocessors.
+Some of the preprocessors and the letters used to designate them are:
+.BR eqn " (" e ),
+.BR grap " (" g ),
+.BR pic " (" p ),
+.BR tbl " (" t ),
+.BR vgrind " (" v ),
+.BR refer " (" r ).
+This option overrides the
+.RB $ MANROFFSEQ
+environment variable.
+.B zsoelim
+is always run as the very first preprocessor.
+.TP
+.BR \-t ", " \-\-troff
+Use
+.I groff -mandoc
+to format the manual page to stdout.
+This option is not required in conjunction with
+.BR \-H ,
+.BR \-T ,
+or
+.BR \-Z .
+.TP
+\fB\-T\fP[\fIdevice\fP], \fB\-\-troff\-device\fP[=\fIdevice\fP]
+This option is used to change
+.B groff
+(or possibly
+.BR troff's )
+output to be suitable for a device other than the default.
+It implies
+.BR \-t .
+Examples (provided with Groff-1.17) include
+.BR dvi ", " latin1 ", " ps ", " utf8 ,
+.BR X75 " and " X100 .
+.TP
+\fB\-H\fP[\fIbrowser\fP], \fB\-\-html\fP[=\fIbrowser\fP]
+This option will cause
+.B groff
+to produce HTML output, and will display that output in a web browser.
+The choice of browser is determined by the optional
+.I browser
+argument if one is provided, by the
+.RB $ BROWSER
+environment variable, or by a compile-time default if that is unset (usually
+.BR lynx ).
+This option implies
+.BR \-t ,
+and will only work with
+.B GNU
+.BR troff .
+.TP
+\fB\-X\fP[\fIdpi\fP], \fB\-\-gxditview\fP[=\fIdpi\fP]
+This option displays the output of
+.B groff
+in a graphical window using the
+.B gxditview
+program.
+The
+.I dpi
+(dots per inch) may be 75, 75-12, 100, or 100-12, defaulting to 75;
+the -12 variants use a 12-point base font.
+This option implies
+.B \-T
+with the X75, X75-12, X100, or X100-12 device respectively.
+.TP
+.BR \-Z ", " \-\-ditroff
+.B groff
+will run
+.B troff
+and then use an appropriate post-processor to produce output suitable for
+the chosen device.
+If
+.I groff -mandoc
+is
+.BR groff ,
+this option is passed to
+.B groff
+and will suppress the use of a post-processor.
+It implies
+.BR \-t .
+.SS "Getting help"
+.TP
+.BR \-h ", " \-\-help
+Print a help message and exit.
+.TP
+.BR \-V ", " \-\-version
+Display version information.
+.SH "EXIT STATUS"
+.TP
+.B 0
+Successful program execution.
+.TP
+.B 1
+Usage, syntax or configuration file error.
+.TP
+.B 2
+Operational error.
+.TP
+.B 3
+A child process returned a non-zero exit status.
+.TP
+.B 16
+At least one of the pages/files/keywords didn't exist or wasn't matched.
+.SH ENVIRONMENT
+.\".TP \w'MANROFFSEQ\ \ 'u
+.TP
+.B MANPATH
+If
+.RB $ MANPATH
+is set, its value is used as the path to search for manual pages.
+.TP
+.B MANROFFOPT
+The contents of
+.RB $ MANROFFOPT
+are added to the command line every time
+.B man
+invokes the formatter
+.RB ( nroff ,
+.BR troff ,
+or
+.BR groff ).
+.TP
+.B MANROFFSEQ
+If
+.RB $ MANROFFSEQ
+is set, its value is used to determine the set of preprocessors to pass
+each manual page through.
+The default preprocessor list is system dependent.
+.TP
+.B MANSECT
+If
+.RB $ MANSECT
+is set, its value is a colon-delimited list of sections and it is used to
+determine which manual sections to search and in what order.
+.TP
+.BR MANPAGER , " PAGER"
+If
+.RB $ MANPAGER
+or
+.RB $ PAGER
+is set
+.RB ($ MANPAGER
+is used in preference), its value is used as the name of the program used to
+display the manual page.
+By default,
+.B pager -s
+is used.
+
+The value may be a simple command name or a command with arguments, and may
+use shell quoting (backslashes, single quotes, or double quotes).
+It may not use pipes to connect multiple commands; if you need that, use a
+wrapper script, which may take the file to display either as an argument or
+on standard input.
+.TP
+.B MANLESS
+If
+.RB $ MANLESS
+is set,
+.B man
+will not perform any of its usual processing to set up a prompt string for
+the
+.B less
+pager.
+Instead, the value of
+.RB $ MANLESS
+will be copied verbatim into
+.RB $ LESS .
+For example, if you want to set the prompt string unconditionally to
+\(lqmy prompt string\(rq, set
+.RB $ MANLESS
+to
+.RB \(oq \-Psmy\ prompt\ string \(cq.
+.TP
+.B BROWSER
+If
+.RB $ BROWSER
+is set, its value is a colon-delimited list of commands, each of which in
+turn is used to try to start a web browser for
+.B man
+.BR \-\-html .
+In each command,
+.I %s
+is replaced by a filename containing the HTML output from
+.BR groff ,
+.I %%
+is replaced by a single percent sign (%), and
+.I %c
+is replaced by a colon (:).
+.TP
+.B SYSTEM
+If
+.RB $ SYSTEM
+is set, it will have the same effect as if it had been specified as the
+argument to the
+.B \-m
+option.
+.TP
+.B MANOPT
+If
+.RB $ MANOPT
+is set, it will be parsed prior to
+.B man's
+command line and is expected to be in a similar format.
+As all of the other
+.B man
+specific environment variables can be expressed as command line options, and
+are thus candidates for being included in
+.RB $ MANOPT
+it is expected that they will become obsolete.
+N.B. All spaces that should be interpreted as part of an option's argument
+must be escaped.
+.TP
+.B MANWIDTH
+If
+.RB $ MANWIDTH
+is set, its value is used as the line length for which manual pages should
+be formatted.
+If it is not set, manual pages will be formatted with a line length
+appropriate to the current terminal (using an
+.BR ioctl (2)
+if available, the value of
+.RB $ COLUMNS ,
+or falling back to 80 characters if neither is available).
+Cat pages will only be saved when the default formatting can be used, that
+is when the terminal line length is between 66 and 80 characters.
+.TP
+.B MAN_KEEP_FORMATTING
+Normally, when output is not being directed to a terminal (such as to a file
+or a pipe), formatting characters are discarded to make it easier to read
+the result without special tools.
+However, if
+.RB $ MAN_KEEP_FORMATTING
+is set to any non-empty value, these formatting characters are retained.
+This may be useful for wrappers around
+.B man
+that can interpret formatting characters.
+.TP
+.B MAN_KEEP_STDERR
+Normally, when output is being directed to a terminal (usually to a pager),
+any error output from the command used to produce formatted versions of
+manual pages is discarded to avoid interfering with the pager's display.
+Programs such as
+.B groff
+often produce relatively minor error messages about typographical problems
+such as poor alignment, which are unsightly and generally confusing when
+displayed along with the manual page.
+However, some users want to see them anyway, so, if
+.RB $ MAN_KEEP_STDERR
+is set to any non-empty value, error output will be displayed as usual.
+.TP
+.BR LANG , " LC_MESSAGES"
+Depending on system and implementation, either or both of
+.RB $ LANG
+and
+.RB $ LC_MESSAGES
+will be interrogated for the current message locale.
+.B man
+will display its messages in that locale (if available).
+See
+.BR setlocale (3)
+for precise details.
+.SH FILES
+.TP
+.I /etc/manpath.config
+man-db configuration file.
+.TP
+.I /usr/share/man
+A global manual page hierarchy.
+.TP
+.I /usr/share/man/index.(bt|db|dir|pag)
+A traditional global
+.I index
+database cache.
+.TP
+.I /var/cache/man/index.(bt|db|dir|pag)
+An FHS
+compliant global
+.I index
+database cache.
+.SH "SEE ALSO"
+.BR apropos (1),
+.BR groff (1),
+.BR less (1),
+.BR manpath (1),
+.BR nroff (1),
+.BR troff (1),
+.BR whatis (1),
+.BR zsoelim (1),
+.BR setlocale (3),
+.BR manpath (5),
+.BR ascii (7),
+.BR latin1 (7),
+.BR man (7),
+.BR catman (8),
+.BR mandb (8),
+the man-db package manual,
+.BR FSSTND
+.SH HISTORY
+1990, 1991 \- Originally written by John W. Eaton (jwe@che.utexas.edu).
+
+Dec 23 1992: Rik Faith (faith@cs.unc.edu) applied bug fixes
+supplied by Willem Kasdorp (wkasdo@nikhefk.nikef.nl).
+
+30th April 1994 \- 23rd February 2000: Wilf. (G.Wilford@ee.surrey.ac.uk)
+has been developing and maintaining this package
+with the help of a few dedicated people.
+
+30th October 1996 \- 30th March 2001: Fabrizio Polacco <fpolacco@debian.org>
+maintained and enhanced this package for the Debian project, with the
+help of all the community.
+
+31st March 2001 \- present day: Colin Watson <cjwatson@debian.org> is now
+developing and maintaining man-db.

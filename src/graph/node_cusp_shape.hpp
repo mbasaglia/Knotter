@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QString>
 #include <QIcon>
 #include "path_builder.hpp"
+#include <QMetaType>
 
 class Traversal_Info;
 class Node_Style;

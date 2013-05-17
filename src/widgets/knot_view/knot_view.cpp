@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "xml_exporter.hpp"
 #include "context_menu_node.hpp"
 #include "context_menu_edge.hpp"
+#include <QFile>
 
 Knot_View::Knot_View(QString file)
     : mouse_mode(EDIT_GRAPH), last_node(nullptr), m_file_name(file),

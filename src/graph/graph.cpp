@@ -255,8 +255,11 @@ void Graph::traverse(Path_Builder &path)
 
         }
     }
-
+#if HAS_QT_4_8
     m_edges.swap(traversed_edges);
+#else
+    qSwap(m_edges,traversed_edges);
+#endif
 }
 
 

@@ -24,22 +24,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef CXX_HPP
-#define CXX_HPP
+#ifndef SCRIPT_POINT_HPP
+#define SCRIPT_POINT_HPP
+
+
+#include <QMetaType>
+#include <QScriptEngine>
+
 /**
-    \file
-
-    Macros and stuff that should be already in C++
+    Wrapper to QPointF
 */
+typedef QPointF Script_Point;
+Q_DECLARE_METATYPE(Script_Point)
 
-#include <ciso646>
-
-#if !defined(CXX_11) || __cplusplus < 201103
-    #define nullptr 0
-    #define override
-    #define constexpr
-#endif // C++11
-
-#include <QDebug>
-
-#endif // CXX_HPP
+#endif // SCRIPT_POINT_HPP

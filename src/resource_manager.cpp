@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDir>
 #include <QIcon>
 #include <QCoreApplication>
+#include "script_line.hpp"
 
 Settings          Resource_Manager::settings;
 Resource_Manager  Resource_Manager::singleton;
@@ -124,7 +125,12 @@ void Resource_Manager::initialize(QString default_lang_code)
     // Load Settings
     settings.load_config();
 
+    // Clean up
     connect(qApp,SIGNAL(aboutToQuit()),&singleton,SLOT(save_settings()));
+
+    // Scripting
+    singleton.m_script_engine = new QScriptEngine; // needs to be initialized only after qApp is created
+    qScriptRegisterMetaType(singleton.m_script_engine, line_to_script, line_from_script);
 
 }
 

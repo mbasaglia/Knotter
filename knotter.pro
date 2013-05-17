@@ -89,7 +89,7 @@ MYDISTDIRS  =  src data
 MYDIST_NAME = "$$TARGET-$${VERSION}"
 MYDIST_TAR_GZ = "$${MYDIST_NAME}.tar.gz"
 MYDIST_TMP = ".tmp/$${MYDIST_NAME}"
-mydist.depends = $${TARGET}.desktop
+mydist.depends = $${TARGET}.desktop man/$${TARGET}.1
                                                                             #
 mydist.commands =                                                           \
         (                                                                   \
@@ -123,7 +123,12 @@ src_doc.commands = doxygen Doxyfile
 $${TARGET}.desktop.depends=$$PWD/$${TARGET}.desktop.in
 $${TARGET}.desktop.commands=$$PWD/info_preprocessor.sh $$PWD/$${TARGET}.desktop.in > $${TARGET}.desktop
 
-QMAKE_EXTRA_TARGETS += src_doc Doxyfile $${TARGET}.desktop
+#man page
+man/$${TARGET}.1.depends=$$PWD/man/$${TARGET}.1.in
+man/$${TARGET}.1.commands=$$PWD/info_preprocessor.sh $$PWD/man/$${TARGET}.1.in >man/$${TARGET}.1
+
+
+QMAKE_EXTRA_TARGETS += src_doc Doxyfile $${TARGET}.desktop man/$${TARGET}.1
 
 
 # Installs

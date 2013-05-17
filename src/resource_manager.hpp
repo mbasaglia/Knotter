@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTranslator>
 #include "c++.hpp"
 #include "edge_style.hpp"
+#include <QScriptEngine>
 
 /**
  * Manage resources and data
@@ -53,6 +54,8 @@ class Resource_Manager : public QObject
 
     QVector<Edge_Style*> m_edge_styles;
     QVector<Cusp_Shape*> m_cusp_shapes;
+
+    QScriptEngine *m_script_engine;
 
 public:
     static Settings settings;
@@ -178,6 +181,8 @@ public:
      *  Resurns NULL only if there are no registered styles
      */
     static Cusp_Shape* cusp_shape_from_machine_name(QString name);
+
+    static QScriptEngine& script_engine() { return *singleton.m_script_engine; }
 
 public slots:
 
