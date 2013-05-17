@@ -123,7 +123,11 @@ public:
     /// Paint edges and nodes
     void paint_graph(QPainter *painter,const QStyleOptionGraphicsItem *option=nullptr,
                      QWidget *widget=nullptr) const;
-    QRectF boundingRect() const override { return bounding_box; }
+    QRectF boundingRect() const override
+    {
+        const double d = width()/2;
+        return bounding_box.adjusted(-d,-d,d,d);
+    }
     int type() const override { return UserType+0x03; }
 
 
