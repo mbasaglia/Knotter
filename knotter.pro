@@ -53,6 +53,9 @@ isEmpty(DATAROOTDIR){
 isEmpty(BINDIR){
     BINDIR=.
 }
+isEmpty(MANDIR){
+    MANDIR=./man
+}
 
 
 # cpp defines
@@ -84,7 +87,7 @@ contains(CONFIG,c++11) {
 
 #dist
 MYDISTFILES =  $$OTHER_FILES $${TARGET}.pro
-MYDISTDIRS  =  src data
+MYDISTDIRS  =  src data man
 
 MYDIST_NAME = "$$TARGET-$${VERSION}"
 MYDIST_TAR_GZ = "$${MYDIST_NAME}.tar.gz"
@@ -139,6 +142,8 @@ data.path = $${DATADIR}
 
 desktop_file.files=$${TARGET}.desktop
 desktop_file.path=$${DATAROOTDIR}/applications
+man_page.files=man/$${TARGET}.1
+desktop_file.path=$${MANDIR}/man1
 
 INSTALLS += data desktop_file
 
