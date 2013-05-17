@@ -49,6 +49,11 @@ Dialog_Preferences::Dialog_Preferences(QMainWindow *parent) :
 
     check_save_grid->setChecked(Resource_Manager::settings.save_grid());
     check_save_toolbars->setChecked(Resource_Manager::settings.save_toolbars());
+
+    check_files_close->setChecked(Resource_Manager::settings.check_unsaved_files());
+
+    stackedWidget->setCurrentIndex(0);
+    tableWidget->setCurrentCell(0,0);
 }
 
 void Dialog_Preferences::init_combos()
@@ -92,6 +97,8 @@ void Dialog_Preferences::set_preferences()
     Resource_Manager::settings.set_save_grid(check_save_grid->isChecked());
 
     Resource_Manager::settings.set_save_toolbars(check_save_toolbars->isChecked());
+
+    Resource_Manager::settings.set_check_unsaved_files(check_files_close->isChecked());
 
 }
 

@@ -517,7 +517,8 @@ void Main_Window::close_tab(int i, bool confirm_if_changed)
     Knot_View* kv = dynamic_cast<Knot_View*>(tabWidget->widget(i));
     if ( kv )
     {
-        if ( confirm_if_changed && !kv->undo_stack_pointer()->isClean() )
+        if ( Resource_Manager::settings.check_unsaved_files() &&
+             confirm_if_changed && !kv->undo_stack_pointer()->isClean() )
         {
             int r = QMessageBox::question(this,tr("Close File"),
                     tr("The file \"%1\" has been modified.\nDo you want to save changes?")
@@ -922,31 +923,31 @@ void Main_Window::on_action_Close_All_triggered()
 
 bool Main_Window::check_close_all()
 {
-    Dialog_Confirm_Close dialog;
-
-    for ( int i = 0; i < tabWidget->count(); i++ )
+    if ( Resource_Manager::settings.check_unsaved_files() )
     {
-        Knot_View* kv = dynamic_cast<Knot_View*>(tabWidget->widget(i));
-        if ( kv  && !kv->undo_stack_pointer()->isClean() )
-            dialog.add_file(i,tabWidget->tabText(i));
-    }
+        Dialog_Confirm_Close dialog;
 
-    if ( dialog.has_files() )
-    {
-
-        int r = dialog.exec();
-        if ( r == Dialog_Confirm_Close::Accepted )
+        for ( int i = 0; i < tabWidget->count(); i++ )
         {
-            foreach( int i, dialog.save_files() )
-            {
-                save(false,i);
-            }
-            return true;
+            Knot_View* kv = dynamic_cast<Knot_View*>(tabWidget->widget(i));
+            if ( kv  && !kv->undo_stack_pointer()->isClean() )
+                dialog.add_file(i,tabWidget->tabText(i));
         }
-        else if ( r == Dialog_Confirm_Close::DontSave )
-            return true; // Close without saving
-        else // if ( r == Dialog_Confirm_Close::Rejected )
-            return false; // Don't close
+
+        if ( dialog.has_files() )
+        {
+
+            int r = dialog.exec();
+            if ( r == Dialog_Confirm_Close::Rejected )
+                return false; // Don't close
+            else if ( r == Dialog_Confirm_Close::Accepted )
+            {
+                foreach( int i, dialog.save_files() )
+                {
+                    save(false,i);
+                }
+            }
+        }
     }
     return true;
 }

@@ -64,6 +64,8 @@ private:
     int                         m_grid_size;
     Snapping_Grid::Grid_Shape   m_grid_shape;
 
+    bool                        m_check_unsaved_files; ///< When closing, ask to save changes
+
 
 private:
     Settings();
@@ -121,11 +123,15 @@ public:
     bool save_toolbars() const { return m_save_toolbars; }
     void set_save_toolbars(bool save) { m_save_toolbars = save; }
 
+    bool check_unsaved_files() const { return m_check_unsaved_files; }
+    void set_check_unsaved_files(bool enable) { m_check_unsaved_files = enable; }
+
 public slots:
     void clear_config();
 
     void set_grid_size(int sz) { if ( sz > 0 ) m_grid_size = sz; }
     void set_grid_enabled(bool enable) { m_grid_enabled = enable; }
+
 
 signals:
     void icon_size_changed(int);

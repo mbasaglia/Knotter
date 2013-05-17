@@ -33,7 +33,8 @@ Settings::Settings()
       m_save_ui(true), m_icon_size(22), tool_button_style(Qt::ToolButtonFollowStyle),
       m_max_recent_files(5),
       m_graph_cache(false), m_fluid_refresh(true),
-      m_save_grid(true), m_grid_enabled(true), m_grid_size(32), m_grid_shape(Snapping_Grid::SQUARE)
+      m_save_grid(true), m_grid_enabled(true), m_grid_size(32), m_grid_shape(Snapping_Grid::SQUARE),
+      m_check_unsaved_files(true)
 {
 }
 
@@ -63,6 +64,8 @@ void Settings::load_config()
     m_grid_size = settings.value("size",m_grid_size).toInt();
     m_grid_shape = Snapping_Grid::Grid_Shape(settings.value("shape",int(m_grid_shape)).toInt());
     settings.endGroup();
+
+    m_check_unsaved_files = settings.value("check_unsaved_files",m_check_unsaved_files).toBool();
 
 
 
@@ -137,6 +140,8 @@ void Settings::save_config()
     settings.setValue("size",m_grid_size);
     settings.setValue("shape",int(m_grid_shape));
     settings.endGroup();
+
+    settings.setValue("check_unsaved_files",m_check_unsaved_files);
 
     settings.beginGroup("gui");
 
