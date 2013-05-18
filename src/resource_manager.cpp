@@ -29,6 +29,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QCoreApplication>
 #include "script_line.hpp"
 
+#if HAS_QT_5
+#include <QStandardPaths>
+#else
+#include <QDesktopServices>
+#endif
+
 Settings          Resource_Manager::settings;
 Resource_Manager  Resource_Manager::singleton;
 Resource_Manager* const Resource_Manager::pointer = &singleton;
@@ -69,16 +75,66 @@ QString Resource_Manager::data(QString name)
         path.setPath( QDir::currentPath()+"/data" ); // current dir
 
 
+#if HAS_QT_5
+    if ( !path.exists(name) )
+    {
+        foreach ( QString d, QStandardPaths::standardLocations(QStandardPaths::DataLocation)  )
+        {
+            if ( path.exists(name) )
+                break;
+            path.setPath(d);
+        }
+    }
+#else
+    if ( !path.exists(name) )
+        path.setPath( QDesktopServices::storageLocation(QDesktopServices::DataLocation) );
+#endif
+
+
     if ( !path.exists(name) )
         return QString(); // not found
 
     return QDir::cleanPath(path.absoluteFilePath(name));
 }
 
+QStringList Resource_Manager::data_directories(QString name)
+{
+    QStringList found;
+
+    QStringList search;
+    search << DATA_DIR;  // install dir
+#if HAS_QT_5
+    search << QStandardPaths::standardLocations(QStandardPaths::DataLocation);
+#else
+    search << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+#endif
+    search << QCoreApplication::applicationDirPath()+"/data" ; // executable dir
+    search << QDir::currentPath()+"/data"; // current dir
+
+    foreach ( QString d, search )
+    {
+        QDir path ( d );
+        if ( path.exists(name) )
+            found << QDir::cleanPath(path.absoluteFilePath(name));
+    }
+    found.removeDuplicates();
+
+    return found;
+}
+
 
 
 void Resource_Manager::initialize(QString default_lang_code)
 {
+    qApp->setApplicationName(TARGET);
+    qApp->setApplicationVersion(program_version());
+    qApp->setOrganizationDomain(DOMAIN_NAME);
+    qApp->setOrganizationName(TARGET);
+
+    // Clean up
+    connect(qApp,SIGNAL(aboutToQuit()),&singleton,SLOT(save_settings()));
+
+
     // Initialize Icon theme
 
     QIcon::setThemeSearchPaths(
@@ -125,12 +181,13 @@ void Resource_Manager::initialize(QString default_lang_code)
     // Load Settings
     settings.load_config();
 
-    // Clean up
-    connect(qApp,SIGNAL(aboutToQuit()),&singleton,SLOT(save_settings()));
 
     // Scripting
     singleton.m_script_engine = new QScriptEngine; // needs to be initialized only after qApp is created
     qScriptRegisterMetaType(singleton.m_script_engine, line_to_script, line_from_script);
+
+    //plugins
+    load_plugins();
 
 }
 
@@ -310,4 +367,57 @@ Cusp_Shape *Resource_Manager::cusp_shape_from_machine_name(QString name)
         if ( st->machine_name() == name )
             return st;
     return default_cusp_shape();
+}
+
+void Resource_Manager::load_plugins(QString directory)
+{
+    QDir plugin_dir = QDir(directory);
+    if ( plugin_dir.exists() )
+    {
+        foreach ( QFileInfo finfo, plugin_dir.entryInfoList(QDir::Dirs|
+                                            QDir::Files|QDir::NoDotAndDotDot) )
+        {
+            if ( finfo.isDir() )
+                load_plugins(finfo.absoluteFilePath());
+            else if ( finfo.isFile() && finfo.isReadable() &&
+                      finfo.suffix().toLower() == "json" &&
+                      finfo.fileName().startsWith("plugin_"))
+                load_plugin(finfo.absoluteFilePath());
+        }
+    }
+}
+
+void Resource_Manager::load_plugins()
+{
+    foreach (QString plugin_dir_name, data_directories("plugins") )
+    {
+        load_plugins(plugin_dir_name);
+    }
+}
+
+
+void Resource_Manager::load_plugin(QString filename)
+{
+    QFile file(filename);
+    if ( !file.open(QFile::Text|QFile::ReadOnly) )
+        return;
+    QJsonParseError err;
+    QJsonDocument json ( QJsonDocument::fromJson(file.readAll(),&err) );
+    QString error;
+    if ( err.error != QJsonParseError::NoError )
+    {
+        error = err.errorString();
+    }
+    else
+    {
+        Plugin p(json);
+        if ( p.name().isEmpty() )
+            error = tr("Plugin name not specified");
+        else if ( p.type() == Plugin::Invalid )
+            error = tr("Unknown plugin type ");
+        else
+            singleton.m_plugins << p;
+    }
+    if ( !error.isEmpty() )
+        qWarning() << tr("%1: Error: %2").arg(filename).arg(error);
 }

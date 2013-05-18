@@ -17,8 +17,10 @@ INCLUDEPATH += $$PWD
 
 HEADERS += \
     $$PWD/script_line.hpp \
-    $$PWD/script_point.hpp
+    $$PWD/script_point.hpp \
+    $$PWD/plugin.hpp
 
 SOURCES += \
-    $$PWD/script_line.cpp
+    $$PWD/script_line.cpp \
+    $$PWD/plugin.cpp
 

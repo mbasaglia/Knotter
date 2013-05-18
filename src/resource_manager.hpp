@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "c++.hpp"
 #include "edge_style.hpp"
 #include <QScriptEngine>
+#include "plugin.hpp"
 
 /**
  * Manage resources and data
@@ -56,6 +57,7 @@ class Resource_Manager : public QObject
     QVector<Cusp_Shape*> m_cusp_shapes;
 
     QScriptEngine *m_script_engine;
+    QList<Plugin>  m_plugins;
 
 public:
     static Settings settings;
@@ -78,11 +80,19 @@ public:
     static bool check_least_version(QString version, int maj, int min);
 
 
-    /** Get full path of given data file
+    /**
+     * \brief Get full path of given data file
      * \param name Name of the file (relative to datadir)
      * \return Full path or null string if not found
      */
     static QString data(QString name);
+
+
+    /**
+     * \brief Get all available directories to search data from
+     * \param name Name of the data directory
+     */
+    static QStringList data_directories(QString name);
 
     /**
      *  \brief Determine human readable language name from ISO 639-1 code
@@ -183,6 +193,14 @@ public:
     static Cusp_Shape* cusp_shape_from_machine_name(QString name);
 
     static QScriptEngine& script_engine() { return *singleton.m_script_engine; }
+    /// Load plugin from json file
+    static void load_plugin(QString filename);
+    /// Load all plugins from given directory
+    static void load_plugins(QString directory);
+    /// Load plugin from data directories
+    static void load_plugins();
+
+
 
 public slots:
 
@@ -194,7 +212,7 @@ public slots:
 signals:
 
     void language_changed();
-    
+
 };
 
 #endif // RESOURCE_MANAGER_HPP

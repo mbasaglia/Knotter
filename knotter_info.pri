@@ -28,6 +28,8 @@ Knots drawn with Knotter can be exported as SVG or raster images."
 AUTHOR="Mattia Basaglia"
 # Maintainer email
 EMAIL="mattia.basaglia@gmail.com"
+# Domain name
+DOMAIN="knotter.mattbas.org"
 # Main website
 WEBSITE="http://knotter.mattbas.org/"
 # Direct link to the latest version

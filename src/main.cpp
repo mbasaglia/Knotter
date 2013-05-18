@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "edge_style.hpp"
 #include "command_line.hpp"
 
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -48,6 +49,7 @@ int main(int argc, char *argv[])
 
     if ( !cmd.load_ui() )
         return 0;
+
 
     Main_Window mw;
     mw.show();

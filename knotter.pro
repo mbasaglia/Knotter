@@ -61,6 +61,8 @@ isEmpty(MANDIR){
 # cpp defines
 
 DEFINES += "VERSION=\\\"$${VERSION}\\\""
+DEFINES += "DOMAIN_NAME=\\\"$${DOMAIN}\\\""
+DEFINES += "TARGET=\\\"$${TARGET}\\\""
 DEFINES += "DATA_DIR=\\\"$${DATADIR}\\\""
 DEFINES += "BUG_URL=\\\"$${BUGS}\\\""
 DEFINES += "DOC_URL=\\\"$${DOC_URL}\\\""
