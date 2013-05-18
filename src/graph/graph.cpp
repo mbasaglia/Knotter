@@ -131,6 +131,7 @@ void Graph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     const_paint(painter,option,widget);
 }
 
+#include <QPaintEngine>
 void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) const
 {
 
@@ -138,14 +139,17 @@ void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
     {
         painter->setBrush(Qt::NoBrush);
         QPen p = pen;
+        QBrush b = p.brush();
+        if ( !painter->paintEngine()->hasFeature(QPaintEngine::PatternBrush) )
+            b.setStyle(Qt::SolidPattern);
+
         for ( int i = 0; i < paths.size(); ++i )
         {
             if ( auto_color )
-                p.setBrush(QBrush(QColor::fromHsv(i*360/paths.size(),192,170),
-                                  pen.brush().style()));
+                b.setColor(QColor::fromHsv(i*360/paths.size(),192,170));
             else
-                p.setBrush(QBrush(m_colors[i%m_colors.size()],
-                           pen.brush().style()));
+                b.setColor(m_colors[i%m_colors.size()]);
+            p.setBrush(b);
             painter->setPen(p);
             painter->drawPath(paths[i]);
         }
