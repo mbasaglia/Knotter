@@ -40,7 +40,7 @@ Plugin::Plugin()
 
 }
 
-Plugin Plugin::from_file(QFileDevice& file, QString *error)
+Plugin Plugin::from_file(QFile &file, QString *error)
 {
 
     Plugin p;

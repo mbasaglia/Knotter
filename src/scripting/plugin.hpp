@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PLUGIN_HPP
 #include <QString>
 #include <QVariant>
-#include <QFileDevice>
+#include <QFile>
 class Plugin
 {
 public:
@@ -55,7 +55,7 @@ public:
     bool enabled() const { return m_enabled; }
     void enable(bool e) { m_enabled = e; }
 
-    static Plugin from_file (QFileDevice &file, QString* error );
+    static Plugin from_file (QFile &file, QString* error );
 };
 
 
