@@ -22,5 +22,6 @@ HEADERS += \
 
 SOURCES += \
     $$PWD/script_line.cpp \
-    $$PWD/plugin.cpp
+    $$PWD/plugin.cpp \
+    src/scripting/script_point.cpp
 

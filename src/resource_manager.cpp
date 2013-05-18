@@ -184,7 +184,13 @@ void Resource_Manager::initialize(QString default_lang_code)
 
     // Scripting
     singleton.m_script_engine = new QScriptEngine; // needs to be initialized only after qApp is created
-    qScriptRegisterMetaType(singleton.m_script_engine, line_to_script, line_from_script);
+    QScriptEngine* engine = singleton.m_script_engine; // shorer to write
+    qScriptRegisterMetaType(engine, line_to_script, line_from_script);
+    qScriptRegisterMetaType(engine, point_to_script, point_from_script);
+    engine->globalObject().setProperty("line", engine->newFunction(build_line));
+    engine->globalObject().setProperty("point", engine->newFunction(build_point));
+    /*sengine->globalObject().setProperty("diff", engine->newFunction(subtract_points));
+    engine->globalObject().setProperty("opposite", engine->newFunction(opposite_point));*/
 
     //plugins
     load_plugins();
