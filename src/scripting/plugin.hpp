@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PLUGIN_HPP
 #include <QString>
 #include <QVariant>
-#include <QJsonDocument>
+#include <QIODevice>
 class Plugin
 {
 public:
@@ -44,13 +44,18 @@ private:
     bool        m_enabled;
 
 public:
-    Plugin(const QJsonDocument &doc);
+    Plugin();
     const QString& name() const { return m_name; }
     const QString& description() const { return m_description; }
     Type type() const { return m_type; }
 
     bool enabled() const { return m_enabled; }
     void enable(bool e) { m_enabled = e; }
+
+    static Plugin from_file (QIODevice &file, QString* error );
 };
+
+
+
 
 #endif // PLUGIN_HPP

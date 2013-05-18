@@ -401,23 +401,13 @@ void Resource_Manager::load_plugin(QString filename)
     QFile file(filename);
     if ( !file.open(QFile::Text|QFile::ReadOnly) )
         return;
-    QJsonParseError err;
-    QJsonDocument json ( QJsonDocument::fromJson(file.readAll(),&err) );
+
+
     QString error;
-    if ( err.error != QJsonParseError::NoError )
-    {
-        error = err.errorString();
-    }
-    else
-    {
-        Plugin p(json);
-        if ( p.name().isEmpty() )
-            error = tr("Plugin name not specified");
-        else if ( p.type() == Plugin::Invalid )
-            error = tr("Unknown plugin type ");
-        else
-            singleton.m_plugins << p;
-    }
+    Plugin p = Plugin::from_file(file,&error);
+
     if ( !error.isEmpty() )
         qWarning() << tr("%1: Error: %2").arg(filename).arg(error);
+    else
+        singleton.m_plugins << p;
 }
