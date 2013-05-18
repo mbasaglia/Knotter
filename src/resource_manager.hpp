@@ -57,7 +57,7 @@ class Resource_Manager : public QObject
     QVector<Cusp_Shape*> m_cusp_shapes;
 
     QScriptEngine *m_script_engine;
-    QList<Plugin>  m_plugins;
+    QList<Plugin*>  m_plugins;
 
 public:
     static Settings settings;
@@ -199,6 +199,8 @@ public:
     static void load_plugins(QString directory);
     /// Load plugin from data directories
     static void load_plugins();
+
+    static QList<Plugin*> plugins() { return singleton.m_plugins; }
 
 
 

@@ -27,7 +27,8 @@ HEADERS += \
     $$PWD/about_dialog.hpp \
     $$PWD/dialog_insert_polygon.hpp \
     $$PWD/cusp_style_dialog.hpp \
-    src/dialogs/dialog_confirm_close.hpp
+    $$PWD/dialog_confirm_close.hpp \
+    $$PWD/dialog_plugins.hpp
 
 SOURCES += \
     $$PWD/main_window.cpp \
@@ -40,7 +41,8 @@ SOURCES += \
     $$PWD/about_dialog.cpp \
     $$PWD/dialog_insert_polygon.cpp \
     $$PWD/cusp_style_dialog.cpp \
-    src/dialogs/dialog_confirm_close.cpp
+    $$PWD/dialog_confirm_close.cpp \
+    $$PWD/dialog_plugins.cpp
 
 FORMS += \
     $$PWD/main_window.ui \
@@ -53,4 +55,5 @@ FORMS += \
     $$PWD/about_dialog.ui \
     $$PWD/dialog_insert_polygon.ui \
     $$PWD/cusp_style_dialog.ui \
-    src/dialogs/dialog_confirm_close.ui
+    $$PWD/dialog_confirm_close.ui \
+    $$PWD/dialog_plugins.ui

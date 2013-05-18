@@ -175,13 +175,13 @@
     <addaction name="action_About"/>
    </widget>
    <widget class="QMenu" name="menu_Plugins">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
     <property name="title">
      <string>&amp;Plugins</string>
     </property>
     <widget class="QMenu" name="menu_Insert">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="toolTip">
       <string>Insert objects from plugin</string>
      </property>
@@ -195,6 +195,9 @@
      </property>
     </widget>
     <widget class="QMenu" name="menu_Transform">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="toolTip">
       <string>Transform selection with plugin</string>
      </property>

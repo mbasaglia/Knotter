@@ -66,6 +66,7 @@ icons='application-exit
         preferences-system
         preferences-system-performance
         preferences-system-windows-move
+        run-build-install
         snap-orthogonal
         stroke-cap-butt
         stroke-cap-round

@@ -39,6 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "about_dialog.hpp"
 #include "dialog_insert_polygon.hpp"
 #include <QPrinter>
+#include "dialog_plugins.hpp"
 
 class Main_Window : public QMainWindow, private Ui::Main_Window
 {
@@ -58,6 +59,7 @@ private:
     About_Dialog            about_dialog;
     Dialog_Insert_Polygon   dialog_insert_polygon;
     QPrinter                printer;
+    Dialog_Plugins          dialog_plugins;
 
 public:
     explicit Main_Window(QWidget *parent = 0);
@@ -192,6 +194,7 @@ private slots:
     void on_action_Print_triggered();
     void on_action_Page_Setup_triggered();
     void on_action_Print_Preview_triggered();
+    void on_action_Configure_Plugins_triggered();
 };
 
 #endif // MAIN_WINDOW_HPP

@@ -40,10 +40,12 @@ Plugin::Plugin()
 
 }
 
-Plugin Plugin::from_file(QIODevice& file, QString *error)
+Plugin Plugin::from_file(QFileDevice& file, QString *error)
 {
 
     Plugin p;
+
+    p.m_filename = file.fileName();
 
     QByteArray json_data = file.readAll();
 
@@ -72,6 +74,8 @@ Plugin Plugin::from_file(QIODevice& file, QString *error)
         type_string = obj.property("type").toString();
     #endif
 
+    if ( type_string == "test" )
+        p.m_type = Test;
 
     /// \todo check type_string
     if ( p.m_name.isEmpty() )

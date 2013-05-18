@@ -1066,3 +1066,8 @@ void Main_Window::on_action_Print_Preview_triggered()
     connect(&dialog,SIGNAL(paintRequested(QPrinter*)),SLOT(print(QPrinter*)));
     dialog.exec();
 }
+
+void Main_Window::on_action_Configure_Plugins_triggered()
+{
+    dialog_plugins.show();
+}

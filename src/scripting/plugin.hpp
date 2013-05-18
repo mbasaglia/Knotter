@@ -28,18 +28,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PLUGIN_HPP
 #include <QString>
 #include <QVariant>
-#include <QIODevice>
+#include <QFileDevice>
 class Plugin
 {
 public:
     enum Type
     {
-        Invalid     ///< An invalid plugin
+        Invalid,    ///< An invalid plugin
+        Test        ///< A plugin that has no use
     };
 
 private:
     QString     m_name;
     QString     m_description;
+    QString     m_filename;
     Type        m_type;
     bool        m_enabled;
 
@@ -47,12 +49,13 @@ public:
     Plugin();
     const QString& name() const { return m_name; }
     const QString& description() const { return m_description; }
+    const QString& file() const { return m_filename; }
     Type type() const { return m_type; }
 
     bool enabled() const { return m_enabled; }
     void enable(bool e) { m_enabled = e; }
 
-    static Plugin from_file (QIODevice &file, QString* error );
+    static Plugin from_file (QFileDevice &file, QString* error );
 };
 
 

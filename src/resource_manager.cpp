@@ -205,6 +205,9 @@ Resource_Manager::~Resource_Manager()
 
     foreach ( Edge_Style* es, m_edge_styles )
         delete es;
+
+    foreach ( Plugin* p, m_plugins)
+        delete p;
 }
 
 
@@ -415,5 +418,5 @@ void Resource_Manager::load_plugin(QString filename)
     if ( !error.isEmpty() )
         qWarning() << tr("%1: Error: %2").arg(filename).arg(error);
     else
-        singleton.m_plugins << p;
+        singleton.m_plugins << new Plugin(p);
 }
