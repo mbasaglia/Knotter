@@ -86,8 +86,8 @@ contains(CONFIG,c++11) {
 #Extra make targets
 
 #dist
-MYDISTFILES =  $$OTHER_FILES $${TARGET}.pro
-MYDISTDIRS  =  src data man
+MYDISTFILES =  \$(addprefix $$PWD/, $$OTHER_FILES $${TARGET}.pro)
+MYDISTDIRS  =  $$PWD/src $$PWD/data $$PWD/man
 
 MYDIST_NAME = "$$TARGET-$${VERSION}"
 MYDIST_TAR_GZ = "$${MYDIST_NAME}.tar.gz"
@@ -99,8 +99,8 @@ mydist.commands =                                                           \
             $(CHK_DIR_EXISTS) $$MYDIST_TMP ||                               \
             $(MKDIR) $$MYDIST_TMP                                           \
         ) &&                                                                \
-        $(COPY_FILE) --parents $$MYDISTFILES  $$MYDIST_TMP &&               \
-        $(COPY_DIR)  --parents $$MYDISTDIRS   $$MYDIST_TMP &&               \
+        $(COPY_FILE)  $$MYDISTFILES  $$MYDIST_TMP &&                        \
+        $(COPY_DIR)   $$MYDISTDIRS   $$MYDIST_TMP &&                        \
         $(DEL_FILE) -f $$MYDIST_TMP/src/generated/*.h                       \
                        $$MYDIST_TMP/src/generated/*.cpp &&                  \
         (                                                                   \
@@ -108,8 +108,8 @@ mydist.commands =                                                           \
             $(TAR) $$MYDIST_TAR_GZ -a $$MYDIST_NAME                         \
         ) &&                                                                \
         $(MOVE) `dirname $$MYDIST_TMP`/$$MYDIST_TAR_GZ $$MYDIST_TAR_GZ &&   \
-        $(DEL_FILE) -r $$MYDIST_TMP &&                                      \
-        md5sum $$MYDIST_TAR_GZ >$${MYDIST_TAR_GZ}.md5
+        $(DEL_FILE) -r $$MYDIST_TMP #&&                                      \
+        #md5sum $$MYDIST_TAR_GZ >$${MYDIST_TAR_GZ}.md5
 
 #distclean
 mydistclean.depends = clean
@@ -128,7 +128,12 @@ $${TARGET}.desktop.commands=$$PWD/info_preprocessor.sh $$PWD/$${TARGET}.desktop.
 
 #man page
 man/$${TARGET}.1.depends=$$PWD/man/$${TARGET}.1.in
-man/$${TARGET}.1.commands=$$PWD/info_preprocessor.sh $$PWD/man/$${TARGET}.1.in >man/$${TARGET}.1
+man/$${TARGET}.1.commands=                  \
+        (                                   \
+            $(CHK_DIR_EXISTS) man ||        \
+            $(MKDIR) man                    \
+        ) &&                                \
+        $$PWD/info_preprocessor.sh $$PWD/man/$${TARGET}.1.in >man/$${TARGET}.1
 
 
 QMAKE_EXTRA_TARGETS += src_doc Doxyfile $${TARGET}.desktop man/$${TARGET}.1
