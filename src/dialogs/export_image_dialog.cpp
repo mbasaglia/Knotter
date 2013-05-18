@@ -127,7 +127,7 @@ void Export_Image_Dialog::on_button_image_clicked()
         << tr("All supported images (%1)").arg(supported) // 3
         << tr("All files (*)")              // 4
         ;
-    static const int png = 0;
+    static const int jpeg = 1, bmp = 2;
 
     QFileDialog export_dialog(this,tr("Export Knot as Image"),file_name);
     export_dialog.setAcceptMode ( QFileDialog::AcceptSave );
@@ -156,10 +156,9 @@ void Export_Image_Dialog::on_button_image_clicked()
 
 
     // pixmap
-    QColor back = Qt::white;
-    if ( name_filter == png )
-        back = Qt::transparent;
-
+    QColor back = color_background->color();
+    if ( name_filter == jpeg || name_filter == bmp )
+        back.setAlpha(255);
     export_raster(quf,view->get_graph(),back,check_antialiasing->isChecked(),
                   QSize(spin_width->value(),spin_height->value()),
                   slider_quality->value(), check_graph->isChecked());

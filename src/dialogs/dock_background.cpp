@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "dock_background.hpp"
 #include <QFileDialog>
-#include <QImageWriter>
+#include <QImageReader>
 
 Dock_Background::Dock_Background(QWidget *parent) :
     QDockWidget(parent)
@@ -62,7 +62,7 @@ void Dock_Background::commit_filename()
 void Dock_Background::on_button_browse_clicked()
 {
     QString supported;
-    foreach(QByteArray ba, QImageWriter::supportedImageFormats())
+    foreach(QByteArray ba, QImageReader::supportedImageFormats())
         supported += " *."+QString(ba);
 
     QString filename = QFileDialog::getOpenFileName ( this,
