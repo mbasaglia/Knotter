@@ -82,7 +82,6 @@ void export_raster(QIODevice &file, const Graph& graph, QColor background,
         pix = new QPixmap(img_size*2);
         scale_x *= 2;
         scale_y *= 2;
-        offset *= 2;
     }
     else
         pix = new QPixmap(img_size);
@@ -91,7 +90,7 @@ void export_raster(QIODevice &file, const Graph& graph, QColor background,
 
     QPainter painter;
     painter.begin(pix);
-    painter.translate(offset);
+    painter.translate(offset.x()*scale_x,offset.y()*scale_y);
     painter.scale(scale_x,scale_y);
 
     if ( draw_graph )
