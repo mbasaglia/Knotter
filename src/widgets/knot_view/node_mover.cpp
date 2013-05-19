@@ -65,7 +65,8 @@ void Node_Mover::set_nodes(QList<Node *> nodes)
     m_initial_box.setTopLeft(min);
     m_initial_box.setBottomRight(max);
 
-
+    if ( ! m_nodes.empty() )
+        initialize_movement(m_nodes[0]->pos());
     update_transform_handles();
 }
 
@@ -266,6 +267,8 @@ void Node_Mover::deploy(Knot_View *view,QString message)
             view->push_command(new Move_Node(n,offset[0]+start_pos,n->pos(),view));
         }
     }
+
+    //initialize_movement(pivot);
 
     /*m_nodes.clear();
     offset.clear();
