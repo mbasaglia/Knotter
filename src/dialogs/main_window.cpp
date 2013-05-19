@@ -73,7 +73,8 @@ Main_Window::Main_Window(QWidget *parent) :
 void Main_Window::retranslate()
 {
     retranslateUi(this);
-    setWindowTitle(Resource_Manager::program_name());
+    retranslate_docks();
+    update_title();
 }
 
 
@@ -157,7 +158,6 @@ void Main_Window::init_docks()
     QDockWidget* glob_style_widget = new QDockWidget;
     glob_style_widget->setWidget(global_style);
     glob_style_widget->setObjectName("global_style_dock");
-    glob_style_widget->setWindowTitle(tr("Knot Style"));
     addDockWidget(Qt::RightDockWidgetArea,glob_style_widget);
     tabifyDockWidget(dock_knot_display,glob_style_widget);
 
@@ -166,7 +166,6 @@ void Main_Window::init_docks()
     QDockWidget* sel_style_widget = new QDockWidget;
     sel_style_widget->setWidget(selection_style);
     sel_style_widget->setObjectName("selection_style_dock");
-    sel_style_widget->setWindowTitle(tr("Selection Style"));
     addDockWidget(Qt::RightDockWidgetArea,sel_style_widget);
     tabifyDockWidget(glob_style_widget,sel_style_widget);
     dock_knot_display->raise();
@@ -186,7 +185,6 @@ void Main_Window::init_docks()
     QDockWidget* undo_dock  = new QDockWidget;
     undo_dock->setWidget(undo_view);
     undo_dock->setObjectName("Action_History");
-    undo_dock->setWindowTitle(tr("Action History"));
     undo_dock->setWindowIcon(QIcon::fromTheme("view-history"));
     addDockWidget(Qt::RightDockWidgetArea,undo_dock);
     tabifyDockWidget(undo_dock,dock_grid);
@@ -201,8 +199,6 @@ void Main_Window::init_docks()
     connect(action_Undo,SIGNAL(triggered()),&undo_group,SLOT(undo()));
     connect(action_Redo,SIGNAL(triggered()),&undo_group,SLOT(redo()));
 
-
-
     // Menu entries
     foreach(QDockWidget* dw, findChildren<QDockWidget*>())
     {
@@ -211,6 +207,23 @@ void Main_Window::init_docks()
         menu_Docks->insertAction(0,a);
         dw->setStyle(new Icon_Dock_Style(dw));
     }
+
+    retranslate_docks();
+}
+
+void Main_Window::retranslate_docks()
+{
+    QDockWidget* undo_dock  = findChild<QDockWidget*>("Action_History");
+    undo_dock->setWindowTitle(tr("Action History"));
+
+
+    QDockWidget* sel_style_widget  = findChild<QDockWidget*>("selection_style_dock");
+    sel_style_widget->setWindowTitle(tr("Selection Style"));
+
+    QDockWidget* glob_style_widget  = findChild<QDockWidget*>("global_style_dock");
+    glob_style_widget->setWindowTitle(tr("Knot Style"));
+
+
 }
 
 void Main_Window::load_config()

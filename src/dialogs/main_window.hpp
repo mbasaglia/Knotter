@@ -105,6 +105,7 @@ private:
     void init_statusbar();
     /// Initialize dock widgets
     void init_docks();
+    void retranslate_docks();
     /// Load saved configuration
     void load_config();
 
