@@ -72,7 +72,7 @@ cp   $TARGET.desktop $package/usr/share/applications/$TARGET.desktop
 control_file=$package/DEBIAN/control
 trunc_ver=`echo $VERSION | sed s/_/-/g`
 trunc_desc=`echo $LONG_DESC | sed "s/\\\\./.\\\\n/g"`
-inst_size=`du -s knotter-0.9.1_devel/usr/ | grep -Eo '^[0-9]+'`
+inst_size=`du -s $package/usr/ | grep -Eo '^[0-9]+'`
 trunc_size=`echo "$inst_size/1024" | bc -q`
 echo Creating $control_file
 cat >$control_file <<_CONTROL_
@@ -176,11 +176,11 @@ gzip -9 $changelog_file
 
 echo "Setting file permission"
 
-find knotter-0.9.1_devel/usr/ -type d -exec chmod 755 {} \;
-find knotter-0.9.1_devel/usr/ -type f -exec chmod 644 {} \;
-find knotter-0.9.1_devel/usr/ -type f -path '*/bin/*' -exec chmod 755 {} \;
-find knotter-0.9.1_devel/$dataroot -type f -name '*.sh' -delete
-find knotter-0.9.1_devel/$dataroot -type f -name 'COPYING' -delete
+find $package/usr/ -type d -exec chmod 755 {} \;
+find $package/usr/ -type f -exec chmod 644 {} \;
+find $package/usr/ -type f -path '*/bin/*' -exec chmod 755 {} \;
+find $package/$dataroot -type f -name '*.sh' -delete
+find $package/$dataroot -type f -name 'COPYING' -delete
 
 echo "Creating package"
 
