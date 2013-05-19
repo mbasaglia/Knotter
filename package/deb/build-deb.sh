@@ -17,6 +17,7 @@
 # Script to generate binary deb package
 # env vars DEBFULLNAME and DEBEMAIL are used, if empty set to upstream maintainer info
 # NOTE You  should run this script as root or (or you'll have wrong install file permission)
+# ./build-deb.sh 5 will compile for qt 5
 
 set -ex
 
@@ -34,7 +35,14 @@ source $srcdir/knotter_info.pri
 revision=2 # version of deb package
 architecture=`dpkg-architecture -qDEB_BUILD_ARCH`
 package=$TARGET-$VERSION
-
+qt_version=$1
+if [ -z "$1" ]
+then
+    qt_version=4
+elif [ $qt_version = 5 ]
+then
+    revision=$revision-qt5
+fi
 
 if  [ -z "$DEBFULLNAME" ] ; then
     DEBEMAIL=$EMAIL
@@ -49,7 +57,7 @@ rm -rf $package
 mkdir -p $package/DEBIAN
 
 
-$srcdir/configure.sh --prefix=/usr
+QMAKE=qmake-qt$qt_version $srcdir/configure.sh --prefix=/usr
 echo "Compiling $TARGET $VERSION $architecture..."
 make >/dev/null
 echo "Creating package data"
@@ -69,7 +77,7 @@ Package: $TARGET
 Version: $trunc_ver-$revision
 Homepage: $WEBSITE
 Maintainer: $DEBFULLNAME <$DEBEMAIL>
-Depends: libqt4-svg, libqt4-xml, libqtcore4, libqtgui4, libstdc++6, libc6
+Depends: libqt$qt_version-svg, libqt$qt_version-xml, libqtcore$qt_version, libqtgui$qt_version, libstdc++6, libc6
 Section: graphics
 Priority: optional
 Architecture: $architecture
