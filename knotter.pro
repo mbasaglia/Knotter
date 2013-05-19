@@ -129,16 +129,17 @@ $${TARGET}.desktop.depends=$$PWD/$${TARGET}.desktop.in
 $${TARGET}.desktop.commands=$$PWD/info_preprocessor.sh $$PWD/$${TARGET}.desktop.in > $${TARGET}.desktop
 
 #man page
-man/$${TARGET}.1.depends=$$PWD/man/$${TARGET}.1.in
-man/$${TARGET}.1.commands=                  \
-        (                                   \
-            $(CHK_DIR_EXISTS) man ||        \
-            $(MKDIR) man                    \
-        ) &&                                \
-        $$PWD/info_preprocessor.sh $$PWD/man/$${TARGET}.1.in >man/$${TARGET}.1
+man/$${TARGET}.1.gz.depends=$$PWD/man/$${TARGET}.1.in
+man/$${TARGET}.1.gz.commands=                                                  \
+        (                                                                      \
+            $(CHK_DIR_EXISTS) man ||                                           \
+            $(MKDIR) man                                                       \
+        ) &&                                                                   \
+        $$PWD/info_preprocessor.sh $$PWD/man/$${TARGET}.1.in >man/$${TARGET}.1 \
+        gzip -9 man/$${TARGET}.1
 
 
-QMAKE_EXTRA_TARGETS += src_doc Doxyfile $${TARGET}.desktop man/$${TARGET}.1
+QMAKE_EXTRA_TARGETS += src_doc Doxyfile $${TARGET}.desktop man/$${TARGET}.1.gz
 
 
 # Installs
@@ -150,7 +151,7 @@ data.path = $${DATADIR}
 desktop_file.files=$${TARGET}.desktop
 desktop_file.path=$${DATAROOTDIR}/applications
 
-man_page.files=man/$${TARGET}.1
+man_page.files=man/$${TARGET}.1.gz
 man_page.path=$${MANDIR}/man1
 
 INSTALLS += data desktop_file man_page
