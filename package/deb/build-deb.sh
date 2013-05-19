@@ -19,12 +19,13 @@
 # NOTE You  should run this script as root or (or you'll have wrong install file permission)
 # ./build-deb.sh 5 will compile for qt 5
 
-set -ex
+#set -ex
 
 user_name=`whoami`
 user_id=`id -u $user_name`
 if [ $user_id -ge 100 ] ; then
-    echo 1>&2 "Note: You should run this as fakeroot"
+    echo 1>&2 "Error: Run this as fakeroot"
+    exit 1;
 fi
 
 
