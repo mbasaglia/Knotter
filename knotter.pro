@@ -94,7 +94,7 @@ MYDISTDIRS  =  $$PWD/src $$PWD/data $$PWD/man
 MYDIST_NAME = "$$TARGET-$${VERSION}"
 MYDIST_TAR_GZ = "$${MYDIST_NAME}.tar.gz"
 MYDIST_TMP = ".tmp/$${MYDIST_NAME}"
-mydist.depends = $${TARGET}.desktop man/$${TARGET}.1
+mydist.depends = $${TARGET}.desktop man/$${TARGET}.1.gz
                                                                             #
 mydist.commands =                                                           \
         (                                                                   \

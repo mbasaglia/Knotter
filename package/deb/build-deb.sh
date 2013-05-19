@@ -59,7 +59,7 @@ mkdir -p $package/DEBIAN
 
 
 QMAKE=qmake-qt$qt_version $srcdir/configure.sh --prefix=/usr
-echo "Compiling $TARGET $VERSION $architecture..."
+echo "Compiling $TARGET $VERSION $architecture Qt$qt_version..."
 make >/dev/null
 echo "Creating package data"
 export INSTALL_ROOT=$package
