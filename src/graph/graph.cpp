@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "graph.hpp"
 #include "edge_style.hpp"
 #include "resource_manager.hpp"
+#include <QPaintEngine>
 
 Graph::Graph() :
     m_default_node_style(225,24,10,32,Resource_Manager::default_cusp_shape(),
@@ -54,6 +55,8 @@ Graph &Graph::operator= ( const Graph &o )
     auto_color = o.auto_color;
     paths = o.paths;
     pen = o.pen;
+    m_borders = o.m_borders;
+    border_width_cache = o.border_width_cache;
     setPos(o.pos());
     setTransform(o.transform());
     setVisible(o.isVisible());
@@ -99,6 +102,21 @@ void Graph::set_colors(const QList<QColor> &l)
     m_colors = l;
 }
 
+void Graph::set_borders(const Border_List &b)
+{
+    m_borders = b;
+    border_width_cache.clear();
+    border_width_cache.reserve(m_borders.size());
+    for ( int i = 0; i < m_borders.size(); i++ )
+    {
+        double w = 0;
+        if ( i > 0 )
+            w += border_width_cache.back();
+        w += m_borders[i].width*2;
+        border_width_cache.push_back( w );
+    }
+}
+
 void Graph::set_join_style(Qt::PenJoinStyle style)
 {
     pen.setJoinStyle(style);
@@ -131,7 +149,6 @@ void Graph::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     const_paint(painter,option,widget);
 }
 
-#include <QPaintEngine>
 void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) const
 {
 
@@ -143,6 +160,18 @@ void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
         if ( !painter->paintEngine()->hasFeature(QPaintEngine::PatternBrush) )
             b.setStyle(Qt::SolidPattern);
 
+        for ( int i = m_borders.size()-1; i >= 0; i-- )
+        {
+            painter->setPen(QPen(QBrush(m_borders[i].color,b.style()),
+                                 pen.widthF()+border_width_cache[i],
+                                 pen.style(),
+                                 pen.capStyle(),
+                                 pen.joinStyle()
+                            ));
+            foreach(const QPainterPath&pp, paths)
+                painter->drawPath(pp);
+        }
+
         for ( int i = 0; i < paths.size(); ++i )
         {
             if ( auto_color )
@@ -153,6 +182,7 @@ void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
             painter->setPen(p);
             painter->drawPath(paths[i]);
         }
+
     }
 }
 
@@ -362,6 +392,8 @@ void Graph::update_bounding_box()
         foreach(const QPainterPath&pp, paths)
             bounding_box |= pp.controlPointRect();
         bounding_box.adjust(-width()/2,-width()/2,width()/2,width()/2);
+        foreach ( const Knot_Border& b, m_borders )
+            bounding_box.adjust(-b.width,-b.width,b.width,b.width);
     }
 }
 

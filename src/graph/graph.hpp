@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPainter>
 #include "path_builder.hpp"
 #include "traversal_info.hpp"
+#include "knot_border.hpp"
 
 /**
  *  \brief Class that represents the knot (as a graph) and renders it
@@ -50,6 +51,8 @@ private:
     bool                auto_color;
     QList<QPainterPath> paths;    ///< Rendered knot (one per loop)
     QPen                pen;
+    Border_List         m_borders;
+    QList<double>       border_width_cache;///< Actual width of the pen for a given border ( - width() )
 
 public:
     explicit Graph();
@@ -96,6 +99,9 @@ public:
     const QList<QColor>& colors() const { return m_colors; }
     void set_colors(const QList<QColor>& l);
 
+    const Border_List& borders() const { return m_borders; }
+    void set_borders(const Border_List& b );
+
     /// get stroke width
     double width() const { return pen.widthF();}
     /// set stroke width
@@ -125,8 +131,7 @@ public:
                      QWidget *widget=nullptr) const;
     QRectF boundingRect() const override
     {
-        const double d = width()/2;
-        return bounding_box.adjusted(-d,-d,d,d);
+        return bounding_box;
     }
     int type() const override { return UserType+0x03; }
 
