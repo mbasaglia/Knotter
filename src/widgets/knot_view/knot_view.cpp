@@ -103,6 +103,7 @@ bool Knot_View::load_file(QIODevice &device, QString action_name )
 
     push_command(new Knot_Width(graph.width(),loaded.width(),this));
     push_command(new Change_Colors(graph.colors(),loaded.colors(),this));
+    push_command(new Change_Borders(graph.borders(),loaded.borders(),this));
     push_command(new Custom_Colors(graph.custom_colors(),loaded.custom_colors(),this));
     push_command(new Pen_Join_Style(graph.join_style(),loaded.join_style(),this));
     push_command(new Brush_Style(graph.brush_style(),loaded.brush_style(),this));
@@ -477,6 +478,11 @@ void Knot_View::update_knot()
 void Knot_View::set_knot_colors(const QList<QColor> &l)
 {
     push_command(new Change_Colors(graph.colors(),l,this));
+}
+
+void Knot_View::set_knot_borders(const Border_List &b)
+{
+    push_command(new Change_Borders(graph.borders(),b,this));
 }
 
 void Knot_View::set_knot_custom_colors(bool b)

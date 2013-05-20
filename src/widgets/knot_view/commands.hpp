@@ -202,6 +202,23 @@ public:
 };
 
 
+class Change_Borders : public Knot_Command
+{
+    Q_OBJECT
+    static int m_id;
+    Border_List before;
+    Border_List after;
+public:
+    Change_Borders(Border_List before, Border_List after, Knot_View* kv,
+                  Knot_Macro* parent = nullptr);
+    void undo() override;
+    void redo() override;
+    int id() const override;
+    bool mergeWith(const QUndoCommand *other) override;
+};
+
+
+
 class Knot_Width : public Knot_Command
 {
     Q_OBJECT

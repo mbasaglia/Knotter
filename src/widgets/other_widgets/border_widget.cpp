@@ -40,8 +40,9 @@ void Border_Widget::setBorders(const Border_List &cols)
     clear();
     m_borders = cols;
     for( int i = 0; i < m_borders.size(); i++ )
-        append_widget(i);
-    emit bordersChanged(m_borders);
+        append_widget(i,m_borders[i]);
+
+    //emit bordersChanged(m_borders);
 }
 
 void Border_Widget::swap(int a, int b)
@@ -58,7 +59,7 @@ void Border_Widget::swap(int a, int b)
 void Border_Widget::append()
 {
     m_borders.push_back(Knot_Border(Qt::black,1));
-    append_widget(m_borders.size()-1);
+    append_widget(m_borders.size()-1,m_borders.back());
     emit bordersChanged(m_borders);
 }
 
@@ -79,9 +80,11 @@ void Border_Widget::border_changed(int row)
     }
 }
 
-void Border_Widget::append_widget(int col)
+void Border_Widget::append_widget(int col, const Knot_Border &b)
 {
     Border_Edit_Widget* bew = new Border_Edit_Widget;
+    bew->set_border_width(b.width);
+    bew->set_color(b.color);
 
     mapper.setMapping(bew,col);
     connect(bew,SIGNAL(borderChanged()),&mapper,SLOT(map()));

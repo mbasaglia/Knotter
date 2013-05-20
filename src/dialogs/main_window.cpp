@@ -153,13 +153,9 @@ void Main_Window::init_docks()
     addDockWidget(Qt::RightDockWidgetArea,dock_knot_display);
 
     // Knot Border
-    border_widget = new Border_Widget;
-    QDockWidget* border_dock = new QDockWidget;
-    border_dock->setWindowIcon(QIcon::fromTheme("format-stroke-color"));
-    border_dock->setWidget(border_widget);
-    border_dock->setObjectName("border_dock");
-    addDockWidget(Qt::RightDockWidgetArea,border_dock);
-    tabifyDockWidget(dock_knot_display,border_dock);
+    dock_borders = new Dock_Borders(this);
+    addDockWidget(Qt::RightDockWidgetArea,dock_borders);
+    tabifyDockWidget(dock_knot_display,dock_borders);
 
 
     // Global style
@@ -170,7 +166,7 @@ void Main_Window::init_docks()
     glob_style_widget->setObjectName("global_style_dock");
     glob_style_widget->setWindowIcon(QIcon::fromTheme("cusp-pointed"));
     addDockWidget(Qt::RightDockWidgetArea,glob_style_widget);
-    tabifyDockWidget(border_dock,glob_style_widget);
+    tabifyDockWidget(dock_borders,glob_style_widget);
 
     // Selection style
     selection_style = new Cusp_Style_Widget;
@@ -234,11 +230,6 @@ void Main_Window::retranslate_docks()
 
     QDockWidget* glob_style_widget  = findChild<QDockWidget*>("global_style_dock");
     glob_style_widget->setWindowTitle(tr("Knot Style"));
-
-
-    QDockWidget* border_dock  = findChild<QDockWidget*>("border_dock");
-    border_dock->setWindowTitle(tr("Borders"));
-
 
 }
 
@@ -336,6 +327,10 @@ void Main_Window::connect_view(Knot_View *v)
             v,SLOT(set_knot_custom_colors(bool)));
     connect(dock_knot_display,SIGNAL(brush_style_changed(Qt::BrushStyle)),
             v,SLOT(set_brush_style(Qt::BrushStyle)));
+    // border
+    dock_borders->set_borders(v->knot_borders());
+    connect(dock_borders,SIGNAL(borders_changed(Border_List)),
+            v,SLOT(set_knot_borders(Border_List)));
 
     // style
     global_style->set_style(v->get_graph().default_node_style());
@@ -402,6 +397,7 @@ void Main_Window::disconnect_view(Knot_View *v)
         dock_background->disconnect(&v->background_image());
 
         dock_knot_display->disconnect(v);
+        dock_borders->disconnect(v);
 
         global_style->disconnect(v);
 

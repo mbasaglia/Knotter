@@ -24,41 +24,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef BORDER_WIDGET_HPP
-#define BORDER_WIDGET_HPP
+#include "dock_borders.hpp"
 
-#include "abstract_widget_list.hpp"
-#include "knot_border.hpp"
-
-class Border_Widget : public Abstract_Widget_List
+Dock_Borders::Dock_Borders(QWidget *parent) :
+    QDockWidget(parent)
 {
-    Q_OBJECT
+    setupUi(this);
+    connect(border_widget,SIGNAL(bordersChanged(Border_List)),
+            SIGNAL(borders_changed(Border_List)));
+}
 
+void Dock_Borders::set_borders(Border_List bl)
+{
+    border_widget->setBorders(bl);
+}
 
-private:
-    Border_List m_borders;
-    QSignalMapper mapper;
-
-public:
-    explicit Border_Widget(QWidget *parent = 0);
-
-
-    const Border_List& borders() const { return m_borders; }
-    void setBorders(const Border_List& borders);
-
-    void swap(int a, int b);
-
-    void append();
-
-signals:
-    void bordersChanged(const Border_List&);
-
-private slots:
-    void handle_removed(int);
-    void border_changed(int row);
-
-private:
-   void  append_widget(int col, const Knot_Border &b);
-};
-
-#endif // BORDER_WIDGET_HPP
+void Dock_Borders::changeEvent(QEvent *e)
+{
+    QDockWidget::changeEvent(e);
+    switch (e->type()) {
+        case QEvent::LanguageChange:
+            retranslateUi(this);
+            break;
+        default:
+            break;
+    }
+}

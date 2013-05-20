@@ -181,13 +181,13 @@ Change_Colors::Change_Colors(QList<QColor> before, QList<QColor> after, Knot_Vie
 void Change_Colors::undo()
 {
     graph->set_colors(before);
-    graph->update();
+    update_view();
 }
 
 void Change_Colors::redo()
 {
     graph->set_colors(after);
-    graph->update();
+    update_view();
 }
 
 int Change_Colors::id() const
@@ -198,6 +198,43 @@ int Change_Colors::id() const
 bool Change_Colors::mergeWith(const QUndoCommand *other)
 {
     const Change_Colors* cc = static_cast<const Change_Colors*>(other);
+    if ( cc->graph == graph )
+    {
+        after = cc->after;
+        return true;
+    }
+    return false;
+}
+
+
+int Change_Borders::m_id = generate_id();
+Change_Borders::Change_Borders(Border_List before, Border_List after, Knot_View *kv,
+                             Knot_Macro* parent )
+    : Knot_Command(kv,parent),before(before),after(after)
+{
+    setText(tr("Change Border"));
+}
+
+void Change_Borders::undo()
+{
+    graph->set_borders(before);
+    update_view();
+}
+
+void Change_Borders::redo()
+{
+    graph->set_borders(after);
+    update_view();
+}
+
+int Change_Borders::id() const
+{
+    return m_id;
+}
+
+bool Change_Borders::mergeWith(const QUndoCommand *other)
+{
+    const Change_Borders* cc = static_cast<const Change_Borders*>(other);
     if ( cc->graph == graph )
     {
         after = cc->after;

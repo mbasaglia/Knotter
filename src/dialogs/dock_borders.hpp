@@ -24,41 +24,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef BORDER_WIDGET_HPP
-#define BORDER_WIDGET_HPP
+#ifndef DOCK_BORDERS_HPP
+#define DOCK_BORDERS_HPP
 
-#include "abstract_widget_list.hpp"
-#include "knot_border.hpp"
+#include "ui_dock_borders.h"
 
-class Border_Widget : public Abstract_Widget_List
+class Dock_Borders : public QDockWidget, private Ui::Dock_Borders
 {
     Q_OBJECT
-
-
-private:
-    Border_List m_borders;
-    QSignalMapper mapper;
-
+    
 public:
-    explicit Border_Widget(QWidget *parent = 0);
+    explicit Dock_Borders(QWidget *parent = 0);
+    
+    void set_borders(Border_List bl);
 
-
-    const Border_List& borders() const { return m_borders; }
-    void setBorders(const Border_List& borders);
-
-    void swap(int a, int b);
-
-    void append();
+protected:
+    void changeEvent(QEvent *e);
 
 signals:
-    void bordersChanged(const Border_List&);
-
-private slots:
-    void handle_removed(int);
-    void border_changed(int row);
-
-private:
-   void  append_widget(int col, const Knot_Border &b);
+    void borders_changed(Border_List);
 };
 
-#endif // BORDER_WIDGET_HPP
+#endif // DOCK_BORDERS_HPP

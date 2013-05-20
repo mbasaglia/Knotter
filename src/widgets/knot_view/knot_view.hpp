@@ -180,6 +180,9 @@ public:
     const QList<QColor>& knot_colors() const { return graph.colors(); }
 
 
+    const Border_List& knot_borders() const { return graph.borders(); }
+
+
 
     /**
      *  \brief Get knot stroke width
@@ -272,6 +275,8 @@ public slots:
      *  \brief Set the colors used to display the knot
      */
     void set_knot_colors(const QList<QColor>& l);
+
+    void set_knot_borders(const Border_List& b);
 
     /**
      *  \brief Enable/Disable custom colors
