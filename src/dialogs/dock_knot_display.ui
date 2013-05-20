@@ -14,7 +14,7 @@
    <string>Knot Display</string>
   </property>
   <property name="windowIcon">
-   <iconset theme="format-stroke-color">
+   <iconset theme="format-fill-color">
     <normaloff/>
    </iconset>
   </property>

@@ -152,20 +152,32 @@ void Main_Window::init_docks()
     dock_knot_display = new Dock_Knot_Display(this);
     addDockWidget(Qt::RightDockWidgetArea,dock_knot_display);
 
+    // Knot Border
+    border_widget = new Border_Widget;
+    QDockWidget* border_dock = new QDockWidget;
+    border_dock->setWindowIcon(QIcon::fromTheme("format-stroke-color"));
+    border_dock->setWidget(border_widget);
+    border_dock->setObjectName("border_dock");
+    addDockWidget(Qt::RightDockWidgetArea,border_dock);
+    tabifyDockWidget(dock_knot_display,border_dock);
+
+
     // Global style
     global_style = new Cusp_Style_Widget;
     global_style->hide_checkboxes();
     QDockWidget* glob_style_widget = new QDockWidget;
     glob_style_widget->setWidget(global_style);
     glob_style_widget->setObjectName("global_style_dock");
+    glob_style_widget->setWindowIcon(QIcon::fromTheme("cusp-pointed"));
     addDockWidget(Qt::RightDockWidgetArea,glob_style_widget);
-    tabifyDockWidget(dock_knot_display,glob_style_widget);
+    tabifyDockWidget(border_dock,glob_style_widget);
 
     // Selection style
     selection_style = new Cusp_Style_Widget;
     QDockWidget* sel_style_widget = new QDockWidget;
     sel_style_widget->setWidget(selection_style);
     sel_style_widget->setObjectName("selection_style_dock");
+    sel_style_widget->setWindowIcon(QIcon::fromTheme("cusp-pointed"));
     addDockWidget(Qt::RightDockWidgetArea,sel_style_widget);
     tabifyDockWidget(glob_style_widget,sel_style_widget);
     dock_knot_display->raise();
@@ -222,6 +234,10 @@ void Main_Window::retranslate_docks()
 
     QDockWidget* glob_style_widget  = findChild<QDockWidget*>("global_style_dock");
     glob_style_widget->setWindowTitle(tr("Knot Style"));
+
+
+    QDockWidget* border_dock  = findChild<QDockWidget*>("border_dock");
+    border_dock->setWindowTitle(tr("Borders"));
 
 
 }

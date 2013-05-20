@@ -40,6 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "dialog_insert_polygon.hpp"
 #include <QPrinter>
 #include "dialog_plugins.hpp"
+#include "border_widget.hpp"
 
 class Main_Window : public QMainWindow, private Ui::Main_Window
 {
@@ -60,6 +61,7 @@ private:
     Dialog_Insert_Polygon   dialog_insert_polygon;
     QPrinter                printer;
     Dialog_Plugins          dialog_plugins;
+    Border_Widget*          border_widget;
 
 public:
     explicit Main_Window(QWidget *parent = 0);

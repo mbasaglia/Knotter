@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013  Mattia Basaglia
+# Copyright (C) 2013  Mattia Basaglia
 #
 # Knotter is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,30 +13,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
 INCLUDEPATH += $$PWD
 
 HEADERS += \
-    $$PWD/node.hpp \
-    $$PWD/graph.hpp \
-    $$PWD/edge.hpp \
-    $$PWD/edge_style.hpp \
-    $$PWD/graph_item.hpp \
-    $$PWD/node_style.hpp \
-    $$PWD/path_builder.hpp \
-    $$PWD/path_item.hpp \
-    $$PWD/point_math.hpp \
-    $$PWD/traversal_info.hpp \
-    $$PWD/node_cusp_shape.hpp \
-    $$PWD/knot_border.hpp
+    $$PWD/border_widget.hpp \
+    $$PWD/border_edit_widget.hpp
 
 SOURCES += \
-    $$PWD/node.cpp \
-    $$PWD/graph.cpp \
-    $$PWD/edge.cpp \
-    $$PWD/edge_style.cpp \
-    $$PWD/graph_item.cpp \
-    $$PWD/node_style.cpp \
-    $$PWD/path_builder.cpp \
-    $$PWD/path_item.cpp \
-    $$PWD/node_cusp_shape.cpp \
-    $$PWD/knot_border.cpp
+    $$PWD/border_widget.cpp \
+    $$PWD/border_edit_widget.cpp
+
+FORMS += \
+    $$PWD/border_edit_widget.ui

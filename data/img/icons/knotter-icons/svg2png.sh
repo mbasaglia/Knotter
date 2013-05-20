@@ -1,9 +1,16 @@
 #!/bin/bash
 
-for file in custom/*.svg
+for size in 16 22 32 48
 do
-	out=`echo $file | sed -e s~custom/~custom_22/~ -e s/.svg/.png/ `
-	echo $file - $out 
-	inkscape $file -h 22 -w 22 -e $out
+    if [ ! -d custom_$size ]
+    then
+        mkdir custom_$size
+    fi
+    
+    for file in custom/*.svg
+    do
+        out=`echo $file | sed -e s~custom/~custom_$size/~ -e s/.svg/.png/ `
+        echo $file - $out 
+        inkscape $file -h $size -w $size -e $out
+    done
 done
-
