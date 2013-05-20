@@ -29,7 +29,27 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should have received a copy of the GNU General Public License&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;along with this program.  If not, see &amp;lt;&lt;a href=&quot;http://www.gnu.org/licenses/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;http://www.gnu.org/licenses/&lt;/span&gt;&lt;/a&gt;&amp;gt;.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Autorské právo (C) 2012  Mattia Basaglia&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Knotter je svobodným softwarem; můžete jej rozdávat a/nebo&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;upravovat za podmínek GNU General Public License (GPL), jak jsou zveřejněny&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Free Software Foundation, buď ve verzi 3 licence, nebo&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;(podle své volby) v kterékoli pozdější verzi.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Knotter je šířen v naději, že bude užitečný,&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;ale BEZ JAKÉKOLI ZÁRUKY; také bez předpokládané záruky&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;PRODEJNOSTI nebo POUŽITELNOSTI PRO NĚJAKÝ URČITÝ ÚČEL.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Více podrobností naleznete v GNU Library General Public License.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Kopii GNU Library General Public License byste měl obdržet&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;společně s tímto program.  Pokud ne, podívejte se na 
+&amp;lt;&lt;a href=&quot;http://www.gnu.org/licenses/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;http://www.gnu.org/licenses/&lt;/span&gt;&lt;/a&gt;&amp;gt;.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -111,7 +131,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/knot_view/commands.cpp" line="372"/>
         <source>Change Brush Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Změnit styl štětce</translation>
     </message>
 </context>
 <context>
@@ -371,32 +391,32 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dialog_confirm_close.ui" line="14"/>
         <source>Close Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavřít soubory</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_confirm_close.ui" line="20"/>
         <source>The following files have unsaved changes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Následující soubory mají neuložené změny:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_confirm_close.ui" line="45"/>
         <source>Save selected files?</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložit vybrané soubory?</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_confirm_close.ui" line="54"/>
         <source>&amp;Save Selected</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Uložit vybrané</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_confirm_close.ui" line="64"/>
         <source>Do&amp;n&apos;t Save</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Neukládat</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_confirm_close.ui" line="74"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Z&amp;rušit</translation>
     </message>
 </context>
 <context>
@@ -427,27 +447,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="14"/>
         <source>Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Přídavné moduly</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="69"/>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Povolit</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="100"/>
         <source>Reload Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahrát přídavné moduly znovu</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="113"/>
         <source>Install...</source>
-        <translation type="unfinished"></translation>
+        <translation>Instalovat...</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="123"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavřít</translation>
     </message>
 </context>
 <context>
@@ -506,17 +526,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="212"/>
         <source>Save the customized toolbar buttons</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložit vlastní nastavení tlačítek v nástrojovém pruhu</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="225"/>
         <source>Dialogs, window size and position</source>
-        <translation type="unfinished"></translation>
+        <translation>Nástrojové pruhy, dialogy, velikost okna a umístění</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="241"/>
         <source>Knot Style</source>
-        <translation type="unfinished">Styl keltského uzlu</translation>
+        <translation>Styl keltského uzlu</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="319"/>
@@ -526,7 +546,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="326"/>
         <source>Check for unsaved files on close</source>
-        <translation type="unfinished"></translation>
+        <translation>Při zavření provést kontrolu zaměřenou na neuložené soubory</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="189"/>
@@ -823,7 +843,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dock_knot_display.ui" line="110"/>
         <source>Pattern</source>
-        <translation type="unfinished"></translation>
+        <translation>Vzor</translation>
     </message>
 </context>
 <context>
@@ -912,7 +932,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/export_image_dialog.ui" line="216"/>
         <source>Background</source>
-        <translation type="unfinished">Pozadí</translation>
+        <translation>Pozadí</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/export_image_dialog.cpp" line="80"/>
@@ -1056,17 +1076,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/knot_view/knot_view.cpp" line="867"/>
         <source>Move Nodes</source>
-        <translation type="unfinished">Přesunout uzly</translation>
+        <translation>Přesunout uzly</translation>
     </message>
     <message>
         <location filename="../../src/widgets/knot_view/knot_view.cpp" line="886"/>
         <source>Rotate Nodes</source>
-        <translation type="unfinished"></translation>
+        <translation>Otočit uzly</translation>
     </message>
     <message>
         <location filename="../../src/widgets/knot_view/knot_view.cpp" line="886"/>
         <source>Scale Nodes</source>
-        <translation type="unfinished"></translation>
+        <translation>Změnit velikost uzlů</translation>
     </message>
     <message>
         <location filename="../../src/widgets/knot_view/knot_view.cpp" line="914"/>
@@ -1515,13 +1535,14 @@ Přesto je chcete nahrát?</translation>
     <message>
         <location filename="../../src/dialogs/main_window.cpp" line="536"/>
         <source>Close File</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavřít soubor</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/main_window.cpp" line="537"/>
         <source>The file &quot;%1&quot; has been modified.
 Do you want to save changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Soubor &quot;%1&quot; byl změněn.
+Chcete uložit změny?</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/main_window.cpp" line="565"/>
@@ -1658,12 +1679,12 @@ Do you want to save changes?</source>
     <message>
         <location filename="../../src/command_line.cpp" line="84"/>
         <source>Missing file for argument %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Chybí soubor pro argument %1</translation>
     </message>
     <message>
         <location filename="../../src/command_line.cpp" line="87"/>
         <source>No input file specified for option %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nezadán žádný vstupní soubor pro volbu %1</translation>
     </message>
     <message>
         <location filename="../../src/string_toolbar.cpp" line="63"/>
@@ -1717,12 +1738,12 @@ Do you want to save changes?</source>
     <message>
         <location filename="../../src/scripting/plugin.cpp" line="82"/>
         <source>Plugin name not specified</source>
-        <translation type="unfinished"></translation>
+        <translation>Nezadán název přídavného modulu</translation>
     </message>
     <message>
         <location filename="../../src/scripting/plugin.cpp" line="84"/>
         <source>Unknown plugin type </source>
-        <translation type="unfinished"></translation>
+        <translation>Neznámý typ přídavného modulu </translation>
     </message>
 </context>
 <context>
@@ -1774,7 +1795,7 @@ Do you want to save changes?</source>
     <message>
         <location filename="../../src/resource_manager.cpp" line="419"/>
         <source>%1: Error: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: Chyba: %2</translation>
     </message>
 </context>
 <context>
@@ -1846,7 +1867,7 @@ Do you want to save changes?</source>
     <message>
         <location filename="../../src/widgets/toolbar_editor/src/toolbar_editor.ui" line="106"/>
         <source>Move Up</source>
-        <translation type="unfinished">Posunout nahoru</translation>
+        <translation>Posunout nahoru</translation>
     </message>
     <message>
         <location filename="../../src/widgets/toolbar_editor/src/toolbar_editor.ui" line="109"/>
@@ -1861,7 +1882,7 @@ Do you want to save changes?</source>
     <message>
         <location filename="../../src/widgets/toolbar_editor/src/toolbar_editor.ui" line="124"/>
         <source>Move Down</source>
-        <translation type="unfinished">Posunout dolů</translation>
+        <translation>Posunout dolů</translation>
     </message>
     <message>
         <location filename="../../src/widgets/toolbar_editor/src/toolbar_editor.ui" line="127"/>
@@ -1876,7 +1897,7 @@ Do you want to save changes?</source>
     <message>
         <location filename="../../src/widgets/toolbar_editor/src/toolbar_editor.ui" line="155"/>
         <source>Insert</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit</translation>
     </message>
     <message>
         <location filename="../../src/widgets/toolbar_editor/src/toolbar_editor.ui" line="158"/>
@@ -1901,7 +1922,7 @@ Do you want to save changes?</source>
     <message>
         <location filename="../../src/widgets/toolbar_editor/src/toolbar_editor.ui" line="204"/>
         <source>Separator</source>
-        <translation type="unfinished"></translation>
+        <translation>Oddělovač</translation>
     </message>
     <message>
         <source>Adds a separator after the selected toolbar item</source>
