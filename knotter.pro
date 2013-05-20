@@ -125,7 +125,7 @@ src_doc.depends = Doxyfile FORCE
 src_doc.commands = doxygen Doxyfile
 
 #desktop
-$${TARGET}.desktop.depends=$$PWD/$${TARGET}.desktop.in
+$${TARGET}.desktop.depends=$$PWD/$${TARGET}.desktop.in knotter_info.pri configured_directories.sh
 $${TARGET}.desktop.commands=$$PWD/info_preprocessor.sh $$PWD/$${TARGET}.desktop.in > $${TARGET}.desktop
 
 #man page

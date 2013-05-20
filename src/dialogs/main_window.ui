@@ -269,6 +269,7 @@
    <addaction name="action_Zoom_Out"/>
    <addaction name="separator"/>
    <addaction name="action_Display_Graph"/>
+   <addaction name="action_Enable_Grid"/>
   </widget>
   <widget class="QToolBar" name="toolbar_draw">
    <property name="windowTitle">

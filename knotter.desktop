@@ -5,6 +5,6 @@ Name=Knotter
 Comment=Interactive Celtic Knot Editor
 Exec=knotter
 TryExec=knotter
-Icon=/usr/local/share/knotter/img/logo-big.svg
+Icon=/usr/local/share/knotter/img/icon-big.svg
 Terminal=false
 Categories=Graphics;VectorGraphics;Qt;

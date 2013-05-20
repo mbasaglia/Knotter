@@ -43,6 +43,6 @@ BUGS="https://github.com/mbasaglia/Knotter/issues"
 # URL for on-line user manual
 DOC_URL="http://knotter.mattbas.org/manual"
 # Icon path relative to datadir
-ICON_RELPATH="img/logo-big.svg"
+ICON_RELPATH="img/icon-big.svg"
 #Copyright years
 COPY_YEARS="2012-2013"
