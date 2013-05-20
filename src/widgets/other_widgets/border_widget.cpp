@@ -89,5 +89,5 @@ void Border_Widget::append_widget(int col, const Knot_Border &b)
     mapper.setMapping(bew,col);
     connect(bew,SIGNAL(borderChanged()),&mapper,SLOT(map()));
     appendWidget(bew);
-    //setRowHeight(count()-1,22);
+    setRowHeight(count()-1,22);
 }
