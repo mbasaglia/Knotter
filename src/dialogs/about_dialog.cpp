@@ -26,6 +26,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "about_dialog.hpp"
 #include "resource_manager.hpp"
+#if HAS_QT_5
+    #include <QStandardPaths>
+#else
+    #include <QDesktopServices>
+#endif
+#include <QDir>
 
 About_Dialog::About_Dialog(QWidget *parent) :
     QDialog(parent)
@@ -35,6 +41,9 @@ About_Dialog::About_Dialog(QWidget *parent) :
                          .arg(Resource_Manager::program_version() ));
     label_icon->setPixmap(QIcon(Resource_Manager::data("img/icon-big.svg")).pixmap(64));
     setWindowTitle(tr("About %1").arg(Resource_Manager::program_name()));
+
+
+    list_plugin_dirs->addItems(Resource_Manager::data_directories_unckecked("plugins"));
 }
 
 void About_Dialog::changeEvent(QEvent *e)

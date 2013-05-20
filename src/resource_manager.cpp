@@ -101,6 +101,20 @@ QStringList Resource_Manager::data_directories(QString name)
 {
     QStringList found;
 
+    QStringList search = data_directories_unckecked(name);
+
+    foreach ( QString d, search )
+    {
+        if ( QFileInfo(d).exists() )
+            found << d;
+    }
+    found.removeDuplicates();
+
+    return found;
+}
+
+QStringList Resource_Manager::data_directories_unckecked(QString name)
+{
     QStringList search;
     search << DATA_DIR;  // install dir
 #if HAS_QT_5
@@ -108,18 +122,17 @@ QStringList Resource_Manager::data_directories(QString name)
 #else
     search << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 #endif
-    search << QCoreApplication::applicationDirPath()+"/data" ; // executable dir
-    search << QDir::currentPath()+"/data"; // current dir
+    search << QDir(QCoreApplication::applicationDirPath()).filePath("data") ; // executable dir
+    search << QDir::current().filePath("data"); // current dir
 
+    QStringList filter;
     foreach ( QString d, search )
     {
-        QDir path ( d );
-        if ( path.exists(name) )
-            found << QDir::cleanPath(path.absoluteFilePath(name));
+        filter << QDir::cleanPath(QDir(d).absoluteFilePath(name));
     }
-    found.removeDuplicates();
+    filter.removeDuplicates();
 
-    return found;
+    return filter;
 }
 
 

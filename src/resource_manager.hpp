@@ -94,6 +94,17 @@ public:
      */
     static QStringList data_directories(QString name);
 
+
+    /**
+     * \brief Get all directories to search data from
+     *
+     * This function may include directories that don't exist but that will be
+     * checked if they existed
+     *
+     * \param name Name of the data directory
+     */
+    static QStringList data_directories_unckecked(QString name);
+
     /**
      *  \brief Determine human readable language name from ISO 639-1 code
      *
