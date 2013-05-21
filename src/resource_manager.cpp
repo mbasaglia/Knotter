@@ -424,10 +424,13 @@ void Resource_Manager::load_plugin(QString filename)
 
 
     QString error;
-    Plugin p = Plugin::from_file(file,&error);
+    Plugin *p = Plugin::from_file(file,&error);
+
+    if ( !p && error.isEmpty() )
+        error = tr("Unknown error");
 
     if ( !error.isEmpty() )
         qWarning() << tr("%1: Error: %2").arg(filename).arg(error);
-    else
-        singleton.m_plugins << new Plugin(p);
+    else if ( p )
+        singleton.m_plugins << p;
 }

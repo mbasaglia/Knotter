@@ -70,7 +70,7 @@ void Settings::load_config()
     QStringList enabled_lugins = settings.value("enabled_plugins").toStringList();
     foreach(Plugin* p, Resource_Manager::plugins())
     {
-        if ( enabled_lugins.contains(p->file()) )
+        if ( enabled_lugins.contains(p->metadata().filename) )
             p->enable(true);
     }
 
@@ -152,7 +152,7 @@ void Settings::save_config()
     foreach ( Plugin* p, Resource_Manager::plugins() )
     {
         if ( p->enabled() )
-            enabled_plugins << p->file();
+            enabled_plugins << p->metadata().filename;
     }
     settings.setValue("enabled_plugins",enabled_plugins);
 

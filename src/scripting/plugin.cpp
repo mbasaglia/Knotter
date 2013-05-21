@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "plugin.hpp"
+#include "c++.hpp"
 
 #if HAS_QT_5
 #include <QJsonObject>
@@ -34,18 +35,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QScriptEngine>
 #endif
 
-Plugin::Plugin()
-    : m_type(Invalid), m_enabled(false)
+Plugin_Metadata::Plugin_Metadata()
+    : type(Invalid)
 {
-
 }
 
-Plugin Plugin::from_file(QFile &file, QString *error)
+Plugin_Metadata Plugin_Metadata::from_file(QFile &file, QString *error)
 {
 
-    Plugin p;
+    error->clear();
 
-    p.m_filename = file.fileName();
+    Plugin_Metadata p;
+
+    p.filename = file.fileName();
 
     QByteArray json_data = file.readAll();
 
@@ -62,26 +64,53 @@ Plugin Plugin::from_file(QFile &file, QString *error)
         else if ( !json.isNull() )
         {
             QVariantMap obj = json.object().toVariantMap();
-            p.m_name = obj["name"].toString();
-            p.m_description = obj["description"].toString();
+            p.name = obj["name"].toString();
+            p.description = obj["description"].toString();
+            p.version = obj["version"].toString();
+            p.author = obj["author"].toString();
+            p.license = obj["license"].toString();
             type_string = obj["type"].toString();
         }
     #else
         QScriptEngine engine;
         QScriptValue obj = engine.evaluate("(" + json_data + ")");
-        p.m_name = obj.property("name").toString();
-        p.m_description = obj.property("description").toString();
+        p.name = obj.property("name").toString();
+        p.description = obj.property("description").toString();
+        p.version = obj.property("version").toString();
+        p.author = obj.property("author").toString();
+        p.license = obj.property("license").toString();
         type_string = obj.property("type").toString();
     #endif
 
     if ( type_string == "test" )
-        p.m_type = Test;
+        p.type = Test;
 
     /// \todo check type_string
-    if ( p.m_name.isEmpty() )
+    if ( p.name.isEmpty() )
         *error = QObject::tr("Plugin name not specified");
-    else if ( p.m_type == Plugin::Invalid )
+    else if ( p.type == Plugin_Metadata::Invalid )
         *error = QObject::tr("Unknown plugin type ");
 
     return p;
+}
+
+
+
+Plugin::Plugin(const Plugin_Metadata &metadata)
+    : m_metadata(metadata), m_enabled(false)
+{
+}
+
+void Plugin::enable(bool e)
+{
+    m_enabled = e;
+}
+Plugin* Plugin::from_file (QFile &file, QString* error )
+{
+    Plugin_Metadata md = Plugin_Metadata::from_file(file,error);
+    if ( !error->isEmpty() )
+        return nullptr;
+
+    /// \todo switch type to create proper object
+    return new Plugin(md);
 }

@@ -387,7 +387,7 @@
     </iconset>
    </property>
    <property name="text">
-    <string>Print Pre&amp;view</string>
+    <string>Print Pre&amp;view...</string>
    </property>
   </action>
   <action name="action_Close">

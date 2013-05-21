@@ -27,10 +27,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef PLUGIN_HPP
 #define PLUGIN_HPP
 #include <QString>
-#include <QVariant>
 #include <QFile>
-class Plugin
+
+class Plugin_Metadata
 {
+
 public:
     enum Type
     {
@@ -38,24 +39,51 @@ public:
         Test        ///< A plugin that has no use
     };
 
-private:
-    QString     m_name;
-    QString     m_description;
-    QString     m_filename;
-    Type        m_type;
-    bool        m_enabled;
+    QString     name;
+    QString     description;
+    QString     filename;
+    QString     author; ///< \todo
+    QString     license;///< \todo
+    QString     version;///< \todo
+    Type        type;
+
+    explicit Plugin_Metadata();
+
+
+    /**
+     * \brief Create plugin metadata from JSON file
+     *
+     * \param[in]  file  Json file
+     * \param[out] error Error string
+     */
+    static Plugin_Metadata from_file (QFile &file, QString* error );
+};
+
+class Plugin
+{
+
+    Plugin_Metadata m_metadata;
+    bool            m_enabled;
 
 public:
-    Plugin();
-    const QString& name() const { return m_name; }
-    const QString& description() const { return m_description; }
-    const QString& file() const { return m_filename; }
-    Type type() const { return m_type; }
+    explicit Plugin(const Plugin_Metadata& metadata);
 
+    const Plugin_Metadata& metadata() const { return m_metadata; }
+
+    /// Whether the plugin has been enabled
     bool enabled() const { return m_enabled; }
-    void enable(bool e) { m_enabled = e; }
+    /// Enable or disable the plugin
+    void enable(bool e);
 
-    static Plugin from_file (QFile &file, QString* error );
+    /**
+     * \brief Create a plugin from JSON file
+     *
+     * \param[in]  file  Json file
+     * \param[out] error Error string
+     *
+     * \return A Dynamic object of the proper specialized class, NULL if invalid.
+     */
+    static Plugin* from_file (QFile &file, QString* error );
 };
 
 

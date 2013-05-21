@@ -7,6 +7,7 @@ icons='application-exit
         configure
         dialog-cancel
         dialog-close
+        dialog-ok
         document-close
         document-export
         document-import

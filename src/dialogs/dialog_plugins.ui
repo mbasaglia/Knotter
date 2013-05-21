@@ -6,15 +6,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>349</width>
-    <height>286</height>
+    <width>579</width>
+    <height>354</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Plugins</string>
   </property>
   <property name="windowIcon">
-   <iconset theme="preferences-plugin"/>
+   <iconset theme="preferences-plugin">
+    <normaloff/>
+   </iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -64,6 +66,27 @@
          </widget>
         </item>
         <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QLabel" name="label_author">
+            <property name="text">
+             <string notr="true">Author</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_license">
+            <property name="text">
+             <string notr="true">License</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
          <widget class="QCheckBox" name="check_enable">
           <property name="text">
            <string>Enable</string>
@@ -78,11 +101,31 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="text_file">
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Plugin file</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="label_file">
+            <property name="text">
+             <string notr="true">Path/to/plugin_file.json</string>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -97,10 +140,12 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Reload Plugins</string>
+        <string>&amp;Reload Plugins</string>
        </property>
        <property name="icon">
-        <iconset theme="view-refresh"/>
+        <iconset theme="view-refresh">
+         <normaloff/>
+        </iconset>
        </property>
       </widget>
      </item>
@@ -110,20 +155,24 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Install...</string>
+        <string>&amp;Install...</string>
        </property>
        <property name="icon">
-        <iconset theme="run-build-install"/>
+        <iconset theme="run-build-install">
+         <normaloff/>
+        </iconset>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="button_close">
        <property name="text">
-        <string>Close</string>
+        <string>&amp;OK</string>
        </property>
        <property name="icon">
-        <iconset theme="dialog-close"/>
+        <iconset theme="dialog-ok">
+         <normaloff/>
+        </iconset>
        </property>
        <property name="autoDefault">
         <bool>false</bool>

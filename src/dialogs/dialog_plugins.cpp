@@ -53,7 +53,7 @@ void Dialog_Plugins::load_plugins()
     listWidget->clear();
     foreach(Plugin* p, Resource_Manager::plugins())
     {
-        QListWidgetItem *item = new QListWidgetItem(p->name());
+        QListWidgetItem *item = new QListWidgetItem(p->metadata().name);
         item->setData(Qt::UserRole,QVariant::fromValue(p));
         set_item_grayed(item,!p->enabled());
         listWidget->addItem(item);
@@ -65,10 +65,13 @@ void Dialog_Plugins::on_listWidget_currentRowChanged(int currentRow)
     Plugin* p = listWidget->item(currentRow)->data(Qt::UserRole).value<Plugin*>();
     if ( p )
     {
-        label_title->setText(p->name());
-        text_description->setPlainText(p->description());
+        label_title->setText(tr("%1 - %2").arg(p->metadata().name)
+                             .arg(p->metadata().version));
+        text_description->setPlainText(p->metadata().description);
         check_enable->setChecked(p->enabled());
-        text_file->setText(p->file());
+        label_file->setText(p->metadata().filename);
+        label_author->setText(p->metadata().author);
+        label_license->setText(p->metadata().license);
     }
 }
 
