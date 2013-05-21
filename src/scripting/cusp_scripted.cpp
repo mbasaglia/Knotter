@@ -24,30 +24,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef DIALOG_PLUGINS_HPP
-#define DIALOG_PLUGINS_HPP
-
-#include "ui_dialog_plugins.h"
-
-class Dialog_Plugins : public QDialog, private Ui::Dialog_Plugins
-{
-    Q_OBJECT
-    
-public:
-    explicit Dialog_Plugins(QWidget *parent = 0);
-    
-protected:
-    void changeEvent(QEvent *e);
-
-protected slots:
-    void load_plugins();
-private slots:
-    void on_listWidget_currentRowChanged(int currentRow);
-
-    void on_check_enable_clicked(bool checked);
-
-private:
-    void set_item_enabled(QListWidgetItem* it, bool enabled);
-};
-
-#endif // DIALOG_PLUGINS_HPP
+#include "cusp_scripted.hpp"

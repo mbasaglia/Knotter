@@ -24,30 +24,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef DIALOG_PLUGINS_HPP
-#define DIALOG_PLUGINS_HPP
+#ifndef CUSP_SCRIPTED_HPP
+#define CUSP_SCRIPTED_HPP
 
-#include "ui_dialog_plugins.h"
-
-class Dialog_Plugins : public QDialog, private Ui::Dialog_Plugins
+#include "node_cusp_shape.hpp"
+#include "plugin_cusp.hpp"
+/*
+class Cusp_Scripted : public Cusp_Shape
 {
-    Q_OBJECT
-    
-public:
-    explicit Dialog_Plugins(QWidget *parent = 0);
-    
-protected:
-    void changeEvent(QEvent *e);
-
-protected slots:
-    void load_plugins();
-private slots:
-    void on_listWidget_currentRowChanged(int currentRow);
-
-    void on_check_enable_clicked(bool checked);
-
 private:
-    void set_item_enabled(QListWidgetItem* it, bool enabled);
-};
+    Plugin_Cusp* plugin;
+public:
+    QString name() const override { return plugin->metadata().name; }
 
-#endif // DIALOG_PLUGINS_HPP
+    QString machine_name() const override { return plugin->machine_name(); }
+
+    virtual QIcon icon() const override { return plugin->icon(); }
+
+    void draw_joint ( Path_Builder& path,
+                        const Traversal_Info& ti,
+                        const Node_Style& style ) const override;
+};*/
+
+#endif // CUSP_SCRIPTED_HPP

@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "plugin.hpp"
-#include "c++.hpp"
+#include <QFileInfo>
 
 #if HAS_QT_5
 #include <QJsonObject>
@@ -33,21 +33,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #else
 #include <QScriptValue>
 #include <QScriptEngine>
+#include <QScriptValueIterator>
 #endif
 
-Plugin_Metadata::Plugin_Metadata()
-    : type(Invalid)
+
+
+
+Plugin::Plugin(const QVariantMap &metadata, Plugin::Type type)
+    : m_metadata(metadata), type(type), m_enabled(false)
 {
 }
-
-Plugin_Metadata Plugin_Metadata::from_file(QFile &file, QString *error)
+void Plugin::enable(bool e)
 {
+    m_enabled = e;
+    on_enable(e);
+}
+
+Plugin* Plugin::from_file (QFile &file, QString* error )
+{
+
+
 
     error->clear();
 
-    Plugin_Metadata p;
+    QVariantMap data;
 
-    p.filename = file.fileName();
 
     QByteArray json_data = file.readAll();
 
@@ -63,54 +73,44 @@ Plugin_Metadata Plugin_Metadata::from_file(QFile &file, QString *error)
         }
         else if ( !json.isNull() )
         {
-            QVariantMap obj = json.object().toVariantMap();
-            p.name = obj["name"].toString();
-            p.description = obj["description"].toString();
-            p.version = obj["version"].toString();
-            p.author = obj["author"].toString();
-            p.license = obj["license"].toString();
-            type_string = obj["type"].toString();
+            data = json.object().toVariantMap();
         }
     #else
         QScriptEngine engine;
         QScriptValue obj = engine.evaluate("(" + json_data + ")");
-        p.name = obj.property("name").toString();
-        p.description = obj.property("description").toString();
-        p.version = obj.property("version").toString();
-        p.author = obj.property("author").toString();
-        p.license = obj.property("license").toString();
-        type_string = obj.property("type").toString();
+        QScriptValueIterator it(obj);
+        while (it.hasNext()) {
+            it.next();
+            if (it.value().isNumber())
+                data.insert(it.name(),QVariant(it.value().toNumber()));
+            else if (it.value().isBool())
+                    data.insert(it.name(),QVariant(it.value().toBool()));
+            else
+                data.insert(it.name(),QVariant(it.value().toString()));
+            data.insert(it.name(),it.value().toString());
+        }
     #endif
 
-    if ( type_string == "test" )
-        p.type = Test;
+    data["plugin_file"] = file.fileName();
 
-    /// \todo check type_string
-    if ( p.name.isEmpty() )
-        *error = QObject::tr("Plugin name not specified");
-    else if ( p.type == Plugin_Metadata::Invalid )
+    Plugin::Type type = Plugin::Invalid;
+    if ( data["type"] == "test" )
+        type = Test;
+    /// \todo more types here
+
+    if ( data["name"].toString().isEmpty() )
+    {
+        QFileInfo fi(file.fileName());
+
+        data["name"] = fi.baseName();
+    }
+
+    if ( type == Plugin::Invalid )
         *error = QObject::tr("Unknown plugin type ");
 
-    return p;
-}
-
-
-
-Plugin::Plugin(const Plugin_Metadata &metadata)
-    : m_metadata(metadata), m_enabled(false)
-{
-}
-
-void Plugin::enable(bool e)
-{
-    m_enabled = e;
-}
-Plugin* Plugin::from_file (QFile &file, QString* error )
-{
-    Plugin_Metadata md = Plugin_Metadata::from_file(file,error);
     if ( !error->isEmpty() )
         return nullptr;
 
     /// \todo switch type to create proper object
-    return new Plugin(md);
+    return new Plugin(data,type);
 }

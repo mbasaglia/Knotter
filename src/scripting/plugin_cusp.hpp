@@ -24,30 +24,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef DIALOG_PLUGINS_HPP
-#define DIALOG_PLUGINS_HPP
+#ifndef PLUGIN_CUSP_HPP
+#define PLUGIN_CUSP_HPP
 
-#include "ui_dialog_plugins.h"
+#include "plugin.hpp"
 
-class Dialog_Plugins : public QDialog, private Ui::Dialog_Plugins
+class Plugin_Cusp : public Plugin
 {
-    Q_OBJECT
-    
 public:
-    explicit Dialog_Plugins(QWidget *parent = 0);
-    
+    Plugin_Cusp(const QVariantMap &metadata);
+
+    QIcon icon() const;
+
 protected:
-    void changeEvent(QEvent *e);
-
-protected slots:
-    void load_plugins();
-private slots:
-    void on_listWidget_currentRowChanged(int currentRow);
-
-    void on_check_enable_clicked(bool checked);
-
-private:
-    void set_item_enabled(QListWidgetItem* it, bool enabled);
+    void on_enable(bool b) override;
 };
 
-#endif // DIALOG_PLUGINS_HPP
+#endif // PLUGIN_CUSP_HPP

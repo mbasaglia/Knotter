@@ -53,9 +53,9 @@ void Dialog_Plugins::load_plugins()
     listWidget->clear();
     foreach(Plugin* p, Resource_Manager::plugins())
     {
-        QListWidgetItem *item = new QListWidgetItem(p->metadata().name);
+        QListWidgetItem *item = new QListWidgetItem(p->string_data("name"));
         item->setData(Qt::UserRole,QVariant::fromValue(p));
-        set_item_grayed(item,!p->enabled());
+        set_item_enabled(item,p->enabled());
         listWidget->addItem(item);
     }
 }
@@ -65,30 +65,40 @@ void Dialog_Plugins::on_listWidget_currentRowChanged(int currentRow)
     Plugin* p = listWidget->item(currentRow)->data(Qt::UserRole).value<Plugin*>();
     if ( p )
     {
-        label_title->setText(tr("%1 - %2").arg(p->metadata().name)
-                             .arg(p->metadata().version));
-        text_description->setPlainText(p->metadata().description);
+        label_title->setText(p->string_data("name"));
+        text_description->setPlainText(p->string_data("description"));
         check_enable->setChecked(p->enabled());
-        label_file->setText(p->metadata().filename);
-        label_author->setText(p->metadata().author);
-        label_license->setText(p->metadata().license);
+        tableWidget->clearContents();
+        tableWidget->setRowCount(0);
+        foreach(QString k, p->metadata().keys())
+        {
+            int row = tableWidget->rowCount();
+            tableWidget->insertRow(row);
+            QTableWidgetItem *it = new QTableWidgetItem(k);
+            it->setFlags(Qt::ItemIsEnabled);
+            tableWidget->setItem(row,0,it);
+            it = new QTableWidgetItem(p->string_data(k));
+            it->setFlags(Qt::ItemIsEnabled);
+            tableWidget->setItem(row,1,it);
+        }
     }
 }
 
-void Dialog_Plugins::set_item_grayed(QListWidgetItem *it, bool grayed)
+void Dialog_Plugins::set_item_enabled(QListWidgetItem *it, bool enabled)
 {
     QBrush b = it->foreground();
     QColor c = b.color();
-    c.setAlpha(grayed?128:255);
+    c.setAlpha(enabled?255:128);
     b.setColor(c);
     it->setForeground(b);
     QFont f = it->font();
-    f.setItalic(grayed);
+    f.setItalic(!enabled);
     it->setFont(f);
+    //it->setCheckState(enabled?Qt::Checked:Qt::Unchecked);
 }
 
 void Dialog_Plugins::on_check_enable_clicked(bool checked)
 {
     Resource_Manager::plugins()[listWidget->currentIndex().row()]->enable(checked);
-    set_item_grayed(listWidget->currentItem(),!checked);
+    set_item_enabled(listWidget->currentItem(),checked);
 }
