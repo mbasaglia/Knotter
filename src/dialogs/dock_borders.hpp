@@ -38,11 +38,14 @@ public:
     
     void set_borders(Border_List bl);
 
+    void enable_borders(bool b);
+
 protected:
     void changeEvent(QEvent *e);
 
 signals:
     void borders_changed(Border_List);
+    void borders_enabled(bool);
 };
 
 #endif // DOCK_BORDERS_HPP

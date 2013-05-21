@@ -11,7 +11,9 @@
    </rect>
   </property>
   <property name="windowIcon">
-   <iconset theme="format-stroke-color"/>
+   <iconset theme="format-stroke-color">
+    <normaloff/>
+   </iconset>
   </property>
   <property name="windowTitle">
    <string>Border</string>
@@ -19,7 +21,7 @@
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="QCheckBox" name="checkBox">
+     <widget class="QCheckBox" name="check_enable">
       <property name="text">
        <string>Enable Borders</string>
       </property>
@@ -45,7 +47,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>checkBox</sender>
+   <sender>check_enable</sender>
    <signal>toggled(bool)</signal>
    <receiver>border_widget</receiver>
    <slot>setEnabled(bool)</slot>

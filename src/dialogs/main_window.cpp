@@ -329,8 +329,11 @@ void Main_Window::connect_view(Knot_View *v)
             v,SLOT(set_brush_style(Qt::BrushStyle)));
     // border
     dock_borders->set_borders(v->knot_borders());
+    dock_borders->enable_borders(v->get_graph().paint_border());
     connect(dock_borders,SIGNAL(borders_changed(Border_List)),
             v,SLOT(set_knot_borders(Border_List)));
+    connect(dock_borders,SIGNAL(borders_enabled(bool)),
+            v,SLOT(set_knot_display_border(bool)));
 
     // style
     global_style->set_style(v->get_graph().default_node_style());

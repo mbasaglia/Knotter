@@ -32,11 +32,17 @@ Dock_Borders::Dock_Borders(QWidget *parent) :
     setupUi(this);
     connect(border_widget,SIGNAL(bordersChanged(Border_List)),
             SIGNAL(borders_changed(Border_List)));
+    connect(check_enable,SIGNAL(toggled(bool)),SIGNAL(borders_enabled(bool)));
 }
 
 void Dock_Borders::set_borders(Border_List bl)
 {
     border_widget->setBorders(bl);
+}
+
+void Dock_Borders::enable_borders(bool b)
+{
+    check_enable->setChecked(b);
 }
 
 void Dock_Borders::changeEvent(QEvent *e)

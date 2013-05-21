@@ -53,6 +53,7 @@ private:
     QPen                pen;
     Border_List         m_borders;
     QList<double>       border_width_cache;///< Actual width of the pen for a given border ( - width() )
+    bool                m_paint_border;
 
 public:
     explicit Graph();
@@ -115,6 +116,9 @@ public:
 
     bool custom_colors() const { return !auto_color; }
     void set_custom_colors(bool b) { auto_color = !b; }
+
+    bool paint_border() const { return m_paint_border; }
+    void set_paint_border(bool b) { m_paint_border = b; }
 
 
     Node_Style default_node_style() const { return m_default_node_style; }

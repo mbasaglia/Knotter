@@ -490,6 +490,11 @@ void Knot_View::set_knot_custom_colors(bool b)
     push_command(new Custom_Colors(graph.custom_colors(),b,this));
 }
 
+void Knot_View::set_knot_display_border(bool b)
+{
+    push_command(new Display_Border(graph.paint_border(),b,this));
+}
+
 void Knot_View::set_stroke_width(double w)
 {
     push_command(new Knot_Width(graph.width(),w,this));

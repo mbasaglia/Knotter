@@ -286,6 +286,21 @@ public:
     void redo() override;
 };
 
+
+class Display_Border : public Knot_Command
+{
+    Q_OBJECT
+
+
+    bool before;
+    bool after;
+
+public:
+    Display_Border(bool before, bool after, Knot_View* kv, Knot_Macro* parent = nullptr);
+    void undo() override;
+    void redo() override;
+};
+
 // knot style
 /**
  *  \brief Base class for Knot style commands

@@ -258,14 +258,38 @@ Custom_Colors::Custom_Colors(bool before, bool after, Knot_View *kv, Knot_Macro 
 void Custom_Colors::undo()
 {
     graph->set_custom_colors(before);
-    graph->update();
+    update_view();
 }
 
 void Custom_Colors::redo()
 {
     graph->set_custom_colors(after);
-    graph->update();
+    update_view();
 }
+
+Display_Border::Display_Border(bool before, bool after, Knot_View *kv, Knot_Macro *parent)
+    : Knot_Command(kv,parent), before(before), after(after)
+{
+    if ( after )
+        setText(tr("Display Borders"));
+    else
+        setText(tr("Hide Borders"));
+
+}
+
+void Display_Border::undo()
+{
+    graph->set_paint_border(before);
+    update_view();
+}
+
+void Display_Border::redo()
+{
+    graph->set_paint_border(after);
+    update_view();
+}
+
+
 
 
 Move_Node::Move_Node(Node *node, QPointF before, QPointF after, Knot_View *kv,

@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Graph::Graph() :
     m_default_node_style(225,24,10,32,Resource_Manager::default_cusp_shape(),
                   Node_Style::EVERYTHING),
-    auto_color(false)
+    auto_color(false), m_paint_border(true)
 {
     m_colors.push_back(Qt::black);
     set_join_style(Qt::MiterJoin);
@@ -57,6 +57,7 @@ Graph &Graph::operator= ( const Graph &o )
     pen = o.pen;
     m_borders = o.m_borders;
     border_width_cache = o.border_width_cache;
+    m_paint_border = o.m_paint_border;
     setPos(o.pos());
     setTransform(o.transform());
     setVisible(o.isVisible());
@@ -160,16 +161,19 @@ void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
         if ( !painter->paintEngine()->hasFeature(QPaintEngine::PatternBrush) )
             b.setStyle(Qt::SolidPattern);
 
-        for ( int i = m_borders.size()-1; i >= 0; i-- )
+        if ( m_paint_border )
         {
-            painter->setPen(QPen(QBrush(m_borders[i].color,b.style()),
-                                 pen.widthF()+border_width_cache[i],
-                                 pen.style(),
-                                 pen.capStyle(),
-                                 pen.joinStyle()
-                            ));
-            foreach(const QPainterPath&pp, paths)
-                painter->drawPath(pp);
+            for ( int i = m_borders.size()-1; i >= 0; i-- )
+            {
+                painter->setPen(QPen(QBrush(m_borders[i].color,b.style()),
+                                     pen.widthF()+border_width_cache[i],
+                                     pen.style(),
+                                     pen.capStyle(),
+                                     pen.joinStyle()
+                                ));
+                foreach(const QPainterPath&pp, paths)
+                    painter->drawPath(pp);
+            }
         }
 
         for ( int i = 0; i < paths.size(); ++i )

@@ -283,6 +283,11 @@ public slots:
      */
     void set_knot_custom_colors(bool b);
 
+    /**
+     *  \brief Enable/Disable borders
+     */
+    void set_knot_display_border(bool b);
+
 
     /**
      *  \brief Set knot stroke width
