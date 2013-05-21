@@ -37,6 +37,7 @@ Graph::Graph() :
     set_join_style(Qt::RoundJoin);
     set_width(5);
     pen.setCapStyle(Qt::FlatCap);
+    pen.setMiterLimit(128);
 }
 
 Graph::Graph(const Graph &other)
@@ -163,14 +164,12 @@ void Graph::const_paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
 
         if ( m_paint_border )
         {
+            QPen bp = pen;
             for ( int i = m_borders.size()-1; i >= 0; i-- )
             {
-                painter->setPen(QPen(QBrush(m_borders[i].color,b.style()),
-                                     pen.widthF()+border_width_cache[i],
-                                     pen.style(),
-                                     pen.capStyle(),
-                                     pen.joinStyle()
-                                ));
+                bp.setBrush(QBrush(m_borders[i].color,b.style()));
+                bp.setWidthF(pen.widthF()+border_width_cache[i]);
+                painter->setPen(bp);
                 foreach(const QPainterPath&pp, paths)
                     painter->drawPath(pp);
             }
@@ -202,7 +201,6 @@ void Graph::paint_graph(QPainter *painter, const QStyleOptionGraphicsItem *optio
         painter->translate(-n->pos());
     }
 }
-
 void Graph::render_knot()
 {
     paths.clear();
@@ -401,3 +399,22 @@ void Graph::update_bounding_box()
     }
 }
 
+
+
+QRectF Graph::full_image_bounding_rect() const
+{
+    QPainterPathStroker pps;
+    pps.setCapStyle(pen.capStyle());
+    pps.setJoinStyle(pen.joinStyle());
+    pps.setMiterLimit(pen.miterLimit());
+    if ( m_paint_border && !border_width_cache.empty() )
+        pps.setWidth(pen.widthF()+border_width_cache.back());
+    else
+        pps.setWidth(pen.widthF());
+
+    QRectF bb = bounding_box;
+    foreach(const QPainterPath&pp, paths)
+        bb |= pps.createStroke(pp).boundingRect();
+
+    return bb;
+}

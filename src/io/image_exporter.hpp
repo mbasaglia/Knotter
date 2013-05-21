@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "graph.hpp"
 
-void paint_knot(QPaintDevice *device, const Graph& graph, bool draw_graph );
 
 void export_svg(QIODevice &file, const Graph& graph, bool draw_graph);
 

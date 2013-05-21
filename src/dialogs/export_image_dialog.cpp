@@ -169,7 +169,7 @@ void Export_Image_Dialog::on_button_image_clicked()
 void Export_Image_Dialog::reset_size()
 {
     button_ratio->setChecked(false);
-    QSize sz = view->get_graph().boundingRect().size().toSize();
+    QSize sz = view->get_graph().full_image_bounding_rect().size().toSize();
     spin_width->setValue(sz.width());
     spin_height->setValue(sz.height());
     button_ratio->setChecked(true);

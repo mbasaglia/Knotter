@@ -28,19 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QSvgGenerator>
 
-void paint_knot(QPaintDevice *device, const Graph& graph, bool draw_graph)
-{
-    QPainter painter;
-    painter.begin(device);
-    painter.translate(-graph.boundingRect().topLeft());
-
-    if ( draw_graph )
-        graph.paint_graph(&painter);
-    graph.const_paint(&painter);
-
-    painter.end();
-}
-
 
 void export_svg(QIODevice &file, const Graph& graph, bool draw_graph)
 {
@@ -49,13 +36,22 @@ void export_svg(QIODevice &file, const Graph& graph, bool draw_graph)
         return;
     }
 
+    QRectF fibr = graph.full_image_bounding_rect();
     QSvgGenerator gen;
     gen.setOutputDevice(&file);
     gen.setTitle("");
     gen.setDescription("");
-    gen.setViewBox(QRect(QPoint(0,0),graph.boundingRect().size().toSize()));
+    gen.setViewBox(QRect(QPoint(0,0),fibr.size().toSize()));
 
-    paint_knot ( &gen, graph, draw_graph );
+    QPainter painter;
+    painter.begin(&gen);
+    painter.translate(-fibr.topLeft());
+
+    if ( draw_graph )
+        graph.paint_graph(&painter);
+    graph.const_paint(&painter);
+
+    painter.end();
 }
 
 
@@ -68,11 +64,11 @@ void export_raster(QIODevice &file, const Graph& graph, QColor background,
         return;
     }
 
-
-    QSizeF actual_size = graph.boundingRect().size();
+    QRectF fibr = graph.full_image_bounding_rect();
+    QSizeF actual_size = fibr.size();
     double scale_x = img_size.width() / actual_size.width();
     double scale_y = img_size.height() / actual_size.height();
-    QPointF offset = -graph.boundingRect().topLeft();
+    QPointF offset = -fibr.topLeft();
 
 
     QPixmap *pix;

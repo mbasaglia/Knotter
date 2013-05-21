@@ -137,6 +137,11 @@ public:
     {
         return bounding_box;
     }
+    /**
+     * \brief Get the real bounding rect
+     * This rect will include the point of large miter joints.
+     */
+    QRectF full_image_bounding_rect() const;
     int type() const override { return UserType+0x03; }
 
 
