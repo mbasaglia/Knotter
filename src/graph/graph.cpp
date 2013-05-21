@@ -34,7 +34,7 @@ Graph::Graph() :
     auto_color(false), m_paint_border(true)
 {
     m_colors.push_back(Qt::black);
-    set_join_style(Qt::MiterJoin);
+    set_join_style(Qt::RoundJoin);
     set_width(5);
     pen.setCapStyle(Qt::FlatCap);
 }
