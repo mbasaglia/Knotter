@@ -93,6 +93,18 @@ void XML_Exporter::save_style(const Graph *graph)
         save_color("color",c);
     end_element(); // colors
 
+    start_element("borders");
+    foreach(Knot_Border b, graph->borders())
+    {
+        start_element("border");
+        xml.writeAttribute("width",QString::number(b.width));
+        xml.writeAttribute("alpha",QString::number(b.color.alpha()));
+        xml.writeCharacters(b.color.name());
+        end_element(); // border
+
+    }
+    end_element(); // borders
+
     save_cusp("cusp",graph->default_node_style());
 
 

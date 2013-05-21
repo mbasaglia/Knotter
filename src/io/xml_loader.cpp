@@ -176,6 +176,16 @@ void XML_Loader::get_style(QDomElement e_style, Graph *graph)
         colors.push_back(Qt::black);
     graph->set_colors(colors);
 
+    Border_List borders;
+    QDomElement e_border = e_style.firstChildElement("borders").firstChildElement("border");
+    while ( !e_border.isNull() )
+    {
+        borders.push_back(Knot_Border(get_color(e_border),
+                                e_border.attribute("width","1").toDouble()));
+        e_border = e_border.nextSiblingElement("border");
+    }
+    graph->set_borders(borders);
+
     QDomElement e_cusp = e_style.firstChildElement("cusp");
     if ( !e_cusp.isNull() )
         graph->set_default_node_style(get_node_style(e_cusp,true));
