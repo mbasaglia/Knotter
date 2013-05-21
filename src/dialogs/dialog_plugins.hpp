@@ -44,8 +44,10 @@ protected slots:
 private slots:
     void on_listWidget_currentRowChanged(int currentRow);
 
+    void on_check_enable_clicked(bool checked);
+
 private:
-    void set_item_grayed(QListWidgetItem* it);
+    void set_item_grayed(QListWidgetItem* it, bool grayed);
 };
 
 #endif // DIALOG_PLUGINS_HPP

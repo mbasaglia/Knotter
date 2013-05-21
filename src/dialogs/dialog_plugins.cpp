@@ -55,8 +55,7 @@ void Dialog_Plugins::load_plugins()
     {
         QListWidgetItem *item = new QListWidgetItem(p->name());
         item->setData(Qt::UserRole,QVariant::fromValue(p));
-        if ( !p->enabled() )
-            set_item_grayed(item);
+        set_item_grayed(item,!p->enabled());
         listWidget->addItem(item);
     }
 }
@@ -73,11 +72,20 @@ void Dialog_Plugins::on_listWidget_currentRowChanged(int currentRow)
     }
 }
 
-void Dialog_Plugins::set_item_grayed(QListWidgetItem *it)
+void Dialog_Plugins::set_item_grayed(QListWidgetItem *it, bool grayed)
 {
     QBrush b = it->foreground();
     QColor c = b.color();
-    c.setAlpha(c.alpha()/2);
+    c.setAlpha(grayed?128:255);
     b.setColor(c);
     it->setForeground(b);
+    QFont f = it->font();
+    f.setItalic(grayed);
+    it->setFont(f);
+}
+
+void Dialog_Plugins::on_check_enable_clicked(bool checked)
+{
+    Resource_Manager::plugins()[listWidget->currentIndex().row()]->enable(checked);
+    set_item_grayed(listWidget->currentItem(),!checked);
 }

@@ -190,11 +190,6 @@ void Resource_Manager::initialize(QString default_lang_code)
 
     change_lang_code(QLocale::system().name());
 
-
-    // Load Settings
-    settings.load_config();
-
-
     // Scripting
     singleton.m_script_engine = new QScriptEngine; // needs to be initialized only after qApp is created
     QScriptEngine* engine = singleton.m_script_engine; // shorer to write
@@ -208,6 +203,9 @@ void Resource_Manager::initialize(QString default_lang_code)
     //plugins
     load_plugins();
 
+
+    // Load Settings: note after load_plugins
+    settings.load_config();
 }
 
 
