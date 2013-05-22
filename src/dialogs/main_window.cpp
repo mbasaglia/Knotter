@@ -801,7 +801,13 @@ void Main_Window::on_action_Insert_Polygon_triggered()
         g.add_edge(new Edge(last,first,Resource_Manager::default_edge_style()));
 
         //: Name of the undo command triggered when inserting a polygon
-        view->insert(g,tr("Insert Polygon"));
+        if ( ! view->insert(g,tr("Insert Polygon")) )
+        {
+            foreach(Node* n, g.nodes())
+                delete n;
+            foreach(Edge* e, g.edges())
+                delete e;
+        }
 
     }
 }
@@ -838,7 +844,13 @@ void Main_Window::on_action_Paste_triggered()
     if ( !import_xml(read_data,graph) )
         return; // invalid data
 
-    view->insert(graph, tr("Paste") );
+    if ( ! view->insert(graph, tr("Paste") ) )
+    {
+        foreach(Node* n, graph.nodes())
+            delete n;
+        foreach(Edge* e, graph.edges())
+            delete e;
+    }
 }
 
 void Main_Window::on_action_Cut_triggered()

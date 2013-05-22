@@ -586,10 +586,10 @@ Graph_Item *Knot_View::item_at(QPointF p) const
 
 
 
-void Knot_View::insert(const Graph &graph, QString macro_name)
+bool Knot_View::insert(const Graph &graph, QString macro_name)
 {
-    if ( graph.nodes().isEmpty() )
-        return;
+    if ( graph.nodes().isEmpty() || mouse_mode & MOVE_NODES )
+        return false;
 
     scene()->clearSelection();
     macro_stack.push( new Knot_Insert_Macro(false,macro_name,this));
@@ -623,6 +623,8 @@ void Knot_View::insert(const Graph &graph, QString macro_name)
 
     end_macro();
     macro_stack.push( new Knot_Insert_Macro(true,macro_name,this));
+
+    return true;
 
 }
 

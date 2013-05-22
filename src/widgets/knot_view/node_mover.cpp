@@ -267,7 +267,6 @@ void Node_Mover::deploy(Knot_View *view,QString message)
             view->push_command(new Move_Node(n,offset[0]+start_pos,n->pos(),view));
         }
     }
-
     //initialize_movement(pivot);
 
     /*m_nodes.clear();

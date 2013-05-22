@@ -210,8 +210,10 @@ public:
      *  \param graph        Graph that needs to be inserted.
      *  \param macro_name   Name of the undo command associated with the
      *                      insertion of the graph
+     *
+     *  \return Whether the insertion has been accepted
      */
-    void insert(const Graph& graph, QString macro_name );
+    bool insert(const Graph& graph, QString macro_name );
 
     void enable_cache(bool enable) { graph.enable_cache(enable); }
     bool cache_enabled() const { return graph.cache_enabled(); }
