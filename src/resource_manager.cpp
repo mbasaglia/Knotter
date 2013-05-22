@@ -392,6 +392,7 @@ Cusp_Shape *Resource_Manager::cusp_shape_from_machine_name(QString name)
 void Resource_Manager::load_plugins(QString directory)
 {
     QDir plugin_dir = QDir(directory);
+    QRegExp file_name ( "plugin_(.+)\\.json" );
     if ( plugin_dir.exists() )
     {
         foreach ( QFileInfo finfo, plugin_dir.entryInfoList(QDir::Dirs|
@@ -400,8 +401,7 @@ void Resource_Manager::load_plugins(QString directory)
             if ( finfo.isDir() )
                 load_plugins(finfo.absoluteFilePath());
             else if ( finfo.isFile() && finfo.isReadable() &&
-                      finfo.suffix().toLower() == "json" &&
-                      finfo.fileName().startsWith("plugin_"))
+                      file_name.indexIn(finfo.fileName()) != -1 )
                 load_plugin(finfo.absoluteFilePath());
         }
     }

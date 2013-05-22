@@ -29,6 +29,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Plugin_Cusp::Plugin_Cusp(const QVariantMap &metadata)
     : Plugin(metadata,Plugin::Cusp)
 {
+    if ( icon().isNull() )
+        set_data("icon","cusp-other");
+}
+
+QString Plugin_Cusp::machine_name() const
+{
+    return "plugin_"+string_data("name");
 }
 
 

@@ -26,6 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "plugin.hpp"
 #include <QFileInfo>
+#include <QDir>
+#include "resource_manager.hpp"
+#include "plugin_cusp.hpp"
 
 #if HAS_QT_5
 #include <QJsonObject>
@@ -91,26 +94,62 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
         }
     #endif
 
-    data["plugin_file"] = file.fileName();
+    if ( !error->isEmpty() )
+        return nullptr;
 
-    Plugin::Type type = Plugin::Invalid;
-    if ( data["type"] == "test" )
-        type = Test;
-    /// \todo more types here
-
+    QFileInfo fi(file.fileName());
+    data["plugin_file"] = fi.absoluteFilePath();
+    data["plugin_dir"] = fi.absolutePath();
     if ( data["name"].toString().isEmpty() )
     {
-        QFileInfo fi(file.fileName());
 
         data["name"] = fi.baseName();
     }
 
-    if ( type == Plugin::Invalid )
-        *error = QObject::tr("Unknown plugin type ");
+    Plugin::Type type = Plugin::Invalid;
+    if ( data["type"] == "test" )
+        type = Test;
+    else if ( data["type"] == "cusp" )
+        type = Cusp;
+    /// \todo more types here
 
-    if ( !error->isEmpty() )
-        return nullptr;
 
-    /// \todo switch type to create proper object
-    return new Plugin(data,type);
+
+    switch (type)
+    {
+        case Test: return new Plugin(data,type);
+        case Cusp: return new Plugin_Cusp(data);
+        default:
+            *error = QObject::tr("Unknown plugin type ");
+            return nullptr;
+
+    }
+
+}
+
+QIcon Plugin::icon() const
+{
+    QString icon_name = string_data("icon");
+    if ( icon_name.isEmpty() )
+        return QIcon();
+
+    if ( QIcon::hasThemeIcon(icon_name) )
+        return QIcon::fromTheme(icon_name);
+
+    QDir rel_path = string_data("plugin_dir");
+    if ( rel_path.exists(icon_name) )
+        return QIcon(rel_path.absoluteFilePath(icon_name));
+
+    QFileInfo abs_file = icon_name;
+    if ( abs_file.exists() )
+    {
+        return QIcon(icon_name);
+    }
+
+    QString data = Resource_Manager::data(icon_name);
+    if ( !data.isEmpty() )
+        return QIcon(data);
+
+    return QIcon();
+
 }

@@ -53,7 +53,7 @@ void Dialog_Plugins::load_plugins()
     listWidget->clear();
     foreach(Plugin* p, Resource_Manager::plugins())
     {
-        QListWidgetItem *item = new QListWidgetItem(p->string_data("name"));
+        QListWidgetItem *item = new QListWidgetItem(p->icon(), p->string_data("name"));
         item->setData(Qt::UserRole,QVariant::fromValue(p));
         set_item_enabled(item,p->enabled());
         listWidget->addItem(item);

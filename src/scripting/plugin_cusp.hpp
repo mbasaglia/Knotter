@@ -34,7 +34,7 @@ class Plugin_Cusp : public Plugin
 public:
     Plugin_Cusp(const QVariantMap &metadata);
 
-    QIcon icon() const;
+    QString machine_name() const;
 
 protected:
     void on_enable(bool b) override;

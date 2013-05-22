@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFile>
 #include <QVariantMap>
 #include "c++.hpp"
+#include <QIcon>
 
 class Plugin_Metadata
 {
@@ -90,6 +91,8 @@ public:
      */
     static Plugin* from_file (QFile &file, QString* error );
 
+    QIcon icon() const;
+
 protected:
     /**
      * \brief Function called by enable()
@@ -97,6 +100,8 @@ protected:
      * Child classes may override this to perform custom actions on enable/disable
      */
     virtual void on_enable(bool){}
+
+    void set_data(QString name, QVariant value) { m_metadata[name] = value; }
 };
 
 

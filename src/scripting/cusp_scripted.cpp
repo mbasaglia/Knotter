@@ -25,3 +25,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "cusp_scripted.hpp"
+
+void Cusp_Scripted::draw_joint(Path_Builder &path, const Traversal_Info &ti, const Node_Style &style) const
+{
+    /// \todo
+}
+

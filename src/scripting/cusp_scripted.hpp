@@ -29,13 +29,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "node_cusp_shape.hpp"
 #include "plugin_cusp.hpp"
-/*
+
 class Cusp_Scripted : public Cusp_Shape
 {
 private:
     Plugin_Cusp* plugin;
 public:
-    QString name() const override { return plugin->metadata().name; }
+    Cusp_Scripted(Plugin_Cusp* plugin) : plugin(plugin) {}
+
+    QString name() const override { return plugin->string_data("name"); }
 
     QString machine_name() const override { return plugin->machine_name(); }
 
@@ -44,6 +46,6 @@ public:
     void draw_joint ( Path_Builder& path,
                         const Traversal_Info& ti,
                         const Node_Style& style ) const override;
-};*/
+};
 
 #endif // CUSP_SCRIPTED_HPP
