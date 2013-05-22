@@ -51,6 +51,7 @@ void Border_Widget::swap(int a, int b)
     Border_Edit_Widget* sb = widget_cast<Border_Edit_Widget>(b);
     if ( sa && sb )
     {
+        qSwap(m_borders[a],m_borders[b]);
         sa->swap_values(sb);
         emit bordersChanged(m_borders);
     }
