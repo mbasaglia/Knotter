@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "plugin_cusp.hpp"
+#include "resource_manager.hpp"
+#include "cusp_scripted.hpp"
 
 Plugin_Cusp::Plugin_Cusp(const QVariantMap &metadata)
     : Plugin(metadata,Plugin::Cusp)
@@ -41,5 +43,6 @@ QString Plugin_Cusp::machine_name() const
 
 void Plugin_Cusp::on_enable(bool b)
 {
-    /// \todo
+    if ( b )
+        Resource_Manager::register_cusp_shape(new Cusp_Scripted(this));
 }

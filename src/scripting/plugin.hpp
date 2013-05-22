@@ -31,22 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QVariantMap>
 #include "c++.hpp"
 #include <QIcon>
+#include <QScriptProgram>
 
-class Plugin_Metadata
-{
-
-
-    explicit Plugin_Metadata();
-
-
-    /**
-     * \brief Create plugin metadata from JSON file
-     *
-     * \param[in]  file  Json file
-     * \param[out] error Error string
-     */
-    static Plugin_Metadata from_file (QFile &file, QString* error );
-};
 
 class Plugin
 {
@@ -58,12 +44,15 @@ public:
         Cusp        ///< Node cusp
     };
 
-    QVariantMap m_metadata;
-    Type        type;
-    bool        m_enabled;
+    QVariantMap     m_metadata;
+    Type            type;
+    bool            m_enabled;
+    QScriptProgram  m_script;
+
 
 public:
     explicit Plugin(const QVariantMap& metadata, Type type);
+    virtual ~Plugin() {}
 
     /**
      * \brief Metadata map
@@ -92,6 +81,8 @@ public:
     static Plugin* from_file (QFile &file, QString* error );
 
     QIcon icon() const;
+
+    const QScriptProgram& script_program() const { return m_script; }
 
 protected:
     /**

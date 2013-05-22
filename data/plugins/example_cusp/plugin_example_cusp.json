@@ -1,0 +1,8 @@
+{
+    "name"          : "Example cusp plugin",
+    "description"   : "An implementation of the built-in rounded cusp as a plugin",
+    "type"          : "cusp",
+    "icon"          : "cusp-round",
+    "script"        : "example_cusp.js" 
+}
+    

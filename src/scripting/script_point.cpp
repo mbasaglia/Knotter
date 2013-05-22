@@ -57,3 +57,17 @@ QScriptValue build_point (QScriptContext *context, QScriptEngine *engine)
     else // empty point
         return engine->toScriptValue( Script_Point() );
 }
+
+
+/// wrapper to operator-(point)
+QScriptValue opposite_point (QScriptContext *context, QScriptEngine *engine)
+{
+    if ( context->argumentCount() >= 1 )
+    {
+        Script_Point p = qscriptvalue_cast<Script_Point> (context->argument(0));
+
+        return engine->toScriptValue(-p);
+    }
+    else
+        return  engine->toScriptValue(Script_Point());
+}

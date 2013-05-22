@@ -64,8 +64,6 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
 
     QByteArray json_data = file.readAll();
 
-    QString type_string;
-
     #if HAS_QT_5
         QJsonParseError err;
         QJsonDocument json ( QJsonDocument::fromJson(json_data,&err) );
@@ -106,6 +104,9 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
         data["name"] = fi.baseName();
     }
 
+
+
+
     Plugin::Type type = Plugin::Invalid;
     if ( data["type"] == "test" )
         type = Test;
@@ -114,17 +115,40 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
     /// \todo more types here
 
 
-
+    Plugin* p;
     switch (type)
     {
-        case Test: return new Plugin(data,type);
-        case Cusp: return new Plugin_Cusp(data);
+        case Test:
+            return new Plugin(data,type);
+        case Cusp:
+            p = new Plugin_Cusp(data);
+            break;
         default:
             *error = QObject::tr("Unknown plugin type ");
             return nullptr;
 
     }
 
+
+    if ( !data.contains("script") )
+    {
+        *error = QObject::tr("Missing script file");
+        return nullptr;
+    }
+
+
+    QString script_file_name = fi.dir().absoluteFilePath(data.value("script").toString());
+
+    QFile script_file(script_file_name);
+
+    if ( !script_file.open(QFile::Text|QFile::ReadOnly) )
+    {
+        *error = QObject::tr("Error while opening script file %1").arg(script_file_name);
+        delete p;
+        return nullptr;
+    }
+    p->m_script = QScriptProgram(script_file.readAll(),data.value("script").toString());
+    return p;
 }
 
 QIcon Plugin::icon() const

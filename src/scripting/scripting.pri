@@ -20,12 +20,14 @@ HEADERS += \
     $$PWD/script_point.hpp \
     $$PWD/plugin.hpp \
     $$PWD/cusp_scripted.hpp \
-    $$PWD/plugin_cusp.hpp
+    $$PWD/plugin_cusp.hpp \
+    $$PWD/script_path_builder.hpp
 
 SOURCES += \
     $$PWD/script_line.cpp \
     $$PWD/plugin.cpp \
     $$PWD/script_point.cpp \
     $$PWD/cusp_scripted.cpp \
-    $$PWD/plugin_cusp.cpp
+    $$PWD/plugin_cusp.cpp \
+    $$PWD/script_path_builder.cpp
 

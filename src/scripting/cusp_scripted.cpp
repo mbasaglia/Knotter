@@ -25,9 +25,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "cusp_scripted.hpp"
+#include "script_line.hpp"
+#include "script_path_builder.hpp"
+#include "script_point.hpp"
+#include "traversal_info.hpp"
+#include "resource_manager.hpp"
 
 void Cusp_Scripted::draw_joint(Path_Builder &path, const Traversal_Info &ti, const Node_Style &style) const
 {
     /// \todo
+
+
+    Script_Line start_handle = ti.in.edge->style()->handle(ti.in.edge,ti.in.handle,style);
+    Script_Line finish_handle = ti.out.edge->style()->handle(ti.out.edge,ti.out.handle,style);
+    Script_Point cusp_point = this->cusp_point(ti,style.cusp_distance);
+    Script_Point node_point = ti.node->pos();
+
+    QScriptEngine& engine = Resource_Manager::script_engine();
+
+
+    engine.globalObject().setProperty("start_handle",engine.toScriptValue(start_handle));
+    engine.globalObject().setProperty("finish_handle",engine.toScriptValue(finish_handle));
+    engine.globalObject().setProperty("cusp_point",engine.toScriptValue(cusp_point));
+    engine.globalObject().setProperty("node_point",engine.toScriptValue(node_point));
+    engine.globalObject().setProperty("angle",ti.angle_delta);
+    engine.globalObject().setProperty("handle_length",style.handle_length);
+    engine.globalObject().setProperty("cusp_angle",style.cusp_angle);
+    engine.globalObject().setProperty("cusp_distance",style.cusp_distance);
+
+
+    Script_Path_Builder script_path(&path);
+    engine.globalObject().setProperty("path",engine.newQObject(&script_path));
+
+    engine.evaluate(plugin->script_program());
+    if ( engine.hasUncaughtException() )
+    {
+        qWarning() << plugin->string_data("script") << ":"
+                   << engine.uncaughtExceptionLineNumber()
+                   << QObject::tr("Error:")
+                   << engine.uncaughtException().toString();
+
+        qWarning() << engine.uncaughtExceptionBacktrace();
+
+        engine.clearExceptions();
+    }
 }
 

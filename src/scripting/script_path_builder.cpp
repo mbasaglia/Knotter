@@ -24,31 +24,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef SCRIPT_POINT_HPP
-#define SCRIPT_POINT_HPP
+#include "script_path_builder.hpp"
 
-
-#include <QMetaType>
-#include <QScriptEngine>
-#include <QPointF>
-
-/**
-    Wrapper to QPointF
-*/
-typedef QPointF Script_Point;
-Q_DECLARE_METATYPE(Script_Point)
-
-
-
-/// Wrapper to line constructors
-QScriptValue build_point (QScriptContext *context, QScriptEngine *engine);
-/// Convert C++ object to JS object
-QScriptValue point_to_script(QScriptEngine *engine, const Script_Point &p);
-/// Convert JS object to C++ Object
-void point_from_script(const QScriptValue &obj, Script_Point &p);
-
-
-/// wrapper to operator-(point)
-QScriptValue opposite_point (QScriptContext *context, QScriptEngine *engine);
-
-#endif // SCRIPT_POINT_HPP

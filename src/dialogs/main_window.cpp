@@ -46,7 +46,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Main_Window::Main_Window(QWidget *parent) :
     QMainWindow(parent), zoomer(nullptr), view(nullptr),
-    dialog_export_image(this), about_dialog(this), dialog_insert_polygon(this)
+    dialog_export_image(this), about_dialog(this), dialog_insert_polygon(this),
+    dialog_plugins(this)
 {
     setupUi(this);
     setWindowIcon(QIcon(Resource_Manager::data("img/icon-small.svg")));
