@@ -31,9 +31,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Plugin_Cusp : public Plugin
 {
+    class Cusp_Scripted *cusp_shape;
 public:
     Plugin_Cusp(const QVariantMap &metadata);
+    ~Plugin_Cusp();
 
+    /**
+     *  \brief Machine name for the cusp shape, used when saving to XML
+     */
     QString machine_name() const;
 
 protected:

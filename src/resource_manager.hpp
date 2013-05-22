@@ -53,8 +53,8 @@ class Resource_Manager : public QObject
     QMap<QString,QTranslator*> translators; ///< map lang_code -> translator
     QTranslator* current_translator;
 
-    QVector<Edge_Style*> m_edge_styles;
-    QVector<Cusp_Shape*> m_cusp_shapes;
+    QList<Edge_Style*> m_edge_styles;
+    QList<Cusp_Shape*> m_cusp_shapes;
 
     QScriptEngine *m_script_engine;
     QList<Plugin*>  m_plugins;
@@ -150,7 +150,7 @@ public:
      */
     static Edge_Style* default_edge_style();
 
-    static QVector<Edge_Style*> edge_styles() { return singleton.m_edge_styles; }
+    static QList<Edge_Style*> edge_styles() { return singleton.m_edge_styles; }
 
     /**
      *  \brief Cycle edge styles
@@ -190,7 +190,15 @@ public:
     */
     static void register_cusp_shape(Cusp_Shape* style);
 
-    static QVector<Cusp_Shape*> cusp_shapes() { return singleton.m_cusp_shapes; }
+    /**
+     * \brief Removes a cusp style
+     *
+     * The object is not destroyed but loses ownership, the caller
+     * becomes responsible of destructing the shape object.
+     */
+    static void remove_cusp_shape(Cusp_Shape* shape);
+
+    static QList<Cusp_Shape*> cusp_shapes() { return singleton.m_cusp_shapes; }
 
     static Cusp_Shape* default_cusp_shape();
     /**
@@ -226,6 +234,8 @@ signals:
 
     void language_changed();
 
+    /// Emitted when a cusp shape is registered or removed
+    void cusp_shapes_changed();
 };
 
 #endif // RESOURCE_MANAGER_HPP

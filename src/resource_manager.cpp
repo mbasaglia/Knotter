@@ -374,6 +374,13 @@ Edge_Style *Resource_Manager::edge_style_from_machine_name(QString name)
 void Resource_Manager::register_cusp_shape(Cusp_Shape *style)
 {
     singleton.m_cusp_shapes.push_back(style);
+    emit singleton.cusp_shapes_changed();
+}
+
+void Resource_Manager::remove_cusp_shape(Cusp_Shape *shape)
+{
+    singleton.m_cusp_shapes.removeOne(shape);
+    emit singleton.cusp_shapes_changed();
 }
 
 Cusp_Shape *Resource_Manager::default_cusp_shape()

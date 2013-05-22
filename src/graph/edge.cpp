@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "edge.hpp"
 #include "graph.hpp"
-#include <QVector2D>
+//#include <QVector2D>
 #include "edge_style.hpp"
 
 Edge::Edge(Node *v1, Node *v2, Edge_Style* e_style) :

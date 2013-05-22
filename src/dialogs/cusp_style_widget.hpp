@@ -59,6 +59,7 @@ signals:
 private slots:
     void on_combo_cusp_shape_activated(int index);
     void checkbox_toggled();
+    void reload_cusp_shapes();
 
 private:
     /// Copy tooltip from buddy to label
@@ -66,6 +67,8 @@ private:
 
     /// Cusp shape associaated with combo box index
     Cusp_Shape* cusp_shape(int index) const;
+
+    void load_cusp_shapes();
 };
 
 #endif // CUSP_STYLE_WIDGET_HPP

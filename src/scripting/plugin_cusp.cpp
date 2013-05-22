@@ -33,6 +33,13 @@ Plugin_Cusp::Plugin_Cusp(const QVariantMap &metadata)
 {
     if ( icon().isNull() )
         set_data("icon","cusp-other");
+    cusp_shape = new Cusp_Scripted(this);
+}
+
+Plugin_Cusp::~Plugin_Cusp()
+{
+    if ( !Resource_Manager::cusp_shapes().contains(cusp_shape) )
+        delete cusp_shape;
 }
 
 QString Plugin_Cusp::machine_name() const
@@ -44,5 +51,10 @@ QString Plugin_Cusp::machine_name() const
 void Plugin_Cusp::on_enable(bool b)
 {
     if ( b )
-        Resource_Manager::register_cusp_shape(new Cusp_Scripted(this));
+    {
+        if ( !Resource_Manager::cusp_shapes().contains(cusp_shape) )
+            Resource_Manager::register_cusp_shape(cusp_shape);
+    }
+    else
+        Resource_Manager::remove_cusp_shape(cusp_shape);
 }

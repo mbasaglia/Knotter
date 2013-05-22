@@ -34,6 +34,8 @@ Cusp_Style_Widget::Cusp_Style_Widget(QWidget *parent) :
     setupUi(this);
     label_tooltip();
 
+
+    combo_cusp_shape->clear();
     foreach(Cusp_Shape* cs, Resource_Manager::cusp_shapes())
         combo_cusp_shape->addItem(cs->icon(),cs->name(),
                                   QVariant::fromValue(cs) );
@@ -46,6 +48,9 @@ Cusp_Style_Widget::Cusp_Style_Widget(QWidget *parent) :
             SIGNAL(cusp_angle_changed(double)));
     connect(spin_cusp_distance,SIGNAL(valueChanged(double)),
             SIGNAL(cusp_distance_changed(double)));
+
+    connect(Resource_Manager::pointer,SIGNAL(cusp_shapes_changed()),
+            SLOT(reload_cusp_shapes()));
 
 }
 
@@ -147,6 +152,7 @@ Cusp_Shape *Cusp_Style_Widget::cusp_shape(int index) const
     return combo_cusp_shape->itemData(index).value<Cusp_Shape*>();
 }
 
+
 void Cusp_Style_Widget::changeEvent(QEvent *e)
 {
     QWidget::changeEvent(e);
@@ -155,33 +161,7 @@ void Cusp_Style_Widget::changeEvent(QEvent *e)
         {
             retranslateUi(this);
             label_tooltip();
-
-            // reload cusp shapes
-            int current_index = combo_cusp_shape->currentIndex();
-            Cusp_Shape* current_shape = cusp_shape();
-            blockSignals(true);
-            combo_cusp_shape->clear();
-
-            for( int i = 0; i < Resource_Manager::cusp_shapes().size(); i++ )
-            {
-                Cusp_Shape* cs = Resource_Manager::cusp_shapes()[i];
-                if ( cs == current_shape )
-                    current_index = i;
-                combo_cusp_shape->addItem(cs->icon(),cs->name(),
-                                          QVariant::fromValue(cs) );
-            }
-
-            if ( current_index > combo_cusp_shape->count() )
-                current_index = 0;
-
-            combo_cusp_shape->setCurrentIndex(current_index);
-
-            blockSignals(false);
-
-            Cusp_Shape* new_shape = cusp_shape(current_index);
-
-            if ( new_shape != current_shape )
-                emit cusp_shape_changed(new_shape);
+            reload_cusp_shapes();
         }
             break;
         default:
@@ -207,4 +187,36 @@ void Cusp_Style_Widget::label_tooltip()
         if ( bud )
             l->setToolTip(bud->toolTip());
     }
+}
+
+void Cusp_Style_Widget::reload_cusp_shapes()
+{
+
+    // reload cusp shapes
+    int current_index = combo_cusp_shape->currentIndex();
+    Cusp_Shape* current_shape = cusp_shape();
+
+    blockSignals(true);
+    combo_cusp_shape->clear();
+
+    for( int i = 0; i < Resource_Manager::cusp_shapes().size(); i++ )
+    {
+        Cusp_Shape* cs = Resource_Manager::cusp_shapes()[i];
+        if ( cs == current_shape )
+            current_index = i;
+        combo_cusp_shape->addItem(cs->icon(),cs->name(),
+                                  QVariant::fromValue(cs) );
+    }
+
+    if ( current_index >= combo_cusp_shape->count() )
+        current_index = 0;
+
+    combo_cusp_shape->setCurrentIndex(current_index);
+
+    blockSignals(false);
+
+    Cusp_Shape* new_shape = cusp_shape(current_index);
+
+    if ( new_shape != current_shape )
+        emit cusp_shape_changed(new_shape);
 }
