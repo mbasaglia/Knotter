@@ -56,10 +56,10 @@ class Script_Path_Builder : public QObject
             pb->add_quad(begin,control,end);
         }
 
-        Q_INVOKABLE void new_group()
+        /*Q_INVOKABLE void new_group()
         {
             pb->new_group();
-        }
+        }*/
 };
 
 #endif // SCRIPT_PATH_BUILDER_HPP

@@ -1,6 +1,9 @@
 {
     "name"          : "Example cusp plugin",
+    "version"       : "1.0",
     "description"   : "An implementation of the built-in rounded cusp as a plugin",
+    "author"        : "Mattia Basaglia",
+    "license"       : "GPLv3+",
     "type"          : "cusp",
     "icon"          : "cusp-round",
     "script"        : "example_cusp.js" 
