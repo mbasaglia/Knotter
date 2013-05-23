@@ -52,6 +52,17 @@ Cusp_Style_Widget::Cusp_Style_Widget(QWidget *parent) :
     connect(Resource_Manager::pointer,SIGNAL(cusp_shapes_changed()),
             SLOT(reload_cusp_shapes()));
 
+    mapper.setMapping(check_crossing_gap,Node_Style::CROSSING_DISTANCE);
+    mapper.setMapping(check_cusp_angle,Node_Style::CUSP_ANGLE);
+    mapper.setMapping(check_cusp_distance,Node_Style::CUSP_DISTANCE);
+    mapper.setMapping(check_cusp_shape,Node_Style::CUSP_SHAPE);
+    mapper.setMapping(check_handle_length,Node_Style::HANDLE_LENGTH);
+    connect(&mapper,SIGNAL(mapped(int)),SLOT(checkbox_toggled(int)));
+    foreach(QCheckBox* cb, findChildren<QCheckBox*>() )
+    {
+        connect(cb,SIGNAL(clicked()),&mapper,SLOT(map()));
+    }
+
 }
 
 void Cusp_Style_Widget::set_style(const Node_Style &st)
@@ -174,9 +185,35 @@ void Cusp_Style_Widget::on_combo_cusp_shape_activated(int index)
     emit cusp_shape_changed(cusp_shape(index));
 }
 
-void Cusp_Style_Widget::checkbox_toggled()
+void Cusp_Style_Widget::checkbox_toggled(int style)
 {
     emit enabled_styles_changed(enabled_styles());
+
+    if ( qobject_cast<QCheckBox*>(mapper.mapping(style))->isChecked() )
+    {
+        switch(Node_Style::Enabled_Styles_Enum(style))
+        {
+            case Node_Style::CROSSING_DISTANCE:
+                emit crossing_distance_changed(spin_crossing_gap->value());
+                break;
+            case Node_Style::CUSP_ANGLE:
+                emit cusp_angle_changed(spin_cusp_angle->value());
+                break;
+            case Node_Style::CUSP_DISTANCE:
+                emit cusp_distance_changed(spin_cusp_distance->value());
+                break;
+            case Node_Style::CUSP_SHAPE:
+                emit cusp_shape_changed(cusp_shape(combo_cusp_shape->currentIndex()));
+                break;
+            case Node_Style::HANDLE_LENGTH:
+                emit handle_length_changed(spin_handle_length->value());
+                break;
+            case Node_Style::NOTHING:
+            case Node_Style::EVERYTHING:
+                break;
+        }
+
+    }
 }
 
 void Cusp_Style_Widget::label_tooltip()

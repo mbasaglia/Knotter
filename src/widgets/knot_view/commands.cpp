@@ -535,7 +535,6 @@ void Knot_Style_Cusp_Shape::redo()
 Node_Style_Base::Node_Style_Base(QList<Node *> nodes, Knot_View *kv, Knot_Macro *parent)
     : Knot_Command(kv,parent), nodes(nodes)
 {
-    setText(tr("Change Selection Style"));
 }
 
 Node_Style_Basic_Double_Parameter::Node_Style_Basic_Double_Parameter
@@ -595,6 +594,7 @@ Node_Style_Cusp_Shape::Node_Style_Cusp_Shape(
         Knot_View *kv,Knot_Macro *parent)
     :Node_Style_Base(nodes,kv,parent), before(before), after(after)
 {
+     setText(tr("Change Selection Cusp Shape"));
 }
 void Node_Style_Cusp_Shape::undo()
 {

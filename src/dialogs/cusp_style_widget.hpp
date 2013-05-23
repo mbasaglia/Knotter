@@ -29,10 +29,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ui_cusp_style_widget.h"
 #include "node_style.hpp"
+#include <QSignalMapper>
 
 class Cusp_Style_Widget : public QWidget, private Ui::Cusp_Style_Widget
 {
     Q_OBJECT
+
+    QSignalMapper mapper;
     
 public:
     explicit Cusp_Style_Widget(QWidget *parent = 0);
@@ -58,7 +61,7 @@ signals:
 
 private slots:
     void on_combo_cusp_shape_activated(int index);
-    void checkbox_toggled();
+    void checkbox_toggled(int style);
     void reload_cusp_shapes();
 
 private:

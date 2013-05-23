@@ -480,7 +480,7 @@ public:
             QList<Node*> nodes, QList<double> before, QList<double> after,
             Knot_View* kv, Knot_Macro* parent = nullptr)
         : Node_Style_Basic_Double_Parameter(nodes, before,after,kv,parent)
-    { }
+    { setText(tr("Change Selection Curve Control")); }
 
     void apply(Node* node, double value) override;
     int id() const override { return m_id; }
@@ -497,7 +497,7 @@ public:
             QList<Node*> nodes, QList<double> before, QList<double> after,
             Knot_View* kv, Knot_Macro* parent = nullptr)
         : Node_Style_Basic_Double_Parameter(nodes, before,after,kv,parent)
-    { }
+    { setText(tr("Change Selection Cusp Distance")); }
 
     void apply(Node* node, double value) override;
     int id() const override { return m_id; }
@@ -514,7 +514,7 @@ public:
             QList<Node*> nodes, QList<double> before, QList<double> after,
             Knot_View* kv, Knot_Macro* parent = nullptr)
         : Node_Style_Basic_Double_Parameter(nodes, before,after,kv,parent)
-    { }
+    { setText(tr("Change Selection Cusp Angle")); }
 
     void apply(Node* node, double value) override;
     int id() const override { return m_id; }
@@ -531,7 +531,7 @@ public:
             QList<Node*> nodes, QList<double> before, QList<double> after,
             Knot_View* kv, Knot_Macro* parent = nullptr)
         : Node_Style_Basic_Double_Parameter(nodes, before,after,kv,parent)
-    { }
+    { setText(tr("Change Selection Crossing Gap")); }
 
     void apply(Node* node, double value) override;
     int id() const override { return m_id; }
