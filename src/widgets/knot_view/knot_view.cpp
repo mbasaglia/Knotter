@@ -650,6 +650,10 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
     {
         // drag view
         setCursor(Qt::ClosedHandCursor);
+        if ( mouse_mode & EDGE_CHAIN )
+        {
+            scene()->addItem(&guide);
+        }
     }
     else if ( mouse_mode & MOVE_BACK)
     {
@@ -873,7 +877,7 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
 
         mouse_mode &= ~RUBBERBAND;
     }
-    else if ( mouse_mode & MOVE_NODES )
+    else if ( mouse_mode & MOVE_NODES && event->button() != Qt::MiddleButton )
     {
         last_node = nullptr;
         mouse_mode &=~ MOVE_NODES;
