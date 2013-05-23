@@ -642,18 +642,14 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
     QPointF scene_pos = mapToScene(mpos);
     QPointF snapped_scene_pos = m_grid.nearest(scene_pos);
 
-    if ( guide.scene() )
+    if ( guide.scene() && event->button() != Qt::MiddleButton )
         scene()->removeItem(&guide);
 
 
-    if ( event->buttons() & Qt::MiddleButton )
+    if ( event->button() == Qt::MiddleButton )
     {
         // drag view
         setCursor(Qt::ClosedHandCursor);
-        if ( mouse_mode & EDGE_CHAIN )
-        {
-            scene()->addItem(&guide);
-        }
     }
     else if ( mouse_mode & MOVE_BACK)
     {
@@ -661,7 +657,7 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
     }
     else if ( !(mouse_mode & EXTERNAL) )
     {
-        if ( mouse_mode & EDIT_GRAPH && event->buttons() & Qt::LeftButton )
+        if ( mouse_mode & EDIT_GRAPH && event->button() == Qt::LeftButton )
         {
             Node* n = node_at(scene_pos);
             Edge* e = edge_at(scene_pos);
@@ -710,7 +706,7 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
                 }
             }
         }
-        else if ( mouse_mode & EDIT_GRAPH || event->button() & Qt::RightButton )
+        else if ( mouse_mode & EDIT_GRAPH || event->button() == Qt::RightButton )
         {
             Node* n = node_at(scene_pos);
             Edge* e = edge_at(scene_pos);
