@@ -34,8 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 void Cusp_Scripted::draw_joint(Path_Builder &path, const Traversal_Info &ti, const Node_Style &style) const
 {
     /// \todo
-
-
+    Script_Line input_edge = ti.in.edge->to_line();
+    Script_Line output_edge = ti.out.edge->to_line();
     Script_Line start_handle = ti.in.edge->style()->handle(ti.in.edge,ti.in.handle,style);
     Script_Line finish_handle = ti.out.edge->style()->handle(ti.out.edge,ti.out.handle,style);
     Script_Point cusp_point = this->cusp_point(ti,style.cusp_distance);
@@ -44,10 +44,12 @@ void Cusp_Scripted::draw_joint(Path_Builder &path, const Traversal_Info &ti, con
     QScriptEngine& engine = Resource_Manager::script_engine();
 
 
+    engine.globalObject().setProperty("input_edge",engine.toScriptValue(input_edge));
+    engine.globalObject().setProperty("output_edge",engine.toScriptValue(output_edge));
     engine.globalObject().setProperty("start_handle",engine.toScriptValue(start_handle));
     engine.globalObject().setProperty("finish_handle",engine.toScriptValue(finish_handle));
-    engine.globalObject().setProperty("cusp_point",engine.toScriptValue(cusp_point));
     engine.globalObject().setProperty("node_point",engine.toScriptValue(node_point));
+    engine.globalObject().setProperty("cusp_point",engine.toScriptValue(cusp_point));
     engine.globalObject().setProperty("angle",ti.angle_delta);
     engine.globalObject().setProperty("handle_length",style.handle_length);
     engine.globalObject().setProperty("cusp_angle",style.cusp_angle);
