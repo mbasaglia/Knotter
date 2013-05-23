@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "script_line.hpp"
+#include "c++.hpp"
 
 /// wrapper to line constructors
 QScriptValue build_line (QScriptContext *context, QScriptEngine *engine)
@@ -53,6 +54,6 @@ QScriptValue line_to_script(QScriptEngine *engine, const Script_Line &l)
 
 void line_from_script(const QScriptValue &obj, Script_Line &l)
 {
-    l.setP1 ( obj.property("p1").toVariant().value<Script_Point>() );
-    l.setP2 ( obj.property("p2").toVariant().value<Script_Point>() );
+    l.setP1 ( qscriptvalue_cast<Script_Point>(obj.property("p1")) );
+    l.setP2 ( qscriptvalue_cast<Script_Point>(obj.property("p2")) );
 }

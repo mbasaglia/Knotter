@@ -103,6 +103,10 @@ class Script_Line : public QObject
         Q_INVOKABLE void translate(const Script_Point& off) { line.translate(off); }
         Q_INVOKABLE void translate(double x, double y) { line.translate(x,y); }
 
+        Q_INVOKABLE QString toString() const {
+            return QString("(%1,%2) -- (%3,%4)").arg(x1()).arg(y1()).arg(x2()).arg(y2());
+        }
+
 
 };
 
