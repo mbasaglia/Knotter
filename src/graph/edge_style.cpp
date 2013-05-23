@@ -58,6 +58,8 @@ QLineF Edge_Normal::handle(const Edge *edge, Edge::Handle handle,
                           const Node_Style &default_style) const
 {
 
+    Node_Style style = edge->vertex_for(handle)->style().default_to(default_style);
+
     long double handle_angle = 0;
     if ( handle == Edge::TOP_RIGHT )
         handle_angle = pi()/4.0;
@@ -70,12 +72,12 @@ QLineF Edge_Normal::handle(const Edge *edge, Edge::Handle handle,
 
     handle_angle += deg2rad(edge->to_line().angle());
     QPointF p1 = edge->midpoint();
-    p1.setX(p1.x()+default_style.crossing_distance/2*qCos(handle_angle));
-    p1.setY(p1.y()-default_style.crossing_distance/2*qSin(handle_angle));
+    p1.setX(p1.x()+style.crossing_distance/2*qCos(handle_angle));
+    p1.setY(p1.y()-style.crossing_distance/2*qSin(handle_angle));
 
     QPointF p2;
-    p2.setX(p1.x()+default_style.handle_length*qCos(handle_angle));
-    p2.setY(p1.y()-default_style.handle_length*qSin(handle_angle));
+    p2.setX(p1.x()+style.handle_length*qCos(handle_angle));
+    p2.setY(p1.y()-style.handle_length*qSin(handle_angle));
 
     return QLineF(p1,p2);
 }
@@ -86,6 +88,7 @@ Edge::Handle Edge_Normal::traverse(Edge *edge, Edge::Handle hand,
                                    Path_Builder &path,
                                    const Node_Style &default_style) const
 {
+
     Edge::Handle next = Edge::NO_HANDLE;
     if ( hand == Edge::TOP_RIGHT )
         next = Edge::BOTTOM_LEFT;
@@ -178,22 +181,29 @@ void Edge_Wall::paint(QPainter *painter, const Edge &edge)
     painter->drawLine(edge.to_line());
 }
 
-Edge::Handle Edge_Wall::traverse(Edge *edge, Edge::Handle handle,
+Edge::Handle Edge_Wall::traverse(Edge *edge, Edge::Handle hand,
                         Path_Builder &path, const Node_Style &default_style) const
 {
     Edge::Handle next = Edge::NO_HANDLE;
-    if ( handle == Edge::TOP_RIGHT )
+    if ( hand == Edge::TOP_RIGHT )
         next = Edge::TOP_LEFT;
-    else if ( handle == Edge::BOTTOM_RIGHT )
+    else if ( hand == Edge::BOTTOM_RIGHT )
         next = Edge::BOTTOM_LEFT;
-    else if ( handle == Edge::BOTTOM_LEFT )
+    else if ( hand == Edge::BOTTOM_LEFT )
         next = Edge::BOTTOM_RIGHT;
-    else if ( handle == Edge::TOP_LEFT )
+    else if ( hand == Edge::TOP_LEFT )
         next = Edge::TOP_RIGHT;
 
-    Q_UNUSED(edge);
+    /*Q_UNUSED(edge);
     Q_UNUSED(path);
-    Q_UNUSED(default_style);
+    Q_UNUSED(default_style);*/
+
+    QLineF h1 = handle(edge,hand,default_style);
+    QLineF h2 = handle(edge,next,default_style);
+    if ( !qFuzzyCompare(h1.p1(),h2.p1()) )
+    {
+        path.add_line(h1.p1(),h2.p1());
+    }
 
    return next ;
 }
@@ -213,6 +223,8 @@ QLineF Edge_Wall::handle(const Edge *edge, Edge::Handle handle,
                          const Node_Style &default_style) const
 {
 
+    Node_Style style = edge->vertex_for(handle)->style().default_to(default_style);
+
     long double handle_angle = 0;
     if ( handle == Edge::TOP_RIGHT || handle == Edge::TOP_LEFT )
         handle_angle = pi()/2.0;
@@ -223,8 +235,8 @@ QLineF Edge_Wall::handle(const Edge *edge, Edge::Handle handle,
     handle_angle += edge_angle;
 
     QPointF p1 = edge->midpoint();
-    p1.setX(p1.x()+default_style.crossing_distance/2*qCos(handle_angle));
-    p1.setY(p1.y()-default_style.crossing_distance/2*qSin(handle_angle));
+    p1.setX(p1.x()+style.crossing_distance/2*qCos(handle_angle));
+    p1.setY(p1.y()-style.crossing_distance/2*qSin(handle_angle));
 
 
     if ( handle == Edge::TOP_RIGHT || handle == Edge::BOTTOM_RIGHT )
@@ -234,8 +246,19 @@ QLineF Edge_Wall::handle(const Edge *edge, Edge::Handle handle,
     handle_angle += edge_angle;
 
     QPointF p2;
-    p2.setX(p1.x()+default_style.handle_length*qCos(handle_angle));
-    p2.setY(p1.y()-default_style.handle_length*qSin(handle_angle));
+    p2.setX(p1.x()+style.handle_length*qCos(handle_angle));
+    p2.setY(p1.y()-style.handle_length*qSin(handle_angle));
+
+
+    /*double cd1 = style.crossing_distance;
+    double cd2 = edge->other(edge->vertex_for(handle))->style()
+                    .default_to(default_style).crossing_distance;
+    if ( !qFuzzyCompare(cd1,cd2) )
+    {
+        p1 = p2;
+        p2.setX(p1.x()+style.handle_length*qCos(handle_angle));
+        p2.setY(p1.y()-style.handle_length*qSin(handle_angle));
+    }*/
 
     return QLineF(p1,p2);
 }
@@ -254,6 +277,8 @@ QString Edge_Hole::machine_name() const
 QLineF Edge_Hole::handle(const Edge *edge, Edge::Handle handle,
                          const Node_Style &default_style) const
 {
+    Node_Style style = edge->vertex_for(handle)->style().default_to(default_style);
+
     long double handle_angle = 0;
     if ( handle == Edge::BOTTOM_LEFT || handle == Edge::TOP_LEFT )
         handle_angle = pi();
@@ -262,8 +287,8 @@ QLineF Edge_Hole::handle(const Edge *edge, Edge::Handle handle,
     handle_angle += edge_angle;
 
     QPointF p1 = edge->midpoint();
-    p1.setX(p1.x()+default_style.crossing_distance/2*qCos(handle_angle));
-    p1.setY(p1.y()-default_style.crossing_distance/2*qSin(handle_angle));
+    p1.setX(p1.x()+style.crossing_distance/2*qCos(handle_angle));
+    p1.setY(p1.y()-style.crossing_distance/2*qSin(handle_angle));
 
 
     if ( handle == Edge::TOP_RIGHT || handle == Edge::TOP_LEFT )
@@ -273,8 +298,8 @@ QLineF Edge_Hole::handle(const Edge *edge, Edge::Handle handle,
     handle_angle += edge_angle;
 
     QPointF p2;
-    p2.setX(p1.x()+default_style.handle_length*qCos(handle_angle));
-    p2.setY(p1.y()-default_style.handle_length*qSin(handle_angle));
+    p2.setX(p1.x()+style.handle_length*qCos(handle_angle));
+    p2.setY(p1.y()-style.handle_length*qSin(handle_angle));
 
     return QLineF(p1,p2);
 

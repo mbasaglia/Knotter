@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "node_style.hpp"
 #include "path_builder.hpp"
 #include "edge.hpp"
+#include "traversal_info.hpp"
 
 class Edge_Style
 {
