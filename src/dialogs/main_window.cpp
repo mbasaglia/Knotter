@@ -501,6 +501,11 @@ void Main_Window::create_tab(QString file)
             dock_knot_display->set_width(view->get_graph().width());
             dock_knot_display->blockSignals(false);
 
+            dock_borders->blockSignals(true);
+            dock_borders->set_borders(view->knot_borders());
+            dock_borders->enable_borders(view->get_graph().paint_border());
+            dock_borders->blockSignals(false);
+
             update_title();
 
             tabWidget->setTabText(tabWidget->currentIndex(),view->file_name());
@@ -570,7 +575,7 @@ void Main_Window::close_tab(int i, bool confirm_if_changed)
         undo_group.removeStack(kv->undo_stack_pointer());
         delete kv;
     }
-    tabWidget->removeTab(i);
+    //tabWidget->removeTab(i);
     if ( tabWidget->count() == 0 )
         create_tab();
 }

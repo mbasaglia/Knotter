@@ -62,8 +62,11 @@ void XML_Loader_v2::get_graph(Graph &kv)
         kv.set_width(stroke.widthF());
         kv.set_join_style(stroke.joinStyle());
 
-        /// \todo re-introduce once (if) borders are implemented
-        //kv.setPen ( get_pen("outline", kv.pen() ) );
+        QPen p = get_pen("outline", Qt::NoPen );
+        if ( p.style() != Qt::NoPen && p.color().alpha() > 0 )
+        {
+            kv.set_borders(Border_List()<<Knot_Border(p.color(),p.widthF()));
+        }
 
         Node_Style ns = get_cusp( "cusp" );
         ns.enabled_style = Node_Style::EVERYTHING;
