@@ -33,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void Cusp_Scripted::draw_joint(Path_Builder &path, const Traversal_Info &ti, const Node_Style &style) const
 {
-    /// \todo
     Script_Line input_edge ( ti.node->pos(), ti.in.edge->other(ti.node)->pos() );
     Script_Line output_edge ( ti.node->pos(), ti.out.edge->other(ti.node)->pos() );
     Script_Line start_handle = ti.in.edge->style()->handle(ti.in.edge,ti.in.handle,style);
