@@ -57,9 +57,9 @@ void Cusp_Rounded::draw_joint(Path_Builder &path, const Traversal_Info &ti,
 
         QLineF handle( start.p1(),finish.p1() );
         handle.translate(cusp_pt-start.p1());
-        handle.setLength(style.handle_length/2);
+        handle.setLength(style.handle_length);
         QPointF h2 = handle.p2();
-        handle.setLength(-style.handle_length/2);
+        handle.setLength(-style.handle_length);
         QPointF h1 = handle.p2();
 
         path.add_cubic(start.p1(),start.p2(),h1,cusp_pt);

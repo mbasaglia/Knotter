@@ -22,9 +22,9 @@ if ( angle > cusp_angle )
     handle = line(start_handle.p1,finish_handle.p1);
     handle.translate(cusp_point);
     handle.translate(opposite(start_handle.p1));
-    handle.length = handle_length/2;
+    handle.length = handle_length;
     h2 = handle.p2;
-    handle.length = -handle_length/2;
+    handle.length = -handle_length;
     h1 = handle.p2;
     // Use the control points to render the cusp
     path.add_cubic ( start_handle.p1, start_handle.p2, h1, cusp_point );
