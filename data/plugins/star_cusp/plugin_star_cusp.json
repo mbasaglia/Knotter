@@ -1,0 +1,10 @@
+{
+    "name"          : "Star cusp",
+    "version"       : "1.0",
+    "author"        : "Mattia Basaglia",
+    "description"   : "A cusp that looks like a star",
+    "license"       : "GPLv3+",
+    "type"          : "cusp",
+    "script"        : "star_cusp.js" 
+}
+    
