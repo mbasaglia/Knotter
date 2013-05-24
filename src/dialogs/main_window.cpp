@@ -205,8 +205,13 @@ void Main_Window::init_docks()
     connect(&undo_group,SIGNAL(redoTextChanged(QString)),SLOT(set_redo_text(QString)));
     connect(&undo_group,SIGNAL(canUndoChanged(bool)),action_Undo,SLOT(setEnabled(bool)));
     connect(&undo_group,SIGNAL(canRedoChanged(bool)),action_Redo,SLOT(setEnabled(bool)));
+
     connect(action_Undo,SIGNAL(triggered()),&undo_group,SLOT(undo()));
     connect(action_Redo,SIGNAL(triggered()),&undo_group,SLOT(redo()));
+
+    connect(action_Undo,SIGNAL(triggered()),SLOT(update_style()));
+    connect(action_Redo,SIGNAL(triggered()),SLOT(update_style()));
+    connect(undo_view,SIGNAL(pressed(QModelIndex)),SLOT(update_style()));
 
     // Menu entries
     foreach(QDockWidget* dw, findChildren<QDockWidget*>())
@@ -381,6 +386,30 @@ void Main_Window::connect_view(Knot_View *v)
     v->set_fluid_refresh(Resource_Manager::settings.fluid_refresh());
     v->enable_cache(Resource_Manager::settings.graph_cache());
 
+}
+
+
+void Main_Window::update_style()
+{
+    // display
+    dock_knot_display->blockSignals(true);
+    dock_knot_display->set_colors(view->knot_colors());
+    dock_knot_display->set_join_style(view->get_graph().join_style());
+    dock_knot_display->set_brush_style(view->get_graph().brush_style());
+    dock_knot_display->set_width(view->get_graph().width());
+    dock_knot_display->toggle_custom_colors(view->get_graph().custom_colors());
+    dock_knot_display->blockSignals(false);
+
+    // border
+    dock_borders->blockSignals(true);
+    dock_borders->set_borders(view->knot_borders());
+    dock_borders->enable_borders(view->get_graph().paint_border());
+    dock_borders->blockSignals(false);
+
+    // style
+    global_style->blockSignals(true);
+    global_style->set_style(view->get_graph().default_node_style());
+    global_style->blockSignals(false);
 }
 
 void Main_Window::disconnect_view(Knot_View *v)
@@ -590,6 +619,7 @@ void Main_Window::set_redo_text(QString txt)
 {
     action_Redo->setText(tr("Redo %1").arg(txt));
 }
+
 
 void Main_Window::on_action_Zoom_In_triggered()
 {

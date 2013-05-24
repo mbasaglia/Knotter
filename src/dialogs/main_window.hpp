@@ -139,6 +139,8 @@ private slots:
     void update_title();
     void set_undo_text(QString txt);
     void set_redo_text(QString txt);
+    /// Update style on undo/redo
+    void update_style();
     void set_tool_button_style(Qt::ToolButtonStyle);
     /**
      *  \brief Sets the current view zoom factor to the value of the slider in the statusbar
