@@ -235,6 +235,10 @@ public:
     /// Run a script in the current context
     static void run_script(Plugin* source);
 
+    static QScriptValue run_script(const QString &program, const QString &fileName = QString(), int lineNumber = 1);
+
+
+    static void emit_script_output(QString s) { emit singleton.script_output(s); }
 
 
 public slots:
@@ -251,8 +255,10 @@ signals:
     /// Emitted when a cusp shape is registered or removed
     void cusp_shapes_changed();
 
-    /// Emitted when a string has to be added to the plugin log
-    void plugin_log(QString);
+    /// Emitted when an error has to be added to the plugin log
+    void script_error(QString file,int line,QString msg, QStringList trace);
+
+    void script_output(QString);
 
 private:
 

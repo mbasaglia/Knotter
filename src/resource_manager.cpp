@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QIcon>
 #include <QCoreApplication>
 #include "script_line.hpp"
+#include "misc_script_functions.hpp"
 
 #if HAS_QT_5
 #include <QStandardPaths>
@@ -202,6 +203,7 @@ void Resource_Manager::initialize(QString default_lang_code)
     engine->globalObject().setProperty("point", engine->newFunction(build_point));
     ///sengine->globalObject().setProperty("diff", engine->newFunction(subtract_points));
     engine->globalObject().setProperty("opposite", engine->newFunction(opposite_point));
+    engine->globalObject().setProperty( "print", engine->newFunction( script_print ) );
 
     //plugins
     load_plugins();
@@ -448,24 +450,32 @@ void Resource_Manager::script_param(QString name, QObject* value)
 
 void Resource_Manager::run_script(Plugin *source)
 {
+    run_script(source->script_program().sourceCode(),
+               source->script_program().fileName(),
+               source->script_program().firstLineNumber());
+}
 
+QScriptValue Resource_Manager::run_script(const QString &program, const QString &fileName, int lineNumber)
+{
     script_context();
-    singleton.m_script_engine->evaluate(source->script_program());
+    QScriptValue result = singleton.m_script_engine->evaluate(program,fileName,lineNumber);
     if ( singleton.m_script_engine->hasUncaughtException() )
     {
-        QString new_log = QObject::tr("%1:%2:Error: %3\nBacktrace:\n")
-                .arg(source->string_data("script"))
-                .arg(singleton.m_script_engine->uncaughtExceptionLineNumber())
-                .arg(singleton.m_script_engine->uncaughtException().toString());
-
-        foreach(QString trace, singleton.m_script_engine->uncaughtExceptionBacktrace() )
-            new_log += trace + '\n';
-        qWarning() << new_log;
+        qWarning() << QObject::tr("%1:%2:Error: %3")
+                      .arg(fileName)
+                      .arg(singleton.m_script_engine->uncaughtExceptionLineNumber())
+                      .arg(singleton.m_script_engine->uncaughtException().toString());;
+        qWarning() << singleton.m_script_engine->uncaughtExceptionBacktrace();
+        emit singleton.script_error(fileName,
+                                  singleton.m_script_engine->uncaughtExceptionLineNumber(),
+                                  singleton.m_script_engine->uncaughtException().toString(),
+                                  singleton.m_script_engine->uncaughtExceptionBacktrace()
+                                );
         singleton.m_script_engine->clearExceptions();
-        emit singleton.plugin_log(new_log);
     }
     singleton.m_script_engine->popContext();
     singleton.current_context = nullptr;
+    return result;
 }
 
 

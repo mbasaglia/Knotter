@@ -29,7 +29,8 @@ HEADERS += \
     $$PWD/cusp_style_dialog.hpp \
     $$PWD/dialog_confirm_close.hpp \
     $$PWD/dialog_plugins.hpp \
-    $$PWD/dock_borders.hpp
+    $$PWD/dock_borders.hpp \
+    $$PWD/dock_script_log.hpp
 
 SOURCES += \
     $$PWD/main_window.cpp \
@@ -44,7 +45,8 @@ SOURCES += \
     $$PWD/cusp_style_dialog.cpp \
     $$PWD/dialog_confirm_close.cpp \
     $$PWD/dialog_plugins.cpp \
-    $$PWD/dock_borders.cpp
+    $$PWD/dock_borders.cpp \
+    $$PWD/dock_script_log.cpp
 
 FORMS += \
     $$PWD/main_window.ui \
@@ -59,4 +61,5 @@ FORMS += \
     $$PWD/cusp_style_dialog.ui \
     $$PWD/dialog_confirm_close.ui \
     $$PWD/dialog_plugins.ui \
-    $$PWD/dock_borders.ui
+    $$PWD/dock_borders.ui \
+    $$PWD/dock_script_log.ui

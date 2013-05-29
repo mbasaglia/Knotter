@@ -213,6 +213,11 @@ void Main_Window::init_docks()
     connect(action_Redo,SIGNAL(triggered()),SLOT(update_style()));
     connect(undo_view,SIGNAL(pressed(QModelIndex)),SLOT(update_style()));
 
+    // Plugin log
+    dock_script_log = new Dock_Script_Log(this);
+    addDockWidget(Qt::BottomDockWidgetArea,dock_script_log);
+    dock_script_log->hide();
+
     // Menu entries
     foreach(QDockWidget* dw, findChildren<QDockWidget*>())
     {

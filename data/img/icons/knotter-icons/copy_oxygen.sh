@@ -86,6 +86,7 @@ icons='application-exit
         transform-move
         transform-rotate
         transform-scale
+        utilities-terminal
         view-history
         view-refresh
         view-restore

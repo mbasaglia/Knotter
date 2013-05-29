@@ -41,6 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPrinter>
 #include "dialog_plugins.hpp"
 #include "dock_borders.hpp"
+#include "dock_script_log.hpp"
 
 class Main_Window : public QMainWindow, private Ui::Main_Window
 {
@@ -62,7 +63,7 @@ private:
     Dialog_Insert_Polygon   dialog_insert_polygon;
     QPrinter                printer;
     Dialog_Plugins          dialog_plugins;
-
+    Dock_Script_Log*        dock_script_log;
 
 public:
     explicit Main_Window(QWidget *parent = 0);
