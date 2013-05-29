@@ -192,6 +192,7 @@ void Resource_Manager::initialize(QString default_lang_code)
 
     // Scripting
     singleton.m_script_engine = new QScriptEngine; // needs to be initialized only after qApp is created
+    singleton.current_context = nullptr;
     QScriptEngine* engine = singleton.m_script_engine; // shorer to write
     qRegisterMetaType<Script_Point>("Script_Point");
     qRegisterMetaType<Script_Line>("Script_Line");
@@ -422,6 +423,49 @@ void Resource_Manager::load_plugins()
     {
         load_plugins(plugin_dir_name);
     }
+}
+
+void Resource_Manager::script_context()
+{
+    if ( singleton.current_context == nullptr )
+        singleton.current_context = singleton.m_script_engine->pushContext();
+}
+
+void Resource_Manager::script_param(QString name, QScriptValue value)
+{
+    script_context();
+    singleton.current_context->activationObject().setProperty(name,value);
+}
+
+
+void Resource_Manager::script_param(QString name, QObject* value)
+{
+    script_context();
+    singleton.current_context->activationObject().setProperty(name,
+              singleton.m_script_engine->newQObject(value)
+    );
+}
+
+void Resource_Manager::run_script(Plugin *source)
+{
+
+    script_context();
+    singleton.m_script_engine->evaluate(source->script_program());
+    if ( singleton.m_script_engine->hasUncaughtException() )
+    {
+        QString new_log = QObject::tr("%1:%2:Error: %3\nBacktrace:\n")
+                .arg(source->string_data("script"))
+                .arg(singleton.m_script_engine->uncaughtExceptionLineNumber())
+                .arg(singleton.m_script_engine->uncaughtException().toString());
+
+        foreach(QString trace, singleton.m_script_engine->uncaughtExceptionBacktrace() )
+            new_log += trace + '\n';
+        qWarning() << new_log;
+        singleton.m_script_engine->clearExceptions();
+        emit singleton.plugin_log(new_log);
+    }
+    singleton.m_script_engine->popContext();
+    singleton.current_context = nullptr;
 }
 
 

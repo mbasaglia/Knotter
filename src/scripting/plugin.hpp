@@ -41,7 +41,8 @@ public:
     {
         Invalid,    ///< An invalid plugin
         Test,       ///< A plugin that has no use
-        Cusp        ///< Node cusp
+        Cusp,       ///< Node cusp
+        Insert      ///< Insert new shapes
     };
 
     QVariantMap     m_metadata;

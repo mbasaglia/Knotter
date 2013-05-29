@@ -40,37 +40,26 @@ void Cusp_Scripted::draw_joint(Path_Builder &path, const Traversal_Info &ti, con
     Script_Point cusp_point = this->cusp_point(ti,style.cusp_distance);
     Script_Point node_point = ti.node->pos();
 
-    QScriptEngine& engine = Resource_Manager::script_engine();
 
 
-    engine.globalObject().setProperty("input_edge",engine.toScriptValue(input_edge));
-    engine.globalObject().setProperty("output_edge",engine.toScriptValue(output_edge));
-    engine.globalObject().setProperty("start_handle",engine.toScriptValue(start_handle));
-    engine.globalObject().setProperty("finish_handle",engine.toScriptValue(finish_handle));
-    engine.globalObject().setProperty("node_point",engine.toScriptValue(node_point));
-    engine.globalObject().setProperty("cusp_point",engine.toScriptValue(cusp_point));
-    engine.globalObject().setProperty("angle",ti.angle_delta);
-    engine.globalObject().setProperty("handle_length",style.handle_length);
-    engine.globalObject().setProperty("cusp_angle",style.cusp_angle);
-    engine.globalObject().setProperty("cusp_distance",style.cusp_distance);
-    engine.globalObject().setProperty("direction",
-        engine.toScriptValue(ti.handside == Traversal_Info::LEFT ? -1 : +1 ));
+
+    Resource_Manager::script_param_template("input_edge",input_edge);
+    Resource_Manager::script_param_template("output_edge",output_edge);
+    Resource_Manager::script_param_template("start_handle",start_handle);
+    Resource_Manager::script_param_template("finish_handle",finish_handle);
+    Resource_Manager::script_param_template("node_point",node_point);
+    Resource_Manager::script_param_template("cusp_point",cusp_point);
+    Resource_Manager::script_param_template("angle",ti.angle_delta);
+    Resource_Manager::script_param_template("handle_length",style.handle_length);
+    Resource_Manager::script_param_template("cusp_angle",style.cusp_angle);
+    Resource_Manager::script_param_template("cusp_distance",style.cusp_distance);
+    Resource_Manager::script_param_template("direction", ti.handside == Traversal_Info::LEFT ? -1 : +1 );
 
 
     Script_Path_Builder script_path(&path);
-    engine.globalObject().setProperty("path",engine.newQObject(&script_path));
+    Resource_Manager::script_param("path",&script_path);
 
-    engine.evaluate(plugin->script_program());
-    if ( engine.hasUncaughtException() )
-    {
-        qWarning() << plugin->string_data("script") << ":"
-                   << engine.uncaughtExceptionLineNumber()
-                   << QObject::tr("Error:")
-                   << engine.uncaughtException().toString();
+    Resource_Manager::run_script(plugin);
 
-        qWarning() << engine.uncaughtExceptionBacktrace();
-
-        engine.clearExceptions();
-    }
 }
 
