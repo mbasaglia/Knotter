@@ -65,6 +65,14 @@ public:
      */
     QString string_data(QString name) const { return m_metadata[name].toString(); }
 
+    template<class T>
+        T data(QString name, T def = T()) const
+        {
+            if ( m_metadata.contains(name) && m_metadata[name].canConvert<T>() )
+                return m_metadata[name].value<T>();
+            return def;
+        }
+
     /// Whether the plugin has been enabled
     bool enabled() const { return m_enabled; }
     /// Enable or disable the plugin

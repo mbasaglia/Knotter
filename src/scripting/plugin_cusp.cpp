@@ -34,6 +34,9 @@ Plugin_Cusp::Plugin_Cusp(const QVariantMap &metadata)
     if ( icon().isNull() )
         set_data("icon","cusp-other");
     cusp_shape = new Cusp_Scripted(this);
+
+    if ( data("auto_enable",true) )
+        enable(true);
 }
 
 Plugin_Cusp::~Plugin_Cusp()

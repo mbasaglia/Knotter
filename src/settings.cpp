@@ -67,12 +67,12 @@ void Settings::load_config()
 
     m_check_unsaved_files = settings.value("check_unsaved_files",m_check_unsaved_files).toBool();
 
-    QStringList enabled_plugins = settings.value("enabled_plugins").toStringList();
+    QStringList disabled_plugins = settings.value("disabled_plugins").toStringList();
     foreach(Plugin* p, Resource_Manager::plugins())
     {
         QString name = p->string_data("plugin_file");
-        if ( !name.isEmpty() && enabled_plugins.contains(name) )
-            p->enable(true);
+        if ( !name.isEmpty() && disabled_plugins.contains(name) )
+            p->enable(false);
     }
 
     settings.beginGroup("gui");
@@ -149,13 +149,13 @@ void Settings::save_config()
 
     settings.setValue("check_unsaved_files",m_check_unsaved_files);
 
-    QStringList enabled_plugins;
+    QStringList disabled_plugins;
     foreach ( Plugin* p, Resource_Manager::plugins() )
     {
-        if ( p->enabled() )
-            enabled_plugins << p->string_data("plugin_file");
+        if ( !p->enabled() )
+            disabled_plugins << p->string_data("plugin_file");
     }
-    settings.setValue("enabled_plugins",enabled_plugins);
+    settings.setValue("disabled_plugins",disabled_plugins);
 
     settings.beginGroup("gui");
 

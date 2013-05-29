@@ -6,6 +6,7 @@
     "license"       : "GPLv3+",
     "type"          : "cusp",
     "icon"          : "cusp-round",
-    "script"        : "example_cusp.js" 
+    "script"        : "example_cusp.js",
+    "auto_enable"   : false
 }
     
