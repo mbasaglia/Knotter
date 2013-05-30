@@ -236,6 +236,8 @@ Graph Graph::sub_graph(QList<Node *> nodes) const
         }
     }
 
+    graph.render_knot();
+
     return graph;
 
 }

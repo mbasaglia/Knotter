@@ -47,7 +47,7 @@ QScriptValue build_line (QScriptContext *context, QScriptEngine *engine)
 
 QScriptValue line_to_script(QScriptEngine *engine, const Script_Line &l)
 {
-    QScriptValue obj = engine->newQObject(new Script_Line(l));
+    QScriptValue obj = engine->newQObject(new Script_Line(l),QScriptEngine::ScriptOwnership);
     return obj;
 }
 

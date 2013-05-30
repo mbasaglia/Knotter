@@ -24,7 +24,8 @@ HEADERS += \
     $$PWD/script_path_builder.hpp \
     src/scripting/plugin_insert.hpp \
     src/scripting/plugin_param.hpp \
-    src/scripting/misc_script_functions.hpp
+    src/scripting/misc_script_functions.hpp \
+    src/scripting/script_node.hpp
 
 SOURCES += \
     $$PWD/script_line.cpp \
@@ -35,5 +36,6 @@ SOURCES += \
     $$PWD/script_path_builder.cpp \
     src/scripting/plugin_insert.cpp \
     src/scripting/plugin_param.cpp \
-    src/scripting/misc_script_functions.cpp
+    src/scripting/misc_script_functions.cpp \
+    src/scripting/script_node.cpp
 
