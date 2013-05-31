@@ -66,7 +66,7 @@ class Knot_View : public QGraphicsView
     Q_DECLARE_FLAGS(Mouse_Mode,Mouse_Mode_Enum)
 
     QPoint              move_center; ///< Point aligned to the cursor during movement
-    Graph               graph;
+    Graph               m_graph;
     QUndoStack          undo_stack;
     QStack<class Knot_Macro*> macro_stack;
     Snapping_Grid       m_grid;
@@ -98,7 +98,7 @@ public:
 
     Background_Image& background_image() { return bg_img; }
 
-    const Graph& get_graph() const { return graph; }
+    const Graph& graph() const { return m_graph; }
 
     /// Overload QGraphicsView::translate
     void translate(QPointF d) { QGraphicsView::translate(d.x(),d.y()); }
@@ -177,19 +177,19 @@ public:
     /**
      *  \brief Colors used to display the knot
      */
-    const QList<QColor>& knot_colors() const { return graph.colors(); }
+    const QList<QColor>& knot_colors() const { return m_graph.colors(); }
 
 
-    const Border_List& knot_borders() const { return graph.borders(); }
+    const Border_List& knot_borders() const { return m_graph.borders(); }
 
 
 
     /**
      *  \brief Get knot stroke width
      */
-    double stroke_width() const { return graph.width(); }
+    double stroke_width() const { return m_graph.width(); }
 
-    Qt::PenJoinStyle join_style() const { return graph.join_style(); }
+    Qt::PenJoinStyle join_style() const { return m_graph.join_style(); }
 
     /**
      * \brief Get whether mode is edit graph
@@ -213,10 +213,10 @@ public:
      *
      *  \return Whether the insertion has been accepted
      */
-    bool insert(const Graph& graph, QString macro_name );
+    bool insert(const Graph& m_graph, QString macro_name );
 
-    void enable_cache(bool enable) { graph.enable_cache(enable); }
-    bool cache_enabled() const { return graph.cache_enabled(); }
+    void enable_cache(bool enable) { m_graph.enable_cache(enable); }
+    bool cache_enabled() const { return m_graph.cache_enabled(); }
 
     void set_fluid_refresh(bool enable);
     bool fluid_refresh() const { return m_fluid_refresh; }

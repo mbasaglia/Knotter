@@ -324,10 +324,10 @@ void Main_Window::connect_view(Knot_View *v)
 
     // display
     dock_knot_display->set_colors(v->knot_colors());
-    dock_knot_display->set_join_style(v->get_graph().join_style());
-    dock_knot_display->set_brush_style(v->get_graph().brush_style());
-    dock_knot_display->set_width(v->get_graph().width());
-    dock_knot_display->toggle_custom_colors(v->get_graph().custom_colors());
+    dock_knot_display->set_join_style(v->graph().join_style());
+    dock_knot_display->set_brush_style(v->graph().brush_style());
+    dock_knot_display->set_width(v->graph().width());
+    dock_knot_display->toggle_custom_colors(v->graph().custom_colors());
     connect(dock_knot_display,SIGNAL(colors_changed(QList<QColor>)),
             v,SLOT(set_knot_colors(QList<QColor>)));
     connect(dock_knot_display,SIGNAL(width_changed(double)),
@@ -340,14 +340,14 @@ void Main_Window::connect_view(Knot_View *v)
             v,SLOT(set_brush_style(Qt::BrushStyle)));
     // border
     dock_borders->set_borders(v->knot_borders());
-    dock_borders->enable_borders(v->get_graph().paint_border());
+    dock_borders->enable_borders(v->graph().paint_border());
     connect(dock_borders,SIGNAL(borders_changed(Border_List)),
             v,SLOT(set_knot_borders(Border_List)));
     connect(dock_borders,SIGNAL(borders_enabled(bool)),
             v,SLOT(set_knot_display_border(bool)));
 
     // style
-    global_style->set_style(v->get_graph().default_node_style());
+    global_style->set_style(v->graph().default_node_style());
     connect(global_style,SIGNAL(crossing_distance_changed(double)),
             v,SLOT(set_knot_crossing_distance(double)));
     connect(global_style,SIGNAL(cusp_angle_changed(double)),
@@ -399,21 +399,21 @@ void Main_Window::update_style()
     // display
     dock_knot_display->blockSignals(true);
     dock_knot_display->set_colors(view->knot_colors());
-    dock_knot_display->set_join_style(view->get_graph().join_style());
-    dock_knot_display->set_brush_style(view->get_graph().brush_style());
-    dock_knot_display->set_width(view->get_graph().width());
-    dock_knot_display->toggle_custom_colors(view->get_graph().custom_colors());
+    dock_knot_display->set_join_style(view->graph().join_style());
+    dock_knot_display->set_brush_style(view->graph().brush_style());
+    dock_knot_display->set_width(view->graph().width());
+    dock_knot_display->toggle_custom_colors(view->graph().custom_colors());
     dock_knot_display->blockSignals(false);
 
     // border
     dock_borders->blockSignals(true);
     dock_borders->set_borders(view->knot_borders());
-    dock_borders->enable_borders(view->get_graph().paint_border());
+    dock_borders->enable_borders(view->graph().paint_border());
     dock_borders->blockSignals(false);
 
     // style
     global_style->blockSignals(true);
-    global_style->set_style(view->get_graph().default_node_style());
+    global_style->set_style(view->graph().default_node_style());
     global_style->blockSignals(false);
 }
 
@@ -493,7 +493,7 @@ void Main_Window::udate_selection(QList<Node *> nodes)
     selection_style->setEnabled(!nodes.isEmpty());
 
     selection_style->blockSignals(true);
-    Node_Style ns = view->get_graph().default_node_style();
+    Node_Style ns = view->graph().default_node_style();
     selection_style->set_style(ns);
     if ( nodes.isEmpty() )
         ns.enabled_style = Node_Style::NOTHING;
@@ -524,20 +524,20 @@ void Main_Window::create_tab(QString file)
         if ( !error )
         {
             global_style->blockSignals(true);
-            global_style->set_style(view->get_graph().default_node_style());
+            global_style->set_style(view->graph().default_node_style());
             global_style->blockSignals(false);
 
 
             dock_knot_display->blockSignals(true);
-            dock_knot_display->set_colors(view->get_graph().colors());
-            dock_knot_display->set_join_style(view->get_graph().join_style());
-            dock_knot_display->set_brush_style(view->get_graph().brush_style());
-            dock_knot_display->set_width(view->get_graph().width());
+            dock_knot_display->set_colors(view->graph().colors());
+            dock_knot_display->set_join_style(view->graph().join_style());
+            dock_knot_display->set_brush_style(view->graph().brush_style());
+            dock_knot_display->set_width(view->graph().width());
             dock_knot_display->blockSignals(false);
 
             dock_borders->blockSignals(true);
             dock_borders->set_borders(view->knot_borders());
-            dock_borders->enable_borders(view->get_graph().paint_border());
+            dock_borders->enable_borders(view->graph().paint_border());
             dock_borders->blockSignals(false);
 
             update_title();
@@ -768,7 +768,7 @@ void Main_Window::on_action_Mirror_Vertical_triggered()
 
 void Main_Window::on_action_Select_All_triggered()
 {
-    foreach(Node* node,view->get_graph().nodes())
+    foreach(Node* node,view->graph().nodes())
         node->setSelected(true);
 
     view->update_selection();
@@ -855,7 +855,7 @@ void Main_Window::on_action_Insert_Polygon_triggered()
 
 void Main_Window::on_action_Copy_triggered()
 {
-    Graph copy = view->get_graph().sub_graph(view->selected_nodes());
+    Graph copy = view->graph().sub_graph(view->selected_nodes());
     QMimeData* mime_data = new QMimeData;
     export_xml_mime_data(mime_data,copy);
     QApplication::clipboard()->setMimeData(mime_data);
@@ -916,7 +916,7 @@ void Main_Window::on_tabWidget_dragAway(int tab)
     Knot_View* v = dynamic_cast<Knot_View*>(tabWidget->widget(tab));
     if ( v )
     {
-        const Graph& graph = v->get_graph();
+        const Graph& graph = v->graph();
         QMimeData *data = new QMimeData;
 
         export_xml_mime_data(data,graph);
@@ -1124,7 +1124,7 @@ void Main_Window::print(QPrinter *pr)
     painter.setRenderHints(QPainter::Antialiasing|QPainter::HighQualityAntialiasing);
     painter.scale(view->get_zoom_factor(),view->get_zoom_factor());
     painter.translate(-view->mapToScene(0,0));
-    view->get_graph().const_paint(&painter);
+    view->graph().const_paint(&painter);
 }
 
 void Main_Window::on_action_Print_triggered()

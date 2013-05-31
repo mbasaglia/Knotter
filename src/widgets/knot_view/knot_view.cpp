@@ -54,7 +54,7 @@ Knot_View::Knot_View(QString file)
     setTransformationAnchor(NoAnchor);
     setResizeAnchor(AnchorViewCenter);
 
-    scene->addItem(&graph);
+    scene->addItem(&m_graph);
 
     connect(horizontalScrollBar(),SIGNAL(valueChanged(int)),
             this,SLOT(update_scrollbars()));
@@ -92,22 +92,22 @@ bool Knot_View::load_file(QIODevice &device, QString action_name )
     begin_macro(action_name);
 
 
-    foreach(Node* n,graph.nodes())
+    foreach(Node* n,m_graph.nodes())
     {
         push_command(new Remove_Node(n,this));
     }
-    foreach(Edge* e,graph.edges())
+    foreach(Edge* e,m_graph.edges())
     {
         push_command(new Remove_Edge(e,this));
     }
 
-    push_command(new Knot_Width(graph.width(),loaded.width(),this));
-    push_command(new Change_Colors(graph.colors(),loaded.colors(),this));
-    push_command(new Change_Borders(graph.borders(),loaded.borders(),this));
-    push_command(new Custom_Colors(graph.custom_colors(),loaded.custom_colors(),this));
-    push_command(new Pen_Join_Style(graph.join_style(),loaded.join_style(),this));
-    push_command(new Brush_Style(graph.brush_style(),loaded.brush_style(),this));
-    push_command(new Knot_Style_All(graph.default_node_style(),
+    push_command(new Knot_Width(m_graph.width(),loaded.width(),this));
+    push_command(new Change_Colors(m_graph.colors(),loaded.colors(),this));
+    push_command(new Change_Borders(m_graph.borders(),loaded.borders(),this));
+    push_command(new Custom_Colors(m_graph.custom_colors(),loaded.custom_colors(),this));
+    push_command(new Pen_Join_Style(m_graph.join_style(),loaded.join_style(),this));
+    push_command(new Brush_Style(m_graph.brush_style(),loaded.brush_style(),this));
+    push_command(new Knot_Style_All(m_graph.default_node_style(),
                                     loaded.default_node_style(), this));
 
     foreach(Node* n,loaded.nodes())
@@ -144,7 +144,7 @@ bool Knot_View::load_file(QString fname)
 bool Knot_View::save_file(QString fname)
 {
     QFile file(fname);
-    if ( export_xml(graph,file) )
+    if ( export_xml(m_graph,file) )
     {
         setWindowFilePath(fname);
         m_file_name = fname;
@@ -158,7 +158,7 @@ bool Knot_View::save_file(QString fname)
 void Knot_View::set_knot_handle_lenght(double v)
 {
     push_command(new Knot_Style_Handle_Lenght(
-                     graph.default_node_style().handle_length,
+                     m_graph.default_node_style().handle_length,
                      v, this
                      ));
 }
@@ -166,7 +166,7 @@ void Knot_View::set_knot_handle_lenght(double v)
 void Knot_View::set_knot_crossing_distance(double v)
 {
     push_command(new Knot_Style_Crossing_Distance(
-                     graph.default_node_style().crossing_distance,
+                     m_graph.default_node_style().crossing_distance,
                      v, this
                 ));
 }
@@ -174,7 +174,7 @@ void Knot_View::set_knot_crossing_distance(double v)
 void Knot_View::set_knot_cusp_angle(double v)
 {
     push_command(new Knot_Style_Cusp_Angle(
-                     graph.default_node_style().cusp_angle,
+                     m_graph.default_node_style().cusp_angle,
                      v, this
                 ));
 }
@@ -182,7 +182,7 @@ void Knot_View::set_knot_cusp_angle(double v)
 void Knot_View::set_knot_cusp_distance(double v)
 {
     push_command(new Knot_Style_Cusp_Distance(
-                     graph.default_node_style().cusp_distance,
+                     m_graph.default_node_style().cusp_distance,
                      v, this
                 ));
 }
@@ -190,7 +190,7 @@ void Knot_View::set_knot_cusp_distance(double v)
 void Knot_View::set_knot_cusp_shape(Cusp_Shape *v)
 {
     push_command(new Knot_Style_Cusp_Shape(
-                     graph.default_node_style().cusp_shape,
+                     m_graph.default_node_style().cusp_shape,
                      v, this
                      ));
 }
@@ -312,10 +312,10 @@ void Knot_View::set_display_graph(bool enable)
 {
     paint_graph = enable;
 
-    foreach ( Node* n, graph.nodes() )
+    foreach ( Node* n, m_graph.nodes() )
         n->set_visible( enable );
 
-    foreach ( Edge* e, graph.edges() )
+    foreach ( Edge* e, m_graph.edges() )
         e->set_visible( enable);
 
     scene()->invalidate();
@@ -471,44 +471,44 @@ void Knot_View::set_mode_move_background()
 
 void Knot_View::update_knot()
 {
-    graph.render_knot();
+    m_graph.render_knot();
     scene()->invalidate();
 }
 
 void Knot_View::set_knot_colors(const QList<QColor> &l)
 {
-    push_command(new Change_Colors(graph.colors(),l,this));
+    push_command(new Change_Colors(m_graph.colors(),l,this));
 }
 
 void Knot_View::set_knot_borders(const Border_List &b)
 {
-    push_command(new Change_Borders(graph.borders(),b,this));
+    push_command(new Change_Borders(m_graph.borders(),b,this));
 }
 
 void Knot_View::set_knot_custom_colors(bool b)
 {
-    push_command(new Custom_Colors(graph.custom_colors(),b,this));
+    push_command(new Custom_Colors(m_graph.custom_colors(),b,this));
 }
 
 void Knot_View::set_knot_display_border(bool b)
 {
-    push_command(new Display_Border(graph.paint_border(),b,this));
+    push_command(new Display_Border(m_graph.paint_border(),b,this));
 }
 
 void Knot_View::set_stroke_width(double w)
 {
-    push_command(new Knot_Width(graph.width(),w,this));
+    push_command(new Knot_Width(m_graph.width(),w,this));
 }
 
 void Knot_View::set_join_style(Qt::PenJoinStyle s)
 {
 
-    push_command(new Pen_Join_Style(graph.join_style(),s,this));
+    push_command(new Pen_Join_Style(m_graph.join_style(),s,this));
 }
 
 void Knot_View::set_brush_style(Qt::BrushStyle s)
 {
-    push_command(new Brush_Style(graph.brush_style(),s,this));
+    push_command(new Brush_Style(m_graph.brush_style(),s,this));
 }
 
 void Knot_View::expand_scene_rect(int margin)

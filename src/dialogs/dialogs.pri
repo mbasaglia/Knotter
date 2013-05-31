@@ -13,53 +13,50 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-INCLUDEPATH += $$PWD
+INCLUDEPATH += $$PWD $$PWD/dock
 
 HEADERS += \
     $$PWD/main_window.hpp \
     $$PWD/dialog_preferences.hpp \
     $$PWD/export_image_dialog.hpp \
-    $$PWD/dock_grid.hpp \
-    $$PWD/dock_knot_display.hpp \
+    $$PWD/dock/dock_grid.hpp \
+    $$PWD/dock/dock_knot_display.hpp \
     $$PWD/icon_dock_style.hpp \
-    $$PWD/dock_background.hpp \
-    $$PWD/cusp_style_widget.hpp \
+    $$PWD/dock/dock_background.hpp \
     $$PWD/about_dialog.hpp \
     $$PWD/dialog_insert_polygon.hpp \
     $$PWD/cusp_style_dialog.hpp \
     $$PWD/dialog_confirm_close.hpp \
     $$PWD/dialog_plugins.hpp \
-    $$PWD/dock_borders.hpp \
-    $$PWD/dock_script_log.hpp
+    $$PWD/dock/dock_borders.hpp \
+    $$PWD/dock/dock_script_log.hpp
 
 SOURCES += \
     $$PWD/main_window.cpp \
     $$PWD/dialog_preferences.cpp \
     $$PWD/export_image_dialog.cpp \
-    $$PWD/dock_grid.cpp \
-    $$PWD/dock_knot_display.cpp \
-    $$PWD/dock_background.cpp \
-    $$PWD/cusp_style_widget.cpp \
+    $$PWD/dock/dock_grid.cpp \
+    $$PWD/dock/dock_knot_display.cpp \
+    $$PWD/dock/dock_background.cpp \
     $$PWD/about_dialog.cpp \
     $$PWD/dialog_insert_polygon.cpp \
     $$PWD/cusp_style_dialog.cpp \
     $$PWD/dialog_confirm_close.cpp \
     $$PWD/dialog_plugins.cpp \
-    $$PWD/dock_borders.cpp \
-    $$PWD/dock_script_log.cpp
+    $$PWD/dock/dock_borders.cpp \
+    $$PWD/dock/dock_script_log.cpp
 
 FORMS += \
     $$PWD/main_window.ui \
     $$PWD/dialog_preferences.ui \
     $$PWD/export_image_dialog.ui \
-    $$PWD/dock_grid.ui \
-    $$PWD/dock_knot_display.ui \
-    $$PWD/dock_background.ui \
-    $$PWD/cusp_style_widget.ui \
+    $$PWD/dock/dock_grid.ui \
+    $$PWD/dock/dock_knot_display.ui \
+    $$PWD/dock/dock_background.ui \
     $$PWD/about_dialog.ui \
     $$PWD/dialog_insert_polygon.ui \
     $$PWD/cusp_style_dialog.ui \
     $$PWD/dialog_confirm_close.ui \
     $$PWD/dialog_plugins.ui \
-    $$PWD/dock_borders.ui \
-    $$PWD/dock_script_log.ui
+    $$PWD/dock/dock_borders.ui \
+    $$PWD/dock/dock_script_log.ui

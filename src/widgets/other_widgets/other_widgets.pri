@@ -18,11 +18,14 @@ INCLUDEPATH += $$PWD
 
 HEADERS += \
     $$PWD/border_widget.hpp \
+    $$PWD/cusp_style_widget.hpp \
     $$PWD/border_edit_widget.hpp
 
 SOURCES += \
     $$PWD/border_widget.cpp \
+    $$PWD/cusp_style_widget.cpp \
     $$PWD/border_edit_widget.cpp
 
 FORMS += \
+    $$PWD/cusp_style_widget.ui \
     $$PWD/border_edit_widget.ui

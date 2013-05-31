@@ -97,7 +97,7 @@ void Export_Image_Dialog::on_button_svg_clicked()
     file_name = exname;
 
 
-    export_svg(quf,view->get_graph(),check_graph->isChecked());
+    export_svg(quf,view->graph(),check_graph->isChecked());
 
     quf.close();
 
@@ -159,7 +159,7 @@ void Export_Image_Dialog::on_button_image_clicked()
     QColor back = color_background->color();
     if ( name_filter == jpeg || name_filter == bmp )
         back.setAlpha(255);
-    export_raster(quf,view->get_graph(),back,check_antialiasing->isChecked(),
+    export_raster(quf,view->graph(),back,check_antialiasing->isChecked(),
                   QSize(spin_width->value(),spin_height->value()),
                   slider_quality->value(), check_graph->isChecked());
 
@@ -169,7 +169,7 @@ void Export_Image_Dialog::on_button_image_clicked()
 void Export_Image_Dialog::reset_size()
 {
     button_ratio->setChecked(false);
-    QSize sz = view->get_graph().full_image_bounding_rect().size().toSize();
+    QSize sz = view->graph().full_image_bounding_rect().size().toSize();
     spin_width->setValue(sz.width());
     spin_height->setValue(sz.height());
     button_ratio->setChecked(true);

@@ -36,7 +36,7 @@ int Knot_Command::generate_id()
 
 Knot_Command::Knot_Command(Knot_View *view, Knot_Macro *parent)
     : QObject(parent),
-      view(view), graph(&view->graph), scene(view->scene())
+      view(view), graph(&view->m_graph), scene(view->scene())
 {}
 
 void Knot_Command::set_parent(Knot_Macro *macro)
