@@ -24,31 +24,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef DOCK_SCRIPT_LOG_HPP
-#define DOCK_SCRIPT_LOG_HPP
+#ifndef SCRIPT_DOCUMENT_HPP
+#define SCRIPT_DOCUMENT_HPP
 
-#include "ui_dock_script_log.h"
-#include "script_window.hpp"
+#include <QObject>
+#include "script_graph.hpp"
+#include "knot_view.hpp"
 
-
-class Dock_Script_Log : public QDockWidget, private Ui::Dock_Script_Log
+/**
+ * @brief Wrapper to Knot_View
+ */
+class Script_Document : public QObject
 {
     Q_OBJECT
-    
-    QStringList user_input; ///< user input lines
-    int current_line;
-    Script_Window sw;
-public:
-    explicit Dock_Script_Log(Main_Window* mw);
-    
-protected:
-    void changeEvent(QEvent *e);
-    //void keyPressEvent(QKeyEvent *);
 
-private slots:
-    void script_error(QString file,int line,QString msg, QStringList trace);
-    void script_output(QString text);
-    void on_script_input_returnPressed();
+    Q_PROPERTY(QString filename READ filename)
+    Q_PROPERTY(QObject* graph READ graph)
+
+    Knot_View*   wrapped;
+    Script_Graph m_graph;
+
+
+public:
+    explicit Script_Document(Knot_View* wrapped, QObject *parent = 0);
+
+    QString filename() const;
+    Script_Graph* graph();
+
+public slots:
+    void add_node(Script_Node* n);
+    void add_edge(Script_Edge* e);
+    void move_node(Script_Node* n, Script_Point p);
+    
 };
 
-#endif // DOCK_SCRIPT_LOG_HPP
+Q_DECLARE_METATYPE(Script_Document*)
+
+#endif // SCRIPT_DOCUMENT_HPP

@@ -27,9 +27,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "dock_script_log.hpp"
 #include "resource_manager.hpp"
 #include <QKeyEvent>
+#include "main_window.hpp"
 
-Dock_Script_Log::Dock_Script_Log(QWidget *parent) :
-    QDockWidget(parent), current_line(0)
+Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
+    QDockWidget(mw), current_line(0), sw(mw)
 {
     setupUi(this);
     connect(Resource_Manager::pointer,SIGNAL(script_error(QString,int,QString,QStringList)),
@@ -106,6 +107,8 @@ void Dock_Script_Log::on_script_input_returnPressed()
     text_output->insertHtml("<div style='color:green'>"+script_input->text()+"</div><p></p>");
     user_input += script_input->text();
     current_line = user_input.size();
+    Resource_Manager::script_param("window",&sw);
+
     QScriptValue v = Resource_Manager::run_script(script_input->text(),"Script console",user_input.size());
     script_input->clear();
     if ( !v.isError() && !v.isUndefined() )

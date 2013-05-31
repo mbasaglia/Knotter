@@ -47,6 +47,8 @@ class Main_Window : public QMainWindow, private Ui::Main_Window
 {
     Q_OBJECT
 
+    friend class Script_Window;
+
 private:
     QDoubleSpinBox*         zoomer;     ///< Zoom on statusbar
     Knot_View*              view;       ///< Active Knot_View (hopefully never NULL)
@@ -74,8 +76,14 @@ public slots:
     /// Change all the strings to their translated version
     void retranslate();
 
-    /// Create tab and load given file name
-    void create_tab(QString file = QString());
+    /**
+     * \brief Create tab and load given file name
+     *
+     *  \param file File name, if empty an empty tab is created
+     *
+     * \return Whether the file has been opened successfully
+     */
+    bool create_tab(QString file = QString());
 
     /**
      *  \brief Switch to the gien tab

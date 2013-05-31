@@ -30,4 +30,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 QScriptValue script_print(QScriptContext * context, QScriptEngine * engine );
 
+/**
+ * \brief Information on the program accessible from the scripts
+ */
+class Script_Knotter : public QObject
+{
+    Q_OBJECT
+
+    Q_PROPERTY(QString version READ version)
+
+public:
+
+    QString version() const;
+
+    /// Check if Knotter has at leaset specified version
+    Q_INVOKABLE bool has_version(int maj, int min);
+};
+
 #endif // MISC_SCRIPT_FUNCTIONS_HPP

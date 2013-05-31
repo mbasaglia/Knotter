@@ -513,7 +513,7 @@ void Main_Window::on_action_Preferences_triggered()
 }
 
 
-void Main_Window::create_tab(QString file)
+bool Main_Window::create_tab(QString file)
 {
     bool error = false;
     if ( view && view->file_name().isEmpty() &&
@@ -562,12 +562,15 @@ void Main_Window::create_tab(QString file)
     {
         QMessageBox::warning(this,tr("File Error"),
                              tr("Error while reading \"%1\".").arg(file));
+        return false;
     }
     else if ( !error && !file.isEmpty() )
     {
         Resource_Manager::settings.add_recent_file(file);
         update_recent_files();
     }
+
+    return true;
 }
 
 void Main_Window::switch_to_tab(int i)

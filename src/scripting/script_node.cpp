@@ -27,13 +27,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "script_node.hpp"
 
 Script_Node::Script_Node(Script_Point p, QObject *parent) :
-    QObject(parent), m_pos(p)
+    QObject(parent), m_pos(p), m_wrapped_node(nullptr)
+{
+}
+
+Script_Node::Script_Node(Node *n, QObject *parent):
+    QObject(parent), m_pos(n->pos()), m_wrapped_node(n)
 {
 }
 
 Script_Node::Script_Node(const Script_Node &o)
     : QObject(o.parent()), m_pos(o.m_pos), m_edges(o.m_edges)
 {
+}
+
+void Script_Node::set_pos(Script_Point p)
+{
+    m_pos = p;
+    emit moved(p);
+}
+
+void Script_Node::set_x(double x)
+{
+    m_pos.setX(x);
+    emit moved(m_pos);
+}
+
+void Script_Node::set_y(double y)
+{
+    m_pos.setY(y);
+    emit moved(m_pos);
+}
+
+Node *Script_Node::generate_wrapped_node()
+{
+    if ( m_wrapped_node )
+        return m_wrapped_node;
+
+    m_wrapped_node = new Node(m_pos);
+    return m_wrapped_node;
 }
 
 

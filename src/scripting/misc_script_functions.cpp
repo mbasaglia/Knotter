@@ -43,3 +43,14 @@ QScriptValue script_print( QScriptContext * context, QScriptEngine * )
     Resource_Manager::emit_script_output(out);
     return QScriptValue();
 }
+
+
+QString Script_Knotter::version() const
+{
+    return Resource_Manager::program_version();
+}
+
+bool Script_Knotter::has_version(int maj, int min)
+{
+    return Resource_Manager::has_least_version(maj,min);
+}

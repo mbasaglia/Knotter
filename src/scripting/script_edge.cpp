@@ -24,31 +24,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef DOCK_SCRIPT_LOG_HPP
-#define DOCK_SCRIPT_LOG_HPP
+#include "script_edge.hpp"
 
-#include "ui_dock_script_log.h"
-#include "script_window.hpp"
-
-
-class Dock_Script_Log : public QDockWidget, private Ui::Dock_Script_Log
+Script_Edge::Script_Edge(Script_Node *v1, Script_Node *v2, QObject *parent) :
+    QObject(parent), v1(v1), v2(v2)
 {
-    Q_OBJECT
-    
-    QStringList user_input; ///< user input lines
-    int current_line;
-    Script_Window sw;
-public:
-    explicit Dock_Script_Log(Main_Window* mw);
-    
-protected:
-    void changeEvent(QEvent *e);
-    //void keyPressEvent(QKeyEvent *);
+}
 
-private slots:
-    void script_error(QString file,int line,QString msg, QStringList trace);
-    void script_output(QString text);
-    void on_script_input_returnPressed();
-};
-
-#endif // DOCK_SCRIPT_LOG_HPP
+Script_Node *Script_Edge::other(Script_Node *node)
+{
+    return node == v1 ? v2 : v1;
+}

@@ -11,10 +11,12 @@
    </rect>
   </property>
   <property name="windowIcon">
-   <iconset theme="utilities-terminal"/>
+   <iconset theme="utilities-terminal">
+    <normaloff/>
+   </iconset>
   </property>
   <property name="windowTitle">
-   <string>Script Log</string>
+   <string>Script Console</string>
   </property>
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QVBoxLayout" name="verticalLayout">

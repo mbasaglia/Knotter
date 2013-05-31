@@ -22,10 +22,14 @@ HEADERS += \
     $$PWD/cusp_scripted.hpp \
     $$PWD/plugin_cusp.hpp \
     $$PWD/script_path_builder.hpp \
-    src/scripting/plugin_insert.hpp \
-    src/scripting/plugin_param.hpp \
-    src/scripting/misc_script_functions.hpp \
-    src/scripting/script_node.hpp
+    $$PWD/plugin_insert.hpp \
+    $$PWD/plugin_param.hpp \
+    $$PWD/misc_script_functions.hpp \
+    $$PWD/script_node.hpp \
+    $$PWD/script_window.hpp \
+    $$PWD/script_edge.hpp \
+    $$PWD/script_graph.hpp \
+    $$PWD/script_document.hpp
 
 SOURCES += \
     $$PWD/script_line.cpp \
@@ -34,8 +38,12 @@ SOURCES += \
     $$PWD/cusp_scripted.cpp \
     $$PWD/plugin_cusp.cpp \
     $$PWD/script_path_builder.cpp \
-    src/scripting/plugin_insert.cpp \
-    src/scripting/plugin_param.cpp \
-    src/scripting/misc_script_functions.cpp \
-    src/scripting/script_node.cpp
+    $$PWD/plugin_insert.cpp \
+    $$PWD/plugin_param.cpp \
+    $$PWD/misc_script_functions.cpp \
+    $$PWD/script_node.cpp \
+    $$PWD/script_window.cpp \
+    $$PWD/script_edge.cpp \
+    $$PWD/script_graph.cpp \
+    $$PWD/script_document.cpp
 

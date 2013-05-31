@@ -50,17 +50,19 @@ class Script_Node : public QObject
 
     Script_Point m_pos;
     QList<Script_Edge*> m_edges;
+    Node* m_wrapped_node;
 
 public:
     explicit Script_Node(Script_Point p = Script_Point(), QObject *parent = 0);
+    Script_Node(Node* n, QObject *parent);
     Script_Node ( const Script_Node& o);
     
     Script_Point pos() const { return m_pos; }
-    void set_pos(Script_Point p) { m_pos = p; }
+    void set_pos(Script_Point p);
     double x () const { return m_pos.x(); }
     double y () const { return m_pos.y(); }
-    void set_x(double x) { m_pos.setX(x); }
-    void set_y(double y) { m_pos.setY(y); }
+    void set_x(double x);
+    void set_y(double y);
 
     QList<Script_Edge*> edges() const { return m_edges; }
 
@@ -69,11 +71,26 @@ public:
         m_edges = edges;
     }
 
+    /**
+     * @brief Get the wrapped node
+     * @return The wrapped node, nullptr if not set
+     */
+    Node* wrapped_node() const { return m_wrapped_node; }
+    /**
+     * @brief Get the wrapped node
+     * @return Will create a new instance if needed
+     */
+    Node* generate_wrapped_node();
+
+signals:
+    void moved(Script_Point p);
+
 
 };
 
 Q_DECLARE_METATYPE(Script_Node)
 Q_DECLARE_METATYPE(QList<Script_Edge*>)
+Q_DECLARE_METATYPE(QList<Script_Node*>)
 
 
 /// Wrapper to Node constructors

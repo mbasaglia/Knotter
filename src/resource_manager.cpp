@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QCoreApplication>
 #include "script_line.hpp"
 #include "misc_script_functions.hpp"
+#include "script_window.hpp"
 
 #if HAS_QT_5
 #include <QStandardPaths>
@@ -204,6 +205,9 @@ void Resource_Manager::initialize(QString default_lang_code)
     ///sengine->globalObject().setProperty("diff", engine->newFunction(subtract_points));
     engine->globalObject().setProperty("opposite", engine->newFunction(opposite_point));
     engine->globalObject().setProperty( "print", engine->newFunction( script_print ) );
+    engine->globalObject().setProperty( "knotter",
+        engine->newQObject(new Script_Knotter,QScriptEngine::ScriptOwnership));
+
 
     //plugins
     load_plugins();
