@@ -34,9 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class Dock_Script_Log : public QDockWidget, private Ui::Dock_Script_Log
 {
     Q_OBJECT
-    
-    QStringList user_input; ///< user input lines
-    int current_line;
+
     Script_Window sw;
 public:
     explicit Dock_Script_Log(Main_Window* mw);
@@ -48,7 +46,7 @@ protected:
 private slots:
     void script_error(QString file,int line,QString msg, QStringList trace);
     void script_output(QString text);
-    void on_script_input_returnPressed();
+    void on_script_input_lineExecuted(const QString &arg1);
 };
 
 #endif // DOCK_SCRIPT_LOG_HPP

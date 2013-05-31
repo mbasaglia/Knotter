@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "main_window.hpp"
 
 Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
-    QDockWidget(mw), current_line(0), sw(mw)
+    QDockWidget(mw), sw(mw)
 {
     setupUi(this);
     connect(Resource_Manager::pointer,SIGNAL(script_error(QString,int,QString,QStringList)),
@@ -50,26 +50,6 @@ void Dock_Script_Log::changeEvent(QEvent *e)
             break;
     }
 }
-/*
-void Dock_Script_Log::keyPressEvent(QKeyEvent *ev)
-{
-    if ( ev->key() == Qt::UpArrow && current_line > 0)
-    {
-        current_line--;
-        if ( current_line < user_input.size() )
-            script_input->setText(user_input[current_line]);
-
-    }
-    else if ( ev->key() == Qt::DownArrow )
-    {
-        current_line++;
-        if ( current_line >= user_input.size() )
-            script_input->clear();
-        else
-            script_input->setText(user_input[current_line]);
-    }
-}
-*/
 void Dock_Script_Log::script_error(QString file, int line, QString msg, QStringList trace)
 {
     text_output->moveCursor (QTextCursor::End) ;
@@ -101,16 +81,16 @@ void Dock_Script_Log::script_output(QString text)
     text_output->ensureCursorVisible() ;
 }
 
-void Dock_Script_Log::on_script_input_returnPressed()
+void Dock_Script_Log::on_script_input_lineExecuted(const QString &arg1)
 {
+
     text_output->moveCursor (QTextCursor::End) ;
-    text_output->insertHtml("<div style='color:green'>"+script_input->text()+"</div><p></p>");
-    user_input += script_input->text();
-    current_line = user_input.size();
+    text_output->insertHtml("<div style='color:green'>"+arg1+"</div><p></p>");
+
     Resource_Manager::script_param("window",&sw);
 
-    QScriptValue v = Resource_Manager::run_script(script_input->text(),"Script console",user_input.size());
-    script_input->clear();
+    QScriptValue v = Resource_Manager::run_script(arg1,"Script console",script_input->lineCount());
+
     if ( !v.isError() && !v.isUndefined() )
         text_output->insertHtml(v.toString()+"<p></p>");
     text_output->moveCursor (QTextCursor::End) ;

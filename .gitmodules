@@ -8,3 +8,6 @@
 [submodule "src/widgets/tabwidget"]
 	path = src/widgets/tabwidget
 	url = https://github.com/mbasaglia/Qt-Extended-TabWidget.git
+[submodule "src/widgets/history_line_edit"]
+	path = src/widgets/history_line_edit
+	url = https://github.com/mbasaglia/Qt-History-LineEdit.git

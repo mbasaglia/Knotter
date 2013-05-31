@@ -100,7 +100,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="script_input">
+     <widget class="History_Line_Edit" name="script_input">
       <property name="palette">
        <palette>
         <active>
@@ -175,8 +175,14 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>History_Line_Edit</class>
+   <extends>QLineEdit</extends>
+   <header>history_line_edit.hpp</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
-  <tabstop>script_input</tabstop>
   <tabstop>text_output</tabstop>
  </tabstops>
  <resources/>
