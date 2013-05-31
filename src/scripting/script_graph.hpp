@@ -52,6 +52,7 @@ public:
 
     Script_Node* add_node(Node* n);
     Q_INVOKABLE QObject *add_node(Script_Point p);
+    Q_INVOKABLE QObject *add_node(double x,double y);
     Q_INVOKABLE QObject *connect(Script_Node* n1, Script_Node*n2);
 
     Q_INVOKABLE Script_Node* node_at(Script_Point p);

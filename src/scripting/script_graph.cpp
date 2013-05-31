@@ -51,6 +51,11 @@ QObject* Script_Graph::add_node(Script_Point p)
     return n;
 }
 
+QObject *Script_Graph::add_node(double x, double y)
+{
+    return add_node(Script_Point(x,y));
+}
+
 QObject *Script_Graph::connect(Script_Node *n1, Script_Node *n2)
 {
     Script_Edge * e = new Script_Edge(n1,n2,this);
