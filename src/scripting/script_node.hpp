@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "script_point.hpp"
 
 class Script_Edge;
+class Script_Graph;
 
 /**
  *  \brief Wrapper to Node
@@ -44,54 +45,38 @@ class Script_Node : public QObject
     Q_PROPERTY(double x READ x WRITE set_x )
     Q_PROPERTY(double y READ y WRITE set_y )
 
-    Q_PROPERTY(QList<Script_Edge*> edges READ edges)
+    Q_PROPERTY(QObjectList edges READ edges)
 
     /// \todo : Style
 
-    Script_Point m_pos;
-    QList<Script_Edge*> m_edges;
     Node* m_wrapped_node;
+    Script_Graph* graph;
 
 public:
-    explicit Script_Node(Script_Point p = Script_Point(), QObject *parent = 0);
-    Script_Node(Node* n, QObject *parent);
+    Script_Node(Node* n, Script_Graph* graph);
     Script_Node ( const Script_Node& o);
     
-    Script_Point pos() const { return m_pos; }
+    Script_Point pos() const;
     void set_pos(Script_Point p);
-    double x () const { return m_pos.x(); }
-    double y () const { return m_pos.y(); }
+    double x () const { return pos().x(); }
+    double y () const { return pos().y(); }
     void set_x(double x);
     void set_y(double y);
 
-    QList<Script_Edge*> edges() const { return m_edges; }
-
-    void set_edges(QList<Script_Edge*> edges)
-    {
-        m_edges = edges;
-    }
+    QObjectList edges() const;
 
     /**
      * @brief Get the wrapped node
-     * @return The wrapped node, nullptr if not set
+     * @return The wrapped node
      */
     Node* wrapped_node() const { return m_wrapped_node; }
-    /**
-     * @brief Get the wrapped node
-     * @return Will create a new instance if needed
-     */
-    Node* generate_wrapped_node();
 
     Q_INVOKABLE QString toString() const;
 
+    Q_INVOKABLE bool has_edge_to(Script_Node *n) const;
+
 signals:
     void moved(Script_Point p);
-
-private slots:
-    /**
-     * @brief Set wrapped node to nullptr when it's destroyed
-     */
-    void clean_wrappen_node();
 
 };
 

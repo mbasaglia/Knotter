@@ -62,7 +62,10 @@ int Script_Window::open_tabs() const
 Script_Document* Script_Window::document()
 {
     if ( docs.contains(window->view) )
+    {
+        docs[window->view]->update();
         return docs[window->view];
+    }
     else
         return docs[window->view] = new Script_Document(window->view,this);
 }

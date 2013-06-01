@@ -53,6 +53,9 @@ public:
 
     Q_INVOKABLE QString toString() const;
 
+    /// Updates the graph
+    void update();
+
 public slots:
     void add_node(Script_Node* n);
     void add_edge(Script_Edge* e);

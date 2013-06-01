@@ -25,59 +25,53 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "script_node.hpp"
+#include "script_edge.hpp"
+#include "script_graph.hpp"
 
-Script_Node::Script_Node(Script_Point p, QObject *parent) :
-    QObject(parent), m_pos(p), m_wrapped_node(nullptr)
+Script_Node::Script_Node(Node *n, Script_Graph *graph):
+    QObject(graph), m_wrapped_node(n), graph(graph)
 {
-}
-
-Script_Node::Script_Node(Node *n, QObject *parent):
-    QObject(parent), m_pos(n->pos()), m_wrapped_node(n)
-{
-    connect(m_wrapped_node,SIGNAL(destroyed()),SLOT(clean_wrappen_node()));
 }
 
 Script_Node::Script_Node(const Script_Node &o)
-    : QObject(o.parent()), m_pos(o.m_pos), m_edges(o.m_edges)
+    : QObject(o.parent()), m_wrapped_node(o.m_wrapped_node), graph(o.graph)
 {
+}
+
+Script_Point Script_Node::pos() const
+{
+    return m_wrapped_node->pos();
 }
 
 void Script_Node::set_pos(Script_Point p)
 {
-    m_pos = p;
     emit moved(p);
 }
 
 void Script_Node::set_x(double x)
 {
-    m_pos.setX(x);
-    emit moved(m_pos);
+    emit moved(Script_Point(x,y()));
 }
 
 void Script_Node::set_y(double y)
 {
-    m_pos.setY(y);
-    emit moved(m_pos);
+    emit moved(Script_Point(x(),y));
 }
 
-Node *Script_Node::generate_wrapped_node()
+QObjectList Script_Node::edges() const
 {
-    if ( m_wrapped_node )
-        return m_wrapped_node;
-
-    m_wrapped_node = new Node(m_pos);
-    connect(m_wrapped_node,SIGNAL(destroyed()),SLOT(clean_wrappen_node()));
-
-    return m_wrapped_node;
+    QObjectList l;
+    foreach(Edge* e, m_wrapped_node->connections())
+        l << graph->script_edge(e);
+    return l;
 }
 
 QString Script_Node::toString() const
 {
-    return "[node "+m_pos.toString()+"]";
+    return "[node "+pos().toString()+"]";
 }
 
-
-void Script_Node::clean_wrappen_node()
+bool Script_Node::has_edge_to(Script_Node *n) const
 {
-    m_wrapped_node = nullptr;
+    return m_wrapped_node->has_edge_to(n->m_wrapped_node);
 }

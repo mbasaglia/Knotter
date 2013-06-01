@@ -29,24 +29,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Script_Graph::Script_Graph(const Graph &graph, QObject *parent) :
     QObject(parent)
 {
-    blockSignals(true);
+    from_graph(graph);
+}
 
-    QMap<Node*,Script_Node*> nodes;
+void Script_Graph::from_graph(const Graph &graph)
+{
 
     foreach ( Node* n, graph.nodes() )
-        nodes[n] = add_node(n);
+    {
+        if ( !node_map.contains(n) )
+            add_node(n);
+    }
 
-    foreach(Edge* e, graph.edges())
-        connect(nodes[e->vertex1()],nodes[e->vertex2()]);
+    foreach ( Edge* e, graph.edges() )
+    {
+        if ( !edge_map.contains(e) )
+            add_edge(e);
+    }
 
-    blockSignals(false);
+
 }
 
 
 QObject* Script_Graph::add_node(Script_Point p)
 {
-    Script_Node* n = new Script_Node(p,this);
-    QObject::connect(n,SIGNAL(moved(Script_Point)),SLOT(emit_node_moved(Script_Point)));
+    Script_Node* n = add_node(new Node(p));
     emit node_added(n);
     return n;
 }
@@ -54,6 +61,27 @@ QObject* Script_Graph::add_node(Script_Point p)
 QObject *Script_Graph::add_node(double x, double y)
 {
     return add_node(Script_Point(x,y));
+}
+
+
+Script_Node *Script_Graph::add_node(Node *n)
+{
+
+    Script_Node* sn =  new Script_Node(n,this);
+    node_map[n] = sn;
+    QObject::connect(sn,SIGNAL(moved(Script_Point)), SLOT(emit_node_moved(Script_Point)));
+    QObject::connect(n,SIGNAL(destroyed()), SLOT(node_removed()));
+    return sn;
+}
+
+Script_Edge* Script_Graph::add_edge(Edge *e)
+{
+
+    Script_Edge* se =  new Script_Edge(node_map[e->vertex1()],
+                                       node_map[e->vertex2()],this);
+    edge_map[e] = se;
+    QObject::connect(e,SIGNAL(destroyed()), SLOT(edge_removed()));
+    return se;
 }
 
 QObject *Script_Graph::connect(Script_Node *n1, Script_Node *n2)
@@ -84,18 +112,14 @@ QList<Script_Edge *> Script_Graph::edges()
     return findChildren<Script_Edge*>();
 }
 
+Script_Edge *Script_Graph::script_edge(Edge *e) const
+{
+    return edge_map[e];
+}
+
 QString Script_Graph::toString() const
 {
     return "[graph]";
-}
-
-
-Script_Node *Script_Graph::add_node(Node *n)
-{
-    Script_Node* sn =  new Script_Node(n,this);
-    QObject::connect(sn,SIGNAL(moved(Script_Point)),
-                     SLOT(emit_node_moved(Script_Point)));
-    return sn;
 }
 
 
@@ -104,6 +128,26 @@ void Script_Graph::emit_node_moved(Script_Point pos)
     Script_Node *n = qobject_cast<Script_Node*>(sender());
     if ( n )
         emit node_moved(n,pos);
+}
+
+void Script_Graph::node_removed()
+{
+    Node *n = qobject_cast<Node*>(sender());
+    if ( n )
+    {
+        delete node_map[n];
+        node_map.remove(n);
+    }
+}
+
+void Script_Graph::edge_removed()
+{
+    Edge *e = qobject_cast<Edge*>(sender());
+    if ( e )
+    {
+        delete edge_map[e];
+        edge_map.remove(e);
+    }
 }
 
 QObjectList Script_Graph::nodes_object()

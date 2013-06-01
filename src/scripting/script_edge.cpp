@@ -31,7 +31,7 @@ Script_Edge::Script_Edge(Script_Node *v1, Script_Node *v2, QObject *parent) :
 {
 }
 
-Script_Node *Script_Edge::other(Script_Node *node)
+QObject *Script_Edge::other(QObject *node)
 {
     return node == v1 ? v2 : v1;
 }

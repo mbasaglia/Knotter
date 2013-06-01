@@ -56,7 +56,7 @@ QString Script_Document::toString() const
 
 void Script_Document::add_node(Script_Node *n)
 {
-    wrapped->push_command(new Create_Node(n->generate_wrapped_node(),wrapped));
+    wrapped->push_command(new Create_Node(n->wrapped_node(),wrapped));
 }
 
 void Script_Document::add_edge(Script_Edge *e)
@@ -66,6 +66,11 @@ void Script_Document::add_edge(Script_Edge *e)
 
 void Script_Document::move_node(Script_Node *n, Script_Point p)
 {
-    Node* real = n->generate_wrapped_node();
+    Node* real = n->wrapped_node();
     wrapped->push_command(new Move_Node(real,real->pos(),p,wrapped));
+}
+
+void Script_Document::update()
+{
+    m_graph.from_graph(wrapped->graph());
 }

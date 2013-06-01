@@ -39,8 +39,8 @@ class Script_Edge : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(Script_Node* vertex1 READ vertex1)
-    Q_PROPERTY(Script_Node* vertex2 READ vertex2)
+    Q_PROPERTY(QObject* vertex1 READ vertex1)
+    Q_PROPERTY(QObject* vertex2 READ vertex2)
     Q_PROPERTY(Script_Line line READ line)
     Q_PROPERTY(Script_Point midpoint READ midpoint)
 
@@ -51,12 +51,12 @@ class Script_Edge : public QObject
 public:
     explicit Script_Edge(Script_Node* v1, Script_Node* v2, QObject *parent = 0);
 
-    Q_INVOKABLE bool is_vertex ( const Script_Node* node ) const
+    Q_INVOKABLE bool is_vertex ( const QObject* node ) const
     {
         return node == v1 || node == v2;
     }
 
-    Q_INVOKABLE Script_Node* other ( Script_Node* node);
+    Q_INVOKABLE QObject* other ( QObject* node);
 
     Script_Node* vertex1() { return v1; }
     Script_Node* vertex2() { return v2; }

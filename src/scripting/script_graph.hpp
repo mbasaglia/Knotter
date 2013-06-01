@@ -41,9 +41,17 @@ class Script_Graph : public QObject
     Q_PROPERTY(QObjectList nodes READ nodes_object)
     Q_PROPERTY(QObjectList edges READ edges_object)
 
+
+    QMap<Node*,Script_Node*> node_map;
+    QMap<Edge*,Script_Edge*> edge_map;
+
 public:
     explicit Script_Graph(const Graph &graph, QObject *parent = 0);
 
+    /**
+     * @brief Populate from actual graph
+     */
+    void from_graph(const Graph &graph);
     /**
      * @brief Create a Graph from nodes and edges
      * @return a new Graph object
@@ -53,12 +61,16 @@ public:
     Script_Node* add_node(Node* n);
     Q_INVOKABLE QObject *add_node(Script_Point p);
     Q_INVOKABLE QObject *add_node(double x,double y);
+
+    Script_Edge* add_edge(Edge *e);
     Q_INVOKABLE QObject *connect(Script_Node* n1, Script_Node*n2);
 
     Q_INVOKABLE Script_Node* node_at(Script_Point p);
 
     QList<Script_Node*> nodes ();
     QList<Script_Edge*> edges ();
+
+    Script_Edge* script_edge(Edge*) const;
 
     Q_INVOKABLE QString toString() const;
 
@@ -69,6 +81,8 @@ signals:
 
 private slots:
     void emit_node_moved(Script_Point pos);
+    void node_removed();
+    void edge_removed();
 
 private:
     QObjectList nodes_object();
