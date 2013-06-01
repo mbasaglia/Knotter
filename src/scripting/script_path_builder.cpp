@@ -24,5 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+
+
 #include "script_path_builder.hpp"
 
+QString Script_Path_Builder::toString() const
+{
+    return "[path]";
+}

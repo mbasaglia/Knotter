@@ -60,6 +60,8 @@ class Script_Path_Builder : public QObject
         {
             pb->new_group();
         }*/
+
+        Q_INVOKABLE QString toString() const;
 };
 
 #endif // SCRIPT_PATH_BUILDER_HPP

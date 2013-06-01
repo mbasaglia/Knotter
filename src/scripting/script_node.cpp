@@ -34,6 +34,7 @@ Script_Node::Script_Node(Script_Point p, QObject *parent) :
 Script_Node::Script_Node(Node *n, QObject *parent):
     QObject(parent), m_pos(n->pos()), m_wrapped_node(n)
 {
+    connect(m_wrapped_node,SIGNAL(destroyed()),SLOT(clean_wrappen_node()));
 }
 
 Script_Node::Script_Node(const Script_Node &o)
@@ -65,40 +66,18 @@ Node *Script_Node::generate_wrapped_node()
         return m_wrapped_node;
 
     m_wrapped_node = new Node(m_pos);
+    connect(m_wrapped_node,SIGNAL(destroyed()),SLOT(clean_wrappen_node()));
+
     return m_wrapped_node;
 }
 
-
-
-QScriptValue build_node (QScriptContext *context, QScriptEngine *engine)
+QString Script_Node::toString() const
 {
-
-    if ( context->argumentCount() == 2 ) // x,y
-    {
-        double x = qscriptvalue_cast<double> (context->argument(0));
-        double y = qscriptvalue_cast<double> (context->argument(1));
-
-        return engine->toScriptValue(Script_Node(Script_Point(x,y)));
-    }
-    else if ( context->argumentCount() == 1 ) // point
-    {
-        /// \todo copy constructor
-        return engine->toScriptValue(Script_Node(
-                    qscriptvalue_cast<Script_Point> (context->argument(0))) );
-    }
-    else // default (0,0)
-        return engine->toScriptValue( Script_Node(Script_Point(0,0)) );
+    return "[node "+m_pos.toString()+"]";
 }
 
-QScriptValue node_to_script(QScriptEngine *engine, const Script_Node &n)
-{
 
-    QScriptValue obj = engine->newQObject(new Script_Node(n),QScriptEngine::ScriptOwnership);
-    return obj;
-}
-
-void node_from_script(const QScriptValue &obj, Script_Node &n)
+void Script_Node::clean_wrappen_node()
 {
-    n.set_pos ( qscriptvalue_cast<Script_Point>(obj.property("pos")) );
-    n.set_edges( qscriptvalue_cast<QList<Script_Edge*> >(obj.property("edges")) );
+    m_wrapped_node = nullptr;
 }

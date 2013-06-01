@@ -46,6 +46,14 @@ Script_Graph *Script_Document::graph()
     return &m_graph;
 }
 
+QString Script_Document::toString() const
+{
+    QString file = filename();
+    if ( !file.isEmpty() )
+        file = ' '+file;
+    return QString("[Knot%1]").arg(file);
+}
+
 void Script_Document::add_node(Script_Node *n)
 {
     wrapped->push_command(new Create_Node(n->generate_wrapped_node(),wrapped));

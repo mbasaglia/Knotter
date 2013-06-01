@@ -72,3 +72,8 @@ Script_Document* Script_Window::document()
     else
         return docs[window->view] = new Script_Document(window->view,this);
 }
+
+QString Script_Window::toString() const
+{
+    return "[Knotter window]";
+}

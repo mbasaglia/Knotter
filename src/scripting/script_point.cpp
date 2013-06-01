@@ -28,9 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 QScriptValue point_to_script(QScriptEngine *engine, const Script_Point &p)
 {
-    QScriptValue obj = engine->newObject();
-    obj.setProperty("x",p.x());
-    obj.setProperty("y",p.y());
+
+    QScriptValue obj = engine->newQObject(new Script_Point(p),QScriptEngine::ScriptOwnership);
     return obj;
 }
 

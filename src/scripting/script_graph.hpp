@@ -60,6 +60,8 @@ public:
     QList<Script_Node*> nodes ();
     QList<Script_Edge*> edges ();
 
+    Q_INVOKABLE QString toString() const;
+
 signals:
     void node_added(Script_Node* n);
     void edge_added(Script_Edge* e);

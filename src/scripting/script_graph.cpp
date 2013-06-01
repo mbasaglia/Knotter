@@ -84,11 +84,17 @@ QList<Script_Edge *> Script_Graph::edges()
     return findChildren<Script_Edge*>();
 }
 
+QString Script_Graph::toString() const
+{
+    return "[graph]";
+}
+
 
 Script_Node *Script_Graph::add_node(Node *n)
 {
     Script_Node* sn =  new Script_Node(n,this);
-    QObject::connect(sn,SIGNAL(moved(Script_Point)),SLOT(emit_node_moved(QPointF)));
+    QObject::connect(sn,SIGNAL(moved(Script_Point)),
+                     SLOT(emit_node_moved(Script_Point)));
     return sn;
 }
 

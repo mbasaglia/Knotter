@@ -54,6 +54,8 @@ public:
     int open_tabs() const;
 
     Script_Document* document();
+
+    Q_INVOKABLE QString toString() const;
 };
 
 #endif // SCRIPT_WINDOW_HPP

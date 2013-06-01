@@ -82,21 +82,18 @@ public:
      */
     Node* generate_wrapped_node();
 
+    Q_INVOKABLE QString toString() const;
+
 signals:
     void moved(Script_Point p);
 
+private slots:
+    /**
+     * @brief Set wrapped node to nullptr when it's destroyed
+     */
+    void clean_wrappen_node();
 
 };
 
-Q_DECLARE_METATYPE(Script_Node)
-Q_DECLARE_METATYPE(QList<Script_Edge*>)
-Q_DECLARE_METATYPE(QList<Script_Node*>)
 
-
-/// Wrapper to Node constructors
-QScriptValue build_node (QScriptContext *context, QScriptEngine *engine);
-/// Convert C++ object to JS object
-QScriptValue node_to_script(QScriptEngine *engine, const Script_Node &n);
-/// Convert JS object to C++ Object
-void node_from_script(const QScriptValue &obj, Script_Node &n);
 #endif // SCRIPT_NODE_HPP

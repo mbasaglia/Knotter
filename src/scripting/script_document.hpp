@@ -51,6 +51,8 @@ public:
     QString filename() const;
     Script_Graph* graph();
 
+    Q_INVOKABLE QString toString() const;
+
 public slots:
     void add_node(Script_Node* n);
     void add_edge(Script_Edge* e);

@@ -35,7 +35,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /**
     Wrapper to QPointF
 */
-typedef QPointF Script_Point;
+class Script_Point : public QObject, public QPointF
+{
+    Q_OBJECT
+    Q_PROPERTY(double x READ x WRITE setX )
+    Q_PROPERTY(double y READ y WRITE setY )
+public:
+    explicit Script_Point(double x = 0, double y = 0) : QPointF(x,y) {}
+    Script_Point(const QPointF& o) : QPointF(o) {}
+    Script_Point(const Script_Point& o) : QObject(o.parent()), QPointF(o) {}
+    Script_Point& operator= (const Script_Point& o)
+    {
+        setX(o.x());
+        setY(o.y());
+        return *this;
+    }
+
+    Q_INVOKABLE QString toString()  const { return QString("(%1,%2)").arg(x()).arg(y()); }
+};
+
 Q_DECLARE_METATYPE(Script_Point)
 
 
