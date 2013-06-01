@@ -55,6 +55,7 @@ public:
     /**
      * @brief Create a Graph from nodes and edges
      * @return a new Graph object
+     * \note It's needed only if this graph is not connected to a Script_Document
      */
     Graph* create_graph() const;
 
@@ -65,7 +66,8 @@ public:
     Script_Edge* add_edge(Edge *e);
     Q_INVOKABLE QObject *connect(Script_Node* n1, Script_Node*n2);
 
-    Q_INVOKABLE Script_Node* node_at(Script_Point p);
+    Q_INVOKABLE QObject *node_at(Script_Point p);
+    Q_INVOKABLE QObject *node_at(double x, double y);
 
     QList<Script_Node*> nodes ();
     QList<Script_Edge*> edges ();
@@ -73,6 +75,7 @@ public:
     Script_Edge* script_edge(Edge*) const;
 
     Q_INVOKABLE QString toString() const;
+
 
 signals:
     void node_added(Script_Node* n);

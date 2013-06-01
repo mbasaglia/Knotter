@@ -91,7 +91,7 @@ QObject *Script_Graph::connect(Script_Node *n1, Script_Node *n2)
     return e;
 }
 
-Script_Node *Script_Graph::node_at(Script_Point p)
+QObject *Script_Graph::node_at(Script_Point p)
 {
     foreach(Script_Node *n, nodes())
     {
@@ -100,6 +100,11 @@ Script_Node *Script_Graph::node_at(Script_Point p)
     }
 
     return nullptr;
+}
+
+QObject *Script_Graph::node_at(double x, double y)
+{
+    return node_at(Script_Point(x,y));
 }
 
 QList<Script_Node *> Script_Graph::nodes()

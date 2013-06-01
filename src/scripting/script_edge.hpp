@@ -62,6 +62,8 @@ public:
     Script_Node* vertex2() { return v2; }
     Script_Line line() { return Script_Line(v1->pos(),v2->pos()); }
     Script_Point midpoint() { return (v1->pos()+v2->pos())/2; }
+
+    Q_INVOKABLE QString toString() const;
 };
 
 Q_DECLARE_METATYPE(Script_Edge*)

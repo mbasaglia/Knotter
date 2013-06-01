@@ -35,3 +35,8 @@ QObject *Script_Edge::other(QObject *node)
 {
     return node == v1 ? v2 : v1;
 }
+
+QString Script_Edge::toString() const
+{
+    return "[edge]";
+}
