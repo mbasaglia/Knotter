@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "edge_style.hpp"
 #include <QScriptEngine>
 #include "plugin.hpp"
+#include <QScriptEngineAgent>
 
 /**
  * Manage resources and data
@@ -56,9 +57,10 @@ class Resource_Manager : public QObject
     QList<Edge_Style*> m_edge_styles;
     QList<Cusp_Shape*> m_cusp_shapes;
 
-    QScriptEngine *m_script_engine;
-    QList<Plugin*>  m_plugins;
-    QScriptContext *current_context;
+    QScriptEngine *     m_script_engine;
+    QList<Plugin*>      m_plugins;
+    QScriptContext *    current_context;
+    QScriptEngineAgent* m_script_engine_agent;
 
 public:
     static Settings settings;
@@ -222,7 +224,17 @@ public:
     static QList<Plugin*> plugins() { return singleton.m_plugins; }
 
 
-    //static QScriptEngine& script_engine() { return *singleton.m_script_engine; }
+    static QScriptEngineAgent& script_engine_agent() { return *singleton.m_script_engine_agent; }
+
+    /**
+     * \brief Get or create a new script context
+     *
+     *  Creates a context only if there is no current context.
+     *
+     *  This is called implicitly by script_param() and run_script().
+     */
+    static QScriptContext* script_context();
+
     /// Adds parameter to the script context
     static void script_param(QString name, QScriptValue value);
     /// Adds parameter to the script context
@@ -235,7 +247,18 @@ public:
     /// Run a script in the current context
     static void run_script(Plugin* source);
 
-    static QScriptValue run_script(const QString &program, const QString &fileName = QString(), int lineNumber = 1);
+    /**
+     *  \brief Execute a script
+     *  \param program      Code to be executed
+     *  \param fileName     Name of the file, used for error reporting
+     *  \param lineNumber   First line of the file, used for error reporting
+     *  \param[out] context_value If not \c nullptr used to store the context value
+     *  \return The value resulting from the evaluation of the script
+     */
+    static QScriptValue run_script(const QString &program,
+                                   const QString &fileName = QString(),
+                                   int lineNumber = 1,
+                                   QScriptValue* context_value=nullptr);
 
 
     static void emit_script_output(QString s) { emit singleton.script_output(s); }
@@ -259,17 +282,6 @@ signals:
     void script_error(QString file,int line,QString msg, QStringList trace);
 
     void script_output(QString);
-
-private:
-
-    /**
-     * \brief Creates a new script context
-     *
-     *  Creates a context only if there is no current context.
-     *
-     *  This is called implicitly by script_param() and run_script().
-     */
-    static void script_context();
 
 };
 

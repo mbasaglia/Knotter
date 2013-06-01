@@ -54,3 +54,8 @@ bool Script_Knotter::has_version(int maj, int min)
 {
     return Resource_Manager::has_least_version(maj,min);
 }
+
+QString Script_Knotter::toString() const
+{
+    return Resource_Manager::program_name()+" "+Resource_Manager::program_version();
+}

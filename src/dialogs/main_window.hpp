@@ -71,6 +71,12 @@ public:
     explicit Main_Window(QWidget *parent = 0);
 
 
+    /**
+     * @brief Get view at given tab index
+     * @param n Tab index
+     * @return The view or nullptr
+     */
+    Knot_View* view_at(int n);
 
 public slots:
     /// Change all the strings to their translated version
@@ -102,6 +108,12 @@ public slots:
     void close_tab(int i, bool confirm_if_changed = true);
 
     void print (QPrinter* pr);
+
+signals:
+    /**
+     * @brief Emitted whet a tab is about to be closed
+     */
+    void tab_closing(Knot_View*);
 
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;

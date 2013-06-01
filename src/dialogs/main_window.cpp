@@ -610,6 +610,9 @@ void Main_Window::close_tab(int i, bool confirm_if_changed)
 
 
         undo_group.removeStack(kv->undo_stack_pointer());
+
+        emit tab_closing(kv);
+
         delete kv;
     }
     //tabWidget->removeTab(i);
@@ -1154,4 +1157,10 @@ void Main_Window::on_action_Print_Preview_triggered()
 void Main_Window::on_action_Configure_Plugins_triggered()
 {
     dialog_plugins.show();
+}
+
+
+Knot_View *Main_Window::view_at(int n)
+{
+    return dynamic_cast<Knot_View*>(tabWidget->widget(n));
 }

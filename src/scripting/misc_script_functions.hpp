@@ -45,6 +45,8 @@ public:
 
     /// Check if Knotter has at leaset specified version
     Q_INVOKABLE bool has_version(int maj, int min);
+
+    Q_INVOKABLE QString toString() const;
 };
 
 #endif // MISC_SCRIPT_FUNCTIONS_HPP

@@ -36,6 +36,7 @@ class Dock_Script_Log : public QDockWidget, private Ui::Dock_Script_Log
     Q_OBJECT
 
     Script_Window sw;
+    QScriptValue  state;
 public:
     explicit Dock_Script_Log(Main_Window* mw);
     

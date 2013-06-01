@@ -44,6 +44,7 @@ class Script_Window : public QObject
 
     Main_Window* window;
     QMap<Knot_View*,Script_Document*> docs;
+
 public:
     explicit Script_Window(Main_Window* window, QObject *parent = 0);
 
@@ -56,6 +57,9 @@ public:
     Script_Document* document();
 
     Q_INVOKABLE QString toString() const;
+
+private slots:
+    void close_tab(Knot_View* v);
 };
 
 #endif // SCRIPT_WINDOW_HPP

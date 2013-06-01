@@ -194,8 +194,10 @@ void Resource_Manager::initialize(QString default_lang_code)
 
     // Scripting
     singleton.m_script_engine = new QScriptEngine; // needs to be initialized only after qApp is created
-    singleton.current_context = nullptr;
     QScriptEngine* engine = singleton.m_script_engine; // shorer to write
+    singleton.current_context = nullptr;
+    singleton.m_script_engine_agent = new QScriptEngineAgent(engine);
+    engine->setAgent(singleton.m_script_engine_agent);
     qRegisterMetaType<Script_Point>("Script_Point");
     qRegisterMetaType<Script_Line>("Script_Line");
     qScriptRegisterMetaType(engine, line_to_script, line_from_script);
@@ -431,10 +433,11 @@ void Resource_Manager::load_plugins()
     }
 }
 
-void Resource_Manager::script_context()
+QScriptContext* Resource_Manager::script_context()
 {
     if ( singleton.current_context == nullptr )
         singleton.current_context = singleton.m_script_engine->pushContext();
+    return singleton.current_context;
 }
 
 void Resource_Manager::script_param(QString name, QScriptValue value)
@@ -459,7 +462,10 @@ void Resource_Manager::run_script(Plugin *source)
                source->script_program().firstLineNumber());
 }
 
-QScriptValue Resource_Manager::run_script(const QString &program, const QString &fileName, int lineNumber)
+QScriptValue Resource_Manager::run_script(const QString &program,
+                                          const QString &fileName,
+                                          int lineNumber,
+                                          QScriptValue *context_value)
 {
     script_context();
     QScriptValue result = singleton.m_script_engine->evaluate(program,fileName,lineNumber);
@@ -477,6 +483,8 @@ QScriptValue Resource_Manager::run_script(const QString &program, const QString 
                                 );
         singleton.m_script_engine->clearExceptions();
     }
+    if ( context_value != nullptr )
+        *context_value = singleton.current_context->activationObject();
     singleton.m_script_engine->popContext();
     singleton.current_context = nullptr;
     return result;

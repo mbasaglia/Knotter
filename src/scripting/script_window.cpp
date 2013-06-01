@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Script_Window::Script_Window(Main_Window *window, QObject *parent) :
     QObject(parent), window(window)
 {
+    connect(window,SIGNAL(tab_closing(Knot_View*)),SLOT(close_tab(Knot_View*)));
 }
 
 bool Script_Window::open(QString name)
@@ -60,13 +61,6 @@ int Script_Window::open_tabs() const
 
 Script_Document* Script_Window::document()
 {
-    if ( docs.size() > open_tabs() )
-    {
-        foreach ( Script_Document* doc, docs.values() )
-            delete doc;
-        docs.clear();
-    }
-
     if ( docs.contains(window->view) )
         return docs[window->view];
     else
@@ -77,3 +71,13 @@ QString Script_Window::toString() const
 {
     return "[Knotter window]";
 }
+
+void Script_Window::close_tab(Knot_View *view)
+{
+    if ( docs.contains(view) )
+    {
+        delete docs[view];
+        docs.remove(view);
+    }
+}
+
