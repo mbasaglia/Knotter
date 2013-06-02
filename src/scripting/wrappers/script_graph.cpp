@@ -226,6 +226,15 @@ void graph_from_script(const QScriptValue &obj, Script_Graph &graph)
     foreach( QObject* o, nodes )
     {
         Script_Node *n = qobject_cast<Script_Node *>(o);
-        graph.add_node(n->wrapped_node());
+        if ( n )
+            graph.add_node(n->wrapped_node());
+    }
+
+
+    foreach( QObject* o, edges )
+    {
+        Script_Edge *e = qobject_cast<Script_Edge*>(o);
+        if ( e )
+            graph.connect(e->vertex1(),e->vertex2());
     }
 }

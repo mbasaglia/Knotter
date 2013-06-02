@@ -73,12 +73,15 @@ contains(CONFIG,debug) {
 
 !lessThan(QT_MAJOR_VERSION,4) !lessThan(QT_MINOR_VERSION,8) {
     DEFINES += HAS_QT_4_8
-    CONFIG += uitools
 }
 greaterThan(QT_MAJOR_VERSION, 4) {
     DEFINES += HAS_QT_4_8 HAS_QT_5
     QT += widgets printsupport uitools
 }
+else {
+    CONFIG += uitools
+}
+
 contains(CONFIG,c++11) {
     DEFINES += CXX_11
 }
