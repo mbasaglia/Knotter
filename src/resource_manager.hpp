@@ -238,7 +238,8 @@ public:
     /// Adds parameter to the script context
     static void script_param(QString name, QScriptValue value);
     /// Adds parameter to the script context
-    static void script_param(QString name, QObject* value);
+    static void script_param(QString name, QObject* value,
+                             QScriptEngine::ValueOwnership owner = QScriptEngine::QtOwnership );
     /// Adds parameter to the script context
     template <class T>
     static void script_param_template(QString name, const T& value)

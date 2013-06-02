@@ -210,7 +210,6 @@ void Resource_Manager::initialize(QString default_lang_code)
     engine->globalObject().setProperty( "knotter",
         engine->newQObject(new Script_Knotter,QScriptEngine::ScriptOwnership));
 
-
     //plugins
     load_plugins();
 
@@ -447,11 +446,12 @@ void Resource_Manager::script_param(QString name, QScriptValue value)
 }
 
 
-void Resource_Manager::script_param(QString name, QObject* value)
+void Resource_Manager::script_param(QString name, QObject* value,
+                                    QScriptEngine::ValueOwnership owner)
 {
     script_context();
     singleton.current_context->activationObject().setProperty(name,
-              singleton.m_script_engine->newQObject(value)
+              singleton.m_script_engine->newQObject(value,owner)
     );
 }
 

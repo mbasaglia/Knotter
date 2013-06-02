@@ -7,30 +7,6 @@
     "type"          : "insert",
     "icon"          : "grid-square",
     "script"        : "lattice.js",
-    "params" :
-    {
-        "rows" : 
-        {
-            "type"   : "int",
-            "min"    : 1,
-            "value"  : 6,
-            "tooltip": "The number of rows in the lattice"
-        },
-        "columns" :
-        {
-            "type"   : "int",
-            "min"    : 1,
-            "value"  : 6,
-            "tooltip": "The number of columns in the lattice"
-        },
-        "size" :
-        {
-            "type"   : "double",
-            "min"    : 0,
-            "value"  : 32,
-            "label"  : "Cell size",
-            "tooltip": "The size of a cell unit of the lattice"
-        }
-    }
+    "ui"            : "dialog.ui"
 }
      

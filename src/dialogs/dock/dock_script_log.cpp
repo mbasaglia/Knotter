@@ -62,7 +62,11 @@ void Dock_Script_Log::script_error(QString file, int line, QString msg, QStringL
 
     foreach ( QString s , trace )
     {
+#if HAS_QT_5
+        trace_ul += "<li>"+s.toHtmlEscaped()+"</li>";
+#else
         trace_ul += "<li>"+Qt::escape(s)+"</li>";
+#endif
     }
     trace_ul += "</ul>";
 

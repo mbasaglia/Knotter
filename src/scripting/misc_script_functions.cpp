@@ -44,7 +44,6 @@ QScriptValue script_print( QScriptContext * context, QScriptEngine * )
     return QScriptValue();
 }
 
-
 QString Script_Knotter::version() const
 {
     return Resource_Manager::program_version();

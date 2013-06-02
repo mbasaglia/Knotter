@@ -30,6 +30,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_manager.hpp"
 #include "plugin_cusp.hpp"
 
+#include <QUiLoader>
+#include <QFile>
+
 #if HAS_QT_5
 #include <QJsonObject>
 #include <QJsonDocument>
@@ -45,7 +48,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Plugin::Plugin(const QVariantMap &metadata, Plugin::Type type)
     : m_metadata(metadata), type(type), m_enabled(false)
 {
+
+    if ( m_metadata.contains("ui") )
+    {
+
+       QStringList ui = m_metadata["ui"].toStringList();
+       if ( ui.isEmpty() )
+           ui << m_metadata["ui"].toString();
+
+
+       foreach(QString file_name, ui)
+       {
+            QFile ui_file(QDir(string_data("plugin_dir"))
+                          .absoluteFilePath(file_name) );
+            if ( ui_file.open(QFile::ReadOnly|QFile::Text) )
+            {
+                QUiLoader loader;
+
+                QWidget *dialog = loader.load(&ui_file);
+                if ( dialog )
+                    m_widgets << dialog;
+            }
+       }
+    }
 }
+
+Plugin::~Plugin()
+{
+    foreach(QWidget* w, m_widgets)
+        if ( !w->parent() )
+            delete w;
+}
+
 void Plugin::enable(bool e)
 {
     m_enabled = e;
@@ -70,7 +104,6 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
         if ( err.error != QJsonParseError::NoError )
         {
             *error = err.errorString();
-            return p;
         }
         else if ( !json.isNull() )
         {
@@ -177,3 +210,17 @@ QIcon Plugin::icon() const
     return QIcon();
 
 }
+
+void Plugin::execute()
+{
+    foreach(QWidget* w, m_widgets)
+        Resource_Manager::script_param(w->objectName(),w);
+    Resource_Manager::run_script(this);
+}
+
+void Plugin::set_widget_parent(QWidget *parent)
+{
+    foreach(QWidget* w, m_widgets)
+        w->setParent(parent);
+}
+

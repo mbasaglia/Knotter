@@ -49,11 +49,11 @@ public:
     Type            type;
     bool            m_enabled;
     QScriptProgram  m_script;
-
+    QList<QWidget*> m_widgets;
 
 public:
     explicit Plugin(const QVariantMap& metadata, Type type);
-    virtual ~Plugin() {}
+    virtual ~Plugin();
 
     /**
      * \brief Metadata map
@@ -93,6 +93,17 @@ public:
 
     const QScriptProgram& script_program() const { return m_script; }
 
+    /**
+     *  \brief Run the script
+     */
+    virtual void execute();
+
+    /**
+     * \brief Set parent for loaded Ui widgets
+     * \param parent Parent for the loaded widgets
+     */
+    void set_widget_parent(QWidget *parent);
+
 protected:
     /**
      * \brief Function called by enable()
@@ -102,6 +113,7 @@ protected:
     virtual void on_enable(bool){}
 
     void set_data(QString name, QVariant value) { m_metadata[name] = value; }
+
 };
 
 

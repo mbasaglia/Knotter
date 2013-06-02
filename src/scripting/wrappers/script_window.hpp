@@ -58,6 +58,11 @@ public:
 
     Q_INVOKABLE QString toString() const;
 
+    /**
+     * \brief Loads a widget from a ui file
+     */
+    Q_INVOKABLE QWidget* load_widget(QString ui_file_name);
+
 private slots:
     void close_tab(Knot_View* v);
 };

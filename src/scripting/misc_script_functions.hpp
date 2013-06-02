@@ -28,6 +28,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MISC_SCRIPT_FUNCTIONS_HPP
 #include <QScriptContext>
 
+/**
+ * @brief Override qt script print function
+ *
+ * Writes any argument to stdout and emits Resource_Manager::sctipt_output
+ */
 QScriptValue script_print(QScriptContext * context, QScriptEngine * engine );
 
 /**

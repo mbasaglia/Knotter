@@ -27,6 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "script_window.hpp"
 #include "main_window.hpp"
 
+#include <QUiLoader>
+#include <QFile>
+
 Script_Window::Script_Window(Main_Window *window, QObject *parent) :
     QObject(parent), window(window)
 {
@@ -73,6 +76,19 @@ Script_Document* Script_Window::document()
 QString Script_Window::toString() const
 {
     return "[Knotter window]";
+}
+
+QWidget *Script_Window::load_widget(QString ui_file_name)
+{
+    QFile ui_file(ui_file_name );
+    if ( ui_file.open(QFile::ReadOnly|QFile::Text) )
+    {
+        QUiLoader loader;
+
+        return loader.load(&ui_file,window);
+    }
+
+    return nullptr;
 }
 
 void Script_Window::close_tab(Knot_View *view)
