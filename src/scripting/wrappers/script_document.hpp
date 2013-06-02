@@ -43,13 +43,25 @@ class Script_Document : public QObject
 
     Knot_View*   wrapped;
     Script_Graph m_graph;
-
+    QList<Script_Graph*> created_graphs;
 
 public:
     explicit Script_Document(Knot_View* wrapped, QObject *parent = 0);
 
+    /**
+     * @brief File name
+     * @return The name of the file for this document
+     */
     QString filename() const;
     Script_Graph* graph();
+
+
+    /**
+     * \brief Insert a new graph in the view
+     * \param graph Graph to be inserted
+     * \param message String describing the insertion
+     */
+    Q_INVOKABLE bool insert(const Script_Graph & graph, QString message = QString());
 
     Q_INVOKABLE QString toString() const;
 

@@ -25,11 +25,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "script_graph.hpp"
+#include "resource_manager.hpp"
 
 Script_Graph::Script_Graph(const Graph &graph, QObject *parent) :
     QObject(parent)
 {
     from_graph(graph);
+}
+
+Script_Graph::Script_Graph(const Script_Graph &g)
+    : QObject(g.parent())
+{
 }
 
 void Script_Graph::from_graph(const Graph &graph)
@@ -48,6 +54,19 @@ void Script_Graph::from_graph(const Graph &graph)
     }
 
 
+}
+
+Graph *Script_Graph::create_graph() const
+{
+    Graph* g = new Graph;
+    foreach ( Script_Node* n, nodes() )
+        g->add_node(n->wrapped_node());
+    foreach ( Script_Edge* e, edges() )
+        g->add_edge(new Edge(e->vertex1()->wrapped_node(),
+                             e->vertex2()->wrapped_node(),
+                             Resource_Manager::default_edge_style()
+                             ));
+    return g;
 }
 
 
@@ -84,8 +103,14 @@ Script_Edge* Script_Graph::add_edge(Edge *e)
     return se;
 }
 
-QObject *Script_Graph::connect(Script_Node *n1, Script_Node *n2)
+QObject *Script_Graph::connect(QObject *on1, QObject *on2)
 {
+    Script_Node* n1 = qobject_cast<Script_Node*>(on1);
+    Script_Node* n2 = qobject_cast<Script_Node*>(on2);
+
+    if ( !n1 || !n2 )
+        return nullptr;
+
     Script_Edge * e = new Script_Edge(n1,n2,this);
     emit edge_added(e);
     return e;
@@ -107,12 +132,12 @@ QObject *Script_Graph::node_at(double x, double y)
     return node_at(Script_Point(x,y));
 }
 
-QList<Script_Node *> Script_Graph::nodes()
+QList<Script_Node *> Script_Graph::nodes() const
 {
     return findChildren<Script_Node*>();
 }
 
-QList<Script_Edge *> Script_Graph::edges()
+QList<Script_Edge *> Script_Graph::edges() const
 {
     return findChildren<Script_Edge*>();
 }
@@ -178,4 +203,29 @@ QObjectList Script_Graph::edges_object()
     foreach(Script_Edge *e, edges())
         l << e;
     return l;
+}
+
+
+
+QScriptValue build_graph (QScriptContext *, QScriptEngine * engine)
+{
+    return engine->toScriptValue( Script_Graph() );
+}
+
+QScriptValue graph_to_script(QScriptEngine *engine, const Script_Graph &g)
+{
+    QScriptValue obj = engine->newQObject(new Script_Graph(g),QScriptEngine::ScriptOwnership);
+    return obj;
+}
+
+Q_DECLARE_METATYPE(QObjectList)
+void graph_from_script(const QScriptValue &obj, Script_Graph &graph)
+{
+    QObjectList nodes = qscriptvalue_cast<QObjectList>(obj.property("nodes"));
+    QObjectList edges = qscriptvalue_cast<QObjectList>(obj.property("edges"));
+    foreach( QObject* o, nodes )
+    {
+        Script_Node *n = qobject_cast<Script_Node *>(o);
+        graph.add_node(n->wrapped_node());
+    }
 }

@@ -4,7 +4,7 @@
     "description"   : "Insert a parametric grid to use as foundation for a new knot",
     "author"        : "Mattia Basaglia",
     "license"       : "GPLv3+",
-    "type"          : "insert",
+    "category"      : "Insert",
     "icon"          : "grid-square",
     "script"        : "lattice.js",
     "ui"            : "dialog.ui"

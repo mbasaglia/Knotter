@@ -186,6 +186,12 @@ private slots:
     void update_recent_files();
     void click_recent_file();
 
+    /**
+     *  \brief Adds actions to the plugin menu
+     */
+    void update_plugin_menu();
+    void execute_plugin();
+
 
     void on_action_Preferences_triggered();
     void on_action_Display_Graph_toggled(bool arg1);

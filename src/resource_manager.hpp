@@ -221,8 +221,10 @@ public:
     /// Load plugin from data directories
     static void load_plugins();
 
+    /// Get all plugins
     static QList<Plugin*> plugins() { return singleton.m_plugins; }
-
+    /// Get active plugins of given type
+    static QList<Plugin*> active_plugins(Plugin::Type type);
 
     static QScriptEngineAgent& script_engine_agent() { return *singleton.m_script_engine_agent; }
 

@@ -32,26 +32,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "c++.hpp"
 #include <QIcon>
 #include <QScriptProgram>
+#include <QObject>
 
 
-class Plugin
+class Plugin : public QObject
 {
+    Q_OBJECT
+
 public:
     enum Type
     {
         Invalid,    ///< An invalid plugin
-        Test,       ///< A plugin that has no use
         Cusp,       ///< Node cusp
-        Insert      ///< Insert new shapes
+        Script      ///< A script triggered by the user
     };
 
+private:
     QVariantMap     m_metadata;
-    Type            type;
+    Type            m_type;
     bool            m_enabled;
     QScriptProgram  m_script;
     QList<QWidget*> m_widgets;
 
 public:
+    Plugin();
     explicit Plugin(const QVariantMap& metadata, Type type);
     virtual ~Plugin();
 
@@ -75,7 +79,7 @@ public:
         }
 
     /// Whether the plugin has been enabled
-    bool enabled() const { return m_enabled; }
+    bool is_enabled() const { return m_enabled; }
     /// Enable or disable the plugin
     void enable(bool e);
 
@@ -93,16 +97,14 @@ public:
 
     const QScriptProgram& script_program() const { return m_script; }
 
-    /**
-     *  \brief Run the script
-     */
-    virtual void execute();
 
     /**
      * \brief Set parent for loaded Ui widgets
      * \param parent Parent for the loaded widgets
      */
     void set_widget_parent(QWidget *parent);
+
+    Type type() const { return m_type; }
 
 protected:
     /**
@@ -114,8 +116,19 @@ protected:
 
     void set_data(QString name, QVariant value) { m_metadata[name] = value; }
 
+public slots:
+
+    /**
+     *  \brief Run the script
+     */
+    void execute();
+
+signals:
+    void enabled(bool);
+
 };
 
+Q_DECLARE_METATYPE(Plugin*)
 
 
 

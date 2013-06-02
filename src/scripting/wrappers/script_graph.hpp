@@ -42,12 +42,15 @@ class Script_Graph : public QObject
     Q_PROPERTY(QObjectList edges READ edges_object)
     Q_PROPERTY(QObjectList selected_nodes READ selected_nodes_object)
 
+    friend void graph_from_script(const QScriptValue &obj, Script_Graph &graph);
+
 
     QMap<Node*,Script_Node*> node_map;
     QMap<Edge*,Script_Edge*> edge_map;
 
 public:
-    explicit Script_Graph(const Graph &graph, QObject *parent = 0);
+    explicit Script_Graph(const Graph &graph=Graph(), QObject *parent = 0);
+    Script_Graph(const Script_Graph &g);
 
     /**
      * @brief Populate from actual graph
@@ -107,7 +110,7 @@ public:
      *
      * \return A script object
      */
-    Q_INVOKABLE QObject *connect(Script_Node* n1, Script_Node*n2);
+    Q_INVOKABLE QObject *connect(QObject* n1, QObject*n2);
 
     /**
      * \brief Find node at position
@@ -121,11 +124,11 @@ public:
     /**
      * \brief List of nodes
      */
-    QList<Script_Node*> nodes ();
+    QList<Script_Node*> nodes () const;
     /**
      * \brief List of edges
      */
-    QList<Script_Edge*> edges ();
+    QList<Script_Edge*> edges () const;
 
     /**
      * \brief Get wrapper script edge for given edge
@@ -161,6 +164,15 @@ private:
     
 };
 
-Q_DECLARE_METATYPE(Script_Graph*)
+//Q_DECLARE_METATYPE(Script_Graph*)
+Q_DECLARE_METATYPE(Script_Graph)
+
+
+/// Wrapper to Graph constructor
+QScriptValue build_graph (QScriptContext *context, QScriptEngine *engine);
+/// Convert C++ object to JS object
+QScriptValue graph_to_script(QScriptEngine *engine, const Script_Graph &l);
+/// Convert JS object to C++ Object
+void graph_from_script(const QScriptValue &obj, Script_Graph &graph);
 
 #endif // SCRIPT_GRAPH_HPP

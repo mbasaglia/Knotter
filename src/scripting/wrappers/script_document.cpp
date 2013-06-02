@@ -46,6 +46,14 @@ Script_Graph *Script_Document::graph()
     return &m_graph;
 }
 
+bool Script_Document::insert(const Script_Graph &graph, QString message)
+{
+    Graph* g = graph.create_graph();
+    bool b = wrapped->insert(*g,message.isEmpty()?tr("Script Insert"):message);
+    delete g;
+    return b;
+}
+
 QString Script_Document::toString() const
 {
     QString file = filename();

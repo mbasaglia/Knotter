@@ -152,7 +152,7 @@ void Settings::save_config()
     QStringList disabled_plugins;
     foreach ( Plugin* p, Resource_Manager::plugins() )
     {
-        if ( !p->enabled() )
+        if ( !p->is_enabled() )
             disabled_plugins << p->string_data("plugin_file");
     }
     settings.setValue("disabled_plugins",disabled_plugins);

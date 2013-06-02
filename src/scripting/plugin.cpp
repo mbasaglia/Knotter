@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QUiLoader>
 #include <QFile>
+#include <QDialog>
 
 #if HAS_QT_5
 #include <QJsonObject>
@@ -45,8 +46,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
+Plugin::Plugin()
+    : m_type(Invalid), m_enabled(false)
+{
+}
+
 Plugin::Plugin(const QVariantMap &metadata, Plugin::Type type)
-    : m_metadata(metadata), type(type), m_enabled(false)
+    : m_metadata(metadata), m_type(type), m_enabled(true)
 {
 
     if ( m_metadata.contains("ui") )
@@ -65,12 +71,18 @@ Plugin::Plugin(const QVariantMap &metadata, Plugin::Type type)
             {
                 QUiLoader loader;
 
-                QWidget *dialog = loader.load(&ui_file);
-                if ( dialog )
-                    m_widgets << dialog;
+                QWidget *widget = loader.load(&ui_file);
+                if ( widget )
+                {
+                    widget->hide();
+                    m_widgets << widget;
+                }
             }
        }
     }
+
+
+    m_enabled = data("auto_enable",true);
 }
 
 Plugin::~Plugin()
@@ -84,6 +96,7 @@ void Plugin::enable(bool e)
 {
     m_enabled = e;
     on_enable(e);
+    emit enabled(e);
 }
 
 Plugin* Plugin::from_file (QFile &file, QString* error )
@@ -141,20 +154,22 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
 
 
     Plugin::Type type = Plugin::Invalid;
-    if ( data["type"] == "test" )
-        type = Test;
-    else if ( data["type"] == "cusp" )
+    if ( data["type"] == "cusp" )
         type = Cusp;
-    /// \todo more types here
+    else
+        type = Script;
 
+    if ( !data.contains("category") )
+        data["category"] = "Other";
 
     Plugin* p;
     switch (type)
     {
-        case Test:
-            return new Plugin(data,type);
         case Cusp:
             p = new Plugin_Cusp(data);
+            break;
+        case Script:
+            p = new Plugin(data,type);
             break;
         default:
             *error = QObject::tr("Unknown plugin type ");
@@ -162,12 +177,12 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
 
     }
 
-
     if ( !data.contains("script") )
     {
         *error = QObject::tr("Missing script file");
         return nullptr;
     }
+
 
 
     QString script_file_name = fi.dir().absoluteFilePath(data.value("script").toString());
@@ -221,6 +236,6 @@ void Plugin::execute()
 void Plugin::set_widget_parent(QWidget *parent)
 {
     foreach(QWidget* w, m_widgets)
-        w->setParent(parent);
+        w->setParent(parent,Qt::Dialog);
 }
 

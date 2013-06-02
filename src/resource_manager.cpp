@@ -198,17 +198,25 @@ void Resource_Manager::initialize(QString default_lang_code)
     singleton.current_context = nullptr;
     singleton.m_script_engine_agent = new QScriptEngineAgent(engine);
     engine->setAgent(singleton.m_script_engine_agent);
+
     qRegisterMetaType<Script_Point>("Script_Point");
-    qRegisterMetaType<Script_Line>("Script_Line");
-    qScriptRegisterMetaType(engine, line_to_script, line_from_script);
     qScriptRegisterMetaType(engine, point_to_script, point_from_script);
-    engine->globalObject().setProperty("line", engine->newFunction(build_line));
     engine->globalObject().setProperty("point", engine->newFunction(build_point));
     ///sengine->globalObject().setProperty("diff", engine->newFunction(subtract_points));
     engine->globalObject().setProperty("opposite", engine->newFunction(opposite_point));
+
+    qRegisterMetaType<Script_Line>("Script_Line");
+    qScriptRegisterMetaType(engine, line_to_script, line_from_script);
+    engine->globalObject().setProperty("line", engine->newFunction(build_line));
+
     engine->globalObject().setProperty( "print", engine->newFunction( script_print ) );
+
     engine->globalObject().setProperty( "knotter",
         engine->newQObject(new Script_Knotter,QScriptEngine::ScriptOwnership));
+
+    qRegisterMetaType<Script_Graph>("Script_Graph");
+    qScriptRegisterMetaType(engine, graph_to_script, graph_from_script);
+    engine->globalObject().setProperty("graph", engine->newFunction(build_graph));
 
     //plugins
     load_plugins();
@@ -430,6 +438,15 @@ void Resource_Manager::load_plugins()
     {
         load_plugins(plugin_dir_name);
     }
+}
+
+QList<Plugin *> Resource_Manager::active_plugins(Plugin::Type type)
+{
+    QList<Plugin*> l;
+    foreach(Plugin* p,singleton.m_plugins)
+        if ( p->type() == type && p->is_enabled())
+            l << p;
+    return l;
 }
 
 QScriptContext* Resource_Manager::script_context()

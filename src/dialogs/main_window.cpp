@@ -120,6 +120,9 @@ void Main_Window::init_menus()
     // Menu Tools
     action_Refresh_Path->setShortcut(QKeySequence::Refresh);
 
+    // Menu Plugins
+    update_plugin_menu();
+
     // Menu Help
     action_Manual->setShortcut(QKeySequence::HelpContents);
     connect(action_About,SIGNAL(triggered()),&about_dialog,SLOT(show()));
@@ -760,6 +763,64 @@ void Main_Window::click_recent_file()
     QAction*a = qobject_cast<QAction*>(sender());
     if ( a )
         create_tab(a->text());
+}
+
+void Main_Window::update_plugin_menu()
+{
+    foreach(QAction*a, menu_Plugins->actions() )
+    {
+        if ( a->menu() )
+            delete a;
+    }
+    QAction * before = menu_Plugins->actions().front();
+
+
+    QMap<QString,QMenu*> categories;
+    foreach(Plugin* p, Resource_Manager::active_plugins(Plugin::Script) )
+    {
+        QMenu* m;
+        QString cat = p->string_data("category");
+        if ( !categories.contains(cat) )
+        {
+            m = new QMenu(cat);
+            m->setIcon(QIcon::fromTheme("preferences-plugin-script"));
+            menu_Plugins->insertMenu(before,m);
+            categories[cat] = m;
+        }
+        else
+            m = categories[cat];
+
+        QAction* a = new QAction(
+            p->icon().isNull() ? QIcon::fromTheme("text-x-script") : p->icon(),
+            p->string_data("name"),
+            m
+        );
+        a->setToolTip(p->string_data("description"));
+        a->setData(QVariant::fromValue(p));
+
+        m->insertAction(nullptr,a);
+
+        p->set_widget_parent(this);
+        connect(a,SIGNAL(triggered()),SLOT(execute_plugin()));
+
+    }
+}
+
+void Main_Window::execute_plugin()
+{
+    QAction* a = qobject_cast<QAction*>(sender());
+    if ( a )
+    {
+        Plugin* p = a->data().value<Plugin*>();
+        if ( p )
+        {
+            Script_Document doc(view);
+            Script_Window win(this);
+            Resource_Manager::script_param("document",&doc);
+            Resource_Manager::script_param("window",&win);
+            p->execute();
+        }
+    }
 }
 
 void Main_Window::on_action_Mirror_Horizontal_triggered()

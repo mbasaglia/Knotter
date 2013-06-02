@@ -46,7 +46,6 @@ void Dialog_Plugins::changeEvent(QEvent *e)
             break;
     }
 }
-Q_DECLARE_METATYPE(Plugin*)
 
 void Dialog_Plugins::load_plugins()
 {
@@ -55,7 +54,7 @@ void Dialog_Plugins::load_plugins()
     {
         QListWidgetItem *item = new QListWidgetItem(p->icon(), p->string_data("name"));
         item->setData(Qt::UserRole,QVariant::fromValue(p));
-        set_item_enabled(item,p->enabled());
+        set_item_enabled(item,p->is_enabled());
         listWidget->addItem(item);
     }
 }
@@ -67,7 +66,7 @@ void Dialog_Plugins::on_listWidget_currentRowChanged(int currentRow)
     {
         label_title->setText(p->string_data("name"));
         text_description->setPlainText(p->string_data("description"));
-        check_enable->setChecked(p->enabled());
+        check_enable->setChecked(p->is_enabled());
         tableWidget->clearContents();
         tableWidget->setRowCount(0);
         foreach(QString k, p->metadata().keys())
