@@ -13,37 +13,37 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-INCLUDEPATH += $$PWD
+INCLUDEPATH += $$PWD $$PWD/wrappers
 
 HEADERS += \
-    $$PWD/script_line.hpp \
-    $$PWD/script_point.hpp \
+    $$PWD/wrappers/script_line.hpp \
+    $$PWD/wrappers/script_point.hpp \
     $$PWD/plugin.hpp \
     $$PWD/cusp_scripted.hpp \
     $$PWD/plugin_cusp.hpp \
-    $$PWD/script_path_builder.hpp \
+    $$PWD/wrappers/script_path_builder.hpp \
     $$PWD/plugin_insert.hpp \
     $$PWD/plugin_param.hpp \
     $$PWD/misc_script_functions.hpp \
-    $$PWD/script_node.hpp \
-    $$PWD/script_window.hpp \
-    $$PWD/script_edge.hpp \
-    $$PWD/script_graph.hpp \
-    $$PWD/script_document.hpp
+    $$PWD/wrappers/script_node.hpp \
+    $$PWD/wrappers/script_window.hpp \
+    $$PWD/wrappers/script_edge.hpp \
+    $$PWD/wrappers/script_graph.hpp \
+    $$PWD/wrappers/script_document.hpp
 
 SOURCES += \
-    $$PWD/script_line.cpp \
+    $$PWD/wrappers/script_line.cpp \
     $$PWD/plugin.cpp \
-    $$PWD/script_point.cpp \
+    $$PWD/wrappers/script_point.cpp \
     $$PWD/cusp_scripted.cpp \
     $$PWD/plugin_cusp.cpp \
-    $$PWD/script_path_builder.cpp \
+    $$PWD/wrappers/script_path_builder.cpp \
     $$PWD/plugin_insert.cpp \
     $$PWD/plugin_param.cpp \
     $$PWD/misc_script_functions.cpp \
-    $$PWD/script_node.cpp \
-    $$PWD/script_window.cpp \
-    $$PWD/script_edge.cpp \
-    $$PWD/script_graph.cpp \
-    $$PWD/script_document.cpp
+    $$PWD/wrappers/script_node.cpp \
+    $$PWD/wrappers/script_window.cpp \
+    $$PWD/wrappers/script_edge.cpp \
+    $$PWD/wrappers/script_graph.cpp \
+    $$PWD/wrappers/script_document.cpp
 

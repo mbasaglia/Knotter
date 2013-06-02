@@ -58,6 +58,11 @@ void Script_Node::set_y(double y)
     emit moved(Script_Point(x(),y));
 }
 
+bool Script_Node::selected() const
+{
+    return m_wrapped_node->isSelected();
+}
+
 QObjectList Script_Node::edges() const
 {
     QObjectList l;

@@ -44,6 +44,7 @@ class Script_Node : public QObject
     Q_PROPERTY(Script_Point pos READ pos WRITE set_pos )
     Q_PROPERTY(double x READ x WRITE set_x )
     Q_PROPERTY(double y READ y WRITE set_y )
+    Q_PROPERTY(bool selected READ selected)
 
     Q_PROPERTY(QObjectList edges READ edges)
 
@@ -62,6 +63,8 @@ public:
     double y () const { return pos().y(); }
     void set_x(double x);
     void set_y(double y);
+
+    bool selected() const;
 
     QObjectList edges() const;
 

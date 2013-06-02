@@ -163,6 +163,15 @@ QObjectList Script_Graph::nodes_object()
     return l;
 }
 
+QObjectList Script_Graph::selected_nodes_object()
+{
+    QObjectList l;
+    foreach(Script_Node *n, nodes())
+        if ( n->selected() )
+            l << n;
+    return l;
+}
+
 QObjectList Script_Graph::edges_object()
 {
     QObjectList l;
