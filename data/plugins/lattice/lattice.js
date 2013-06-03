@@ -2,7 +2,7 @@ Dialog.cell_size.value = document.grid.size;
 
 if ( Dialog.exec() )
 {
-    graph = new graph();
+    graph = new Graph();
     var x = 0;
     var y = 0;
     var size = Dialog.cell_size.value

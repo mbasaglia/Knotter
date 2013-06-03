@@ -97,6 +97,8 @@ void Dock_Script_Log::on_script_input_lineExecuted(const QString &arg1)
     if ( !state.isValid() )
         Resource_Manager::script_param("window",&sw);
 
+    Resource_Manager::script_param("document",sw.document());
+
     QScriptValue v = Resource_Manager::run_script(arg1,"Script console",
                                                   script_input->lineCount(),
                                                   &state);

@@ -19,16 +19,16 @@ Variables:
 if ( angle > cusp_angle ) 
 {
     
-    cusp_line = line(node_point,cusp_point);
+    cusp_line = Line(node_point,cusp_point);
     //path.add_line(node_point,cusp_point);
     
     
-    tip_line1 = line(cusp_line)
+    tip_line1 = Line(cusp_line)
     tip_line1.angle = cusp_line.angle-direction*angle/4;
-    in_line1 = line(cusp_line);
+    in_line1 = Line(cusp_line);
     in_line1.angle = cusp_line.angle-direction*angle/8;
     in_line1.length /= 2;
-    base_line1 = line(in_line1);
+    base_line1 = Line(in_line1);
     base_line1.angle = cusp_line.angle-direction*angle*3/8;
     path.add_line(cusp_point,in_line1.p2);
     path.add_line(in_line1.p2,tip_line1.p2);
@@ -38,12 +38,12 @@ if ( angle > cusp_angle )
     
     
     
-    tip_line2 = line(cusp_line)
+    tip_line2 = Line(cusp_line)
     tip_line2.angle = cusp_line.angle+direction*angle/4;
-    in_line2 = line(cusp_line);
+    in_line2 = Line(cusp_line);
     in_line2.angle = cusp_line.angle+direction*angle/8;
     in_line2.length /= 2;
-    base_line2 = line(in_line1);
+    base_line2 = Line(in_line1);
     base_line2.angle = cusp_line.angle+direction*angle*3/8;
     path.add_line(cusp_point,in_line2.p2);
     path.add_line(in_line2.p2,tip_line2.p2);

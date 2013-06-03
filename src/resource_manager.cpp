@@ -446,18 +446,18 @@ QScriptContext* Resource_Manager::script_context()
 
         singleton.current_context = engine->pushContext();
 
-        engine->globalObject().setProperty("point", engine->newFunction(build_point));
+        engine->globalObject().setProperty("Point", engine->newFunction(build_point));
         ///sengine->globalObject().setProperty("diff", engine->newFunction(subtract_points));
         engine->globalObject().setProperty("opposite", engine->newFunction(opposite_point));
 
-        engine->globalObject().setProperty("line", engine->newFunction(build_line));
+        engine->globalObject().setProperty("Line", engine->newFunction(build_line));
 
         engine->globalObject().setProperty( "print", engine->newFunction( script_print ) );
 
         engine->globalObject().setProperty( "knotter",
             engine->newQObject(new Script_Knotter,QScriptEngine::ScriptOwnership));
 
-        engine->globalObject().setProperty("graph", engine->newFunction(build_graph));
+        engine->globalObject().setProperty("Graph", engine->newFunction(build_graph));
     }
     return singleton.current_context;
 }
