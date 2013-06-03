@@ -28,7 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "commands.hpp"
 
 Script_Document::Script_Document(Knot_View *wrapped, QObject *parent) :
-    QObject(parent), wrapped(wrapped),m_graph(wrapped->graph())
+    QObject(parent), wrapped(wrapped), m_graph(wrapped->graph()),
+    m_grid(&wrapped->grid())
 {
     connect(&m_graph,SIGNAL(edge_added(Script_Edge*)),SLOT(add_edge(Script_Edge*)));
     connect(&m_graph,SIGNAL(node_added(Script_Node*)),SLOT(add_node(Script_Node*)));
@@ -44,6 +45,11 @@ QString Script_Document::filename() const
 Script_Graph *Script_Document::graph()
 {
     return &m_graph;
+}
+
+QObject *Script_Document::grid()
+{
+    return &m_grid;
 }
 
 bool Script_Document::insert(const Script_Graph &graph, QString message)
