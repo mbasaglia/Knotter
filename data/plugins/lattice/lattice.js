@@ -1,22 +1,24 @@
+Dialog.cell_size.value = document.grid.size;
+
 if ( Dialog.exec() )
 {
     graph = new graph();
-    x = 0;
-    y = 0;
-    size = Dialog.cell_size.value
-    for ( j = 0; j < Dialog.columns.value; j++ )
+    var x = 0;
+    var y = 0;
+    var size = Dialog.cell_size.value
+    for ( var j = 0; j < Dialog.columns.value; j++ )
     {
-        for ( i = 0; i < Dialog.rows.value; i++ )
+        for ( var i = 0; i < Dialog.rows.value; i++ )
         {
-            node = graph.add_node(x,y);
+            var node = graph.add_node(x,y);
             if ( i > 0 )
             {
-                left_node = graph.node_at(x-size,y);
+                var left_node = graph.node_at(x-size,y);
                 graph.connect(left_node,node);
             }
             if ( j > 0 )
             {
-                top_node = graph.node_at(x,y-size);
+                var top_node = graph.node_at(x,y-size);
                 graph.connect(top_node,node);
             }
             x += size;

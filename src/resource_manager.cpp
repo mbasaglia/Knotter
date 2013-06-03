@@ -201,22 +201,11 @@ void Resource_Manager::initialize(QString default_lang_code)
 
     qRegisterMetaType<Script_Point>("Script_Point");
     qScriptRegisterMetaType(engine, point_to_script, point_from_script);
-    engine->globalObject().setProperty("point", engine->newFunction(build_point));
-    ///sengine->globalObject().setProperty("diff", engine->newFunction(subtract_points));
-    engine->globalObject().setProperty("opposite", engine->newFunction(opposite_point));
-
     qRegisterMetaType<Script_Line>("Script_Line");
     qScriptRegisterMetaType(engine, line_to_script, line_from_script);
-    engine->globalObject().setProperty("line", engine->newFunction(build_line));
-
-    engine->globalObject().setProperty( "print", engine->newFunction( script_print ) );
-
-    engine->globalObject().setProperty( "knotter",
-        engine->newQObject(new Script_Knotter,QScriptEngine::ScriptOwnership));
-
     qRegisterMetaType<Script_Graph>("Script_Graph");
     qScriptRegisterMetaType(engine, graph_to_script, graph_from_script);
-    engine->globalObject().setProperty("graph", engine->newFunction(build_graph));
+
 
     //plugins
     load_plugins();
@@ -452,7 +441,24 @@ QList<Plugin *> Resource_Manager::active_plugins(Plugin::Type type)
 QScriptContext* Resource_Manager::script_context()
 {
     if ( singleton.current_context == nullptr )
-        singleton.current_context = singleton.m_script_engine->pushContext();
+    {
+        QScriptEngine* engine = singleton.m_script_engine;
+
+        singleton.current_context = engine->pushContext();
+
+        engine->globalObject().setProperty("point", engine->newFunction(build_point));
+        ///sengine->globalObject().setProperty("diff", engine->newFunction(subtract_points));
+        engine->globalObject().setProperty("opposite", engine->newFunction(opposite_point));
+
+        engine->globalObject().setProperty("line", engine->newFunction(build_line));
+
+        engine->globalObject().setProperty( "print", engine->newFunction( script_print ) );
+
+        engine->globalObject().setProperty( "knotter",
+            engine->newQObject(new Script_Knotter,QScriptEngine::ScriptOwnership));
+
+        engine->globalObject().setProperty("graph", engine->newFunction(build_graph));
+    }
     return singleton.current_context;
 }
 
