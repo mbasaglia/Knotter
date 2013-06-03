@@ -63,6 +63,8 @@ public:
      */
     Q_INVOKABLE QWidget* load_widget(QString ui_file_name);
 
+    void clean_up();
+
 private slots:
     void close_tab(Knot_View* v);
 };

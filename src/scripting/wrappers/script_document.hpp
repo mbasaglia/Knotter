@@ -46,9 +46,11 @@ class Script_Document : public QObject
     Knot_View*   wrapped;
     Script_Graph m_graph;
     Script_Grid  m_grid;
+    int          macro_count;
 
 public:
     explicit Script_Document(Knot_View* wrapped, QObject *parent = 0);
+    ~Script_Document();
 
     /**
      * @brief File name
@@ -71,6 +73,10 @@ public:
 
     /// Updates the graph
     void update();
+
+    Q_INVOKABLE void begin_macro(QString message);
+    Q_INVOKABLE void end_macro();
+    void clean_macros();
 
 public slots:
     void add_node(Script_Node* n);

@@ -91,6 +91,13 @@ QWidget *Script_Window::load_widget(QString ui_file_name)
     return nullptr;
 }
 
+void Script_Window::clean_up()
+{
+    foreach(Script_Document* d, docs.values() )
+        d->clean_macros();
+}
+
+
 void Script_Window::close_tab(Knot_View *view)
 {
     if ( docs.contains(view) )
