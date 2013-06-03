@@ -65,7 +65,7 @@ QScriptValue opposite_point (QScriptContext *context, QScriptEngine *engine)
     {
         Script_Point p = qscriptvalue_cast<Script_Point> (context->argument(0));
 
-        return engine->toScriptValue(-p);
+        return engine->toScriptValue(Script_Point(-p.x(),-p.y()));
     }
     else
         return  engine->toScriptValue(Script_Point());

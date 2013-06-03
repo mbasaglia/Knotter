@@ -42,8 +42,8 @@ class Script_Point : public QObject, public QPointF
     Q_PROPERTY(double y READ y WRITE setY )
 public:
     explicit Script_Point(double x = 0, double y = 0) : QPointF(x,y) {}
-    Script_Point(const QPointF& o) : QPointF(o) {}
-    Script_Point(const Script_Point& o) : QObject(o.parent()), QPointF(o) {}
+    Script_Point(const QPointF& o) : QPointF(o.x(), o.y()) {}
+    Script_Point(const Script_Point& o) : QObject(o.parent()), QPointF(o.x(),o.y()) {}
     Script_Point& operator= (const Script_Point& o)
     {
         setX(o.x());

@@ -37,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "dock_background.hpp"
 #include "cusp_style_widget.hpp"
 #include "about_dialog.hpp"
-#include "dialog_insert_polygon.hpp"
 #include <QPrinter>
 #include "dialog_plugins.hpp"
 #include "dock_borders.hpp"
@@ -62,7 +61,6 @@ private:
     Cusp_Style_Widget*      selection_style;
     Dock_Borders*           dock_borders;
     About_Dialog            about_dialog;
-    Dialog_Insert_Polygon   dialog_insert_polygon;
     QPrinter                printer;
     Dialog_Plugins          dialog_plugins;
     Dock_Script_Log*        dock_script_log;
@@ -209,7 +207,6 @@ private slots:
     void on_action_Mirror_Vertical_triggered();
     void on_action_Select_All_triggered();
     void on_actionSelect_Connected_triggered();
-    void on_action_Insert_Polygon_triggered();
     void on_action_Copy_triggered();
     void on_action_Paste_triggered();
     void on_action_Cut_triggered();

@@ -19,7 +19,7 @@ Variables:
 if ( angle > cusp_angle ) 
 {
     // Create a "handle" that on cusp_point with size handle_length to determine the control points
-    handle = Line(start_handle.p1,finish_handle.p1);
+    handle = new Line(start_handle.p1,finish_handle.p1);
     handle.translate(cusp_point);
     handle.translate(opposite(start_handle.p1));
     handle.length = handle_length;

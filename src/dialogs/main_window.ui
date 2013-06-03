@@ -160,8 +160,6 @@
     <addaction name="action_Edit_Graph"/>
     <addaction name="action_Edge_Loop"/>
     <addaction name="separator"/>
-    <addaction name="action_Insert_Polygon"/>
-    <addaction name="separator"/>
     <addaction name="action_Refresh_Path"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
@@ -254,8 +252,6 @@
    <addaction name="action_Disconnect"/>
    <addaction name="action_Merge"/>
    <addaction name="action_Erase"/>
-   <addaction name="separator"/>
-   <addaction name="action_Insert_Polygon"/>
   </widget>
   <widget class="QToolBar" name="toolbar_transform">
    <property name="windowTitle">
@@ -624,16 +620,6 @@
    </property>
    <property name="shortcut">
     <string>Alt+Shift+L</string>
-   </property>
-  </action>
-  <action name="action_Insert_Polygon">
-   <property name="icon">
-    <iconset theme="draw-polygon">
-     <normaloff/>
-    </iconset>
-   </property>
-   <property name="text">
-    <string>Insert &amp;Polygon...</string>
    </property>
   </action>
   <action name="action_Refresh_Path">

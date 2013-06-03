@@ -46,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Main_Window::Main_Window(QWidget *parent) :
     QMainWindow(parent), zoomer(nullptr), view(nullptr),
-    dialog_export_image(this), about_dialog(this), dialog_insert_polygon(this),
+    dialog_export_image(this), about_dialog(this),
     dialog_plugins(this)
 {
     setupUi(this);
@@ -867,58 +867,6 @@ void Main_Window::on_action_Display_Graph_toggled(bool checked)
                                    checked ? "knot-graph-on" : "knot-graph-off"
                                    ));
     view->set_display_graph(checked);
-}
-
-void Main_Window::on_action_Insert_Polygon_triggered()
-{
-    if ( dialog_insert_polygon.exec() )
-    {
-        Graph g;
-
-        Node* middle = nullptr;
-        if ( dialog_insert_polygon.middle_node() )
-        {
-            middle = new Node(QPointF(0,0));
-            g.add_node(middle);
-        }
-
-        Node* last = nullptr;
-        Node* first = nullptr;
-
-        double radius = view->grid().is_enabled() ? view->grid().size() : 32;
-
-        for ( int i = 0; i < dialog_insert_polygon.sides(); i++ )
-        {
-            double angle = 2*pi()*i/dialog_insert_polygon.sides();
-
-            Node* next = new Node(QPointF(radius*qCos(angle),-radius*qSin(angle)));
-
-            g.add_node(next);
-
-            if ( !first )
-                first = next;
-
-            if ( middle )
-                g.add_edge(new Edge(middle,next,Resource_Manager::default_edge_style()));
-
-            if ( last )
-                g.add_edge(new Edge(last,next,Resource_Manager::default_edge_style()));
-
-            last = next;
-
-        }
-        g.add_edge(new Edge(last,first,Resource_Manager::default_edge_style()));
-
-        //: Name of the undo command triggered when inserting a polygon
-        if ( ! view->insert(g,tr("Insert Polygon")) )
-        {
-            foreach(Node* n, g.nodes())
-                delete n;
-            foreach(Edge* e, g.edges())
-                delete e;
-        }
-
-    }
 }
 
 void Main_Window::on_action_Copy_triggered()

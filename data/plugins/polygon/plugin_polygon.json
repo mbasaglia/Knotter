@@ -1,0 +1,12 @@
+{
+    "name"          : "Insert Polygon",
+    "version"       : "1.0",
+    "description"   : "Insert a polygon",
+    "author"        : "Mattia Basaglia",
+    "license"       : "GPLv3+",
+    "category"      : "Insert",
+    "icon"          : "draw-polygon",
+    "script"        : "polygon.js",
+    "ui"            : "dialog_insert_polygon.ui"
+}
+     
