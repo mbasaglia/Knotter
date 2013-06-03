@@ -57,7 +57,6 @@ private:
 public:
     Plugin();
     explicit Plugin(const QVariantMap& metadata, Type type);
-    virtual ~Plugin();
 
     /**
      * \brief Metadata map

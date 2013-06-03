@@ -74,6 +74,7 @@ Plugin::Plugin(const QVariantMap &metadata, Plugin::Type type)
                 QWidget *widget = loader.load(&ui_file);
                 if ( widget )
                 {
+                    ((QObject*)widget)->setParent(this);
                     widget->hide();
                     m_widgets << widget;
                 }
@@ -85,12 +86,6 @@ Plugin::Plugin(const QVariantMap &metadata, Plugin::Type type)
     m_enabled = data("auto_enable",true);
 }
 
-Plugin::~Plugin()
-{
-    foreach(QWidget* w, m_widgets)
-        if ( !w->parent() )
-            delete w;
-}
 
 void Plugin::enable(bool e)
 {

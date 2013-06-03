@@ -47,21 +47,22 @@ class Knot_View : public QGraphicsView
 
     enum Mouse_Mode_Enum
     {
-        EDIT_GRAPH = 0x001, ///< Move and select
-        EDGE_CHAIN = 0x002, ///< Keep inserting connected node, RMB selects
-        MOVE_GRID  = 0x010, ///< Move grid origin
-        MOVE_BG_IMG= 0x020, ///<  Move background image
-        MOVE_BACK= MOVE_GRID|MOVE_BG_IMG, ///< Mask with both MOVE_GRID and MOVE_BG_IMG
+        EDIT_GRAPH  = 0x001, ///< Move and select
+        EDGE_CHAIN  = 0x002, ///< Keep inserting connected node, RMB selects
+        TOGGLE_EDGES= 0x004, ///< Single click adds or removes edges
+        MOVE_GRID   = 0x010, ///< Move grid origin
+        MOVE_BG_IMG = 0x020, ///<  Move background image
+        MOVE_BACK   = MOVE_GRID|MOVE_BG_IMG, ///< Mask with both MOVE_GRID and MOVE_BG_IMG
 
-        DRAG_HANDLE= 0x100, ///< Dragging a transform handle
-        RUBBERBAND = 0x200, ///< Dragging the rubberband
-        MOVE_NODES = 0x400, ///< Moving the selection
+        DRAG_HANDLE = 0x100, ///< Dragging a transform handle
+        RUBBERBAND  = 0x200, ///< Dragging the rubberband
+        MOVE_NODES  = 0x400, ///< Moving the selection
         /**
          *  Used with MOVE_NODES when the movement is triggered
          *  by an external factor (such as pasting)
          *  \sa insert
          */
-        EXTERNAL   = 0x800
+        EXTERNAL    = 0x800
     };
     Q_DECLARE_FLAGS(Mouse_Mode,Mouse_Mode_Enum)
 
@@ -195,6 +196,8 @@ public:
      * \brief Get whether mode is edit graph
      */
     bool edit_graph_mode_enabled() const { return mouse_mode & EDIT_GRAPH; }
+    bool edge_loop_mode_enabled() const { return mouse_mode & EDGE_CHAIN; }
+    bool toggle_edges_mode_enabled() const { return mouse_mode & TOGGLE_EDGES; }
 
     bool load_file(QIODevice &device, QString action_name);
 
@@ -251,6 +254,12 @@ public slots:
      *  \brief Sets mouse mode to edge chain
      */
     void set_mode_edge_chain();
+
+
+    /**
+     *  Sets mouse mode to toggle edges
+     */
+    void set_mode_toggle_edges();
 
     /**
      *  \brief Sets mouse mode to move grid

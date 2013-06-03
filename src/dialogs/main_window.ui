@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>640</width>
-    <height>480</height>
+    <height>488</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -159,6 +159,7 @@
     </property>
     <addaction name="action_Edit_Graph"/>
     <addaction name="action_Edge_Loop"/>
+    <addaction name="action_Toggle_Edges"/>
     <addaction name="separator"/>
     <addaction name="action_Refresh_Path"/>
    </widget>
@@ -247,6 +248,7 @@
    </attribute>
    <addaction name="action_Edit_Graph"/>
    <addaction name="action_Edge_Loop"/>
+   <addaction name="action_Toggle_Edges"/>
    <addaction name="separator"/>
    <addaction name="action_Connect"/>
    <addaction name="action_Disconnect"/>
@@ -737,6 +739,17 @@
    </property>
    <property name="text">
     <string>&amp;Enable Grid</string>
+   </property>
+  </action>
+  <action name="action_Toggle_Edges">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="draw-line"/>
+   </property>
+   <property name="text">
+    <string>&amp;Toggle Edges</string>
    </property>
   </action>
  </widget>

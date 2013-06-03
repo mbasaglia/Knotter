@@ -116,6 +116,7 @@ void Main_Window::init_menus()
     QActionGroup* edit_mode = new QActionGroup(this);
     edit_mode->addAction(action_Edit_Graph);
     edit_mode->addAction(action_Edge_Loop);
+    edit_mode->addAction(action_Toggle_Edges);
 
     // Menu Tools
     action_Refresh_Path->setShortcut(QKeySequence::Refresh);
@@ -297,8 +298,11 @@ void Main_Window::connect_view(Knot_View *v)
             Qt::UniqueConnection);
     connect(action_Edge_Loop,SIGNAL(triggered()),v,SLOT(set_mode_edge_chain()),
             Qt::UniqueConnection);
+    connect(action_Toggle_Edges,SIGNAL(triggered()),v,SLOT(set_mode_toggle_edges()),
+            Qt::UniqueConnection);
     action_Edit_Graph->setChecked(v->edit_graph_mode_enabled());
-    action_Edge_Loop->setChecked(!v->edit_graph_mode_enabled());
+    action_Edge_Loop->setChecked(v->edge_loop_mode_enabled());
+    action_Toggle_Edges->setChecked(v->toggle_edges_mode_enabled());
 
     // undo/redo
     v->undo_stack_pointer()->setActive(true);

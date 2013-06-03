@@ -457,6 +457,11 @@ void Knot_View::set_mode_edge_chain()
     mouse_mode = EDGE_CHAIN;
 }
 
+void Knot_View::set_mode_toggle_edges()
+{
+    mouse_mode = TOGGLE_EDGES;
+}
+
 void Knot_View::set_mode_move_grid()
 {
     mouse_mode |= MOVE_GRID;
@@ -751,6 +756,54 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
                 scene()->addItem(&guide);
             }
         }
+        else if ( mouse_mode & TOGGLE_EDGES && event->button() == Qt::LeftButton )
+        {
+
+            Edge* e = edge_at(scene_pos);
+            if ( e )
+            {
+                remove_edge(e);
+            }
+            else
+            {
+                // Limit distance to grid size * 3
+                double max_distance = m_grid.size()*m_grid.size()*9;
+                double min_distance = max_distance;
+                Node* n1 = nullptr;
+                Node* n2 = nullptr;
+                foreach(Node* n, m_graph.nodes())
+                {
+                    double point_distance = point_distance_squared(n->pos(),scene_pos);
+                    if ( point_distance < min_distance )
+                    {
+                        n1 = n;
+                        min_distance = point_distance;
+                    }
+                }
+
+                if ( n1 )
+                {
+                    min_distance = max_distance;
+                    foreach(Node* n, m_graph.nodes())
+                    {
+                        double point_distance = point_distance_squared(n->pos(),scene_pos);
+                        if ( n != n1 && point_distance < min_distance )
+                        {
+                            n2 = n;
+                            min_distance = point_distance;
+                        }
+                    }
+
+                    if ( n2 )
+                    {
+                        if ( !n1->has_edge_to(n2) )
+                            add_edge(n1,n2);
+                        else
+                            remove_edge(n1->edge_to(n2));
+                    }
+                }
+            }
+        }
 
         if ( mouse_mode & RUBBERBAND )
         {
@@ -915,7 +968,7 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
 
 void Knot_View::mouseDoubleClickEvent(QMouseEvent *event)
 {
-    if ( event->button() == Qt::LeftButton )
+    if ( event->button() == Qt::LeftButton && !(mouse_mode&TOGGLE_EDGES) )
     {
         QPoint mpos = event->pos();
         QPointF scene_pos = mapToScene(mpos);
