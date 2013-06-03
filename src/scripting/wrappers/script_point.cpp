@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "script_point.hpp"
+#include "point_math.hpp"
 
 QScriptValue point_to_script(QScriptEngine *engine, const Script_Point &p)
 {
@@ -69,4 +70,17 @@ QScriptValue opposite_point (QScriptContext *context, QScriptEngine *engine)
     }
     else
         return  engine->toScriptValue(Script_Point());
+}
+
+
+QScriptValue distance(QScriptContext *context, QScriptEngine *engine)
+{
+    if ( context->argumentCount() >= 2 )
+    {
+        Script_Point p1 = qscriptvalue_cast<Script_Point> (context->argument(0));
+        Script_Point p2 = qscriptvalue_cast<Script_Point> (context->argument(1));
+        return engine->toScriptValue(qSqrt(point_distance_squared(p1,p2)));
+    }
+
+    return 0;
 }

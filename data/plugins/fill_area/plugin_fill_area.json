@@ -1,0 +1,10 @@
+{
+    "name"          : "Fill Area",
+    "version"       : "1.0",
+    "description"   : "Fill the convex hull for the selected nodes.",
+    "author"        : "Mattia Basaglia",
+    "license"       : "GPLv3+",
+    "script"        : "convex_hull.js",
+    "ui"            : "dialog.ui",
+}
+

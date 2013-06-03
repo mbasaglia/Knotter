@@ -171,3 +171,6 @@ win32 {
     # Remove non-numeric stuff from version as Windows RC doesn't like it
     VERSION ~= s/[-_a-zA-Z]+//
 }
+
+FORMS += \
+    data/plugins/convex_hull/dialog.ui

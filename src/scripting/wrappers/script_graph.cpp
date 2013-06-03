@@ -108,7 +108,7 @@ QObject *Script_Graph::connect(QObject *on1, QObject *on2)
     Script_Node* n1 = qobject_cast<Script_Node*>(on1);
     Script_Node* n2 = qobject_cast<Script_Node*>(on2);
 
-    if ( !n1 || !n2 )
+    if ( !n1 || !n2 || n1->wrapped_node() == n2->wrapped_node() )
         return nullptr;
 
     if ( n1->has_edge_to(n2) )
@@ -221,7 +221,6 @@ QScriptValue graph_to_script(QScriptEngine *engine, const Script_Graph &g)
     return obj;
 }
 
-Q_DECLARE_METATYPE(QObjectList)
 void graph_from_script(const QScriptValue &obj, Script_Graph &graph)
 {
     QObjectList nodes = qscriptvalue_cast<QObjectList>(obj.property("nodes"));

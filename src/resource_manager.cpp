@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "script_line.hpp"
 #include "misc_script_functions.hpp"
 #include "script_window.hpp"
+#include "script_polygon.hpp"
 
 #if HAS_QT_5
 #include <QStandardPaths>
@@ -205,6 +206,8 @@ void Resource_Manager::initialize(QString default_lang_code)
     qScriptRegisterMetaType(engine, line_to_script, line_from_script);
     qRegisterMetaType<Script_Graph>("Script_Graph");
     qScriptRegisterMetaType(engine, graph_to_script, graph_from_script);
+    qRegisterMetaType<Script_Polygon>("Script_Polygon");
+    qScriptRegisterMetaType(engine, polygon_to_script, polygon_from_script);
 
 
     //plugins
@@ -449,6 +452,7 @@ QScriptContext* Resource_Manager::script_context()
         engine->globalObject().setProperty("Point", engine->newFunction(build_point));
         ///sengine->globalObject().setProperty("diff", engine->newFunction(subtract_points));
         engine->globalObject().setProperty("opposite", engine->newFunction(opposite_point));
+        engine->globalObject().setProperty("distance", engine->newFunction(distance));
 
         engine->globalObject().setProperty("Line", engine->newFunction(build_line));
 
@@ -458,6 +462,9 @@ QScriptContext* Resource_Manager::script_context()
             engine->newQObject(new Script_Knotter,QScriptEngine::ScriptOwnership));
 
         engine->globalObject().setProperty("Graph", engine->newFunction(build_graph));
+
+
+        engine->globalObject().setProperty("Polygon", engine->newFunction(build_polygon));
     }
     return singleton.current_context;
 }

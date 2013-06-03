@@ -32,6 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QScriptEngine>
 #include <QPointF>
 
+Q_DECLARE_METATYPE(QObjectList)
+
 /**
     Wrapper to QPointF
 */
@@ -68,5 +70,7 @@ void point_from_script(const QScriptValue &obj, Script_Point &p);
 
 /// wrapper to operator-(point)
 QScriptValue opposite_point (QScriptContext *context, QScriptEngine *engine);
+
+QScriptValue distance(QScriptContext *context, QScriptEngine *engine);
 
 #endif // SCRIPT_POINT_HPP
