@@ -44,7 +44,7 @@ class Script_Node : public QObject
     Q_PROPERTY(Script_Point pos READ pos WRITE set_pos )
     Q_PROPERTY(double x READ x WRITE set_x )
     Q_PROPERTY(double y READ y WRITE set_y )
-    Q_PROPERTY(bool selected READ selected)
+    Q_PROPERTY(bool selected READ selected WRITE set_selected )
 
     Q_PROPERTY(QObjectList edges READ edges)
 
@@ -65,6 +65,7 @@ public:
     void set_y(double y);
 
     bool selected() const;
+    void set_selected(bool b);
 
     QObjectList edges() const;
 
@@ -77,6 +78,8 @@ public:
     Q_INVOKABLE QString toString() const;
 
     Q_INVOKABLE bool has_edge_to(Script_Node *n) const;
+
+    Q_INVOKABLE QObject* edge_to(Script_Node *n) const;
 
 signals:
     void moved(Script_Point p);

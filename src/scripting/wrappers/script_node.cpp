@@ -63,6 +63,11 @@ bool Script_Node::selected() const
     return m_wrapped_node->isSelected();
 }
 
+void Script_Node::set_selected(bool b)
+{
+    m_wrapped_node->setSelected(b);
+}
+
 QObjectList Script_Node::edges() const
 {
     QObjectList l;
@@ -80,3 +85,10 @@ bool Script_Node::has_edge_to(Script_Node *n) const
 {
     return m_wrapped_node->has_edge_to(n->m_wrapped_node);
 }
+
+
+QObject* Script_Node::edge_to(Script_Node *n) const
+{
+    return graph->script_edge(m_wrapped_node->edge_to(n->m_wrapped_node));
+}
+

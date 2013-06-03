@@ -111,6 +111,9 @@ QObject *Script_Graph::connect(QObject *on1, QObject *on2)
     if ( !n1 || !n2 )
         return nullptr;
 
+    if ( n1->has_edge_to(n2) )
+        return n1->edge_to(n2);
+
     Script_Edge * e = new Script_Edge(n1,n2,this);
     emit edge_added(e);
     return e;
