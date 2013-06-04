@@ -70,6 +70,11 @@ Main_Window::Main_Window(QWidget *parent) :
     connect(Resource_Manager::pointer,SIGNAL(language_changed()),this,SLOT(retranslate()));
     connect(this,SIGNAL(destroyed()),Resource_Manager::pointer,SLOT(abort_script()));
 
+    foreach(Plugin* p, Resource_Manager::plugins())
+    {
+        connect(p,SIGNAL(enabled(bool)),SLOT(update_plugin_menu()));
+    }
+
 }
 
 void Main_Window::retranslate()

@@ -44,6 +44,9 @@ protected:
     void changeEvent(QEvent *e);
     //void keyPressEvent(QKeyEvent *);
 
+private:
+    static QString escape_html(QString s);
+
 private slots:
     void script_error(QString file,int line,QString msg, QStringList trace);
     void script_output(QString text);

@@ -371,7 +371,10 @@ void Knot_View::remove_node(Node *node)
 {
     begin_macro(tr("Remove Node"));
     foreach(Edge* e, node->connections())
-        remove_edge(e);
+    {
+        if ( e->scene() == scene() )
+            remove_edge(e);
+    }
     push_command(new Remove_Node(node,this));
     end_macro();
 }

@@ -53,6 +53,8 @@ void Dialog_Plugins::load_plugins()
     foreach(Plugin* p, Resource_Manager::plugins())
     {
         QListWidgetItem *item = new QListWidgetItem(p->icon(), p->string_data("name"));
+        if ( item->icon().isNull() )
+            item->setIcon(QIcon::fromTheme("text-x-script"));
         item->setData(Qt::UserRole,QVariant::fromValue(p));
         set_item_enabled(item,p->is_enabled());
         listWidget->addItem(item);

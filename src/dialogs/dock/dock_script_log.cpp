@@ -50,23 +50,31 @@ void Dock_Script_Log::changeEvent(QEvent *e)
             break;
     }
 }
+
+QString Dock_Script_Log::escape_html(QString s)
+{
+#if HAS_QT_5
+        return s.toHtmlEscaped();
+#else
+        return Qt::escape(s);
+#endif
+}
 void Dock_Script_Log::script_error(QString file, int line, QString msg, QStringList trace)
 {
     text_output->moveCursor (QTextCursor::End) ;
     text_output->insertHtml(QString("<div><span style='color:cyan'>%1</span>:%2:"
                         "<span style='color:red'>%3</span>: %4<br/>%5</div>")
-                            .arg(file).arg(line).arg(tr("Error")).arg(msg)
+                            .arg(escape_html(file))
+                            .arg(line)
+                            .arg(tr("Error"))
+                            .arg(escape_html(msg))
                             .arg("Stack trace:")
                         );
     QString trace_ul = "<ul style='margin-top:0; padding-top:0'>";
 
     foreach ( QString s , trace )
     {
-#if HAS_QT_5
-        trace_ul += "<li>"+s.toHtmlEscaped()+"</li>";
-#else
-        trace_ul += "<li>"+Qt::escape(s)+"</li>";
-#endif
+        trace_ul += "<li>"+escape_html(s)+"</li>";
     }
     trace_ul += "</ul>";
 
@@ -80,7 +88,7 @@ void Dock_Script_Log::script_error(QString file, int line, QString msg, QStringL
 void Dock_Script_Log::script_output(QString text)
 {
     text_output->moveCursor (QTextCursor::End) ;
-    text_output->insertHtml("<pre>"+text+"</pre><p></p>");
+    text_output->insertHtml("<pre>"+escape_html(text)+"</pre><p></p>");
     text_output->moveCursor (QTextCursor::End) ;
     text_output->ensureCursorVisible() ;
 }
@@ -89,7 +97,8 @@ void Dock_Script_Log::on_script_input_lineExecuted(const QString &arg1)
 {
 
     text_output->moveCursor (QTextCursor::End) ;
-    text_output->insertHtml("<div style='color:green'>"+arg1+"</div><p></p>");
+    text_output->insertHtml("<div style='color:green'>"+escape_html(arg1)
+                            +"</div><p></p>");
 
     QScriptContext* ctx = Resource_Manager::script_context();
     ctx->setActivationObject(state);
@@ -107,7 +116,7 @@ void Dock_Script_Log::on_script_input_lineExecuted(const QString &arg1)
     sw.clean_up();
 
     if ( !v.isError() && !v.isUndefined() )
-        text_output->insertHtml(v.toString()+"<p></p>");
+        text_output->insertHtml(escape_html(v.toString())+"<p></p>");
     text_output->moveCursor (QTextCursor::End) ;
     text_output->ensureCursorVisible() ;
 }

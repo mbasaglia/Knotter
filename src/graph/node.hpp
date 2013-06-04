@@ -49,7 +49,6 @@ private:
 public:
     Node(QPointF pos );
 
-
     Node_Style& style() { return m_style; }
 
     void set_style(Node_Style st) { m_style = st; }

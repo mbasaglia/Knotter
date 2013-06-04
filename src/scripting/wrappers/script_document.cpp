@@ -81,11 +81,7 @@ void Script_Document::add_node(Script_Node *n)
 
 void Script_Document::remove_node(Script_Node *n)
 {
-    wrapped->begin_macro(tr("Remove Node"));
-    foreach(Edge* e, n->wrapped_node()->connections() )
-        wrapped->push_command(new Remove_Edge(e,wrapped));
-    wrapped->push_command(new Remove_Node(n->wrapped_node(),wrapped));
-    wrapped->end_macro();
+    wrapped->remove_node(n->wrapped_node());
 }
 
 void Script_Document::add_edge(Script_Edge *e)

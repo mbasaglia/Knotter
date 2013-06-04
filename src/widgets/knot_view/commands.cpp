@@ -156,17 +156,23 @@ Remove_Edge::Remove_Edge(Edge *edge, Knot_View *kv, Knot_Macro* parent)
 
 void Remove_Edge::redo()
 {
-    graph->remove_edge(edge);
-    scene->removeItem(edge);
-    update_knot();
+    if ( edge->scene() == scene )
+    {
+        graph->remove_edge(edge);
+        scene->removeItem(edge);
+        update_knot();
+    }
 }
 
 void Remove_Edge::undo()
 {
-    graph->add_edge(edge);
-    scene->addItem(edge);
-    edge->set_visible(graph_visible());
-    update_knot();
+    if ( edge->scene() != scene )
+    {
+        graph->add_edge(edge);
+        scene->addItem(edge);
+        edge->set_visible(graph_visible());
+        update_knot();
+    }
 }
 
 
