@@ -79,6 +79,13 @@ public:
     bool load(QIODevice *input, Graph* graph);
 
     /**
+     * @brief Load style from XML
+     * @param input  Open device containing the <style> element
+     * @param graph  Output graph
+     */
+    void load_style(QIODevice *input, Graph* graph);
+
+    /**
      * \brief Version of the loaded Knot file
      *
      *  If the loaded file is not recognised as a Knot file it will return 0
@@ -87,5 +94,7 @@ public:
 };
 
 bool import_xml(QIODevice& file, Graph& graph);
+
+void import_xml_style(QString style, Graph& graph);
 
 #endif // XML_LOADER_HPP

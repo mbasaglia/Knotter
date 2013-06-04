@@ -31,6 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMetaType>
 #include "snapping_grid.hpp"
 
+class Graph;
+
 class Settings : public QObject
 {
     Q_OBJECT
@@ -67,6 +69,9 @@ private:
     Snapping_Grid::Grid_Shape   m_grid_shape;
 
     bool                        m_check_unsaved_files; ///< When closing, ask to save changes
+
+    bool                        m_save_knot_style;
+    QString                     saved_knot_style_xml;
 
 
 private:
@@ -131,6 +136,11 @@ public:
 
     bool check_unsaved_files() const { return m_check_unsaved_files; }
     void set_check_unsaved_files(bool enable) { m_check_unsaved_files = enable; }
+
+    bool save_knot_style() const { return m_save_knot_style; }
+    void set_save_knot_style(bool enable ) { m_save_knot_style = enable; }
+    void set_knot_style(const Graph& graph);
+    void get_knot_style(Graph& graph) const;
 
 public slots:
     void clear_config();

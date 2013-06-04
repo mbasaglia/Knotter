@@ -49,21 +49,26 @@ Graph::Graph(const Graph &other)
 Graph &Graph::operator= ( const Graph &o )
 {
     m_edges = o.m_edges;
-    m_colors = o.m_colors;
-    m_default_node_style = o.m_default_node_style;
     m_nodes = o.m_nodes;
     bounding_box = o.bounding_box;
-    auto_color = o.auto_color;
     paths = o.paths;
-    pen = o.pen;
-    m_borders = o.m_borders;
     border_width_cache = o.border_width_cache;
-    m_paint_border = o.m_paint_border;
+    copy_style(o);
     setPos(o.pos());
     setTransform(o.transform());
     setVisible(o.isVisible());
     setCacheMode(o.cacheMode());
     return *this;
+}
+
+void Graph::copy_style(const Graph &other)
+{
+    m_colors = other.m_colors;
+    m_default_node_style = other.m_default_node_style;
+    auto_color = other.auto_color;
+    pen = other.pen;
+    m_borders = other.m_borders;
+    m_paint_border = other.m_paint_border;
 }
 
 void Graph::add_node(Node *n)

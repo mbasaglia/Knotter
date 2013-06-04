@@ -60,6 +60,8 @@ public:
     Graph(const Graph& other);
     Graph& operator= (const Graph& other);
 
+    void copy_style(const Graph& other);
+
     /**
      *  Add node to graph
      *  \param n Node to be added

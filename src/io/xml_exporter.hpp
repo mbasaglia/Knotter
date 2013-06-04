@@ -45,11 +45,12 @@ class XML_Exporter : public QObject
     QMap<Node*,int> node_ids;
 
 public:
-    XML_Exporter(QIODevice* output);
+    XML_Exporter(QIODevice* output, bool pretty_xml=true);
 
     /// Create xml document
     void export_graph(const Graph *graph);
 
+    void save_style (const Graph *graph );
 protected:
     void begin ();
     void end();
@@ -57,7 +58,6 @@ protected:
     void start_element ( QString name );
     void end_element ();
 
-    void save_style (const Graph *graph );
 
     void save_cusp ( QString name, Node_Style style );
 
@@ -77,5 +77,7 @@ protected:
 bool export_xml(const Graph& graph, QIODevice &file );
 
 void export_xml_mime_data(QMimeData* data, const Graph& graph);
+
+QByteArray export_xml_style(const Graph& graph);
 
 #endif // XML_EXPORTER_HPP

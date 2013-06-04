@@ -562,10 +562,9 @@ bool Main_Window::create_tab(QString file)
     }
     else
     {
+        if ( view != nullptr )
+            Resource_Manager::settings.set_knot_style(view->graph());
         Knot_View *v = new Knot_View();
-        v->grid().set_shape(Resource_Manager::settings.grid_shape());
-        v->grid().set_size(Resource_Manager::settings.grid_size());
-        v->grid().enable(Resource_Manager::settings.grid_enabled());
         error = !v->load_file(file);
         int t = tabWidget->addTab(v,file.isEmpty() ? tr("New Knot") : file);
         undo_group.addStack(v->undo_stack_pointer());
@@ -584,6 +583,11 @@ bool Main_Window::create_tab(QString file)
         Resource_Manager::settings.add_recent_file(file);
         update_recent_files();
     }
+
+
+    view->grid().set_shape(Resource_Manager::settings.grid_shape());
+    view->grid().set_size(Resource_Manager::settings.grid_size());
+    view->grid().enable(Resource_Manager::settings.grid_enabled());
 
     return true;
 }
@@ -989,6 +993,7 @@ void Main_Window::closeEvent(QCloseEvent * ev)
     }
 
     Resource_Manager::settings.save_window(this);
+    Resource_Manager::settings.set_knot_style(view->graph());
     QMainWindow::closeEvent(ev);
 }
 

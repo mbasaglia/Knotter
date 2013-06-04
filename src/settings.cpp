@@ -26,6 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.hpp"
 #include "resource_manager.hpp"
 #include <QSettings>
+#include "xml_exporter.hpp"
+#include "xml_loader.hpp"
+#include "knot_view.hpp"
 
 Settings::Settings()
     : save_nothing(false),
@@ -34,7 +37,8 @@ Settings::Settings()
       m_max_recent_files(5),
       m_graph_cache(false), m_fluid_refresh(true), m_antialiasing(true), m_script_timeout(0),
       m_save_grid(true), m_grid_enabled(true), m_grid_size(32), m_grid_shape(Snapping_Grid::SQUARE),
-      m_check_unsaved_files(true)
+      m_check_unsaved_files(true),
+      m_save_knot_style(false)
 {
 }
 
@@ -58,8 +62,8 @@ void Settings::load_config()
     m_antialiasing = settings.value("performance/antialiasing",m_antialiasing).toBool();
     m_script_timeout = settings.value("performance/script_timeout",m_script_timeout).toInt();
 
-
-    /// \todo style
+    m_save_knot_style = settings.value("style/save",m_save_knot_style).toBool();
+    saved_knot_style_xml = settings.value("style/xml",saved_knot_style_xml).toString();
 
     settings.beginGroup("grid");
     m_save_grid = settings.value("save",m_save_grid).toBool();
@@ -142,7 +146,8 @@ void Settings::save_config()
     settings.setValue("performance/antialiasing",m_antialiasing);
     settings.setValue("performance/script_timeout",m_script_timeout);
 
-    /// \todo style
+    settings.setValue("style/save",m_save_knot_style);
+    settings.setValue("style/xml",saved_knot_style_xml);
 
 
     settings.beginGroup("grid");
@@ -277,4 +282,15 @@ void Settings::set_max_recent_files(int max)
 void Settings::clear_recent_files()
 {
     m_recent_files.clear();
+}
+
+void Settings::set_knot_style(const Graph &graph)
+{
+    saved_knot_style_xml = export_xml_style(graph);
+}
+
+void Settings::get_knot_style(Graph &graph) const
+{
+    if ( m_save_knot_style )
+        import_xml_style(saved_knot_style_xml,graph);
 }

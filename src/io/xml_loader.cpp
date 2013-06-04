@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "xml_loader_v2.hpp"
 #include <QMetaEnum>
 #include "resource_manager.hpp"
+#include <QBuffer>
 
 bool import_xml(QIODevice &file, Graph& graph)
 {
@@ -76,6 +77,13 @@ bool XML_Loader::load(QIODevice *input, Graph* graph)
     get_graph(knot.firstChildElement("graph"),graph);
 
     return true;
+}
+
+void XML_Loader::load_style(QIODevice *input, Graph *graph)
+{
+    if ( !xml.setContent(input) )
+        return;
+    get_style(xml.firstChildElement(),graph);
 }
 
 int XML_Loader::version()
@@ -244,4 +252,13 @@ QColor XML_Loader::get_color(QDomElement e)
     c.setNamedColor(e.text().trimmed());
     c.setAlpha(e.attribute("alpha","0").trimmed().toInt());
     return c;
+}
+
+
+void import_xml_style(QString style, Graph& graph)
+{
+    QByteArray output(style.toUtf8());
+    QBuffer buffer(&output);
+    buffer.open(QIODevice::ReadOnly);
+    XML_Loader().load_style(&buffer,&graph);
 }

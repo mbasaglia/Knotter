@@ -68,7 +68,6 @@ private:
 public:
     explicit Main_Window(QWidget *parent = 0);
 
-
     /**
      * @brief Get view at given tab index
      * @param n Tab index

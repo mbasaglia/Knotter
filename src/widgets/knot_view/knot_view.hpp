@@ -101,6 +101,8 @@ public:
 
     const Graph& graph() const { return m_graph; }
 
+    void copy_graph_style(const Graph& g);
+
     /// Overload QGraphicsView::translate
     void translate(QPointF d) { QGraphicsView::translate(d.x(),d.y()); }
 

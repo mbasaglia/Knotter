@@ -30,11 +30,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QBuffer>
 #include "image_exporter.hpp"
 
-XML_Exporter::XML_Exporter(QIODevice *output)
+XML_Exporter::XML_Exporter(QIODevice *output,bool pretty_xml)
     : xml ( output )
 {
-    xml.setAutoFormatting(true);
-    xml.setAutoFormattingIndent(4);
+    if ( pretty_xml )
+    {
+        xml.setAutoFormatting(true);
+        xml.setAutoFormattingIndent(4);
+    }
 }
 
 void XML_Exporter::export_graph(const Graph * graph)
@@ -216,4 +219,14 @@ void export_xml_mime_data(QMimeData* data, const Graph& graph)
     QBuffer svg_stream(&knot_svg);
     export_svg(svg_stream,graph,false);
     data->setData("image/svg+xml",knot_svg);
+}
+
+
+QByteArray export_xml_style(const Graph& graph)
+{
+    QByteArray output;
+    QBuffer buffer(&output);
+    buffer.open(QIODevice::WriteOnly);
+    XML_Exporter(&buffer,false).save_style(&graph);
+    return output;
 }

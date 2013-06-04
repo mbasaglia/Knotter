@@ -131,7 +131,9 @@
          <string>Performance</string>
         </property>
         <property name="icon">
-         <iconset theme="preferences-system-performance"/>
+         <iconset theme="preferences-system-performance">
+          <normaloff/>
+         </iconset>
         </property>
        </item>
       </widget>
@@ -145,7 +147,7 @@
         </sizepolicy>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="page_toolbars">
         <layout class="QGridLayout" name="gridLayout">
@@ -247,9 +249,6 @@
             </item>
             <item>
              <widget class="QCheckBox" name="check_save_style">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
               <property name="text">
                <string>Knot Style</string>
               </property>

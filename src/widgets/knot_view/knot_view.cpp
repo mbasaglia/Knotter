@@ -81,6 +81,29 @@ Knot_View::Knot_View(QString file)
 
 }
 
+void Knot_View::copy_graph_style(const Graph &g)
+{
+    begin_macro("Copy Style");
+
+    set_knot_borders(g.borders());
+    set_knot_display_border(g.paint_border());
+
+    set_knot_colors(g.colors());
+    set_knot_custom_colors(g.custom_colors());
+
+    set_stroke_width(g.width());
+    set_join_style(g.join_style());
+    set_brush_style(g.brush_style());
+
+    set_knot_crossing_distance(g.default_node_style().crossing_distance);
+    set_knot_cusp_angle(g.default_node_style().cusp_angle);
+    set_knot_cusp_distance(g.default_node_style().cusp_distance);
+    set_knot_cusp_shape(g.default_node_style().cusp_shape);
+    set_knot_handle_lenght(g.default_node_style().handle_length);
+
+    end_macro();
+}
+
 
 bool Knot_View::load_file(QIODevice &device, QString action_name )
 {
@@ -137,6 +160,10 @@ bool Knot_View::load_file(QString fname)
             m_file_name = fname;
             return true;
         }
+    }
+    else
+    {
+        Resource_Manager::settings.get_knot_style(m_graph);
     }
     return false;
 }
