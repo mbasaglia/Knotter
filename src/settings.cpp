@@ -32,7 +32,7 @@ Settings::Settings()
       m_save_toolbars(true),
       m_save_ui(true), m_icon_size(22), tool_button_style(Qt::ToolButtonFollowStyle),
       m_max_recent_files(5),
-      m_graph_cache(false), m_fluid_refresh(true),
+      m_graph_cache(false), m_fluid_refresh(true), m_antialiasing(true),
       m_save_grid(true), m_grid_enabled(true), m_grid_size(32), m_grid_shape(Snapping_Grid::SQUARE),
       m_check_unsaved_files(true)
 {
@@ -55,6 +55,7 @@ void Settings::load_config()
 
     m_graph_cache = settings.value("performance/cache",m_graph_cache).toBool();
     m_fluid_refresh = settings.value("performance/fluid_refresh",m_fluid_refresh).toBool();
+    m_antialiasing = settings.value("performance/antialiasing",m_antialiasing).toBool();
 
     /// \todo style
 
@@ -136,6 +137,7 @@ void Settings::save_config()
 
     settings.setValue("performance/cache",m_graph_cache);
     settings.setValue("performance/fluid_refresh",m_fluid_refresh);
+    settings.setValue("performance/antialiasing",m_antialiasing);
 
     /// \todo style
 

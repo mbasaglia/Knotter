@@ -58,6 +58,7 @@ private:
 
     bool                        m_graph_cache;
     bool                        m_fluid_refresh;
+    bool                        m_antialiasing;
 
     bool                        m_save_grid;
     bool                        m_grid_enabled;
@@ -92,9 +93,11 @@ public:
 
     bool graph_cache() const { return m_graph_cache; }
     bool fluid_refresh() const { return m_fluid_refresh; }
+    bool antialiasing() const { return m_antialiasing; }
 
     void set_graph_cache(bool enable) { m_graph_cache = enable; }
     void set_fluid_refresh(bool enable) { m_fluid_refresh = enable; }
+    void set_antialiasing(bool enable) { m_antialiasing = enable; }
 
     bool save_ui() const { return m_save_ui; }
     void set_save_ui(bool save) { m_save_ui = save; }

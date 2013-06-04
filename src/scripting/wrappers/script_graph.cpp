@@ -93,6 +93,16 @@ Script_Node *Script_Graph::add_node(Node *n)
     return sn;
 }
 
+void Script_Graph::remove_node(QObject*n)
+{
+    Script_Node * node = qobject_cast<Script_Node*>(n);
+    if ( node && node->parent() == this )
+    {
+        emit node_removed(node);
+    }
+}
+
+
 Script_Edge* Script_Graph::add_edge(Edge *e)
 {
 

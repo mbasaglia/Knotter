@@ -106,46 +106,48 @@ if ( nodes.length > 2 &&  Dialog.exec() )
     else
         polygon = convex_hull(nodes,min_x_index);
 
-    print(polygon);
+    //print(polygon);
 
     if ( polygon.vertices.length > 2 )
     {
         document.begin_macro("Fill Area");
 
-        /*for ( var i = 0; i < polygon_points.length; i++ )
-        {
-            graph.connect(nodes[polygon_points[i]],
-                          nodes[polygon_points[(i+1)%polygon_points.length]]);
-        }*/
-
         var size = Dialog.grid_size.value;
-        var nodes = new Array();
+        var new_nodes = new Array();
 
         for ( var y = min_pt.y, yi = 0; y <= max_pt.y; y += size, yi++ )
         {
-            nodes.push([]);
+            new_nodes.push([]);
             for ( var x = min_pt.x, xi = 0; x <= max_pt.x; x += size, xi++ )
             {
                 if ( polygon.contains(x,y) || polygon.contains(x-1,y-1) ||
                      polygon.contains(x-1,y+1) || polygon.contains(x+1,y-1) )
                 {
                     var node = graph.add_node(x,y);
-                    nodes[yi].push(node);
+                    new_nodes[yi].push(node);
                     if ( yi > 0 )
                     {
-                        var node_up = nodes[yi-1][xi];
+                        var node_up = new_nodes[yi-1][xi];
                         if ( node_up )
                             graph.connect(node_up,node);
                     }
                     if ( x > min_pt.x )
                     {
-                        var node_left = nodes[yi][xi-1];
+                        var node_left = new_nodes[yi][xi-1];
                         if ( node_left )
                             graph.connect(node_left,node);
                     }
                 }
                 else
-                    nodes[yi].push(null);
+                    new_nodes[yi].push(null);
+            }
+        }
+
+        if ( Dialog.delete_original.checked )
+        {
+            for ( var i = 0; i < nodes.length; i++ )
+            {
+                graph.remove_node(nodes[i]);
             }
         }
 

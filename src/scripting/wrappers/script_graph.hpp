@@ -92,6 +92,9 @@ public:
     Q_INVOKABLE QObject *add_node(double x,double y);
 
 
+    Q_INVOKABLE void remove_node(QObject* n);
+
+
     /**
      * @brief Add a new wrapped edge
      *
@@ -140,6 +143,7 @@ public:
 
 signals:
     void node_added(Script_Node* n);
+    void node_removed(Script_Node* n);
     void edge_added(Script_Edge* e);
     void node_moved(Script_Node* n, Script_Point pos);
 

@@ -397,6 +397,7 @@ void Main_Window::connect_view(Knot_View *v)
     // Performance
     v->set_fluid_refresh(Resource_Manager::settings.fluid_refresh());
     v->enable_cache(Resource_Manager::settings.graph_cache());
+    v->set_antialiasing(Resource_Manager::settings.antialiasing());
 
 }
 
@@ -516,6 +517,7 @@ void Main_Window::on_action_Preferences_triggered()
     Dialog_Preferences(this).exec();
     view->set_fluid_refresh(Resource_Manager::settings.fluid_refresh());
     view->enable_cache(Resource_Manager::settings.graph_cache());
+    view->set_antialiasing(Resource_Manager::settings.antialiasing());
     update_recent_files();
 }
 

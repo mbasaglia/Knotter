@@ -640,6 +640,16 @@ void Knot_View::set_fluid_refresh(bool enable)
         update_knot();
 }
 
+void Knot_View::set_antialiasing(bool enable)
+{
+    setRenderHint(QPainter::Antialiasing,enable);
+}
+
+bool Knot_View::has_antialiasing() const
+{
+    return renderHints() & QPainter::Antialiasing;
+}
+
 
 void Knot_View::mousePressEvent(QMouseEvent *event)
 {
