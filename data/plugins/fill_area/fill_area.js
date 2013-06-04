@@ -1,13 +1,13 @@
 
 
-function convex_hull(nodes, graph, start_index )
+function convex_hull(nodes, start_index )
 {
-    var hull_node = min_x_index;
+    var hull_node = start_index;
     var angle_in = 90;
-    var hull_indices = [];
+    var polygon = new Polygon();
     do
     {
-        hull_indices.push(hull_node);
+        polygon.add_vertex(nodes[hull_node].pos);
         var next_hull_node = (hull_node+1)%nodes.length;
         var angle_delta = 360;
         var next_angle = angle_in;
@@ -36,13 +36,46 @@ function convex_hull(nodes, graph, start_index )
         angle_in = next_angle;
         hull_node = next_hull_node;
     }
-    while(hull_node != min_x_index );
+    while(hull_node != start_index );
 
-    return hull_indices;
+    return polygon;
+}
+
+function edge_loop(nodes)
+{
+    var current = nodes[0];
+    var previous = current;
+    var poly_indices = [];
+
+    var polygon = new Polygon();
+
+    for ( var i = 0; i <= nodes.length; i++ )
+    {
+        polygon.add_vertex(current.pos);
+
+        var found = false;
+        for ( var j = 0; j < current.edges.length; j++ )
+        {
+            var other = current.edges[j].other(current);
+            if ( previous != other )
+            {
+                previous = current;
+                current = other;
+                found = true;
+                break;
+            }
+        }
+        if ( !found )
+            break;
+    }
+
+    return polygon;
 }
 
 var graph = document.graph;
 var nodes = graph.selected_nodes;
+
+Dialog.grid_size.value = document.grid.size
 if ( nodes.length > 2 &&  Dialog.exec() )
 {
 
@@ -66,42 +99,56 @@ if ( nodes.length > 2 &&  Dialog.exec() )
 
 
 
-    document.begin_macro("Fill Area");
 
-    var polygon_points = convex_hull(nodes,graph)
+    var polygon = null;
+    if ( Dialog.algorithm.currentIndex == 1 )
+        polygon = edge_loop(nodes);
+    else
+        polygon = convex_hull(nodes,min_x_index);
 
-    var polygon = new Polygon();
-    for ( var i = 0; i < polygon_points.length; i++ )
-        polygon.add_vertex(nodes[i].pos);
+    print(polygon);
 
-    //print(polygon);
-    /*for ( var i = 0; i < polygon_points.length; i++ )
+    if ( polygon.vertices.length > 2 )
     {
-        graph.connect(nodes[polygon_points[i]],
-                      nodes[polygon_points[(i+1)%polygon_points.length]]);
-    }*/
+        document.begin_macro("Fill Area");
 
-    var size = Dialog.grid_size.value;
-    for ( var y = min_pt.y; y < max_pt.y; y += size )
-        for ( var x = min_pt.x; x < max_pt.x; x += size )
+        /*for ( var i = 0; i < polygon_points.length; i++ )
         {
-            if ( polygon.contains(x,y) )
+            graph.connect(nodes[polygon_points[i]],
+                          nodes[polygon_points[(i+1)%polygon_points.length]]);
+        }*/
+
+        var size = Dialog.grid_size.value;
+        var nodes = new Array();
+
+        for ( var y = min_pt.y, yi = 0; y <= max_pt.y; y += size, yi++ )
+        {
+            nodes.push([]);
+            for ( var x = min_pt.x, xi = 0; x <= max_pt.x; x += size, xi++ )
             {
-                var node = graph.add_node(x,y);
-                if ( y > min_pt.y )
+                if ( polygon.contains(x,y) || polygon.contains(x-1,y-1) ||
+                     polygon.contains(x-1,y+1) || polygon.contains(x+1,y-1) )
                 {
-                    var node_up = graph.node_at(x,y-size);
-                    if ( node_up )
-                        graph.connect(node_up,node);
+                    var node = graph.add_node(x,y);
+                    nodes[yi].push(node);
+                    if ( yi > 0 )
+                    {
+                        var node_up = nodes[yi-1][xi];
+                        if ( node_up )
+                            graph.connect(node_up,node);
+                    }
+                    if ( x > min_pt.x )
+                    {
+                        var node_left = nodes[yi][xi-1];
+                        if ( node_left )
+                            graph.connect(node_left,node);
+                    }
                 }
-                if ( x > min_pt.x )
-                {
-                    var node_left = graph.node_at(x-size,y);
-                    if ( node_left )
-                        graph.connect(node_left,node);
-                }
+                else
+                    nodes[yi].push(null);
             }
         }
 
-    document.end_macro();
+        document.end_macro();
+    }
 }

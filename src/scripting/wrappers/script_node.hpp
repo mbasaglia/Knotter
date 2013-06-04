@@ -81,6 +81,8 @@ public:
 
     Q_INVOKABLE QObject* edge_to(Script_Node *n) const;
 
+    Q_INVOKABLE bool compare(Script_Node *n) const;
+
 signals:
     void moved(Script_Point p);
 

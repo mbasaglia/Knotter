@@ -92,3 +92,8 @@ QObject* Script_Node::edge_to(Script_Node *n) const
     return graph->script_edge(m_wrapped_node->edge_to(n->m_wrapped_node));
 }
 
+bool Script_Node::compare(Script_Node *n) const
+{
+    return n->m_wrapped_node == m_wrapped_node;
+}
+

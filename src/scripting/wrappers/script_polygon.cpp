@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "script_polygon.hpp"
+#include <limits>
+#include "point_math.hpp"
 
 Script_Polygon::Script_Polygon(QObject *parent) :
     QObject(parent)
@@ -33,12 +35,12 @@ Script_Polygon::Script_Polygon(QObject *parent) :
 
 bool Script_Polygon::contains(Script_Point p)
 {
-    return wrapped.contains(p);
+    return wrapped.containsPoint(p,Qt::WindingFill);
 }
 
 bool Script_Polygon::contains(double x, double y)
 {
-    return wrapped.containsPoint(QPointF(x,y),Qt::OddEvenFill);
+    return wrapped.containsPoint(QPointF(x,y),Qt::WindingFill);
 }
 
 void Script_Polygon::add_vertex(Script_Point p)
@@ -46,9 +48,10 @@ void Script_Polygon::add_vertex(Script_Point p)
     wrapped.push_back(p);
 }
 
+
 QString Script_Polygon::toString() const
 {
-    QString s = "[";
+    QString s = "[polygon ";
     foreach(QPointF p, wrapped)
     {
         s += QString("(%1,%2), ").arg(p.x()).arg(p.y());

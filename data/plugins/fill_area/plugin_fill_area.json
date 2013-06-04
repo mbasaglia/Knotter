@@ -4,7 +4,7 @@
     "description"   : "Fill the convex hull for the selected nodes.",
     "author"        : "Mattia Basaglia",
     "license"       : "GPLv3+",
-    "script"        : "convex_hull.js",
+    "script"        : "fill_area.js",
     "ui"            : "dialog.ui",
 }
 
