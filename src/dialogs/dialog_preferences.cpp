@@ -44,6 +44,7 @@ Dialog_Preferences::Dialog_Preferences(QMainWindow *parent) :
     check_fluid_refresh->setChecked(Resource_Manager::settings.fluid_refresh());
     check_cache_image->setChecked(Resource_Manager::settings.graph_cache());
     check_antialiasing->setChecked(Resource_Manager::settings.antialiasing());
+    spin_timeout->setValue(Resource_Manager::settings.script_timeout());
 
     spin_recent_files->setValue(Resource_Manager::settings.max_recent_files());
     check_save_geometry->setChecked(Resource_Manager::settings.save_ui());
@@ -92,6 +93,7 @@ void Dialog_Preferences::set_preferences()
     Resource_Manager::settings.set_fluid_refresh(check_fluid_refresh->isChecked());
     Resource_Manager::settings.set_graph_cache(check_cache_image->isChecked());
     Resource_Manager::settings.set_antialiasing(check_antialiasing->isChecked());
+    Resource_Manager::settings.set_script_timeout(spin_timeout->value());
 
     Resource_Manager::settings.set_max_recent_files(spin_recent_files->value());
     Resource_Manager::settings.set_save_ui(check_save_geometry->isChecked());

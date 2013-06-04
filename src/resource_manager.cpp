@@ -195,10 +195,14 @@ void Resource_Manager::initialize(QString default_lang_code)
 
     // Scripting
     singleton.m_script_engine = new QScriptEngine; // needs to be initialized only after qApp is created
+    singleton.m_script_engine->setProcessEventsInterval(500);
     QScriptEngine* engine = singleton.m_script_engine; // shorer to write
     singleton.current_context = nullptr;
     singleton.m_script_engine_agent = new QScriptEngineAgent(engine);
     engine->setAgent(singleton.m_script_engine_agent);
+    singleton.script_timeout = new QTimer;
+    singleton.script_timeout->setSingleShot(true);
+    connect(singleton.script_timeout,SIGNAL(timeout()),pointer,SLOT(abort_script()));
 
     qRegisterMetaType<Script_Point>("Script_Point");
     qScriptRegisterMetaType(engine, point_to_script, point_from_script);
@@ -229,6 +233,8 @@ Resource_Manager::~Resource_Manager()
 
     foreach ( Plugin* p, m_plugins)
         delete p;
+
+    delete script_timeout;
 }
 
 
@@ -498,6 +504,10 @@ QScriptValue Resource_Manager::run_script(const QString &program,
                                           QScriptValue *context_value)
 {
     script_context();
+    if ( settings.script_timeout() > 0 )
+    {
+        singleton.script_timeout->start(1000*settings.script_timeout());
+    }
     QScriptValue result = singleton.m_script_engine->evaluate(program,fileName,lineNumber);
     if ( singleton.m_script_engine->hasUncaughtException() )
     {
@@ -538,4 +548,18 @@ void Resource_Manager::load_plugin(QString filename)
         qWarning() << tr("%1: Error: %2").arg(filename).arg(error);
     else if ( p )
         singleton.m_plugins << p;
+}
+
+
+void Resource_Manager::abort_script()
+{
+    if ( m_script_engine->isEvaluating() )
+    {
+        QScriptValue v;
+        if ( current_context )
+        {
+            v = current_context->throwError(tr("Script timeout"));
+        }
+        m_script_engine->abortEvaluation(v);
+    }
 }

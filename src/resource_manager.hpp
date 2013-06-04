@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QScriptEngine>
 #include "plugin.hpp"
 #include <QScriptEngineAgent>
+#include <QTimer>
 
 /**
  * Manage resources and data
@@ -61,6 +62,7 @@ class Resource_Manager : public QObject
     QList<Plugin*>      m_plugins;
     QScriptContext *    current_context;
     QScriptEngineAgent* m_script_engine_agent;
+    QTimer*             script_timeout;
 
 public:
     static Settings settings;
@@ -273,6 +275,11 @@ public slots:
     static void change_lang_name ( QString name );
 
     void save_settings();
+
+    /**
+     * \brief Terminates currently running scripts
+     */
+    void abort_script();
 
 signals:
 

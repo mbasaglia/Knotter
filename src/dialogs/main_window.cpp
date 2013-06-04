@@ -68,6 +68,7 @@ Main_Window::Main_Window(QWidget *parent) :
 
 
     connect(Resource_Manager::pointer,SIGNAL(language_changed()),this,SLOT(retranslate()));
+    connect(this,SIGNAL(destroyed()),Resource_Manager::pointer,SLOT(abort_script()));
 
 }
 
