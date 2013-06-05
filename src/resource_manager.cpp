@@ -546,8 +546,8 @@ void Resource_Manager::load_plugin(QString filename)
 
     if ( !error.isEmpty() )
         qWarning() << tr("%1: Error: %2").arg(filename).arg(error);
-    else if ( p )
-        singleton.m_plugins << p;
+
+    singleton.m_plugins << p;
 }
 
 

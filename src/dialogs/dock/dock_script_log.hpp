@@ -48,7 +48,7 @@ private:
     static QString escape_html(QString s);
 
 private slots:
-    void script_error(QString file,int line,QString msg, QStringList trace);
+    void script_error(QString file,int line,QString msg, QStringList trace = QStringList());
     void script_output(QString text);
     void on_script_input_lineExecuted(const QString &arg1);
 };

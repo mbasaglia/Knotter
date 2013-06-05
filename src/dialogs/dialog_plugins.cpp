@@ -49,6 +49,9 @@ void Dialog_Plugins::changeEvent(QEvent *e)
 
 void Dialog_Plugins::load_plugins()
 {
+    frame_info->setVisible(!Resource_Manager::plugins().empty());
+    label_empty->setVisible(Resource_Manager::plugins().empty());
+
     listWidget->clear();
     foreach(Plugin* p, Resource_Manager::plugins())
     {
@@ -57,6 +60,8 @@ void Dialog_Plugins::load_plugins()
             item->setIcon(QIcon::fromTheme("text-x-script"));
         item->setData(Qt::UserRole,QVariant::fromValue(p));
         set_item_enabled(item,p->is_enabled());
+        if ( !p->is_valid() )
+            set_item_errored(item);
         listWidget->addItem(item);
     }
 }
@@ -68,7 +73,11 @@ void Dialog_Plugins::on_listWidget_currentRowChanged(int currentRow)
     {
         label_title->setText(p->string_data("name"));
         text_description->setPlainText(p->string_data("description"));
+
+
+        check_enable->setEnabled(p->is_valid());
         check_enable->setChecked(p->is_enabled());
+
         tableWidget->clearContents();
         tableWidget->setRowCount(0);
         foreach(QString k, p->metadata().keys())
@@ -96,6 +105,11 @@ void Dialog_Plugins::set_item_enabled(QListWidgetItem *it, bool enabled)
     f.setItalic(!enabled);
     it->setFont(f);
     //it->setCheckState(enabled?Qt::Checked:Qt::Unchecked);
+}
+
+void Dialog_Plugins::set_item_errored(QListWidgetItem *it)
+{
+    it->setForeground(Qt::darkRed);
 }
 
 void Dialog_Plugins::on_check_enable_clicked(bool checked)

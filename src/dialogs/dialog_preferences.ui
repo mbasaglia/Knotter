@@ -53,9 +53,6 @@
        <property name="showGrid">
         <bool>false</bool>
        </property>
-       <property name="sortingEnabled">
-        <bool>true</bool>
-       </property>
        <property name="cornerButtonEnabled">
         <bool>false</bool>
        </property>
@@ -102,10 +99,10 @@
        </column>
        <item row="0" column="0">
         <property name="text">
-         <string>Toolbars</string>
+         <string>General</string>
         </property>
         <property name="icon">
-         <iconset theme="configure-toolbars">
+         <iconset theme="preferences-system">
           <normaloff/>
          </iconset>
         </property>
@@ -115,10 +112,10 @@
        </item>
        <item row="1" column="0">
         <property name="text">
-         <string>General</string>
+         <string>Toolbars</string>
         </property>
         <property name="icon">
-         <iconset theme="preferences-system">
+         <iconset theme="configure-toolbars">
           <normaloff/>
          </iconset>
         </property>
@@ -147,55 +144,8 @@
         </sizepolicy>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>2</number>
        </property>
-       <widget class="QWidget" name="page_toolbars">
-        <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>Icon Size</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QComboBox" name="combo_icon_size">
-           <property name="toolTip">
-            <string>Icon size</string>
-           </property>
-           <property name="whatsThis">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the size used for toolbar icons and items in the drawing area.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Toolbar Button Style</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QComboBox" name="combo_icon_style">
-           <property name="whatsThis">
-            <string>Select how the toolbar should display icons and text</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0" colspan="2">
-          <widget class="QGroupBox" name="groupBox">
-           <property name="title">
-            <string>Toolbar Buttons</string>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="Toolbar_Editor" name="toolbar_editor"/>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
        <widget class="QWidget" name="page_general">
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="2">
@@ -302,6 +252,53 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="page_toolbars">
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Icon Size</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="combo_icon_size">
+           <property name="toolTip">
+            <string>Icon size</string>
+           </property>
+           <property name="whatsThis">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the size used for toolbar icons and items in the drawing area.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Toolbar Button Style</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QComboBox" name="combo_icon_style">
+           <property name="whatsThis">
+            <string>Select how the toolbar should display icons and text</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0" colspan="2">
+          <widget class="QGroupBox" name="groupBox">
+           <property name="title">
+            <string>Toolbar Buttons</string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="Toolbar_Editor" name="toolbar_editor"/>
+            </item>
+           </layout>
           </widget>
          </item>
         </layout>

@@ -78,7 +78,7 @@ public:
         }
 
     /// Whether the plugin has been enabled
-    bool is_enabled() const { return m_enabled; }
+    bool is_enabled() const;
     /// Enable or disable the plugin
     void enable(bool e);
 
@@ -104,6 +104,16 @@ public:
     void set_widget_parent(QWidget *parent);
 
     Type type() const { return m_type; }
+
+    /**
+     * @brief Create a new error plugin
+     * @param data      Metadata
+     * @param message   Error message
+     * @return A new plugin of type Invalid
+     */
+    static Plugin* new_error_plugin(QVariantMap data,QString message);
+
+    bool is_valid() const { return m_type != Invalid; }
 
 protected:
     /**

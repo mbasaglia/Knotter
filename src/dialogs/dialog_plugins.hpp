@@ -48,6 +48,7 @@ private slots:
 
 private:
     void set_item_enabled(QListWidgetItem* it, bool enabled);
+    void set_item_errored(QListWidgetItem* it);
 };
 
 #endif // DIALOG_PLUGINS_HPP

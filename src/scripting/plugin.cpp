@@ -86,12 +86,20 @@ Plugin::Plugin(const QVariantMap &metadata, Plugin::Type type)
     m_enabled = data("auto_enable",true);
 }
 
+bool Plugin::is_enabled() const
+{
+    return m_enabled && is_valid();
+}
+
 
 void Plugin::enable(bool e)
 {
-    m_enabled = e;
-    on_enable(e);
-    emit enabled(e);
+    if ( is_valid() )
+    {
+        m_enabled = e;
+        on_enable(e);
+        emit enabled(e);
+    }
 }
 
 Plugin* Plugin::from_file (QFile &file, QString* error )
@@ -133,9 +141,6 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
         }
     #endif
 
-    if ( !error->isEmpty() )
-        return nullptr;
-
     QFileInfo fi(file.fileName());
     data["plugin_file"] = fi.absoluteFilePath();
     data["plugin_dir"] = fi.absolutePath();
@@ -147,6 +152,11 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
 
 
 
+    if ( !error->isEmpty() )
+    {
+        return new_error_plugin(data,*error);
+    }
+
 
     Plugin::Type type = Plugin::Invalid;
     if ( data["type"] == "cusp" )
@@ -154,7 +164,7 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
     else
         type = Script;
 
-    if ( !data.contains("category") )
+    if ( type == Script && !data.contains("category") )
         data["category"] = "Other";
 
     Plugin* p;
@@ -167,15 +177,15 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
             p = new Plugin(data,type);
             break;
         default:
-            *error = QObject::tr("Unknown plugin type ");
-            return nullptr;
+            *error = QObject::tr("Unknown plugin type");
+            return new_error_plugin(data,*error);
 
     }
 
     if ( !data.contains("script") )
     {
         *error = QObject::tr("Missing script file");
-        return nullptr;
+        return new_error_plugin(data,*error);
     }
 
 
@@ -188,10 +198,20 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
     {
         *error = QObject::tr("Error while opening script file %1").arg(script_file_name);
         delete p;
-        return nullptr;
+        return new_error_plugin(data,*error);
     }
     p->m_script = QScriptProgram(script_file.readAll(),data.value("script").toString());
     return p;
+}
+
+
+Plugin *Plugin::new_error_plugin(QVariantMap data, QString message)
+{
+
+    data["type"] = "invalid";
+    data["error"] = message;
+    data["auto_enable"] = false;
+    return new Plugin(data,Invalid);
 }
 
 QIcon Plugin::icon() const
@@ -233,4 +253,5 @@ void Plugin::set_widget_parent(QWidget *parent)
     foreach(QWidget* w, m_widgets)
         w->setParent(parent,Qt::Dialog);
 }
+
 

@@ -37,6 +37,14 @@ Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
             SLOT(script_error(QString,int,QString,QStringList)));
     connect(Resource_Manager::pointer,SIGNAL(script_output(QString)),
             SLOT(script_output(QString)));
+
+    foreach(Plugin* p,Resource_Manager::plugins())
+    {
+        if ( !p->is_valid() )
+        {
+            script_error(p->string_data("plugin_file"),0,p->string_data("error"));
+        }
+    }
 }
 
 void Dock_Script_Log::changeEvent(QEvent *e)
@@ -68,17 +76,21 @@ void Dock_Script_Log::script_error(QString file, int line, QString msg, QStringL
                             .arg(line)
                             .arg(tr("Error"))
                             .arg(escape_html(msg))
-                            .arg("Stack trace:")
+                            .arg(trace.empty()?"":"Stack trace:")
                         );
-    QString trace_ul = "<ul style='margin-top:0; padding-top:0'>";
-
-    foreach ( QString s , trace )
+    if ( !trace.empty() )
     {
-        trace_ul += "<li>"+escape_html(s)+"</li>";
-    }
-    trace_ul += "</ul>";
+        QString trace_ul = "<ul style='margin-top:0; padding-top:0'>";
 
-    text_output->insertHtml(trace_ul+"<p></p>");
+        foreach ( QString s , trace )
+        {
+            trace_ul += "<li>"+escape_html(s)+"</li>";
+        }
+        trace_ul += "</ul>";
+
+        text_output->insertHtml(trace_ul+"<p></p>");
+    }
+
     text_output->moveCursor (QTextCursor::End) ;
     text_output->ensureCursorVisible() ;
 
