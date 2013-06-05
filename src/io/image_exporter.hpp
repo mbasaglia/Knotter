@@ -28,9 +28,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IMAGE_EXPORTER_HPP
 
 #include "graph.hpp"
+#include "background_image.hpp"
 
 
-void export_svg(QIODevice &file, const Graph& graph, bool draw_graph);
+void export_svg(QIODevice &file, const Graph& graph, bool draw_graph,
+                bool draw_bg_image = false, const Background_Image &bg_img = Background_Image());
 
 /**
  * \brief Export a raster image
@@ -44,6 +46,7 @@ void export_svg(QIODevice &file, const Graph& graph, bool draw_graph);
  *  \param draw_graph   Whether to render also the graph itself
 */
 void export_raster(QIODevice &file, const Graph& graph, QColor background,
-                   bool antialias, QSize img_size, int quality , bool draw_graph);
+                   bool antialias, QSize img_size, int quality , bool draw_graph,
+                   bool draw_bg_image = false, const Background_Image &bg_img = Background_Image());
 
 #endif // IMAGE_EXPORTER_HPP

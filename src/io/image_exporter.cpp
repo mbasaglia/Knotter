@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QSvgGenerator>
 
 
-void export_svg(QIODevice &file, const Graph& graph, bool draw_graph)
+void export_svg(QIODevice &file, const Graph& graph, bool draw_graph, bool draw_bg_image, const Background_Image &bg_img)
 {
     if ( !file.isWritable() && !file.open(QIODevice::WriteOnly|QIODevice::Text))
     {
@@ -47,6 +47,9 @@ void export_svg(QIODevice &file, const Graph& graph, bool draw_graph)
     painter.begin(&gen);
     painter.translate(-fibr.topLeft());
 
+    if ( draw_bg_image )
+        bg_img.render(&painter);
+
     if ( draw_graph )
         graph.paint_graph(&painter);
     graph.const_paint(&painter);
@@ -56,7 +59,8 @@ void export_svg(QIODevice &file, const Graph& graph, bool draw_graph)
 
 
 void export_raster(QIODevice &file, const Graph& graph, QColor background,
-                   bool antialias, QSize img_size, int quality, bool draw_graph )
+                   bool antialias, QSize img_size, int quality, bool draw_graph,
+                   bool draw_bg_image, const Background_Image& bg_img )
 {
 
     if ( !file.isWritable() && !file.open(QIODevice::WriteOnly))
@@ -88,6 +92,9 @@ void export_raster(QIODevice &file, const Graph& graph, QColor background,
     painter.begin(pix);
     painter.translate(offset.x()*scale_x,offset.y()*scale_y);
     painter.scale(scale_x,scale_y);
+
+    if ( draw_bg_image )
+        bg_img.render(&painter);
 
     if ( draw_graph )
         graph.paint_graph(&painter);

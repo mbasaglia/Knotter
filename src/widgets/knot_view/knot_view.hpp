@@ -98,6 +98,7 @@ public:
     Snapping_Grid& grid() { return m_grid; }
 
     Background_Image& background_image() { return bg_img; }
+    const Background_Image& background_image() const { return bg_img; }
 
     const Graph& graph() const { return m_graph; }
 

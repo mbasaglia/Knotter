@@ -746,7 +746,9 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="draw-line"/>
+    <iconset theme="draw-single-line">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Toggle Edges</string>

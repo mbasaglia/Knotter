@@ -97,7 +97,8 @@ void Export_Image_Dialog::on_button_svg_clicked()
     file_name = exname;
 
 
-    export_svg(quf,view->graph(),check_graph->isChecked());
+    export_svg(quf,view->graph(),check_graph->isChecked(),
+               check_bg_image->isChecked(),view->background_image());
 
     quf.close();
 
@@ -161,7 +162,8 @@ void Export_Image_Dialog::on_button_image_clicked()
         back.setAlpha(255);
     export_raster(quf,view->graph(),back,check_antialiasing->isChecked(),
                   QSize(spin_width->value(),spin_height->value()),
-                  slider_quality->value(), check_graph->isChecked());
+                  slider_quality->value(), check_graph->isChecked(),
+                  check_bg_image->isChecked(), view->background_image() );
 
 
 }

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>209</width>
-    <height>372</height>
+    <height>399</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,6 +23,13 @@
     <widget class="QCheckBox" name="check_graph">
      <property name="text">
       <string>Include Graph in output</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="check_bg_image">
+     <property name="text">
+      <string>Include background image</string>
      </property>
     </widget>
    </item>
