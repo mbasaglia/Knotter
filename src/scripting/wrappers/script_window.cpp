@@ -29,9 +29,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QUiLoader>
 #include <QFile>
+#include <QMessageBox>
+#include "resource_manager.hpp"
+#include <QFileDialog>
+#include <QInputDialog>
+#include <limits>
+
 
 Script_Window::Script_Window(Main_Window *window, QObject *parent) :
-    QObject(parent), window(window)
+    QObject(parent), window(window), m_dialog(window)
 {
     connect(window,SIGNAL(tab_closing(Knot_View*)),SLOT(close_tab(Knot_View*)));
 }
@@ -73,6 +79,11 @@ Script_Document* Script_Window::document()
         return docs[window->view] = new Script_Document(window->view,this);
 }
 
+Script_Window_Dialog *Script_Window::dialog()
+{
+    return &m_dialog;
+}
+
 QString Script_Window::toString() const
 {
     return "[Knotter window]";
@@ -91,6 +102,7 @@ QWidget *Script_Window::load_widget(QString ui_file_name)
     return nullptr;
 }
 
+
 void Script_Window::clean_up()
 {
     foreach(Script_Document* d, docs.values() )
@@ -106,4 +118,93 @@ void Script_Window::close_tab(Knot_View *view)
         docs.remove(view);
     }
 }
+
+void Script_Window::screenshot(QString output_image_file, QString widget)
+{
+    QWidget *paintee = window;
+    if ( !widget.isEmpty() )
+        paintee = window->findChild<QWidget*>(widget);
+    if ( paintee == nullptr )
+        paintee = window;
+
+    QPixmap shot(paintee->size());
+    paintee->render(&shot);
+
+    shot.save(output_image_file);
+}
+
+
+void Script_Window_Dialog::information(QString message, QString title)
+{
+    QMessageBox::information(parent_widget,default_title(title), message);
+}
+
+void Script_Window_Dialog::warning(QString message, QString title)
+{
+    QMessageBox::warning(parent_widget,default_title(title),message);
+}
+
+void Script_Window_Dialog::critical(QString message, QString title)
+{
+    QMessageBox::critical(parent_widget,default_title(title),message);
+}
+
+int Script_Window_Dialog::question(QString message, QString title,
+                                   QString button1, QString button2, QString button3)
+{
+    return QMessageBox::question(parent_widget,default_title(title),message,
+                                 button1,button2,button3
+                                 );
+}
+
+QString Script_Window_Dialog::get_open_file(QString title, QString filters)
+{
+    return QFileDialog::getOpenFileName(parent_widget,default_title(title),
+                                        QString(),filters
+                                        );
+}
+
+QString Script_Window_Dialog::default_title(QString title)
+{
+    return title.isEmpty()?Resource_Manager::program_name():title;
+}
+
+double Script_Window_Dialog::get_number(QString message, QString title,
+                                        double default_value, double min, double max)
+{
+    bool ok = true;
+    double result = QInputDialog::getDouble(parent_widget,default_title(title),message,
+                            default_value, min, max, 2, &ok);
+    return ok ? result : std::numeric_limits<double>::signaling_NaN();
+}
+
+double Script_Window_Dialog::get_integer(QString message, QString title,
+                                         int default_value, int min, int max)
+{
+    bool ok = true;
+    double result = QInputDialog::getInteger(parent_widget,default_title(title),message,
+                            default_value, min, max, 1, &ok);
+    return ok ? result : std::numeric_limits<double>::signaling_NaN();
+}
+
+QString Script_Window_Dialog::get_text(QString message, QString title, QString default_value)
+{
+    return QInputDialog::getText(parent_widget,default_title(title),message,
+                                 QLineEdit::Normal, default_value );
+}
+
+QString Script_Window_Dialog::get_item(QString message, QString title, QStringList items)
+{
+
+    bool ok = true;
+    QString result = QInputDialog::getItem(parent_widget,default_title(title),
+                                           message,items,0,false,&ok);
+    return ok ? result : "";
+}
+
+QString Script_Window_Dialog::toString() const
+{
+    return "[window.dialog]";
+}
+
 
