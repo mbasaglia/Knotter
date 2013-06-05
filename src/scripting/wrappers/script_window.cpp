@@ -167,7 +167,7 @@ double Script_Window_Dialog::get_integer(QString message, QString title,
                                          int default_value, int min, int max)
 {
     bool ok = true;
-    double result = QInputDialog::getInteger(parent_widget,default_title(title),message,
+    double result = QInputDialog::getInt(parent_widget,default_title(title),message,
                             default_value, min, max, 1, &ok);
     return ok ? result : std::numeric_limits<double>::signaling_NaN();
 }

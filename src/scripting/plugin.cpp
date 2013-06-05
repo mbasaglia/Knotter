@@ -34,14 +34,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFile>
 #include <QDialog>
 
-#if HAS_QT_5
+/*#if HAS_QT_5
 #include <QJsonObject>
 #include <QJsonDocument>
-#else
+#else*/
 #include <QScriptValue>
 #include <QScriptEngine>
 #include <QScriptValueIterator>
-#endif
+//#endif
 
 
 
@@ -114,18 +114,18 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
 
     QByteArray json_data = file.readAll();
 
-    #if HAS_QT_5
+    /*#if HAS_QT_5
         QJsonParseError err;
         QJsonDocument json ( QJsonDocument::fromJson(json_data,&err) );
-        if ( err.error != QJsonParseError::NoError )
-        {
-            *error = err.errorString();
-        }
-        else if ( !json.isNull() )
+        if ( !json.isNull() )
         {
             data = json.object().toVariantMap();
         }
-    #else
+        else if ( err.error != QJsonParseError::NoError )
+        {
+            *error = err.errorString();
+        }
+    #else*/
         QScriptEngine engine;
         QScriptValue obj = engine.evaluate("(" + json_data + ")");
         QScriptValueIterator it(obj);
@@ -139,7 +139,7 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
                 data.insert(it.name(),QVariant(it.value().toString()));
             data.insert(it.name(),it.value().toString());
         }
-    #endif
+    //#endif
 
     QFileInfo fi(file.fileName());
     data["plugin_file"] = fi.absoluteFilePath();

@@ -718,9 +718,15 @@ void Main_Window::save(bool force_select, int tab_index)
     QString file = v->file_name();
     if ( file.isEmpty() || force_select )
     {
+        QString selected_filter;
+        QString filters = tr("Knot files (*.knot);;XML files (*.xml);;All files (*)");
         file = QFileDialog::getSaveFileName(this,tr("Save Knot"),
-                    v->file_name(),
-                    "Knot files (*.knot);;XML files (*.xml);;All files (*)" );
+                    v->file_name(), filters, &selected_filter
+                );
+
+        QFileInfo finfo(file);
+        if ( finfo.suffix().isEmpty() && filters.startsWith(selected_filter))
+            file += ".knot";
     }
     if ( !file.isEmpty() )
     {
