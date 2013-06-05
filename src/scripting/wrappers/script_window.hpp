@@ -73,6 +73,12 @@ public:
 
 
     Q_INVOKABLE QString toString() const;
+
+
+    /**
+     * \brief Loads a widget from a ui file
+     */
+    Q_INVOKABLE QWidget* load_widget(QString ui_file_name);
 };
 
 /// Wrapper to Main_Window
@@ -103,11 +109,6 @@ public:
     Script_Window_Dialog* dialog();
 
     Q_INVOKABLE QString toString() const;
-
-    /**
-     * \brief Loads a widget from a ui file
-     */
-    Q_INVOKABLE QWidget* load_widget(QString ui_file_name);
 
     /**
      * \brief Take a screenshot of a widget

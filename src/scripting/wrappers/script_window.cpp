@@ -88,21 +88,6 @@ QString Script_Window::toString() const
 {
     return "[Knotter window]";
 }
-
-QWidget *Script_Window::load_widget(QString ui_file_name)
-{
-    QFile ui_file(ui_file_name );
-    if ( ui_file.open(QFile::ReadOnly|QFile::Text) )
-    {
-        QUiLoader loader;
-
-        return loader.load(&ui_file,window);
-    }
-
-    return nullptr;
-}
-
-
 void Script_Window::clean_up()
 {
     foreach(Script_Document* d, docs.values() )
@@ -207,4 +192,19 @@ QString Script_Window_Dialog::toString() const
     return "[window.dialog]";
 }
 
+
+
+
+QWidget *Script_Window_Dialog::load_widget(QString ui_file_name)
+{
+    QFile ui_file(ui_file_name );
+    if ( ui_file.open(QFile::ReadOnly|QFile::Text) )
+    {
+        QUiLoader loader;
+
+        return loader.load(&ui_file,parent_widget);
+    }
+
+    return nullptr;
+}
 
