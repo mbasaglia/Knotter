@@ -94,16 +94,16 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Quality</string>
+         <string>Compression</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1" colspan="2">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QSlider" name="slider_quality">
+         <widget class="QSlider" name="slider_compression">
           <property name="toolTip">
-           <string>Depending on the format, lower quality means more compressed files.</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;On some formats, higher compression means less quality.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="maximum">
            <number>100</number>
@@ -117,7 +117,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_quality">
+         <widget class="QLabel" name="label_compression">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
             <horstretch>0</horstretch>

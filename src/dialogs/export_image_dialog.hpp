@@ -52,7 +52,7 @@ private slots:
     void reset_size();
 
     void on_button_ratio_toggled(bool checked);
-    void on_slider_quality_valueChanged(int value);
+    void on_slider_compression_valueChanged(int value);
     void on_button_svg_clicked();
 
     void on_button_image_clicked();

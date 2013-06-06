@@ -74,10 +74,10 @@ void Export_Image_Dialog::on_button_ratio_toggled(bool checked)
     ratio = double ( spin_height->value() ) / spin_width->value();
 }
 
-void Export_Image_Dialog::on_slider_quality_valueChanged(int value)
+void Export_Image_Dialog::on_slider_compression_valueChanged(int value)
 {
-    //: Quality percentage
-    label_quality->setText(tr("%1%").arg(value));
+    //: Compression percentage
+    label_compression->setText(tr("%1%").arg(value));
 }
 
 void Export_Image_Dialog::on_button_svg_clicked()
@@ -162,7 +162,7 @@ void Export_Image_Dialog::on_button_image_clicked()
         back.setAlpha(255);
     export_raster(quf,view->graph(),back,check_antialiasing->isChecked(),
                   QSize(spin_width->value(),spin_height->value()),
-                  slider_quality->value(), check_graph->isChecked(),
+                  100-slider_compression->value(), check_graph->isChecked(),
                   check_bg_image->isChecked(), view->background_image() );
 
 
