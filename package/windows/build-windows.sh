@@ -1,7 +1,7 @@
 #!/bin/bash
 
 srcdir=../..
-QMAKE=i686-pc-mingw32-qmake $srcdir/configure.sh
+QMAKE=qmake-qt5-windows $srcdir/configure.sh
 package=`echo __package__-__version__ | $srcdir/info_preprocessor.sh`
 
 if [ -d $package ]
