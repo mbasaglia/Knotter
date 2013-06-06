@@ -363,7 +363,7 @@ echo "esac" >>configured_directories.sh
 chmod a+x configured_directories.sh
 
 echo "Generating processed files"
-for f in 'Doxyfile' $TARGET.desktop 
+for f in 'Doxyfile' $TARGET.desktop man/$TARGET.1
 do
     $src_dir/info_preprocessor.sh $src_dir/$f.in >$f && echo $f created
 done
