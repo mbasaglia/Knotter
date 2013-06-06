@@ -51,7 +51,7 @@ Dialog_Preferences::Dialog_Preferences(QMainWindow *parent) :
 
     check_save_grid->setChecked(Resource_Manager::settings.save_grid());
     check_save_toolbars->setChecked(Resource_Manager::settings.save_toolbars());
-    check_save_style->setCheckable(Resource_Manager::settings.save_knot_style());
+    check_save_style->setChecked(Resource_Manager::settings.save_knot_style());
 
     check_files_close->setChecked(Resource_Manager::settings.check_unsaved_files());
 

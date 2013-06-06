@@ -74,9 +74,10 @@ Plugin::Plugin(const QVariantMap &metadata, Plugin::Type type)
                 QWidget *widget = loader.load(&ui_file);
                 if ( widget )
                 {
-                    ((QObject*)widget)->setParent(this);
+                    //((QObject*)widget)->setParent(this);
                     widget->hide();
                     m_widgets << widget;
+                    connect(widget,SIGNAL(destroyed(QObject*)),SLOT(dialog_destroyed(QObject*)));
                 }
             }
        }
@@ -84,6 +85,12 @@ Plugin::Plugin(const QVariantMap &metadata, Plugin::Type type)
 
 
     m_enabled = data("auto_enable",true);
+}
+
+Plugin::~Plugin()
+{
+    foreach(QWidget* w, m_widgets)
+        delete w;
 }
 
 bool Plugin::is_enabled() const
@@ -254,4 +261,9 @@ void Plugin::set_widget_parent(QWidget *parent)
         w->setParent(parent,Qt::Dialog);
 }
 
+
+void Plugin::dialog_destroyed(QObject * widget)
+{
+    m_widgets.removeOne((QWidget*)widget);
+}
 

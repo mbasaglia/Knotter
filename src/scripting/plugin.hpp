@@ -57,6 +57,7 @@ private:
 public:
     Plugin();
     explicit Plugin(const QVariantMap& metadata, Type type);
+    ~Plugin();
 
     /**
      * \brief Metadata map
@@ -134,6 +135,9 @@ public slots:
 
 signals:
     void enabled(bool);
+
+private slots:
+    void dialog_destroyed(QObject*widget);
 
 };
 

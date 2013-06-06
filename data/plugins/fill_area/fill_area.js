@@ -76,7 +76,11 @@ var graph = document.graph;
 var nodes = graph.selected_nodes;
 
 Dialog.grid_size.value = document.grid.size
-if ( nodes.length > 2 &&  Dialog.exec() )
+if ( nodes.length < 3 )
+{
+    window.dialog.information("Please select at leat 3 nodes","Fill Area");
+}
+else if ( Dialog.exec() )
 {
 
     var min_pt = new Point(Number.MAX_VALUE,Number.MAX_VALUE);

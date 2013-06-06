@@ -35,6 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "context_menu_node.hpp"
 #include "context_menu_edge.hpp"
 #include <QFile>
+//#include <QGLWidget>
 
 Knot_View::Knot_View(QString file)
     : mouse_mode(EDIT_GRAPH), last_node(nullptr), m_file_name(file),
@@ -42,6 +43,7 @@ Knot_View::Knot_View(QString file)
       context_menu_node(new Context_Menu_Node(this)),
       context_menu_edge(new Context_Menu_Edge(this))
 {
+    //setViewport(new QGLWidget);
 
     setWindowFilePath(file);
     setFrameStyle(StyledPanel|Plain);
