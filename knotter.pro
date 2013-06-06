@@ -38,7 +38,8 @@ OTHER_FILES = \
     fix_makefile.sh \
     knotter_info.pri \
     translations.pri \
-    info_preprocessor.sh
+    info_preprocessor.sh \
+    windows.rc
 
 # configured directories
 
@@ -171,4 +172,5 @@ INSTALLS += target
 win32 {
     # Remove non-numeric stuff from version as Windows RC doesn't like it
     VERSION ~= s/[-_a-zA-Z]+//
+    RC_FILE = windows.rc
 }
