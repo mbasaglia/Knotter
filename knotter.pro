@@ -105,11 +105,6 @@ mydist.commands =                                                           \
             $(MKDIR) $$MYDIST_TMP                                           \
         ) &&                                                                \
         $(COPY_FILE)  $$MYDISTFILES  $$MYDIST_TMP &&                        \
-        (                                                                   \
-            $(CHK_DIR_EXISTS) $$MYDIST_TMP/man ||                           \
-            $(MKDIR) $$MYDIST_TMP/man                                       \
-        ) &&                                                                \
-        $(COPY_FILE) man/$${TARGET}.1.gz  $$MYDIST_TMP/man &&               \
         $(COPY_DIR)   $$MYDISTDIRS   $$MYDIST_TMP &&                        \
         $(DEL_FILE) -f $$MYDIST_TMP/src/generated/*.h                       \
                        $$MYDIST_TMP/src/generated/*.cpp &&                  \
