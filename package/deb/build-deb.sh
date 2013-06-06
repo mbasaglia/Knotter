@@ -65,8 +65,8 @@ echo "Creating package data"
 export INSTALL_ROOT=$package
 make install >/dev/null
 
-make $TARGET.desktop
-cp   $TARGET.desktop $package/usr/share/applications/$TARGET.desktop
+#make $TARGET.desktop
+#cp   $TARGET.desktop $package/usr/share/applications/$TARGET.desktop
 
 # create control file
 control_file=$package/DEBIAN/control
