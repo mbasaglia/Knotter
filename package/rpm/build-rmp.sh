@@ -39,7 +39,7 @@ fi
 rpmbuild=~/rpmbuild
 
 rpmdev-setuptree
-( cd $srcdir && ./configure.sh && make dist )
+( cd $srcdir && ./configure.sh --prefix=/usr && make dist )
 cp $srcdir/$tarball $rpmbuild/SOURCES
 
 specs_file=$rpmbuild/SPECS/$TARGET.spec

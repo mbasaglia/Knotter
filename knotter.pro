@@ -90,7 +90,8 @@ contains(CONFIG,c++11) {
 #Extra make targets
 
 #dist
-MYDISTFILES =  \$(addprefix $$PWD/, $$OTHER_FILES $${TARGET}.pro)
+MYDISTFILES =  \$(addprefix $$PWD/, $$OTHER_FILES $${TARGET}.pro ) \
+               $${TARGET}.desktop
 MYDISTDIRS  =  $$PWD/src $$PWD/data $$PWD/man
 
 MYDIST_NAME = "$$TARGET-$${VERSION}"
@@ -104,6 +105,11 @@ mydist.commands =                                                           \
             $(MKDIR) $$MYDIST_TMP                                           \
         ) &&                                                                \
         $(COPY_FILE)  $$MYDISTFILES  $$MYDIST_TMP &&                        \
+        (                                                                   \
+            $(CHK_DIR_EXISTS) $$MYDIST_TMP/man ||                           \
+            $(MKDIR) $$MYDIST_TMP/man                                       \
+        ) &&                                                                \
+        $(COPY_FILE) man/$${TARGET}.1.gz  $$MYDIST_TMP/man &&               \
         $(COPY_DIR)   $$MYDISTDIRS   $$MYDIST_TMP &&                        \
         $(DEL_FILE) -f $$MYDIST_TMP/src/generated/*.h                       \
                        $$MYDIST_TMP/src/generated/*.cpp &&                  \
@@ -127,7 +133,7 @@ src_doc.depends = Doxyfile FORCE
 src_doc.commands = doxygen Doxyfile
 
 #desktop
-$${TARGET}.desktop.depends=$$PWD/$${TARGET}.desktop.in $$PWD/knotter_info.pri configured_directories.sh
+$${TARGET}.desktop.depends=$$PWD/$${TARGET}.desktop.in $$PWD/knotter_info.pri
 $${TARGET}.desktop.commands=$$PWD/info_preprocessor.sh $$PWD/$${TARGET}.desktop.in > $${TARGET}.desktop
 
 #man page
