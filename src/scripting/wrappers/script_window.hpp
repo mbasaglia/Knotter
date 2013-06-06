@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QObject>
 #include "script_document.hpp"
+#include <QProgressDialog>
 
 class Main_Window;
 
@@ -79,6 +80,9 @@ public:
      * \brief Loads a widget from a ui file
      */
     Q_INVOKABLE QWidget* load_widget(QString ui_file_name);
+
+    Q_INVOKABLE QWidget* progress_dialog(QString message, int maximum = 0 ,
+                                         QString cancel_button=QString());
 };
 
 /// Wrapper to Main_Window

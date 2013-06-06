@@ -39,7 +39,8 @@ OTHER_FILES = \
     knotter_info.pri \
     translations.pri \
     info_preprocessor.sh \
-    windows.rc
+    windows.rc \
+    AUTHORS
 
 # configured directories
 

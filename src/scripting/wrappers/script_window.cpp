@@ -208,3 +208,11 @@ QWidget *Script_Window_Dialog::load_widget(QString ui_file_name)
     return nullptr;
 }
 
+QWidget *Script_Window_Dialog::progress_dialog(QString message, int maximum,
+                                               QString cancel_button )
+{
+    if ( cancel_button.isEmpty() )
+        cancel_button = tr("Cancel");
+    return new QProgressDialog(message,cancel_button,0,maximum,parent_widget);
+}
+

@@ -119,11 +119,19 @@ else if ( Dialog.exec() )
         var size = Dialog.grid_size.value;
         var new_nodes = new Array();
 
+        var max_steps = ((max_pt.y-min_pt.y)/size)*((max_pt.x-min_pt.y)/size);
+        var progress_dialog = window.dialog.progress_dialog(
+                    "Filling area",max_steps,"Interrupt");
+        progress_dialog.minimumDuration = 2000;
+
         for ( var y = min_pt.y, yi = 0; y <= max_pt.y; y += size, yi++ )
         {
             new_nodes.push([]);
             for ( var x = min_pt.x, xi = 0; x <= max_pt.x; x += size, xi++ )
             {
+                progress_dialog.value = yi*((max_pt.x-min_pt.y)/size)+xi;
+                print(yi*((max_pt.x-min_pt.y)/size),'/',max_steps);
+
                 if ( polygon.contains(x,y) || polygon.contains(x-1,y-1) ||
                      polygon.contains(x-1,y+1) || polygon.contains(x+1,y-1) )
                 {
@@ -144,6 +152,7 @@ else if ( Dialog.exec() )
                 }
                 else
                     new_nodes[yi].push(null);
+
             }
         }
 
