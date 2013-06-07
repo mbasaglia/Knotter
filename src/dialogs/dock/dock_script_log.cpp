@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_manager.hpp"
 #include <QKeyEvent>
 #include "main_window.hpp"
+#include <QShortcut>
 
 Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
     QDockWidget(mw), sw(mw)
@@ -45,6 +46,8 @@ Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
             script_error(p->string_data("plugin_file"),0,p->string_data("error"));
         }
     }
+
+    text_output->ih8u = mw->findChild<QAction*>("action_Copy");
 }
 
 void Dock_Script_Log::changeEvent(QEvent *e)
@@ -58,6 +61,7 @@ void Dock_Script_Log::changeEvent(QEvent *e)
             break;
     }
 }
+
 
 QString Dock_Script_Log::escape_html(QString s)
 {

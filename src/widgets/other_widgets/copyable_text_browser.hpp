@@ -24,32 +24,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef DOCK_SCRIPT_LOG_HPP
-#define DOCK_SCRIPT_LOG_HPP
+#ifndef COPYABLE_TEXT_BROWSER_HPP
+#define COPYABLE_TEXT_BROWSER_HPP
 
-#include "ui_dock_script_log.h"
-#include "script_window.hpp"
+#include <QTextBrowser>
+#include "c++.hpp"
+#include <QShortcut>
 
-
-class Dock_Script_Log : public QDockWidget, private Ui::Dock_Script_Log
+class Copyable_Text_Browser : public QTextBrowser
 {
     Q_OBJECT
 
-    Script_Window sw;
-    QScriptValue  state;
+    QShortcut *copy_sc;
+
 public:
-    explicit Dock_Script_Log(Main_Window* mw);
+    QAction* ih8u;
+
+    explicit Copyable_Text_Browser(QWidget *parent = 0);
     
 protected:
-    void changeEvent(QEvent *e);
-
-private:
-    static QString escape_html(QString s);
-
-private slots:
-    void script_error(QString file,int line,QString msg, QStringList trace = QStringList());
-    void script_output(QString text);
-    void on_script_input_lineExecuted(const QString &arg1);
+    void focusInEvent(QFocusEvent *);
+    void focusOutEvent(QFocusEvent *);
 };
 
-#endif // DOCK_SCRIPT_LOG_HPP
+#endif // COPYABLE_TEXT_BROWSER_HPP

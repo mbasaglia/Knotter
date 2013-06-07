@@ -725,7 +725,7 @@ void Main_Window::save(bool force_select, int tab_index)
                 );
 
         QFileInfo finfo(file);
-        if ( finfo.suffix().isEmpty() && filters.startsWith(selected_filter))
+        if ( !file.isEmpty() && finfo.suffix().isEmpty() && filters.startsWith(selected_filter))
             file += ".knot";
     }
     if ( !file.isEmpty() )

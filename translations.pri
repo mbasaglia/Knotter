@@ -16,5 +16,5 @@
 
 
 TRANSLATIONS += $$PWD/data/translations/knotter_it.ts \
-                $$PWD/data/translations/knotter_cs.ts \
                 $$PWD/data/translations/knotter_en_GB.ts
+                #$$PWD/data/translations/knotter_cs.ts \

@@ -373,25 +373,6 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>Dialog_Insert_Polygon</name>
-    <message>
-        <source>Insert Polygon</source>
-        <translation type="obsolete">Inserisci poligono</translation>
-    </message>
-    <message>
-        <source>Sides</source>
-        <translation type="obsolete">Lati</translation>
-    </message>
-    <message>
-        <source>Whether there should be a node connected to the vertices on the center of the polygon</source>
-        <translation type="obsolete">Se ci deve essere un vertice al centro collegato con quelli del poligono</translation>
-    </message>
-    <message>
-        <source>Node at Center</source>
-        <translation type="obsolete">Vertice al centro</translation>
-    </message>
-</context>
-<context>
     <name>Dialog_Plugins</name>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="14"/>
@@ -437,18 +418,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../src/dialogs/dialog_plugins.ui" line="161"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>Reload Plugins</source>
-        <translation type="obsolete">Ricarica i Plugin</translation>
-    </message>
-    <message>
-        <source>Install...</source>
-        <translation type="obsolete">Installa...</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Chiudi</translation>
     </message>
 </context>
 <context>
@@ -550,17 +519,9 @@ p, li { white-space: pre-wrap; }
         <translation>Salva tra le sessioni</translation>
     </message>
     <message>
-        <source>Toobars, dialogs, window size and position</source>
-        <translation type="obsolete">Barre degli strumenti, dialoghi, dimensione e posizione della finestra</translation>
-    </message>
-    <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="193"/>
         <source>User Interface</source>
         <translation>Interfaccia Grafica</translation>
-    </message>
-    <message>
-        <source>Knot style settings</source>
-        <translation type="obsolete">Impostazioni di stile del nodo</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="210"/>
@@ -919,10 +880,6 @@ p, li { white-space: pre-wrap; }
         <translation>Vettoriale</translation>
     </message>
     <message>
-        <source>Export &amp;SVG..</source>
-        <translation type="obsolete">Esporta &amp;SVG...</translation>
-    </message>
-    <message>
         <location filename="../../src/dialogs/export_image_dialog.ui" line="51"/>
         <source>Export &amp;SVG...</source>
         <translation>Esporta &amp;SVG...</translation>
@@ -941,14 +898,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../src/dialogs/export_image_dialog.ui" line="81"/>
         <source>Antialiasing</source>
         <translation></translation>
-    </message>
-    <message>
-        <source>Quality</source>
-        <translation type="obsolete">Qualità</translation>
-    </message>
-    <message>
-        <source>Depending on the format, lower quality means more compressed files.</source>
-        <translation type="obsolete">Dipende del formato del file. Una qualità minore comporta file più compressi.</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/export_image_dialog.ui" line="97"/>
@@ -1222,38 +1171,6 @@ p, li { white-space: pre-wrap; }
         <translation>&amp;Plugin</translation>
     </message>
     <message>
-        <source>Insert objects from plugin</source>
-        <translation type="obsolete">Inserisci oggetto da plugin</translation>
-    </message>
-    <message>
-        <source>&amp;Insert</source>
-        <translation type="obsolete">&amp;Inserisci</translation>
-    </message>
-    <message>
-        <source>Transform selection with plugin</source>
-        <translation type="obsolete">Trasforma selezione con un plugin</translation>
-    </message>
-    <message>
-        <source>&amp;Transform</source>
-        <translation type="obsolete">&amp;Trasforma</translation>
-    </message>
-    <message>
-        <source>Main Toolbar</source>
-        <translation type="obsolete">Barra Principale</translation>
-    </message>
-    <message>
-        <source>View Toolbar</source>
-        <translation type="obsolete">Barra di Visualizzazione</translation>
-    </message>
-    <message>
-        <source>Drawing Toolbar</source>
-        <translation type="obsolete">Barra di Disegno</translation>
-    </message>
-    <message>
-        <source>Transformation Toolbar</source>
-        <translation type="obsolete">Barra di Trasformazione</translation>
-    </message>
-    <message>
         <location filename="../../src/dialogs/main_window.ui" line="281"/>
         <source>&amp;Open...</source>
         <translation>&amp;Apri...</translation>
@@ -1292,10 +1209,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../src/dialogs/main_window.ui" line="344"/>
         <source>Pa&amp;ge Setup...</source>
         <translation>Imposta Pa&amp;gina...</translation>
-    </message>
-    <message>
-        <source>Print Pre&amp;view</source>
-        <translation type="obsolete">Antepri&amp;ma di Stampa</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/main_window.ui" line="364"/>
@@ -1473,10 +1386,6 @@ p, li { white-space: pre-wrap; }
         <translation>Abili&amp;ta/Disabilita Archi</translation>
     </message>
     <message>
-        <source>Insert &amp;Polygon...</source>
-        <translation type="obsolete">Inserisci &amp;Poligono...</translation>
-    </message>
-    <message>
         <location filename="../../src/dialogs/main_window.ui" line="634"/>
         <source>&amp;Refresh Path</source>
         <translation>&amp;Aggiorna Immagine</translation>
@@ -1490,10 +1399,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../src/dialogs/main_window.ui" line="654"/>
         <source>&amp;About Knotter...</source>
         <translation>Inform&amp;azioni su Knotter...</translation>
-    </message>
-    <message>
-        <source>Report &amp;Bugs..</source>
-        <translation type="obsolete">Segnala Pro&amp;blemi...</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/main_window.ui" line="722"/>
@@ -1559,10 +1464,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../src/dialogs/main_window.cpp" line="246"/>
         <source>Action History</source>
         <translation>Storico Azioni</translation>
-    </message>
-    <message>
-        <source>Borders</source>
-        <translation type="obsolete">Bordi</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/main_window.cpp" line="267"/>
@@ -1665,11 +1566,6 @@ Vuoi salvare le modifiche?</translation>
         <translation>Nessun file recente</translation>
     </message>
     <message>
-        <source>Insert Polygon</source>
-        <extracomment>Name of the undo command triggered when inserting a polygon</extracomment>
-        <translation type="obsolete">Inserisci poligono</translation>
-    </message>
-    <message>
         <location filename="../../src/dialogs/main_window.cpp" line="926"/>
         <source>Paste</source>
         <translation>Incolla</translation>
@@ -1724,13 +1620,6 @@ Vuoi salvare le modifiche?</translation>
         <location filename="../../src/widgets/knot_view/commands.cpp" line="675"/>
         <source>Change Node Style</source>
         <translation>Cambia stile vertice</translation>
-    </message>
-</context>
-<context>
-    <name>Node_Style_Base</name>
-    <message>
-        <source>Change Selection Style</source>
-        <translation type="obsolete">Cambia stile selezione</translation>
     </message>
 </context>
 <context>
@@ -1852,10 +1741,6 @@ Vuoi salvare le modifiche?</translation>
         <location filename="../../src/graph/node_cusp_shape.hpp" line="113"/>
         <source>Polygonal</source>
         <translation>Poligonale</translation>
-    </message>
-    <message>
-        <source>Move Nodes</source>
-        <translation type="obsolete">Sposta vertici</translation>
     </message>
     <message>
         <location filename="../../src/resource_manager.cpp" line="514"/>
@@ -2081,10 +1966,6 @@ Vuoi salvare le modifiche?</translation>
         <location filename="../../src/widgets/toolbar_editor/src/toolbar_editor.ui" line="204"/>
         <source>Separator</source>
         <translation>Separatore</translation>
-    </message>
-    <message>
-        <source>Adds a separator after the selected toolbar item</source>
-        <translation type="obsolete">Aggiungi un separatore</translation>
     </message>
     <message>
         <location filename="../../src/widgets/toolbar_editor/src/toolbar_editor.ui" line="207"/>

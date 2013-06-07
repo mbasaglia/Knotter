@@ -24,32 +24,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef DOCK_SCRIPT_LOG_HPP
-#define DOCK_SCRIPT_LOG_HPP
+#include "copyable_text_browser.hpp"
+#include <QKeyEvent>
+#include <QAction>
 
-#include "ui_dock_script_log.h"
-#include "script_window.hpp"
-
-
-class Dock_Script_Log : public QDockWidget, private Ui::Dock_Script_Log
+Copyable_Text_Browser::Copyable_Text_Browser(QWidget *parent) :
+    QTextBrowser(parent),
+    copy_sc(new QShortcut(QKeySequence::Copy,this,SLOT(copy()),SLOT(copy()),Qt::WidgetWithChildrenShortcut)),
+    ih8u(nullptr)
 {
-    Q_OBJECT
+    //copy_sc->setEnabled(false);
+}
 
-    Script_Window sw;
-    QScriptValue  state;
-public:
-    explicit Dock_Script_Log(Main_Window* mw);
-    
-protected:
-    void changeEvent(QEvent *e);
 
-private:
-    static QString escape_html(QString s);
+void Copyable_Text_Browser::focusInEvent(QFocusEvent *)
+{
+    if ( ih8u ) ih8u->setEnabled(false);
+}
 
-private slots:
-    void script_error(QString file,int line,QString msg, QStringList trace = QStringList());
-    void script_output(QString text);
-    void on_script_input_lineExecuted(const QString &arg1);
-};
-
-#endif // DOCK_SCRIPT_LOG_HPP
+void Copyable_Text_Browser::focusOutEvent(QFocusEvent *)
+{
+    if ( ih8u ) ih8u->setEnabled(true);
+}
