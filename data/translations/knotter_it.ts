@@ -1949,6 +1949,14 @@ Vuoi salvare le modifiche?</translation>
     </message>
 </context>
 <context>
+    <name>Script_Window_Dialog</name>
+    <message>
+        <location filename="../../src/scripting/wrappers/script_window.cpp" line="215"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Settings</name>
     <message>
         <location filename="../../src/settings.cpp" line="98"/>
