@@ -250,3 +250,23 @@ void graph_from_script(const QScriptValue &obj, Script_Graph &graph)
             graph.connect(e->vertex1(),e->vertex2());
     }
 }
+
+
+
+QObjectList Script_Graph::nodes_at(Script_Point p, double radius)
+{
+    QObjectList nl;
+
+    foreach(Script_Node *n, nodes())
+    {
+        if ( point_distance_squared(n->pos(),p) <= radius*radius )
+            nl << n;
+    }
+
+    return nl;
+}
+
+QObjectList Script_Graph::nodes_at(double x, double y, double radius)
+{
+    return nodes_at(Script_Point(x,y),radius);
+}

@@ -124,6 +124,17 @@ public:
      */
     Q_INVOKABLE QObject *node_at(double x, double y);
 
+
+
+    /**
+     * \brief Find nodes near position
+     */
+    Q_INVOKABLE QObjectList nodes_at(Script_Point p, double radius);
+    /**
+     * \brief Find nodes near position
+     */
+    Q_INVOKABLE QObjectList nodes_at(double x, double y, double radius);
+
     /**
      * \brief List of nodes
      */
