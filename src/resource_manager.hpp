@@ -223,6 +223,9 @@ public:
     /// Load plugin from data directories
     static void load_plugins();
 
+    /// Load plugin from data directories, keep active plugins
+    static void reload_plugins();
+
     /// Get all plugins
     static QList<Plugin*> plugins() { return singleton.m_plugins; }
     /// Get active plugins of given type
@@ -292,6 +295,9 @@ signals:
     void script_error(QString file,int line,QString msg, QStringList trace);
 
     void script_output(QString);
+
+    /// Emitted when new plugins are loaded
+    void plugins_changed();
 
 };
 

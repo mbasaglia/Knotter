@@ -1,0 +1,6 @@
+{
+    "name"        : "Plugin Tutorial",
+    "description" : "This is the plugin created following the tutorial",
+    "script"      : "line.js",
+    "auto_enable" : false
+}

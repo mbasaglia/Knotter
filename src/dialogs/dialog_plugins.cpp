@@ -52,7 +52,9 @@ void Dialog_Plugins::load_plugins()
     frame_info->setVisible(!Resource_Manager::plugins().empty());
     label_empty->setVisible(Resource_Manager::plugins().empty());
 
+    listWidget->blockSignals(true);
     listWidget->clear();
+    listWidget->blockSignals(false);
     foreach(Plugin* p, Resource_Manager::plugins())
     {
         QListWidgetItem *item = new QListWidgetItem(p->icon(), p->string_data("name"));
@@ -116,4 +118,23 @@ void Dialog_Plugins::on_check_enable_clicked(bool checked)
 {
     Resource_Manager::plugins()[listWidget->currentIndex().row()]->enable(checked);
     set_item_enabled(listWidget->currentItem(),checked);
+}
+
+void Dialog_Plugins::on_button_reload_clicked()
+{
+    Plugin *old = listWidget->currentItem()->data(Qt::UserRole).value<Plugin*>();
+    QString file;
+    if ( old )
+        file = old->string_data("plugin_file");
+    Resource_Manager::reload_plugins();
+    load_plugins();
+    for ( int i = 0; i < listWidget->count(); i++ )
+    {
+        if ( listWidget->item(i)->data(Qt::UserRole).value<Plugin*>()
+                ->string_data("plugin_file") == file )
+        {
+            listWidget->setCurrentRow(i);
+            break;
+        }
+    }
 }

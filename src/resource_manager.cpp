@@ -216,6 +216,7 @@ void Resource_Manager::initialize(QString default_lang_code)
 
     //plugins
     load_plugins();
+    emit singleton.plugins_changed();
 
 
     // Load Settings: note after load_plugins
@@ -436,6 +437,27 @@ void Resource_Manager::load_plugins()
     {
         load_plugins(plugin_dir_name);
     }
+}
+
+void Resource_Manager::reload_plugins()
+{
+    QMap<QString,bool> active;
+    foreach(Plugin* p,singleton.m_plugins )
+    {
+        active[p->string_data("plugin_file")] = p->is_enabled();
+        p->enable(false);
+        delete p;
+    }
+    singleton.m_plugins.clear();
+    load_plugins();
+
+    foreach(Plugin* p,singleton.m_plugins )
+    {
+        if ( active.contains(p->string_data("plugin_file")) )
+            p->enable(active[p->string_data("plugin_file")]);
+    }
+
+    emit singleton.plugins_changed();
 }
 
 QList<Plugin *> Resource_Manager::active_plugins(Plugin::Type type)
