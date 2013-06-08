@@ -39,6 +39,8 @@ class Plugin : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool enabled READ is_enabled WRITE enable)
+
 public:
     enum Type
     {

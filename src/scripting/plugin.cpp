@@ -252,6 +252,7 @@ void Plugin::execute()
 {
     foreach(QWidget* w, m_widgets)
         Resource_Manager::script_param(w->objectName(),w);
+
     Resource_Manager::run_script(this);
 }
 

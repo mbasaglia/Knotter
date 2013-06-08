@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knot version="3" generator="Knotter 0.9.4_devel">
+    <style>
+        <colors>
+            <color alpha="255">#000000</color>
+        </colors>
+        <borders/>
+        <cusp>
+            <shape>pointed</shape>
+            <min-angle>226</min-angle>
+            <distance>19</distance>
+            <gap>10</gap>
+            <handle-length>22</handle-length>
+        </cusp>
+        <stroke>
+            <width>5</width>
+            <style>SolidPattern</style>
+            <join>RoundJoin</join>
+        </stroke>
+    </style>
+    <graph>
+        <nodes>
+            <node id="node_1" x="32" y="-32"/>
+            <node id="node_2" x="64" y="-32"/>
+            <node id="node_3" x="0" y="-128"/>
+            <node id="node_4" x="96" y="-32"/>
+            <node id="node_5" x="160" y="-32"/>
+            <node id="node_6" x="128" y="-32"/>
+            <node id="node_7" x="128" y="0"/>
+            <node id="node_8" x="32" y="-8.52651e-14"/>
+            <node id="node_9" x="128" y="-160"/>
+            <node id="node_10" x="32" y="-128"/>
+            <node id="node_11" x="64" y="-96"/>
+            <node id="node_12" x="64" y="-128"/>
+            <node id="node_13" x="96" y="-64"/>
+            <node id="node_14" x="-5.68434e-14" y="-160"/>
+            <node id="node_15" x="96" y="-128"/>
+            <node id="node_16" x="160" y="0"/>
+            <node id="node_17" x="96" y="-96"/>
+            <node id="node_18" x="0" y="-32"/>
+            <node id="node_19" x="0" y="0"/>
+            <node id="node_20" x="160" y="-160"/>
+            <node id="node_21" x="64" y="-64"/>
+            <node id="node_22" x="160" y="-128"/>
+            <node id="node_23" x="128" y="-128"/>
+            <node id="node_24" x="32" y="-160"/>
+        </nodes>
+        <edges>
+            <edge style="regular" v1="node_18" v2="node_1"/>
+            <edge style="regular" v1="node_1" v2="node_21"/>
+            <edge style="regular" v1="node_2" v2="node_8"/>
+            <edge style="regular" v1="node_2" v2="node_4"/>
+            <edge style="regular" v1="node_14" v2="node_3"/>
+            <edge style="regular" v1="node_3" v2="node_10"/>
+            <edge style="regular" v1="node_7" v2="node_4"/>
+            <edge style="regular" v1="node_5" v2="node_16"/>
+            <edge style="regular" v1="node_5" v2="node_6"/>
+            <edge style="regular" v1="node_6" v2="node_13"/>
+            <edge style="regular" v1="node_16" v2="node_7"/>
+            <edge style="regular" v1="node_8" v2="node_19"/>
+            <edge style="regular" v1="node_20" v2="node_9"/>
+            <edge style="regular" v1="node_9" v2="node_15"/>
+            <edge style="regular" v1="node_11" v2="node_10"/>
+            <edge style="regular" v1="node_21" v2="node_11"/>
+            <edge style="regular" v1="node_11" v2="node_17"/>
+            <edge style="regular" v1="node_24" v2="node_12"/>
+            <edge style="regular" v1="node_12" v2="node_15"/>
+            <edge style="regular" v1="node_13" v2="node_21"/>
+            <edge style="regular" v1="node_17" v2="node_13"/>
+            <edge style="regular" v1="node_14" v2="node_24"/>
+            <edge style="regular" v1="node_17" v2="node_23"/>
+            <edge style="regular" v1="node_19" v2="node_18"/>
+            <edge style="regular" v1="node_22" v2="node_20"/>
+            <edge style="regular" v1="node_23" v2="node_22"/>
+        </edges>
+    </graph>
+</knot>

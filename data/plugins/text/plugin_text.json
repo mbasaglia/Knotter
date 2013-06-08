@@ -1,0 +1,8 @@
+{
+    "name"          : "Insert Text",
+    "description"   : "Insert some text made up with knot letters.",
+    "category"      : "Insert",
+    "author"        : "Mattia Basaglia",
+    "license"       : "GPLv3+",
+    "script"        : "insert_text.js",
+}

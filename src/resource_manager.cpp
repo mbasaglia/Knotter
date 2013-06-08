@@ -515,6 +515,17 @@ void Resource_Manager::script_param(QString name, QObject* value,
 
 void Resource_Manager::run_script(Plugin *source)
 {
+
+    script_context();
+
+    /// \todo documentation
+    QScriptValue plugin = singleton.m_script_engine->newObject();
+    foreach(QString k, source->metadata().keys())
+    {
+        plugin.setProperty(k,singleton.m_script_engine->newVariant(source->metadata()[k]));
+    }
+    script_param("plugin",plugin);
+
     run_script(source->script_program().sourceCode(),
                source->script_program().fileName(),
                source->script_program().firstLineNumber());
