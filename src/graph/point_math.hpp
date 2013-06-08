@@ -43,6 +43,12 @@ inline double point_distance_squared(const QPointF &p1, const QPointF &p2 )
     return d.x()*d.x() + d.y()*d.y();
 }
 
+
+inline double point_distance(const QPointF &p1, const QPointF &p2 )
+{
+    return qSqrt(point_distance_squared(p1,p2));
+}
+
 /*inline double line_point_distance_squared(const QPointF& p1, const QPointF &p2,
                                           const QPointF &to)
 {

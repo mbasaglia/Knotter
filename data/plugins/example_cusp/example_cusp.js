@@ -19,13 +19,13 @@ Variables:
 if ( angle > cusp_angle ) 
 {
     // Create a "handle" that on cusp_point with size handle_length to determine the control points
-    handle = new Line(start_handle.p1,finish_handle.p1);
+    var handle = new Line(start_handle.p1,finish_handle.p1);
     handle.translate(cusp_point);
     handle.translate(opposite(start_handle.p1));
     handle.length = handle_length;
-    h2 = handle.p2;
+    var h2 = handle.p2;
     handle.length = -handle_length;
-    h1 = handle.p2;
+    var h1 = handle.p2;
     // Use the control points to render the cusp
     path.add_cubic ( start_handle.p1, start_handle.p2, h1, cusp_point );
     path.add_cubic ( finish_handle.p1, finish_handle.p2, h2, cusp_point );
@@ -33,5 +33,16 @@ if ( angle > cusp_angle )
 else
 {
     // Don't draw a cusp, just a cubic curve from start_handle to finish_handle
-    path.add_cubic(start_handle.p1,start_handle.p2,finish_handle.p2,finish_handle.p1);
+    
+    if ( distance(start_handle.p1,finish_handle.p1) < start_handle.length + finish_handle.length )
+    {
+        // The two edges are very close together, avoid artifacts with a simpler curve
+        var midpoint = Point( (start_handle.p2.x+finish_handle.p2.x)/2,
+                              (start_handle.p2.y+finish_handle.p2.y)/2 );
+        path.add_quad(start_handle.p1,midpoint,finish_handle.p1);
+    }
+    else
+    {
+        path.add_cubic(start_handle.p1,start_handle.p2,finish_handle.p2,finish_handle.p1);
+    }
 } 
