@@ -151,6 +151,9 @@ public:
 
     Q_INVOKABLE QString toString() const;
 
+    /// \todo documentation
+    Q_INVOKABLE bool append(QString file, bool keep_style = false,
+                            Script_Point offset=Script_Point(), double scale = 1);
 
 signals:
     void node_added(Script_Node* n);

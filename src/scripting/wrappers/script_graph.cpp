@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "script_graph.hpp"
 #include "resource_manager.hpp"
+#include "xml_loader.hpp"
 
 Script_Graph::Script_Graph(const Graph &graph, QObject *parent) :
     QObject(parent)
@@ -165,7 +166,6 @@ QString Script_Graph::toString() const
     return "[graph]";
 }
 
-
 void Script_Graph::emit_node_moved(Script_Point pos)
 {
     Script_Node *n = qobject_cast<Script_Node*>(sender());
@@ -269,4 +269,37 @@ QObjectList Script_Graph::nodes_at(Script_Point p, double radius)
 QObjectList Script_Graph::nodes_at(double x, double y, double radius)
 {
     return nodes_at(Script_Point(x,y),radius);
+}
+
+
+bool Script_Graph::append(QString file, bool keep_style, Script_Point offset, double scale)
+{
+    Graph graph;
+    QFile knot_file(file);
+    if ( ! import_xml(knot_file,graph) )
+        return false;
+
+    foreach(Node* n, graph.nodes())
+    {
+        n->setPos((n->pos()+offset)*scale);
+        if ( keep_style )
+        {
+            Node_Style ns = n->style().default_to(graph.default_node_style());
+            ns.handle_length *= scale;
+            ns.crossing_distance *= scale;
+            ns.cusp_distance *= scale;
+            n->set_style(ns);
+        }
+        graph.remove_node(n);
+        emit node_added(add_node(n));
+    }
+
+
+    foreach(Edge* e, graph.edges())
+    {
+        graph.remove_edge(e);
+        emit edge_added(add_edge(e));
+    }
+
+    return true;
 }

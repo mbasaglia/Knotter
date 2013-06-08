@@ -16,6 +16,8 @@ Variables:
     * node_point    [point]- position of the node between the two edges
     * path          [path] - object used to build the path
 */
+
+// When angle is large enough, draw the cusp
 if ( angle > cusp_angle ) 
 {
     // Create a "handle" that on cusp_point with size handle_length to determine the control points
@@ -32,7 +34,7 @@ if ( angle > cusp_angle )
 }
 else
 {
-    // Don't draw a cusp, just a cubic curve from start_handle to finish_handle
+    // Don't draw a cusp, just a curve from start_handle to finish_handle
     
     if ( distance(start_handle.p1,finish_handle.p1) < start_handle.length + finish_handle.length )
     {
@@ -43,6 +45,7 @@ else
     }
     else
     {
+        // There's enough room to draw a cubic curve
         path.add_cubic(start_handle.p1,start_handle.p2,finish_handle.p2,finish_handle.p1);
     }
 } 
