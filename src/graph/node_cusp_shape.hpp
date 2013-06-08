@@ -37,6 +37,8 @@ class Node_Style;
 class Cusp_Shape
 {
 public:
+    virtual ~Cusp_Shape(){}
+
     /// (Translated) Human-readable name
     virtual QString name() const = 0;
 
