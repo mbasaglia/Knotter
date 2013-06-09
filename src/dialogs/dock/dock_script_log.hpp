@@ -52,6 +52,7 @@ private slots:
     void run_script(const QString &arg1);
     void run_script(const QString &source, QString file_name, int line_number, bool echo);
     void on_button_run_clicked();
+    void on_button_clear_output_clicked();
 };
 
 #endif // DOCK_SCRIPT_LOG_HPP

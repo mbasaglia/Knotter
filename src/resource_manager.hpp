@@ -299,6 +299,9 @@ signals:
     /// Emitted when new plugins are loaded
     void plugins_changed();
 
+    /// Emitted at the start and end of a script execution
+    void running_script(bool);
+
 };
 
 #endif // RESOURCE_MANAGER_HPP

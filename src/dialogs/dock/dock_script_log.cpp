@@ -39,6 +39,10 @@ Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
     connect(Resource_Manager::pointer,SIGNAL(script_output(QString)),
             SLOT(script_output(QString)));
 
+    connect(button_stop,SIGNAL(clicked()),Resource_Manager::pointer,SLOT(abort_script()));
+    connect(Resource_Manager::pointer,SIGNAL(running_script(bool)),
+            button_stop,SLOT(setEnabled(bool)));
+
     connect(script_input,SIGNAL(lineExecuted(QString)),SLOT(run_script(QString)));
 
     foreach(Plugin* p,Resource_Manager::plugins())
@@ -151,4 +155,9 @@ void Dock_Script_Log::run_script(const QString &source, QString file_name,
 void Dock_Script_Log::on_button_run_clicked()
 {
     run_script(source_editor->toPlainText(),tr("Script Editor"),1,false);
+}
+
+void Dock_Script_Log::on_button_clear_output_clicked()
+{
+    text_output->clear();
 }

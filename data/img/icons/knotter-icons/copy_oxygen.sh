@@ -70,6 +70,7 @@ icons=' accessories-text-editor
         preferences-system
         preferences-system-performance
         preferences-system-windows-move
+        process-stop
         run-build-install
         snap-orthogonal
         stroke-cap-butt

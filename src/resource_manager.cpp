@@ -541,7 +541,13 @@ QScriptValue Resource_Manager::run_script(const QString &program,
     {
         singleton.script_timeout->start(1000*settings.script_timeout());
     }
+
+    emit singleton.running_script(true);
+
     QScriptValue result = singleton.m_script_engine->evaluate(program,fileName,lineNumber);
+
+    emit singleton.running_script(false);
+
     if ( singleton.m_script_engine->hasUncaughtException() )
     {
         qWarning() << QObject::tr("%1:%2:Error: %3")
@@ -591,7 +597,7 @@ void Resource_Manager::abort_script()
         QScriptValue v;
         if ( current_context )
         {
-            v = current_context->throwError(tr("Script timeout"));
+            v = current_context->throwError(tr("Script aborted"));
         }
         m_script_engine->abortEvaluation(v);
     }

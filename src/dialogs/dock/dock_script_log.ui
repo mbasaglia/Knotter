@@ -77,6 +77,24 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="button_stop">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="toolTip">
+            <string>Stop the currently running script</string>
+           </property>
+           <property name="text">
+            <string>Abort Scripts</string>
+           </property>
+           <property name="icon">
+            <iconset theme="process-stop">
+             <normaloff/>
+            </iconset>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
       </layout>
