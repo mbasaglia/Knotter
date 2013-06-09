@@ -1,10 +1,12 @@
 #!/bin/bash
 
-icons='application-exit
+icons=' accessories-text-editor
+        application-exit
         arrow-down
         arrow-up
         configure-toolbars
         configure
+        debug-run
         dialog-cancel
         dialog-close
         dialog-ok
@@ -26,16 +28,17 @@ icons='application-exit
         draw-eraser
         draw-line
         draw-polygon
-        edit-clear-list
         edit-clear
+        edit-clear-list
+        edit-clear-history
         edit-copy
         edit-cut
         edit-delete
         edit-node
         edit-paste
         edit-redo
-        edit-select-all
         edit-select
+        edit-select-all
         edit-undo
         fill-color
         format-add-node

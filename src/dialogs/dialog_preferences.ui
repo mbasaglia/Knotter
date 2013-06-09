@@ -144,7 +144,7 @@
         </sizepolicy>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="page_general">
         <layout class="QGridLayout" name="gridLayout_2">
@@ -155,6 +155,9 @@
            </property>
            <property name="text">
             <string>Clear</string>
+           </property>
+           <property name="icon">
+            <iconset theme="edit-clear-history"/>
            </property>
           </widget>
          </item>
@@ -218,6 +221,9 @@
               </property>
               <property name="text">
                <string>Clear  saved configuration</string>
+              </property>
+              <property name="icon">
+               <iconset theme="edit-clear"/>
               </property>
              </widget>
             </item>

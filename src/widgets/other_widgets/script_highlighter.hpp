@@ -24,34 +24,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef DOCK_SCRIPT_LOG_HPP
-#define DOCK_SCRIPT_LOG_HPP
+#ifndef SCRIPT_HIGHLIGHTER_HPP
+#define SCRIPT_HIGHLIGHTER_HPP
 
-#include "ui_dock_script_log.h"
-#include "script_window.hpp"
+#include <QSyntaxHighlighter>
 
-
-class Dock_Script_Log : public QDockWidget, private Ui::Dock_Script_Log
+class Script_Highlighter : public QSyntaxHighlighter
 {
     Q_OBJECT
 
-    Script_Window sw;
-    QScriptValue  state;
 public:
-    explicit Dock_Script_Log(Main_Window* mw);
-    
-protected:
-    void changeEvent(QEvent *e);
+    typedef QMap<QString,QTextCharFormat> Style;
 
 private:
-    static QString escape_html(QString s);
+    Style m_style;
+    QStringList keywords;
 
-private slots:
-    void script_error(QString file,int line,QString msg, QStringList trace = QStringList());
-    void script_output(QString text);
-    void run_script(const QString &arg1);
-    void run_script(const QString &source, QString file_name, int line_number, bool echo);
-    void on_button_run_clicked();
+public:
+    explicit Script_Highlighter(QObject *parent = 0);
+
+    void style_from_file(QString file);
+protected:
+    void highlightBlock(const QString &text);
+
 };
 
-#endif // DOCK_SCRIPT_LOG_HPP
+#endif // SCRIPT_HIGHLIGHTER_HPP

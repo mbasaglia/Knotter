@@ -37,14 +37,17 @@ class Copyable_Text_Browser : public QTextBrowser
 
     QShortcut *copy_sc;
 
-public:
     QAction* ih8u;
-
+public:
+    void h8(QAction *h8ted);
     explicit Copyable_Text_Browser(QWidget *parent = 0);
     
 protected:
     void focusInEvent(QFocusEvent *);
     void focusOutEvent(QFocusEvent *);
+
+private slots:
+    void h8NoMore();
 };
 
 #endif // COPYABLE_TEXT_BROWSER_HPP

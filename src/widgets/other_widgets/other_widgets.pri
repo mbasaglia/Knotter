@@ -20,13 +20,17 @@ HEADERS += \
     $$PWD/border_widget.hpp \
     $$PWD/cusp_style_widget.hpp \
     $$PWD/border_edit_widget.hpp \
-    $$PWD/copyable_text_browser.hpp
+    $$PWD/copyable_text_browser.hpp \
+    $$PWD/script_edit.hpp \
+    $$PWD/script_highlighter.hpp
 
 SOURCES += \
     $$PWD/border_widget.cpp \
     $$PWD/cusp_style_widget.cpp \
     $$PWD/border_edit_widget.cpp \
-    $$PWD/copyable_text_browser.cpp
+    $$PWD/copyable_text_browser.cpp \
+    $$PWD/script_edit.cpp \
+    $$PWD/script_highlighter.cpp
 
 FORMS += \
     $$PWD/cusp_style_widget.ui \

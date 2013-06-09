@@ -46,3 +46,17 @@ void Copyable_Text_Browser::focusOutEvent(QFocusEvent *)
 {
     if ( ih8u ) ih8u->setEnabled(true);
 }
+
+void Copyable_Text_Browser::h8NoMore()
+{
+    ih8u = nullptr;
+}
+
+
+void Copyable_Text_Browser::h8(QAction *h8ted)
+{
+    if ( ih8u )
+        disconnect(ih8u);
+    ih8u = h8ted;
+    connect(ih8u,SIGNAL(destroyed()),SLOT(h8NoMore()));
+}

@@ -39,6 +39,8 @@ Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
     connect(Resource_Manager::pointer,SIGNAL(script_output(QString)),
             SLOT(script_output(QString)));
 
+    connect(script_input,SIGNAL(lineExecuted(QString)),SLOT(run_script(QString)));
+
     foreach(Plugin* p,Resource_Manager::plugins())
     {
         if ( !p->is_valid() )
@@ -47,7 +49,7 @@ Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
         }
     }
 
-    text_output->ih8u = mw->findChild<QAction*>("action_Copy");
+    text_output->h8(mw->findChild<QAction*>("action_Copy"));
 }
 
 void Dock_Script_Log::changeEvent(QEvent *e)
@@ -109,12 +111,23 @@ void Dock_Script_Log::script_output(QString text)
     text_output->ensureCursorVisible() ;
 }
 
-void Dock_Script_Log::on_script_input_lineExecuted(const QString &arg1)
+void Dock_Script_Log::run_script(const QString &arg1)
+{
+    run_script(arg1,tr("Script Console"),script_input->lineCount(),true);
+}
+
+void Dock_Script_Log::run_script(const QString &source, QString file_name,
+                                 int line_number, bool echo)
 {
 
     text_output->moveCursor (QTextCursor::End) ;
-    text_output->insertHtml("<div style='color:green'>"+escape_html(arg1)
-                            +"</div><p></p>");
+
+    if ( echo )
+    {
+        text_output->insertHtml("<div style='color:green; white-space:pre;'>"
+                                +escape_html(source)
+                                +"</div><p></p>");
+    }
 
     QScriptContext* ctx = Resource_Manager::script_context();
     ctx->setActivationObject(state);
@@ -125,9 +138,7 @@ void Dock_Script_Log::on_script_input_lineExecuted(const QString &arg1)
     Resource_Manager::script_param("document",sw.document());
 
 
-    QScriptValue v = Resource_Manager::run_script(arg1,"Script console",
-                                                  script_input->lineCount(),
-                                                  &state);
+    QScriptValue v = Resource_Manager::run_script(source,file_name,line_number,&state);
 
     sw.clean_up();
 
@@ -135,4 +146,9 @@ void Dock_Script_Log::on_script_input_lineExecuted(const QString &arg1)
         text_output->insertHtml(escape_html(v.toString())+"<p></p>");
     text_output->moveCursor (QTextCursor::End) ;
     text_output->ensureCursorVisible() ;
+}
+
+void Dock_Script_Log::on_button_run_clicked()
+{
+    run_script(source_editor->toPlainText(),tr("Script Editor"),1,false);
 }
