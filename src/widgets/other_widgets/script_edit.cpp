@@ -52,6 +52,28 @@ Script_Edit::Script_Edit(QWidget *parent) :
     highlighter->style_from_file(Resource_Manager::data("style/syntax_highlighter.ini"));
 }
 
+void Script_Edit::error_line(int line)
+{
+
+    QTextCursor cur = textCursor();
+    cur.movePosition(QTextCursor::Start);
+    cur.movePosition(QTextCursor::Down,QTextCursor::MoveAnchor,line-1);
+    setTextCursor( cur );
+
+
+    QList<QTextEdit::ExtraSelection> extra_selections;
+
+    QTextEdit::ExtraSelection selection;
+
+    selection.format.setBackground ( QColor(255,200,200) );
+    selection.format.setProperty(QTextFormat::FullWidthSelection, true);
+    selection.cursor = cur;
+    selection.cursor.clearSelection();
+    extra_selections.append(selection);
+
+    setExtraSelections(extra_selections);
+}
+
 void Script_Edit::resizeEvent(QResizeEvent *event)
 {
 

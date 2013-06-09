@@ -62,6 +62,11 @@ private:
 public:
     explicit Script_Edit(QWidget *parent = 0);
 
+    /**
+     *  \brief Move cursor to line n and marks it as error
+     */
+    void error_line(int line);
+
 protected:
     void resizeEvent(QResizeEvent *event);
 

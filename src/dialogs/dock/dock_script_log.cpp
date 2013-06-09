@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QShortcut>
 
 Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
-    QDockWidget(mw), sw(mw)
+    QDockWidget(mw), sw(mw), local_run(false)
 {
     setupUi(this);
     connect(Resource_Manager::pointer,SIGNAL(script_error(QString,int,QString,QStringList)),
@@ -104,6 +104,11 @@ void Dock_Script_Log::script_error(QString file, int line, QString msg, QStringL
     text_output->moveCursor (QTextCursor::End) ;
     text_output->ensureCursorVisible() ;
 
+    if ( local_run )
+    {
+        source_editor->error_line( line );
+    }
+
 
 }
 
@@ -133,16 +138,12 @@ void Dock_Script_Log::run_script(const QString &source, QString file_name,
                                 +"</div><p></p>");
     }
 
-    QScriptContext* ctx = Resource_Manager::script_context();
-    ctx->setActivationObject(state);
 
-    if ( !state.isValid() )
-        Resource_Manager::script_param("window",&sw);
-
+    Resource_Manager::script_param("window",&sw);
     Resource_Manager::script_param("document",sw.document());
 
 
-    QScriptValue v = Resource_Manager::run_script(source,file_name,line_number,&state);
+    QScriptValue v = Resource_Manager::run_script(source,file_name,line_number);
 
     sw.clean_up();
 
@@ -154,7 +155,9 @@ void Dock_Script_Log::run_script(const QString &source, QString file_name,
 
 void Dock_Script_Log::on_button_run_clicked()
 {
+    local_run = true;
     run_script(source_editor->toPlainText(),tr("Script Editor"),1,false);
+    local_run = false;
 }
 
 void Dock_Script_Log::on_button_clear_output_clicked()

@@ -36,7 +36,8 @@ class Dock_Script_Log : public QDockWidget, private Ui::Dock_Script_Log
     Q_OBJECT
 
     Script_Window sw;
-    QScriptValue  state;
+    bool          local_run;    ///< If is currently being executed code from the console itself
+
 public:
     explicit Dock_Script_Log(Main_Window* mw);
     
