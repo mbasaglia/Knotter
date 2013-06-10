@@ -1,5 +1,3 @@
-
-
 function convex_hull(nodes, start_index )
 {
     var hull_node = start_index;

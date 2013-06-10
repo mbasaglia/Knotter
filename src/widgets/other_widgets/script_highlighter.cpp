@@ -112,7 +112,10 @@ void Script_Highlighter::highlightBlock(const QString &text)
         {
             QRegExp number_literal("[0-9]*(\\.[0-9]*([eE][+-]?[0-9]+)?)?");
             text.indexOf(number_literal,i);
-            setFormat(i,number_literal.matchedLength(),m_style["number"]);
+            if ( c == '.' && number_literal.matchedLength() == 1)
+                setFormat(i,1,m_style["operator"]);
+            else
+                setFormat(i,number_literal.matchedLength(),m_style["number"]);
             i += number_literal.matchedLength();
         }
         else if ( c.isLetter() || c == '_' )
@@ -156,7 +159,7 @@ void Script_Highlighter::highlightBlock(const QString &text)
         }
         else
         {
-            setFormat(i,1,m_style["default"]);
+            setFormat(i,1,m_style["operator"]);
             i++;
         }
     }

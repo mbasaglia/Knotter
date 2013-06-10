@@ -221,7 +221,7 @@
           <item>
            <widget class="QPushButton" name="button_clear_output">
             <property name="text">
-             <string>Clear</string>
+             <string>Clear Output</string>
             </property>
             <property name="icon">
              <iconset theme="edit-clear-list">
@@ -239,7 +239,7 @@
              <string>Stop the currently running script</string>
             </property>
             <property name="text">
-             <string>Abort</string>
+             <string>Abort Scripts</string>
             </property>
             <property name="icon">
              <iconset theme="process-stop">
@@ -446,22 +446,6 @@
     <hint type="destinationlabel">
      <x>148</x>
      <y>38</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>button_new</sender>
-   <signal>clicked()</signal>
-   <receiver>source_editor</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>26</x>
-     <y>37</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>43</x>
-     <y>92</y>
     </hint>
    </hints>
   </connection>

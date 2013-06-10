@@ -37,6 +37,7 @@ class Dock_Script_Log : public QDockWidget, private Ui::Dock_Script_Log
 
     Script_Window sw;
     bool          local_run;    ///< If is currently being executed code from the console itself
+    QString       filename;     ///< Name of the open file
 
 public:
     explicit Dock_Script_Log(Main_Window* mw);
@@ -55,6 +56,9 @@ private slots:
     void run_script(const QString &source, QString file_name, int line_number, bool echo);
     void on_button_run_clicked();
     void editor_resized(QSize sz);
+    void on_button_new_clicked();
+    void on_button_open_clicked();
+    void on_button_save_clicked();
 };
 
 #endif // DOCK_SCRIPT_LOG_HPP

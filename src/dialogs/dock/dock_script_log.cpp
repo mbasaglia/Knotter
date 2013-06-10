@@ -29,6 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QKeyEvent>
 #include "main_window.hpp"
 #include <QShortcut>
+#include <QFileDialog>
+#include <QFile>
 
 Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
     QDockWidget(mw), sw(mw), local_run(false)
@@ -187,5 +189,40 @@ void Dock_Script_Log::editor_resized(QSize sz)
     else
     {
         button_run_2->show();
+    }
+}
+
+void Dock_Script_Log::on_button_new_clicked()
+{
+    source_editor->clear();
+    filename = "";
+}
+
+void Dock_Script_Log::on_button_open_clicked()
+{
+    QString new_file = QFileDialog::getOpenFileName(this,tr("Open Script"),
+        filename,"JavaScript Sources (*.js *.es);;JSON Files (*.json);;All Files (*)");
+
+    if ( !new_file.isEmpty() )
+    {
+        filename = new_file;
+        source_editor->clear();
+        QFile file(filename);
+        file.open(QFile::Text|QFile::ReadOnly);
+        source_editor->setPlainText(file.readAll());
+    }
+}
+
+void Dock_Script_Log::on_button_save_clicked()
+{
+    QString new_file = QFileDialog::getSaveFileName(this,tr("Save Script"),
+         filename,"JavaScript Sources (*.js *.es);;JSON Files (*.json);;All Files (*)");
+
+    if ( !new_file.isEmpty() )
+    {
+        filename = new_file;
+        QFile file(filename);
+        file.open(QFile::Text|QFile::WriteOnly);
+        file.write( source_editor->toPlainText().toUtf8() );
     }
 }
