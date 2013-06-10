@@ -40,6 +40,8 @@ class Dock_Script_Log : public QDockWidget, private Ui::Dock_Script_Log
 
 public:
     explicit Dock_Script_Log(Main_Window* mw);
+
+    void set_tool_button_style(Qt::ToolButtonStyle style);
     
 protected:
     void changeEvent(QEvent *e);
@@ -50,10 +52,9 @@ private:
 private slots:
     void script_error(QString file,int line,QString msg, QStringList trace = QStringList());
     void script_output(QString text);
-    void run_script(const QString &arg1);
     void run_script(const QString &source, QString file_name, int line_number, bool echo);
     void on_button_run_clicked();
-    void on_button_clear_output_clicked();
+    void editor_resized(QSize sz);
 };
 
 #endif // DOCK_SCRIPT_LOG_HPP

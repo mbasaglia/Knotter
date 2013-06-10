@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Settings::Settings()
     : save_nothing(false),
       m_save_toolbars(true),
-      m_save_ui(true), m_icon_size(22), tool_button_style(Qt::ToolButtonFollowStyle),
+      m_save_ui(true), m_icon_size(22), tool_button_style(Qt::ToolButtonIconOnly),
       m_max_recent_files(5),
       m_graph_cache(false), m_fluid_refresh(true), m_antialiasing(true), m_script_timeout(0),
       m_save_grid(true), m_grid_enabled(true), m_grid_size(32), m_grid_shape(Snapping_Grid::SQUARE),

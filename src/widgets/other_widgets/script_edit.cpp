@@ -82,6 +82,8 @@ void Script_Edit::resizeEvent(QResizeEvent *event)
     QRect cr = contentsRect();
     cr.setWidth ( line_col->text_width() );
     line_col->setGeometry ( cr );
+
+    emit sizeChanged(size());
 }
 
 void Script_Edit::lines_changed()

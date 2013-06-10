@@ -43,7 +43,7 @@ Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
     connect(Resource_Manager::pointer,SIGNAL(running_script(bool)),
             button_stop,SLOT(setEnabled(bool)));
 
-    connect(script_input,SIGNAL(lineExecuted(QString)),SLOT(run_script(QString)));
+    connect(source_editor,SIGNAL(sizeChanged(QSize)),SLOT(editor_resized(QSize)));
 
     foreach(Plugin* p,Resource_Manager::plugins())
     {
@@ -54,6 +54,18 @@ Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
     }
 
     text_output->h8(mw->findChild<QAction*>("action_Copy"));
+
+    set_tool_button_style(mw->toolButtonStyle());
+
+    editor_resized(source_editor->size());
+}
+
+void Dock_Script_Log::set_tool_button_style(Qt::ToolButtonStyle style)
+{
+    foreach(QToolButton* b, findChildren<QToolButton*>())
+    {
+        b->setToolButtonStyle(style);
+    }
 }
 
 void Dock_Script_Log::changeEvent(QEvent *e)
@@ -120,11 +132,6 @@ void Dock_Script_Log::script_output(QString text)
     text_output->ensureCursorVisible() ;
 }
 
-void Dock_Script_Log::run_script(const QString &arg1)
-{
-    run_script(arg1,tr("Script Console"),script_input->lineCount(),true);
-}
-
 void Dock_Script_Log::run_script(const QString &source, QString file_name,
                                  int line_number, bool echo)
 {
@@ -160,7 +167,25 @@ void Dock_Script_Log::on_button_run_clicked()
     local_run = false;
 }
 
-void Dock_Script_Log::on_button_clear_output_clicked()
+void Dock_Script_Log::editor_resized(QSize sz)
 {
-    text_output->clear();
+    if ( sz.height() <= 24 )
+    {
+        frame_editor_buttons->hide();
+        button_run_2->show();
+    }
+    else if ( sz.height() > 24 + frame_editor_buttons->height() +
+                                    frame_advanced->layout()->spacing() )
+    {
+        button_run_2->hide();
+        frame_editor_buttons->show();
+    }
+    else if ( frame_editor_buttons->isVisible() )
+    {
+        button_run_2->hide();
+    }
+    else
+    {
+        button_run_2->show();
+    }
 }

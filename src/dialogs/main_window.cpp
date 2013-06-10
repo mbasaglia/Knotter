@@ -227,7 +227,7 @@ void Main_Window::init_docks()
 
     // Plugin log
     dock_script_log = new Dock_Script_Log(this);
-    addDockWidget(Qt::BottomDockWidgetArea,dock_script_log);
+    dock_script_log->setFloating(true);
     dock_script_log->hide();
 
     // Menu entries
@@ -497,6 +497,7 @@ void Main_Window::update_title()
 void Main_Window::set_tool_button_style(Qt::ToolButtonStyle tbs)
 {
     setToolButtonStyle(tbs);
+    dock_script_log->set_tool_button_style(tbs);
 }
 
 void Main_Window::apply_zoom()

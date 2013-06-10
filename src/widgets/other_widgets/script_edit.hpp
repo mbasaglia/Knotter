@@ -75,6 +75,9 @@ private slots:
     void highlight_current_line();
     void update_request(const QRect &new_viewport, int scroll_y);
 
+signals:
+    void sizeChanged(QSize);
+
     
 };
 
