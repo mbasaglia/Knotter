@@ -119,7 +119,7 @@ postinst_file=$package/DEBIAN/postinst
 cat >$postinst_file <<_POST_INST_
 #!/bin/sh
 set -e
-if [ -x \`which update-menus\` ] ; then update-menus ; fi
+if [ -x "\`which update-menus\`" ] ; then update-menus ; fi
 _POST_INST_
 chmod 755 $postinst_file
 

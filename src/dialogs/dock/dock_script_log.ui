@@ -64,7 +64,7 @@
             <number>0</number>
            </property>
            <item>
-            <widget class="QToolButton" name="toolButton">
+            <widget class="QToolButton" name="button_new">
              <property name="text">
               <string>&amp;New</string>
              </property>
@@ -77,7 +77,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="toolButton_2">
+            <widget class="QToolButton" name="button_open">
              <property name="text">
               <string>&amp;Open</string>
              </property>
@@ -87,7 +87,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="toolButton_3">
+            <widget class="QToolButton" name="button_save">
              <property name="text">
               <string>&amp;Save</string>
              </property>
@@ -104,7 +104,10 @@
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="toolButton_4">
+            <widget class="QToolButton" name="button_undo">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="text">
               <string>&amp;Undo</string>
              </property>
@@ -114,7 +117,10 @@
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="toolButton_5">
+            <widget class="QToolButton" name="button_redo">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="text">
               <string>R&amp;edo</string>
              </property>
@@ -376,6 +382,86 @@
     <hint type="destinationlabel">
      <x>263</x>
      <y>37</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button_undo</sender>
+   <signal>clicked()</signal>
+   <receiver>source_editor</receiver>
+   <slot>undo()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>119</x>
+     <y>40</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>124</x>
+     <y>75</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button_redo</sender>
+   <signal>clicked()</signal>
+   <receiver>source_editor</receiver>
+   <slot>redo()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>148</x>
+     <y>37</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>154</x>
+     <y>77</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>source_editor</sender>
+   <signal>undoAvailable(bool)</signal>
+   <receiver>button_undo</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>98</x>
+     <y>85</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>114</x>
+     <y>41</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>source_editor</sender>
+   <signal>redoAvailable(bool)</signal>
+   <receiver>button_redo</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>191</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>148</x>
+     <y>38</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button_new</sender>
+   <signal>clicked()</signal>
+   <receiver>source_editor</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>26</x>
+     <y>37</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>43</x>
+     <y>92</y>
     </hint>
    </hints>
   </connection>
