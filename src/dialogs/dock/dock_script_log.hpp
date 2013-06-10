@@ -54,6 +54,8 @@ protected:
 private:
     static QString escape_html(QString s);
 
+    void save_file(QString file_name);
+
 private slots:
     void script_error(QString file,int line,QString msg, QStringList trace = QStringList());
     void script_output(QString text);
@@ -63,6 +65,7 @@ private slots:
     void new_file();
     void open_file();
     void save_file();
+    void save_file_as();
     void toggle_dialog(bool dialog);
 };
 
