@@ -1,0 +1,9 @@
+{
+	"author" : "author",
+	"description" : "Mirror the selectetion.",
+	"license" : "author",
+	"name" : "Mirror",
+	"script" : "mirror.js",
+	"type" : "script",
+	"ui" : "dialog.ui"
+}

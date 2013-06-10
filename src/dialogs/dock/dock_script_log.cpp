@@ -63,6 +63,7 @@ Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
 
     connect(button_open,SIGNAL(clicked()),SLOT(open_file()));
     connect(button_save,SIGNAL(clicked()),SLOT(save_file()));
+    connect(button_save_as,SIGNAL(clicked()),SLOT(save_file_as()));
     connect(button_new,SIGNAL(clicked()),SLOT(new_file()));
 
     connect(button_dialog,SIGNAL(toggled(bool)),SLOT(toggle_dialog(bool)));
@@ -105,6 +106,7 @@ QString Dock_Script_Log::escape_html(QString s)
         return Qt::escape(s);
 #endif
 }
+
 void Dock_Script_Log::script_error(QString file, int line, QString msg, QStringList trace)
 {
     text_output->moveCursor (QTextCursor::End) ;
@@ -225,16 +227,32 @@ void Dock_Script_Log::open_file()
 
 void Dock_Script_Log::save_file()
 {
+    if ( filename.isEmpty() )
+    {
+        save_file_as();
+    }
+    else
+        save_file(filename);
+}
+
+void Dock_Script_Log::save_file_as()
+{
     QString new_file = QFileDialog::getSaveFileName(this,tr("Save Script"),
          filename,"JavaScript Sources (*.js *.es);;JSON Files (*.json);;All Files (*)");
 
     if ( !new_file.isEmpty() )
     {
-        filename = new_file;
-        QFile file(filename);
-        file.open(QFile::Text|QFile::WriteOnly);
-        file.write( source_editor->toPlainText().toUtf8() );
+        save_file(new_file);
     }
+}
+
+
+void Dock_Script_Log::save_file(QString file_name)
+{
+    filename = file_name;
+    QFile file(filename);
+    file.open(QFile::Text|QFile::WriteOnly);
+    file.write( source_editor->toPlainText().toUtf8() );
 }
 
 void Dock_Script_Log::toggle_dialog(bool dialog)
