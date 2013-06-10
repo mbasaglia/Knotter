@@ -100,8 +100,7 @@ void Script_Edit::highlight_current_line()
 
     QTextEdit::ExtraSelection selection;
 
-    selection.format.setBackground ( palette().toolTipBase() );
-    //selection.format.setForeground ( palette().toolTipText() );
+    selection.format.setBackground ( QColor(255,255,200) );
     selection.format.setProperty(QTextFormat::FullWidthSelection, true);
     selection.cursor = textCursor();
     selection.cursor.clearSelection();

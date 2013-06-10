@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QShortcut>
 #include <QFileDialog>
 #include <QFile>
+#include <QDesktopServices>
 
 Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
     QDockWidget(mw), sw(mw), local_run(false)
@@ -67,6 +68,7 @@ Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
     connect(button_new,SIGNAL(clicked()),SLOT(new_file()));
 
     connect(button_dialog,SIGNAL(toggled(bool)),SLOT(toggle_dialog(bool)));
+    connect(button_external,SIGNAL(clicked()),SLOT(open_external_editor()));
 }
 
 void Dock_Script_Log::set_tool_button_style(Qt::ToolButtonStyle style)
@@ -274,6 +276,14 @@ void Dock_Script_Log::toggle_dialog(bool dialog)
         widget()->layout()->addWidget(splitter);
         splitter->show();
         show();
+    }
+}
+
+void Dock_Script_Log::open_external_editor()
+{
+    if ( !filename.isEmpty() )
+    {
+        QDesktopServices::openUrl("file:///"+filename);
     }
 }
 

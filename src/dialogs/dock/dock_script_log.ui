@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>312</width>
+    <width>279</width>
     <height>233</height>
    </rect>
   </property>
@@ -51,6 +51,9 @@
         <item>
          <widget class="QFrame" name="frame_editor_buttons">
           <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <property name="spacing">
+            <number>3</number>
+           </property>
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -171,6 +174,23 @@
              </property>
              <property name="checkable">
               <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="button_external">
+             <property name="text">
+              <string>E&amp;xternal Editor</string>
+             </property>
+             <property name="icon">
+              <iconset theme="accessories-text-editor"/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="Line" name="line_3">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
              </property>
             </widget>
            </item>

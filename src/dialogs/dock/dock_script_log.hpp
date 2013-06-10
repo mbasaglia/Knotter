@@ -67,6 +67,7 @@ private slots:
     void save_file();
     void save_file_as();
     void toggle_dialog(bool dialog);
+    void open_external_editor();
 };
 
 #endif // DOCK_SCRIPT_LOG_HPP

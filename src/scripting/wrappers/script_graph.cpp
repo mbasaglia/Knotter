@@ -156,9 +156,12 @@ QList<Script_Edge *> Script_Graph::edges() const
     return findChildren<Script_Edge*>();
 }
 
-Script_Edge *Script_Graph::script_edge(Edge *e) const
+Script_Edge *Script_Graph::script_edge(Edge *e)
 {
-    return edge_map[e];
+    if ( edge_map.contains(e) )
+        return edge_map[e];
+    else
+        return add_edge(e);
 }
 
 QString Script_Graph::toString() const

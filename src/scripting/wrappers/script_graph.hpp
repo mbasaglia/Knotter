@@ -147,7 +147,7 @@ public:
     /**
      * \brief Get wrapper script edge for given edge
      */
-    Script_Edge* script_edge(Edge*) const;
+    Script_Edge* script_edge(Edge*);
 
     Q_INVOKABLE QString toString() const;
 
