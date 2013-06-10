@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>289</width>
+    <width>312</width>
     <height>233</height>
    </rect>
   </property>
@@ -69,7 +69,9 @@
               <string>&amp;New</string>
              </property>
              <property name="icon">
-              <iconset theme="document-new"/>
+              <iconset theme="document-new">
+               <normaloff/>
+              </iconset>
              </property>
              <property name="toolButtonStyle">
               <enum>Qt::ToolButtonIconOnly</enum>
@@ -82,7 +84,9 @@
               <string>&amp;Open</string>
              </property>
              <property name="icon">
-              <iconset theme="document-open"/>
+              <iconset theme="document-open">
+               <normaloff/>
+              </iconset>
              </property>
             </widget>
            </item>
@@ -92,7 +96,9 @@
               <string>&amp;Save</string>
              </property>
              <property name="icon">
-              <iconset theme="document-save"/>
+              <iconset theme="document-save">
+               <normaloff/>
+              </iconset>
              </property>
             </widget>
            </item>
@@ -112,7 +118,9 @@
               <string>&amp;Undo</string>
              </property>
              <property name="icon">
-              <iconset theme="edit-undo"/>
+              <iconset theme="edit-undo">
+               <normaloff/>
+              </iconset>
              </property>
             </widget>
            </item>
@@ -125,7 +133,32 @@
               <string>R&amp;edo</string>
              </property>
              <property name="icon">
-              <iconset theme="edit-redo"/>
+              <iconset theme="edit-redo">
+               <normaloff/>
+              </iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="Line" name="line_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="button_dialog">
+             <property name="toolTip">
+              <string>If enabled, this dialog won't be dockable</string>
+             </property>
+             <property name="text">
+              <string>S&amp;tand Alone Dialog</string>
+             </property>
+             <property name="icon">
+              <iconset theme="preferences-system-windows-move"/>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -148,7 +181,9 @@
               <string>&amp;Run</string>
              </property>
              <property name="icon">
-              <iconset theme="debug-run"/>
+              <iconset theme="debug-run">
+               <normaloff/>
+              </iconset>
              </property>
             </widget>
            </item>
@@ -188,7 +223,9 @@
              <string>Run</string>
             </property>
             <property name="icon">
-             <iconset theme="debug-run"/>
+             <iconset theme="debug-run">
+              <normaloff/>
+             </iconset>
             </property>
            </widget>
           </item>

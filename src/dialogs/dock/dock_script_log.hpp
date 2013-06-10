@@ -44,6 +44,7 @@ public:
 
     void set_tool_button_style(Qt::ToolButtonStyle style);
 
+    void setVisible(bool visible);
 public slots:
     void open_script_file(QString new_file);
     
@@ -59,9 +60,10 @@ private slots:
     void run_script(const QString &source, QString file_name, int line_number, bool echo);
     void on_button_run_clicked();
     void editor_resized(QSize sz);
-    void on_button_new_clicked();
-    void on_button_open_clicked();
-    void on_button_save_clicked();
+    void new_file();
+    void open_file();
+    void save_file();
+    void toggle_dialog(bool dialog);
 };
 
 #endif // DOCK_SCRIPT_LOG_HPP

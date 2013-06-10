@@ -60,6 +60,12 @@ Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
     set_tool_button_style(mw->toolButtonStyle());
 
     editor_resized(source_editor->size());
+
+    connect(button_open,SIGNAL(clicked()),SLOT(open_file()));
+    connect(button_save,SIGNAL(clicked()),SLOT(save_file()));
+    connect(button_new,SIGNAL(clicked()),SLOT(new_file()));
+
+    connect(button_dialog,SIGNAL(toggled(bool)),SLOT(toggle_dialog(bool)));
 }
 
 void Dock_Script_Log::set_tool_button_style(Qt::ToolButtonStyle style)
@@ -68,6 +74,14 @@ void Dock_Script_Log::set_tool_button_style(Qt::ToolButtonStyle style)
     {
         b->setToolButtonStyle(style);
     }
+}
+
+void Dock_Script_Log::setVisible(bool visible)
+{
+    if ( splitter->parentWidget() == parentWidget() )
+        splitter->setVisible(visible);
+    else
+        QDockWidget::setVisible(visible);
 }
 
 void Dock_Script_Log::changeEvent(QEvent *e)
@@ -192,13 +206,13 @@ void Dock_Script_Log::editor_resized(QSize sz)
     }
 }
 
-void Dock_Script_Log::on_button_new_clicked()
+void Dock_Script_Log::new_file()
 {
     source_editor->clear();
     filename = "";
 }
 
-void Dock_Script_Log::on_button_open_clicked()
+void Dock_Script_Log::open_file()
 {
     QString new_file = QFileDialog::getOpenFileName(this,tr("Open Script"),
         filename,"JavaScript Sources (*.js *.es);;JSON Files (*.json);;All Files (*)");
@@ -209,7 +223,7 @@ void Dock_Script_Log::on_button_open_clicked()
     }
 }
 
-void Dock_Script_Log::on_button_save_clicked()
+void Dock_Script_Log::save_file()
 {
     QString new_file = QFileDialog::getSaveFileName(this,tr("Save Script"),
          filename,"JavaScript Sources (*.js *.es);;JSON Files (*.json);;All Files (*)");
@@ -220,6 +234,28 @@ void Dock_Script_Log::on_button_save_clicked()
         QFile file(filename);
         file.open(QFile::Text|QFile::WriteOnly);
         file.write( source_editor->toPlainText().toUtf8() );
+    }
+}
+
+void Dock_Script_Log::toggle_dialog(bool dialog)
+{
+    if ( dialog )
+    {
+        //setWindowFlags(windowFlags()|Qt::Dialog);
+        //show();
+        hide();
+        splitter->setParent(parentWidget(),Qt::Dialog);
+        splitter->move(x(),y());
+        splitter->show();
+    }
+    else
+    {
+        //setWindowFlags(windowFlags()&~Qt::Dialog);
+        //show();
+        splitter->setParent(widget(),Qt::Widget);
+        widget()->layout()->addWidget(splitter);
+        splitter->show();
+        show();
     }
 }
 
