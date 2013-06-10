@@ -54,24 +54,73 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QLabel" name="label_title">
-           <property name="font">
-            <font>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string notr="true">Title</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QLabel" name="label_icon">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string notr="true">icon</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_title">
+             <property name="font">
+              <font>
+               <pointsize>15</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string notr="true">Title</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QCheckBox" name="check_enable">
-           <property name="text">
-            <string>Enable</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QPushButton" name="check_enable">
+             <property name="text">
+              <string>Enable</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="button_reload_2">
+             <property name="text">
+              <string>Reload Script</string>
+             </property>
+             <property name="icon">
+              <iconset theme="view-refresh">
+               <normaloff/>
+              </iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="button_edit">
+             <property name="text">
+              <string>Edit Script</string>
+             </property>
+             <property name="icon">
+              <iconset theme="document-edit">
+               <normaloff/>
+              </iconset>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
           <widget class="QPlainTextEdit" name="text_description">
@@ -138,6 +187,16 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="button_create">
+       <property name="text">
+        <string>&amp;Create...</string>
+       </property>
+       <property name="icon">
+        <iconset theme="document-new"/>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="button_add">
        <property name="enabled">
         <bool>false</bool>
@@ -183,8 +242,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>324</x>
-     <y>268</y>
+     <x>568</x>
+     <y>416</y>
     </hint>
     <hint type="destinationlabel">
      <x>560</x>

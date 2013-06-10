@@ -43,6 +43,9 @@ public:
     explicit Dock_Script_Log(Main_Window* mw);
 
     void set_tool_button_style(Qt::ToolButtonStyle style);
+
+public slots:
+    void open_script_file(QString new_file);
     
 protected:
     void changeEvent(QEvent *e);

@@ -205,11 +205,7 @@ void Dock_Script_Log::on_button_open_clicked()
 
     if ( !new_file.isEmpty() )
     {
-        filename = new_file;
-        source_editor->clear();
-        QFile file(filename);
-        file.open(QFile::Text|QFile::ReadOnly);
-        source_editor->setPlainText(file.readAll());
+        open_script_file(new_file);
     }
 }
 
@@ -225,4 +221,15 @@ void Dock_Script_Log::on_button_save_clicked()
         file.open(QFile::Text|QFile::WriteOnly);
         file.write( source_editor->toPlainText().toUtf8() );
     }
+}
+
+
+void Dock_Script_Log::open_script_file(QString new_file)
+{
+    filename = new_file;
+    source_editor->clear();
+    QFile file(filename);
+    file.open(QFile::Text|QFile::ReadOnly);
+    source_editor->setPlainText(file.readAll());
+    show();
 }

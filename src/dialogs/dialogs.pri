@@ -28,7 +28,8 @@ HEADERS += \
     $$PWD/dialog_confirm_close.hpp \
     $$PWD/dialog_plugins.hpp \
     $$PWD/dock/dock_borders.hpp \
-    $$PWD/dock/dock_script_log.hpp
+    $$PWD/dock/dock_script_log.hpp \
+    $$PWD/wizard_create_plugin.hpp
 
 SOURCES += \
     $$PWD/main_window.cpp \
@@ -42,7 +43,8 @@ SOURCES += \
     $$PWD/dialog_confirm_close.cpp \
     $$PWD/dialog_plugins.cpp \
     $$PWD/dock/dock_borders.cpp \
-    $$PWD/dock/dock_script_log.cpp
+    $$PWD/dock/dock_script_log.cpp \
+    $$PWD/wizard_create_plugin.cpp
 
 FORMS += \
     $$PWD/main_window.ui \
@@ -56,4 +58,5 @@ FORMS += \
     $$PWD/dialog_confirm_close.ui \
     $$PWD/dialog_plugins.ui \
     $$PWD/dock/dock_borders.ui \
-    $$PWD/dock/dock_script_log.ui
+    $$PWD/dock/dock_script_log.ui \
+    $$PWD/wizard_create_plugin.ui

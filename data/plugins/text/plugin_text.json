@@ -5,4 +5,5 @@
     "author"        : "Mattia Basaglia",
     "license"       : "GPLv3+",
     "script"        : "insert_text.js",
+    "icon"          : "insert-text"
 }

@@ -195,19 +195,12 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
         return new_error_plugin(data,*error);
     }
 
-
-
-    QString script_file_name = fi.dir().absoluteFilePath(data.value("script").toString());
-
-    QFile script_file(script_file_name);
-
-    if ( !script_file.open(QFile::Text|QFile::ReadOnly) )
+    if ( !p->reload_script_file() )
     {
-        *error = QObject::tr("Error while opening script file %1").arg(script_file_name);
-        delete p;
-        return new_error_plugin(data,*error);
+        *error = QObject::tr("Error while opening script file %1").arg(p->script_file_path());
+        //delete p;
+        //return new_error_plugin(data,*error);
     }
-    p->m_script = QScriptProgram(script_file.readAll(),data.value("script").toString());
     return p;
 }
 
@@ -219,6 +212,25 @@ Plugin *Plugin::new_error_plugin(QVariantMap data, QString message)
     data["error"] = message;
     data["auto_enable"] = false;
     return new Plugin(data,Invalid);
+}
+
+bool Plugin::reload_script_file()
+{
+
+    QFile script_file(script_file_path());
+
+    if ( !script_file.open(QFile::Text|QFile::ReadOnly) )
+    {
+        return false;
+    }
+    m_script = QScriptProgram(script_file.readAll(),script_file_path());
+
+    return true;
+}
+
+QString Plugin::script_file_path() const
+{
+    return string_data("plugin_dir")+"/"+string_data("script");
 }
 
 QIcon Plugin::icon() const

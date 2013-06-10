@@ -50,6 +50,8 @@ Script_Edit::Script_Edit(QWidget *parent) :
 
     highlighter->setDocument(document());
     highlighter->style_from_file(Resource_Manager::data("style/syntax_highlighter.ini"));
+
+    setTabStopWidth(20);
 }
 
 void Script_Edit::error_line(int line)

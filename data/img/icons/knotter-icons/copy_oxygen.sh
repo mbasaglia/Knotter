@@ -11,6 +11,7 @@ icons=' accessories-text-editor
         dialog-close
         dialog-ok
         document-close
+        document-edit
         document-export
         document-import
         document-new
@@ -56,6 +57,7 @@ icons=' accessories-text-editor
         insert-horizontal-rule
         image-svg+xml
         image-x-generic
+        insert-text
         list-add
         list-remove
         object-flip-horizontal
@@ -87,6 +89,7 @@ icons=' accessories-text-editor
         tab-new
         text-x-script
         tools-report-bug
+        tools-wizard
         transform-move
         transform-rotate
         transform-scale

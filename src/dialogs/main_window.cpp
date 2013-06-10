@@ -229,6 +229,8 @@ void Main_Window::init_docks()
     dock_script_log = new Dock_Script_Log(this);
     dock_script_log->setFloating(true);
     dock_script_log->hide();
+    connect(&dialog_plugins,SIGNAL(edit_script(QString)),
+            dock_script_log,SLOT(open_script_file(QString)));
 
     // Menu entries
     foreach(QDockWidget* dw, findChildren<QDockWidget*>())

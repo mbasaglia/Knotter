@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Wizard_Create_Plugin</class>
+ <widget class="QWizard" name="Wizard_Create_Plugin">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>356</width>
+    <height>299</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Create Plugin Wizard</string>
+  </property>
+  <property name="windowIcon">
+   <iconset theme="tools-wizard">
+    <normaloff/>
+   </iconset>
+  </property>
+  <widget class="QWizardPage" name="page_info">
+   <property name="title">
+    <string>Plugin Information</string>
+   </property>
+   <layout class="QFormLayout" name="formLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Name</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="text_name"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Type</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0" colspan="2">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Description</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0" colspan="2">
+     <widget class="QPlainTextEdit" name="text_description"/>
+    </item>
+    <item row="2" column="1">
+     <widget class="QComboBox" name="combo_type"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="page_source">
+   <property name="title">
+    <string>Script Source</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="Script_Edit" name="text_source"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="page_extra_data">
+   <property name="title">
+    <string>Additional Data</string>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="1">
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="text">
+       <string>&amp;Remove</string>
+      </property>
+      <property name="icon">
+       <iconset theme="list-remove">
+        <normaloff/>
+       </iconset>
+      </property>
+      <property name="autoDefault">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>&amp;Insert</string>
+      </property>
+      <property name="icon">
+       <iconset theme="list-add">
+        <normaloff/>
+       </iconset>
+      </property>
+      <property name="autoDefault">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="2">
+     <widget class="QTableWidget" name="table_data">
+      <property name="textElideMode">
+       <enum>Qt::ElideMiddle</enum>
+      </property>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Key</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Value</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="page_directory">
+   <property name="title">
+    <string>Output Directory</string>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QLineEdit" name="text_directory"/>
+    </item>
+    <item>
+     <widget class="QPushButton" name="button_directory">
+      <property name="text">
+       <string>Browse...</string>
+      </property>
+      <property name="icon">
+       <iconset theme="document-open"/>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Script_Edit</class>
+   <extends>QPlainTextEdit</extends>
+   <header>script_edit.hpp</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

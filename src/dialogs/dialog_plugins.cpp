@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "dialog_plugins.hpp"
 #include "resource_manager.hpp"
+#include "wizard_create_plugin.hpp"
 
 Dialog_Plugins::Dialog_Plugins(QWidget *parent) :
     QDialog(parent)
@@ -73,6 +74,7 @@ void Dialog_Plugins::on_listWidget_currentRowChanged(int currentRow)
     Plugin* p = listWidget->item(currentRow)->data(Qt::UserRole).value<Plugin*>();
     if ( p )
     {
+        label_icon->setPixmap(p->icon().pixmap(22));
         label_title->setText(p->string_data("name"));
         text_description->setPlainText(p->string_data("description"));
 
@@ -122,7 +124,7 @@ void Dialog_Plugins::on_check_enable_clicked(bool checked)
 
 void Dialog_Plugins::on_button_reload_clicked()
 {
-    Plugin *old = listWidget->currentItem()->data(Qt::UserRole).value<Plugin*>();
+    Plugin *old = current_plugin();
     QString file;
     if ( old )
         file = old->string_data("plugin_file");
@@ -130,11 +132,41 @@ void Dialog_Plugins::on_button_reload_clicked()
     load_plugins();
     for ( int i = 0; i < listWidget->count(); i++ )
     {
-        if ( listWidget->item(i)->data(Qt::UserRole).value<Plugin*>()
-                ->string_data("plugin_file") == file )
+        if ( plugin(i)->string_data("plugin_file") == file )
         {
             listWidget->setCurrentRow(i);
             break;
         }
     }
+}
+
+void Dialog_Plugins::on_button_reload_2_clicked()
+{
+    Plugin* p = current_plugin();
+    if ( p )
+        p->reload_script_file();
+}
+
+
+Plugin *Dialog_Plugins::current_plugin()
+{
+    return plugin(listWidget->currentIndex().row());
+}
+
+Plugin *Dialog_Plugins::plugin(int i)
+{
+    if ( i >= 0 && i < listWidget->count() )
+        return listWidget->item(i)->data(Qt::UserRole).value<Plugin*>();
+
+    return nullptr;
+}
+
+void Dialog_Plugins::on_button_edit_clicked()
+{
+    emit edit_script(current_plugin()->script_file_path());
+}
+
+void Dialog_Plugins::on_button_create_clicked()
+{
+    Wizard_Create_Plugin(this).exec();
 }

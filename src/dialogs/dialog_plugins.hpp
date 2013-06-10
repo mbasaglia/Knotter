@@ -29,6 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ui_dialog_plugins.h"
 
+#include "plugin.hpp"
+
 class Dialog_Plugins : public QDialog, private Ui::Dialog_Plugins
 {
     Q_OBJECT
@@ -41,6 +43,7 @@ protected:
 
 protected slots:
     void load_plugins();
+
 private slots:
     void on_listWidget_currentRowChanged(int currentRow);
 
@@ -48,9 +51,26 @@ private slots:
 
     void on_button_reload_clicked();
 
+    void on_button_reload_2_clicked();
+
+    void on_button_edit_clicked();
+
+    void on_button_create_clicked();
+
 private:
     void set_item_enabled(QListWidgetItem* it, bool enabled);
     void set_item_errored(QListWidgetItem* it);
+    /**
+     *  \brief Get currently selected plugin
+     */
+    Plugin* current_plugin();
+    /**
+     *  \brief Get plugin at given index
+     */
+    Plugin* plugin(int i);
+
+signals:
+    void edit_script(QString file);
 };
 
 #endif // DIALOG_PLUGINS_HPP
