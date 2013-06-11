@@ -91,6 +91,7 @@ Script_Node *Script_Graph::add_node(Node *n)
     node_map[n] = sn;
     QObject::connect(sn,SIGNAL(moved(Script_Point)), SLOT(emit_node_moved(Script_Point)));
     QObject::connect(n,SIGNAL(destroyed()), SLOT(node_removed()));
+    m_nodes.push_back(sn);
     return sn;
 }
 
@@ -99,6 +100,7 @@ void Script_Graph::remove_node(QObject*n)
     Script_Node * node = qobject_cast<Script_Node*>(n);
     if ( node && node->parent() == this )
     {
+        m_nodes.removeAll(node);
         emit node_removed(node);
     }
 }
@@ -111,6 +113,7 @@ Script_Edge* Script_Graph::add_edge(Edge *e)
                                        node_map[e->vertex2()],this);
     edge_map[e] = se;
     QObject::connect(e,SIGNAL(destroyed()), SLOT(edge_removed()));
+    m_edges.push_back(se);
     return se;
 }
 
@@ -148,12 +151,12 @@ QObject *Script_Graph::node_at(double x, double y)
 
 QList<Script_Node *> Script_Graph::nodes() const
 {
-    return findChildren<Script_Node*>();
+    return m_nodes;
 }
 
 QList<Script_Edge *> Script_Graph::edges() const
 {
-    return findChildren<Script_Edge*>();
+    return m_edges;
 }
 
 Script_Edge *Script_Graph::script_edge(Edge *e)
@@ -181,6 +184,7 @@ void Script_Graph::node_removed()
     Node *n = qobject_cast<Node*>(sender());
     if ( n )
     {
+        m_nodes.removeAll(node_map[n]);
         delete node_map[n];
         node_map.remove(n);
     }
@@ -191,6 +195,7 @@ void Script_Graph::edge_removed()
     Edge *e = qobject_cast<Edge*>(sender());
     if ( e )
     {
+        m_edges.removeAll(edge_map[e]);
         delete edge_map[e];
         edge_map.remove(e);
     }

@@ -71,9 +71,6 @@ public:
 
     Q_INVOKABLE QString toString() const;
 
-    /// Updates the graph
-    void update();
-
     Q_INVOKABLE void begin_macro(QString message);
     Q_INVOKABLE void end_macro();
     void clean_macros();

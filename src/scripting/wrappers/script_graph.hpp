@@ -48,6 +48,9 @@ class Script_Graph : public QObject
     QMap<Node*,Script_Node*> node_map;
     QMap<Edge*,Script_Edge*> edge_map;
 
+    QList<Script_Node*> m_nodes;
+    QList<Script_Edge*> m_edges;
+
 public:
     explicit Script_Graph(const Graph &graph=Graph(), QObject *parent = 0);
     Script_Graph(const Script_Graph &g);

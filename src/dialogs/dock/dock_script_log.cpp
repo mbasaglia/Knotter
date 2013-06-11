@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDesktopServices>
 
 Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
-    QDockWidget(mw), sw(mw), local_run(false)
+    QDockWidget(mw), target_window(mw), local_run(false)
 {
     setupUi(this);
     connect(Resource_Manager::pointer,SIGNAL(script_error(QString,int,QString,QStringList)),
@@ -165,14 +165,12 @@ void Dock_Script_Log::run_script(const QString &source, QString file_name,
                                 +"</div><p></p>");
     }
 
-
+    Script_Window sw(target_window);
     Resource_Manager::script_param("window",&sw);
     Resource_Manager::script_param("document",sw.document());
 
 
     QScriptValue v = Resource_Manager::run_script(source,file_name,line_number);
-
-    sw.clean_up();
 
     if ( !v.isError() && !v.isUndefined() )
         text_output->insertHtml(escape_html(v.toString())+"<p></p>");
@@ -208,6 +206,8 @@ void Dock_Script_Log::editor_resized(QSize sz)
     {
         button_run_2->show();
     }
+
+    button_run->setVisible(!button_run_2->isVisible());
 }
 
 void Dock_Script_Log::new_file()

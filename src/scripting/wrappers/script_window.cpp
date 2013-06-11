@@ -72,7 +72,6 @@ Script_Document* Script_Window::document()
 {
     if ( docs.contains(window->view) )
     {
-        docs[window->view]->update();
         return docs[window->view];
     }
     else
@@ -88,12 +87,6 @@ QString Script_Window::toString() const
 {
     return "[Knotter window]";
 }
-void Script_Window::clean_up()
-{
-    foreach(Script_Document* d, docs.values() )
-        d->clean_macros();
-}
-
 
 void Script_Window::close_tab(Knot_View *view)
 {

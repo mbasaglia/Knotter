@@ -95,11 +95,6 @@ void Script_Document::move_node(Script_Node *n, Script_Point p)
     wrapped->push_command(new Move_Node(real,real->pos(),p,wrapped));
 }
 
-void Script_Document::update()
-{
-    m_graph.from_graph(wrapped->graph());
-}
-
 void Script_Document::begin_macro(QString message)
 {
     wrapped->begin_macro(message);

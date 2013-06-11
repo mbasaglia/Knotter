@@ -30,12 +30,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ui_dock_script_log.h"
 #include "script_window.hpp"
 
-
 class Dock_Script_Log : public QDockWidget, private Ui::Dock_Script_Log
 {
     Q_OBJECT
 
-    Script_Window sw;
+    Main_Window*  target_window;///< Script object window wrapee
     bool          local_run;    ///< If is currently being executed code from the console itself
     QString       filename;     ///< Name of the open file
 

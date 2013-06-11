@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>279</width>
+    <width>306</width>
     <height>233</height>
    </rect>
   </property>
@@ -111,7 +111,9 @@
               <string>Save &amp;As</string>
              </property>
              <property name="icon">
-              <iconset theme="document-save-as"/>
+              <iconset theme="document-save-as">
+               <normaloff/>
+              </iconset>
              </property>
             </widget>
            </item>
@@ -160,6 +162,18 @@
             </widget>
            </item>
            <item>
+            <widget class="QToolButton" name="button_external">
+             <property name="text">
+              <string>E&amp;xternal Editor</string>
+             </property>
+             <property name="icon">
+              <iconset theme="accessories-text-editor">
+               <normaloff/>
+              </iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QToolButton" name="button_dialog">
              <property name="toolTip">
               <string>If enabled, this dialog won't be dockable</string>
@@ -174,48 +188,6 @@
              </property>
              <property name="checkable">
               <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QToolButton" name="button_external">
-             <property name="text">
-              <string>E&amp;xternal Editor</string>
-             </property>
-             <property name="icon">
-              <iconset theme="accessories-text-editor"/>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="Line" name="line_3">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QToolButton" name="button_run">
-             <property name="text">
-              <string>&amp;Run</string>
-             </property>
-             <property name="icon">
-              <iconset theme="debug-run">
-               <normaloff/>
-              </iconset>
              </property>
             </widget>
            </item>
@@ -287,6 +259,16 @@
         </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="button_run">
+            <property name="text">
+             <string>&amp;Run</string>
+            </property>
+            <property name="icon">
+             <iconset theme="debug-run"/>
+            </property>
+           </widget>
+          </item>
           <item>
            <widget class="QPushButton" name="button_clear_output">
             <property name="text">
@@ -439,30 +421,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>button_run_2</sender>
-   <signal>clicked()</signal>
-   <receiver>button_run</receiver>
-   <slot>click()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>262</x>
-     <y>78</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>263</x>
-     <y>37</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>button_undo</sender>
    <signal>clicked()</signal>
    <receiver>source_editor</receiver>
    <slot>undo()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>119</x>
-     <y>40</y>
+     <x>176</x>
+     <y>50</y>
     </hint>
     <hint type="destinationlabel">
      <x>124</x>
@@ -477,8 +443,8 @@
    <slot>redo()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>148</x>
-     <y>37</y>
+     <x>208</x>
+     <y>50</y>
     </hint>
     <hint type="destinationlabel">
      <x>154</x>
@@ -497,8 +463,8 @@
      <y>85</y>
     </hint>
     <hint type="destinationlabel">
-     <x>114</x>
-     <y>41</y>
+     <x>176</x>
+     <y>50</y>
     </hint>
    </hints>
   </connection>
@@ -513,8 +479,8 @@
      <y>84</y>
     </hint>
     <hint type="destinationlabel">
-     <x>148</x>
-     <y>38</y>
+     <x>208</x>
+     <y>50</y>
     </hint>
    </hints>
   </connection>

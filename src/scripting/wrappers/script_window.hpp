@@ -121,8 +121,6 @@ public:
      */
     Q_INVOKABLE void screenshot(QString output_image_file, QString widget="");
 
-    void clean_up();
-
 private slots:
     void close_tab(Knot_View* v);
 };

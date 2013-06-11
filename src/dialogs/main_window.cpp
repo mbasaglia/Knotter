@@ -846,7 +846,6 @@ void Main_Window::execute_plugin()
             Resource_Manager::script_param("document",&doc);
             Resource_Manager::script_param("window",&win);
             p->execute();
-            win.clean_up();
         }
     }
 }
