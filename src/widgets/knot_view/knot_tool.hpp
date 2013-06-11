@@ -201,12 +201,16 @@ private:
  */
 class Toggle_Edge_Tool : public Knot_Tool
 {
+    Node*               start_node;  ///< Dragged node
+    QGraphicsLineItem   guide;       ///< Tiny line showing the edge being edited
 public:
-    explicit Toggle_Edge_Tool (Knot_View* view, Graph* graph = nullptr)
-        : Knot_Tool(view,graph){}
+    explicit Toggle_Edge_Tool (Knot_View* view, Graph* graph = nullptr);
 
     bool press(const Mouse_Event &event) override;
 
+    void release(const Mouse_Event &event) override;
+
+    void deactivate() override;
 
     void move(const Mouse_Event &event, QPointF &notify_pos) override;
 };

@@ -222,8 +222,16 @@ void Edge_Chain_Tool::deactivate()
 
 void Edge_Chain_Tool::break_chain()
 {
-    view->scene()->removeItem(&guide);
+    if ( guide.scene() )
+        view->scene()->removeItem(&guide);
     last_node = nullptr;
+}
+
+Toggle_Edge_Tool::Toggle_Edge_Tool(Knot_View *view, Graph *graph)
+    : Knot_Tool(view,graph)
+{
+    start_node = nullptr;
+    guide.setPen(QPen(Qt::gray,0,Qt::DashLine));
 }
 
 bool Toggle_Edge_Tool::press(const Mouse_Event &event)
@@ -231,9 +239,19 @@ bool Toggle_Edge_Tool::press(const Mouse_Event &event)
     if ( event.event->button() == Qt::LeftButton )
     {
         Edge* e = edge_at(event.mouse_pos);
+        Node* n = node_at(event.mouse_pos);
         if ( e )
         {
             view->remove_edge(e);
+        }
+        else if ( n )
+        {
+            start_node = n;
+            if ( !guide.scene() )
+            {
+                guide.setLine(QLineF(start_node->pos(),event.mouse_pos));
+                view->scene()->addItem(&guide);
+            }
         }
         else
         {
@@ -281,10 +299,38 @@ bool Toggle_Edge_Tool::press(const Mouse_Event &event)
     return false;
 }
 
+void Toggle_Edge_Tool::release(const Mouse_Event &event)
+{
+    if ( start_node )
+    {
+        Node* to = node_at(event.mouse_pos);
+        if ( to && to != start_node )
+        {
+            Edge* old = start_node->edge_to(to);
+            if ( old )
+                view->remove_edge(old);
+            else
+                view->add_edge(start_node,to);
+        }
+        start_node = nullptr;
+        view->scene()->removeItem(&guide);
+    }
+}
+
+void Toggle_Edge_Tool::deactivate()
+{
+    if ( guide.scene() )
+        view->scene()->removeItem(&guide);
+    start_node = nullptr;
+}
+
 void Toggle_Edge_Tool::move(const Mouse_Event &event, QPointF &notify_pos)
 {
     Node *node=node_at(event.mouse_pos);
 
     if ( node )
         notify_pos = node->pos();
+
+    if ( start_node )
+        guide.setLine(QLineF(start_node->pos(),event.mouse_pos));
 }
