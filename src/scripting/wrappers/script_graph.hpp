@@ -97,6 +97,7 @@ public:
 
     Q_INVOKABLE void remove_node(QObject* n);
 
+    Q_INVOKABLE void remove_edge(QObject* n);
 
     /**
      * @brief Add a new wrapped edge
@@ -152,16 +153,39 @@ public:
      */
     Script_Edge* script_edge(Edge*);
 
+    /**
+     * \brief Get wrapped edge for given script edge
+     */
+    Edge* internal_edge(Script_Edge* edge);
+
     Q_INVOKABLE QString toString() const;
 
-    /// \todo documentation
+    /**
+     * \brief Append contents from file
+     * \param file          File name
+     * \param keep_style    If true, use the file style as local style for each node
+     * \param offset        Offset from the original location
+     * \param scale         Scale the entire loaded file
+     *
+     * \note Calls to this function will result in the plain addition of nodes and edges,
+     *       this will be visible as single command unless wrapped by document macros.
+     */
     Q_INVOKABLE bool append(QString file, bool keep_style = false,
                             Script_Point offset=Script_Point(), double scale = 1);
+
+    /**
+     * \brief Remove all nodes and edges
+     *
+     * \note Calls to this function will result in the plain removal of nodes and edges,
+     *       this will be visible as single command unless wrapped by document macros.
+     */
+    Q_INVOKABLE void clear();
 
 signals:
     void node_added(Script_Node* n);
     void node_removed(Script_Node* n);
     void edge_added(Script_Edge* e);
+    void edge_removed(Script_Edge* e);
     void node_moved(Script_Node* n, Script_Point pos);
 
 private slots:

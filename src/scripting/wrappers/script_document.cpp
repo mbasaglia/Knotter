@@ -36,6 +36,7 @@ Script_Document::Script_Document(Knot_View *wrapped, QObject *parent) :
     connect(&m_graph,SIGNAL(node_moved(Script_Node*,Script_Point)),
             SLOT(move_node(Script_Node*,Script_Point)));
     connect(&m_graph,SIGNAL(node_removed(Script_Node*)),SLOT(remove_node(Script_Node*)));
+    connect(&m_graph,SIGNAL(edge_removed(Script_Edge*)),SLOT(remove_edge(Script_Edge*)));
 }
 
 Script_Document::~Script_Document()
@@ -82,6 +83,11 @@ void Script_Document::add_node(Script_Node *n)
 void Script_Document::remove_node(Script_Node *n)
 {
     wrapped->remove_node(n->wrapped_node());
+}
+
+void Script_Document::remove_edge(Script_Edge *e)
+{
+    wrapped->remove_edge(m_graph.internal_edge(e));
 }
 
 void Script_Document::add_edge(Script_Edge *e)

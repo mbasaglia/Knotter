@@ -46,7 +46,7 @@ class Script_Node : public QObject
     Q_PROPERTY(double y READ y WRITE set_y )
     Q_PROPERTY(bool selected READ selected WRITE set_selected )
 
-    Q_PROPERTY(QObjectList edges READ edges)
+    Q_PROPERTY(QObjectList edges READ edges_object)
 
     /// \todo : Style
 
@@ -67,7 +67,8 @@ public:
     bool selected() const;
     void set_selected(bool b);
 
-    QObjectList edges() const;
+    QList<Script_Edge*> edges() const;
+    QObjectList edges_object() const;
 
     /**
      * @brief Get the wrapped node

@@ -78,6 +78,7 @@ public:
 public slots:
     void add_node(Script_Node* n);
     void remove_node(Script_Node* n);
+    void remove_edge(Script_Edge* e);
     void add_edge(Script_Edge* e);
     void move_node(Script_Node* n, Script_Point p);
     

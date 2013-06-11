@@ -102,6 +102,18 @@ void Script_Graph::remove_node(QObject*n)
     {
         m_nodes.removeAll(node);
         emit node_removed(node);
+        foreach(Script_Edge* e, node->edges())
+            remove_edge(e);
+    }
+}
+
+void Script_Graph::remove_edge(QObject *n)
+{
+    Script_Edge * edge = qobject_cast<Script_Edge*>(n);
+    if ( edge && edge->parent() == this )
+    {
+        m_edges.removeAll(edge);
+        emit edge_removed(edge);
     }
 }
 
@@ -165,6 +177,14 @@ Script_Edge *Script_Graph::script_edge(Edge *e)
         return edge_map[e];
     else
         return add_edge(e);
+}
+
+Edge *Script_Graph::internal_edge(Script_Edge *edge)
+{
+    foreach(Edge* e, edge_map.keys())
+        if ( edge_map[e] == edge )
+            return e;
+    return nullptr;
 }
 
 QString Script_Graph::toString() const
@@ -310,4 +330,12 @@ bool Script_Graph::append(QString file, bool keep_style, Script_Point offset, do
     }
 
     return true;
+}
+
+void Script_Graph::clear()
+{
+    foreach(Script_Node*n, nodes())
+    {
+        remove_node(n);
+    }
 }
