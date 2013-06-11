@@ -343,6 +343,7 @@ void Knot_View::flip_vert_selection()
 void Knot_View::update_selection()
 {
     node_mover.set_nodes(selected_nodes());
+    emit selection_changed(node_mover.nodes());
 }
 
 void Knot_View::set_display_graph(bool enable)

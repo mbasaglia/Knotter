@@ -142,6 +142,7 @@ QObject *Script_Graph::connect(QObject *on1, QObject *on2)
 
     Script_Edge * e = new Script_Edge(n1,n2,this);
     emit edge_added(e);
+    m_edges.push_back(e);
     return e;
 }
 
@@ -343,18 +344,26 @@ void Script_Graph::merge_with(QObject *other)
     Script_Graph* other_graph = qobject_cast<Script_Graph*>(other);
     if ( other_graph )
     {
+        QMap<Script_Node*,Script_Node*> other_nodes;
         foreach(Script_Node* n, other_graph->m_nodes )
         {
             Script_Node* own_node = add_node(n->wrapped_node());
+            other_nodes[n] = own_node;
             emit node_added(own_node);
         }
-        other_graph->m_nodes.clear();
+        //other_graph->m_nodes.clear();
 
         foreach(Script_Edge* e, other_graph->m_edges )
         {
-            Script_Edge* own_edge = add_edge(other_graph->internal_edge(e));
-            emit edge_added(own_edge);
+            Edge* ie = other_graph->internal_edge(e);
+            if ( ie )
+            {
+                Script_Edge* own_edge = add_edge(ie);
+                emit edge_added(own_edge);
+            }
+            else
+                connect(other_nodes[e->vertex1()],other_nodes[e->vertex2()]);
         }
-        other_graph->m_edges.clear();
+        //other_graph->m_edges.clear();
     }
 }
