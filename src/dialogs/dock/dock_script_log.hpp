@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ui_dock_script_log.h"
 #include "script_window.hpp"
+#include "plugin.hpp"
 
 class Dock_Script_Log : public QDockWidget, private Ui::Dock_Script_Log
 {
@@ -37,16 +38,18 @@ class Dock_Script_Log : public QDockWidget, private Ui::Dock_Script_Log
     Main_Window*  target_window;///< Script object window wrapee
     bool          local_run;    ///< If is currently being executed code from the console itself
     QString       filename;     ///< Name of the open file
-
+    Plugin*       plugin;       ///< The loaded plugin (if any)
 public:
     explicit Dock_Script_Log(Main_Window* mw);
 
     void set_tool_button_style(Qt::ToolButtonStyle style);
 
     void setVisible(bool visible);
+
 public slots:
     void open_script_file(QString new_file);
-    
+    void load_plugin(Plugin* p);
+
 protected:
     void changeEvent(QEvent *e);
 
@@ -54,6 +57,8 @@ private:
     static QString escape_html(QString s);
 
     void save_file(QString file_name);
+
+    void unload_plugin();
 
 private slots:
     void script_error(QString file,int line,QString msg, QStringList trace = QStringList());
@@ -67,6 +72,10 @@ private slots:
     void save_file_as();
     void toggle_dialog(bool dialog);
     void open_external_editor();
+    /**
+     * @brief Save file and reload plugin sources
+     */
+    void deploy_plugin();
 };
 
 #endif // DOCK_SCRIPT_LOG_HPP

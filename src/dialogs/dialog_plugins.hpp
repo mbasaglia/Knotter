@@ -70,7 +70,7 @@ private:
     Plugin* plugin(int i);
 
 signals:
-    void edit_script(QString file);
+    void edit_plugin(Plugin*);
 };
 
 #endif // DIALOG_PLUGINS_HPP

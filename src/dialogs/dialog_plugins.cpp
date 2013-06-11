@@ -163,7 +163,7 @@ Plugin *Dialog_Plugins::plugin(int i)
 
 void Dialog_Plugins::on_button_edit_clicked()
 {
-    emit edit_script(current_plugin()->script_file_path());
+    emit edit_plugin(current_plugin());
 }
 
 void Dialog_Plugins::on_button_create_clicked()

@@ -191,6 +191,26 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="Line" name="line_3">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="button_reload">
+             <property name="toolTip">
+              <string>Reload Plugin</string>
+             </property>
+             <property name="text">
+              <string>Reload &amp;Plugin</string>
+             </property>
+             <property name="icon">
+              <iconset theme="run-build-install"/>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
@@ -265,7 +285,9 @@
              <string>&amp;Run</string>
             </property>
             <property name="icon">
-             <iconset theme="debug-run"/>
+             <iconset theme="debug-run">
+              <normaloff/>
+             </iconset>
             </property>
            </widget>
           </item>

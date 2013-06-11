@@ -118,16 +118,12 @@ public:
 
     bool is_valid() const { return m_type != Invalid; }
 
-    /**
-     *  \brief Update the internal script code to match the contents of the script file
-     *  \return true on success
-     */
-    bool reload_script_file();
 
     /**
      *  \brief Get the absolute script file path
      */
     QString script_file_path() const;
+
 
 protected:
     /**
@@ -145,6 +141,13 @@ public slots:
      *  \brief Run the script
      */
     void execute();
+
+
+    /**
+     *  \brief Update the internal script code to match the contents of the script file
+     *  \return true on success
+     */
+    bool reload_script_file();
 
 signals:
     void enabled(bool);

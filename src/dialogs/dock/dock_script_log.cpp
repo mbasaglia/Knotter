@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDesktopServices>
 
 Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
-    QDockWidget(mw), target_window(mw), local_run(false)
+    QDockWidget(mw), target_window(mw), local_run(false), plugin(false)
 {
     setupUi(this);
     connect(Resource_Manager::pointer,SIGNAL(script_error(QString,int,QString,QStringList)),
@@ -69,6 +69,7 @@ Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
 
     connect(button_dialog,SIGNAL(toggled(bool)),SLOT(toggle_dialog(bool)));
     connect(button_external,SIGNAL(clicked()),SLOT(open_external_editor()));
+    connect(button_reload,SIGNAL(clicked()),SLOT(deploy_plugin()));
 }
 
 void Dock_Script_Log::set_tool_button_style(Qt::ToolButtonStyle style)
@@ -180,9 +181,14 @@ void Dock_Script_Log::run_script(const QString &source, QString file_name,
 
 void Dock_Script_Log::on_button_run_clicked()
 {
-    local_run = true;
-    run_script(source_editor->toPlainText(),tr("Script Editor"),1,false);
-    local_run = false;
+    if ( plugin )
+        plugin->execute();
+    else
+    {
+        local_run = true;
+        run_script(source_editor->toPlainText(),tr("Script Editor"),1,false);
+        local_run = false;
+    }
 }
 
 void Dock_Script_Log::editor_resized(QSize sz)
@@ -214,6 +220,7 @@ void Dock_Script_Log::new_file()
 {
     source_editor->clear();
     filename = "";
+
 }
 
 void Dock_Script_Log::open_file()
@@ -251,6 +258,8 @@ void Dock_Script_Log::save_file_as()
 
 void Dock_Script_Log::save_file(QString file_name)
 {
+    if ( plugin && plugin->script_file_path() != file_name)
+        unload_plugin();
     filename = file_name;
     QFile file(filename);
     file.open(QFile::Text|QFile::WriteOnly);
@@ -288,13 +297,37 @@ void Dock_Script_Log::open_external_editor()
     }
 }
 
+void Dock_Script_Log::deploy_plugin()
+{
+    if  ( plugin )
+    {
+        save_file();
+        plugin->reload_script_file();
+    }
+}
+
 
 void Dock_Script_Log::open_script_file(QString new_file)
 {
+    unload_plugin();
     filename = new_file;
     source_editor->clear();
     QFile file(filename);
     file.open(QFile::Text|QFile::ReadOnly);
     source_editor->setPlainText(file.readAll());
     show();
+}
+
+void Dock_Script_Log::load_plugin(Plugin *p)
+{
+    open_script_file(p->script_file_path());
+    plugin = p;
+    button_reload->setEnabled(true);
+}
+
+
+void Dock_Script_Log::unload_plugin()
+{
+    plugin = nullptr;
+    button_reload->setEnabled(false);
 }
