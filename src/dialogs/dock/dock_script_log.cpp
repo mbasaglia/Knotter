@@ -136,7 +136,7 @@ void Dock_Script_Log::script_error(QString file, int line, QString msg, QStringL
     text_output->moveCursor (QTextCursor::End) ;
     text_output->ensureCursorVisible() ;
 
-    if ( local_run )
+    if ( local_run || file == filename )
     {
         source_editor->error_line( line );
     }
@@ -276,6 +276,7 @@ void Dock_Script_Log::toggle_dialog(bool dialog)
         widget()->layout()->addWidget(splitter);
         splitter->show();
         show();
+        raise();
     }
 }
 

@@ -171,7 +171,7 @@ public:
      *       this will be visible as single command unless wrapped by document macros.
      */
     Q_INVOKABLE bool append(QString file, bool keep_style = false,
-                            Script_Point offset=Script_Point(), double scale = 1);
+                            Script_Point offset=Script_Point());
 
     /**
      * \brief Remove all nodes and edges
@@ -180,6 +180,9 @@ public:
      *       this will be visible as single command unless wrapped by document macros.
      */
     Q_INVOKABLE void clear();
+
+    /// \todo documentation
+    Q_INVOKABLE void merge_with(QObject* other);
 
 signals:
     void node_added(Script_Node* n);

@@ -70,6 +70,16 @@ Graph *Script_Graph::create_graph() const
     return g;
 }
 
+Script_Node *Script_Graph::add_node(Node *n)
+{
+
+    Script_Node* sn =  new Script_Node(n,this);
+    node_map[n] = sn;
+    QObject::connect(sn,SIGNAL(moved(Script_Point)), SLOT(emit_node_moved(Script_Point)));
+    QObject::connect(n,SIGNAL(destroyed()), SLOT(node_removed()));
+    m_nodes.push_back(sn);
+    return sn;
+}
 
 QObject* Script_Graph::add_node(Script_Point p)
 {
@@ -84,16 +94,6 @@ QObject *Script_Graph::add_node(double x, double y)
 }
 
 
-Script_Node *Script_Graph::add_node(Node *n)
-{
-
-    Script_Node* sn =  new Script_Node(n,this);
-    node_map[n] = sn;
-    QObject::connect(sn,SIGNAL(moved(Script_Point)), SLOT(emit_node_moved(Script_Point)));
-    QObject::connect(n,SIGNAL(destroyed()), SLOT(node_removed()));
-    m_nodes.push_back(sn);
-    return sn;
-}
 
 void Script_Graph::remove_node(QObject*n)
 {
@@ -248,6 +248,7 @@ QObjectList Script_Graph::edges_object()
 
 
 
+
 QScriptValue build_graph (QScriptContext *, QScriptEngine * engine)
 {
     return engine->toScriptValue( Script_Graph() );
@@ -300,7 +301,7 @@ QObjectList Script_Graph::nodes_at(double x, double y, double radius)
 }
 
 
-bool Script_Graph::append(QString file, bool keep_style, Script_Point offset, double scale)
+bool Script_Graph::append(QString file, bool keep_style, Script_Point offset)
 {
     Graph graph;
     QFile knot_file(file);
@@ -309,13 +310,10 @@ bool Script_Graph::append(QString file, bool keep_style, Script_Point offset, do
 
     foreach(Node* n, graph.nodes())
     {
-        n->setPos((n->pos()+offset)*scale);
+        n->setPos(n->pos()+offset);
         if ( keep_style )
         {
             Node_Style ns = n->style().default_to(graph.default_node_style());
-            ns.handle_length *= scale;
-            ns.crossing_distance *= scale;
-            ns.cusp_distance *= scale;
             n->set_style(ns);
         }
         graph.remove_node(n);
@@ -337,5 +335,26 @@ void Script_Graph::clear()
     foreach(Script_Node*n, nodes())
     {
         remove_node(n);
+    }
+}
+
+void Script_Graph::merge_with(QObject *other)
+{
+    Script_Graph* other_graph = qobject_cast<Script_Graph*>(other);
+    if ( other_graph )
+    {
+        foreach(Script_Node* n, other_graph->m_nodes )
+        {
+            Script_Node* own_node = add_node(n->wrapped_node());
+            emit node_added(own_node);
+        }
+        other_graph->m_nodes.clear();
+
+        foreach(Script_Edge* e, other_graph->m_edges )
+        {
+            Script_Edge* own_edge = add_edge(other_graph->internal_edge(e));
+            emit edge_added(own_edge);
+        }
+        other_graph->m_edges.clear();
     }
 }

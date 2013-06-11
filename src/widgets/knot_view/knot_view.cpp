@@ -796,7 +796,7 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
     {
         // move selected nodes
 
-        node_mover.move(snapped_scene_pos);
+        node_mover.set_pos(snapped_scene_pos);
         if ( m_fluid_refresh )
             update_knot();
 
@@ -837,8 +837,13 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
 void Knot_View::mouseReleaseEvent(QMouseEvent *event)
 {
 
+    QPoint mpos = event->pos();
+    QPointF scene_pos = mapToScene(mpos);
+    QPointF snapped_scene_pos = m_grid.nearest(scene_pos);
+
     if ( mouse_mode & RUBBERBAND )
     {
+
         // select from rubberband;
         scene()->removeItem(&rubberband);
 
@@ -867,11 +872,13 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
                               tr("Rotate Nodes") : tr("Scale Nodes") );
         set_mouse_mode ( mouse_mode & ~DRAG_HANDLE );
     }
-    else if ( event->button() == Qt::RightButton )
+    else
     {
-        QPoint mpos = event->pos();
-        QPointF scene_pos = mapToScene(mpos);
+        active_tool->release(Mouse_Event(scene_pos,snapped_scene_pos,event));
+    }
 
+    if ( event->button() == Qt::RightButton )
+    {
         Node* n = node_at(scene_pos);
         Edge* e = edge_at(scene_pos);
         if ( n )
