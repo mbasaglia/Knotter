@@ -38,12 +38,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#include <QGLWidget>
 
 Knot_View::Knot_View(QString file)
-    : mouse_mode(EDIT_GRAPH), last_node(nullptr), m_file_name(file),
+    : mouse_mode(NO_MODE), m_file_name(file),
       paint_graph(true), m_fluid_refresh(true),
       context_menu_node(new Context_Menu_Node(this)),
-      context_menu_edge(new Context_Menu_Edge(this))
+      context_menu_edge(new Context_Menu_Edge(this)),
+      active_tool(nullptr), tool_select(this,&m_graph),
+      tool_edge_chain(this,&m_graph),tool_toggle_edge(this,&m_graph)
 {
     //setViewport(new QGLWidget);
+
+    tool_edge_chain.set_graph(&m_graph);
+    tool_select.set_graph(&m_graph);
+    tool_toggle_edge.set_graph(&m_graph);
+    active_tool = &tool_select;
+    tool_select.enable(true);
+    update_mouse_cursor();
 
     setWindowFilePath(file);
     setFrameStyle(StyledPanel|Plain);
@@ -63,8 +72,6 @@ Knot_View::Knot_View(QString file)
     connect(verticalScrollBar(),SIGNAL(valueChanged(int)),
             this,SLOT(update_scrollbars()));
 
-    guide.setPen(QPen(Qt::gray,0,Qt::DashLine));
-
 
     QColor bg = QApplication::palette().color(QPalette::Highlight);
     rubberband.setPen(QPen(bg));
@@ -80,6 +87,7 @@ Knot_View::Knot_View(QString file)
     node_mover.add_handles_to_scene(scene);
 
     load_file(file);
+
 
 }
 
@@ -442,6 +450,7 @@ QList<Node *> Knot_View::selected_nodes() const
 }
 
 
+
 void Knot_View::zoom_view(double factor)
 {
     if ( get_zoom_factor()*factor < 0.01 )
@@ -479,19 +488,31 @@ void Knot_View::set_zoom(double factor)
     emit zoomed(100*factor);
 }
 
+
+void Knot_View::set_active_tool(Knot_Tool &tool)
+{
+
+    if ( active_tool != &tool )
+    {
+        active_tool->enable(false);
+        active_tool = &tool;
+        active_tool->enable(true);
+        update_mouse_cursor();
+    }
+}
 void Knot_View::set_mode_edit_graph()
 {
-    set_mouse_mode(EDIT_GRAPH);
+    set_active_tool(tool_select);
 }
 
 void Knot_View::set_mode_edge_chain()
 {
-    set_mouse_mode(EDGE_CHAIN);
+    set_active_tool(tool_edge_chain);
 }
 
 void Knot_View::set_mode_toggle_edges()
 {
-    set_mouse_mode(TOGGLE_EDGES);
+    set_active_tool(tool_toggle_edge);
 }
 
 void Knot_View::set_mode_move_grid()
@@ -641,16 +662,15 @@ bool Knot_View::insert(const Graph &graph, QString macro_name)
     }
 
 
-    last_node = graph.nodes().front();
 
     set_mouse_mode(mouse_mode|MOVE_NODES|EXTERNAL);
 
     node_mover.set_nodes(graph.nodes());
-    node_mover.initialize_movement(last_node->pos());
+    node_mover.initialize_movement( graph.nodes().front()->pos());
     emit selection_changed(node_mover.nodes());
 
     QPointF p =  mapToScene(mapFromGlobal(QCursor::pos()));
-    node_mover.move(p-last_node->pos());
+    node_mover.set_pos(p);
     move_center = mapFromGlobal(QCursor::pos());
     //node_mover.deploy(this);
 
@@ -685,10 +705,6 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
     QPointF scene_pos = mapToScene(mpos);
     QPointF snapped_scene_pos = m_grid.nearest(scene_pos);
 
-    if ( guide.scene() && event->button() != Qt::MiddleButton )
-        scene()->removeItem(&guide);
-
-
     if ( event->button() == Qt::MiddleButton )
     {
         // drag view
@@ -700,29 +716,14 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
     }
     else if ( !(mouse_mode & EXTERNAL) )
     {
-        if ( mouse_mode & EDIT_GRAPH && event->button() == Qt::LeftButton )
+        if ( !active_tool->press(Mouse_Event(scene_pos,snapped_scene_pos,event)) )
         {
-            Node* n = node_at(scene_pos);
-            Edge* e = edge_at(scene_pos);
+
             Transform_Handle *th = dynamic_cast<Transform_Handle*>(
                                     scene()->itemAt(scene_pos,QTransform()));
-
-
-            QList<Node*> nodes;
-            if ( n )
+            if ( th )
             {
-                last_node = n;
-                nodes.push_back(n);
-            }
-            else if ( e )
-            {
-                last_node = e->vertex1();
-                nodes.push_back(e->vertex1());
-                nodes.push_back(e->vertex2());
-
-            }
-            else if ( th )
-            {
+                // drag handle
                 node_mover.set_nodes(selected_nodes());
 
                 double anchor_angle = event->modifiers() & Qt::ShiftModifier;
@@ -733,124 +734,15 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
                 set_mouse_mode ( mouse_mode | DRAG_HANDLE );
             }
             else
+            {
+                // drag rubberband selection
                 set_mouse_mode ( mouse_mode | RUBBERBAND );
-
-            if ( !(mouse_mode & (RUBBERBAND|DRAG_HANDLE) ) )
-            {
-                // not directly in condition because has side-effect
-                bool b = mouse_select(nodes,event->modifiers() &
-                                      (Qt::ControlModifier|Qt::ShiftModifier),
-                                      false );
-                // move only if has selected, not if has deselected
-                if ( b )
-                {
-                    set_mouse_mode ( mouse_mode | MOVE_NODES );
-                    node_mover.initialize_movement(last_node->pos());
-                }
-            }
-        }
-        else if ( mouse_mode & EDIT_GRAPH || event->button() == Qt::RightButton )
-        {
-            Node* n = node_at(scene_pos);
-            Edge* e = edge_at(scene_pos);
-            if ( event->button() != Qt::RightButton || (!n && !e) )
-                set_mouse_mode ( mouse_mode | RUBBERBAND );
-        }
-        else if ( mouse_mode & EDGE_CHAIN  && event->button() == Qt::LeftButton )
-        {
-            Node* next_node = node_at(snapped_scene_pos);
-            Edge* next_edge = last_node && next_node ? last_node->edge_to(next_node) : nullptr;
-
-            if ( !last_node || next_node != last_node )
-            {
-                QString title;
-
-                if ( next_edge )
-                    title = tr("Move Ahead");
-                else if ( !last_node && next_node )
-                    title = tr("Start Chain");
-                else if ( !last_node)
-                    title = tr("Create Node");
-                else
-                    title = tr("Add Edge");
-
-                begin_macro(title);
-
-                if ( !next_node )
-                    next_node = add_breaking_node(snapped_scene_pos);
-
-                if ( last_node && !next_edge && !last_node->has_edge_to(next_node))
-                    add_edge(last_node,next_node);
-
-                push_command(new Last_Node(last_node,next_node,this));
-
-                end_macro();
-
-                update_knot();
-            }
-            //if ( !guide.scene() )
-            {
-                guide.setLine(QLineF(last_node->pos(),snapped_scene_pos));
-                scene()->addItem(&guide);
-            }
-        }
-        else if ( mouse_mode & TOGGLE_EDGES && event->button() == Qt::LeftButton )
-        {
-
-            Edge* e = edge_at(scene_pos);
-            if ( e )
-            {
-                remove_edge(e);
-            }
-            else
-            {
-                // Limit distance to grid size * 3
-                double max_distance = m_grid.size()*m_grid.size()*9;
-                double min_distance = max_distance;
-                Node* n1 = nullptr;
-                Node* n2 = nullptr;
-                foreach(Node* n, m_graph.nodes())
-                {
-                    double point_distance = point_distance_squared(n->pos(),scene_pos);
-                    if ( point_distance < min_distance )
-                    {
-                        n1 = n;
-                        min_distance = point_distance;
-                    }
-                }
-
-                if ( n1 )
-                {
-                    min_distance = max_distance;
-                    foreach(Node* n, m_graph.nodes())
-                    {
-                        double point_distance = point_distance_squared(n->pos(),scene_pos);
-                        if ( n != n1 && point_distance < min_distance )
-                        {
-                            n2 = n;
-                            min_distance = point_distance;
-                        }
-                    }
-
-                    if ( n2 )
-                    {
-                        if ( !n1->has_edge_to(n2) )
-                            add_edge(n1,n2);
-                        else
-                            remove_edge(n1->edge_to(n2));
-                    }
-                }
+                rubberband.setPos(mapToScene(mpos));
+                rubberband.setRect(0,0,0,0);
+                scene()->addItem(&rubberband);
             }
         }
 
-        if ( mouse_mode & RUBBERBAND )
-        {
-            // drag rubberband selection
-            last_node = nullptr;
-            rubberband.setPos(mapToScene(mpos));
-            rubberband.setRect(0,0,0,0);
-            scene()->addItem(&rubberband);
-        }
 
     }
     move_center = mpos;
@@ -904,22 +796,12 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
     {
         // move selected nodes
 
-        if ( last_node )
-        {
-            QPointF delta = snapped_scene_pos-last_node->pos();
-            node_mover.move(delta);
-            if ( m_fluid_refresh )
-                update_knot();
-        }
-        emitted_pos = snapped_scene_pos;
-
-    }
-    else if ( mouse_mode & EDGE_CHAIN )
-    {
-        if ( last_node )
-            guide.setLine(QLineF(last_node->pos(),snapped_scene_pos));
+        node_mover.move(snapped_scene_pos);
+        if ( m_fluid_refresh )
+            update_knot();
 
         emitted_pos = snapped_scene_pos;
+
     }
     else if ( mouse_mode & DRAG_HANDLE )
     {
@@ -930,6 +812,8 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
         if ( m_fluid_refresh )
             update_knot();
     }
+    else
+        active_tool->move(Mouse_Event(scene_pos,snapped_scene_pos,event),emitted_pos);
 
 
     // highlight item under cursor
@@ -965,7 +849,6 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
     }
     else if ( mouse_mode & MOVE_NODES && event->button() != Qt::MiddleButton )
     {
-        last_node = nullptr;
         mouse_mode &=~ MOVE_NODES;
         node_mover.deploy(this,tr("Move Nodes"));
         update_knot();
@@ -1002,24 +885,12 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
 
 void Knot_View::mouseDoubleClickEvent(QMouseEvent *event)
 {
-    if ( event->button() == Qt::LeftButton && !(mouse_mode&TOGGLE_EDGES) )
-    {
-        QPoint mpos = event->pos();
-        QPointF scene_pos = mapToScene(mpos);
-        QPointF snapped_scene_pos = m_grid.nearest(scene_pos);
-        Node *node=node_at(scene_pos);
 
-        if ( node )
-        {
-            begin_macro(tr("Snap to Grid"));
-            push_command(new Move_Node(node,node->pos(),snapped_scene_pos,this));
-            end_macro();
-        }
-        else
-            add_breaking_node(snapped_scene_pos);
+    QPoint mpos = event->pos();
+    QPointF scene_pos = mapToScene(mpos);
+    QPointF snapped_scene_pos = m_grid.nearest(scene_pos);
 
-        update_knot();
-    }
+    active_tool->double_click(Mouse_Event(scene_pos,snapped_scene_pos,event));
 }
 
 void Knot_View::wheelEvent(QWheelEvent *event)
@@ -1089,13 +960,6 @@ void Knot_View::drawBackground(QPainter *painter, const QRectF &rect)
 void Knot_View::set_mouse_mode(Mouse_Mode mode)
 {
     mouse_mode = mode;
-
-    if ( !(mouse_mode & EDGE_CHAIN) && guide.scene() )
-    {
-        scene()->removeItem(&guide);
-        last_node = nullptr;
-    }
-
     update_mouse_cursor();
 }
 
@@ -1110,8 +974,23 @@ void Knot_View::update_mouse_cursor()
         setCursor(node_mover.current_handle_cursor());
     else if ( mouse_mode & RUBBERBAND )
         setCursor(Qt::ArrowCursor);
-    else if ( mouse_mode & EDGE_CHAIN )
-        setCursor(Qt::CrossCursor);
     else
-        setCursor(Qt::ArrowCursor);
+        setCursor(active_tool->cursor());
+}
+
+
+
+bool Knot_View::edit_graph_mode_enabled() const
+{
+    return active_tool == &tool_select;
+}
+
+bool Knot_View::edge_loop_mode_enabled() const
+{
+    return active_tool == &tool_edge_chain;
+}
+
+bool Knot_View::toggle_edges_mode_enabled() const
+{
+    return active_tool == &tool_toggle_edge;
 }

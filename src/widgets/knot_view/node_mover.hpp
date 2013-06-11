@@ -57,6 +57,9 @@ public:
     /// Apply movement by delta to each node
     void move(QPointF delta);
 
+    /// Move the pivot to the given position
+    void set_pos(QPointF p);
+
     /**
      *  \brief Rotate nodes by angle
      *

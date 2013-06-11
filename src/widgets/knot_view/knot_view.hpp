@@ -35,6 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "node_mover.hpp"
 #include <QStack>
 #include "pen_join_style_metatype.hpp"
+#include "knot_tool.hpp"
 
 class Context_Menu_Node;
 class Context_Menu_Edge;
@@ -44,12 +45,15 @@ class Knot_View : public QGraphicsView
     Q_OBJECT
 
     friend class Knot_Command;
+    friend class Knot_Tool;
 
     enum Mouse_Mode_Enum
     {
-        EDIT_GRAPH  = 0x001, ///< Move and select
+        NO_MODE     = 0x000, ///< No special action
+        /*EDIT_GRAPH  = 0x001, ///< Move and select
         EDGE_CHAIN  = 0x002, ///< Keep inserting connected node, RMB selects
-        TOGGLE_EDGES= 0x004, ///< Single click adds or removes edges
+        TOGGLE_EDGES= 0x004, ///< Single click adds or removes edges*/
+
         MOVE_GRID   = 0x010, ///< Move grid origin
         MOVE_BG_IMG = 0x020, ///<  Move background image
         MOVE_BACK   = MOVE_GRID|MOVE_BG_IMG, ///< Mask with both MOVE_GRID and MOVE_BG_IMG
@@ -73,8 +77,8 @@ class Knot_View : public QGraphicsView
     Snapping_Grid       m_grid;
     Background_Image    bg_img;
     Mouse_Mode          mouse_mode;
-    Node*               last_node;   ///< Last node in a chain
-    QGraphicsLineItem   guide;       ///< Tiny line showing the edge being edited
+    //Node*               last_node;   ///< Last node in a chain
+    //QGraphicsLineItem   guide;       ///< Tiny line showing the edge being edited
     QGraphicsRectItem   rubberband;  ///< Draggable selection rectangle
     Node_Mover          node_mover;  ///< Helper to manage movement of the nodes
     QString             m_file_name; ///< Full name of the open file
@@ -82,6 +86,12 @@ class Knot_View : public QGraphicsView
     bool                m_fluid_refresh; ///< Whether to update the graph while moving nodes
     Context_Menu_Node*  context_menu_node;
     Context_Menu_Edge*  context_menu_edge;
+
+
+    Knot_Tool*       active_tool;
+    Select_Tool      tool_select;
+    Edge_Chain_Tool  tool_edge_chain;
+    Toggle_Edge_Tool tool_toggle_edge;
 
 public:
 
@@ -198,9 +208,9 @@ public:
     /**
      * \brief Get whether mode is edit graph
      */
-    bool edit_graph_mode_enabled() const { return mouse_mode & EDIT_GRAPH; }
-    bool edge_loop_mode_enabled() const { return mouse_mode & EDGE_CHAIN; }
-    bool toggle_edges_mode_enabled() const { return mouse_mode & TOGGLE_EDGES; }
+    bool edit_graph_mode_enabled() const;
+    bool edge_loop_mode_enabled() const;
+    bool toggle_edges_mode_enabled() const;
 
     bool load_file(QIODevice &device, QString action_name);
 
@@ -253,7 +263,7 @@ public slots:
     void set_zoom(double factor);
 
     /**
-     *  Sets mouse mode to edit graph
+     *  \brief Sets mouse mode to edit graph
      */
     void set_mode_edit_graph();
 
@@ -264,7 +274,7 @@ public slots:
 
 
     /**
-     *  Sets mouse mode to toggle edges
+     *  \brief Sets mouse mode to toggle edges
      */
     void set_mode_toggle_edges();
 
@@ -439,6 +449,8 @@ private:
      * @brief Change mouse cursor depending on the mouse mode
      */
     void update_mouse_cursor();
+
+    void set_active_tool(Knot_Tool& tool);
 
 };
 

@@ -46,13 +46,7 @@ void Knot_Command::set_parent(Knot_Macro *macro)
 
 void Knot_Command::set_last_node(Node *n)
 {
-    view->last_node = n;
-    if ( !n && view->guide.scene() )
-        scene->removeItem(&view->guide);
-    else if ( n )
-    {
-        view->guide.setLine(QLineF(n->pos(),view->guide.line().p2()));
-    }
+    view->tool_edge_chain.set_last_node(n);
 }
 
 void Knot_Command::update_knot() const

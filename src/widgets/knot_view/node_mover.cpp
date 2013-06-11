@@ -217,6 +217,11 @@ void Node_Mover::move(QPointF delta)
     //    transform_handles[i].setPos(transform_handles[i].pos()+delta);
 }
 
+void Node_Mover::set_pos(QPointF p)
+{
+    move(p-pivot);
+}
+
 void Node_Mover::rotate(double angle)
 {
     rotate_angle += angle;

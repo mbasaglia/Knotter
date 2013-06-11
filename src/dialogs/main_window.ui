@@ -602,7 +602,7 @@
     </iconset>
    </property>
    <property name="text">
-    <string>&amp;Edit Graph</string>
+    <string>&amp;Select</string>
    </property>
    <property name="shortcut">
     <string>Alt+Shift+E</string>
@@ -618,7 +618,7 @@
     </iconset>
    </property>
    <property name="text">
-    <string>Edge &amp;Loop</string>
+    <string>Edge &amp;Chain</string>
    </property>
    <property name="shortcut">
     <string>Alt+Shift+L</string>
