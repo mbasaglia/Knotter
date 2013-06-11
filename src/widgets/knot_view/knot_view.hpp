@@ -428,6 +428,17 @@ private:
     */
     Graph_Item* item_at(QPointF p) const;
 
+    /**
+     * @brief Set mouse mode and update cursor
+     * \note Always use this instead of changing the value of mouse_mode
+     * @param mode The new mouse mode
+     */
+    void set_mouse_mode(Mouse_Mode mode);
+
+    /**
+     * @brief Change mouse cursor depending on the mouse mode
+     */
+    void update_mouse_cursor();
 
 };
 

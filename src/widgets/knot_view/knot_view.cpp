@@ -481,29 +481,27 @@ void Knot_View::set_zoom(double factor)
 
 void Knot_View::set_mode_edit_graph()
 {
-    mouse_mode = EDIT_GRAPH;
+    set_mouse_mode(EDIT_GRAPH);
 }
 
 void Knot_View::set_mode_edge_chain()
 {
-    mouse_mode = EDGE_CHAIN;
+    set_mouse_mode(EDGE_CHAIN);
 }
 
 void Knot_View::set_mode_toggle_edges()
 {
-    mouse_mode = TOGGLE_EDGES;
+    set_mouse_mode(TOGGLE_EDGES);
 }
 
 void Knot_View::set_mode_move_grid()
 {
-    mouse_mode |= MOVE_GRID;
-    setCursor(Qt::SizeAllCursor);
+    set_mouse_mode(mouse_mode | MOVE_GRID);
 }
 
 void Knot_View::set_mode_move_background()
 {
-    mouse_mode |= MOVE_BG_IMG;
-    setCursor(Qt::SizeAllCursor);
+    set_mouse_mode ( mouse_mode | MOVE_BG_IMG );
 }
 
 void Knot_View::update_knot()
@@ -645,8 +643,7 @@ bool Knot_View::insert(const Graph &graph, QString macro_name)
 
     last_node = graph.nodes().front();
 
-    mouse_mode |= MOVE_NODES;
-    mouse_mode |= EXTERNAL;
+    set_mouse_mode(mouse_mode|MOVE_NODES|EXTERNAL);
 
     node_mover.set_nodes(graph.nodes());
     node_mover.initialize_movement(last_node->pos());
@@ -656,7 +653,6 @@ bool Knot_View::insert(const Graph &graph, QString macro_name)
     node_mover.move(p-last_node->pos());
     move_center = mapFromGlobal(QCursor::pos());
     //node_mover.deploy(this);
-    setCursor(Qt::DragCopyCursor);
 
     end_macro();
     macro_stack.push( new Knot_Insert_Macro(true,macro_name,this));
@@ -700,7 +696,7 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
     }
     else if ( mouse_mode & MOVE_BACK)
     {
-        mouse_mode &= ~MOVE_BACK;
+        set_mouse_mode ( mouse_mode & ~MOVE_BACK );
     }
     else if ( !(mouse_mode & EXTERNAL) )
     {
@@ -734,10 +730,10 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
                     anchor_angle  = !anchor_angle;
 
                 node_mover.set_dragged_handle(th,anchor_angle);
-                mouse_mode |= DRAG_HANDLE;
+                set_mouse_mode ( mouse_mode | DRAG_HANDLE );
             }
             else
-                mouse_mode |= RUBBERBAND;
+                set_mouse_mode ( mouse_mode | RUBBERBAND );
 
             if ( !(mouse_mode & (RUBBERBAND|DRAG_HANDLE) ) )
             {
@@ -748,7 +744,7 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
                 // move only if has selected, not if has deselected
                 if ( b )
                 {
-                    mouse_mode |= MOVE_NODES;
+                    set_mouse_mode ( mouse_mode | MOVE_NODES );
                     node_mover.initialize_movement(last_node->pos());
                 }
             }
@@ -758,7 +754,7 @@ void Knot_View::mousePressEvent(QMouseEvent *event)
             Node* n = node_at(scene_pos);
             Edge* e = edge_at(scene_pos);
             if ( event->button() != Qt::RightButton || (!n && !e) )
-                mouse_mode |= RUBBERBAND;
+                set_mouse_mode ( mouse_mode | RUBBERBAND );
         }
         else if ( mouse_mode & EDGE_CHAIN  && event->button() == Qt::LeftButton )
         {
@@ -956,7 +952,6 @@ void Knot_View::mouseMoveEvent(QMouseEvent *event)
 
 void Knot_View::mouseReleaseEvent(QMouseEvent *event)
 {
-    setCursor(Qt::ArrowCursor);
 
     if ( mouse_mode & RUBBERBAND )
     {
@@ -982,17 +977,12 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
             end_macro();
         }
     }
-    else if ( mouse_mode & MOVE_BACK )
-    {
-        if ( event->button() == Qt::MiddleButton )
-            setCursor(Qt::SizeAllCursor);
-    }
     else if ( mouse_mode & DRAG_HANDLE )
     {
         node_mover.deploy(this,
                           node_mover.mode() == Transform_Handle::ROTATE ?
                               tr("Rotate Nodes") : tr("Scale Nodes") );
-        mouse_mode &= ~DRAG_HANDLE;
+        set_mouse_mode ( mouse_mode & ~DRAG_HANDLE );
     }
     else if ( event->button() == Qt::RightButton )
     {
@@ -1006,6 +996,8 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
         else if ( e )
             context_menu_edge->popup(e,mapToGlobal(mpos));
     }
+
+    update_mouse_cursor();
 }
 
 void Knot_View::mouseDoubleClickEvent(QMouseEvent *event)
@@ -1090,4 +1082,36 @@ void Knot_View::drawBackground(QPainter *painter, const QRectF &rect)
     painter->fillRect(rect,backgroundBrush());
     bg_img.render(painter);
     m_grid.render(painter,rect);
+}
+
+
+
+void Knot_View::set_mouse_mode(Mouse_Mode mode)
+{
+    mouse_mode = mode;
+
+    if ( !(mouse_mode & EDGE_CHAIN) && guide.scene() )
+    {
+        scene()->removeItem(&guide);
+        last_node = nullptr;
+    }
+
+    update_mouse_cursor();
+}
+
+
+void Knot_View::update_mouse_cursor()
+{
+    if ( mouse_mode & MOVE_BACK )
+        setCursor(Qt::SizeAllCursor);
+    else if ( mouse_mode & EXTERNAL )
+        setCursor(Qt::DragCopyCursor);
+    else if ( mouse_mode & DRAG_HANDLE )
+        setCursor(node_mover.current_handle_cursor());
+    else if ( mouse_mode & RUBBERBAND )
+        setCursor(Qt::ArrowCursor);
+    else if ( mouse_mode & EDGE_CHAIN )
+        setCursor(Qt::CrossCursor);
+    else
+        setCursor(Qt::ArrowCursor);
 }

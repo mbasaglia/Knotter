@@ -110,6 +110,12 @@ public:
      */
     void drag_handle(QPointF p, bool fixed, double step_size);
 
+    /**
+     * @brief  Current handle cursor
+     * @return The cursor corresponding to the current handle
+     */
+    QCursor current_handle_cursor();
+
 private:
     /// Initialize movement without updating handles
     void initialize_movement_internal(QPointF pivot );

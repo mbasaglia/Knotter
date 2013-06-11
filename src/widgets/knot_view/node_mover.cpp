@@ -169,6 +169,19 @@ void Node_Mover::drag_handle(QPointF p, bool fixed, double step_size )
 
 }
 
+QCursor Node_Mover::current_handle_cursor()
+{
+    if ( dragged_handle && mode() == Transform_Handle::SCALE )
+    {
+        if ( dragged_handle == transform_handles+0 ||
+             dragged_handle == transform_handles+2 )
+            return Qt::SizeFDiagCursor;
+        else
+            return Qt::SizeBDiagCursor;
+    }
+    return Qt::ArrowCursor;
+}
+
 void Node_Mover::initialize_movement_internal(QPointF pivot)
 {
     start_pos = this->pivot = pivot;
