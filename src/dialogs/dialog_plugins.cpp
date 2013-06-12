@@ -170,3 +170,8 @@ void Dialog_Plugins::on_button_create_clicked()
 {
     Wizard_Create_Plugin(this).exec();
 }
+
+void Dialog_Plugins::on_check_enable_toggled(bool checked)
+{
+    check_enable->setText(checked?tr("Enabled"):tr("Disabled"));
+}

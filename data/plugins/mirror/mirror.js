@@ -34,8 +34,6 @@ function mirror(x,y)
 		new_nodes[i].selected = true;
 }
 
-
-
 if ( Dialog.exec() )
 {
 	document.begin_macro("Mirror");

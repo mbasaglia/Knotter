@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>579</width>
+    <width>574</width>
     <height>427</height>
    </rect>
   </property>
@@ -192,20 +192,7 @@
         <string>&amp;Create...</string>
        </property>
        <property name="icon">
-        <iconset theme="document-new"/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="button_add">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>&amp;Install...</string>
-       </property>
-       <property name="icon">
-        <iconset theme="run-build-install">
+        <iconset theme="document-new">
          <normaloff/>
         </iconset>
        </property>

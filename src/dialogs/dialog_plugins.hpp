@@ -57,6 +57,8 @@ private slots:
 
     void on_button_create_clicked();
 
+    void on_check_enable_toggled(bool checked);
+
 private:
     void set_item_enabled(QListWidgetItem* it, bool enabled);
     void set_item_errored(QListWidgetItem* it);

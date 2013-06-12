@@ -1,7 +1,7 @@
 {
-	"author" : "author",
+	"author" : "Mattia Basaglia",
 	"description" : "Mirror the selectetion.",
-	"license" : "author",
+	"license" : "GPLv3+",
 	"name" : "Mirror",
 	"script" : "mirror.js",
 	"type" : "script",

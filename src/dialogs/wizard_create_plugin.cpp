@@ -114,7 +114,7 @@ void Wizard_Create_Plugin::accept()
     QTextStream json(&json_file);
     QMap<QString,QString> data;
     for ( int i = 0; i < table_data->rowCount(); i++ )
-        data[table_data->item(i,0)->text()] = table_data->itemAt(i,1)->text();
+        data[table_data->item(i,0)->text()] = table_data->item(i,1)->text();
     data["name"] = text_name->text();
     data["description"] = text_description->toPlainText();
     data["type"] = combo_type->currentText().toLower();

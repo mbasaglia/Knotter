@@ -76,6 +76,7 @@ private slots:
      * @brief Save file and reload plugin sources
      */
     void deploy_plugin();
+    void on_text_output_anchorClicked(const QUrl &arg1);
 };
 
 #endif // DOCK_SCRIPT_LOG_HPP

@@ -113,14 +113,32 @@ QString Dock_Script_Log::escape_html(QString s)
 void Dock_Script_Log::script_error(QString file, int line, QString msg, QStringList trace)
 {
     text_output->moveCursor (QTextCursor::End) ;
-    text_output->insertHtml(QString("<div><span style='color:cyan'>%1</span>:%2:"
-                        "<span style='color:red'>%3</span>: %4<br/>%5</div>")
-                            .arg(escape_html(file))
-                            .arg(line)
-                            .arg(tr("Error"))
-                            .arg(escape_html(msg))
-                            .arg(trace.empty()?"":"Stack trace:")
-                        );
+
+
+    QString file_html;
+    if ( !local_run )
+    {
+        file_html = "<a style='color:cyan; text-decoration:none;' "
+                    "href='file:///"+file+"#"+QString::number(line)+"'>"
+                        +escape_html(file)+"</a>";
+    }
+    else
+    {
+        file_html="<span style='color:cyan'>"+escape_html(file)+"</span>";
+    }
+
+    QString line_html;
+    if ( line > 0 )
+        line_html = QString(":%1:").arg(line);
+
+    text_output->insertHtml(
+        QString("<div>%1%2<span style='color:red'>%3</span>: %4<br/>%5</div>")
+            .arg(file_html)
+            .arg(line_html)
+            .arg(tr("Error"))
+            .arg(escape_html(msg))
+            .arg(trace.empty()?"":"Stack trace:")
+    );
     if ( !trace.empty() )
     {
         QString trace_ul = "<ul style='margin-top:0; padding-top:0'>";
@@ -182,7 +200,7 @@ void Dock_Script_Log::run_script(const QString &source, QString file_name,
 void Dock_Script_Log::on_button_run_clicked()
 {
     if ( plugin )
-        plugin->execute();
+        plugin->execute(target_window);
     else
     {
         local_run = true;
@@ -220,6 +238,7 @@ void Dock_Script_Log::new_file()
 {
     source_editor->clear();
     filename = "";
+    unload_plugin();
 
 }
 
@@ -330,4 +349,14 @@ void Dock_Script_Log::unload_plugin()
 {
     plugin = nullptr;
     button_reload->setEnabled(false);
+}
+
+void Dock_Script_Log::on_text_output_anchorClicked(const QUrl &arg1)
+{
+    if ( arg1.path() != filename && arg1.isLocalFile() )
+    {
+        open_script_file(arg1.path());
+        if ( !arg1.fragment().isEmpty() )
+            source_editor->error_line( arg1.fragment().toInt() );
+    }
 }

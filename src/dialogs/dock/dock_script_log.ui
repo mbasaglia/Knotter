@@ -201,13 +201,15 @@
            <item>
             <widget class="QToolButton" name="button_reload">
              <property name="toolTip">
-              <string>Reload Plugin</string>
+              <string>Deploy Plugin</string>
              </property>
              <property name="text">
-              <string>Reload &amp;Plugin</string>
+              <string>&amp;Deploy Plugin</string>
              </property>
              <property name="icon">
-              <iconset theme="run-build-install"/>
+              <iconset theme="run-build-install">
+               <normaloff/>
+              </iconset>
              </property>
             </widget>
            </item>
@@ -399,6 +401,9 @@
           </property>
           <property name="textInteractionFlags">
            <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+          </property>
+          <property name="openLinks">
+           <bool>false</bool>
           </property>
          </widget>
         </item>

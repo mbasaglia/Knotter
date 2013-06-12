@@ -43,6 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QScriptValueIterator>
 //#endif
 
+#include "main_window.hpp"
 
 
 
@@ -260,12 +261,21 @@ QIcon Plugin::icon() const
 
 }
 
-void Plugin::execute()
+void Plugin::execute(Main_Window *window)
 {
     foreach(QWidget* w, m_widgets)
         Resource_Manager::script_param(w->objectName(),w);
 
-    Resource_Manager::run_script(this);
+    if ( window )
+    {
+        Script_Window win(window);
+        Resource_Manager::script_param("window",&win);
+        Resource_Manager::script_param("document",win.document());
+        Resource_Manager::run_script(this);
+    }
+    else
+        Resource_Manager::run_script(this);
+
 }
 
 void Plugin::set_widget_parent(QWidget *parent)

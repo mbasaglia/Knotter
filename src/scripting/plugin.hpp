@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QScriptProgram>
 #include <QObject>
 
+class Main_Window;
 
 class Plugin : public QObject
 {
@@ -140,7 +141,7 @@ public slots:
     /**
      *  \brief Run the script
      */
-    void execute();
+    void execute(Main_Window* window);
 
 
     /**

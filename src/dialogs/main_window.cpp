@@ -841,11 +841,11 @@ void Main_Window::execute_plugin()
         Plugin* p = a->data().value<Plugin*>();
         if ( p )
         {
-            Script_Document doc(view);
+            /*Script_Document doc(view);
             Script_Window win(this);
             Resource_Manager::script_param("document",&doc);
-            Resource_Manager::script_param("window",&win);
-            p->execute();
+            Resource_Manager::script_param("window",&win);*/
+            p->execute(this);
         }
     }
 }

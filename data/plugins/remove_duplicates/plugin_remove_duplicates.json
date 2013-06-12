@@ -1,0 +1,8 @@
+{
+	"author" : "Mattia Basaglia",
+	"description" : "Merge overlapping nodes.",
+	"license" : "GPLv3+",
+	"name" : "Remove Duplicates",
+	"script" : "remove_duplicates.js",
+	"type" : "script",
+}
