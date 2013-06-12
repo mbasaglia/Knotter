@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "path_builder.hpp"
 #include "edge.hpp"
 #include "traversal_info.hpp"
+#include <QMetaType>
 
 class Edge_Style
 {
@@ -69,6 +70,8 @@ public:
     virtual QIcon icon() const = 0;
 
 };
+
+Q_DECLARE_METATYPE(Edge_Style*)
 
 class Edge_Normal : public Edge_Style
 {

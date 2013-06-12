@@ -29,6 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ui_cusp_style_dialog.h"
 
+/**
+ * @brief Dialog shown by the context menu to edit the node style
+ */
 class Cusp_Style_Dialog : public QDialog, private Ui::Cusp_Style_Dialog
 {
     Q_OBJECT

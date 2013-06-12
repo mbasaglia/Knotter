@@ -186,6 +186,10 @@ public:
      *  \brief List of currenty selected nodes on the view
     */
     QList<Node*> selected_nodes() const;
+    /**
+     *  \brief List of currenty selected edges on the view
+    */
+    QList<Edge *> selected_edges() const;
 
 
     /**
@@ -353,6 +357,7 @@ public slots:
     void set_selection_cusp_angle(double v);
     void set_selection_cusp_distance(double v);
     void set_selection_cusp_shape(Cusp_Shape* v);
+    void set_selection_edge_type(Edge_Style* v);
     void set_selection_enabled_styles(Node_Style::Enabled_Styles v);
 
     // misc
@@ -376,7 +381,7 @@ signals:
      */
     void zoomed(double percent);
 
-    void selection_changed(QList<Node*>);
+    void selection_changed(QList<Node*>,QList<Edge*>);
 
     void mose_position_changed(QPointF);
 

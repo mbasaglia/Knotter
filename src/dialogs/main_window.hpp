@@ -168,7 +168,7 @@ private slots:
     /**
      *  \brief Update selected style dialog
      */
-    void udate_selection(QList<Node*> nodes);
+    void update_selection(QList<Node*> nodes, QList<Edge*> edges);
 
     /**
      * \brief Save design to file

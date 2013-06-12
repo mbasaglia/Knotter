@@ -40,6 +40,10 @@ Cusp_Style_Widget::Cusp_Style_Widget(QWidget *parent) :
         combo_cusp_shape->addItem(cs->icon(),cs->name(),
                                   QVariant::fromValue(cs) );
 
+    combo_edge_type->clear();
+    foreach(Edge_Style* et, Resource_Manager::edge_styles())
+        combo_edge_type->addItem(et->icon(),et->name(),QVariant::fromValue(et));
+
     connect(spin_handle_length,SIGNAL(valueChanged(double)),
             SIGNAL(handle_length_changed(double)));
     connect(spin_crossing_gap,SIGNAL(valueChanged(double)),
@@ -149,6 +153,25 @@ Cusp_Shape *Cusp_Style_Widget::cusp_shape() const
     return cusp_shape(combo_cusp_shape->currentIndex());
 }
 
+void Cusp_Style_Widget::set_edge_type(Edge_Style *type)
+{
+
+    for(int i = 0; i < combo_edge_type->count(); i++ )
+    {
+        Edge_Style* cs = edge_type(i);
+        if ( cs == type )
+        {
+            combo_edge_type->setCurrentIndex(i);
+            break;
+        }
+    }
+}
+
+Edge_Style *Cusp_Style_Widget::edge_type()
+{
+    return edge_type(combo_edge_type->currentIndex());
+}
+
 void Cusp_Style_Widget::hide_checkboxes()
 {
     foreach(QCheckBox* cb, findChildren<QCheckBox*>())
@@ -158,9 +181,20 @@ void Cusp_Style_Widget::hide_checkboxes()
     }
 }
 
+void Cusp_Style_Widget::hide_edge_type()
+{
+    label_edge_type->hide();
+    combo_edge_type->hide();
+}
+
 Cusp_Shape *Cusp_Style_Widget::cusp_shape(int index) const
 {
     return combo_cusp_shape->itemData(index).value<Cusp_Shape*>();
+}
+
+Edge_Style *Cusp_Style_Widget::edge_type(int index) const
+{
+    return combo_edge_type->itemData(index).value<Edge_Style*>();
 }
 
 
@@ -183,6 +217,13 @@ void Cusp_Style_Widget::changeEvent(QEvent *e)
 void Cusp_Style_Widget::on_combo_cusp_shape_activated(int index)
 {
     emit cusp_shape_changed(cusp_shape(index));
+}
+
+
+void Cusp_Style_Widget::on_combo_edge_type_activated(int index)
+{
+
+    emit edget_type_changed(edge_type(index));
 }
 
 void Cusp_Style_Widget::checkbox_toggled(int style)
@@ -257,3 +298,4 @@ void Cusp_Style_Widget::reload_cusp_shapes()
     if ( new_shape != current_shape )
         emit cusp_shape_changed(new_shape);
 }
+

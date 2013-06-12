@@ -11,95 +11,8 @@
    </rect>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QCheckBox" name="check_handle_length">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QLabel" name="label">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Curve</string>
-     </property>
-     <property name="buddy">
-      <cstring>spin_handle_length</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2">
-    <widget class="QDoubleSpinBox" name="spin_handle_length">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="toolTip">
-      <string>Size of the curve control handles</string>
-     </property>
-     <property name="suffix">
-      <string>px</string>
-     </property>
-     <property name="maximum">
-      <double>8192.000000000000000</double>
-     </property>
-     <property name="value">
-      <double>24.000000000000000</double>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="0">
     <widget class="QCheckBox" name="check_crossing_gap"/>
-   </item>
-   <item row="1" column="1">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Gap</string>
-     </property>
-     <property name="buddy">
-      <cstring>spin_crossing_gap</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="2">
-    <widget class="QDoubleSpinBox" name="spin_crossing_gap">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="toolTip">
-      <string>Distance between the ends of a thread passing under another thread</string>
-     </property>
-     <property name="suffix">
-      <string>px</string>
-     </property>
-     <property name="maximum">
-      <double>8192.000000000000000</double>
-     </property>
-     <property name="value">
-      <double>10.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QCheckBox" name="check_cusp_angle"/>
-   </item>
-   <item row="2" column="1">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>Angle</string>
-     </property>
-     <property name="buddy">
-      <cstring>spin_cusp_angle</cstring>
-     </property>
-    </widget>
    </item>
    <item row="2" column="2">
     <widget class="QDoubleSpinBox" name="spin_cusp_angle">
@@ -123,16 +36,100 @@
      </property>
     </widget>
    </item>
+   <item row="2" column="1">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Angle</string>
+     </property>
+     <property name="buddy">
+      <cstring>spin_cusp_angle</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="label">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Curve</string>
+     </property>
+     <property name="buddy">
+      <cstring>spin_handle_length</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Gap</string>
+     </property>
+     <property name="buddy">
+      <cstring>spin_crossing_gap</cstring>
+     </property>
+    </widget>
+   </item>
    <item row="3" column="0">
     <widget class="QCheckBox" name="check_cusp_distance"/>
    </item>
-   <item row="3" column="1">
-    <widget class="QLabel" name="label_4">
+   <item row="4" column="2">
+    <widget class="QComboBox" name="combo_cusp_shape">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="toolTip">
+      <string>Shape style</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="QDoubleSpinBox" name="spin_handle_length">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="toolTip">
+      <string>Size of the curve control handles</string>
+     </property>
+     <property name="suffix">
+      <string>px</string>
+     </property>
+     <property name="maximum">
+      <double>8192.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>24.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QDoubleSpinBox" name="spin_crossing_gap">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="toolTip">
+      <string>Distance between the ends of a thread passing under another thread</string>
+     </property>
+     <property name="suffix">
+      <string>px</string>
+     </property>
+     <property name="maximum">
+      <double>8192.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>10.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLabel" name="label_5">
      <property name="text">
-      <string>Distance</string>
+      <string>Style</string>
      </property>
      <property name="buddy">
-      <cstring>spin_cusp_distance</cstring>
+      <cstring>combo_cusp_shape</cstring>
      </property>
     </widget>
    </item>
@@ -158,26 +155,39 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0">
-    <widget class="QCheckBox" name="check_cusp_shape"/>
+   <item row="2" column="0">
+    <widget class="QCheckBox" name="check_cusp_angle"/>
    </item>
-   <item row="4" column="1">
-    <widget class="QLabel" name="label_5">
+   <item row="3" column="1">
+    <widget class="QLabel" name="label_4">
      <property name="text">
-      <string>Style</string>
+      <string>Distance</string>
      </property>
      <property name="buddy">
-      <cstring>combo_cusp_shape</cstring>
+      <cstring>spin_cusp_distance</cstring>
      </property>
     </widget>
    </item>
-   <item row="4" column="2">
-    <widget class="QComboBox" name="combo_cusp_shape">
-     <property name="enabled">
-      <bool>false</bool>
+   <item row="4" column="0">
+    <widget class="QCheckBox" name="check_cusp_shape"/>
+   </item>
+   <item row="0" column="0">
+    <widget class="QCheckBox" name="check_handle_length">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
-     <property name="toolTip">
-      <string>Shape style</string>
+    </widget>
+   </item>
+   <item row="5" column="2">
+    <widget class="QComboBox" name="combo_edge_type"/>
+   </item>
+   <item row="5" column="0" colspan="2">
+    <widget class="QLabel" name="label_edge_type">
+     <property name="text">
+      <string>Edge Type</string>
      </property>
     </widget>
    </item>
@@ -193,11 +203,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>22</x>
-     <y>27</y>
+     <y>25</y>
     </hint>
     <hint type="destinationlabel">
      <x>154</x>
-     <y>32</y>
+     <y>27</y>
     </hint>
    </hints>
   </connection>
@@ -209,11 +219,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>22</x>
-     <y>57</y>
+     <y>50</y>
     </hint>
     <hint type="destinationlabel">
      <x>154</x>
-     <y>62</y>
+     <y>52</y>
     </hint>
    </hints>
   </connection>
@@ -225,11 +235,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>22</x>
-     <y>87</y>
+     <y>75</y>
     </hint>
     <hint type="destinationlabel">
      <x>154</x>
-     <y>92</y>
+     <y>77</y>
     </hint>
    </hints>
   </connection>
@@ -241,11 +251,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>22</x>
-     <y>117</y>
+     <y>100</y>
     </hint>
     <hint type="destinationlabel">
      <x>154</x>
-     <y>122</y>
+     <y>102</y>
     </hint>
    </hints>
   </connection>
@@ -257,11 +267,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>22</x>
-     <y>147</y>
+     <y>125</y>
     </hint>
     <hint type="destinationlabel">
      <x>154</x>
-     <y>151</y>
+     <y>127</y>
     </hint>
    </hints>
   </connection>

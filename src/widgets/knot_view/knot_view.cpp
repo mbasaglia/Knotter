@@ -297,6 +297,18 @@ void Knot_View::set_selection_cusp_shape(Cusp_Shape *v)
     push_command(new Node_Style_Cusp_Shape(nodes,before,after,this));
 }
 
+void Knot_View::set_selection_edge_type(Edge_Style *v)
+{
+    begin_macro(tr("Change Edge Type"));
+
+    foreach(Edge* e, selected_edges())
+    {
+        push_command(new Change_Edge_Style(e,e->style(),v,this));
+    }
+
+    end_macro();
+}
+
 void Knot_View::set_selection_enabled_styles(Node_Style::Enabled_Styles v)
 {
     QList<Node*> nodes = selected_nodes();
@@ -349,7 +361,7 @@ void Knot_View::update_selection()
         e->setSelected( e->vertex1()->isSelected() && e->vertex2()->isSelected() );
     }
 
-    emit selection_changed(node_mover.nodes());
+    emit selection_changed(node_mover.nodes(),selected_edges());
 }
 
 void Knot_View::set_display_graph(bool enable)
@@ -450,6 +462,18 @@ QList<Node *> Knot_View::selected_nodes() const
     foreach ( QGraphicsItem* it, scene()->selectedItems() )
     {
         Node* n = dynamic_cast<Node*>(it);
+        if(n)
+            nl.push_back(n);
+    }
+    return nl;
+}
+
+QList<Edge *> Knot_View::selected_edges() const
+{
+    QList<Edge*> nl;
+    foreach ( QGraphicsItem* it, scene()->selectedItems() )
+    {
+        Edge* n = dynamic_cast<Edge*>(it);
         if(n)
             nl.push_back(n);
     }
@@ -673,7 +697,7 @@ bool Knot_View::insert(const Graph &graph, QString macro_name)
 
     node_mover.set_nodes(graph.nodes());
     node_mover.initialize_movement( graph.nodes().front()->pos());
-    emit selection_changed(node_mover.nodes());
+    emit selection_changed(node_mover.nodes(),selected_edges());
 
     QPointF p =  mapToScene(mapFromGlobal(QCursor::pos()));
     node_mover.set_pos(p);

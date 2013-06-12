@@ -174,6 +174,7 @@ void Main_Window::init_docks()
     // Global style
     global_style = new Cusp_Style_Widget;
     global_style->hide_checkboxes();
+    global_style->hide_edge_type();
     QDockWidget* glob_style_widget = new QDockWidget;
     glob_style_widget->setWidget(global_style);
     glob_style_widget->setObjectName("global_style_dock");
@@ -254,7 +255,7 @@ void Main_Window::retranslate_docks()
     sel_style_widget->setWindowTitle(tr("Selection Style"));
 
     QDockWidget* glob_style_widget  = findChild<QDockWidget*>("global_style_dock");
-    glob_style_widget->setWindowTitle(tr("Knot Style"));
+    glob_style_widget->setWindowTitle(tr("Style"));
 
 }
 
@@ -379,8 +380,9 @@ void Main_Window::connect_view(Knot_View *v)
             v,SLOT(set_knot_cusp_shape(Cusp_Shape*)));
 
     // selection style
-    udate_selection(v->selected_nodes());
-    connect(v,SIGNAL(selection_changed(QList<Node*>)),SLOT(udate_selection(QList<Node*>)));
+    update_selection(v->selected_nodes(),v->selected_edges());
+    connect(v,SIGNAL(selection_changed(QList<Node*>,QList<Edge*>)),
+            SLOT(update_selection(QList<Node*>,QList<Edge*>)));
     connect(selection_style,SIGNAL(crossing_distance_changed(double)),
             v,SLOT(set_selection_crossing_distance(double)));
     connect(selection_style,SIGNAL(cusp_angle_changed(double)),
@@ -395,6 +397,8 @@ void Main_Window::connect_view(Knot_View *v)
             v,SLOT(set_selection_cusp_shape(Cusp_Shape*)));
     connect(selection_style,SIGNAL(enabled_styles_changed(Node_Style::Enabled_Styles)),
             v,SLOT(set_selection_enabled_styles(Node_Style::Enabled_Styles)));
+    connect(selection_style,SIGNAL(edget_type_changed(Edge_Style*)),
+            v,SLOT(set_selection_edge_type(Edge_Style*)));
 
     //export
     dialog_export_image.set_view(v);
@@ -458,7 +462,7 @@ void Main_Window::disconnect_view(Knot_View *v)
         global_style->disconnect(v);
 
         selection_style->disconnect(v);
-        udate_selection(QList<Node*>());
+        update_selection(QList<Node*>(),QList<Edge*>());
     }
 }
 
@@ -507,18 +511,24 @@ void Main_Window::apply_zoom()
     view->set_zoom(zoomer->value()/100);
 }
 
-void Main_Window::udate_selection(QList<Node *> nodes)
+void Main_Window::update_selection(QList<Node *> nodes, QList<Edge*> edges)
 {
-    selection_style->setEnabled(!nodes.isEmpty());
+    selection_style->setEnabled(!nodes.isEmpty() || !edges.isEmpty() );
 
     selection_style->blockSignals(true);
     Node_Style ns = view->graph().default_node_style();
-    selection_style->set_style(ns);
+    selection_style->set_style(ns); // set defaults
     if ( nodes.isEmpty() )
         ns.enabled_style = Node_Style::NOTHING;
     else
         ns = nodes[0]->style();
-    selection_style->set_style(ns);
+    selection_style->set_style(ns); // set actual style
+
+    if ( edges.isEmpty() )
+        selection_style->set_edge_type(Resource_Manager::default_edge_style());
+    else
+        selection_style->set_edge_type(edges[0]->style());
+
     selection_style->blockSignals(false);
 }
 
