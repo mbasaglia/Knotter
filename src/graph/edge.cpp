@@ -34,6 +34,7 @@ Edge::Edge(Node *v1, Node *v2, Edge_Style* e_style) :
 {
     attach();
     setZValue(1);
+    setFlag(QGraphicsItem::ItemIsSelectable);
 }
 
 QRectF Edge::boundingRect() const
@@ -71,6 +72,17 @@ Edge_Style *Edge::style() const
 
 void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
+    if ( isSelected() )
+    {
+        QPen pen(Qt::darkGray,2);
+        pen.setCosmetic(true);
+        painter->setPen(pen);
+        QLineF nv = to_line().normalVector();
+        nv.setLength((Node::external_radius()-1)/painter->matrix().m11());
+        painter->drawLine(to_line().translated(nv.dx(),nv.dy()));
+        painter->drawLine(to_line().translated(-nv.dx(),-nv.dy()));
+    }
+
     if ( visible && highlighted )
         m_style->paint_highlighted(painter,*this);
     else if ( visible || highlighted )

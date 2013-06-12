@@ -343,6 +343,12 @@ void Knot_View::flip_vert_selection()
 void Knot_View::update_selection()
 {
     node_mover.set_nodes(selected_nodes());
+
+    foreach(Edge* e, m_graph.edges())
+    {
+        e->setSelected( e->vertex1()->isSelected() && e->vertex2()->isSelected() );
+    }
+
     emit selection_changed(node_mover.nodes());
 }
 
@@ -617,9 +623,8 @@ bool Knot_View::mouse_select(QList<Node *> nodes, bool modifier, bool clear)
     foreach(Node* itm, nodes)
         itm->setSelected(select);
 
-    node_mover.set_nodes(selected_nodes());
 
-    emit selection_changed(node_mover.nodes());
+    update_selection();
 
     return select;
 }
