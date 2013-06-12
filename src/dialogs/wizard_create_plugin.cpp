@@ -144,7 +144,6 @@ void Wizard_Create_Plugin::on_pushButton_clicked()
 {
     int row = table_data->rowCount();
     table_data->insertRow(row);
-    table_data->setItem(row,0,new QTableWidgetItem("data"));
 }
 
 void Wizard_Create_Plugin::on_pushButton_2_clicked()

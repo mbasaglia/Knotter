@@ -89,7 +89,7 @@
            <item>
             <widget class="QPushButton" name="check_enable">
              <property name="text">
-              <string>Enable</string>
+              <string>Disabled</string>
              </property>
              <property name="checkable">
               <bool>true</bool>

@@ -163,6 +163,9 @@
            </item>
            <item>
             <widget class="QToolButton" name="button_external">
+             <property name="toolTip">
+              <string>External Editor</string>
+             </property>
              <property name="text">
               <string>E&amp;xternal Editor</string>
              </property>
@@ -454,7 +457,7 @@
    <slot>undo()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>176</x>
+     <x>158</x>
      <y>50</y>
     </hint>
     <hint type="destinationlabel">
@@ -470,7 +473,7 @@
    <slot>redo()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>208</x>
+     <x>187</x>
      <y>50</y>
     </hint>
     <hint type="destinationlabel">
@@ -490,7 +493,7 @@
      <y>85</y>
     </hint>
     <hint type="destinationlabel">
-     <x>176</x>
+     <x>158</x>
      <y>50</y>
     </hint>
    </hints>
@@ -506,8 +509,24 @@
      <y>84</y>
     </hint>
     <hint type="destinationlabel">
-     <x>208</x>
+     <x>187</x>
      <y>50</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button_run_2</sender>
+   <signal>clicked()</signal>
+   <receiver>button_run</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>285</x>
+     <y>92</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>76</x>
+     <y>138</y>
     </hint>
    </hints>
   </connection>
