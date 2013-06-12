@@ -165,7 +165,6 @@ public:
      * \param file          File name
      * \param keep_style    If true, use the file style as local style for each node
      * \param offset        Offset from the original location
-     * \param scale         Scale the entire loaded file
      *
      * \note Calls to this function will result in the plain addition of nodes and edges,
      *       this will be visible as single command unless wrapped by document macros.
@@ -181,8 +180,14 @@ public:
      */
     Q_INVOKABLE void clear();
 
-    /// \todo documentation
-    Q_INVOKABLE void merge_with(QObject* other);
+    /**
+     * \brief Merge nodes and edges from other graph
+     *
+     *  The contents of the other graph are copied to this graph.
+     *
+     *  \param other The other Script_Graph object.
+     */
+    Q_INVOKABLE void append(QObject* other);
 
 signals:
     void node_added(Script_Node* n);

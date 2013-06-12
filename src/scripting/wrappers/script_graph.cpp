@@ -339,7 +339,7 @@ void Script_Graph::clear()
     }
 }
 
-void Script_Graph::merge_with(QObject *other)
+void Script_Graph::append(QObject *other)
 {
     Script_Graph* other_graph = qobject_cast<Script_Graph*>(other);
     if ( other_graph )

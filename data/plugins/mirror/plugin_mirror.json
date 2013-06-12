@@ -5,5 +5,6 @@
 	"name" : "Mirror",
 	"script" : "mirror.js",
 	"type" : "script",
-	"ui" : "dialog.ui"
+	"ui" : "dialog.ui",
+	"icon": "object-flip-horizontal"
 }

@@ -518,7 +518,6 @@ void Resource_Manager::run_script(Plugin *source)
 
     script_context();
 
-    /// \todo documentation
     QScriptValue plugin = singleton.m_script_engine->newObject();
     foreach(QString k, source->metadata().keys())
     {

@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDesktopServices>
 
 Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
-    QDockWidget(mw), target_window(mw), local_run(false), plugin(false)
+    QDockWidget(mw), target_window(mw), local_run(false), plugin(nullptr)
 {
     setupUi(this);
     connect(Resource_Manager::pointer,SIGNAL(script_error(QString,int,QString,QStringList)),

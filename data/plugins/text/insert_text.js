@@ -47,7 +47,7 @@ if ( text.length > 0 )
 					x = graph_char.nodes[j].x;
 			x += gap;
 			
-			graph.merge_with(graph_char);
+			graph.append(graph_char);
 		}
 		else
 			x += space;

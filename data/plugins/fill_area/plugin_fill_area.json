@@ -6,5 +6,6 @@
     "license"       : "GPLv3+",
     "script"        : "fill_area.js",
     "ui"            : "dialog.ui",
+    "icon"          : "fill-color",
 }
 
