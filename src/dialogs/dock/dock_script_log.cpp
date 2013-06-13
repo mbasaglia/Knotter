@@ -41,6 +41,8 @@ Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
             SLOT(script_error(QString,int,QString,QStringList)));
     connect(Resource_Manager::pointer,SIGNAL(script_output(QString)),
             SLOT(script_output(QString)));
+    connect(Resource_Manager::pointer,SIGNAL(plugins_changed()),
+            SLOT(unload_plugin()));
 
     connect(button_stop,SIGNAL(clicked()),Resource_Manager::pointer,SLOT(abort_script()));
     connect(Resource_Manager::pointer,SIGNAL(running_script(bool)),

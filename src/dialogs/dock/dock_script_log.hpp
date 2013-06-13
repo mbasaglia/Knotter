@@ -58,9 +58,9 @@ private:
 
     void save_file(QString file_name);
 
-    void unload_plugin();
 
 private slots:
+    void unload_plugin();
     void script_error(QString file,int line,QString msg, QStringList trace = QStringList());
     void script_output(QString text);
     void run_script(const QString &source, QString file_name, int line_number, bool echo);

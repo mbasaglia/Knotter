@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>193</width>
-    <height>127</height>
+    <height>253</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,13 +21,10 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="0" colspan="2">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Polygon</string>
      </property>
     </widget>
    </item>
@@ -53,6 +50,16 @@
      </property>
     </widget>
    </item>
+   <item row="4" column="0" colspan="2">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0" colspan="2">
     <widget class="QCheckBox" name="delete_original">
      <property name="text">
@@ -60,13 +67,6 @@
      </property>
      <property name="checked">
       <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Polygon</string>
      </property>
     </widget>
    </item>
@@ -87,6 +87,67 @@
      </item>
     </widget>
    </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QGroupBox" name="outline">
+     <property name="title">
+      <string>Outline</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Thikness</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QDoubleSpinBox" name="thickness">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="suffix">
+         <string>px</string>
+        </property>
+        <property name="minimum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1024.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>32.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QRadioButton" name="outset">
+        <property name="text">
+         <string>Outset</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QRadioButton" name="inset">
+        <property name="text">
+         <string>Inset</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>
@@ -98,8 +159,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>215</x>
-     <y>95</y>
+     <x>183</x>
+     <y>243</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -114,11 +175,11 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>215</x>
-     <y>95</y>
+     <x>183</x>
+     <y>243</y>
     </hint>
     <hint type="destinationlabel">
-     <x>224</x>
+     <x>192</x>
      <y>138</y>
     </hint>
    </hints>
