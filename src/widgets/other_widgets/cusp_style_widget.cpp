@@ -183,7 +183,7 @@ void Cusp_Style_Widget::hide_checkboxes()
 
 void Cusp_Style_Widget::hide_edge_type()
 {
-    delete label_edge_type;
+    layout()->removeWidget(label_edge_type);
     combo_edge_type->hide();
 }
 
