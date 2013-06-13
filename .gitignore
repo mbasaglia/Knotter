@@ -5,4 +5,4 @@ src/generated/*.cpp
 src/generated/*.h
 *.pro.user
 *.desktop
-*.1.gz
+
