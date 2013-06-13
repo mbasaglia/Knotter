@@ -54,12 +54,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/about_dialog.ui" line="115"/>
         <source>Plugins</source>
-        <translation type="unfinished">Přídavné moduly</translation>
+        <translation>Přídavné moduly</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/about_dialog.ui" line="121"/>
         <source>Plugins are loaded from the following directories:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pří&amp;davné moduly jsou nahrány z následujících adresářů</translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -149,7 +149,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/knot_view/commands.cpp" line="221"/>
         <source>Change Border</source>
-        <translation type="unfinished"></translation>
+        <translation>Změnit ohraničení</translation>
     </message>
 </context>
 <context>
@@ -470,37 +470,37 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="86"/>
         <source>Plugin data</source>
-        <translation type="unfinished"></translation>
+        <translation>Data přídavného modulu</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="103"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Název</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="108"/>
         <source>Value</source>
-        <translation type="unfinished">Hodnota</translation>
+        <translation>Hodnota</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="122"/>
         <source>No plugin installed</source>
-        <translation type="unfinished"></translation>
+        <translation>Žádný přídavný modul není nainstalován</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="134"/>
         <source>&amp;Reload Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nahrát přídavné moduly znovu</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="149"/>
         <source>&amp;Install...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Instalovat...</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="161"/>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>Reload Plugins</source>
@@ -644,7 +644,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="311"/>
         <source>Rendering</source>
-        <translation type="unfinished"></translation>
+        <translation>Kreslení</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="317"/>
@@ -679,27 +679,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="346"/>
         <source>Antialiasing</source>
-        <translation type="unfinished">Vyhlazování okrajů</translation>
+        <translation>Vyhlazování</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="356"/>
         <source>Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Skript</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="362"/>
         <source>Timeout</source>
-        <translation type="unfinished"></translation>
+        <translation>Překročení času</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="369"/>
         <source>Maximum execution time for scripts in seconds, 0 means no limit.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nejvyšší hodnota času provedení skriptů v sekundách, 0 znamená bez omezení.</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="372"/>
         <source>s</source>
-        <translation type="unfinished"></translation>
+        <translation>s</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.cpp" line="65"/>
@@ -752,12 +752,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/knot_view/commands.cpp" line="280"/>
         <source>Display Borders</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit okraje</translation>
     </message>
     <message>
         <location filename="../../src/widgets/knot_view/commands.cpp" line="282"/>
         <source>Hide Borders</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrýt okraje</translation>
     </message>
 </context>
 <context>
@@ -823,12 +823,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dock/dock_borders.ui" line="19"/>
         <source>Border</source>
-        <translation type="unfinished"></translation>
+        <translation>Okraj</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_borders.ui" line="26"/>
         <source>Enable Borders</source>
-        <translation type="unfinished"></translation>
+        <translation>Povolit okraje</translation>
     </message>
 </context>
 <context>
@@ -952,12 +952,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="19"/>
         <source>Script Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriptovací konzole</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.cpp" line="77"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba</translation>
     </message>
 </context>
 <context>
@@ -975,7 +975,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/export_image_dialog.ui" line="32"/>
         <source>Include background image</source>
-        <translation type="unfinished"></translation>
+        <translation>Zahrnout obrázek pozadí</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/export_image_dialog.ui" line="45"/>
@@ -1005,12 +1005,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/export_image_dialog.ui" line="97"/>
         <source>Compression</source>
-        <translation type="unfinished"></translation>
+        <translation>Komprese</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/export_image_dialog.ui" line="106"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;On some formats, higher compression means less quality.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;U některých formátů vyšší komprese znamená menší jakost.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Quality</source>
@@ -1450,7 +1450,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/main_window.ui" line="354"/>
         <source>Print Pre&amp;view...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ná&amp;hled tisku...</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/main_window.ui" line="501"/>
@@ -1530,7 +1530,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/main_window.ui" line="754"/>
         <source>&amp;Toggle Edges</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Přepnout okraje</translation>
     </message>
     <message>
         <source>Insert &amp;Polygon...</source>
@@ -1693,7 +1693,7 @@ Chcete uložit změny?</translation>
     <message>
         <location filename="../../src/dialogs/main_window.cpp" line="722"/>
         <source>Knot files (*.knot);;XML files (*.xml);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Soubory Knot (*.knot);;Soubory XML (*.xml);;Všechny soubory (*)</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/main_window.cpp" line="723"/>
@@ -1790,7 +1790,7 @@ Chcete uložit změny?</translation>
     <message>
         <location filename="../../src/widgets/knot_view/commands.hpp" line="534"/>
         <source>Change Selection Crossing Gap</source>
-        <translation type="unfinished"></translation>
+        <translation>Změnit mezeru křížení ve výběru</translation>
     </message>
 </context>
 <context>
@@ -1798,7 +1798,7 @@ Chcete uložit změny?</translation>
     <message>
         <location filename="../../src/widgets/knot_view/commands.hpp" line="517"/>
         <source>Change Selection Cusp Angle</source>
-        <translation type="unfinished"></translation>
+        <translation>Změnit úhel pro špičku ve výběru</translation>
     </message>
 </context>
 <context>
@@ -1806,7 +1806,7 @@ Chcete uložit změny?</translation>
     <message>
         <location filename="../../src/widgets/knot_view/commands.hpp" line="500"/>
         <source>Change Selection Cusp Distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Změnit vzdálenost špičky ve výběru</translation>
     </message>
 </context>
 <context>
@@ -1814,7 +1814,7 @@ Chcete uložit změny?</translation>
     <message>
         <location filename="../../src/widgets/knot_view/commands.cpp" line="603"/>
         <source>Change Selection Cusp Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Změnit tvar špičky ve výběru</translation>
     </message>
 </context>
 <context>
@@ -1830,7 +1830,7 @@ Chcete uložit změny?</translation>
     <message>
         <location filename="../../src/widgets/knot_view/commands.hpp" line="483"/>
         <source>Change Selection Curve Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Změnit ovládání křivky ve výběru</translation>
     </message>
 </context>
 <context>
@@ -1920,22 +1920,22 @@ Chcete uložit změny?</translation>
     <message>
         <location filename="../../src/resource_manager.cpp" line="514"/>
         <source>%1:%2:Error: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1:%2: Chyba: %3</translation>
     </message>
     <message>
         <location filename="../../src/scripting/plugin.cpp" line="187"/>
         <source>Unknown plugin type</source>
-        <translation type="unfinished"></translation>
+        <translation>Neznámý druh přídavného modulu</translation>
     </message>
     <message>
         <location filename="../../src/scripting/plugin.cpp" line="194"/>
         <source>Missing script file</source>
-        <translation type="unfinished"></translation>
+        <translation>Chybí soubor se skriptem</translation>
     </message>
     <message>
         <location filename="../../src/scripting/plugin.cpp" line="206"/>
         <source>Error while opening script file %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při otevírání souboru se skriptem %1</translation>
     </message>
 </context>
 <context>
@@ -1987,7 +1987,7 @@ Chcete uložit změny?</translation>
     <message>
         <location filename="../../src/resource_manager.cpp" line="545"/>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>Neznámá chyba</translation>
     </message>
     <message>
         <location filename="../../src/resource_manager.cpp" line="548"/>
@@ -1997,7 +1997,7 @@ Chcete uložit změny?</translation>
     <message>
         <location filename="../../src/resource_manager.cpp" line="561"/>
         <source>Script timeout</source>
-        <translation type="unfinished"></translation>
+        <translation>Překročení času skriptu</translation>
     </message>
 </context>
 <context>
@@ -2005,7 +2005,7 @@ Chcete uložit změny?</translation>
     <message>
         <location filename="../../src/scripting/wrappers/script_document.cpp" line="64"/>
         <source>Script Insert</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložení skriptu</translation>
     </message>
 </context>
 <context>
@@ -2013,7 +2013,7 @@ Chcete uložit změny?</translation>
     <message>
         <location filename="../../src/scripting/wrappers/script_window.cpp" line="215"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrušit</translation>
     </message>
 </context>
 <context>
