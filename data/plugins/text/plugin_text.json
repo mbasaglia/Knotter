@@ -1,9 +1,11 @@
 {
     "name"          : "Insert Text",
-    "description"   : "Insert some text made up with knot letters.",
+    "description"   : "Inserts knotted text from a string.",
     "category"      : "Insert",
     "author"        : "Mattia Basaglia",
     "license"       : "GPLv3+",
     "script"        : "insert_text.js",
-    "icon"          : "insert-text"
+    "icon"          : "insert-text",
+    "version"       : 1,
+    "requires"      : "0.9.4"
 }

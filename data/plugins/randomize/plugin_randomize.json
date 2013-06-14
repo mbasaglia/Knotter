@@ -1,0 +1,10 @@
+{
+	"author" : "Mattia Basaglia",
+	"description" : "Randomize the position of the selected nodes by moving them within a certain distance from their starting position.",
+	"license" : "GPLv3+",
+	"name" : "Randomize",
+	"script" : "randomize.js",
+	"type" : "script",
+	"version" : "1",
+	"requires" : "0.9.4"
+}

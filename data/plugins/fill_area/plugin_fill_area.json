@@ -1,7 +1,7 @@
 {
     "name"          : "Fill Area",
     "version"       : "2.0",
-    "description"   : "Fill the convex hull for the selected nodes.",
+    "description"   : "Detects an area or an outline of the active selection and fills it with a dense graph.",
     "author"        : "Mattia Basaglia",
     "license"       : "GPLv3+",
     "script"        : "fill_area.js",

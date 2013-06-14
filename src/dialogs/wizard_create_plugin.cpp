@@ -39,6 +39,15 @@ Wizard_Create_Plugin::Wizard_Create_Plugin(QWidget *parent) :
     combo_type->addItem(tr("Script"),Plugin::Script);
     combo_type->addItem(tr("Cusp"),Plugin::Cusp);
 
+
+    int row = table_data->rowCount();
+    table_data->insertRow(row);
+    table_data->setItem(row,0,new QTableWidgetItem("requires"));
+    table_data->setItem(row,1,new QTableWidgetItem(Resource_Manager::trimmed_program_version()));
+    table_data->insertRow(row+1);
+    table_data->setItem(row+1,0,new QTableWidgetItem("version"));
+    table_data->setItem(row+1,1,new QTableWidgetItem("1"));
+
 }
 
 void Wizard_Create_Plugin::changeEvent(QEvent *e)

@@ -5,4 +5,6 @@ src/generated/*.cpp
 src/generated/*.h
 *.pro.user
 *.desktop
-
+*.tar.gz
+data/plugins/*.sh
+package/*

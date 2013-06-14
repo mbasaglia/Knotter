@@ -1,10 +1,12 @@
 {
 	"author" : "Mattia Basaglia",
-	"description" : "Mirror the selectetion.",
+	"description" : "Copies and mirrors the selection over the X axis, the Y axis or both.",
 	"license" : "GPLv3+",
 	"name" : "Mirror",
 	"script" : "mirror.js",
 	"type" : "script",
 	"ui" : "dialog.ui",
-	"icon": "object-flip-horizontal"
+	"icon": "object-flip-horizontal",
+	"version" : 1,
+	"requires" : "0.9.4"
 }

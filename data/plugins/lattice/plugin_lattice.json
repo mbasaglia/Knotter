@@ -1,12 +1,13 @@
 {
     "name"          : "Insert lattice",
     "version"       : "1.0",
-    "description"   : "Insert a parametric grid to use as foundation for a new knot",
+    "description"   : "Insert a square grid of connected nodes. Useful as a starting point for large knots.",
     "author"        : "Mattia Basaglia",
     "license"       : "GPLv3+",
     "category"      : "Insert",
     "icon"          : "grid-square",
     "script"        : "lattice.js",
-    "ui"            : "dialog.ui"
+    "ui"            : "dialog.ui",
+    "requires"      : "0.9.3"
 }
      

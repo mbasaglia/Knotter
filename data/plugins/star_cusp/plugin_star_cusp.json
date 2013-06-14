@@ -5,6 +5,7 @@
     "description"   : "A cusp that looks like a star",
     "license"       : "GPLv3+",
     "type"          : "cusp",
-    "script"        : "star_cusp.js" 
+    "script"        : "star_cusp.js",
+    "requires"      : "0.9.2"
 }
     
