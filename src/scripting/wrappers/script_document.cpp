@@ -35,6 +35,8 @@ Script_Document::Script_Document(Knot_View *wrapped, QObject *parent) :
     connect(&m_graph,SIGNAL(node_added(Script_Node*)),SLOT(add_node(Script_Node*)));
     connect(&m_graph,SIGNAL(node_moved(Script_Node*,Script_Point)),
             SLOT(move_node(Script_Node*,Script_Point)));
+    connect(&m_graph,SIGNAL(edge_type_changed(Script_Edge*,Edge_Style*)),
+            SLOT(change_edge_type(Script_Edge*,Edge_Style*)));
     connect(&m_graph,SIGNAL(node_removed(Script_Node*)),SLOT(remove_node(Script_Node*)));
     connect(&m_graph,SIGNAL(edge_removed(Script_Edge*)),SLOT(remove_edge(Script_Edge*)));
 }
@@ -99,6 +101,12 @@ void Script_Document::move_node(Script_Node *n, Script_Point p)
 {
     Node* real = n->wrapped_node();
     wrapped->push_command(new Move_Node(real,real->pos(),p,wrapped));
+}
+
+void Script_Document::change_edge_type(Script_Edge *edge, Edge_Style *type)
+{
+    Edge* real = edge->wrapped_edge();
+    wrapped->push_command(new Change_Edge_Style(real,real->style(),type,wrapped));
 }
 
 void Script_Document::begin_macro(QString message)

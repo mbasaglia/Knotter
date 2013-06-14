@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "script_edge.hpp"
 #include "script_graph.hpp"
+#include "resource_manager.hpp"
 
 Script_Edge::Script_Edge(Edge *wrapped, Script_Graph *graph):
     QObject(graph), wrapped(wrapped), graph(graph)
@@ -65,4 +66,16 @@ Script_Point Script_Edge::midpoint()
 QString Script_Edge::toString() const
 {
     return "[edge]";
+}
+
+QString Script_Edge::type()
+{
+    return wrapped->style()->machine_name();
+}
+
+void Script_Edge::set_type(QString type_name)
+{
+    Edge_Style* t = Resource_Manager::edge_style_from_machine_name(type_name);
+    emit type_changed(t);
+    wrapped->set_style(t);
 }

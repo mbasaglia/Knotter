@@ -46,6 +46,7 @@ Script_Point Script_Node::pos() const
 void Script_Node::set_pos(Script_Point p)
 {
     emit moved(p);
+    m_wrapped_node->setPos(p);
 }
 
 void Script_Node::set_x(double x)

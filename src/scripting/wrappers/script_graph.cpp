@@ -90,8 +90,6 @@ QObject *Script_Graph::add_node(double x, double y)
     return add_node(Script_Point(x,y));
 }
 
-
-
 void Script_Graph::remove_node(QObject*n)
 {
     Script_Node * node = qobject_cast<Script_Node*>(n);
@@ -114,13 +112,14 @@ void Script_Graph::remove_edge(QObject *n)
     }
 }
 
-
 Script_Edge* Script_Graph::add_edge(Edge *e)
 {
 
     Script_Edge* se =  new Script_Edge(e,this);
     edge_map[e] = se;
     QObject::connect(e,SIGNAL(destroyed()), SLOT(edge_removed()));
+    QObject::connect(se,SIGNAL(type_changed(Edge_Style*)),
+                     SLOT(emit_edge_type_changed(Edge_Style*)));
     m_edges.push_back(se);
     return se;
 }
@@ -136,12 +135,9 @@ QObject *Script_Graph::connect(QObject *on1, QObject *on2)
     if ( n1->has_edge_to(n2) )
         return n1->edge_to(n2);
 
-    Script_Edge * e = new Script_Edge( new Edge(n1->wrapped_node(),
-                                                n2->wrapped_node(),
-                                                Resource_Manager::default_edge_style()),
-                                       this);
+    Script_Edge * e = add_edge( new Edge(n1->wrapped_node(), n2->wrapped_node(),
+                                        Resource_Manager::default_edge_style()) );
     emit edge_added(e);
-    m_edges.push_back(e);
     return e;
 }
 
@@ -197,6 +193,13 @@ void Script_Graph::emit_node_moved(Script_Point pos)
     Script_Node *n = qobject_cast<Script_Node*>(sender());
     if ( n )
         emit node_moved(n,pos);
+}
+
+void Script_Graph::emit_edge_type_changed(Edge_Style* style)
+{
+    Script_Edge *e = qobject_cast<Script_Edge*>(sender());
+    if ( e )
+        emit edge_type_changed(e,style);
 }
 
 void Script_Graph::node_removed()

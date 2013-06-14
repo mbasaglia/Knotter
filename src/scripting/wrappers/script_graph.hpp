@@ -195,9 +195,11 @@ signals:
     void edge_added(Script_Edge* e);
     void edge_removed(Script_Edge* e);
     void node_moved(Script_Node* n, Script_Point pos);
+    void edge_type_changed(Script_Edge* edge, Edge_Style* type);
 
 private slots:
     void emit_node_moved(Script_Point pos);
+    void emit_edge_type_changed(Edge_Style* style);
     void node_removed();
     void edge_removed();
 
