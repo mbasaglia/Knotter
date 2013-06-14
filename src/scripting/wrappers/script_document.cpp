@@ -87,12 +87,12 @@ void Script_Document::remove_node(Script_Node *n)
 
 void Script_Document::remove_edge(Script_Edge *e)
 {
-    wrapped->remove_edge(m_graph.internal_edge(e));
+    wrapped->remove_edge(e->wrapped_edge());
 }
 
 void Script_Document::add_edge(Script_Edge *e)
 {
-    wrapped->add_edge(e->vertex1()->wrapped_node(), e->vertex2()->wrapped_node() );
+    wrapped->push_command(new Create_Edge(e->wrapped_edge(),wrapped));
 }
 
 void Script_Document::move_node(Script_Node *n, Script_Point p)

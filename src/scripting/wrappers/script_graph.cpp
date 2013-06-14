@@ -63,10 +63,7 @@ Graph *Script_Graph::create_graph() const
     foreach ( Script_Node* n, nodes() )
         g->add_node(n->wrapped_node());
     foreach ( Script_Edge* e, edges() )
-        g->add_edge(new Edge(e->vertex1()->wrapped_node(),
-                             e->vertex2()->wrapped_node(),
-                             Resource_Manager::default_edge_style()
-                             ));
+        g->add_edge(e->wrapped_edge());
     return g;
 }
 
@@ -121,8 +118,7 @@ void Script_Graph::remove_edge(QObject *n)
 Script_Edge* Script_Graph::add_edge(Edge *e)
 {
 
-    Script_Edge* se =  new Script_Edge(node_map[e->vertex1()],
-                                       node_map[e->vertex2()],this);
+    Script_Edge* se =  new Script_Edge(e,this);
     edge_map[e] = se;
     QObject::connect(e,SIGNAL(destroyed()), SLOT(edge_removed()));
     m_edges.push_back(se);
@@ -140,7 +136,10 @@ QObject *Script_Graph::connect(QObject *on1, QObject *on2)
     if ( n1->has_edge_to(n2) )
         return n1->edge_to(n2);
 
-    Script_Edge * e = new Script_Edge(n1,n2,this);
+    Script_Edge * e = new Script_Edge( new Edge(n1->wrapped_node(),
+                                                n2->wrapped_node(),
+                                                Resource_Manager::default_edge_style()),
+                                       this);
     emit edge_added(e);
     m_edges.push_back(e);
     return e;
@@ -180,12 +179,12 @@ Script_Edge *Script_Graph::script_edge(Edge *e)
         return add_edge(e);
 }
 
-Edge *Script_Graph::internal_edge(Script_Edge *edge)
+Script_Node *Script_Graph::script_node(Node *n)
 {
-    foreach(Edge* e, edge_map.keys())
-        if ( edge_map[e] == edge )
-            return e;
-    return nullptr;
+    if ( node_map.contains(n) )
+        return node_map[n];
+    else
+        return add_node(n);
 }
 
 QString Script_Graph::toString() const
@@ -277,7 +276,7 @@ void graph_from_script(const QScriptValue &obj, Script_Graph &graph)
     {
         Script_Edge *e = qobject_cast<Script_Edge*>(o);
         if ( e )
-            graph.connect(e->vertex1(),e->vertex2());
+            graph.add_edge(e->wrapped_edge());
     }
 }
 
@@ -355,14 +354,8 @@ void Script_Graph::append(QObject *other)
 
         foreach(Script_Edge* e, other_graph->m_edges )
         {
-            Edge* ie = other_graph->internal_edge(e);
-            if ( ie )
-            {
-                Script_Edge* own_edge = add_edge(ie);
-                emit edge_added(own_edge);
-            }
-            else
-                connect(other_nodes[e->vertex1()],other_nodes[e->vertex2()]);
+            Script_Edge* own_edge = add_edge(e->wrapped_edge());
+            emit edge_added(own_edge);
         }
         //other_graph->m_edges.clear();
     }

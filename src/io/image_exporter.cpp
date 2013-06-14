@@ -52,6 +52,7 @@ void export_svg(QIODevice &file, const Graph& graph, bool draw_graph, bool draw_
 
     if ( draw_graph )
         graph.paint_graph(&painter);
+
     graph.const_paint(&painter);
 
     painter.end();

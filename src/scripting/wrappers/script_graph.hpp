@@ -152,11 +152,11 @@ public:
      * \brief Get wrapper script edge for given edge
      */
     Script_Edge* script_edge(Edge*);
-
     /**
-     * \brief Get wrapped edge for given script edge
+     *
+     * \brief Get wrapper script node for given node
      */
-    Edge* internal_edge(Script_Edge* edge);
+    Script_Node* script_node(Node*);
 
     Q_INVOKABLE QString toString() const;
 

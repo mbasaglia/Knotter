@@ -31,6 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "script_node.hpp"
 #include "script_line.hpp"
+#include "edge.hpp"
+
 
 /**
  *  \brief Wrapper to Edge
@@ -43,25 +45,24 @@ class Script_Edge : public QObject
     Q_PROPERTY(QObject* vertex2 READ vertex2)
     Q_PROPERTY(Script_Line line READ line)
     Q_PROPERTY(Script_Point midpoint READ midpoint)
+    //Q_PROPERTY(QString type READ type WRITE set_type)
 
-    Script_Node* v1;
-    Script_Node* v2;
-
+    Edge* wrapped;
+    Script_Graph* graph;
 
 public:
-    explicit Script_Edge(Script_Node* v1, Script_Node* v2, QObject *parent = 0);
+    explicit Script_Edge(Edge* wrapped, Script_Graph* graph );
 
-    Q_INVOKABLE bool is_vertex ( const QObject* node ) const
-    {
-        return node == v1 || node == v2;
-    }
+    Q_INVOKABLE bool is_vertex ( const QObject* node ) const;
 
     Q_INVOKABLE QObject* other ( QObject* node);
 
-    Script_Node* vertex1() { return v1; }
-    Script_Node* vertex2() { return v2; }
-    Script_Line line() { return Script_Line(v1->pos(),v2->pos()); }
-    Script_Point midpoint() { return (v1->pos()+v2->pos())/2; }
+    Script_Node* vertex1() const;
+    Script_Node* vertex2() const;
+    Script_Line line();
+    Script_Point midpoint();
+
+    Edge* wrapped_edge() const { return wrapped; }
 
     Q_INVOKABLE QString toString() const;
 };

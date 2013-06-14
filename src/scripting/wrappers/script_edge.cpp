@@ -25,15 +25,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "script_edge.hpp"
+#include "script_graph.hpp"
 
-Script_Edge::Script_Edge(Script_Node *v1, Script_Node *v2, QObject *parent) :
-    QObject(parent), v1(v1), v2(v2)
+Script_Edge::Script_Edge(Edge *wrapped, Script_Graph *graph):
+    QObject(graph), wrapped(wrapped), graph(graph)
 {
+}
+
+bool Script_Edge::is_vertex(const QObject *node) const
+{
+    return  vertex1() == node || vertex2() == node ;
 }
 
 QObject *Script_Edge::other(QObject *node)
 {
-    return node == v1 ? v2 : v1;
+    return node == vertex1() ? vertex2() : vertex1();
+}
+
+Script_Node *Script_Edge::vertex1() const
+{
+    return graph->script_node(wrapped->vertex1());
+}
+
+Script_Node *Script_Edge::vertex2() const
+{
+    return graph->script_node(wrapped->vertex2());
+}
+
+Script_Line Script_Edge::line()
+{
+    return wrapped->to_line();
+}
+
+Script_Point Script_Edge::midpoint()
+{
+    return wrapped->midpoint();
 }
 
 QString Script_Edge::toString() const

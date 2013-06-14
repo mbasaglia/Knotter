@@ -77,6 +77,10 @@ public:
     /// Get version as string
     static QString program_version();
 
+
+    /// Get version as string (without _devel identifier)
+    static QString trimmed_program_version();
+
     /// Check if has at least given version number
     static bool has_least_version(int maj, int min);
 

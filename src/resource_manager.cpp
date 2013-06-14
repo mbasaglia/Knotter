@@ -52,6 +52,14 @@ QString Resource_Manager::program_version()
     return QString(VERSION);
 }
 
+QString Resource_Manager::trimmed_program_version()
+{
+    static const QRegExp version_re("^[0-9]+\\.[0-9]+\\.[0-9]+");
+    QString version_str = program_version();
+    version_re.indexIn(version_str);
+    return version_str.left(version_re.matchedLength());
+}
+
 bool Resource_Manager::has_least_version(int maj, int min)
 {
     return check_least_version ( program_version(), maj, min );
