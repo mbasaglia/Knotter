@@ -1140,19 +1140,24 @@ void Main_Window::on_action_Merge_triggered()
 
     QPointF pos;
     QList<Node*> outlinks;
+    QList<Edge_Style*> outlinks_styles;
 
     for(QList<Node*>::iterator i = nodes.begin(); i != nodes.end(); i++)
     {
         pos += (*i)->pos() / nodes.size();
         foreach(Edge* e, (*i)->connections() )
             if ( !nodes.contains(e->other(*i)) && !outlinks.contains(e->other(*i)) )
+            {
                 outlinks.push_back(e->other(*i));
+                outlinks_styles.push_back(e->style());
+            }
         view->remove_node(*i);
     }
 
     Node* newn = view->add_node(pos);
-    foreach(Node* o, outlinks)
-        view->add_edge(newn,o);
+    for(int i = 0; i < outlinks.size(); i++ )
+        view->push_command(new Create_Edge(
+                        new Edge(newn,outlinks[i],outlinks_styles[i]),view));
 
     view->end_macro();
 }

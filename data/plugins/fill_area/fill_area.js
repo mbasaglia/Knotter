@@ -217,6 +217,8 @@ else if ( Dialog.exec() )
             }
         }
 
+			progress_dialog.value = max_steps;
+
         document.end_macro();
     }
 }
