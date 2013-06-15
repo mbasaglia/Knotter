@@ -1,8 +1,9 @@
 
-var radius = window.dialog.get_number("Radius","",0,0);
+var radius = window.dialog.get_number("Radius","",0.1,0);
 
 if ( !isNaN(radius) )
 {
+	document.begin_macro("Remove Duplicates");
 	for ( var i = 0; i < document.graph.nodes.length; i++ )
 	{
 		var base = document.graph.nodes[i];
@@ -20,4 +21,5 @@ if ( !isNaN(radius) )
 			}
 		}
 	}
+	document.end_macro();
 }

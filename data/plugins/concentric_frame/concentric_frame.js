@@ -14,7 +14,7 @@ else if ( Dialog.exec() )
     var previous = current;
     var loop_nodes = [];
 
-    for ( var i = 0; i <= nodes.length; i++ )
+    for ( var i = 0; i < nodes.length; i++ )
     {
         loop_nodes.push(current);
 
