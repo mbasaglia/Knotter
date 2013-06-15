@@ -88,6 +88,7 @@ void Script_Highlighter::highlightBlock(const QString &text)
     int i = 0;
     while ( i < text.size() )
     {
+        int old_i = i;
         QChar c = text[i];
         if ( state == 1 || ( c == '/' && i+1 < text.size() && text[i+1] == '*' ) )
         {
@@ -162,6 +163,9 @@ void Script_Highlighter::highlightBlock(const QString &text)
             setFormat(i,1,m_style["operator"]);
             i++;
         }
+
+        if ( i <= old_i )
+            i = old_i+1;
     }
 
     setCurrentBlockState(state);

@@ -895,6 +895,7 @@ void Main_Window::on_actionSelect_Connected_triggered()
             }
         }
     }
+    view->update_selection();
 }
 
 void Main_Window::on_action_Display_Graph_toggled(bool checked)

@@ -1,0 +1,11 @@
+{
+	"author" : "Mattia Basaglia",
+	"description" : "Creates a frame from the area enclosing the selection.",
+	"license" : "GPLv3+",
+	"name" : "Concentric Frame",
+	"requires" : "0.9.4",
+	"script" : "concentric_frame.js",
+	"type" : "script",
+	"version" : "1",
+	"ui" : "dialog.ui"
+}

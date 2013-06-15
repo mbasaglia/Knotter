@@ -130,9 +130,13 @@ void Wizard_Create_Plugin::accept()
     data["script"] = plugin_id()+".js";
 
     json << "{\n";
-    foreach ( QString k, data.keys() )
+    for ( int i = 0; i < data.size(); i++ )
     {
-        json << "\t" << json_escaped(k) << " : " << json_escaped(data[k]) << ",\n";
+        json << "\t" << json_escaped(data.keys()[i])
+             << " : " << json_escaped(data.values()[i]);
+        if ( i < data.size()-1 )
+            json << ",";
+        json << "\n";
     }
     json << "}";
 
