@@ -1,0 +1,11 @@
+{
+	"description" : "Insert an Archimedean spiral",
+	"name" : "Spiral",
+	"requires" : "0.9.4",
+	"script" : "spiral.js",
+	"type" : "script",
+	"version" : "1",
+	"category" : "Insert",
+	"ui" : "dialog.ui",
+	"icon" : "draw-spiral"
+}

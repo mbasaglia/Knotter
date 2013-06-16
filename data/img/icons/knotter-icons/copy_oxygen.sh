@@ -29,6 +29,7 @@ icons=' accessories-text-editor
         draw-eraser
         draw-line
         draw-polygon
+        draw-spiral
         edit-clear
         edit-clear-list
         edit-clear-history
