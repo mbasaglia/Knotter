@@ -56,7 +56,7 @@ Script_Highlighter::Script_Highlighter(QObject *parent) :
                 "while" <<
                 "with";
 
-    keywords << "true" << "false" << "null";
+    keywords << "true" << "false" << "null" << "undefined";
 }
 
 void Script_Highlighter::style_from_file(QString file)
