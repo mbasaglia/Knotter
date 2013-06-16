@@ -58,3 +58,19 @@ QString Script_Knotter::toString() const
 {
     return Resource_Manager::program_name()+" "+Resource_Manager::program_version();
 }
+
+QStringList Script_Knotter::edge_types()
+{
+    QStringList l;
+    foreach(Cusp_Shape* s, Resource_Manager::edge_styles())
+        l << s->machine_name();
+    return l;
+}
+
+QStringList Script_Knotter::cusp_shapes()
+{
+    QStringList l;
+    foreach(Edge_Style* s, Resource_Manager::cusp_shapes())
+        l << s->machine_name();
+    return l;
+}

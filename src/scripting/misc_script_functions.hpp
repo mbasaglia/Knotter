@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef MISC_SCRIPT_FUNCTIONS_HPP
 #define MISC_SCRIPT_FUNCTIONS_HPP
 #include <QScriptContext>
+#include <QStringList>
 
 /**
  * @brief Override qt script print function
@@ -43,6 +44,8 @@ class Script_Knotter : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString version READ version)
+    Q_PROPERTY(QStringList edge_types READ edge_types)
+    Q_PROPERTY(QStringList cusp_shapes READ cusp_shapes)
 
 public:
 
@@ -52,6 +55,9 @@ public:
     Q_INVOKABLE bool has_version(int maj, int min);
 
     Q_INVOKABLE QString toString() const;
+
+    QStringList edge_types();
+    QStringList cusp_shapes();
 };
 
 #endif // MISC_SCRIPT_FUNCTIONS_HPP
