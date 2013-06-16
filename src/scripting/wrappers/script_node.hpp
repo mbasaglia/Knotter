@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QObject>
 #include "node.hpp"
 #include "script_point.hpp"
+#include "script_node_style.hpp"
 
 class Script_Edge;
 class Script_Graph;
@@ -48,10 +49,13 @@ class Script_Node : public QObject
 
     Q_PROPERTY(QObjectList edges READ edges_object)
 
+    Q_PROPERTY(QObject* style READ style)
+
     /// \todo : Style
 
     Node* m_wrapped_node;
     Script_Graph* graph;
+    Script_Node_Style m_style;
 
 public:
     Script_Node(Node* n, Script_Graph* graph);
@@ -84,8 +88,14 @@ public:
 
     Q_INVOKABLE bool compare(Script_Node *n) const;
 
+    Script_Node_Style* style() { return &m_style; }
+
 signals:
     void moved(Script_Point p);
+    void style_changed(Node* node, Node_Style before, Node_Style after );
+
+private slots:
+    void emit_style_changed(Node_Style before, Node_Style after );
 
 };
 

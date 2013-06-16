@@ -74,6 +74,8 @@ Script_Node *Script_Graph::add_node(Node *n)
     node_map[n] = sn;
     QObject::connect(sn,SIGNAL(moved(Script_Point)), SLOT(emit_node_moved(Script_Point)));
     QObject::connect(n,SIGNAL(destroyed()), SLOT(node_removed()));
+    QObject::connect(sn,SIGNAL(style_changed(Node*,Node_Style,Node_Style)),
+                     SIGNAL(node_style_changed(Node*,Node_Style,Node_Style)));
     m_nodes.push_back(sn);
     return sn;
 }
