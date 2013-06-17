@@ -39,7 +39,7 @@ class Node : public Graph_Item
     Q_OBJECT
 
 private:
-    QList<Edge*> edges;
+    QList<Edge*> m_edges;
     static const int radius = 5; ///< \todo maybe not const and settings
     /// Extended radius
     static const int xradius = 6; ///< \todo maybe not const and settings
@@ -77,7 +77,7 @@ public:
 
     //double distance_squared(QPointF to) const;
 
-    QList<Edge*> connections() const { return edges; }
+    QList<Edge*> edges() const { return m_edges; }
 
     int type() const override { return UserType + 0x01; }
     void paint(QPainter *painter, const QStyleOptionGraphicsItem* =0, QWidget* =0) override;

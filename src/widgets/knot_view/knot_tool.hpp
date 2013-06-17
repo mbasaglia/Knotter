@@ -138,11 +138,6 @@ protected:
     Edge* edge_at(QPointF pos)  const ;
 
     /**
-     *  \see Knot_View::mouse_select()
-     */
-    bool select_nodes(QList<Node*> nodes, bool modifier, bool clear);
-
-    /**
      * \brief Initialize movement of the selected nodes
      */
     void initialize_movement(QPointF pivot);

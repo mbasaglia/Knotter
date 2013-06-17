@@ -78,7 +78,7 @@ void Script_Node::set_selected(bool b)
 QList<Script_Edge*> Script_Node::edges() const
 {
     QList<Script_Edge*> l;
-    foreach(Edge* e, m_wrapped_node->connections())
+    foreach(Edge* e, m_wrapped_node->edges())
         l << graph->script_edge(e);
     return l;
 }
@@ -86,7 +86,7 @@ QList<Script_Edge*> Script_Node::edges() const
 QObjectList Script_Node::edges_object() const
 {
     QObjectList l;
-    foreach(Edge* e, m_wrapped_node->connections())
+    foreach(Edge* e, m_wrapped_node->edges())
         l << graph->script_edge(e);
     return l;
 }

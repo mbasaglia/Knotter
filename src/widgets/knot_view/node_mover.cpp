@@ -66,7 +66,7 @@ void Node_Mover::set_nodes(QList<Node *> nodes)
     m_initial_box.setBottomRight(max);
 
     if ( ! m_nodes.empty() )
-        initialize_movement(m_nodes[0]->pos());
+        initialize_movement(pivot);//m_nodes[0]->pos());
     update_transform_handles();
 }
 

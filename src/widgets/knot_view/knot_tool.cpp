@@ -60,11 +60,6 @@ Edge *Knot_Tool::edge_at(QPointF pos) const
     return view->edge_at(pos);
 }
 
-bool Knot_Tool::select_nodes(QList<Node *> nodes, bool modifier, bool clear)
-{
-    return view->mouse_select(nodes,modifier,clear);
-}
-
 void Knot_Tool::initialize_movement(QPointF pivot)
 {
     view->set_mouse_mode ( view->mouse_mode | Knot_View::MOVE_NODES );
@@ -75,44 +70,50 @@ void Knot_Tool::initialize_movement(QPointF pivot)
 bool Select_Tool::press(const Mouse_Event &event)
 {
 
-    Node* n = node_at(event.mouse_pos);
-    Edge* e = edge_at(event.mouse_pos);
 
     if ( event.event->button() == Qt::LeftButton )
     {
-        QPointF pivot;
-        bool has_selected = false;
-        if ( n )
+        Node* node = node_at(event.mouse_pos);
+        Edge* edge = edge_at(event.mouse_pos);
+        bool modifier = event.event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier);
+
+        if ( !node && !edge)
+            return false;
+
+        if ( node )
         {
-            pivot = n->pos();
-            has_selected = select_nodes(QList<Node*>() << n,
-                        event.event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier),
-                        false );
-        }
-        else if ( e )
-        {
-            if ( e->isSelected() )
+            if ( modifier )
             {
-                has_selected = false;
-                e->setSelected(false);
+                node->setSelected(!node->isSelected());
             }
             else
             {
-                has_selected = true;
-                e->setSelected(true);
-                pivot = e->midpoint();
-                e->vertex1()->setSelected(true);
-                e->vertex1()->setSelected(true);
+                if ( !node->isSelected() )
+                    view->scene()->clearSelection();
+                node->setSelected(true);
+                initialize_movement(node->pos());
             }
-            view->update_selection(false);
+        }
+        else if ( edge )
+        {
+
+            if ( modifier )
+            {
+                edge->setSelected(!edge->isSelected());
+            }
+            else
+            {
+                if ( !edge->isSelected() )
+                    view->scene()->clearSelection();
+                edge->setSelected(true);
+                edge->vertex1()->setSelected(true);
+                edge->vertex2()->setSelected(true);
+                initialize_movement(edge->midpoint());
+            }
 
         }
-        else
-            return false;
 
-        // move only if has selected, not if has deselected
-        if ( has_selected )
-            initialize_movement(pivot);
+        view->update_selection(false);
 
         return true;
     }

@@ -403,16 +403,17 @@ protected:
     /**
      *  \brief select nodes
      *
-     *  If modifier is false, nodes will be the only selected node
-     *  If modifier is true and some of nodes are not selected
-     *  nodes and the previous selection will be both selected.
-     *  If modifier is true and all nodes are selected, they will be unselected.
-     *
-     *  If clear is true and modifier is false the current selection is cleared
+     *  \param nodes        List of nodes to be added/removed from the selection
+     *  \param modifier
+     *      If \c modifier is false, \c nodes will be the only selected nodes.
+     *      If \c modifier is true and some of \c nodes are not selected,
+     *      \c nodes and the previous selection will be both selected.
+     *      If \c modifier is true and all \c nodes are selected, they will be unselected.
+     *  \param select_edges whether the edges bewteen the selected nodes should be selected
      *
      *  \return Whether nodes have been selected or deselected
     */
-    bool mouse_select(QList<Node*> nodes, bool modifier, bool clear = true);
+    void rubberband_select(QList<Node*> nodes, bool modifier);
     
 private slots:
     /// Expand scene rect when scrollbars reach margin

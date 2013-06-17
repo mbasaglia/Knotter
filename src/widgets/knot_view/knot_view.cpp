@@ -427,7 +427,7 @@ void Knot_View::remove_edge(Edge *edge)
 void Knot_View::remove_node(Node *node)
 {
     begin_macro(tr("Remove Node"));
-    foreach(Edge* e, node->connections())
+    foreach(Edge* e, node->edges())
     {
         if ( e->scene() == scene() )
             remove_edge(e);
@@ -613,52 +613,42 @@ void Knot_View::expand_scene_rect(int margin)
     }
 }
 
-bool Knot_View::mouse_select(QList<Node *> nodes, bool modifier, bool clear)
+void Knot_View::rubberband_select(QList<Node *> nodes, bool modifier)
 {
     bool select = true;
 
-    if ( !modifier && clear )
+    // if there is no modifier the selection needs to be replaced
+    if ( !modifier )
     {
-            scene()->clearSelection();
+        scene()->clearSelection();
     }
+    // modifier, nodes may be selected or deselected
     else
     {
+        // if all nodes are already selected, deselect them
         select = false;
         foreach(Node* itm, nodes)
         {
+            // found one that is not selected, therefore need to select (ie not deselect)
             if ( !itm->isSelected() )
             {
                 select = true;
                 break;
             }
         }
-
-
-        if ( !modifier && !clear )
-        {
-            if ( select )
-            {
-                scene()->clearSelection();
-            }
-            select = true;
-        }
     }
 
-
+    // select or deselect
     foreach(Node* itm, nodes)
     {
-        foreach(Edge* e, itm->connections())
-        {
-            if ( e->other(itm)->isSelected() == select )
-                e->setSelected(select);
-        }
-
         itm->setSelected(select);
+        foreach(Edge* e, itm->edges())
+        {
+            e->setSelected( select && e->other(itm)->isSelected() );
+        }
     }
 
     update_selection(false);
-
-    return select;
 }
 
 Node *Knot_View::node_at(QPointF p) const
@@ -885,7 +875,7 @@ void Knot_View::mouseReleaseEvent(QMouseEvent *event)
         // select from rubberband;
         scene()->removeItem(&rubberband);
 
-        mouse_select(nodes_in_rubberband(),
+        rubberband_select(nodes_in_rubberband(),
                      event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier) );
 
         mouse_mode &= ~RUBBERBAND;

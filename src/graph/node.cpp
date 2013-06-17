@@ -39,18 +39,18 @@ Node::Node(QPointF pos)
 
 void Node::add_edge(Edge *e)
 {
-    if ( !edges.contains(e) )
-        edges.append(e);
+    if ( !m_edges.contains(e) )
+        m_edges.append(e);
 }
 
 void Node::remove_edge(Edge *e)
 {
-    edges.removeOne(e);
+    m_edges.removeOne(e);
 }
 
 bool Node::has_edge_to(const Node *n) const
 {
-    foreach(Edge* e, edges)
+    foreach(Edge* e, m_edges)
     {
         if ( e->other(this) == n )
             return true;
@@ -60,7 +60,7 @@ bool Node::has_edge_to(const Node *n) const
 
 Edge *Node::edge_to(const Node *n) const
 {
-    foreach(Edge* e, edges)
+    foreach(Edge* e, m_edges)
     {
         if ( e->other(this) == n )
             return e;

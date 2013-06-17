@@ -231,7 +231,7 @@ Graph Graph::sub_graph(QList<Node *> nodes) const
     {
         graph.m_nodes.push_back(n);
 
-        foreach ( Edge* e, n->connections() )
+        foreach ( Edge* e, n->edges() )
         {
             if ( nodes.contains(e->other(n)) &&
                  !graph.m_edges.contains(e) )
@@ -348,7 +348,7 @@ Traversal_Info Graph::traverse(Edge *edge, Edge::Handle handle,
     ti.out.edge = ti.in.edge;
     // select the next edge as the one with the smallest angle difference
     // angle direction is based on handside
-    foreach(Edge* i, ti.node->connections() )
+    foreach(Edge* i, ti.node->edges() )
     {
         if ( i != ti.in.edge )
         {

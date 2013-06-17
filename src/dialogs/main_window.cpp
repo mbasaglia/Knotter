@@ -885,7 +885,7 @@ void Main_Window::on_actionSelect_Connected_triggered()
     {
         Node* n1 = nodes.front();
         nodes.pop_front();
-        foreach(Edge* e, n1->connections() )
+        foreach(Edge* e, n1->edges() )
         {
             Node* n2 = e->other(n1);
             if ( !n2->isSelected() )
@@ -1146,7 +1146,7 @@ void Main_Window::on_action_Merge_triggered()
     for(QList<Node*>::iterator i = nodes.begin(); i != nodes.end(); i++)
     {
         pos += (*i)->pos() / nodes.size();
-        foreach(Edge* e, (*i)->connections() )
+        foreach(Edge* e, (*i)->edges() )
             if ( !nodes.contains(e->other(*i)) && !outlinks.contains(e->other(*i)) )
             {
                 outlinks.push_back(e->other(*i));
