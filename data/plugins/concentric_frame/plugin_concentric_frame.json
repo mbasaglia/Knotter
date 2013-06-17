@@ -7,5 +7,6 @@
 	"script" : "concentric_frame.js",
 	"type" : "script",
 	"version" : "1",
-	"ui" : "dialog.ui"
+    "ui" : "dialog.ui",
+    "icon" : "frame-icon.svg"
 }

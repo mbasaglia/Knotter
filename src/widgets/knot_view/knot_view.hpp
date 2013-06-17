@@ -367,8 +367,9 @@ public slots:
 
     /**
      *  \brief updates the transform handles
+     *  \param select_edges whether the edges bewteen the selected nodes should be selected
      */
-    void update_selection();
+    void update_selection(bool select_edges=true);
 
 signals:
 

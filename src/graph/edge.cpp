@@ -74,11 +74,11 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     if ( isSelected() )
     {
-        QPen pen(Qt::darkGray,2);
+        QPen pen(QColor(128,128,128,128),2);
         pen.setCosmetic(true);
         painter->setPen(pen);
         QLineF nv = to_line().normalVector();
-        nv.setLength((Node::external_radius()-1)/painter->matrix().m11());
+        nv.setLength((Node::external_radius()-2)/painter->matrix().m11());
         painter->drawLine(to_line().translated(nv.dx(),nv.dy()));
         painter->drawLine(to_line().translated(-nv.dx(),-nv.dy()));
     }

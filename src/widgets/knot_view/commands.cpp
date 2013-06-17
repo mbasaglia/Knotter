@@ -54,7 +54,7 @@ void Knot_Command::update_knot() const
     if ( qobject_cast<Knot_Macro*>(parent()) == nullptr )
     {
         view->update_knot();
-        view->update_selection();
+        view->update_selection(false);
     }
 }
 

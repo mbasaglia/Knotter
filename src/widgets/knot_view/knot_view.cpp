@@ -352,14 +352,15 @@ void Knot_View::flip_vert_selection()
     end_macro();
 }
 
-void Knot_View::update_selection()
+void Knot_View::update_selection(bool select_edges)
 {
     node_mover.set_nodes(selected_nodes());
 
-    foreach(Edge* e, m_graph.edges())
-    {
-        e->setSelected( e->vertex1()->isSelected() && e->vertex2()->isSelected() );
-    }
+    if ( select_edges )
+        foreach(Edge* e, m_graph.edges())
+        {
+            e->setSelected( e->vertex1()->isSelected() && e->vertex2()->isSelected() );
+        }
 
     emit selection_changed(node_mover.nodes(),selected_edges());
 }
@@ -645,10 +646,17 @@ bool Knot_View::mouse_select(QList<Node *> nodes, bool modifier, bool clear)
 
 
     foreach(Node* itm, nodes)
+    {
+        foreach(Edge* e, itm->connections())
+        {
+            if ( e->other(itm)->isSelected() == select )
+                e->setSelected(select);
+        }
+
         itm->setSelected(select);
+    }
 
-
-    update_selection();
+    update_selection(false);
 
     return select;
 }

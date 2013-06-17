@@ -80,28 +80,38 @@ bool Select_Tool::press(const Mouse_Event &event)
 
     if ( event.event->button() == Qt::LeftButton )
     {
-        QList<Node*> nodes;
         QPointF pivot;
+        bool has_selected = false;
         if ( n )
         {
             pivot = n->pos();
-            nodes.push_back(n);
+            has_selected = select_nodes(QList<Node*>() << n,
+                        event.event->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier),
+                        false );
         }
         else if ( e )
         {
-            pivot = e->midpoint();
-            nodes.push_back(e->vertex1());
-            nodes.push_back(e->vertex2());
+            if ( e->isSelected() )
+            {
+                has_selected = false;
+                e->setSelected(false);
+            }
+            else
+            {
+                has_selected = true;
+                e->setSelected(true);
+                pivot = e->midpoint();
+                e->vertex1()->setSelected(true);
+                e->vertex1()->setSelected(true);
+            }
+            view->update_selection(false);
 
         }
         else
             return false;
 
-        bool b = select_nodes(nodes,event.event->modifiers() &
-                              (Qt::ControlModifier|Qt::ShiftModifier),
-                              false );
         // move only if has selected, not if has deselected
-        if ( b )
+        if ( has_selected )
             initialize_movement(pivot);
 
         return true;
