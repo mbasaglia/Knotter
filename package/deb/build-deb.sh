@@ -94,7 +94,7 @@ Conflicts:
 Description: $DESC
  $trunc_desc
 _CONTROL_
-
+chmod 755 $control_file
 
 
 #create menu/desktop files
