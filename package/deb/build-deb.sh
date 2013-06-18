@@ -181,6 +181,7 @@ find $package/usr/ -type f -exec chmod 644 {} \;
 find $package/usr/ -type f -path '*/bin/*' -exec chmod 755 {} \;
 find $package/$dataroot -type f -name '*.sh' -delete
 find $package/$dataroot -type f -name 'COPYING' -delete
+chmod 755 $package/DEBIAN
 
 echo "Creating package"
 
