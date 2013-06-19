@@ -194,8 +194,7 @@ void Main_Window::init_docks()
 
     // Background
     dock_background = new Dock_Background(this);
-    dock_background->hide();
-    dock_background->setFloating(true);
+    addDockWidget(Qt::RightDockWidgetArea,dock_background);
 
     // Grid config
     dock_grid = new Dock_Grid(this);
@@ -210,6 +209,7 @@ void Main_Window::init_docks()
     undo_dock->setWindowIcon(QIcon::fromTheme("view-history"));
     addDockWidget(Qt::RightDockWidgetArea,undo_dock);
     tabifyDockWidget(undo_dock,dock_grid);
+    tabifyDockWidget(dock_grid,dock_background);
     undo_dock->raise();
 
 

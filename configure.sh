@@ -297,7 +297,10 @@ fi
 
 if [ -n "$CXXFLAGS" ]
 then
-    qmake_opts="$qmake_opts QMAKE_CXXFLAGS+=$CXXFLAGS"
+    for opt in $CXXFLAGS
+    do
+        qmake_opts="$qmake_opts QMAKE_CXXFLAGS+=$opt"
+    done
     echo "Extra compiler flags: $CXXFLAGS"
 fi
 
