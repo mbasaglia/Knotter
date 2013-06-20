@@ -114,6 +114,9 @@ cat >$menu_file <<_MENU_
 ?package($TARGET): needs="X11" section="Applications/Graphics" title="$TITLE" command="$bindir/$TARGET" longtitle="$DESC" icon="$menu_icon"
 _MENU_
 
+# Make install does not do the right thing with Qt4
+cp $package.desktop $package/usr/share/applications/$package.desktop
+
 
 postinst_file=$package/DEBIAN/postinst
 cat >$postinst_file <<_POST_INST_
