@@ -43,6 +43,7 @@ class Resource_Manager : public QObject
 {
     Q_OBJECT
 
+private:
     Resource_Manager(){}
     Resource_Manager(const Resource_Manager&);
     Resource_Manager& operator= (const Resource_Manager&);
@@ -307,5 +308,6 @@ signals:
     void running_script(bool);
 
 };
+
 
 #endif // RESOURCE_MANAGER_HPP

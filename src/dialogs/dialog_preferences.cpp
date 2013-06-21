@@ -55,6 +55,10 @@ Dialog_Preferences::Dialog_Preferences(QMainWindow *parent) :
 
     check_files_close->setChecked(Resource_Manager::settings.check_unsaved_files());
 
+    check_clipboard_png->setChecked(Resource_Manager::settings.clipboard_feature(Settings::PNG));
+    check_clipboard_svg->setChecked(Resource_Manager::settings.clipboard_feature(Settings::SVG));
+    check_clipboard_xml->setChecked(Resource_Manager::settings.clipboard_feature(Settings::XML));
+
     stackedWidget->setCurrentIndex(0);
     tableWidget->setCurrentCell(0,0);
 }
@@ -104,6 +108,10 @@ void Dialog_Preferences::set_preferences()
     Resource_Manager::settings.set_save_knot_style(check_save_style->isChecked());
 
     Resource_Manager::settings.set_check_unsaved_files(check_files_close->isChecked());
+
+    Resource_Manager::settings.set_clipboard_feature(Settings::PNG,check_clipboard_png->isChecked());
+    Resource_Manager::settings.set_clipboard_feature(Settings::SVG,check_clipboard_svg->isChecked());
+    Resource_Manager::settings.set_clipboard_feature(Settings::XML,check_clipboard_xml->isChecked());
 
 }
 

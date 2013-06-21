@@ -41,6 +41,16 @@ class Settings : public QObject
 public:
     //typedef Qt::ToolButtonStyle ToolButtonStyle;
 
+public:
+    enum Clipboard_Enum
+    {
+        KNOT = 1,
+        SVG  = 2,
+        PNG  = 4,
+        XML  = 8
+    };
+    Q_DECLARE_FLAGS(Clipboard,Clipboard_Enum)
+
 private:
     QString                     config_version; ///< Version of the loaded settings file
 
@@ -72,6 +82,8 @@ private:
 
     bool                        m_save_knot_style;
     QString                     saved_knot_style_xml;
+
+    Clipboard                   m_clipboard;
 
 
 private:
@@ -142,6 +154,10 @@ public:
     void set_knot_style(const Graph& graph);
     void get_knot_style(Graph& graph) const;
 
+    Clipboard clipboard() const { return m_clipboard; }
+    bool clipboard_feature(Clipboard_Enum feature) const { return ( m_clipboard & feature ); }
+    void set_clipboard_feature(Clipboard_Enum feature, bool enable);
+
 public slots:
     void clear_config();
 
@@ -157,5 +173,7 @@ signals:
 };
 
 Q_DECLARE_METATYPE(Qt::ToolButtonStyle)
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(Settings::Clipboard)
 
 #endif // SETTINGS_HPP

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>538</width>
-    <height>387</height>
+    <height>396</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -148,25 +148,8 @@
        </property>
        <widget class="QWidget" name="page_general">
         <layout class="QGridLayout" name="gridLayout_2">
-         <item row="0" column="2">
-          <widget class="QPushButton" name="button_clear_recent">
-           <property name="toolTip">
-            <string>Clear recent file history</string>
-           </property>
-           <property name="text">
-            <string>Clear</string>
-           </property>
-           <property name="icon">
-            <iconset theme="edit-clear-history"/>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>Language</string>
-           </property>
-          </widget>
+         <item row="1" column="1" colspan="2">
+          <widget class="QComboBox" name="combo_language"/>
          </item>
          <item row="3" column="0" colspan="3">
           <widget class="QGroupBox" name="group_save">
@@ -223,30 +206,34 @@
                <string>Clear  saved configuration</string>
               </property>
               <property name="icon">
-               <iconset theme="edit-clear"/>
+               <iconset theme="edit-clear">
+                <normaloff/>
+               </iconset>
               </property>
              </widget>
             </item>
            </layout>
           </widget>
          </item>
-         <item row="1" column="1" colspan="2">
-          <widget class="QComboBox" name="combo_language"/>
-         </item>
-         <item row="0" column="1">
-          <widget class="QSpinBox" name="spin_recent_files">
-           <property name="maximum">
-            <number>128</number>
+         <item row="0" column="2">
+          <widget class="QPushButton" name="button_clear_recent">
+           <property name="toolTip">
+            <string>Clear recent file history</string>
            </property>
-           <property name="value">
-            <number>5</number>
+           <property name="text">
+            <string>Clear</string>
+           </property>
+           <property name="icon">
+            <iconset theme="edit-clear-history">
+             <normaloff/>
+            </iconset>
            </property>
           </widget>
          </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_4">
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>Max Recent Files</string>
+            <string>Language</string>
            </property>
           </widget>
          </item>
@@ -258,6 +245,90 @@
            <property name="checked">
             <bool>true</bool>
            </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Max Recent Files</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QSpinBox" name="spin_recent_files">
+           <property name="maximum">
+            <number>128</number>
+           </property>
+           <property name="value">
+            <number>5</number>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0" colspan="3">
+          <widget class="QGroupBox" name="groupBox_4">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="title">
+            <string>Clipboard</string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QCheckBox" name="check_clipboard_knot">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>Knot</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="check_clipboard_xml">
+              <property name="text">
+               <string>XML</string>
+              </property>
+              <property name="icon">
+               <iconset theme="text-xml"/>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="check_clipboard_svg">
+              <property name="text">
+               <string>SVG</string>
+              </property>
+              <property name="icon">
+               <iconset theme="image-svg+xml"/>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="check_clipboard_png">
+              <property name="text">
+               <string>PNG</string>
+              </property>
+              <property name="icon">
+               <iconset theme="image-x-generic"/>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
         </layout>

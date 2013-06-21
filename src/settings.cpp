@@ -38,7 +38,8 @@ Settings::Settings()
       m_graph_cache(false), m_fluid_refresh(true), m_antialiasing(true), m_script_timeout(0),
       m_save_grid(true), m_grid_enabled(true), m_grid_size(32), m_grid_shape(Snapping_Grid::SQUARE),
       m_check_unsaved_files(true),
-      m_save_knot_style(false)
+      m_save_knot_style(false),
+      m_clipboard(KNOT|PNG|SVG)
 {
 }
 
@@ -64,6 +65,8 @@ void Settings::load_config()
 
     m_save_knot_style = settings.value("style/save",m_save_knot_style).toBool();
     saved_knot_style_xml = settings.value("style/xml",saved_knot_style_xml).toString();
+
+    m_clipboard = Clipboard(settings.value("clipboard",int(m_clipboard)).toInt());
 
     settings.beginGroup("grid");
     m_save_grid = settings.value("save",m_save_grid).toBool();
@@ -148,6 +151,9 @@ void Settings::save_config()
 
     settings.setValue("style/save",m_save_knot_style);
     settings.setValue("style/xml",saved_knot_style_xml);
+
+
+    settings.setValue("clipboard",int(m_clipboard));
 
 
     settings.beginGroup("grid");
@@ -293,4 +299,12 @@ void Settings::get_knot_style(Graph &graph) const
 {
     if ( m_save_knot_style )
         import_xml_style(saved_knot_style_xml,graph);
+}
+
+void Settings::set_clipboard_feature(Settings::Clipboard_Enum feature, bool enable)
+{
+    if ( enable )
+       m_clipboard |= feature;
+    else
+        m_clipboard &= ~feature;
 }

@@ -89,6 +89,7 @@ icons=' accessories-text-editor
         tab-new-backgound
         tab-new
         text-x-script
+        text-xml
         tools-report-bug
         tools-wizard
         transform-move
