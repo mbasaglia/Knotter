@@ -45,7 +45,12 @@ public:
     /// Machine-readable name, must be unique and constant for every derived class
     virtual QString machine_name() const = 0;
 
-    /// render the cusp to \c path
+    /**
+     *  \brief render the cusp to \c path
+     *  \param[out] path    Output path builder
+     *  \param      ti      Traversal information
+     *  \param      style   Style to use
+     */
     virtual void draw_joint ( Path_Builder& path,
                                 const Traversal_Info& ti,
                                 const Node_Style& style ) const = 0;
@@ -63,6 +68,18 @@ protected:
     */
     QPointF cusp_point (const Traversal_Info& ti,
                          double def_dist ) const;
+
+    /**
+     * @brief Default path rendering (ie: not cusp)
+     *
+     *  Draws a cubic line from \c start to \c finish adjusting the handle size
+     *  if they overlap
+     *
+     * @param[out]  path    Output path builder
+     * @param       start   Start handle
+     * @param       finish  Finish handle
+     */
+    void default_path(Path_Builder&path, QLineF start, QLineF finish) const;
 };
 
 Q_DECLARE_METATYPE(Cusp_Shape*)

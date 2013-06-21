@@ -43,6 +43,25 @@ QPointF Cusp_Shape::cusp_point(const Traversal_Info &ti, double def_dist) const
     return bisect.p2();
 }
 
+void Cusp_Shape::default_path(Path_Builder &path, QLineF start, QLineF finish) const
+{
+    double distance = point_distance(start.p1(),finish.p1());
+    if ( distance < start.length()+finish.length() )
+    {
+        QPointF sum = finish.p1()+start.p2()-finish.p2();
+        QLineF connect (start.p1(),finish.p1());
+        QPointF proj = project(sum,connect);
+        double proj_distance = point_distance(start.p1(),proj);
+        if ( proj_distance >= connect.length() )
+        {
+            double factor = distance/(start.length()+finish.length());
+            start.setLength(start.length()*factor);
+            finish.setLength(finish.length()*factor);
+        }
+    }
+    path.add_cubic(start.p1(),start.p2(),finish.p2(),finish.p1());
+}
+
 
 void Cusp_Rounded::draw_joint(Path_Builder &path, const Traversal_Info &ti,
                               const Node_Style &style) const
@@ -66,13 +85,9 @@ void Cusp_Rounded::draw_joint(Path_Builder &path, const Traversal_Info &ti,
         path.add_cubic(finish.p1(),finish.p2(),h2,cusp_pt);
 
     }
-    else if ( point_distance(start.p1(),finish.p1()) < start.length()+finish.length() )
-    {
-        path.add_quad(start.p1(),(start.p2()+finish.p2())/2,finish.p1());
-    }
     else
     {
-        path.add_cubic(start.p1(),start.p2(),finish.p2(),finish.p1());
+        default_path(path,start,finish);
     }
 }
 
@@ -91,13 +106,9 @@ void Cusp_Pointed::draw_joint(Path_Builder &path, const Traversal_Info &ti, cons
         path.add_quad(cusp_pt,finish.p2(),finish.p1());
 
     }
-    else if ( point_distance(start.p1(),finish.p1()) < start.length()+finish.length() )
-    {
-        path.add_quad(start.p1(),(start.p2()+finish.p2())/2,finish.p1());
-    }
     else
     {
-        path.add_cubic(start.p1(),start.p2(),finish.p2(),finish.p1());
+        default_path(path,start,finish);
     }
 }
 
@@ -125,13 +136,9 @@ void Cusp_Ogee::draw_joint(Path_Builder &path, const Traversal_Info &ti, const N
         path.add_cubic(handlebs1.p1(),handlebs2.p2(),finish.p2(),finish.p1());
 
     }
-    else if ( point_distance(start.p1(),finish.p1()) < start.length()+finish.length() )
-    {
-        path.add_quad(start.p1(),(start.p2()+finish.p2())/2,finish.p1());
-    }
     else
     {
-        path.add_cubic(start.p1(),start.p2(),finish.p2(),finish.p1());
+        default_path(path,start,finish);
     }
 }
 
@@ -152,12 +159,8 @@ void Cusp_Polygonal::draw_joint(Path_Builder &path, const Traversal_Info &ti, co
 
 
     }
-    else if ( point_distance(start.p1(),finish.p1()) < start.length()+finish.length() )
-    {
-        path.add_quad(start.p1(),(start.p2()+finish.p2())/2,finish.p1());
-    }
     else
     {
-        path.add_cubic(start.p1(),start.p2(),finish.p2(),finish.p1());
+        default_path(path,start,finish);
     }
 }
