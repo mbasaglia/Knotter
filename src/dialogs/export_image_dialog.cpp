@@ -39,7 +39,7 @@ Export_Image_Dialog::Export_Image_Dialog(QWidget *parent) :
 
 void Export_Image_Dialog::set_view(const Knot_View *v)
 {
-    if ( !view || file_name.isEmpty() )
+    //if ( !view || file_name.isEmpty() )
         file_name = v->file_name();
 
     view = v;

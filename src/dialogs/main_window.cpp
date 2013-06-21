@@ -570,6 +570,8 @@ bool Main_Window::create_tab(QString file)
             dock_borders->enable_borders(view->graph().paint_border());
             dock_borders->blockSignals(false);
 
+            dialog_export_image.set_view(view);
+
             update_title();
 
             tabWidget->setTabText(tabWidget->currentIndex(),view->file_name());
