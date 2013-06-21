@@ -219,6 +219,13 @@ void export_xml_mime_data(QMimeData* data, const Graph& graph)
     QBuffer svg_stream(&knot_svg);
     export_svg(svg_stream,graph,false);
     data->setData("image/svg+xml",knot_svg);
+
+    QByteArray knot_png;
+    QBuffer png_stream(&knot_png);
+    export_raster(png_stream,graph,Qt::transparent,true,
+                  graph.full_image_bounding_rect().size().toSize(),100,false,
+                  false,Background_Image(),"PNG");
+    data->setData("image/png",knot_png);
 }
 
 

@@ -42,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 void export_svg(QIODevice &file, const Graph& graph, bool draw_graph,
                 bool draw_bg_image = false, const Background_Image &bg_img = Background_Image());
 
+
 /**
  * \brief Export a raster image
  *
@@ -53,10 +54,13 @@ void export_svg(QIODevice &file, const Graph& graph, bool draw_graph,
  *  \param quality      Quality/Compression (See QPixmap::save())
  *  \param draw_graph   Whether to render also the graph itself
  *  \param draw_bg_image Whether to render the background image
- * \param bg_img        Background image
+ *  \param bg_img        Background image
+ *  \param format       Name of the output format, if \c nullptr is deduced from the file name
 */
 void export_raster(QIODevice &file, const Graph& graph, QColor background,
                    bool antialias, QSize img_size, int quality , bool draw_graph,
-                   bool draw_bg_image = false, const Background_Image &bg_img = Background_Image());
+                   bool draw_bg_image = false, const Background_Image &bg_img = Background_Image(),
+                   const char* format = nullptr);
+
 
 #endif // IMAGE_EXPORTER_HPP

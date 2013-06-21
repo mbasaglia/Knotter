@@ -61,7 +61,8 @@ void export_svg(QIODevice &file, const Graph& graph, bool draw_graph, bool draw_
 
 void export_raster(QIODevice &file, const Graph& graph, QColor background,
                    bool antialias, QSize img_size, int quality, bool draw_graph,
-                   bool draw_bg_image, const Background_Image& bg_img )
+                   bool draw_bg_image, const Background_Image& bg_img,
+                   const char* format )
 {
 
     if ( !file.isWritable() && !file.open(QIODevice::WriteOnly))
@@ -105,9 +106,9 @@ void export_raster(QIODevice &file, const Graph& graph, QColor background,
 
     if ( antialias )
         pix->scaled(img_size,Qt::IgnoreAspectRatio,Qt::SmoothTransformation)
-                .save(&file,0,quality);
+                .save(&file,format,quality);
     else
-        pix->save(&file,0,quality);
+        pix->save(&file,format,quality);
 
     delete pix;
 }
