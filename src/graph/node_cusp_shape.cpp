@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "node_cusp_shape.hpp"
-#include "edge_style.hpp"
+#include "edge_type.hpp"
 #include "traversal_info.hpp"
 
 QPointF Cusp_Shape::cusp_point(const Traversal_Info &ti, double def_dist) const

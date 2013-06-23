@@ -592,15 +592,15 @@ public:
 
 
 // edge style
-class Change_Edge_Style : public Knot_Command
+class Change_Edge_Type : public Knot_Command
 {
     Q_OBJECT
     static int m_id;
     Edge*       edge;
-    Edge_Style* before;
-    Edge_Style* after;
+    Edge_Type* before;
+    Edge_Type* after;
 public:
-    Change_Edge_Style(Edge*edge, Edge_Style*before, Edge_Style* after,
+    Change_Edge_Type(Edge*edge, Edge_Type*before, Edge_Type* after,
                           Knot_View* kv, Knot_Macro* parent = nullptr);
     void undo() override;
     void redo() override;

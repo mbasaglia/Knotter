@@ -682,29 +682,29 @@ void Node_Style_All::redo()
 }
 
 
-int Change_Edge_Style::m_id = generate_id();
-Change_Edge_Style::Change_Edge_Style(Edge *edge, Edge_Style *before, Edge_Style *after,
+int Change_Edge_Type::m_id = generate_id();
+Change_Edge_Type::Change_Edge_Type(Edge *edge, Edge_Type *before, Edge_Type *after,
                                      Knot_View *kv, Knot_Macro *parent)
     :Knot_Command(kv,parent), edge(edge), before(before), after(after)
 {
     setText(tr("Change Edge Type"));
 }
 
-void Change_Edge_Style::undo()
+void Change_Edge_Type::undo()
 {
     edge->set_style(before);
     update_knot();
 }
 
-void Change_Edge_Style::redo()
+void Change_Edge_Type::redo()
 {
     edge->set_style(after);
     update_knot();
 }
 
-bool Change_Edge_Style::mergeWith(const QUndoCommand *other)
+bool Change_Edge_Type::mergeWith(const QUndoCommand *other)
 {
-    const Change_Edge_Style* cc = static_cast<const Change_Edge_Style*>(other);
+    const Change_Edge_Type* cc = static_cast<const Change_Edge_Type*>(other);
     if ( cc->edge == edge )
     {
         after = cc->after;

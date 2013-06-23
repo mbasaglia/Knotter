@@ -52,7 +52,7 @@ void Context_Menu_Edge::popup(Edge *e, QPoint pos)
     action_snap->setEnabled( view->grid().is_enabled() );
 
     menu_edge_types->clear();
-    foreach(Edge_Style* es, Resource_Manager::edge_styles())
+    foreach(Edge_Type* es, Resource_Manager::edge_styles())
     {
         QAction*a = menu_edge_types->addAction(es->icon(),es->name(),&mapper,SLOT(map()));
         mapper.setMapping(a,es->machine_name());
@@ -77,7 +77,7 @@ void Context_Menu_Edge::snap()
 
 void Context_Menu_Edge::change_edge_type(QString type_name)
 {
-    view->push_command(new Change_Edge_Style(edge,edge->style(),
+    view->push_command(new Change_Edge_Type(edge,edge->style(),
                 Resource_Manager::edge_style_from_machine_name(type_name), view));
 }
 

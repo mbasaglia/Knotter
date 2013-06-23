@@ -397,8 +397,8 @@ void Main_Window::connect_view(Knot_View *v)
             v,SLOT(set_selection_cusp_shape(Cusp_Shape*)));
     connect(selection_style,SIGNAL(enabled_styles_changed(Node_Style::Enabled_Styles)),
             v,SLOT(set_selection_enabled_styles(Node_Style::Enabled_Styles)));
-    connect(selection_style,SIGNAL(edget_type_changed(Edge_Style*)),
-            v,SLOT(set_selection_edge_type(Edge_Style*)));
+    connect(selection_style,SIGNAL(edget_type_changed(Edge_Type*)),
+            v,SLOT(set_selection_edge_type(Edge_Type*)));
 
     //export
     dialog_export_image.set_view(v);
@@ -1143,7 +1143,7 @@ void Main_Window::on_action_Merge_triggered()
 
     QPointF pos;
     QList<Node*> outlinks;
-    QList<Edge_Style*> outlinks_styles;
+    QList<Edge_Type*> outlinks_styles;
 
     for(QList<Node*>::iterator i = nodes.begin(); i != nodes.end(); i++)
     {

@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 #include "graph.hpp"
-#include "edge_style.hpp"
+#include "edge_type.hpp"
 #include "resource_manager.hpp"
 #include <QPaintEngine>
 

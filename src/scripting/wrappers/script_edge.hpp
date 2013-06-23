@@ -70,7 +70,7 @@ public:
     void set_type(QString type_name);
 
 signals:
-    void type_changed(Edge_Style* type);
+    void type_changed(Edge_Type* type);
 };
 
 Q_DECLARE_METATYPE(Script_Edge*)

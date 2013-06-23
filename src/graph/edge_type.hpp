@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef EDGE_STYLE_HPP
-#define EDGE_STYLE_HPP
+#ifndef EDGE_TYPE_HPP
+#define EDGE_TYPE_HPP
 
 #include <QPainter>
 #include "c++.hpp"
@@ -35,11 +35,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "traversal_info.hpp"
 #include <QMetaType>
 
-class Edge_Style
+class Edge_Type
 {
 public:
-    Edge_Style();
-    virtual ~Edge_Style(){}
+    Edge_Type();
+    virtual ~Edge_Type(){}
 
     void paint_regular(QPainter*painter, const Edge& edge);
     void paint_highlighted(QPainter*painter, const Edge& edge);
@@ -71,9 +71,9 @@ public:
 
 };
 
-Q_DECLARE_METATYPE(Edge_Style*)
+Q_DECLARE_METATYPE(Edge_Type*)
 
-class Edge_Normal : public Edge_Style
+class Edge_Normal : public Edge_Type
 {
 public:
     /**
@@ -100,7 +100,7 @@ public:
     QIcon icon() const override { return QIcon::fromTheme("edge-inverted"); }
 };
 
-class Edge_Wall : public Edge_Style
+class Edge_Wall : public Edge_Type
 {
 public:
     void paint(QPainter*painter, const Edge& edge) override;
@@ -114,7 +114,7 @@ public:
 };
 
 
-class Edge_Hole : public Edge_Style
+class Edge_Hole : public Edge_Type
 {
 public:
     void paint(QPainter*painter, const Edge& edge) override;
@@ -130,4 +130,4 @@ public:
 
 
 
-#endif // EDGE_STYLE_HPP
+#endif // EDGE_TYPE_HPP

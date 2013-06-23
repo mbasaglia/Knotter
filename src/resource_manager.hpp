@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.hpp"
 #include <QTranslator>
 #include "c++.hpp"
-#include "edge_style.hpp"
+#include "edge_type.hpp"
 #include <QScriptEngine>
 #include "plugin.hpp"
 #include <QScriptEngineAgent>
@@ -56,7 +56,7 @@ private:
     QMap<QString,QTranslator*> translators; ///< map lang_code -> translator
     QTranslator* current_translator;
 
-    QList<Edge_Style*> m_edge_styles;
+    QList<Edge_Type*> m_edge_styles;
     QList<Cusp_Shape*> m_cusp_shapes;
 
     QScriptEngine *     m_script_engine;
@@ -151,16 +151,16 @@ public:
      *
      *  \param style Style to be registered
     */
-    static void register_edge_style(Edge_Style* style);
+    static void register_edge_style(Edge_Type* style);
 
     /**
      *  \brief get the default edge style
      *
      *  \returns the first inserted style or nullptr if there is no style
      */
-    static Edge_Style* default_edge_style();
+    static Edge_Type* default_edge_style();
 
-    static QList<Edge_Style*> edge_styles() { return singleton.m_edge_styles; }
+    static QList<Edge_Type*> edge_styles() { return singleton.m_edge_styles; }
 
     /**
      *  \brief Cycle edge styles
@@ -170,7 +170,7 @@ public:
      *
      *  Only returns NULL if there is no style available
      */
-    static Edge_Style* next_edge_style(Edge_Style* style);
+    static Edge_Type* next_edge_style(Edge_Type* style);
     /**
      *  \brief Cycle edge styles
      *
@@ -178,7 +178,7 @@ public:
      *
      *  \sa next_edge_style
      */
-    static Edge_Style* prev_edge_style(Edge_Style* style);
+    static Edge_Type* prev_edge_style(Edge_Type* style);
 
     /**
      *  \brief Get edge style from its machine-readable name
@@ -188,7 +188,7 @@ public:
      *
      *  Resurns NULL only if there are no registered styles
      */
-    static Edge_Style* edge_style_from_machine_name(QString name);
+    static Edge_Type* edge_style_from_machine_name(QString name);
 
 
     /**

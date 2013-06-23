@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "node.hpp"
 #include <QLineF>
 #include "c++.hpp"
-class Edge_Style;
+class Edge_Type;
 
 class Edge : public Graph_Item
 {
@@ -52,12 +52,12 @@ public:
 private:
     Node* v1;
     Node* v2;
-    Edge_Style* m_style;
+    Edge_Type* m_style;
     Handle_Flags available_handles;
 
     static const int shapew = 8; ///< Width ued for shape()
 public:
-    explicit Edge(Node* v1, Node* v2, Edge_Style* e_style);
+    explicit Edge(Node* v1, Node* v2, Edge_Type* e_style);
 
 
     /// Whether node is one of its vetices
@@ -89,8 +89,8 @@ public:
         return n == v1 ? v2 : ( n == v2 ? v1 : nullptr );
     }
 
-    void set_style(Edge_Style* st);
-    Edge_Style* style() const;
+    void set_style(Edge_Type* st);
+    Edge_Type* style() const;
 
     QLineF to_line() const { return QLineF(v1->pos(), v2->pos()); }
 

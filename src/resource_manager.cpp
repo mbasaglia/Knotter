@@ -237,7 +237,7 @@ Resource_Manager::~Resource_Manager()
     foreach ( QTranslator* tr, translators.values() )
         delete tr;
 
-    foreach ( Edge_Style* es, m_edge_styles )
+    foreach ( Edge_Type* es, m_edge_styles )
         delete es;
 
     foreach ( Plugin* p, m_plugins)
@@ -349,19 +349,19 @@ void Resource_Manager::save_settings()
 }
 
 
-void Resource_Manager::register_edge_style(Edge_Style *style)
+void Resource_Manager::register_edge_style(Edge_Type *style)
 {
     singleton.m_edge_styles.push_back(style);
 }
 
-Edge_Style *Resource_Manager::default_edge_style()
+Edge_Type *Resource_Manager::default_edge_style()
 {
     if ( singleton.m_edge_styles.empty() )
         return nullptr;
     return singleton.m_edge_styles.front();
 }
 
-Edge_Style *Resource_Manager::next_edge_style(Edge_Style *style)
+Edge_Type *Resource_Manager::next_edge_style(Edge_Type *style)
 {
     int sz = singleton.m_edge_styles.size();
     for ( int i = 0; i < sz; i++ )
@@ -370,7 +370,7 @@ Edge_Style *Resource_Manager::next_edge_style(Edge_Style *style)
     return default_edge_style();
 }
 
-Edge_Style *Resource_Manager::prev_edge_style(Edge_Style *style)
+Edge_Type *Resource_Manager::prev_edge_style(Edge_Type *style)
 {
     int sz = singleton.m_edge_styles.size();
     for ( int i = sz-1; i >= 0; i-- )
@@ -386,9 +386,9 @@ Edge_Style *Resource_Manager::prev_edge_style(Edge_Style *style)
     return default_edge_style();
 }
 
-Edge_Style *Resource_Manager::edge_style_from_machine_name(QString name)
+Edge_Type *Resource_Manager::edge_style_from_machine_name(QString name)
 {
-    foreach(Edge_Style* st, singleton.m_edge_styles )
+    foreach(Edge_Type* st, singleton.m_edge_styles )
         if ( st->machine_name() == name )
             return st;
     return default_edge_style();

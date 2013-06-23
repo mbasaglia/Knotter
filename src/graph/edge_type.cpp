@@ -24,14 +24,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "edge_style.hpp"
+#include "edge_type.hpp"
 #include "edge.hpp"
 
-Edge_Style::Edge_Style()
+Edge_Type::Edge_Type()
 {
 }
 
-void Edge_Style::paint_regular(QPainter *painter, const Edge &edge)
+void Edge_Type::paint_regular(QPainter *painter, const Edge &edge)
 {
     QPen pen(QColor("#0088ff"),2);
     pen.setCosmetic(true);
@@ -40,7 +40,7 @@ void Edge_Style::paint_regular(QPainter *painter, const Edge &edge)
     paint(painter,edge);
 }
 
-void Edge_Style::paint_highlighted(QPainter *painter, const Edge &edge)
+void Edge_Type::paint_highlighted(QPainter *painter, const Edge &edge)
 {
     QPen pen(QColor("#00ccff"),4);
     pen.setCosmetic(true);
@@ -49,7 +49,7 @@ void Edge_Style::paint_highlighted(QPainter *painter, const Edge &edge)
     paint(painter,edge);
 }
 
-void Edge_Style::paint(QPainter *painter, const Edge &edge)
+void Edge_Type::paint(QPainter *painter, const Edge &edge)
 {
     painter->drawLine(edge.to_line());
 }

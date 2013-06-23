@@ -62,7 +62,7 @@ QString Script_Knotter::toString() const
 QStringList Script_Knotter::edge_types()
 {
     QStringList l;
-    foreach(Edge_Style* s, Resource_Manager::edge_styles())
+    foreach(Edge_Type* s, Resource_Manager::edge_styles())
         l << s->machine_name();
     return l;
 }

@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ui_cusp_style_widget.h"
 #include "node_style.hpp"
 #include <QSignalMapper>
-#include "edge_style.hpp"
+#include "edge_type.hpp"
 
 class Cusp_Style_Widget : public QWidget, private Ui::Cusp_Style_Widget
 {
@@ -48,8 +48,8 @@ public:
     Node_Style::Enabled_Styles enabled_styles() const;
     Cusp_Shape* cusp_shape() const;
 
-    void set_edge_type(Edge_Style* type);
-    Edge_Style* edge_type();
+    void set_edge_type(Edge_Type* type);
+    Edge_Type* edge_type();
 
     void hide_checkboxes();
     void hide_edge_type();
@@ -63,7 +63,7 @@ signals:
     void crossing_distance_changed(double);
     void cusp_distance_changed(double);
     void cusp_shape_changed(Cusp_Shape*);
-    void edget_type_changed(Edge_Style*);
+    void edget_type_changed(Edge_Type*);
     void enabled_styles_changed(Node_Style::Enabled_Styles);
 
 private slots:
@@ -81,7 +81,7 @@ private:
     Cusp_Shape* cusp_shape(int index) const;
 
     /// Edge type associated with combo box index
-    Edge_Style* edge_type(int index) const;
+    Edge_Type* edge_type(int index) const;
 
     void load_cusp_shapes();
 };

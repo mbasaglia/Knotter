@@ -297,13 +297,13 @@ void Knot_View::set_selection_cusp_shape(Cusp_Shape *v)
     push_command(new Node_Style_Cusp_Shape(nodes,before,after,this));
 }
 
-void Knot_View::set_selection_edge_type(Edge_Style *v)
+void Knot_View::set_selection_edge_type(Edge_Type *v)
 {
     begin_macro(tr("Change Edge Type"));
 
     foreach(Edge* e, selected_edges())
     {
-        push_command(new Change_Edge_Style(e,e->style(),v,this));
+        push_command(new Change_Edge_Type(e,e->style(),v,this));
     }
 
     end_macro();
@@ -951,10 +951,10 @@ void Knot_View::wheelEvent(QWheelEvent *event)
         Edge* e = edge_at(p);
         if ( e )
         {
-            Edge_Style* st = event->delta() < 0 ?
+            Edge_Type* st = event->delta() < 0 ?
                                 Resource_Manager::next_edge_style(e->style()) :
                                 Resource_Manager::prev_edge_style(e->style()) ;
-            push_command(new Change_Edge_Style(e,e->style(),st,this));
+            push_command(new Change_Edge_Type(e,e->style(),st,this));
         }
         else // scroll
         {

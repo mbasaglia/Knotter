@@ -75,7 +75,7 @@ QString Script_Edge::type()
 
 void Script_Edge::set_type(QString type_name)
 {
-    Edge_Style* t = Resource_Manager::edge_style_from_machine_name(type_name);
+    Edge_Type* t = Resource_Manager::edge_style_from_machine_name(type_name);
     emit type_changed(t);
     wrapped->set_style(t);
 }

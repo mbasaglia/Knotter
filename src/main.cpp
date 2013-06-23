@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QApplication>
 #include "main_window.hpp"
 #include "resource_manager.hpp"
-#include "edge_style.hpp"
+#include "edge_type.hpp"
 #include "command_line.hpp"
 
 

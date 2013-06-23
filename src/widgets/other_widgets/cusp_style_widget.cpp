@@ -41,7 +41,7 @@ Cusp_Style_Widget::Cusp_Style_Widget(QWidget *parent) :
                                   QVariant::fromValue(cs) );
 
     combo_edge_type->clear();
-    foreach(Edge_Style* et, Resource_Manager::edge_styles())
+    foreach(Edge_Type* et, Resource_Manager::edge_styles())
         combo_edge_type->addItem(et->icon(),et->name(),QVariant::fromValue(et));
 
     connect(spin_handle_length,SIGNAL(valueChanged(double)),
@@ -153,12 +153,12 @@ Cusp_Shape *Cusp_Style_Widget::cusp_shape() const
     return cusp_shape(combo_cusp_shape->currentIndex());
 }
 
-void Cusp_Style_Widget::set_edge_type(Edge_Style *type)
+void Cusp_Style_Widget::set_edge_type(Edge_Type *type)
 {
 
     for(int i = 0; i < combo_edge_type->count(); i++ )
     {
-        Edge_Style* cs = edge_type(i);
+        Edge_Type* cs = edge_type(i);
         if ( cs == type )
         {
             combo_edge_type->setCurrentIndex(i);
@@ -167,7 +167,7 @@ void Cusp_Style_Widget::set_edge_type(Edge_Style *type)
     }
 }
 
-Edge_Style *Cusp_Style_Widget::edge_type()
+Edge_Type *Cusp_Style_Widget::edge_type()
 {
     return edge_type(combo_edge_type->currentIndex());
 }
@@ -192,9 +192,9 @@ Cusp_Shape *Cusp_Style_Widget::cusp_shape(int index) const
     return combo_cusp_shape->itemData(index).value<Cusp_Shape*>();
 }
 
-Edge_Style *Cusp_Style_Widget::edge_type(int index) const
+Edge_Type *Cusp_Style_Widget::edge_type(int index) const
 {
-    return combo_edge_type->itemData(index).value<Edge_Style*>();
+    return combo_edge_type->itemData(index).value<Edge_Type*>();
 }
 
 

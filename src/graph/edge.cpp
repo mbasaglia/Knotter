@@ -26,9 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "edge.hpp"
 #include "graph.hpp"
 //#include <QVector2D>
-#include "edge_style.hpp"
+#include "edge_type.hpp"
 
-Edge::Edge(Node *v1, Node *v2, Edge_Style* e_style) :
+Edge::Edge(Node *v1, Node *v2, Edge_Type* e_style) :
     v1(v1), v2(v2), m_style(e_style),
     available_handles(TOP_LEFT|TOP_RIGHT|BOTTOM_LEFT|BOTTOM_RIGHT)
 {
@@ -60,12 +60,12 @@ void Edge::attach()
 }
 
 
-void Edge::set_style(Edge_Style *st)
+void Edge::set_style(Edge_Type *st)
 {
     m_style = st;
 }
 
-Edge_Style *Edge::style() const
+Edge_Type *Edge::style() const
 {
     return m_style;
 }
