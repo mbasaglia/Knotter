@@ -39,7 +39,7 @@ Settings::Settings()
       m_save_grid(true), m_grid_enabled(true), m_grid_size(32), m_grid_shape(Snapping_Grid::SQUARE),
       m_check_unsaved_files(true),
       m_save_knot_style(false),
-      m_clipboard(KNOT|PNG|SVG)
+      m_clipboard(KNOT|SVG)
 {
 }
 
