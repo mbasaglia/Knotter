@@ -30,7 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QObject>
 #include "path_builder.hpp"
 #include "node_cusp_shape.hpp"
-#include "edge_type.hpp"
+
+class Edge_Type;
 
 class Node_Style
 {
