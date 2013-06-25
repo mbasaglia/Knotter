@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QObject>
 #include "path_builder.hpp"
 #include "node_cusp_shape.hpp"
+#include "edge_type.hpp"
 
 class Node_Style
 {
@@ -39,11 +40,15 @@ public:
     enum Enabled_Styles_Enum
     {
         NOTHING           = 0x00,
-        CUSP_SHAPE       = 0x01,
+        CUSP_SHAPE        = 0x01,
         CUSP_ANGLE        = 0x02,
         HANDLE_LENGTH     = 0x04,
         CROSSING_DISTANCE = 0x08,
         CUSP_DISTANCE     = 0x10,
+        EDGE_SLIDE        = 0x20,
+        EDGE_TYPE         = 0x40,
+        NODE_EVERYTHING   = CUSP_SHAPE|CUSP_ANGLE|HANDLE_LENGTH|CUSP_DISTANCE,
+        EDGE_EVERYTHING   = HANDLE_LENGTH|CROSSING_DISTANCE|EDGE_SLIDE|EDGE_TYPE,
         EVERYTHING        = 0xFF
     };
     Q_DECLARE_FLAGS(Enabled_Styles, Enabled_Styles_Enum)
@@ -61,6 +66,8 @@ public:
     double cusp_distance;
     /// Polymorphic object that renders the cusp
     Cusp_Shape* cusp_shape;
+    /// Polymorphic object that renders the crossing
+    Edge_Type* edge_type;
 
 public:
     Node_Style (
@@ -75,7 +82,8 @@ public:
             handle_length(handle_length),
             crossing_distance(crossing_distance),
             cusp_distance ( cusp_distance ),
-            cusp_shape ( cusp_shape )
+            cusp_shape ( cusp_shape ),
+            edge_type(nullptr)
     {}
 
     /// Set disabled style to the values in other
