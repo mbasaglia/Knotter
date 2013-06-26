@@ -1,0 +1,13 @@
+{
+	"author" : "Mattia Basaglia",
+	"description" : "Insert a star",
+	"license" : "GPLv3+",
+	"name" : "Star",
+	"requires" : "0.9.4",
+	"script" : "star.js",
+	"type" : "script",
+	"version" : "1",
+	"icon" : "draw-star",
+	"category" : "Insert",
+	"ui" : "dialog.ui"
+}
