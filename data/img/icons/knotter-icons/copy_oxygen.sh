@@ -30,6 +30,7 @@ icons=' accessories-text-editor
         draw-line
         draw-polygon
         draw-spiral
+        draw-star
         edit-clear
         edit-clear-list
         edit-clear-history

@@ -29,23 +29,23 @@ DialogSizes=16,22,32,48,64,128,256
 
 Directories=oxygen/16x16,oxygen/22x22,oxygen/32x32,oxygen/48x48,oxygen/scalable,custom
 
-[custom]
+[custom/scalable]
 Size=64
 Type=Scalable
 
-[custom_16]
+[custom/16x16]
 Size=16
 Type=Threshold
 
-[custom_22]
+[custom/22x22]
 Size=22
 Type=Threshold
 
-[custom_32]
+[custom/32x32]
 Size=32
 Type=Threshold
 
-[custom_48]
+[custom/48x48]
 Size=48
 Type=Threshold
 
