@@ -115,12 +115,12 @@ Edge *XML_Loader::get_edge(QDomElement element)
                     edge_type_from_machine_name(element.attribute("style")));
 }
 
-Knot_Style XML_Loader::get_node_style(QDomElement element, bool everything)
+Node_Style XML_Loader::get_node_style(QDomElement element, bool everything)
 {
-    Knot_Style ns;
+    Node_Style ns;
     if ( everything )
     {
-        ns.enabled_style = Knot_Style::EVERYTHING;
+        ns.enabled_style = Node_Style::EVERYTHING;
         ns.cusp_shape = Resource_Manager::default_cusp_shape();
     }
 
@@ -129,35 +129,36 @@ Knot_Style XML_Loader::get_node_style(QDomElement element, bool everything)
         QDomElement e_style = element.firstChildElement("shape");
         if ( !e_style.isNull() )
         {
-            ns.enabled_style |= Knot_Style::CUSP_SHAPE;
+            ns.enabled_style |= Node_Style::CUSP_SHAPE;
             ns.cusp_shape = Resource_Manager::cusp_shape_from_machine_name(e_style.text());
         }
 
         QDomElement e_min_angle = element.firstChildElement("min-angle");
         if ( !e_min_angle.isNull() )
         {
-            ns.enabled_style |= Knot_Style::CUSP_ANGLE;
+            ns.enabled_style |= Node_Style::CUSP_ANGLE;
             ns.cusp_angle = e_min_angle.text().toDouble();
         }
 
         QDomElement e_distance = element.firstChildElement("distance");
         if ( !e_distance.isNull() )
         {
-            ns.enabled_style |= Knot_Style::CUSP_DISTANCE;
+            ns.enabled_style |= Node_Style::CUSP_DISTANCE;
             ns.cusp_distance = e_distance.text().toDouble();
         }
 
-        QDomElement e_gap= element.firstChildElement("gap");
+        /// \todo how to perform compatibility?
+        /*QDomElement e_gap= element.firstChildElement("gap");
         if ( !e_gap.isNull() )
         {
-            ns.enabled_style |= Knot_Style::CROSSING_DISTANCE;
+            ns.enabled_style |= Node_Style::CROSSING_DISTANCE;
             ns.crossing_distance = e_gap.text().toDouble();
-        }
+        }*/
 
         QDomElement e_handle_length = element.firstChildElement("handle-length");
         if ( !e_handle_length.isNull() )
         {
-            ns.enabled_style |= Knot_Style::HANDLE_LENGTH;
+            ns.enabled_style |= Node_Style::HANDLE_LENGTH;
             ns.handle_length = e_handle_length.text().toDouble();
         }
 
@@ -197,6 +198,7 @@ void XML_Loader::get_style(QDomElement e_style, Graph *graph)
     QDomElement e_cusp = e_style.firstChildElement("cusp");
     if ( !e_cusp.isNull() )
         graph->set_default_node_style(get_node_style(e_cusp,true));
+    /// \todo same for crossing (v4)
 
     QDomElement e_stroke = e_style.firstChildElement("stroke");
     if ( !e_stroke.isNull() )

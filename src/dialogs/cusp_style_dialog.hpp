@@ -39,8 +39,8 @@ class Cusp_Style_Dialog : public QDialog, private Ui::Cusp_Style_Dialog
 public:
     explicit Cusp_Style_Dialog(QWidget *parent = 0);
 
-    void set_style(const Knot_Style &style);
-    Knot_Style node_style() const;
+    void set_style(const Node_Style &style);
+    Node_Style node_style() const;
     
 protected:
     void changeEvent(QEvent *e);

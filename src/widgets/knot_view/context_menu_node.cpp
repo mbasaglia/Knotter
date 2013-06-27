@@ -42,7 +42,7 @@ void Context_Menu_Node::popup(Node *n, QPoint pos)
 {
     node = n;
     action_snap->setEnabled( view->grid().is_enabled() );
-    action_reset_style->setEnabled(node->style().enabled_style != Knot_Style::NOTHING);
+    action_reset_style->setEnabled(node->style().enabled_style != Node_Style::NOTHING);
 
     QMenu::popup(pos);
 }
@@ -51,7 +51,7 @@ void Context_Menu_Node::reset_custom_style()
 {
 
     view->push_command(new Node_Style_Enable(node,node->style().enabled_style,
-                            Knot_Style::NOTHING,tr("Reset Node Style"),view));
+                            Node_Style::NOTHING,tr("Reset Node Style"),view));
 }
 
 void Context_Menu_Node::properties()

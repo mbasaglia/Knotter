@@ -26,17 +26,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "node_style.hpp"
 
-Knot_Style Knot_Style::default_to(const Knot_Style &other) const
+Node_Style Node_Style::default_to(const Node_Style &other) const
 {
 
-    return Knot_Style (
+    return Node_Style (
                 (enabled_style & CUSP_ANGLE ) ? cusp_angle : other.cusp_angle,
                 (enabled_style & HANDLE_LENGTH ) ? handle_length : other.handle_length,
-                (enabled_style & CROSSING_DISTANCE ) ? crossing_distance : other.crossing_distance,
                 (enabled_style & CUSP_DISTANCE ) ? cusp_distance : other.cusp_distance,
-                (enabled_style & EDGE_SLIDE ) ? edge_slide : other.edge_slide,
                 (enabled_style & CUSP_SHAPE) && cusp_shape ? cusp_shape : other.cusp_shape,
-                (enabled_style & EDGE_TYPE ) ? edge_type : other.edge_type,
                 EVERYTHING
             );
 }

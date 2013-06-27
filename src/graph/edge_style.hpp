@@ -24,14 +24,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef NODE_STYLE_HPP
-#define NODE_STYLE_HPP
+#ifndef EDGE_STYLE_HPP
+#define EDGE_STYLE_HPP
 
-#include <QObject>
-#include "path_builder.hpp"
-#include "node_cusp_shape.hpp"
+#include <QMetaType>
+#include "c++.hpp"
 
-class Node_Style
+class Edge_Type;
+
+class Edge_Style
 {
 
 public:
@@ -39,10 +40,10 @@ public:
     enum Enabled_Styles_Enum
     {
         NOTHING           = 0x00,
-        CUSP_SHAPE        = 0x01,
-        CUSP_ANGLE        = 0x02,
-        HANDLE_LENGTH     = 0x04,
-        CUSP_DISTANCE     = 0x08,
+        HANDLE_LENGTH     = 0x01,
+        CROSSING_DISTANCE = 0x02,
+        EDGE_SLIDE        = 0x04,
+        EDGE_TYPE         = 0x08,
         EVERYTHING        = 0xFF
     };
     Q_DECLARE_FLAGS(Enabled_Styles, Enabled_Styles_Enum)
@@ -50,43 +51,35 @@ public:
 public:
     /// Which styles to override
     Enabled_Styles enabled_style;
-    /// Minimum angle required to enable the cusp
-    double cusp_angle;
     /// Length of the handles (line from start point to control point in SVG curves )
     double handle_length;
-    /// Distance from the node to the cusp point
-    double cusp_distance;
-    /// Polymorphic object that renders the cusp
-    Cusp_Shape* cusp_shape;
+    /// Length of the gap that highlights the thread passing under another one
+    double crossing_distance;
+    /// Value in [0,1] that determines the offset of the crossing
+    double edge_slide;
+    /// Polymorphic object that renders the crossing
+    Edge_Type* edge_type;
 
 public:
-    Node_Style (
-               double cusp_angle = 225,
+    Edge_Style (
                double handle_length = 24,
-               double cusp_distance = 32,
-               Cusp_Shape* cusp_shape = nullptr,
+               double crossing_distance = 10,
+               double edge_slide = 0.5,
+               Edge_Type* edge_type = nullptr,
                Enabled_Styles enabled_style = NOTHING )
         :   enabled_style ( enabled_style ),
-            cusp_angle(cusp_angle),
             handle_length(handle_length),
-            cusp_distance ( cusp_distance ),
-            cusp_shape ( cusp_shape )
+            crossing_distance(crossing_distance),
+            edge_slide(edge_slide),
+            edge_type(edge_type)
     {}
 
     /// Set disabled style to the values in other
-    Node_Style default_to(const Node_Style& other) const;
-
-    void build(const Traversal_Info& ti,Path_Builder&path,
-               const Node_Style& default_style ) const
-    {
-        Node_Style def = default_to(default_style);
-        if ( def.cusp_shape )
-            def.cusp_shape->draw_joint(path,ti,def);
-    }
+    Edge_Style default_to(const Edge_Style& other) const;
 
 
 };
 
-Q_DECLARE_METATYPE(Node_Style::Enabled_Styles)
+Q_DECLARE_METATYPE(Edge_Style::Enabled_Styles)
 
-#endif // NODE_STYLE_HPP
+#endif // EDGE_STYLE_HPP

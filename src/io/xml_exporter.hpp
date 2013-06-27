@@ -59,7 +59,7 @@ protected:
     void end_element ();
 
 
-    void save_cusp ( QString name, Knot_Style style );
+    void save_cusp (QString name, Node_Style style );
 
     void save_node ( Node* node );
 

@@ -62,7 +62,7 @@ public:
 
     QPen get_pen ( QString name, QPen default_value );
 
-    Knot_Style get_cusp ( QString name );
+    Node_Style get_cusp ( QString name );
 
     void leave();
 

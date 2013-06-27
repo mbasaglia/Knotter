@@ -32,16 +32,16 @@ Script_Node::Script_Node(Node *n, Script_Graph *graph):
     QObject(graph),
     m_wrapped_node(n), graph(graph), m_style(&m_wrapped_node->style())
 {
-    connect(&m_style,SIGNAL(changed(Knot_Style,Knot_Style)),
-            SLOT(emit_style_changed(Knot_Style,Knot_Style)));
+    connect(&m_style,SIGNAL(changed(Node_Style,Node_Style)),
+            SLOT(emit_style_changed(Node_Style,Node_Style)));
 }
 
 Script_Node::Script_Node(const Script_Node &o)
     : QObject(o.parent()),
       m_wrapped_node(o.m_wrapped_node), graph(o.graph), m_style(&m_wrapped_node->style())
 {
-    connect(&m_style,SIGNAL(changed(Knot_Style,Knot_Style)),
-            SLOT(emit_style_changed(Knot_Style,Knot_Style)));
+    connect(&m_style,SIGNAL(changed(Node_Style,Node_Style)),
+            SLOT(emit_style_changed(Node_Style,Node_Style)));
 }
 
 Script_Point Script_Node::pos() const
@@ -113,7 +113,7 @@ bool Script_Node::compare(Script_Node *n) const
 }
 
 
-void Script_Node::emit_style_changed(Knot_Style before, Knot_Style after)
+void Script_Node::emit_style_changed(Node_Style before, Node_Style after)
 {
     emit style_changed(m_wrapped_node,before,after);
 }

@@ -45,10 +45,10 @@ class Script_Edge : public QObject
     Q_PROPERTY(QObject* vertex2 READ vertex2)
     Q_PROPERTY(Script_Line line READ line)
     Q_PROPERTY(Script_Point midpoint READ midpoint)
-    Q_PROPERTY(QString type READ type WRITE set_type)
 
     Edge* wrapped;
     Script_Graph* graph;
+    /// \todo Style
 
 public:
     explicit Script_Edge(Edge* wrapped, Script_Graph* graph );
@@ -65,9 +65,6 @@ public:
     Edge* wrapped_edge() const { return wrapped; }
 
     Q_INVOKABLE QString toString() const;
-
-    QString type();
-    void set_type(QString type_name);
 
 signals:
     void type_changed(Edge_Type* type);

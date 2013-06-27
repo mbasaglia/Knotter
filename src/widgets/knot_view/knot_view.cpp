@@ -105,7 +105,7 @@ void Knot_View::copy_graph_style(const Graph &g)
     set_join_style(g.join_style());
     set_brush_style(g.brush_style());
 
-    set_knot_crossing_distance(g.default_node_style().crossing_distance);
+    set_knot_crossing_distance(g.default_edge_style().crossing_distance);
     set_knot_cusp_angle(g.default_node_style().cusp_angle);
     set_knot_cusp_distance(g.default_node_style().cusp_distance);
     set_knot_cusp_shape(g.default_node_style().cusp_shape);
@@ -141,7 +141,10 @@ bool Knot_View::load_file(QIODevice &device, QString action_name )
     push_command(new Pen_Join_Style(m_graph.join_style(),loaded.join_style(),this));
     push_command(new Brush_Style(m_graph.brush_style(),loaded.brush_style(),this));
     push_command(new Knot_Style_All(m_graph.default_node_style(),
-                                    loaded.default_node_style(), this));
+                                    loaded.default_node_style(),
+                                    m_graph.default_edge_style(),
+                                    loaded.default_edge_style(),
+                                    this));
 
     foreach(Node* n,loaded.nodes())
     {
@@ -202,10 +205,11 @@ void Knot_View::set_knot_handle_lenght(double v)
 
 void Knot_View::set_knot_crossing_distance(double v)
 {
-    push_command(new Knot_Style_Crossing_Distance(
-                     m_graph.default_node_style().crossing_distance,
+    /// \todo
+    /*push_command(new Knot_Style_Crossing_Distance(
+                     m_graph.default_edge_style().crossing_distance,
                      v, this
-                ));
+                ));*/
 }
 
 void Knot_View::set_knot_cusp_angle(double v)
@@ -234,11 +238,13 @@ void Knot_View::set_knot_cusp_shape(Cusp_Shape *v)
 
 void Knot_View::set_knot_ege_slide(double v)
 {
+    /// \todo
+    /*
     push_command(new Knot_Style_Edge_Slide(
-                     m_graph.default_node_style().edge_slide,
+                     m_graph.default_edge_style().edge_slide,
                      v, this
                      ));
-
+    */
 }
 
 void Knot_View::set_selection_handle_lenght(double v)
@@ -256,7 +262,8 @@ void Knot_View::set_selection_handle_lenght(double v)
 
 void Knot_View::set_selection_crossing_distance(double v)
 {
-    QList<Node*> nodes = selected_nodes();
+    /// \todo COnvert edge-wise
+    /*QList<Node*> nodes = selected_nodes();
     QList<double> before;
     QList<double> after;
     foreach(Node* n, nodes)
@@ -264,7 +271,7 @@ void Knot_View::set_selection_crossing_distance(double v)
         before.push_back(n->style().crossing_distance);
         after.push_back(v);
     }
-    push_command(new Node_Style_Crossing_Distance(nodes,before,after,this));
+    push_command(new Node_Style_Crossing_Distance(nodes,before,after,this));*/
 }
 
 void Knot_View::set_selection_cusp_angle(double v)
@@ -318,11 +325,11 @@ void Knot_View::set_selection_edge_type(Edge_Type *v)
     end_macro();
 }
 
-void Knot_View::set_selection_enabled_styles(Knot_Style::Enabled_Styles v)
+void Knot_View::set_selection_enabled_styles(Node_Style::Enabled_Styles v)
 {
     QList<Node*> nodes = selected_nodes();
-    QList<Knot_Style::Enabled_Styles> before;
-    QList<Knot_Style::Enabled_Styles> after;
+    QList<Node_Style::Enabled_Styles> before;
+    QList<Node_Style::Enabled_Styles> after;
     foreach(Node* n, nodes)
     {
         before.push_back(n->style().enabled_style);

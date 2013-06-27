@@ -340,11 +340,18 @@ class Knot_Style_All : public Knot_Command
 {
     Q_OBJECT
 
-    Knot_Style before;
-    Knot_Style after;
+    Node_Style node_before;
+    Node_Style node_after;
+    Edge_Style edge_before;
+    Edge_Style edge_after;
 
 public:
-    Knot_Style_All(Knot_Style before, Knot_Style after, Knot_View* kv,
+    Knot_Style_All(
+            Node_Style node_before,
+            Node_Style node_after,
+            Edge_Style edge_before,
+            Edge_Style edge_after,
+            Knot_View* kv,
                Knot_Macro* parent = nullptr);
     void undo() override;
     void redo() override;
@@ -367,6 +374,8 @@ public:
 
 };
 
+/*
+/// \todo convert
 class Knot_Style_Crossing_Distance : public Knot_Style_Basic_Double_Parameter
 {
     Q_OBJECT
@@ -383,7 +392,7 @@ public:
     int id() const override { return m_id; }
 
 };
-
+*/
 class Knot_Style_Cusp_Angle : public Knot_Style_Basic_Double_Parameter
 {
     Q_OBJECT
@@ -401,6 +410,9 @@ public:
 
 };
 
+
+/// \todo convert
+/*
 class Knot_Style_Edge_Slide : public Knot_Style_Basic_Double_Parameter
 {
     Q_OBJECT
@@ -417,7 +429,7 @@ public:
     int id() const override { return m_id; }
 
 };
-
+*/
 
 class Knot_Style_Cusp_Distance : public Knot_Style_Basic_Double_Parameter
 {
@@ -543,6 +555,9 @@ public:
     int id() const override { return m_id; }
 
 };
+
+/// \todo convert
+/*
 class Node_Style_Crossing_Distance : public Node_Style_Basic_Double_Parameter
 {
     Q_OBJECT
@@ -560,6 +575,7 @@ public:
     int id() const override { return m_id; }
 
 };
+*/
 
 class Node_Style_Cusp_Shape : public Node_Style_Base
 {
@@ -580,17 +596,17 @@ class Node_Style_Enable : public Node_Style_Base
 {
     Q_OBJECT
 
-    QList<Knot_Style::Enabled_Styles> before;
-    QList<Knot_Style::Enabled_Styles> after;
+    QList<Node_Style::Enabled_Styles> before;
+    QList<Node_Style::Enabled_Styles> after;
 
 public:
     Node_Style_Enable(QList<Node*> nodes,
-                      QList<Knot_Style::Enabled_Styles> before,
-                      QList<Knot_Style::Enabled_Styles> after,
+                      QList<Node_Style::Enabled_Styles> before,
+                      QList<Node_Style::Enabled_Styles> after,
                       Knot_View* kv, Knot_Macro* parent = nullptr);
     Node_Style_Enable(Node* node,
-                      Knot_Style::Enabled_Styles before,
-                      Knot_Style::Enabled_Styles after,
+                      Node_Style::Enabled_Styles before,
+                      Node_Style::Enabled_Styles after,
                       QString text,
                       Knot_View* kv, Knot_Macro* parent = nullptr);
     void undo() override;
@@ -602,12 +618,12 @@ class Node_Style_All : public Knot_Command
 {
     Q_OBJECT
 
-    Knot_Style before;
-    Knot_Style after;
+    Node_Style before;
+    Node_Style after;
     Node* node;
 
 public:
-    Node_Style_All(Node* node, Knot_Style before, Knot_Style after, Knot_View* kv,
+    Node_Style_All(Node* node, Node_Style before, Node_Style after, Knot_View* kv,
                Knot_Macro* parent = nullptr);
     void undo() override;
     void redo() override;

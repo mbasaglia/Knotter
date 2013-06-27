@@ -24,28 +24,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef CUSP_SCRIPTED_HPP
-#define CUSP_SCRIPTED_HPP
+#include "edge_style.hpp"
 
-#include "node_cusp_shape.hpp"
-#include "plugin_cusp.hpp"
-
-class Cusp_Scripted : public Cusp_Shape
+Edge_Style Edge_Style::default_to(const Edge_Style &other) const
 {
-private:
-    Plugin_Cusp* plugin;
-public:
-    Cusp_Scripted(Plugin_Cusp* plugin) : plugin(plugin) {}
+    return Edge_Style (
+                (enabled_style & HANDLE_LENGTH ) ? handle_length : other.handle_length,
+                (enabled_style & CROSSING_DISTANCE ) ? crossing_distance : other.crossing_distance,
+                (enabled_style & EDGE_SLIDE ) ? edge_slide : other.edge_slide,
+                (enabled_style & EDGE_TYPE ) ? edge_type : other.edge_type,
+                EVERYTHING
+            );
 
-    QString name() const override { return plugin->string_data("name"); }
+}
 
-    QString machine_name() const override { return plugin->machine_name(); }
-
-    virtual QIcon icon() const override { return plugin->icon(); }
-
-    void draw_joint ( Path_Builder& path,
-                        const Traversal_Info& ti,
-                        const Node_Style& style ) const override;
-};
-
-#endif // CUSP_SCRIPTED_HPP

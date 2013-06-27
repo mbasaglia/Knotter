@@ -19,6 +19,7 @@ INCLUDEPATH += $$PWD
 HEADERS += \
     $$PWD/border_widget.hpp \
     $$PWD/cusp_style_widget.hpp \
+    $$PWD/crossing_style_widget.hpp \
     $$PWD/border_edit_widget.hpp \
     $$PWD/copyable_text_browser.hpp \
     $$PWD/script_edit.hpp \
@@ -27,6 +28,7 @@ HEADERS += \
 SOURCES += \
     $$PWD/border_widget.cpp \
     $$PWD/cusp_style_widget.cpp \
+    $$PWD/crossing_style_widget.cpp \
     $$PWD/border_edit_widget.cpp \
     $$PWD/copyable_text_browser.cpp \
     $$PWD/script_edit.cpp \
@@ -34,4 +36,5 @@ SOURCES += \
 
 FORMS += \
     $$PWD/cusp_style_widget.ui \
+    $$PWD/crossing_style_widget.ui \
     $$PWD/border_edit_widget.ui

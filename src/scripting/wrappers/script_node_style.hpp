@@ -36,15 +36,14 @@ class Script_Node_Style : public QObject
 
     Q_PROPERTY(double cusp_angle READ cusp_angle WRITE set_cusp_angle )
     Q_PROPERTY(double handle_length READ handle_length WRITE set_handle_length )
-    Q_PROPERTY(double crossing_distance READ crossing_distance WRITE set_crossing_distance )
     Q_PROPERTY(double cusp_distance READ cusp_distance WRITE set_cusp_distance )
     Q_PROPERTY(QString cusp_shape READ cusp_shape WRITE set_cusp_shape )
 
 
-    Knot_Style* wrapped;
+    Node_Style* wrapped;
 
 public:
-    explicit Script_Node_Style(Knot_Style* wrapped, QObject *parent = 0);
+    explicit Script_Node_Style(Node_Style* wrapped, QObject *parent = 0);
     
     double cusp_angle();
     double handle_length();
@@ -54,7 +53,6 @@ public:
 
     void set_cusp_angle( double value );
     void set_handle_length( double value );
-    void set_crossing_distance( double value );
     void set_cusp_distance( double value );
     void set_cusp_shape( QString name );
 
@@ -67,7 +65,7 @@ public:
     Q_INVOKABLE QString toString() const { return "[node style]"; }
 
 signals:
-    void changed(Knot_Style before,Knot_Style after);
+    void changed(Node_Style before,Node_Style after);
 };
 
 #endif // SCRIPTING_NODE_STYLE_HPP

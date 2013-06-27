@@ -45,7 +45,8 @@ class Graph : public QGraphicsItem
 private:
     QList<Node*>        m_nodes;
     QList<Edge*>        m_edges;
-    Knot_Style          m_default_node_style;
+    Node_Style          m_default_node_style;
+    Edge_Style          m_default_edge_style;///< \todo search for m_default_node_style and change
     QRectF              bounding_box;
     QList<QColor>       m_colors;
     bool                auto_color;
@@ -123,9 +124,13 @@ public:
     void set_paint_border(bool b) { m_paint_border = b; }
 
 
-    Knot_Style default_node_style() const { return m_default_node_style; }
-    Knot_Style& default_node_style_reference() { return m_default_node_style; }
-    void set_default_node_style( Knot_Style style );
+    Node_Style default_node_style() const { return m_default_node_style; }
+    Node_Style& default_node_style_reference() { return m_default_node_style; }
+    void set_default_node_style( Node_Style style );
+
+    Edge_Style default_edge_style() const { return m_default_edge_style; }
+    Edge_Style& default_edge_style_reference() { return m_default_edge_style; }
+    void set_default_edge_style( Edge_Style style );
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option=nullptr,
                QWidget *widget=nullptr);

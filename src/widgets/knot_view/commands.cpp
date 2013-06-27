@@ -508,11 +508,14 @@ void Knot_Style_Handle_Lenght::apply(double value)
     graph->default_node_style_reference().handle_length = value;
 }
 
+/*
+ * \todo convert
 int Knot_Style_Crossing_Distance::m_id = generate_id();
 void Knot_Style_Crossing_Distance::apply(double value)
 {
     graph->default_node_style_reference().crossing_distance = value;
 }
+*/
 
 int Knot_Style_Cusp_Angle::m_id = generate_id();
 void Knot_Style_Cusp_Angle::apply(double value)
@@ -526,11 +529,13 @@ void Knot_Style_Cusp_Distance::apply(double value)
     graph->default_node_style_reference().cusp_distance = value;
 }
 
+/*
+/// \todo convert
 int Knot_Style_Edge_Slide::m_id = generate_id();
 void Knot_Style_Edge_Slide::apply(double value)
 {
     graph->default_node_style_reference().edge_slide = value;
-}
+}*/
 
 
 Knot_Style_Cusp_Shape::Knot_Style_Cusp_Shape(Cusp_Shape *before, Cusp_Shape *after,
@@ -606,12 +611,15 @@ void Node_Style_Cusp_Angle::apply(Node* node, double value)
 {
     node->style().cusp_angle = value;
 }
+
+/// \todo convert
+/*
 int Node_Style_Crossing_Distance::m_id = generate_id();
 void Node_Style_Crossing_Distance::apply(Node* node, double value)
 {
     node->style().crossing_distance = value;
 }
-
+*/
 
 Node_Style_Cusp_Shape::Node_Style_Cusp_Shape(
         QList<Node *> nodes, QList<Cusp_Shape*> before, QList<Cusp_Shape*> after,
@@ -635,8 +643,8 @@ void Node_Style_Cusp_Shape::redo()
 
 
 Node_Style_Enable::Node_Style_Enable(
-        QList<Node *> nodes, QList<Knot_Style::Enabled_Styles> before,
-        QList<Knot_Style::Enabled_Styles> after,
+        QList<Node *> nodes, QList<Node_Style::Enabled_Styles> before,
+        QList<Node_Style::Enabled_Styles> after,
         Knot_View *kv, Knot_Macro *parent)
     :Node_Style_Base(nodes,kv,parent), before(before), after(after)
 {
@@ -644,13 +652,13 @@ Node_Style_Enable::Node_Style_Enable(
 }
 
 Node_Style_Enable::Node_Style_Enable(Node *node,
-                                     Knot_Style::Enabled_Styles before,
-                                     Knot_Style::Enabled_Styles after,
+                                     Node_Style::Enabled_Styles before,
+                                     Node_Style::Enabled_Styles after,
                                      QString text,
                                      Knot_View *kv, Knot_Macro *parent)
     : Node_Style_Base(QList<Node*>()<<node,kv,parent),
-      before(QList<Knot_Style::Enabled_Styles>()<<before),
-      after(QList<Knot_Style::Enabled_Styles>()<<after)
+      before(QList<Node_Style::Enabled_Styles>()<<before),
+      after(QList<Node_Style::Enabled_Styles>()<<after)
 {
     setText(text);
 }
@@ -669,24 +677,30 @@ void Node_Style_Enable::redo()
 }
 
 
-Knot_Style_All::Knot_Style_All(Knot_Style before, Knot_Style after, Knot_View *kv, Knot_Macro *parent)
-    : Knot_Command(kv,parent), before(before), after(after)
+Knot_Style_All::Knot_Style_All(Node_Style node_before, Node_Style node_after,
+                               Edge_Style edge_before, Edge_Style edge_after,
+                               Knot_View *kv, Knot_Macro *parent)
+    : Knot_Command(kv,parent),
+      node_before(node_before), node_after(node_after),
+      edge_before(edge_before), edge_after(edge_after)
 {}
 
 void Knot_Style_All::undo()
 {
-    graph->set_default_node_style(before);
+    graph->set_default_node_style(node_before);
+    graph->set_default_edge_style(edge_before);
     update_knot();
 }
 
 void Knot_Style_All::redo()
 {
-    graph->set_default_node_style(after);
+    graph->set_default_node_style(node_after);
+    graph->set_default_edge_style(edge_after);
     update_knot();
 }
 
 
-Node_Style_All::Node_Style_All(Node *node, Knot_Style before, Knot_Style after,
+Node_Style_All::Node_Style_All(Node *node, Node_Style before, Node_Style after,
                                Knot_View *kv, Knot_Macro *parent)
     : Knot_Command(kv,parent), before(before), after(after), node(node)
 {
@@ -716,7 +730,7 @@ Change_Edge_Type::Change_Edge_Type(Edge *edge, Edge_Type *before, Edge_Type *aft
 
 void Change_Edge_Type::undo()
 {
-    Knot_Style es = edge->style();
+    Edge_Style es = edge->style();
     es.edge_type = before;
     edge->set_style(es);
     update_knot();
@@ -724,7 +738,7 @@ void Change_Edge_Type::undo()
 
 void Change_Edge_Type::redo()
 {
-    Knot_Style es = edge->style();
+    Edge_Style es = edge->style();
     es.edge_type = after;
     edge->set_style(es);
     update_knot();

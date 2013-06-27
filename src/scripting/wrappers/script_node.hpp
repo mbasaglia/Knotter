@@ -51,8 +51,6 @@ class Script_Node : public QObject
 
     Q_PROPERTY(QObject* style READ style)
 
-    /// \todo : Style
-
     Node* m_wrapped_node;
     Script_Graph* graph;
     Script_Node_Style m_style;
@@ -92,10 +90,10 @@ public:
 
 signals:
     void moved(Script_Point p);
-    void style_changed(Node* node, Knot_Style before, Knot_Style after );
+    void style_changed(Node* node, Node_Style before, Node_Style after );
 
 private slots:
-    void emit_style_changed(Knot_Style before, Knot_Style after );
+    void emit_style_changed(Node_Style before, Node_Style after );
 
 };
 

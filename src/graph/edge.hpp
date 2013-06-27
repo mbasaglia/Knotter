@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "node.hpp"
 #include <QLineF>
 #include "c++.hpp"
-class Edge_Type;
+#include "edge_style.hpp"
 
 class Edge : public Graph_Item
 {
@@ -52,13 +52,16 @@ public:
 private:
     Node* v1;
     Node* v2;
-    Knot_Style m_style;
+    Edge_Style m_style;
     Handle_Flags available_handles;
+    const Graph* m_graph;
 
     static const int shapew = 8; ///< Width ued for shape()
 public:
     explicit Edge(Node* v1, Node* v2, Edge_Type *type = nullptr);
 
+    void set_graph(const Graph* g) { m_graph = g; }
+    const Graph* graph() const { return m_graph; }
 
     /// Whether node is one of its vetices
     bool is_vertex ( const Node* node ) const
@@ -94,8 +97,18 @@ public:
      *
      * If edge_type is \c nullptr the default style is used instead
      */
-    void set_style(Knot_Style st);
-    Knot_Style style() const;
+    void set_style(Edge_Style st);
+    /**
+     * @brief Get the crossing style as defined by theis edge
+     * @return The style overidden by this edge
+     */
+    Edge_Style style() const;
+
+    /**
+     * @brief Defaulted edge style
+     * @return The complete edge style, non-overridden features are taken from the graph
+     */
+    Edge_Style defaulted_style() const;
 
     QLineF to_line() const { return QLineF(v1->pos(), v2->pos()); }
 

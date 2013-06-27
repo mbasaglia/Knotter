@@ -359,7 +359,7 @@ public slots:
     void set_selection_cusp_distance(double v);
     void set_selection_cusp_shape(Cusp_Shape* v);
     void set_selection_edge_type(Edge_Type* v);
-    void set_selection_enabled_styles(Knot_Style::Enabled_Styles v);
+    void set_selection_enabled_styles(Node_Style::Enabled_Styles v);
 
     // misc
 

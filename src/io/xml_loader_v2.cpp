@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "xml_loader_v2.hpp"
 #include "resource_manager.hpp"
-
+#include "edge_style.hpp"
 
 bool XML_Loader_v2::load(QIODevice *input)
 {
@@ -68,11 +68,12 @@ void XML_Loader_v2::get_graph(Graph &kv)
             kv.set_borders(Border_List()<<Knot_Border(p.color(),p.widthF()));
         }
 
-        Knot_Style ns = get_cusp( "cusp" );
-        ns.enabled_style = Knot_Style::EVERYTHING;
+        Node_Style ns = get_cusp( "cusp" );
+        ns.enabled_style = Node_Style::EVERYTHING;
         if ( !ns.cusp_shape )
             ns.cusp_shape = Resource_Manager::default_cusp_shape();
         kv.set_default_node_style ( ns );
+        /// \todo Edge_Style es = get_crossing("cusp"); ...
 
         leave();
     }
@@ -174,10 +175,10 @@ QPen XML_Loader_v2::get_pen(QString name, QPen pen)
     return pen;
 }
 
-Knot_Style XML_Loader_v2::get_cusp(QString name)
+Node_Style XML_Loader_v2::get_cusp(QString name)
 {
 
-    Knot_Style cusp_style_info;
+    Node_Style cusp_style_info;
     QDomElement cusp = current_elements.top().firstChildElement(name);
 
     QDomElement cusp_style = cusp.firstChildElement("style");
@@ -185,14 +186,14 @@ Knot_Style XML_Loader_v2::get_cusp(QString name)
     {
         cusp_style_info.cusp_shape =
                 Resource_Manager::cusp_shape_from_machine_name(cusp_style.text());
-        cusp_style_info.enabled_style |= Knot_Style::CUSP_SHAPE;
+        cusp_style_info.enabled_style |= Node_Style::CUSP_SHAPE;
     }
 
     QDomElement cusp_angle = cusp.firstChildElement("min-angle");
     if ( ! cusp_angle.isNull() )
     {
         cusp_style_info.cusp_angle =  cusp_angle.text().toDouble();
-        cusp_style_info.enabled_style |= Knot_Style::CUSP_ANGLE;
+        cusp_style_info.enabled_style |= Node_Style::CUSP_ANGLE;
     }
 
 
@@ -200,24 +201,24 @@ Knot_Style XML_Loader_v2::get_cusp(QString name)
     if ( !  cusp_dist.isNull() )
     {
         cusp_style_info.cusp_distance = cusp_dist.text().toDouble();
-        cusp_style_info.enabled_style |= Knot_Style::CUSP_DISTANCE;
+        cusp_style_info.enabled_style |= Node_Style::CUSP_DISTANCE;
     }
 
 
-
-    QDomElement egap = cusp.firstChildElement("gap");
+    /// \todo compatibility?
+    /*QDomElement egap = cusp.firstChildElement("gap");
     if ( !egap.isNull() )
     {
         cusp_style_info.crossing_distance =  2*egap.text().toDouble();
-        cusp_style_info.enabled_style |= Knot_Style::CROSSING_DISTANCE;
-    }
+        cusp_style_info.enabled_style |= Node_Style::CROSSING_DISTANCE;
+    }*/
 
 
     QDomElement handle_length = cusp.firstChildElement("handle-length");
     if ( ! handle_length.isNull() )
     {
         cusp_style_info.handle_length =  handle_length.text().toDouble();
-        cusp_style_info.enabled_style |= Knot_Style::HANDLE_LENGTH;
+        cusp_style_info.enabled_style |= Node_Style::HANDLE_LENGTH;
     }
 
 

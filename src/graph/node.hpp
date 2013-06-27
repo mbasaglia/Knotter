@@ -44,14 +44,14 @@ private:
     /// Extended radius
     static const int xradius = 6; ///< \todo maybe not const and settings
 
-    Knot_Style m_style;
+    Node_Style m_style;
 
 public:
     Node(QPointF pos );
 
-    Knot_Style& style() { return m_style; }
+    Node_Style& style() { return m_style; }
 
-    void set_style(Knot_Style st) { m_style = st; }
+    void set_style(Node_Style st) { m_style = st; }
 
     /**
      *  Add edge to node

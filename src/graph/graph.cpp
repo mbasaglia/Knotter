@@ -31,12 +31,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Graph::Graph() :
     m_default_node_style(225,// cusp angle
                          24, // handle length
-                         10, // crossing distance
                          32, // cusp distance
-                         0.5,// edge slide
                          Resource_Manager::default_cusp_shape(),
+                         Node_Style::EVERYTHING
+                    ),
+    m_default_edge_style(
+                         24, // handle length
+                         10, // crossing distance
+                         0.5,// edge slide
                          Resource_Manager::default_edge_type(),
-                         Knot_Style::EVERYTHING
+                         Edge_Style::EVERYTHING
                     ),
     auto_color(false), m_paint_border(true)
 {
@@ -72,6 +76,7 @@ void Graph::copy_style(const Graph &other)
 {
     m_colors = other.m_colors;
     m_default_node_style = other.m_default_node_style;
+    m_default_edge_style = other.m_default_edge_style;
     auto_color = other.auto_color;
     pen = other.pen;
     m_borders = other.m_borders;
@@ -87,6 +92,7 @@ void Graph::add_edge(Edge *e)
 {
     m_edges.append(e);
     e->attach();
+    e->set_graph(this);
 }
 
 void Graph::remove_node(Node *n)
@@ -99,6 +105,7 @@ void Graph::remove_edge(Edge *e)
 {
     m_edges.removeOne(e);
     e->detach();
+    e->set_graph(nullptr);
     //e->setParentItem(nullptr);
 }
 
@@ -148,9 +155,14 @@ void Graph::set_brush_style(Qt::BrushStyle s)
     pen.setBrush(b);
 }
 
-void Graph::set_default_node_style(Knot_Style style)
+void Graph::set_default_node_style(Node_Style style)
 {
     m_default_node_style = style;
+}
+
+void Graph::set_default_edge_style(Edge_Style style)
+{
+    m_default_edge_style = style;
 }
 
 void Graph::set_width(double w)
@@ -301,7 +313,7 @@ void Graph::traverse(Path_Builder &path)
             edge = ti.out.edge;
             edge->mark_traversed(ti.out.handle);
             // Don't mark handle as traversed but render and get next handle
-            handle = edge->style().edge_type->traverse(edge,ti.out.handle,path,m_default_node_style);
+            handle = edge->style().edge_type->traverse(edge,ti.out.handle,path);
 
         }
     }

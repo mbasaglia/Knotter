@@ -31,12 +31,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "traversal_info.hpp"
 #include "resource_manager.hpp"
 
-void Cusp_Scripted::draw_joint(Path_Builder &path, const Traversal_Info &ti, const Knot_Style &style) const
+void Cusp_Scripted::draw_joint(Path_Builder &path, const Traversal_Info &ti, const Node_Style &style) const
 {
     Script_Line input_edge ( ti.node->pos(), ti.in.edge->other(ti.node)->pos() );
     Script_Line output_edge ( ti.node->pos(), ti.out.edge->other(ti.node)->pos() );
-    Script_Line start_handle = ti.in.edge->style().edge_type->handle(ti.in.edge,ti.in.handle,style);
-    Script_Line finish_handle = ti.out.edge->style().edge_type->handle(ti.out.edge,ti.out.handle,style);
+    Script_Line start_handle = ti.in.edge->style().edge_type->handle(ti.in.edge,ti.in.handle);
+    Script_Line finish_handle = ti.out.edge->style().edge_type->handle(ti.out.edge,ti.out.handle);
     Script_Point cusp_point = this->cusp_point(ti,style.cusp_distance);
     Script_Point node_point = ti.node->pos();
 

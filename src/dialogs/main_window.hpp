@@ -57,8 +57,8 @@ private:
     Dock_Grid*              dock_grid;  ///< Grid conf dock
     Dock_Knot_Display*      dock_knot_display;///< Display conf dock
     Dock_Background*        dock_background;
-    Cusp_Style_Widget*      global_style;
-    Cusp_Style_Widget*      selection_style;
+    Cusp_Style_Widget*      widget_global_style;
+    Cusp_Style_Widget*      widget_cusp_style;
     Dock_Borders*           dock_borders;
     About_Dialog            about_dialog;
     QPrinter                printer;

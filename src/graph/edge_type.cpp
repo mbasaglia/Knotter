@@ -54,11 +54,10 @@ void Edge_Type::paint(QPainter *painter, const Edge &edge)
     painter->drawLine(edge.to_line());
 }
 
-QLineF Edge_Normal::handle(const Edge *edge, Edge::Handle handle,
-                          const Knot_Style &default_style) const
+QLineF Edge_Normal::handle(const Edge *edge, Edge::Handle handle) const
 {
 
-    Knot_Style style = edge->style().default_to(default_style);
+    Edge_Style style = edge->defaulted_style();
 
     long double handle_angle = 0;
     if ( handle == Edge::TOP_RIGHT )
@@ -85,8 +84,7 @@ QLineF Edge_Normal::handle(const Edge *edge, Edge::Handle handle,
 
 
 Edge::Handle Edge_Normal::traverse(Edge *edge, Edge::Handle hand,
-                                   Path_Builder &path,
-                                   const Knot_Style &default_style) const
+                                   Path_Builder &path) const
 {
 
     Edge::Handle next = Edge::NO_HANDLE;
@@ -101,8 +99,8 @@ Edge::Handle Edge_Normal::traverse(Edge *edge, Edge::Handle hand,
 
 
    if ( hand == Edge::TOP_LEFT || next == Edge::TOP_LEFT )
-       path.add_line(handle(edge,hand,default_style).p1(),
-                     handle(edge,next,default_style).p1()
+       path.add_line(handle(edge,hand).p1(),
+                     handle(edge,next).p1()
                      );
 
    return next ;
@@ -142,7 +140,7 @@ void Edge_Inverted::paint(QPainter *painter, const Edge &edge)
 }
 
 Edge::Handle Edge_Inverted::traverse(Edge *edge, Edge::Handle hand,
-                    Path_Builder &path, const Knot_Style &default_style) const
+                    Path_Builder &path) const
 {
     Edge::Handle next = Edge::NO_HANDLE;
     if ( hand == Edge::TOP_RIGHT )
@@ -156,8 +154,8 @@ Edge::Handle Edge_Inverted::traverse(Edge *edge, Edge::Handle hand,
 
 
    if ( hand == Edge::TOP_RIGHT || next == Edge::TOP_RIGHT )
-       path.add_line(handle(edge,hand,default_style).p1(),
-                     handle(edge,next,default_style).p1()
+       path.add_line(handle(edge,hand).p1(),
+                     handle(edge,next).p1()
                      );
 
    return next ;
@@ -182,7 +180,7 @@ void Edge_Wall::paint(QPainter *painter, const Edge &edge)
 }
 
 Edge::Handle Edge_Wall::traverse(Edge *edge, Edge::Handle hand,
-                        Path_Builder &path, const Knot_Style &default_style) const
+                        Path_Builder &path) const
 {
     Edge::Handle next = Edge::NO_HANDLE;
     if ( hand == Edge::TOP_RIGHT )
@@ -198,8 +196,8 @@ Edge::Handle Edge_Wall::traverse(Edge *edge, Edge::Handle hand,
     Q_UNUSED(path);
     Q_UNUSED(default_style);*/
 
-    QLineF h1 = handle(edge,hand,default_style);
-    QLineF h2 = handle(edge,next,default_style);
+    QLineF h1 = handle(edge,hand);
+    QLineF h2 = handle(edge,next);
     if ( !qFuzzyCompare(h1.p1(),h2.p1()) )
     {
         path.add_line(h1.p1(),h2.p1());
@@ -219,11 +217,10 @@ QString Edge_Wall::machine_name() const
     return "wall";
 }
 
-QLineF Edge_Wall::handle(const Edge *edge, Edge::Handle handle,
-                         const Knot_Style &default_style) const
+QLineF Edge_Wall::handle(const Edge *edge, Edge::Handle handle) const
 {
 
-    Knot_Style style = edge->style().default_to(default_style);
+    Edge_Style style = edge->defaulted_style();
 
     long double handle_angle = 0;
     if ( handle == Edge::TOP_RIGHT || handle == Edge::TOP_LEFT )
@@ -274,10 +271,9 @@ QString Edge_Hole::machine_name() const
     return "hole";
 }
 
-QLineF Edge_Hole::handle(const Edge *edge, Edge::Handle handle,
-                         const Knot_Style &default_style) const
+QLineF Edge_Hole::handle(const Edge *edge, Edge::Handle handle) const
 {
-    Knot_Style style = edge->style().default_to(default_style);
+    Edge_Style style = edge->defaulted_style();
 
     long double handle_angle = 0;
     if ( handle == Edge::BOTTOM_LEFT || handle == Edge::TOP_LEFT )
@@ -314,7 +310,7 @@ void Edge_Hole::paint(QPainter *painter, const Edge &edge)
     long double angle = deg2rad(edge.to_line().angle()) + pi() / 2;
     const double length = 5;
     QPointF p = edge.to_line().pointAt(
-                edge.style().enabled_style & Knot_Style::EDGE_SLIDE ?
+                edge.style().enabled_style & Edge_Style::EDGE_SLIDE ?
                 edge.style().edge_slide : 0.5
     );
 
@@ -323,8 +319,7 @@ void Edge_Hole::paint(QPainter *painter, const Edge &edge)
 }
 
 Edge::Handle Edge_Hole::traverse(Edge *edge, Edge::Handle handle,
-                                 Path_Builder &path,
-                                 const Knot_Style &default_style) const
+                                 Path_Builder &path) const
 {
 
     Edge::Handle next = Edge::NO_HANDLE;
@@ -339,7 +334,6 @@ Edge::Handle Edge_Hole::traverse(Edge *edge, Edge::Handle handle,
 
     Q_UNUSED(edge);
     Q_UNUSED(path);
-    Q_UNUSED(default_style);
 
    return next ;
 }

@@ -30,15 +30,14 @@ Cusp_Style_Dialog::Cusp_Style_Dialog(QWidget *parent) :
     QDialog(parent)
 {
     setupUi(this);
-    cusp_style_widget->hide_edge_type();
 }
 
-void Cusp_Style_Dialog::set_style(const Knot_Style& style)
+void Cusp_Style_Dialog::set_style(const Node_Style& style)
 {
     cusp_style_widget->set_style(style);
 }
 
-Knot_Style Cusp_Style_Dialog::node_style() const
+Node_Style Cusp_Style_Dialog::node_style() const
 {
     return cusp_style_widget->get_style();
 }

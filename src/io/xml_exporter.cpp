@@ -109,6 +109,7 @@ void XML_Exporter::save_style(const Graph *graph)
     end_element(); // borders
 
     save_cusp("cusp",graph->default_node_style());
+    /// \todo save crossing
 
 
     start_element("stroke");
@@ -131,23 +132,20 @@ void XML_Exporter::save_style(const Graph *graph)
     end_element(); // style
 }
 
-void XML_Exporter::save_cusp(QString name, Knot_Style style)
+void XML_Exporter::save_cusp(QString name, Node_Style style)
 {
 
     start_element(name);
-    if ( style.enabled_style & Knot_Style::CUSP_SHAPE )
+    if ( style.enabled_style & Node_Style::CUSP_SHAPE )
         xml.writeTextElement("shape",style.cusp_shape->machine_name());
 
-    if ( style.enabled_style & Knot_Style::CUSP_ANGLE )
+    if ( style.enabled_style & Node_Style::CUSP_ANGLE )
         xml.writeTextElement("min-angle",QString::number(style.cusp_angle));
 
-    if ( style.enabled_style & Knot_Style::CUSP_DISTANCE )
+    if ( style.enabled_style & Node_Style::CUSP_DISTANCE )
         xml.writeTextElement("distance",QString::number(style.cusp_distance));
 
-    if ( style.enabled_style & Knot_Style::CROSSING_DISTANCE )
-        xml.writeTextElement("gap",QString::number(style.crossing_distance));
-
-    if ( style.enabled_style & Knot_Style::HANDLE_LENGTH )
+    if ( style.enabled_style & Node_Style::HANDLE_LENGTH )
         xml.writeTextElement("handle-length",QString::number(style.handle_length));
 
     end_element();
@@ -162,7 +160,7 @@ void XML_Exporter::save_node(Node *node)
         xml.writeAttribute("id",QString("node_%1").arg(id));
         xml.writeAttribute("x",QString::number(node->pos().x()));
         xml.writeAttribute("y",QString::number(node->pos().y()));
-        if ( node->style().enabled_style != Knot_Style::NOTHING )
+        if ( node->style().enabled_style != Node_Style::NOTHING )
             save_cusp("style",node->style());
     end_element(); // node
 

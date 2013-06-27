@@ -74,8 +74,8 @@ Script_Node *Script_Graph::add_node(Node *n)
     node_map[n] = sn;
     QObject::connect(sn,SIGNAL(moved(Script_Point)), SLOT(emit_node_moved(Script_Point)));
     QObject::connect(n,SIGNAL(destroyed()), SLOT(node_removed()));
-    QObject::connect(sn,SIGNAL(style_changed(Node*,Knot_Style,Knot_Style)),
-                     SIGNAL(node_style_changed(Node*,Knot_Style,Knot_Style)));
+    QObject::connect(sn,SIGNAL(style_changed(Node*,Node_Style,Node_Style)),
+                     SIGNAL(node_style_changed(Node*,Node_Style,Node_Style)));
     m_nodes.push_back(sn);
     return sn;
 }
@@ -318,7 +318,7 @@ bool Script_Graph::append(QString file, bool keep_style, Script_Point offset)
         n->setPos(n->pos()+offset);
         if ( keep_style )
         {
-            Knot_Style ns = n->style().default_to(graph.default_node_style());
+            Node_Style ns = n->style().default_to(graph.default_node_style());
             n->set_style(ns);
         }
         graph.remove_node(n);
