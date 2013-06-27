@@ -492,20 +492,29 @@ void Knot_Style_Handle_Lenght::apply(double value)
 {
     graph->default_node_style_reference().handle_length = value;
 }
+
 int Knot_Style_Crossing_Distance::m_id = generate_id();
 void Knot_Style_Crossing_Distance::apply(double value)
 {
     graph->default_node_style_reference().crossing_distance = value;
 }
+
 int Knot_Style_Cusp_Angle::m_id = generate_id();
 void Knot_Style_Cusp_Angle::apply(double value)
 {
     graph->default_node_style_reference().cusp_angle = value;
 }
+
 int Knot_Style_Cusp_Distance::m_id = generate_id();
 void Knot_Style_Cusp_Distance::apply(double value)
 {
     graph->default_node_style_reference().cusp_distance = value;
+}
+
+int Knot_Style_Edge_Slide::m_id = generate_id();
+void Knot_Style_Edge_Slide::apply(double value)
+{
+    graph->default_node_style_reference().edge_slide = value;
 }
 
 
@@ -611,8 +620,8 @@ void Node_Style_Cusp_Shape::redo()
 
 
 Node_Style_Enable::Node_Style_Enable(
-        QList<Node *> nodes, QList<Node_Style::Enabled_Styles> before,
-        QList<Node_Style::Enabled_Styles> after,
+        QList<Node *> nodes, QList<Knot_Style::Enabled_Styles> before,
+        QList<Knot_Style::Enabled_Styles> after,
         Knot_View *kv, Knot_Macro *parent)
     :Node_Style_Base(nodes,kv,parent), before(before), after(after)
 {
@@ -620,13 +629,13 @@ Node_Style_Enable::Node_Style_Enable(
 }
 
 Node_Style_Enable::Node_Style_Enable(Node *node,
-                                     Node_Style::Enabled_Styles before,
-                                     Node_Style::Enabled_Styles after,
+                                     Knot_Style::Enabled_Styles before,
+                                     Knot_Style::Enabled_Styles after,
                                      QString text,
                                      Knot_View *kv, Knot_Macro *parent)
     : Node_Style_Base(QList<Node*>()<<node,kv,parent),
-      before(QList<Node_Style::Enabled_Styles>()<<before),
-      after(QList<Node_Style::Enabled_Styles>()<<after)
+      before(QList<Knot_Style::Enabled_Styles>()<<before),
+      after(QList<Knot_Style::Enabled_Styles>()<<after)
 {
     setText(text);
 }
@@ -645,7 +654,7 @@ void Node_Style_Enable::redo()
 }
 
 
-Knot_Style_All::Knot_Style_All(Node_Style before, Node_Style after, Knot_View *kv, Knot_Macro *parent)
+Knot_Style_All::Knot_Style_All(Knot_Style before, Knot_Style after, Knot_View *kv, Knot_Macro *parent)
     : Knot_Command(kv,parent), before(before), after(after)
 {}
 
@@ -662,7 +671,7 @@ void Knot_Style_All::redo()
 }
 
 
-Node_Style_All::Node_Style_All(Node *node, Node_Style before, Node_Style after,
+Node_Style_All::Node_Style_All(Node *node, Knot_Style before, Knot_Style after,
                                Knot_View *kv, Knot_Macro *parent)
     : Knot_Command(kv,parent), before(before), after(after), node(node)
 {
@@ -692,13 +701,17 @@ Change_Edge_Type::Change_Edge_Type(Edge *edge, Edge_Type *before, Edge_Type *aft
 
 void Change_Edge_Type::undo()
 {
-    edge->set_style(before);
+    Knot_Style es = edge->style();
+    es.edge_type = before;
+    edge->set_style(es);
     update_knot();
 }
 
 void Change_Edge_Type::redo()
 {
-    edge->set_style(after);
+    Knot_Style es = edge->style();
+    es.edge_type = after;
+    edge->set_style(es);
     update_knot();
 }
 

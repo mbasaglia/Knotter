@@ -29,8 +29,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPaintEngine>
 
 Graph::Graph() :
-    m_default_node_style(225,24,10,32,Resource_Manager::default_cusp_shape(),
-                  Node_Style::EVERYTHING),
+    m_default_node_style(225,// cusp angle
+                         24, // handle length
+                         10, // crossing distance
+                         32, // cusp distance
+                         0.5,// edge slide
+                         Resource_Manager::default_cusp_shape(),
+                         Resource_Manager::default_edge_type(),
+                         Knot_Style::EVERYTHING
+                    ),
     auto_color(false), m_paint_border(true)
 {
     m_colors.push_back(Qt::black);
@@ -141,7 +148,7 @@ void Graph::set_brush_style(Qt::BrushStyle s)
     pen.setBrush(b);
 }
 
-void Graph::set_default_node_style(Node_Style style)
+void Graph::set_default_node_style(Knot_Style style)
 {
     m_default_node_style = style;
 }
@@ -294,7 +301,7 @@ void Graph::traverse(Path_Builder &path)
             edge = ti.out.edge;
             edge->mark_traversed(ti.out.handle);
             // Don't mark handle as traversed but render and get next handle
-            handle = edge->style()->traverse(edge,ti.out.handle,path,m_default_node_style);
+            handle = edge->style().edge_type->traverse(edge,ti.out.handle,path,m_default_node_style);
 
         }
     }

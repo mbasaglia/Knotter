@@ -45,7 +45,7 @@ public:
 
     void draw_joint ( Path_Builder& path,
                         const Traversal_Info& ti,
-                        const Node_Style& style ) const override;
+                        const Knot_Style& style ) const override;
 };
 
 #endif // CUSP_SCRIPTED_HPP

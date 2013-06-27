@@ -52,15 +52,17 @@ Cusp_Style_Widget::Cusp_Style_Widget(QWidget *parent) :
             SIGNAL(cusp_angle_changed(double)));
     connect(spin_cusp_distance,SIGNAL(valueChanged(double)),
             SIGNAL(cusp_distance_changed(double)));
+    connect(slide_edge_slide,SIGNAL(valueChanged(int)),SLOT(emit_edge_slide(int)));
 
     connect(Resource_Manager::pointer,SIGNAL(cusp_shapes_changed()),
             SLOT(reload_cusp_shapes()));
 
-    mapper.setMapping(check_crossing_gap,Node_Style::CROSSING_DISTANCE);
-    mapper.setMapping(check_cusp_angle,Node_Style::CUSP_ANGLE);
-    mapper.setMapping(check_cusp_distance,Node_Style::CUSP_DISTANCE);
-    mapper.setMapping(check_cusp_shape,Node_Style::CUSP_SHAPE);
-    mapper.setMapping(check_handle_length,Node_Style::HANDLE_LENGTH);
+    mapper.setMapping(check_crossing_gap,Knot_Style::CROSSING_DISTANCE);
+    mapper.setMapping(check_cusp_angle,Knot_Style::CUSP_ANGLE);
+    mapper.setMapping(check_cusp_distance,Knot_Style::CUSP_DISTANCE);
+    mapper.setMapping(check_cusp_shape,Knot_Style::CUSP_SHAPE);
+    mapper.setMapping(check_handle_length,Knot_Style::HANDLE_LENGTH);
+    mapper.setMapping(check_edge_slide,Knot_Style::EDGE_SLIDE);
     connect(&mapper,SIGNAL(mapped(int)),SLOT(checkbox_toggled(int)));
     foreach(QCheckBox* cb, findChildren<QCheckBox*>() )
     {
@@ -69,9 +71,9 @@ Cusp_Style_Widget::Cusp_Style_Widget(QWidget *parent) :
 
 }
 
-void Cusp_Style_Widget::set_style(const Node_Style &st)
+void Cusp_Style_Widget::set_style(const Knot_Style &st)
 {
-    if ( st.enabled_style & Node_Style::CROSSING_DISTANCE )
+    if ( st.enabled_style & Knot_Style::CROSSING_DISTANCE )
     {
         spin_crossing_gap->setValue(st.crossing_distance);
         check_crossing_gap->setChecked(true);
@@ -79,7 +81,16 @@ void Cusp_Style_Widget::set_style(const Node_Style &st)
     else
         check_crossing_gap->setChecked(false);
 
-    if ( st.enabled_style & Node_Style::CUSP_SHAPE )
+
+    if ( st.enabled_style & Knot_Style::EDGE_SLIDE )
+    {
+        slide_edge_slide->setValue(st.edge_slide*100);
+        check_edge_slide->setChecked(true);
+    }
+    else
+        check_edge_slide->setChecked(false);
+
+    if ( st.enabled_style & Knot_Style::CUSP_SHAPE )
     {
         for(int i = 0; i < combo_cusp_shape->count(); i++ )
         {
@@ -95,7 +106,7 @@ void Cusp_Style_Widget::set_style(const Node_Style &st)
     else
         check_cusp_shape->setChecked(false);
 
-    if ( st.enabled_style & Node_Style::CUSP_ANGLE )
+    if ( st.enabled_style & Knot_Style::CUSP_ANGLE )
     {
         spin_cusp_angle->setValue(st.cusp_angle);
         check_cusp_angle->setChecked(true);
@@ -103,7 +114,7 @@ void Cusp_Style_Widget::set_style(const Node_Style &st)
     else
         check_cusp_angle->setChecked(false);
 
-    if ( st.enabled_style & Node_Style::CUSP_DISTANCE )
+    if ( st.enabled_style & Knot_Style::CUSP_DISTANCE )
     {
         spin_cusp_distance->setValue(st.cusp_distance);
         check_cusp_distance->setChecked(true);
@@ -111,40 +122,49 @@ void Cusp_Style_Widget::set_style(const Node_Style &st)
     else
         check_cusp_distance->setChecked(false);
 
-    if ( st.enabled_style & Node_Style::HANDLE_LENGTH )
+    if ( st.enabled_style & Knot_Style::HANDLE_LENGTH )
     {
         spin_handle_length->setValue(st.handle_length);
         check_handle_length->setChecked(true);
     }
     else
         check_handle_length->setChecked(false);
+
+    if ( st.enabled_style & Knot_Style::EDGE_TYPE )
+    {
+        set_edge_type(st.edge_type );
+    }
 }
 
-Node_Style Cusp_Style_Widget::get_style() const
+Knot_Style Cusp_Style_Widget::get_style() const
 {
-    return Node_Style(
+    return Knot_Style(
                 spin_cusp_angle->value(),
                 spin_handle_length->value(),
                 spin_crossing_gap->value(),
                 spin_cusp_distance->value(),
+                slide_edge_slide->value()/100.0,
                 cusp_shape(),
+                edge_type(),
                 enabled_styles()
                 );
 }
 
-Node_Style::Enabled_Styles Cusp_Style_Widget::enabled_styles() const
+Knot_Style::Enabled_Styles Cusp_Style_Widget::enabled_styles() const
 {
-    Node_Style::Enabled_Styles es = Node_Style::NOTHING;
+    Knot_Style::Enabled_Styles es = Knot_Style::NOTHING;
     if ( check_crossing_gap->isChecked() )
-        es |= Node_Style::CROSSING_DISTANCE;
+        es |= Knot_Style::CROSSING_DISTANCE;
+    if ( check_edge_slide->isChecked() )
+        es |= Knot_Style::EDGE_SLIDE;
     if ( check_cusp_angle->isChecked() )
-        es |= Node_Style::CUSP_ANGLE;
+        es |= Knot_Style::CUSP_ANGLE;
     if ( check_cusp_distance->isChecked() )
-        es |= Node_Style::CUSP_DISTANCE;
+        es |= Knot_Style::CUSP_DISTANCE;
     if ( check_cusp_shape->isChecked() )
-        es |= Node_Style::CUSP_SHAPE;
+        es |= Knot_Style::CUSP_SHAPE;
     if ( check_handle_length->isChecked() )
-        es |= Node_Style::HANDLE_LENGTH;
+        es |= Knot_Style::HANDLE_LENGTH;
     return es;
 }
 
@@ -167,7 +187,7 @@ void Cusp_Style_Widget::set_edge_type(Edge_Type *type)
     }
 }
 
-Edge_Type *Cusp_Style_Widget::edge_type()
+Edge_Type *Cusp_Style_Widget::edge_type() const
 {
     return edge_type(combo_edge_type->currentIndex());
 }
@@ -223,7 +243,7 @@ void Cusp_Style_Widget::on_combo_cusp_shape_activated(int index)
 void Cusp_Style_Widget::on_combo_edge_type_activated(int index)
 {
 
-    emit edget_type_changed(edge_type(index));
+    emit edge_type_changed(edge_type(index));
 }
 
 void Cusp_Style_Widget::checkbox_toggled(int style)
@@ -232,25 +252,33 @@ void Cusp_Style_Widget::checkbox_toggled(int style)
 
     if ( qobject_cast<QCheckBox*>(mapper.mapping(style))->isChecked() )
     {
-        switch(Node_Style::Enabled_Styles_Enum(style))
+        switch(Knot_Style::Enabled_Styles_Enum(style))
         {
-            case Node_Style::CROSSING_DISTANCE:
+            case Knot_Style::CROSSING_DISTANCE:
                 emit crossing_distance_changed(spin_crossing_gap->value());
                 break;
-            case Node_Style::CUSP_ANGLE:
+            case Knot_Style::EDGE_SLIDE:
+                emit crossing_distance_changed(slide_edge_slide->value());
+                break;
+            case Knot_Style::CUSP_ANGLE:
                 emit cusp_angle_changed(spin_cusp_angle->value());
                 break;
-            case Node_Style::CUSP_DISTANCE:
+            case Knot_Style::CUSP_DISTANCE:
                 emit cusp_distance_changed(spin_cusp_distance->value());
                 break;
-            case Node_Style::CUSP_SHAPE:
+            case Knot_Style::CUSP_SHAPE:
                 emit cusp_shape_changed(cusp_shape(combo_cusp_shape->currentIndex()));
                 break;
-            case Node_Style::HANDLE_LENGTH:
+            case Knot_Style::HANDLE_LENGTH:
                 emit handle_length_changed(spin_handle_length->value());
                 break;
-            case Node_Style::NOTHING:
-            case Node_Style::EVERYTHING:
+            case Knot_Style::EDGE_TYPE:
+                emit edge_type_changed(edge_type());
+                break;
+            case Knot_Style::NOTHING:
+            case Knot_Style::EVERYTHING:
+            case Knot_Style::NODE_EVERYTHING:
+            case Knot_Style::EDGE_EVERYTHING:
                 break;
         }
 
@@ -297,5 +325,10 @@ void Cusp_Style_Widget::reload_cusp_shapes()
 
     if ( new_shape != current_shape )
         emit cusp_shape_changed(new_shape);
+}
+
+void Cusp_Style_Widget::emit_edge_slide(int percent)
+{
+    emit edge_slide_changed(percent/100.0);
 }
 

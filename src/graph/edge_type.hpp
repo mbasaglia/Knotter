@@ -50,14 +50,14 @@ public:
      *  \brief Perform any rendering to path and return the next handle
     */
     virtual Edge::Handle traverse(Edge* edge, Edge::Handle handle,Path_Builder& path,
-                          const Node_Style& default_style ) const = 0;
+                          const Knot_Style& default_style ) const = 0;
     /**
      *  \brief Get handle geometry
      *
      *  p1 is the point where the path line should pass, p2 the control point
      */
     virtual QLineF handle(const Edge *edge, Edge::Handle handle,
-                          const Node_Style &default_style) const = 0;
+                          const Knot_Style &default_style) const = 0;
 
     /// (Translated) Human-readable name, used in the UI
     virtual QString name() const = 0;
@@ -80,11 +80,11 @@ public:
      *  \brief Perform any rendering to path and return the next handle
     */
     Edge::Handle traverse(Edge* edge, Edge::Handle handle,Path_Builder& path,
-                          const Node_Style& default_style ) const override;
+                          const Knot_Style& default_style ) const override;
     QString name() const override;
     QString machine_name() const override;
     QLineF handle(const Edge *edge, Edge::Handle handle,
-                  const Node_Style &default_style) const override;
+                  const Knot_Style &default_style) const override;
     QIcon icon() const override { return QIcon::fromTheme("edge-crossing"); }
 };
 
@@ -94,7 +94,7 @@ class Edge_Inverted : public Edge_Normal
 public:
     void paint(QPainter*painter, const Edge& edge) override;
     Edge::Handle traverse(Edge* edge, Edge::Handle handle,Path_Builder& path,
-                          const Node_Style& default_style ) const override;
+                          const Knot_Style& default_style ) const override;
     QString name() const override;
     QString machine_name() const override;
     QIcon icon() const override { return QIcon::fromTheme("edge-inverted"); }
@@ -105,11 +105,11 @@ class Edge_Wall : public Edge_Type
 public:
     void paint(QPainter*painter, const Edge& edge) override;
     Edge::Handle traverse(Edge* edge, Edge::Handle handle,Path_Builder& path,
-                          const Node_Style& default_style ) const override;
+                          const Knot_Style& default_style ) const override;
     QString name() const override;
     QString machine_name() const override;
     QLineF handle(const Edge *edge, Edge::Handle handle,
-                  const Node_Style &default_style) const override;
+                  const Knot_Style &default_style) const override;
     QIcon icon() const override { return QIcon::fromTheme("edge-wall"); }
 };
 
@@ -119,11 +119,11 @@ class Edge_Hole : public Edge_Type
 public:
     void paint(QPainter*painter, const Edge& edge) override;
     Edge::Handle traverse(Edge* edge, Edge::Handle handle,Path_Builder& path,
-                          const Node_Style& default_style ) const override;
+                          const Knot_Style& default_style ) const override;
     QString name() const override;
     QString machine_name() const override;
     QLineF handle(const Edge *edge, Edge::Handle handle,
-                  const Node_Style &default_style) const override;
+                  const Knot_Style &default_style) const override;
     QIcon icon() const override { return QIcon::fromTheme("edge-hole"); }
 };
 

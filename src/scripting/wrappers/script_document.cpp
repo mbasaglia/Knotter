@@ -39,8 +39,8 @@ Script_Document::Script_Document(Knot_View *wrapped, QObject *parent) :
             SLOT(change_edge_type(Script_Edge*,Edge_Type*)));
     connect(&m_graph,SIGNAL(node_removed(Script_Node*)),SLOT(remove_node(Script_Node*)));
     connect(&m_graph,SIGNAL(edge_removed(Script_Edge*)),SLOT(remove_edge(Script_Edge*)));
-    connect(&m_graph,SIGNAL(node_style_changed(Node*,Node_Style,Node_Style)),
-            SLOT(change_node_style(Node*,Node_Style,Node_Style)));
+    connect(&m_graph,SIGNAL(node_style_changed(Node*,Knot_Style,Knot_Style)),
+            SLOT(change_node_style(Node*,Knot_Style,Knot_Style)));
 }
 
 Script_Document::~Script_Document()
@@ -108,10 +108,10 @@ void Script_Document::move_node(Script_Node *n, Script_Point p)
 void Script_Document::change_edge_type(Script_Edge *edge, Edge_Type *type)
 {
     Edge* real = edge->wrapped_edge();
-    wrapped->push_command(new Change_Edge_Type(real,real->style(),type,wrapped));
+    wrapped->push_command(new Change_Edge_Type(real,real->style().edge_type,type,wrapped));
 }
 
-void Script_Document::change_node_style(Node *node, Node_Style before, Node_Style after)
+void Script_Document::change_node_style(Node *node, Knot_Style before, Knot_Style after)
 {
     wrapped->push_command(new Node_Style_All(node,before,after,wrapped));
 }

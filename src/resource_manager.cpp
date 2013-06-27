@@ -237,7 +237,7 @@ Resource_Manager::~Resource_Manager()
     foreach ( QTranslator* tr, translators.values() )
         delete tr;
 
-    foreach ( Edge_Type* es, m_edge_styles )
+    foreach ( Edge_Type* es, m_edge_types )
         delete es;
 
     foreach ( Plugin* p, m_plugins)
@@ -349,49 +349,49 @@ void Resource_Manager::save_settings()
 }
 
 
-void Resource_Manager::register_edge_style(Edge_Type *style)
+void Resource_Manager::register_edge_type(Edge_Type *type)
 {
-    singleton.m_edge_styles.push_back(style);
+    singleton.m_edge_types.push_back(type);
 }
 
-Edge_Type *Resource_Manager::default_edge_style()
+Edge_Type *Resource_Manager::default_edge_type()
 {
-    if ( singleton.m_edge_styles.empty() )
+    if ( singleton.m_edge_types.empty() )
         return nullptr;
-    return singleton.m_edge_styles.front();
+    return singleton.m_edge_types.front();
 }
 
-Edge_Type *Resource_Manager::next_edge_style(Edge_Type *style)
+Edge_Type *Resource_Manager::next_edge_type(Edge_Type *type)
 {
-    int sz = singleton.m_edge_styles.size();
+    int sz = singleton.m_edge_types.size();
     for ( int i = 0; i < sz; i++ )
-        if ( singleton.m_edge_styles[i] == style )
-            return singleton.m_edge_styles[(i+1)%sz];
-    return default_edge_style();
+        if ( singleton.m_edge_types[i] == type )
+            return singleton.m_edge_types[(i+1)%sz];
+    return default_edge_type();
 }
 
-Edge_Type *Resource_Manager::prev_edge_style(Edge_Type *style)
+Edge_Type *Resource_Manager::prev_edge_type(Edge_Type *type)
 {
-    int sz = singleton.m_edge_styles.size();
+    int sz = singleton.m_edge_types.size();
     for ( int i = sz-1; i >= 0; i-- )
     {
-        if ( singleton.m_edge_styles[i] == style )
+        if ( singleton.m_edge_types[i] == type )
         {
             if ( i == 0 )
-                return singleton.m_edge_styles.back();
+                return singleton.m_edge_types.back();
 
-            return singleton.m_edge_styles[i-1];
+            return singleton.m_edge_types[i-1];
         }
     }
-    return default_edge_style();
+    return default_edge_type();
 }
 
-Edge_Type *Resource_Manager::edge_style_from_machine_name(QString name)
+Edge_Type *Resource_Manager::edge_type_from_machine_name(QString name)
 {
-    foreach(Edge_Type* st, singleton.m_edge_styles )
+    foreach(Edge_Type* st, singleton.m_edge_types )
         if ( st->machine_name() == name )
             return st;
-    return default_edge_style();
+    return default_edge_type();
 }
 
 void Resource_Manager::register_cusp_shape(Cusp_Shape *style)

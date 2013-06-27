@@ -378,6 +378,8 @@ void Main_Window::connect_view(Knot_View *v)
             v,SLOT(set_knot_handle_lenght(double)));
     connect(global_style,SIGNAL(cusp_shape_changed(Cusp_Shape*)),
             v,SLOT(set_knot_cusp_shape(Cusp_Shape*)));
+    connect(global_style,SIGNAL(edge_slide_changed(double)),
+            v,SLOT(set_knot_ege_slide(double)));
 
     // selection style
     update_selection(v->selected_nodes(),v->selected_edges());
@@ -395,9 +397,9 @@ void Main_Window::connect_view(Knot_View *v)
             v,SLOT(set_selection_handle_lenght(double)));
     connect(selection_style,SIGNAL(cusp_shape_changed(Cusp_Shape*)),
             v,SLOT(set_selection_cusp_shape(Cusp_Shape*)));
-    connect(selection_style,SIGNAL(enabled_styles_changed(Node_Style::Enabled_Styles)),
-            v,SLOT(set_selection_enabled_styles(Node_Style::Enabled_Styles)));
-    connect(selection_style,SIGNAL(edget_type_changed(Edge_Type*)),
+    connect(selection_style,SIGNAL(enabled_styles_changed(Knot_Style::Enabled_Styles)),
+            v,SLOT(set_selection_enabled_styles(Knot_Style::Enabled_Styles)));
+    connect(selection_style,SIGNAL(edge_type_changed(Edge_Type*)),
             v,SLOT(set_selection_edge_type(Edge_Type*)));
 
     //export
@@ -516,18 +518,58 @@ void Main_Window::update_selection(QList<Node *> nodes, QList<Edge*> edges)
     selection_style->setEnabled(!nodes.isEmpty() || !edges.isEmpty() );
 
     selection_style->blockSignals(true);
-    Node_Style ns = view->graph().default_node_style();
-    selection_style->set_style(ns); // set defaults
-    if ( nodes.isEmpty() )
-        ns.enabled_style = Node_Style::NOTHING;
-    else
-        ns = nodes[0]->style();
-    selection_style->set_style(ns); // set actual style
+    Knot_Style ks = view->graph().default_node_style();
+    selection_style->set_style(ks); // set defaults
 
-    if ( edges.isEmpty() )
-        selection_style->set_edge_type(Resource_Manager::default_edge_style());
+    if ( nodes.isEmpty() )
+        ks.enabled_style = Knot_Style::NOTHING;
     else
-        selection_style->set_edge_type(edges[0]->style());
+    {
+        Knot_Style ns = nodes[0]->style();
+        if ( ns.enabled_style & Knot_Style::CUSP_ANGLE )
+        {
+            ks.cusp_angle = ns.cusp_angle;
+            ks.enabled_style |= Knot_Style::CUSP_ANGLE;
+        }
+        if ( ns.enabled_style & Knot_Style::CUSP_DISTANCE )
+        {
+            ks.cusp_distance = ns.cusp_distance;
+            ks.enabled_style |= Knot_Style::CUSP_DISTANCE;
+        }
+        if ( ns.enabled_style & Knot_Style::CUSP_SHAPE )
+        {
+            ks.cusp_shape = ns.cusp_shape;
+            ks.enabled_style |= Knot_Style::CUSP_SHAPE;
+        }
+    }
+
+    if ( !edges.isEmpty() )
+    {
+        Knot_Style es = edges[0]->style();
+        if ( es.enabled_style & Knot_Style::CROSSING_DISTANCE )
+        {
+            ks.crossing_distance = es.crossing_distance;
+            ks.enabled_style |= Knot_Style::CROSSING_DISTANCE;
+        }
+        if ( es.enabled_style & Knot_Style::EDGE_SLIDE )
+        {
+            ks.edge_slide = es.edge_slide;
+            ks.enabled_style |= Knot_Style::EDGE_SLIDE;
+        }
+        if ( es.enabled_style & Knot_Style::EDGE_TYPE )
+        {
+            ks.edge_type = es.edge_type;
+            ks.enabled_style |= Knot_Style::EDGE_TYPE;
+        }
+        if ( es.enabled_style & Knot_Style::HANDLE_LENGTH )
+        {
+            ks.handle_length = es.handle_length;
+            ks.enabled_style |= Knot_Style::HANDLE_LENGTH;
+        }
+    }
+
+    selection_style->set_style(ks); // set actual style
+
 
     selection_style->blockSignals(false);
 }
@@ -1152,7 +1194,7 @@ void Main_Window::on_action_Merge_triggered()
             if ( !nodes.contains(e->other(*i)) && !outlinks.contains(e->other(*i)) )
             {
                 outlinks.push_back(e->other(*i));
-                outlinks_styles.push_back(e->style());
+                outlinks_styles.push_back(e->style().edge_type);
             }
         view->remove_node(*i);
     }

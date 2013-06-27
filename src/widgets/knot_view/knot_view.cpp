@@ -232,6 +232,15 @@ void Knot_View::set_knot_cusp_shape(Cusp_Shape *v)
                      ));
 }
 
+void Knot_View::set_knot_ege_slide(double v)
+{
+    push_command(new Knot_Style_Edge_Slide(
+                     m_graph.default_node_style().edge_slide,
+                     v, this
+                     ));
+
+}
+
 void Knot_View::set_selection_handle_lenght(double v)
 {
     QList<Node*> nodes = selected_nodes();
@@ -303,17 +312,17 @@ void Knot_View::set_selection_edge_type(Edge_Type *v)
 
     foreach(Edge* e, selected_edges())
     {
-        push_command(new Change_Edge_Type(e,e->style(),v,this));
+        push_command(new Change_Edge_Type(e,e->style().edge_type,v,this));
     }
 
     end_macro();
 }
 
-void Knot_View::set_selection_enabled_styles(Node_Style::Enabled_Styles v)
+void Knot_View::set_selection_enabled_styles(Knot_Style::Enabled_Styles v)
 {
     QList<Node*> nodes = selected_nodes();
-    QList<Node_Style::Enabled_Styles> before;
-    QList<Node_Style::Enabled_Styles> after;
+    QList<Knot_Style::Enabled_Styles> before;
+    QList<Knot_Style::Enabled_Styles> after;
     foreach(Node* n, nodes)
     {
         before.push_back(n->style().enabled_style);
@@ -414,7 +423,7 @@ Node *Knot_View::add_breaking_node(QPointF pos)
 
 Edge *Knot_View::add_edge(Node *n1, Node *n2)
 {
-    Edge* e = new Edge(n1,n2,Resource_Manager::default_edge_style());
+    Edge* e = new Edge(n1,n2,Resource_Manager::default_edge_type());
     push_command(new Create_Edge(e,this));
     return e;
 }
@@ -952,9 +961,9 @@ void Knot_View::wheelEvent(QWheelEvent *event)
         if ( e )
         {
             Edge_Type* st = event->delta() < 0 ?
-                                Resource_Manager::next_edge_style(e->style()) :
-                                Resource_Manager::prev_edge_style(e->style()) ;
-            push_command(new Change_Edge_Type(e,e->style(),st,this));
+                        Resource_Manager::next_edge_type(e->style().edge_type) :
+                        Resource_Manager::prev_edge_type(e->style().edge_type) ;
+            push_command(new Change_Edge_Type(e,e->style().edge_type,st,this));
         }
         else // scroll
         {

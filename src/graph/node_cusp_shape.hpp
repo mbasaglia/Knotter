@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMetaType>
 
 class Traversal_Info;
-class Node_Style;
+class Knot_Style;
 
 class Cusp_Shape
 {
@@ -53,7 +53,7 @@ public:
      */
     virtual void draw_joint ( Path_Builder& path,
                                 const Traversal_Info& ti,
-                                const Node_Style& style ) const = 0;
+                                const Knot_Style& style ) const = 0;
 
     /// Icon to be shown in the UI
     virtual QIcon icon() const { return QIcon::fromTheme("cusp-other"); }
@@ -95,7 +95,7 @@ class Cusp_Rounded : public Cusp_Shape
 
     void draw_joint ( Path_Builder& path,
                         const Traversal_Info& ti,
-                        const Node_Style& style ) const override;
+                        const Knot_Style& style ) const override;
 };
 
 
@@ -109,7 +109,7 @@ class Cusp_Pointed : public Cusp_Shape
 
     void draw_joint ( Path_Builder& path,
                         const Traversal_Info& ti,
-                        const Node_Style& style ) const override;
+                        const Knot_Style& style ) const override;
 };
 
 
@@ -123,7 +123,7 @@ class Cusp_Ogee : public Cusp_Shape
 
     void draw_joint ( Path_Builder& path,
                         const Traversal_Info& ti,
-                        const Node_Style& style ) const override;
+                        const Knot_Style& style ) const override;
 };
 
 
@@ -137,6 +137,6 @@ class Cusp_Polygonal : public Cusp_Shape
 
     void draw_joint ( Path_Builder& path,
                         const Traversal_Info& ti,
-                        const Node_Style& style ) const override;
+                        const Knot_Style& style ) const override;
 };
 #endif // NODE_CUSP_SHAPE_HPP

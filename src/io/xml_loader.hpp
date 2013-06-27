@@ -51,7 +51,7 @@ class XML_Loader : QObject
      *  \param element      Element containing the data
      *  \param everything   If true will always enable all styles
      */
-    Node_Style get_node_style ( QDomElement element, bool everything );
+    Knot_Style get_node_style ( QDomElement element, bool everything );
 
     /// Parse /knot/style
     void get_style(QDomElement element, Graph* graph);

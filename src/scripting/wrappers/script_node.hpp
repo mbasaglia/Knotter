@@ -92,10 +92,10 @@ public:
 
 signals:
     void moved(Script_Point p);
-    void style_changed(Node* node, Node_Style before, Node_Style after );
+    void style_changed(Node* node, Knot_Style before, Knot_Style after );
 
 private slots:
-    void emit_style_changed(Node_Style before, Node_Style after );
+    void emit_style_changed(Knot_Style before, Knot_Style after );
 
 };
 

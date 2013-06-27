@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Edge_Type;
 
-class Node_Style
+class Knot_Style
 {
 
 public:
@@ -65,40 +65,46 @@ public:
     double crossing_distance;
     /// Distance from the node to the cusp point
     double cusp_distance;
+    /// Value in [0,1] that determines the offset of the crossing
+    double edge_slide;
     /// Polymorphic object that renders the cusp
     Cusp_Shape* cusp_shape;
     /// Polymorphic object that renders the crossing
     Edge_Type* edge_type;
 
 public:
-    Node_Style (
+    Knot_Style (
                double cusp_angle = 225,
                double handle_length = 24,
                double crossing_distance = 10,
                double cusp_distance = 32,
+               double edge_slide = 0.5,
                Cusp_Shape* cusp_shape = nullptr,
+               Edge_Type* edge_type = nullptr,
                Enabled_Styles enabled_style = NOTHING )
         :   enabled_style ( enabled_style ),
             cusp_angle(cusp_angle),
             handle_length(handle_length),
             crossing_distance(crossing_distance),
             cusp_distance ( cusp_distance ),
+            edge_slide(edge_slide),
             cusp_shape ( cusp_shape ),
-            edge_type(nullptr)
+            edge_type(edge_type)
     {}
 
     /// Set disabled style to the values in other
-    Node_Style default_to(const Node_Style& other) const;
+    Knot_Style default_to(const Knot_Style& other) const;
 
-    void build(const Traversal_Info& ti,Path_Builder&path, const Node_Style& default_style) const
+    void build(const Traversal_Info& ti,Path_Builder&path, const Knot_Style& default_style) const
     {
-        Node_Style def = default_to(default_style);
+        Knot_Style def = default_to(default_style);
         if ( def.cusp_shape )
             def.cusp_shape->draw_joint(path,ti,def);
     }
 
+
 };
 
-Q_DECLARE_METATYPE(Node_Style::Enabled_Styles)
+Q_DECLARE_METATYPE(Knot_Style::Enabled_Styles)
 
 #endif // NODE_STYLE_HPP

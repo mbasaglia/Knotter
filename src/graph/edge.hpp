@@ -52,12 +52,12 @@ public:
 private:
     Node* v1;
     Node* v2;
-    Edge_Type* m_style;
+    Knot_Style m_style;
     Handle_Flags available_handles;
 
     static const int shapew = 8; ///< Width ued for shape()
 public:
-    explicit Edge(Node* v1, Node* v2, Edge_Type* e_style);
+    explicit Edge(Node* v1, Node* v2, Edge_Type *type = nullptr);
 
 
     /// Whether node is one of its vetices
@@ -89,8 +89,13 @@ public:
         return n == v1 ? v2 : ( n == v2 ? v1 : nullptr );
     }
 
-    void set_style(Edge_Type* st);
-    Edge_Type* style() const;
+    /**
+     * \brief set the edge styles
+     *
+     * If edge_type is \c nullptr the default style is used instead
+     */
+    void set_style(Knot_Style st);
+    Knot_Style style() const;
 
     QLineF to_line() const { return QLineF(v1->pos(), v2->pos()); }
 

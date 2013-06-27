@@ -41,10 +41,10 @@ class Script_Node_Style : public QObject
     Q_PROPERTY(QString cusp_shape READ cusp_shape WRITE set_cusp_shape )
 
 
-    Node_Style* wrapped;
+    Knot_Style* wrapped;
 
 public:
-    explicit Script_Node_Style(Node_Style* wrapped, QObject *parent = 0);
+    explicit Script_Node_Style(Knot_Style* wrapped, QObject *parent = 0);
     
     double cusp_angle();
     double handle_length();
@@ -67,7 +67,7 @@ public:
     Q_INVOKABLE QString toString() const { return "[node style]"; }
 
 signals:
-    void changed(Node_Style before,Node_Style after);
+    void changed(Knot_Style before,Knot_Style after);
 };
 
 #endif // SCRIPTING_NODE_STYLE_HPP

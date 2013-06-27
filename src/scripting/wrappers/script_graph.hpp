@@ -196,7 +196,7 @@ signals:
     void edge_removed(Script_Edge* e);
     void node_moved(Script_Node* n, Script_Point pos);
     void edge_type_changed(Script_Edge* edge, Edge_Type* type);
-    void node_style_changed(Node* node, Node_Style before, Node_Style after );
+    void node_style_changed(Node* node, Knot_Style before, Knot_Style after );
 
 private slots:
     void emit_node_moved(Script_Point pos);

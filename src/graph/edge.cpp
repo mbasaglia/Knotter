@@ -27,14 +27,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "graph.hpp"
 //#include <QVector2D>
 #include "edge_type.hpp"
+#include "resource_manager.hpp"
 
-Edge::Edge(Node *v1, Node *v2, Edge_Type* e_style) :
-    v1(v1), v2(v2), m_style(e_style),
+Edge::Edge(Node *v1, Node *v2, Edge_Type *type) :
+    v1(v1), v2(v2),
     available_handles(TOP_LEFT|TOP_RIGHT|BOTTOM_LEFT|BOTTOM_RIGHT)
 {
     attach();
     setZValue(1);
     setFlag(QGraphicsItem::ItemIsSelectable);
+
+    m_style.enabled_style |= Knot_Style::EDGE_TYPE;
+    m_style.edge_type = type ? type : Resource_Manager::default_edge_type();
 }
 
 QRectF Edge::boundingRect() const
@@ -60,12 +64,15 @@ void Edge::attach()
 }
 
 
-void Edge::set_style(Edge_Type *st)
+void Edge::set_style(Knot_Style st)
 {
     m_style = st;
+    m_style.enabled_style |= Knot_Style::EDGE_TYPE;
+    m_style.edge_type = st.edge_type ? st.edge_type :
+                                       Resource_Manager::default_edge_type();
 }
 
-Edge_Type *Edge::style() const
+Knot_Style Edge::style() const
 {
     return m_style;
 }
@@ -84,9 +91,9 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     }
 
     if ( visible && highlighted )
-        m_style->paint_highlighted(painter,*this);
+        m_style.edge_type->paint_highlighted(painter,*this);
     else if ( visible || highlighted )
-        m_style->paint_regular(painter,*this);
+        m_style.edge_type->paint_regular(painter,*this);
 
 }
 

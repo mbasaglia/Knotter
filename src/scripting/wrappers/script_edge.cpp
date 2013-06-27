@@ -70,12 +70,14 @@ QString Script_Edge::toString() const
 
 QString Script_Edge::type()
 {
-    return wrapped->style()->machine_name();
+    /// \todo
+    //return wrapped->style()->machine_name();
 }
 
 void Script_Edge::set_type(QString type_name)
 {
-    Edge_Type* t = Resource_Manager::edge_style_from_machine_name(type_name);
+    /// \todo
+    /*Edge_Type* t = Resource_Manager::edge_style_from_machine_name(type_name);
     emit type_changed(t);
-    wrapped->set_style(t);
+    wrapped->set_style(t);*/
 }

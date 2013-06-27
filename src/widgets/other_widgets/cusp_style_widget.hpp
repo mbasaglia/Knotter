@@ -41,15 +41,11 @@ class Cusp_Style_Widget : public QWidget, private Ui::Cusp_Style_Widget
 public:
     explicit Cusp_Style_Widget(QWidget *parent = 0);
 
-    void set_style(const Node_Style& st );
-    Node_Style get_style() const;
+    void set_style(const Knot_Style& st );
+    Knot_Style get_style() const;
 
-
-    Node_Style::Enabled_Styles enabled_styles() const;
+    Knot_Style::Enabled_Styles enabled_styles() const;
     Cusp_Shape* cusp_shape() const;
-
-    void set_edge_type(Edge_Type* type);
-    Edge_Type* edge_type();
 
     void hide_checkboxes();
     void hide_edge_type();
@@ -63,13 +59,15 @@ signals:
     void crossing_distance_changed(double);
     void cusp_distance_changed(double);
     void cusp_shape_changed(Cusp_Shape*);
-    void edget_type_changed(Edge_Type*);
-    void enabled_styles_changed(Node_Style::Enabled_Styles);
+    void edge_type_changed(Edge_Type*);
+    void enabled_styles_changed(Knot_Style::Enabled_Styles);
+    void edge_slide_changed(double);
 
 private slots:
     void on_combo_cusp_shape_activated(int index);
     void checkbox_toggled(int style);
     void reload_cusp_shapes();
+    void emit_edge_slide(int percent);
 
     void on_combo_edge_type_activated(int index);
 
@@ -82,6 +80,9 @@ private:
 
     /// Edge type associated with combo box index
     Edge_Type* edge_type(int index) const;
+    Edge_Type* edge_type() const;
+
+    void set_edge_type(Edge_Type *type);
 
     void load_cusp_shapes();
 };

@@ -39,10 +39,10 @@ int main(int argc, char *argv[])
     Resource_Manager::register_cusp_shape(new Cusp_Polygonal);
     Resource_Manager::register_cusp_shape(new Cusp_Ogee);
 
-    Resource_Manager::register_edge_style(new Edge_Normal);
-    Resource_Manager::register_edge_style(new Edge_Inverted);
-    Resource_Manager::register_edge_style(new Edge_Wall);
-    Resource_Manager::register_edge_style(new Edge_Hole);
+    Resource_Manager::register_edge_type(new Edge_Normal);
+    Resource_Manager::register_edge_type(new Edge_Inverted);
+    Resource_Manager::register_edge_type(new Edge_Wall);
+    Resource_Manager::register_edge_type(new Edge_Hole);
     Resource_Manager::initialize();
 
     Command_Line cmd(argc, argv);
