@@ -58,6 +58,11 @@ protected:
     void update_knot() const;
 
     /**
+     *  \brief Update selection only if has no parent
+     */
+    void update_selection() const;
+
+    /**
      *  \brief Update view only if has no parent
      */
     void update_view() const;

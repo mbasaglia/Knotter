@@ -54,6 +54,13 @@ void Knot_Command::update_knot() const
     if ( qobject_cast<Knot_Macro*>(parent()) == nullptr )
     {
         view->update_knot();
+    }
+}
+
+void Knot_Command::update_selection() const
+{
+    if ( qobject_cast<Knot_Macro*>(parent()) == nullptr )
+    {
         view->update_selection(false);
     }
 }
@@ -81,6 +88,7 @@ void Create_Node::undo()
     graph->remove_node(node);
     scene->removeItem(node);
     update_knot();
+    update_selection();
 }
 
 void Create_Node::redo()
@@ -89,6 +97,7 @@ void Create_Node::redo()
     scene->addItem(node);
     node->set_visible(graph_visible());
     update_knot();
+    update_selection();
 }
 
 
@@ -109,6 +118,7 @@ void Create_Edge::undo()
     graph->remove_edge(edge);
     scene->removeItem(edge);
     update_knot();
+    update_selection();
 }
 
 void Create_Edge::redo()
@@ -117,6 +127,7 @@ void Create_Edge::redo()
     scene->addItem(edge);
     edge->set_visible(graph_visible());
     update_knot();
+    update_selection();
 }
 
 
@@ -155,6 +166,7 @@ void Remove_Edge::redo()
         graph->remove_edge(edge);
         scene->removeItem(edge);
         update_knot();
+        update_selection();
     }
 }
 
@@ -166,6 +178,7 @@ void Remove_Edge::undo()
         scene->addItem(edge);
         edge->set_visible(graph_visible());
         update_knot();
+        update_selection();
     }
 }
 
@@ -376,6 +389,7 @@ void Remove_Node::undo()
     scene->addItem(node);
     node->set_visible(graph_visible());
     update_knot();
+    update_selection();
 }
 
 void Remove_Node::redo()
@@ -383,6 +397,7 @@ void Remove_Node::redo()
     graph->remove_node(node);
     scene->removeItem(node);
     update_knot();
+    update_selection();
 }
 
 
