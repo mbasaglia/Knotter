@@ -233,6 +233,17 @@ void export_xml_mime_data(QMimeData* data, const Graph& graph)
                       false,Background_Image(),"PNG");
         data->setData("image/png",knot_png);
     }
+
+
+    if ( Resource_Manager::settings.clipboard_feature(Settings::TIFF) )
+    {
+        QByteArray knot_tiff;
+        QBuffer tiff_stream(&knot_tiff);
+        export_raster(tiff_stream,graph,Qt::transparent,true,
+                      graph.full_image_bounding_rect().size().toSize(),100,false,
+                      false,Background_Image(),"TIFF");
+        data->setData("image/tiff",knot_tiff);
+    }
 }
 
 

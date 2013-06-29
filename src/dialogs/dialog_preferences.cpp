@@ -56,6 +56,7 @@ Dialog_Preferences::Dialog_Preferences(QMainWindow *parent) :
     check_files_close->setChecked(Resource_Manager::settings.check_unsaved_files());
 
     check_clipboard_png->setChecked(Resource_Manager::settings.clipboard_feature(Settings::PNG));
+    check_clipboard_tiff->setChecked(Resource_Manager::settings.clipboard_feature(Settings::TIFF));
     check_clipboard_svg->setChecked(Resource_Manager::settings.clipboard_feature(Settings::SVG));
     check_clipboard_xml->setChecked(Resource_Manager::settings.clipboard_feature(Settings::XML));
 
@@ -110,6 +111,7 @@ void Dialog_Preferences::set_preferences()
     Resource_Manager::settings.set_check_unsaved_files(check_files_close->isChecked());
 
     Resource_Manager::settings.set_clipboard_feature(Settings::PNG,check_clipboard_png->isChecked());
+    Resource_Manager::settings.set_clipboard_feature(Settings::TIFF,check_clipboard_tiff->isChecked());
     Resource_Manager::settings.set_clipboard_feature(Settings::SVG,check_clipboard_svg->isChecked());
     Resource_Manager::settings.set_clipboard_feature(Settings::XML,check_clipboard_xml->isChecked());
 

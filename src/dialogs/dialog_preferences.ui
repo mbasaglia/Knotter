@@ -281,6 +281,12 @@
               <property name="enabled">
                <bool>false</bool>
               </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="text">
                <string>Knot</string>
               </property>
@@ -295,7 +301,9 @@
                <string>XML</string>
               </property>
               <property name="icon">
-               <iconset theme="text-xml"/>
+               <iconset theme="text-xml">
+                <normaloff/>
+               </iconset>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -308,7 +316,9 @@
                <string>SVG</string>
               </property>
               <property name="icon">
-               <iconset theme="image-svg+xml"/>
+               <iconset theme="image-svg+xml">
+                <normaloff/>
+               </iconset>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -321,10 +331,22 @@
                <string>PNG</string>
               </property>
               <property name="icon">
-               <iconset theme="image-x-generic"/>
+               <iconset theme="image-x-generic">
+                <normaloff/>
+               </iconset>
               </property>
               <property name="checked">
                <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="check_clipboard_tiff">
+              <property name="text">
+               <string>TIFF</string>
+              </property>
+              <property name="icon">
+               <iconset theme="image-x-generic"/>
               </property>
              </widget>
             </item>

@@ -44,10 +44,11 @@ public:
 public:
     enum Clipboard_Enum
     {
-        KNOT = 1,
-        SVG  = 2,
-        PNG  = 4,
-        XML  = 8
+        KNOT = 0x01,
+        SVG  = 0x02,
+        PNG  = 0x04,
+        XML  = 0x08,
+        TIFF = 0x10
     };
     Q_DECLARE_FLAGS(Clipboard,Clipboard_Enum)
 
