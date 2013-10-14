@@ -52,9 +52,6 @@ public:
 protected:
     void changeEvent(QEvent *e);
 
-    void emit_edge_slide(int percent);
-
-    void on_combo_edge_type_activated(int index);
 
 signals:
     void cusp_angle_changed(double);
@@ -67,6 +64,7 @@ signals:
 private slots:
     void on_combo_cusp_shape_activated(int index);
     void reload_cusp_shapes();
+    void emit_edge_slide(int percent);
 
 
 private:
