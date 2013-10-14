@@ -353,7 +353,11 @@ void Dock_Script_Log::unload_plugin()
 
 void Dock_Script_Log::on_text_output_anchorClicked(const QUrl &arg1)
 {
-    if ( arg1.path() != filename && arg1.isLocalFile() )
+    if ( arg1.path() != filename
+#if HAS_QT_4_8
+         && arg1.isLocalFile()
+#endif
+         )
     {
         open_script_file(arg1.path());
         if ( !arg1.fragment().isEmpty() )
