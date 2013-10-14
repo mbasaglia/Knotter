@@ -505,7 +505,6 @@ bool Knot_Style_Basic_Double_Parameter::mergeWith(const QUndoCommand *other)
 int Knot_Style_Handle_Lenght::m_id = generate_id();
 void Knot_Style_Handle_Lenght::apply(double value)
 {
-    /// \todo split or have only edge
     graph->default_node_style_reference().handle_length = value;
     graph->default_edge_style_reference().handle_length = value;
 }
