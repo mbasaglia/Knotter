@@ -25,13 +25,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "dock_grid.hpp"
+
+
+#include "dock_grid.hpp"
 #include "resource_manager.hpp"
 
 Dock_Grid::Dock_Grid(QWidget *parent) :
     QDockWidget(parent), target(nullptr)
 {
     setupUi(this);
-    setWidget(central_widget);
     connect(button_move,SIGNAL(clicked()),SIGNAL(move_grid()));
     connect(spin_size,SIGNAL(valueChanged(int)),
             &Resource_Manager::settings, SLOT(set_grid_size(int)));

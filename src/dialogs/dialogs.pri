@@ -19,7 +19,6 @@ HEADERS += \
     $$PWD/main_window.hpp \
     $$PWD/dialog_preferences.hpp \
     $$PWD/export_image_dialog.hpp \
-    $$PWD/dock/dock_grid.hpp \
     $$PWD/dock/dock_knot_display.hpp \
     $$PWD/icon_dock_style.hpp \
     $$PWD/dock/dock_background.hpp \
@@ -29,7 +28,8 @@ HEADERS += \
     $$PWD/dialog_plugins.hpp \
     $$PWD/dock/dock_borders.hpp \
     $$PWD/dock/dock_script_log.hpp \
-    $$PWD/wizard_create_plugin.hpp
+    $$PWD/wizard_create_plugin.hpp \
+    $$PWD/dock/dock_grid.hpp
 
 SOURCES += \
     $$PWD/main_window.cpp \

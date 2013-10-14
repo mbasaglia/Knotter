@@ -1,210 +1,174 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>Dock_Grid</class>
- <widget class="QWidget" name="Dock_Grid">
+ <widget class="QDockWidget" name="Dock_Grid">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>204</width>
-    <height>197</height>
+    <width>182</width>
+    <height>189</height>
    </rect>
+  </property>
+  <property name="windowIcon">
+   <iconset theme="configure-grid"/>
   </property>
   <property name="windowTitle">
    <string>Configure Grid</string>
   </property>
-  <property name="windowIcon">
-   <iconset theme="configure-grid">
-    <normaloff/>
-   </iconset>
-  </property>
-  <widget class="QWidget" name="central_widget" native="true">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>9</y>
-     <width>186</width>
-     <height>179</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout1">
-    <property name="leftMargin">
+  <widget class="QWidget" name="dockWidgetContents">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
      <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>6</number>
     </property>
     <property name="topMargin">
      <number>0</number>
     </property>
     <property name="rightMargin">
-     <number>0</number>
+     <number>6</number>
     </property>
     <property name="bottomMargin">
      <number>0</number>
     </property>
-    <item row="0" column="0">
-     <widget class="QGroupBox" name="check_enable">
-      <property name="title">
+    <item>
+     <widget class="QCheckBox" name="check_enable">
+      <property name="text">
        <string>Enable Grid</string>
       </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <property name="leftMargin">
-        <number>2</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>2</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <property name="verticalSpacing">
-        <number>3</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Size</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QSpinBox" name="spin_size">
-         <property name="suffix">
-          <string>px</string>
-         </property>
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <number>1024</number>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Shape</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QComboBox" name="combo_shape">
-         <item>
-          <property name="text">
-           <string>Square</string>
-          </property>
-          <property name="icon">
-           <iconset theme="grid-square">
-            <normaloff/>
-           </iconset>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Triangle 1</string>
-          </property>
-          <property name="icon">
-           <iconset theme="grid-triangle-h">
-            <normaloff/>
-           </iconset>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Triangle 2</string>
-          </property>
-          <property name="icon">
-           <iconset theme="grid-triangle-v">
-            <normaloff/>
-           </iconset>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="2" column="0" colspan="2">
-        <widget class="QGroupBox" name="groupBox">
-         <property name="title">
-          <string>Origin</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout">
-          <property name="leftMargin">
-           <number>2</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>2</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <property name="verticalSpacing">
-           <number>3</number>
-          </property>
-          <item row="2" column="0">
-           <widget class="QPushButton" name="button_reset">
-            <property name="text">
-             <string>Reset</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QDoubleSpinBox" name="spin_y">
-            <property name="minimum">
-             <double>-8192.000000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>8192.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>x</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QDoubleSpinBox" name="spin_x">
-            <property name="minimum">
-             <double>-8192.000000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>8192.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QPushButton" name="button_move">
-            <property name="text">
-             <string>Move...</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_4">
-            <property name="text">
-             <string>y</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
      </widget>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="spin_size">
+        <property name="suffix">
+         <string>px</string>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>1024</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Size</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2">
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="1">
+         <widget class="QDoubleSpinBox" name="spin_x">
+          <property name="minimum">
+           <double>-8192.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>8192.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>x</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QDoubleSpinBox" name="spin_y">
+          <property name="minimum">
+           <double>-8192.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>8192.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>y</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Shape</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="combo_shape">
+        <item>
+         <property name="text">
+          <string>Square</string>
+         </property>
+         <property name="icon">
+          <iconset theme="grid-square">
+           <normaloff/>
+          </iconset>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Triangle 1</string>
+         </property>
+         <property name="icon">
+          <iconset theme="grid-triangle-h">
+           <normaloff/>
+          </iconset>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Triangle 2</string>
+         </property>
+         <property name="icon">
+          <iconset theme="grid-triangle-v">
+           <normaloff/>
+          </iconset>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QPushButton" name="button_reset">
+          <property name="toolTip">
+           <string>Reset grid position</string>
+          </property>
+          <property name="text">
+           <string>Reset</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="button_move">
+          <property name="text">
+           <string>Move...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -218,12 +182,12 @@
    <slot>position_spin_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>162</x>
-     <y>150</y>
+     <x>156</x>
+     <y>128</y>
     </hint>
     <hint type="destinationlabel">
-     <x>315</x>
-     <y>149</y>
+     <x>352</x>
+     <y>126</y>
     </hint>
    </hints>
   </connection>
@@ -234,12 +198,12 @@
    <slot>position_spin_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>181</x>
-     <y>178</y>
+     <x>177</x>
+     <y>152</y>
     </hint>
     <hint type="destinationlabel">
-     <x>310</x>
-     <y>181</y>
+     <x>221</x>
+     <y>156</y>
     </hint>
    </hints>
   </connection>

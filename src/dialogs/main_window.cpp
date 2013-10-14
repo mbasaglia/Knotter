@@ -254,7 +254,7 @@ void Main_Window::retranslate_docks()
     sel_style_widget->setWindowTitle(tr("Selected Nodes"));
 
     QDockWidget* global_style_dock  = findChild<QDockWidget*>("global_style_dock");
-    global_style_dock->setWindowTitle(tr("Style"));
+    global_style_dock->setWindowTitle(tr("Default Style"));
 
 }
 

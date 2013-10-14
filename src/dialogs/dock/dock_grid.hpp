@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class Dock_Grid : public QDockWidget, private Ui::Dock_Grid
 {
     Q_OBJECT
-    
+
 private:
     Snapping_Grid* target;
 
@@ -46,7 +46,7 @@ public:
 
     /// if grid is target grid, clear target grid
     void unset_grid(Snapping_Grid* grid);
-    
+
 protected:
     void changeEvent(QEvent *e);
 
