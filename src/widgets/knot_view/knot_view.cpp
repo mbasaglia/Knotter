@@ -205,11 +205,10 @@ void Knot_View::set_knot_handle_lenght(double v)
 
 void Knot_View::set_knot_crossing_distance(double v)
 {
-    /// \todo
-    /*push_command(new Knot_Style_Crossing_Distance(
+    push_command(new Knot_Style_Crossing_Distance(
                      m_graph.default_edge_style().crossing_distance,
                      v, this
-                ));*/
+                ));
 }
 
 void Knot_View::set_knot_cusp_angle(double v)
@@ -238,13 +237,10 @@ void Knot_View::set_knot_cusp_shape(Cusp_Shape *v)
 
 void Knot_View::set_knot_ege_slide(double v)
 {
-    /// \todo
-    /*
     push_command(new Knot_Style_Edge_Slide(
                      m_graph.default_edge_style().edge_slide,
                      v, this
                      ));
-    */
 }
 
 void Knot_View::set_selection_handle_lenght(double v)

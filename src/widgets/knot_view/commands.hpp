@@ -374,8 +374,6 @@ public:
 
 };
 
-/*
-/// \todo convert
 class Knot_Style_Crossing_Distance : public Knot_Style_Basic_Double_Parameter
 {
     Q_OBJECT
@@ -392,7 +390,25 @@ public:
     int id() const override { return m_id; }
 
 };
-*/
+
+
+class Knot_Style_Edge_Slide : public Knot_Style_Basic_Double_Parameter
+{
+    Q_OBJECT
+
+    static int m_id;
+
+public:
+    Knot_Style_Edge_Slide(double before, double after, Knot_View* kv,
+               Knot_Macro* parent = nullptr)
+        : Knot_Style_Basic_Double_Parameter(before,after,kv,parent)
+    { setText(tr("Slide Crossing")); }
+
+    void apply(double value) override;
+    int id() const override { return m_id; }
+
+};
+
 class Knot_Style_Cusp_Angle : public Knot_Style_Basic_Double_Parameter
 {
     Q_OBJECT

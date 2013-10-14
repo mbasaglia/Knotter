@@ -41,6 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "dialog_plugins.hpp"
 #include "dock_borders.hpp"
 #include "dock_script_log.hpp"
+#include "crossing_style_widget.hpp"
 
 class Main_Window : public QMainWindow, private Ui::Main_Window
 {
@@ -57,13 +58,15 @@ private:
     Dock_Grid*              dock_grid;  ///< Grid conf dock
     Dock_Knot_Display*      dock_knot_display;///< Display conf dock
     Dock_Background*        dock_background;
-    Cusp_Style_Widget*      widget_global_style;
-    Cusp_Style_Widget*      widget_cusp_style;
+    Cusp_Style_Widget*      widget_global_node_style;
+    Cusp_Style_Widget*      widget_node_style;
     Dock_Borders*           dock_borders;
     About_Dialog            about_dialog;
     QPrinter                printer;
     Dialog_Plugins          dialog_plugins;
     Dock_Script_Log*        dock_script_log;
+    Crossing_Style_Widget*  widget_global_edge_style;
+    Crossing_Style_Widget*  widget_edge_style;///< \todo copy from widget_node_style
 
 public:
     explicit Main_Window(QWidget *parent = 0);

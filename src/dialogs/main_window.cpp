@@ -171,24 +171,36 @@ void Main_Window::init_docks()
     tabifyDockWidget(dock_knot_display,dock_borders);
 
 
-    // Global style
-    widget_global_style = new Cusp_Style_Widget;
-    widget_global_style->hide_checkboxes();
-    QDockWidget* glob_style_widget = new QDockWidget;
-    glob_style_widget->setWidget(widget_global_style);
-    glob_style_widget->setObjectName("global_style_dock");
-    glob_style_widget->setWindowIcon(QIcon::fromTheme("cusp-pointed"));
-    addDockWidget(Qt::RightDockWidgetArea,glob_style_widget);
-    tabifyDockWidget(dock_borders,glob_style_widget);
+    // Global style (node)
+    widget_global_node_style = new Cusp_Style_Widget;
+    widget_global_node_style->hide_checkboxes();
+
+    QDockWidget* glob_node_style_widget = new QDockWidget;
+    glob_node_style_widget->setWidget(widget_global_node_style);
+    glob_node_style_widget->setObjectName("global_node_style_dock");
+    glob_node_style_widget->setWindowIcon(QIcon::fromTheme("cusp-pointed"));
+    addDockWidget(Qt::RightDockWidgetArea,glob_node_style_widget);
+    tabifyDockWidget(dock_borders,glob_node_style_widget);
+
+    // Global style (edge)
+    widget_global_edge_style = new Crossing_Style_Widget;
+    widget_global_edge_style->hide_checkboxes();
+
+    QDockWidget* glob_edge_style_widget = new QDockWidget;
+    glob_edge_style_widget->setWidget(widget_global_edge_style);
+    glob_edge_style_widget->setObjectName("global_edge_style_dock");
+    glob_edge_style_widget->setWindowIcon(QIcon::fromTheme("edge-crossing"));
+    addDockWidget(Qt::RightDockWidgetArea,glob_edge_style_widget);
+    tabifyDockWidget(glob_node_style_widget,glob_edge_style_widget);
 
     // Selection style
-    widget_cusp_style = new Cusp_Style_Widget;
+    widget_node_style = new Cusp_Style_Widget;
     QDockWidget* sel_style_widget = new QDockWidget;
-    sel_style_widget->setWidget(widget_cusp_style);
+    sel_style_widget->setWidget(widget_node_style);
     sel_style_widget->setObjectName("cusp_style_dock");
     sel_style_widget->setWindowIcon(QIcon::fromTheme("cusp-pointed"));
     addDockWidget(Qt::RightDockWidgetArea,sel_style_widget);
-    tabifyDockWidget(glob_style_widget,sel_style_widget);
+    tabifyDockWidget(glob_edge_style_widget,sel_style_widget);
     dock_knot_display->raise();
 
     // Background
@@ -251,10 +263,13 @@ void Main_Window::retranslate_docks()
 
 
     QDockWidget* sel_style_widget  = findChild<QDockWidget*>("cusp_style_dock");
-    sel_style_widget->setWindowTitle(tr("Cusp Style"));
+    sel_style_widget->setWindowTitle(tr("Selected Nodes"));
 
-    QDockWidget* glob_style_widget  = findChild<QDockWidget*>("global_style_dock");
-    glob_style_widget->setWindowTitle(tr("Style"));
+    QDockWidget* global_node_style_dock  = findChild<QDockWidget*>("global_node_style_dock");
+    global_node_style_dock->setWindowTitle(tr("Node Style"));
+
+    QDockWidget* global_edge_style_dock  = findChild<QDockWidget*>("global_edge_style_dock");
+    global_edge_style_dock->setWindowTitle(tr("Edge Style"));
 
 }
 
@@ -363,35 +378,40 @@ void Main_Window::connect_view(Knot_View *v)
     connect(dock_borders,SIGNAL(borders_enabled(bool)),
             v,SLOT(set_knot_display_border(bool)));
 
-    // style
-    widget_global_style->set_style(v->graph().default_node_style());
-    connect(widget_global_style,SIGNAL(cusp_angle_changed(double)),
+    // global style (cusp)
+    widget_global_node_style->set_style(v->graph().default_node_style());
+    connect(widget_global_node_style,SIGNAL(cusp_angle_changed(double)),
             v,SLOT(set_knot_cusp_angle(double)));
-    connect(widget_global_style,SIGNAL(cusp_distance_changed(double)),
+    connect(widget_global_node_style,SIGNAL(cusp_distance_changed(double)),
             v,SLOT(set_knot_cusp_distance(double)));
-    connect(widget_global_style,SIGNAL(handle_length_changed(double)),
+    connect(widget_global_node_style,SIGNAL(handle_length_changed(double)),
             v,SLOT(set_knot_handle_lenght(double)));
-    connect(widget_global_style,SIGNAL(cusp_shape_changed(Cusp_Shape*)),
+    connect(widget_global_node_style,SIGNAL(cusp_shape_changed(Cusp_Shape*)),
             v,SLOT(set_knot_cusp_shape(Cusp_Shape*)));
-    /// \todo edge style
-    /*connect(widget_global_style,SIGNAL(edge_slide_changed(double)),
+    // global style (crossing)
+    connect(widget_global_edge_style,SIGNAL(crossing_distance_changed(double)),
+            v,SLOT(set_knot_crossing_distance(double)));
+    widget_global_edge_style->set_style(v->graph().default_edge_style());
+    connect(widget_global_edge_style,SIGNAL(crossing_distance_changed(double)),
+            v,SLOT(set_knot_crossing_distance(double)));
+    connect(widget_global_edge_style,SIGNAL(edge_slide_changed(double)),
             v,SLOT(set_knot_ege_slide(double)));
-    connect(widget_global_style,SIGNAL(crossing_distance_changed(double)),
-            v,SLOT(set_knot_crossing_distance(double)));*/
+    connect(widget_global_edge_style,SIGNAL(handle_length_changed(double)),
+            v,SLOT(set_knot_handle_lenght(double)));
 
     // node style
     update_selection(v->selected_nodes(),v->selected_edges());
     connect(v,SIGNAL(selection_changed(QList<Node*>,QList<Edge*>)),
             SLOT(update_selection(QList<Node*>,QList<Edge*>)));
-    connect(widget_cusp_style,SIGNAL(cusp_angle_changed(double)),
+    connect(widget_node_style,SIGNAL(cusp_angle_changed(double)),
             v,SLOT(set_selection_cusp_angle(double)));
-    connect(widget_cusp_style,SIGNAL(cusp_distance_changed(double)),
+    connect(widget_node_style,SIGNAL(cusp_distance_changed(double)),
             v,SLOT(set_selection_cusp_distance(double)));
-    connect(widget_cusp_style,SIGNAL(handle_length_changed(double)),
+    connect(widget_node_style,SIGNAL(handle_length_changed(double)),
             v,SLOT(set_selection_handle_lenght(double)));
-    connect(widget_cusp_style,SIGNAL(cusp_shape_changed(Cusp_Shape*)),
+    connect(widget_node_style,SIGNAL(cusp_shape_changed(Cusp_Shape*)),
             v,SLOT(set_selection_cusp_shape(Cusp_Shape*)));
-    connect(widget_cusp_style,SIGNAL(enabled_styles_changed(Node_Style::Enabled_Styles)),
+    connect(widget_node_style,SIGNAL(enabled_styles_changed(Node_Style::Enabled_Styles)),
             v,SLOT(set_selection_enabled_styles(Node_Style::Enabled_Styles)));
 
     /// \todo widget crossing style
@@ -434,9 +454,13 @@ void Main_Window::update_style()
     dock_borders->blockSignals(false);
 
     // style
-    widget_global_style->blockSignals(true);
-    widget_global_style->set_style(view->graph().default_node_style());
-    widget_global_style->blockSignals(false);
+    widget_global_node_style->blockSignals(true);
+    widget_global_node_style->set_style(view->graph().default_node_style());
+    widget_global_node_style->blockSignals(false);
+
+    widget_global_edge_style->blockSignals(true);
+    widget_global_edge_style->set_style(view->graph().default_edge_style());
+    widget_global_edge_style->blockSignals(false);
 }
 
 void Main_Window::disconnect_view(Knot_View *v)
@@ -459,9 +483,10 @@ void Main_Window::disconnect_view(Knot_View *v)
         dock_knot_display->disconnect(v);
         dock_borders->disconnect(v);
 
-        widget_global_style->disconnect(v);
+        widget_global_node_style->disconnect(v);
+        widget_global_edge_style->disconnect(v);
 
-        widget_cusp_style->disconnect(v);
+        widget_node_style->disconnect(v);
         update_selection(QList<Node*>(),QList<Edge*>());
     }
 }
@@ -513,11 +538,11 @@ void Main_Window::apply_zoom()
 
 void Main_Window::update_selection(QList<Node *> nodes, QList<Edge*> edges)
 {
-    widget_cusp_style->setEnabled(!nodes.isEmpty() || !edges.isEmpty() );
+    widget_node_style->setEnabled(!nodes.isEmpty() || !edges.isEmpty() );
 
-    widget_cusp_style->blockSignals(true);
+    widget_node_style->blockSignals(true);
     Node_Style ns = view->graph().default_node_style();
-    widget_cusp_style->set_style(ns); // set defaults
+    widget_node_style->set_style(ns); // set defaults
 
     if ( nodes.isEmpty() )
         ns.enabled_style = Node_Style::NOTHING;
@@ -526,10 +551,10 @@ void Main_Window::update_selection(QList<Node *> nodes, QList<Edge*> edges)
         ns = ns.default_to(ns);
     }
 
-    widget_cusp_style->set_style(ns); // set actual style
+    widget_node_style->set_style(ns); // set actual style
 
 
-    widget_cusp_style->blockSignals(false);
+    widget_node_style->blockSignals(false);
 
     /// \todo same for crossing style
 }
@@ -555,9 +580,13 @@ bool Main_Window::create_tab(QString file)
         error = !view->load_file(file);
         if ( !error )
         {
-            widget_global_style->blockSignals(true);
-            widget_global_style->set_style(view->graph().default_node_style());
-            widget_global_style->blockSignals(false);
+            widget_global_node_style->blockSignals(true);
+            widget_global_node_style->set_style(view->graph().default_node_style());
+            widget_global_node_style->blockSignals(false);
+
+            widget_global_edge_style->blockSignals(true);
+            widget_global_edge_style->set_style(view->graph().default_edge_style());
+            widget_global_edge_style->blockSignals(false);
 
 
             dock_knot_display->blockSignals(true);

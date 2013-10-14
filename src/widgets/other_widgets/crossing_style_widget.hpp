@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef CUSP_STYLE_WIDGET_HPP
-#define CUSP_STYLE_WIDGET_HPP
+#ifndef CROSSING_STYLE_WIDGET_HPP
+#define CROSSING_STYLE_WIDGET_HPP
 
 #include "ui_crossing_style_widget.h"
 #include "edge_style.hpp"
@@ -75,4 +75,4 @@ private:
     void set_edge_type(Edge_Type *type);
 };
 
-#endif // CUSP_STYLE_WIDGET_HPP
+#endif // CROSSING_STYLE_WIDGET_HPP

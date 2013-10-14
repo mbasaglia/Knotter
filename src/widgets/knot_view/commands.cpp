@@ -505,17 +505,26 @@ bool Knot_Style_Basic_Double_Parameter::mergeWith(const QUndoCommand *other)
 int Knot_Style_Handle_Lenght::m_id = generate_id();
 void Knot_Style_Handle_Lenght::apply(double value)
 {
+    /// \todo split or have only edge
     graph->default_node_style_reference().handle_length = value;
+    graph->default_edge_style_reference().handle_length = value;
 }
 
-/*
- * \todo convert
+
 int Knot_Style_Crossing_Distance::m_id = generate_id();
 void Knot_Style_Crossing_Distance::apply(double value)
 {
-    graph->default_node_style_reference().crossing_distance = value;
+    graph->default_edge_style_reference().crossing_distance = value;
 }
-*/
+
+int Knot_Style_Edge_Slide::m_id = generate_id();
+void Knot_Style_Edge_Slide::apply(double value)
+{
+    graph->default_edge_style_reference().edge_slide = value;
+}
+
+
+
 
 int Knot_Style_Cusp_Angle::m_id = generate_id();
 void Knot_Style_Cusp_Angle::apply(double value)
