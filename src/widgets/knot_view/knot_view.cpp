@@ -243,7 +243,7 @@ void Knot_View::set_knot_ege_slide(double v)
                      ));
 }
 
-void Knot_View::set_selection_handle_lenght(double v)
+void Knot_View::set_selection_handle_lenght_nodes(double v)
 {
     QList<Node*> nodes = selected_nodes();
     QList<double> before;
@@ -321,7 +321,7 @@ void Knot_View::set_selection_edge_type(Edge_Type *v)
     end_macro();
 }
 
-void Knot_View::set_selection_enabled_styles(Node_Style::Enabled_Styles v)
+void Knot_View::set_selection_enabled_styles_nodes(Node_Style::Enabled_Styles v)
 {
     QList<Node*> nodes = selected_nodes();
     QList<Node_Style::Enabled_Styles> before;
@@ -332,6 +332,21 @@ void Knot_View::set_selection_enabled_styles(Node_Style::Enabled_Styles v)
         after.push_back(v);
     }
     push_command(new Node_Style_Enable(nodes,before,after,this));
+}
+
+void Knot_View::set_selection_handle_lenght_edges(double v)
+{
+    /// \todo
+}
+
+void Knot_View::set_selection_enabled_styles_edges(Edge_Style::Enabled_Styles v)
+{
+    /// \todo
+}
+
+void Knot_View::set_selection_edge_slide(double v)
+{
+    /// \todo
 }
 
 void Knot_View::flip_horiz_selection()

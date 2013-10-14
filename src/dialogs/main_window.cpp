@@ -161,6 +161,24 @@ void Main_Window::init_statusbar()
 void Main_Window::init_docks()
 {
 
+
+    // Edge style
+    widget_edge_style = new Crossing_Style_Widget;
+    QDockWidget* edge_style_dock = new QDockWidget;
+    edge_style_dock->setWidget(widget_edge_style);
+    edge_style_dock->setObjectName("edge_style_dock");
+    edge_style_dock->setWindowIcon(QIcon::fromTheme("edge-crossing"));
+    addDockWidget(Qt::RightDockWidgetArea,edge_style_dock);
+
+    // Node style
+    widget_node_style = new Cusp_Style_Widget;
+    QDockWidget* node_style_dock = new QDockWidget;
+    node_style_dock->setWidget(widget_node_style);
+    node_style_dock->setObjectName("node_style_dock");
+    node_style_dock->setWindowIcon(QIcon::fromTheme("cusp-pointed"));
+    addDockWidget(Qt::RightDockWidgetArea,node_style_dock);
+    tabifyDockWidget(edge_style_dock,node_style_dock);
+
     // Knot Display
     dock_knot_display = new Dock_Knot_Display(this);
     addDockWidget(Qt::RightDockWidgetArea,dock_knot_display);
@@ -170,7 +188,6 @@ void Main_Window::init_docks()
     addDockWidget(Qt::RightDockWidgetArea,dock_borders);
     tabifyDockWidget(dock_knot_display,dock_borders);
 
-    /// \todo single dockwidget for this. (remember retranslateUI or segfault!)
     // Global style
     widget_global_style = new Knot_Style_Widget;
 
@@ -181,15 +198,6 @@ void Main_Window::init_docks()
     addDockWidget(Qt::RightDockWidgetArea,global_style_dock);
     tabifyDockWidget(dock_borders,global_style_dock);
 
-    // Selection style
-    widget_node_style = new Cusp_Style_Widget;
-    QDockWidget* sel_style_widget = new QDockWidget;
-    sel_style_widget->setWidget(widget_node_style);
-    sel_style_widget->setObjectName("cusp_style_dock");
-    sel_style_widget->setWindowIcon(QIcon::fromTheme("cusp-pointed"));
-    addDockWidget(Qt::RightDockWidgetArea,sel_style_widget);
-    tabifyDockWidget(global_style_dock,sel_style_widget);
-    dock_knot_display->raise();
 
     // Background
     dock_background = new Dock_Background(this);
@@ -250,8 +258,11 @@ void Main_Window::retranslate_docks()
     undo_dock->setWindowTitle(tr("Action History"));
 
 
-    QDockWidget* sel_style_widget  = findChild<QDockWidget*>("cusp_style_dock");
-    sel_style_widget->setWindowTitle(tr("Selected Nodes"));
+    QDockWidget* node_style_dock  = findChild<QDockWidget*>("node_style_dock");
+    node_style_dock->setWindowTitle(tr("Selected Nodes"));
+
+    QDockWidget* edge_style_dock  = findChild<QDockWidget*>("edge_style_dock");
+    edge_style_dock->setWindowTitle(tr("Selected Edges"));
 
     QDockWidget* global_style_dock  = findChild<QDockWidget*>("global_style_dock");
     global_style_dock->setWindowTitle(tr("Default Style"));
@@ -381,22 +392,33 @@ void Main_Window::connect_view(Knot_View *v)
     connect(widget_global_style,SIGNAL(edge_slide_changed(double)),
             v,SLOT(set_knot_ege_slide(double)));
 
-    // node style
+    //style
     update_selection(v->selected_nodes(),v->selected_edges());
     connect(v,SIGNAL(selection_changed(QList<Node*>,QList<Edge*>)),
             SLOT(update_selection(QList<Node*>,QList<Edge*>)));
+    // node style
     connect(widget_node_style,SIGNAL(cusp_angle_changed(double)),
             v,SLOT(set_selection_cusp_angle(double)));
     connect(widget_node_style,SIGNAL(cusp_distance_changed(double)),
             v,SLOT(set_selection_cusp_distance(double)));
     connect(widget_node_style,SIGNAL(handle_length_changed(double)),
-            v,SLOT(set_selection_handle_lenght(double)));
+            v,SLOT(set_selection_handle_lenght_nodes(double)));
     connect(widget_node_style,SIGNAL(cusp_shape_changed(Cusp_Shape*)),
             v,SLOT(set_selection_cusp_shape(Cusp_Shape*)));
     connect(widget_node_style,SIGNAL(enabled_styles_changed(Node_Style::Enabled_Styles)),
-            v,SLOT(set_selection_enabled_styles(Node_Style::Enabled_Styles)));
-
+            v,SLOT(set_selection_enabled_styles_nodes(Node_Style::Enabled_Styles)));
+    // edge style
     /// \todo widget crossing style
+    connect(widget_edge_style,SIGNAL(crossing_distance_changed(double)),
+            v,SLOT(set_selection_crossing_distance(double)));
+    connect(widget_edge_style,SIGNAL(edge_slide_changed(double)),
+            v,SLOT(set_selection_edge_slide(double)));/// \todo <--
+    connect(widget_edge_style,SIGNAL(edge_type_changed(Edge_Type*)),
+            v,SLOT(set_selection_edge_type(Edge_Type*)));
+    connect(widget_edge_style,SIGNAL(handle_length_changed(double)),
+            v,SLOT(set_selection_handle_lenght_edges(double)));
+    connect(widget_edge_style,SIGNAL(enabled_styles_changed(Edge_Style::Enabled_Styles)),
+            v,SLOT(set_selection_enabled_styles_edges(Edge_Style::Enabled_Styles)));
 
     //connect(widget_selection_style,SIGNAL(edge_type_changed(Edge_Type*)),
     //        v,SLOT(set_selection_edge_type(Edge_Type*)));
@@ -466,6 +488,7 @@ void Main_Window::disconnect_view(Knot_View *v)
         widget_global_style->disconnect(v);
 
         widget_node_style->disconnect(v);
+        widget_edge_style->disconnect(v);
         update_selection(QList<Node*>(),QList<Edge*>());
     }
 }
@@ -517,9 +540,11 @@ void Main_Window::apply_zoom()
 
 void Main_Window::update_selection(QList<Node *> nodes, QList<Edge*> edges)
 {
-    widget_node_style->setEnabled(!nodes.isEmpty() || !edges.isEmpty() );
+    widget_node_style->setEnabled(!nodes.isEmpty());
+    widget_edge_style->setEnabled(!edges.isEmpty());
 
     widget_node_style->blockSignals(true);
+
     Node_Style ns = view->graph().default_node_style();
     widget_node_style->set_style(ns); // set defaults
 
@@ -535,7 +560,23 @@ void Main_Window::update_selection(QList<Node *> nodes, QList<Edge*> edges)
 
     widget_node_style->blockSignals(false);
 
-    /// \todo same for crossing style
+
+    widget_edge_style->blockSignals(true);
+
+    Edge_Style es = view->graph().default_edge_style();
+    widget_edge_style->set_style(es); // set defaults
+
+    if ( edges.isEmpty() )
+        es.enabled_style = Edge_Style::NOTHING;
+    else
+    {
+        es = es.default_to(es);
+    }
+
+    widget_edge_style->set_style(es); // set actual style
+
+
+    widget_edge_style->blockSignals(false);
 }
 
 

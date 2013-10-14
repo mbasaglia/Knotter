@@ -353,13 +353,16 @@ public slots:
     void set_knot_cusp_shape(Cusp_Shape* v);
     void set_knot_ege_slide(double v);
 
-    void set_selection_handle_lenght(double v);
     void set_selection_crossing_distance(double v);
     void set_selection_cusp_angle(double v);
     void set_selection_cusp_distance(double v);
     void set_selection_cusp_shape(Cusp_Shape* v);
     void set_selection_edge_type(Edge_Type* v);
-    void set_selection_enabled_styles(Node_Style::Enabled_Styles v);
+    void set_selection_handle_lenght_nodes(double v);
+    void set_selection_enabled_styles_nodes(Node_Style::Enabled_Styles v);
+    void set_selection_handle_lenght_edges(double v);
+    void set_selection_enabled_styles_edges(Edge_Style::Enabled_Styles v);
+    void set_selection_edge_slide(double v);
 
     // misc
 

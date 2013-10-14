@@ -66,7 +66,7 @@ private:
     QPrinter                printer;
     Dialog_Plugins          dialog_plugins;
     Dock_Script_Log*        dock_script_log;
-    Crossing_Style_Widget*  widget_edge_style;///< \todo copy from widget_node_style
+    Crossing_Style_Widget*  widget_edge_style;
 
 public:
     explicit Main_Window(QWidget *parent = 0);
