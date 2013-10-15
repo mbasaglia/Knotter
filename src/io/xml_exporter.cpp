@@ -109,8 +109,7 @@ void XML_Exporter::save_style(const Graph *graph)
     end_element(); // borders
 
     save_cusp("cusp",graph->default_node_style());
-    /// \todo save crossing
-
+    save_crossing("crossing",graph->default_edge_style());
 
     start_element("stroke");
 
@@ -151,6 +150,23 @@ void XML_Exporter::save_cusp(QString name, Node_Style style)
     end_element();
 }
 
+
+void XML_Exporter::save_crossing(QString name, Edge_Style style)
+{
+    start_element(name);
+
+    if ( style.enabled_style & Edge_Style::CROSSING_DISTANCE )
+        xml.writeTextElement("gap",QString::number(style.crossing_distance));
+
+    if ( style.enabled_style & Edge_Style::EDGE_SLIDE )
+        xml.writeTextElement("slide",QString::number(style.edge_slide));
+
+    if ( style.enabled_style & Edge_Style::HANDLE_LENGTH )
+        xml.writeTextElement("handle-length",QString::number(style.handle_length));
+
+    end_element();
+}
+
 void XML_Exporter::save_node(Node *node)
 {
     int id = node_id(node);
@@ -169,9 +185,11 @@ void XML_Exporter::save_node(Node *node)
 void XML_Exporter::save_edge(Edge *edge)
 {
     start_element("edge");
-    xml.writeAttribute("style",edge->style().edge_type->machine_name());
+    xml.writeAttribute("type", edge->style().edge_type->machine_name());
     xml.writeAttribute("v1",QString("node_%1").arg(node_id(edge->vertex1())));
     xml.writeAttribute("v2",QString("node_%1").arg(node_id(edge->vertex2())));
+    if ( edge->style().enabled_style != Node_Style::NOTHING )
+        save_crossing("style",edge->style());
     end_element(); // edge
 }
 

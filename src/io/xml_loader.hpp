@@ -47,11 +47,19 @@ class XML_Loader : QObject
     Edge* get_edge(QDomElement element);
 
     /**
-     *  \brief Parse /knot/style/cusp or //node/shape
+     *  \brief Parse /knot/style/cusp or //node/style
      *  \param element      Element containing the data
      *  \param everything   If true will always enable all styles
      */
     Node_Style get_node_style ( QDomElement element, bool everything );
+
+
+    /**
+     *  \brief Parse /knot/style/crossing or //edge/style
+     *  \param element      Element containing the data
+     *  \param everything   If true will always enable all styles
+     */
+    Edge_Style get_edge_style( QDomElement element, bool everything );
 
     /// Parse /knot/style
     void get_style(QDomElement element, Graph* graph);

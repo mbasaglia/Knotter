@@ -111,8 +111,15 @@ Edge *XML_Loader::get_edge(QDomElement element)
     if ( !nodes.contains(id1) || !nodes.contains(id2) )
         return nullptr;
 
-    return new Edge(nodes[id1],nodes[id2], Resource_Manager::
-                    edge_type_from_machine_name(element.attribute("style")));
+    Edge* e = new Edge(nodes[id1],nodes[id2]);
+
+    QString type = element.attribute("type");
+    Edge_Style es = get_edge_style(element.firstChildElement("style"),false);
+    es.enabled_style |= Edge_Style::EDGE_TYPE;
+    es.edge_type = Resource_Manager::edge_type_from_machine_name(type);
+    e->set_style(es);
+
+    return e;
 }
 
 Node_Style XML_Loader::get_node_style(QDomElement element, bool everything)
@@ -147,14 +154,6 @@ Node_Style XML_Loader::get_node_style(QDomElement element, bool everything)
             ns.cusp_distance = e_distance.text().toDouble();
         }
 
-        /// \todo how to perform compatibility?
-        /*QDomElement e_gap= element.firstChildElement("gap");
-        if ( !e_gap.isNull() )
-        {
-            ns.enabled_style |= Node_Style::CROSSING_DISTANCE;
-            ns.crossing_distance = e_gap.text().toDouble();
-        }*/
-
         QDomElement e_handle_length = element.firstChildElement("handle-length");
         if ( !e_handle_length.isNull() )
         {
@@ -165,6 +164,44 @@ Node_Style XML_Loader::get_node_style(QDomElement element, bool everything)
     }
 
     return ns;
+}
+
+Edge_Style XML_Loader::get_edge_style(QDomElement element, bool everything)
+{
+    Edge_Style es;
+
+    if ( everything )
+    {
+        es.enabled_style = Edge_Style::EVERYTHING;
+        es.edge_type = Resource_Manager::default_edge_type();
+    }
+
+    if ( !element.isNull() )
+    {
+        QDomElement e_gap = element.firstChildElement("gap");
+        if ( !e_gap.isNull() )
+        {
+            es.enabled_style |= Edge_Style::CROSSING_DISTANCE;
+            es.crossing_distance = e_gap.text().toDouble();
+        }
+
+
+        QDomElement e_slide = element.firstChildElement("slide");
+        if ( !e_slide.isNull() )
+        {
+            es.enabled_style |= Edge_Style::EDGE_SLIDE;
+            es.edge_slide = e_slide.text().toDouble();
+        }
+
+        QDomElement e_handle_length = element.firstChildElement("handle-length");
+        if ( !e_handle_length.isNull() )
+        {
+            es.enabled_style |= Edge_Style::HANDLE_LENGTH;
+            es.handle_length = e_handle_length.text().toDouble();
+        }
+    }
+
+    return es;
 }
 
 
