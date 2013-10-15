@@ -258,16 +258,15 @@ void Knot_View::set_selection_handle_lenght_nodes(double v)
 
 void Knot_View::set_selection_crossing_distance(double v)
 {
-    /// \todo COnvert edge-wise
-    /*QList<Node*> nodes = selected_nodes();
+    QList<Edge*> edges = selected_edges();
     QList<double> before;
     QList<double> after;
-    foreach(Node* n, nodes)
+    foreach(Edge* e, edges)
     {
-        before.push_back(n->style().crossing_distance);
+        before.push_back(e->style().crossing_distance);
         after.push_back(v);
     }
-    push_command(new Node_Style_Crossing_Distance(nodes,before,after,this));*/
+    push_command(new Edge_Style_Crossing_Distance(edges,before,after,this));
 }
 
 void Knot_View::set_selection_cusp_angle(double v)
@@ -336,17 +335,41 @@ void Knot_View::set_selection_enabled_styles_nodes(Node_Style::Enabled_Styles v)
 
 void Knot_View::set_selection_handle_lenght_edges(double v)
 {
-    /// \todo
+    QList<Edge*> edges = selected_edges();
+    QList<double> before;
+    QList<double> after;
+    foreach(Edge* e, edges)
+    {
+        before.push_back(e->style().handle_length);
+        after.push_back(v);
+    }
+    push_command(new Edge_Style_Handle_Lenght(edges,before,after,this));
 }
 
 void Knot_View::set_selection_enabled_styles_edges(Edge_Style::Enabled_Styles v)
 {
-    /// \todo
+    QList<Edge*> edges = selected_edges();
+    QList<Edge_Style::Enabled_Styles> before;
+    QList<Edge_Style::Enabled_Styles> after;
+    foreach(Edge* e, edges)
+    {
+        before.push_back(e->style().enabled_style);
+        after.push_back(v);
+    }
+    push_command(new Edge_Style_Enable(edges,before,after,this));
 }
 
 void Knot_View::set_selection_edge_slide(double v)
 {
-    /// \todo
+    QList<Edge*> edges = selected_edges();
+    QList<double> before;
+    QList<double> after;
+    foreach(Edge* e, edges)
+    {
+        before.push_back(e->style().edge_slide);
+        after.push_back(v);
+    }
+    push_command(new Edge_Style_Edge_Slide(edges,before,after,this));
 }
 
 void Knot_View::flip_horiz_selection()

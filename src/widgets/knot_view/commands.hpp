@@ -391,7 +391,6 @@ public:
 
 };
 
-
 class Knot_Style_Edge_Slide : public Knot_Style_Basic_Double_Parameter
 {
     Q_OBJECT
@@ -426,26 +425,6 @@ public:
 
 };
 
-
-/// \todo convert
-/*
-class Knot_Style_Edge_Slide : public Knot_Style_Basic_Double_Parameter
-{
-    Q_OBJECT
-
-    static int m_id;
-
-public:
-    Knot_Style_Edge_Slide(double before, double after, Knot_View* kv,
-               Knot_Macro* parent = nullptr)
-        : Knot_Style_Basic_Double_Parameter(before,after,kv,parent)
-    { setText(tr("Change Edge Slide")); }
-
-    void apply(double value) override;
-    int id() const override { return m_id; }
-
-};
-*/
 
 class Knot_Style_Cusp_Distance : public Knot_Style_Basic_Double_Parameter
 {
@@ -531,7 +510,7 @@ public:
             QList<Node*> nodes, QList<double> before, QList<double> after,
             Knot_View* kv, Knot_Macro* parent = nullptr)
         : Node_Style_Basic_Double_Parameter(nodes, before,after,kv,parent)
-    { setText(tr("Change Selection Curve Control")); }
+    { setText(tr("Change Node Curve Control")); }
 
     void apply(Node* node, double value) override;
     int id() const override { return m_id; }
@@ -571,27 +550,6 @@ public:
     int id() const override { return m_id; }
 
 };
-
-/// \todo convert
-/*
-class Node_Style_Crossing_Distance : public Node_Style_Basic_Double_Parameter
-{
-    Q_OBJECT
-
-    static int m_id;
-
-public:
-    Node_Style_Crossing_Distance(
-            QList<Node*> nodes, QList<double> before, QList<double> after,
-            Knot_View* kv, Knot_Macro* parent = nullptr)
-        : Node_Style_Basic_Double_Parameter(nodes, before,after,kv,parent)
-    { setText(tr("Change Selection Crossing Gap")); }
-
-    void apply(Node* node, double value) override;
-    int id() const override { return m_id; }
-
-};
-*/
 
 class Node_Style_Cusp_Shape : public Node_Style_Base
 {
@@ -647,6 +605,88 @@ public:
 
 
 // edge style
+
+
+/**
+ *  \brief Base class for selection (edges) style commands
+ *
+ *  Simplifies the implementation of similar commands
+ */
+class Edge_Style_Base : public Knot_Command
+{
+    Q_OBJECT
+
+protected:
+    QList<Edge*> edges;
+
+public:
+    Edge_Style_Base(QList<Edge*> edges, Knot_View* kv,
+               Knot_Macro* parent = nullptr);
+};
+/**
+ *  \brief Base class for selection (edges) style commands
+ *
+ *  Provides an interface to set a parameter of type \c double to a list of edges
+ */
+class Edge_Style_Basic_Double_Parameter : public Edge_Style_Base
+{
+    Q_OBJECT
+
+    QList<double> before;
+    QList<double> after;
+
+protected:
+
+    /// Apply the value to the style
+    virtual void apply(Edge* node, double value) = 0;
+
+public:
+    Edge_Style_Basic_Double_Parameter(QList<Edge*> nodes, QList<double> before,
+                                      QList<double> after, Knot_View* kv,
+               Knot_Macro* parent = nullptr);
+    void undo() override;
+    void redo() override;
+    bool mergeWith(const QUndoCommand *other) override;
+};
+
+class Edge_Style_Crossing_Distance : public Edge_Style_Basic_Double_Parameter
+{
+    Q_OBJECT
+
+    static int m_id;
+
+public:
+    Edge_Style_Crossing_Distance(
+            QList<Edge*> edges, QList<double> before, QList<double> after,
+            Knot_View* kv, Knot_Macro* parent = nullptr)
+        : Edge_Style_Basic_Double_Parameter(edges, before,after,kv,parent)
+    { setText(tr("Change Selection Crossing Gap")); }
+
+    void apply(Edge* edge, double value) override;
+    int id() const override { return m_id; }
+
+};
+
+
+class Edge_Style_Edge_Slide : public Edge_Style_Basic_Double_Parameter
+{
+    Q_OBJECT
+
+    static int m_id;
+
+public:
+    Edge_Style_Edge_Slide(
+            QList<Edge*> edges, QList<double> before, QList<double> after,
+            Knot_View* kv, Knot_Macro* parent = nullptr)
+        : Edge_Style_Basic_Double_Parameter(edges, before,after,kv,parent)
+    { setText(tr("Slide Selected Edges")); }
+
+    void apply(Edge* edge, double value) override;
+    int id() const override { return m_id; }
+
+};
+
+
 class Change_Edge_Type : public Knot_Command
 {
     Q_OBJECT
@@ -661,6 +701,50 @@ public:
     void redo() override;
     int id() const override { return m_id; }
     bool mergeWith(const QUndoCommand *other) override;
+};
+
+
+
+
+class Edge_Style_Enable : public Edge_Style_Base
+{
+    Q_OBJECT
+
+    QList<Edge_Style::Enabled_Styles> before;
+    QList<Edge_Style::Enabled_Styles> after;
+
+public:
+    Edge_Style_Enable(QList<Edge*> edges,
+                      QList<Edge_Style::Enabled_Styles> before,
+                      QList<Edge_Style::Enabled_Styles> after,
+                      Knot_View* kv, Knot_Macro* parent = nullptr);
+    Edge_Style_Enable(Edge* edges,
+                      Edge_Style::Enabled_Styles before,
+                      Edge_Style::Enabled_Styles after,
+                      QString text,
+                      Knot_View* kv, Knot_Macro* parent = nullptr);
+    void undo() override;
+    void redo() override;
+};
+
+
+
+class Edge_Style_Handle_Lenght : public Edge_Style_Basic_Double_Parameter
+{
+    Q_OBJECT
+
+    static int m_id;
+
+public:
+    Edge_Style_Handle_Lenght(
+            QList<Edge*> edges, QList<double> before, QList<double> after,
+            Knot_View* kv, Knot_Macro* parent = nullptr)
+        : Edge_Style_Basic_Double_Parameter(edges, before,after,kv,parent)
+    { setText(tr("Change Edge Curve Control")); }
+
+    void apply(Edge *edge, double value) override;
+    int id() const override { return m_id; }
+
 };
 
 

@@ -103,6 +103,11 @@ public:
      * @return The style overidden by this edge
      */
     Edge_Style style() const;
+    /**
+     * @brief Get the crossing style as defined by theis edge
+     * @return The style overidden by this edge
+     */
+    Edge_Style& style();
 
     /**
      * @brief Defaulted edge style

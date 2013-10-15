@@ -79,6 +79,11 @@ Edge_Style Edge::style() const
     return m_style;
 }
 
+Edge_Style &Edge::style()
+{
+    return m_style;
+}
+
 Edge_Style Edge::defaulted_style() const
 {
     return m_style.default_to(m_graph->default_edge_style());

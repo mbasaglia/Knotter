@@ -537,15 +537,6 @@ void Knot_Style_Cusp_Distance::apply(double value)
     graph->default_node_style_reference().cusp_distance = value;
 }
 
-/*
-/// \todo convert
-int Knot_Style_Edge_Slide::m_id = generate_id();
-void Knot_Style_Edge_Slide::apply(double value)
-{
-    graph->default_node_style_reference().edge_slide = value;
-}*/
-
-
 Knot_Style_Cusp_Shape::Knot_Style_Cusp_Shape(Cusp_Shape *before, Cusp_Shape *after,
                                              Knot_View *kv, Knot_Macro *parent)
     :Knot_Command(kv,parent), before(before), after(after)
@@ -620,14 +611,6 @@ void Node_Style_Cusp_Angle::apply(Node* node, double value)
     node->style().cusp_angle = value;
 }
 
-/// \todo convert
-/*
-int Node_Style_Crossing_Distance::m_id = generate_id();
-void Node_Style_Crossing_Distance::apply(Node* node, double value)
-{
-    node->style().crossing_distance = value;
-}
-*/
 
 Node_Style_Cusp_Shape::Node_Style_Cusp_Shape(
         QList<Node *> nodes, QList<Cusp_Shape*> before, QList<Cusp_Shape*> after,
@@ -774,4 +757,96 @@ bool Knot_Insert_Macro::mergeWith(const QUndoCommand *other)
         return true;
     }
     return false;
+}
+
+
+Edge_Style_Base::Edge_Style_Base(QList<Edge *> edges, Knot_View *kv, Knot_Macro *parent)
+    : Knot_Command(kv,parent), edges(edges)
+{
+}
+
+
+Edge_Style_Basic_Double_Parameter::Edge_Style_Basic_Double_Parameter
+        (QList<Edge *> edges, QList<double> before, QList<double> after, Knot_View *kv, Knot_Macro *parent)
+    : Edge_Style_Base(edges,kv,parent), before(before), after(after)
+{}
+void Edge_Style_Basic_Double_Parameter::undo()
+{
+    for( int i = 0; i < edges.size(); i++)
+        apply(edges[i], before[i]);
+    update_knot();
+}
+void Edge_Style_Basic_Double_Parameter::redo()
+{
+    for( int i = 0; i < edges.size(); i++)
+        apply(edges[i], after[i]);
+    update_knot();
+}
+bool Edge_Style_Basic_Double_Parameter::mergeWith(const QUndoCommand *other)
+{
+    const Edge_Style_Basic_Double_Parameter* cc =
+            static_cast<const Edge_Style_Basic_Double_Parameter*>(other);
+    if ( cc->edges == edges &&
+         cc->metaObject()->className() == metaObject()->className() )
+    {
+        after = cc->after;
+        return true;
+    }
+    return false;
+}
+
+
+int Edge_Style_Crossing_Distance::m_id = generate_id();
+void Edge_Style_Crossing_Distance::apply(Edge* edge, double value)
+{
+    edge->style().crossing_distance = value;
+}
+
+
+Edge_Style_Enable::Edge_Style_Enable(QList<Edge *> edges,
+                                     QList<Edge_Style::Enabled_Styles> before,
+                                     QList<Edge_Style::Enabled_Styles> after,
+                                     Knot_View *kv,
+                                     Knot_Macro *parent)
+    :Edge_Style_Base(edges,kv,parent), before(before), after(after)
+{
+    setText(tr("Toggle Selection Style Property"));
+}
+
+Edge_Style_Enable::Edge_Style_Enable(Edge *edge,
+                                     Edge_Style::Enabled_Styles before,
+                                     Edge_Style::Enabled_Styles after,
+                                     QString text, Knot_View *kv, Knot_Macro *parent)
+    : Edge_Style_Base(QList<Edge*>()<<edge,kv,parent),
+      before(QList<Edge_Style::Enabled_Styles>()<<before),
+      after(QList<Edge_Style::Enabled_Styles>()<<after)
+{
+    setText(text);
+}
+
+void Edge_Style_Enable::undo()
+{
+    for( int i = 0; i < edges.size(); i++)
+        edges[i]->style().enabled_style = before[i];
+    update_knot();
+}
+void Edge_Style_Enable::redo()
+{
+    for( int i = 0; i < edges.size(); i++)
+        edges[i]->style().enabled_style = after[i];
+    update_knot();
+}
+
+
+int Edge_Style_Edge_Slide::m_id = generate_id();
+void Edge_Style_Edge_Slide::apply(Edge *edge, double value)
+{
+    edge->style().edge_slide = value;
+}
+
+
+int Edge_Style_Handle_Lenght::m_id = generate_id();
+void Edge_Style_Handle_Lenght::apply(Edge *edge, double value)
+{
+    edge->style().handle_length = value;
 }

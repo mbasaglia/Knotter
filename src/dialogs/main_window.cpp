@@ -552,7 +552,7 @@ void Main_Window::update_selection(QList<Node *> nodes, QList<Edge*> edges)
         ns.enabled_style = Node_Style::NOTHING;
     else
     {
-        ns = ns.default_to(ns);
+        ns = nodes[0]->style();
     }
 
     widget_node_style->set_style(ns); // set actual style
@@ -570,7 +570,7 @@ void Main_Window::update_selection(QList<Node *> nodes, QList<Edge*> edges)
         es.enabled_style = Edge_Style::NOTHING;
     else
     {
-        es = es.default_to(es);
+        es = edges[0]->style();
     }
 
     widget_edge_style->set_style(es); // set actual style
