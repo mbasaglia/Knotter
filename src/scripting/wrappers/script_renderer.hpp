@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QObject>
 #include "graph.hpp"
+#include "script_color.hpp"
 
 /**
  * Document renderer
@@ -63,8 +64,13 @@ public:
      * \param height    Image height
      * \param format    Name of the output format
      * \param quality   Quality/Compression (See QPixmap::save())
+     * \param background Background color
      */
-    Q_INVOKABLE QByteArray raster(int width, int height, QString format = "PNG", int quality = 0 );
+    Q_INVOKABLE QByteArray raster(int width,
+                                  int height,
+                                  QString format = "PNG",
+                                  int quality = 0,
+                                  Script_Color background = Script_Color());
 };
 
 

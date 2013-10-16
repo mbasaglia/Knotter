@@ -48,12 +48,12 @@ QString Script_Renderer::svg()
     return out_raw;
 }
 
-QByteArray Script_Renderer::raster(int width, int height, QString format, int quality)
+QByteArray Script_Renderer::raster(int width, int height, QString format, int quality, Script_Color background)
 {
     QByteArray out_raw;
     QBuffer out(&out_raw);
     out.open(QIODevice::WriteOnly);
-    export_raster(out,*graph,QColor(255,255,255,0),true,QSize(width,height),
+    export_raster(out,*graph,background,true,QSize(width,height),
                   quality,m_draw_graph,false,Background_Image(),format.toStdString().c_str());
     return out_raw;
 }
