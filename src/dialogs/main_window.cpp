@@ -408,7 +408,6 @@ void Main_Window::connect_view(Knot_View *v)
     connect(widget_node_style,SIGNAL(enabled_styles_changed(Node_Style::Enabled_Styles)),
             v,SLOT(set_selection_enabled_styles_nodes(Node_Style::Enabled_Styles)));
     // edge style
-    /// \todo widget crossing style
     connect(widget_edge_style,SIGNAL(crossing_distance_changed(double)),
             v,SLOT(set_selection_crossing_distance(double)));
     connect(widget_edge_style,SIGNAL(edge_slide_changed(double)),
@@ -419,10 +418,6 @@ void Main_Window::connect_view(Knot_View *v)
             v,SLOT(set_selection_handle_lenght_edges(double)));
     connect(widget_edge_style,SIGNAL(enabled_styles_changed(Edge_Style::Enabled_Styles)),
             v,SLOT(set_selection_enabled_styles_edges(Edge_Style::Enabled_Styles)));
-
-    //connect(widget_selection_style,SIGNAL(edge_type_changed(Edge_Type*)),
-    //        v,SLOT(set_selection_edge_type(Edge_Type*)));
-
 
     //export
     dialog_export_image.set_view(v);

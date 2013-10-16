@@ -114,6 +114,12 @@ Edge *XML_Loader::get_edge(QDomElement element)
     Edge* e = new Edge(nodes[id1],nodes[id2]);
 
     QString type = element.attribute("type");
+
+    // v3 compatibility
+    if  ( !element.hasAttribute("type") && element.hasAttribute("style") )
+        type = element.attribute("style");
+
+
     Edge_Style es = get_edge_style(element.firstChildElement("style"),false);
     es.enabled_style |= Edge_Style::EDGE_TYPE;
     es.edge_type = Resource_Manager::edge_type_from_machine_name(type);
@@ -235,7 +241,19 @@ void XML_Loader::get_style(QDomElement e_style, Graph *graph)
     QDomElement e_cusp = e_style.firstChildElement("cusp");
     if ( !e_cusp.isNull() )
         graph->set_default_node_style(get_node_style(e_cusp,true));
-    /// \todo same for crossing (v4)
+
+    QDomElement e_crossing = e_style.firstChildElement("crossing");
+    if ( !e_crossing.isNull() )
+        graph->set_default_edge_style(get_edge_style(e_crossing,true));
+    else
+    {
+        // v3 compatibility
+        QDomElement e_gap = e_cusp.firstChildElement("gap");
+        if ( !e_gap.isNull() )
+            graph->default_edge_style_reference().crossing_distance =
+                e_gap.text().toDouble();
+    }
+
 
     QDomElement e_stroke = e_style.firstChildElement("stroke");
     if ( !e_stroke.isNull() )

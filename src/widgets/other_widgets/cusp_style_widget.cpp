@@ -135,17 +135,6 @@ Cusp_Shape *Cusp_Style_Widget::cusp_shape() const
     return cusp_shape(combo_cusp_shape->currentIndex());
 }
 
-/// \todo remove here and in the crossind style widget
-void Cusp_Style_Widget::hide_checkboxes()
-{
-    foreach(QCheckBox* cb, findChildren<QCheckBox*>())
-    {
-        cb->setChecked(true);
-        cb->hide();
-    }
-}
-
-
 Cusp_Shape *Cusp_Style_Widget::cusp_shape(int index) const
 {
     return combo_cusp_shape->itemData(index).value<Cusp_Shape*>();

@@ -39,7 +39,7 @@ class XML_Exporter : public QObject
 
 
     /// Version of the Knot file format
-    static const int version = 3;
+    static const int version = 4;
 
     QXmlStreamWriter xml;
     QMap<Node*,int> node_ids;

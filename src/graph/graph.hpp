@@ -46,7 +46,7 @@ private:
     QList<Node*>        m_nodes;
     QList<Edge*>        m_edges;
     Node_Style          m_default_node_style;
-    Edge_Style          m_default_edge_style;///< \todo search for m_default_node_style and change
+    Edge_Style          m_default_edge_style;
     QRectF              bounding_box;
     QList<QColor>       m_colors;
     bool                auto_color;

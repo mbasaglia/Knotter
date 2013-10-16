@@ -73,7 +73,16 @@ void XML_Loader_v2::get_graph(Graph &kv)
         if ( !ns.cusp_shape )
             ns.cusp_shape = Resource_Manager::default_cusp_shape();
         kv.set_default_node_style ( ns );
-        /// \todo Edge_Style es = get_crossing("cusp"); ...
+
+
+        QDomElement e_cusp = current_elements.top().firstChildElement("cusp");
+        if ( !e_cusp.isNull() )
+        {
+            QDomElement e_gap = e_cusp.firstChildElement("gap");
+            if ( !e_gap.isNull() )
+                kv.default_edge_style_reference().crossing_distance =
+                    e_gap.text().toDouble();
+        }
 
         leave();
     }
@@ -91,6 +100,7 @@ void XML_Loader_v2::get_graph(Graph &kv)
             current_elements.push(node);
             cur_node->set_style ( get_cusp ( "custom-style"  ) );
             current_elements.pop();
+            /// \note Will lose custom-style/gap as it has been moved to edge style
         }
 
         kv.add_node(cur_node);
@@ -203,16 +213,6 @@ Node_Style XML_Loader_v2::get_cusp(QString name)
         cusp_style_info.cusp_distance = cusp_dist.text().toDouble();
         cusp_style_info.enabled_style |= Node_Style::CUSP_DISTANCE;
     }
-
-
-    /// \todo compatibility?
-    /*QDomElement egap = cusp.firstChildElement("gap");
-    if ( !egap.isNull() )
-    {
-        cusp_style_info.crossing_distance =  2*egap.text().toDouble();
-        cusp_style_info.enabled_style |= Node_Style::CROSSING_DISTANCE;
-    }*/
-
 
     QDomElement handle_length = cusp.firstChildElement("handle-length");
     if ( ! handle_length.isNull() )

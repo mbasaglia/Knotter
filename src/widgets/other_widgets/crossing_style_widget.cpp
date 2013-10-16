@@ -132,15 +132,6 @@ Edge_Type *Crossing_Style_Widget::edge_type() const
     return edge_type(combo_edge_type->currentIndex());
 }
 
-void Crossing_Style_Widget::hide_checkboxes()
-{
-    foreach(QCheckBox* cb, findChildren<QCheckBox*>())
-    {
-        cb->setChecked(true);
-        cb->hide();
-    }
-}
-
 Edge_Type *Crossing_Style_Widget::edge_type(int index) const
 {
     return combo_edge_type->itemData(index).value<Edge_Type*>();

@@ -45,8 +45,6 @@ public:
 
     Node_Style::Enabled_Styles enabled_styles() const;
     Cusp_Shape* cusp_shape() const;
-
-    void hide_checkboxes();
     
 protected:
     void changeEvent(QEvent *e);

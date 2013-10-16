@@ -46,8 +46,6 @@ public:
 
     Edge_Style::Enabled_Styles enabled_styles() const;
 
-    void hide_checkboxes();
-
 protected:
     void changeEvent(QEvent *e);
 

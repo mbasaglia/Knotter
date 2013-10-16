@@ -39,7 +39,7 @@ class XML_Loader : QObject
     int m_version;
 
     static const int min_version = 3;
-    static const int max_version = 3;
+    static const int max_version = 4;
 
     Node* get_node(QDomElement element);
 
