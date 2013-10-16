@@ -41,6 +41,10 @@ Script_Document::Script_Document(Knot_View *wrapped, QObject *parent) :
             SLOT(change_node_style(Node*,Node_Style,Node_Style)));
     connect(&m_graph,SIGNAL(edge_style_changed(Edge*,Edge_Style,Edge_Style)),
             SLOT(change_edge_style(Edge*,Edge_Style,Edge_Style)));
+
+
+    connect(&m_graph,SIGNAL(style_changed(Node_Style,Edge_Style,Node_Style,Edge_Style)),
+            SLOT(change_graph_style(Node_Style,Edge_Style,Node_Style,Edge_Style)));
 }
 
 Script_Document::~Script_Document()
@@ -113,6 +117,12 @@ void Script_Document::change_node_style(Node *node, Node_Style before, Node_Styl
 void Script_Document::change_edge_style(Edge *edge, Edge_Style before, Edge_Style after)
 {
     wrapped->push_command(new Edge_Style_All(edge,before,after,wrapped));
+}
+
+void Script_Document::change_graph_style(Node_Style bef_node, Edge_Style bef_edge,
+                                         Node_Style aft_node, Edge_Style aft_edge)
+{
+    wrapped->push_command(new Knot_Style_All(bef_node,aft_node,bef_edge,aft_edge,wrapped));
 }
 
 void Script_Document::begin_macro(QString message)

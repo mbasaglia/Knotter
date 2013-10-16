@@ -88,6 +88,8 @@ public slots:
     void move_node(Script_Node* n, Script_Point p);
     void change_node_style(Node* node, Node_Style before, Node_Style after );
     void change_edge_style(Edge* edge, Edge_Style before, Edge_Style after );
+    void change_graph_style(Node_Style bef_node, Edge_Style bef_edge,
+                            Node_Style aft_node, Edge_Style aft_edge );
     
 };
 

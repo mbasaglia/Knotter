@@ -41,6 +41,8 @@ class Script_Graph : public QObject
     Q_PROPERTY(QObjectList nodes READ nodes_object)
     Q_PROPERTY(QObjectList edges READ edges_object)
     Q_PROPERTY(QObjectList selected_nodes READ selected_nodes_object)
+    Q_PROPERTY(QObject* crossing_style READ crossing_style)
+    Q_PROPERTY(QObject* cusp_style READ cusp_style)
 
     friend void graph_from_script(const QScriptValue &obj, Script_Graph &graph);
 
@@ -51,7 +53,9 @@ class Script_Graph : public QObject
     QList<Script_Node*> m_nodes;
     QList<Script_Edge*> m_edges;
 
-    /// \todo style
+    Script_Edge_Style m_crossing_style;
+    Script_Node_Style m_cusp_style;
+
 public:
     explicit Script_Graph(const Graph &graph=Graph(), QObject *parent = 0);
     Script_Graph(const Script_Graph &g);
@@ -190,6 +194,10 @@ public:
      */
     Q_INVOKABLE void append(QObject* other);
 
+
+    QObject* crossing_style() { return &m_crossing_style; }
+    QObject* cusp_style () { return &m_cusp_style; }
+
 signals:
     void node_added(Script_Node* n);
     void node_removed(Script_Node* n);
@@ -198,11 +206,15 @@ signals:
     void node_moved(Script_Node* n, Script_Point pos);
     void edge_style_changed(Edge* edge, Edge_Style before, Edge_Style after);
     void node_style_changed(Node* node, Node_Style before, Node_Style after );
+    void style_changed(Node_Style bef_node, Edge_Style bef_edge,
+                       Node_Style aft_node, Edge_Style aft_edge );
 
 private slots:
     void emit_node_moved(Script_Point pos);
     void node_removed();
     void edge_removed();
+    void emit_style_changed(Node_Style before,Node_Style after);
+    void emit_style_changed(Edge_Style before,Edge_Style after);
 
 private:
     /**

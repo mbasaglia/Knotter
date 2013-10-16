@@ -674,7 +674,9 @@ Knot_Style_All::Knot_Style_All(Node_Style node_before, Node_Style node_after,
     : Knot_Command(kv,parent),
       node_before(node_before), node_after(node_after),
       edge_before(edge_before), edge_after(edge_after)
-{}
+{
+    setText(tr("Set Knot Style"));
+}
 
 void Knot_Style_All::undo()
 {

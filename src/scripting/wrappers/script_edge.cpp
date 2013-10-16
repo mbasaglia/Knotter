@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_manager.hpp"
 
 Script_Edge::Script_Edge(Edge *wrapped, Script_Graph *graph):
-    QObject(graph), wrapped(wrapped), graph(graph), m_style(&wrapped->style())
+    QObject(graph), wrapped(wrapped), graph(graph), m_style(wrapped->style())
 {
     connect(&m_style,SIGNAL(changed(Edge_Style,Edge_Style)),
             SLOT(emit_style_changed(Edge_Style,Edge_Style)));

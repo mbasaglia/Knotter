@@ -42,10 +42,10 @@ class Script_Edge_Style : public QObject
     Q_PROPERTY(double slide READ slide WRITE set_slide )
 
 
-    Edge_Style* wrapped;
+    Edge_Style wrapped;
 
 public:
-    explicit Script_Edge_Style(Edge_Style* wrapped, QObject *parent = 0);
+    explicit Script_Edge_Style(Edge_Style wrapped, QObject *parent = 0);
 
     double handle_length();
     double crossing_distance();
@@ -64,6 +64,8 @@ public:
 
 
     Q_INVOKABLE QString toString() const { return "[edge style]"; }
+
+    Edge_Style style() const { return wrapped; }
 
 signals:
     void changed(Edge_Style before,Edge_Style after);
