@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Script_Document::Script_Document(Knot_View *wrapped, QObject *parent) :
     QObject(parent), wrapped(wrapped), m_graph(wrapped->graph()),
-    m_grid(&wrapped->grid()), macro_count(0)
+    m_grid(&wrapped->grid()), macro_count(0), m_render(&wrapped->graph())
 {
     connect(&m_graph,SIGNAL(edge_added(Script_Edge*)),SLOT(add_edge(Script_Edge*)));
     connect(&m_graph,SIGNAL(node_added(Script_Node*)),SLOT(add_node(Script_Node*)));

@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "script_graph.hpp"
 #include "knot_view.hpp"
 #include "script_grid.hpp"
+#include "script_renderer.hpp"
 
 /**
  * @brief Wrapper to Knot_View
@@ -42,11 +43,13 @@ class Script_Document : public QObject
     Q_PROPERTY(QString filename READ filename)
     Q_PROPERTY(QObject* graph READ graph)
     Q_PROPERTY(QObject* grid READ grid)
+    Q_PROPERTY(QObject* render READ render)
 
-    Knot_View*   wrapped;
-    Script_Graph m_graph;
-    Script_Grid  m_grid;
-    int          macro_count;
+    Knot_View*      wrapped;
+    Script_Graph    m_graph;
+    Script_Grid     m_grid;
+    int             macro_count;
+    Script_Renderer m_render;
 
 public:
     explicit Script_Document(Knot_View* wrapped, QObject *parent = 0);
@@ -61,6 +64,8 @@ public:
     Script_Graph* graph();
 
     QObject* grid();
+
+    QObject* render() { return &m_render; }
 
     /**
      * \brief Insert a new graph in the view
