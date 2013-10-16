@@ -36,8 +36,8 @@ class Script_Edge_Style : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(double handle_length READ handle_length WRITE set_handle_length )
-    Q_PROPERTY(double crossing_distance READ crossing_distance WRITE set_crossing_distance )
+    Q_PROPERTY(double curve READ handle_length WRITE set_handle_length )
+    Q_PROPERTY(double gap READ crossing_distance WRITE set_crossing_distance )
     Q_PROPERTY(QString type READ edge_type WRITE set_edge_type )
     Q_PROPERTY(double slide READ slide WRITE set_slide )
 

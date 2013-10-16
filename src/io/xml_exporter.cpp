@@ -139,13 +139,13 @@ void XML_Exporter::save_cusp(QString name, Node_Style style)
         xml.writeTextElement("shape",style.cusp_shape->machine_name());
 
     if ( style.enabled_style & Node_Style::CUSP_ANGLE )
-        xml.writeTextElement("min-angle",QString::number(style.cusp_angle));
+        xml.writeTextElement("angle",QString::number(style.cusp_angle));
 
     if ( style.enabled_style & Node_Style::CUSP_DISTANCE )
         xml.writeTextElement("distance",QString::number(style.cusp_distance));
 
     if ( style.enabled_style & Node_Style::HANDLE_LENGTH )
-        xml.writeTextElement("handle-length",QString::number(style.handle_length));
+        xml.writeTextElement("curve",QString::number(style.handle_length));
 
     end_element();
 }
@@ -162,7 +162,7 @@ void XML_Exporter::save_crossing(QString name, Edge_Style style)
         xml.writeTextElement("slide",QString::number(style.edge_slide));
 
     if ( style.enabled_style & Edge_Style::HANDLE_LENGTH )
-        xml.writeTextElement("handle-length",QString::number(style.handle_length));
+        xml.writeTextElement("curve",QString::number(style.handle_length));
 
     end_element();
 }

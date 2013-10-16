@@ -37,10 +37,10 @@ class Script_Node_Style : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(double cusp_angle READ cusp_angle WRITE set_cusp_angle )
-    Q_PROPERTY(double handle_length READ handle_length WRITE set_handle_length )
-    Q_PROPERTY(double cusp_distance READ cusp_distance WRITE set_cusp_distance )
-    Q_PROPERTY(QString cusp_shape READ cusp_shape WRITE set_cusp_shape )
+    Q_PROPERTY(double angle READ cusp_angle WRITE set_cusp_angle )
+    Q_PROPERTY(double curve READ handle_length WRITE set_handle_length )
+    Q_PROPERTY(double distance READ cusp_distance WRITE set_cusp_distance )
+    Q_PROPERTY(QString shape READ cusp_shape WRITE set_cusp_shape )
 
 
     Node_Style wrapped;

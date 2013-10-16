@@ -122,7 +122,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="label_5">
         <property name="text">
-         <string>Style</string>
+         <string>Shape</string>
         </property>
         <property name="buddy">
          <cstring>combo_cusp_shape</cstring>

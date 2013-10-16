@@ -66,5 +66,7 @@ public:
 
     void leave();
 
+    static bool supports_version(int v) { return v > 0 && v <= supported_version; }
+
 };
 #endif // XML_LOADER_V2_HPP
