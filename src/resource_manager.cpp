@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "misc_script_functions.hpp"
 #include "script_window.hpp"
 #include "script_polygon.hpp"
+#include "script_color.hpp"
 
 #if HAS_QT_5
 #include <QStandardPaths>
@@ -220,6 +221,8 @@ void Resource_Manager::initialize(QString default_lang_code)
     qScriptRegisterMetaType(engine, graph_to_script, graph_from_script);
     qRegisterMetaType<Script_Polygon>("Script_Polygon");
     qScriptRegisterMetaType(engine, polygon_to_script, polygon_from_script);
+    qRegisterMetaType<Script_Color>("Script_Color");
+    qScriptRegisterMetaType(engine, color_to_script, color_from_script);
 
 
     //plugins
@@ -492,18 +495,26 @@ QScriptContext* Resource_Manager::script_context()
 
         engine->globalObject().setProperty("Line", engine->newFunction(build_line));
 
+
         engine->globalObject().setProperty( "print", engine->newFunction( script_print ) );
 
         engine->globalObject().setProperty( "knotter",
             engine->newQObject(new Script_Knotter,QScriptEngine::ScriptOwnership));
+        engine->globalObject().setProperty( "system",
+            engine->newQObject(new Script_System,QScriptEngine::ScriptOwnership));
 
         engine->globalObject().setProperty("Graph", engine->newFunction(build_graph));
 
 
         engine->globalObject().setProperty("Polygon", engine->newFunction(build_polygon));
 
-        engine->globalObject().setProperty( "system",
-            engine->newQObject(new Script_System,QScriptEngine::ScriptOwnership));
+
+        engine->globalObject().setProperty("Color", engine->newFunction(build_color));
+        engine->globalObject().setProperty("rgb", engine->newFunction(script_rgb));
+        engine->globalObject().setProperty("rgba", engine->newFunction(script_rgb));
+        engine->globalObject().setProperty("hsv", engine->newFunction(script_hsv));
+        engine->globalObject().setProperty("hsl", engine->newFunction(script_hsl));
+        engine->globalObject().setProperty("cmyk", engine->newFunction(script_cmyk));
 
     }
     return singleton.current_context;

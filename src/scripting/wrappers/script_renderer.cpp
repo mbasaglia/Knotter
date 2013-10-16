@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QBuffer>
 
 
-QByteArray Script_Renderer::knot()
+QString Script_Renderer::knot()
 {
     QByteArray out_raw;
     QBuffer out(&out_raw);
@@ -39,7 +39,7 @@ QByteArray Script_Renderer::knot()
     return out_raw;
 }
 
-QByteArray Script_Renderer::svg()
+QString Script_Renderer::svg()
 {
     QByteArray out_raw;
     QBuffer out(&out_raw);

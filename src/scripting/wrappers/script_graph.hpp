@@ -51,6 +51,7 @@ class Script_Graph : public QObject
     QList<Script_Node*> m_nodes;
     QList<Script_Edge*> m_edges;
 
+    /// \todo style
 public:
     explicit Script_Graph(const Graph &graph=Graph(), QObject *parent = 0);
     Script_Graph(const Script_Graph &g);

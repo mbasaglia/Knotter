@@ -52,11 +52,11 @@ public:
     /**
      * \brief Render as knot file (XML)
      */
-    Q_INVOKABLE QByteArray knot();
+    Q_INVOKABLE QString knot();
     /**
      * \brief Render as SVG
      */
-    Q_INVOKABLE QByteArray svg();
+    Q_INVOKABLE QString svg();
     /**
      * \brief Render as raster image
      * \param width     Image width
