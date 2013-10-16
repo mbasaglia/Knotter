@@ -24,39 +24,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef CONTEXT_MENU_EDGE_HPP
-#define CONTEXT_MENU_EDGE_HPP
+#ifndef DIALOG_EDGE_PROPERTIES_HPP
+#define DIALOG_EDGE_PROPERTIES_HPP
 
-#include <QMenu>
-#include "knot_view.hpp"
-#include <QSignalMapper>
+#include "ui_dialog_edge_properties.h"
 
-class Context_Menu_Edge : public QMenu
+class Dialog_Edge_Properties : public QDialog, private Ui::Dialog_Edge_Properties
 {
     Q_OBJECT
-private:
-    Knot_View*      view;
-    Edge*           edge;
-    QAction*        action_snap;
-    QMenu*          menu_edge_types;
-    QSignalMapper   mapper;
-    QActionGroup*   edge_type_actions;
-    QAction*        action_reset_style;
-
-public:
-    explicit Context_Menu_Edge(Knot_View *parent = 0);
-
-    void popup(Edge*e, QPoint pos);
-
-public slots:
-    void snap();
-    void change_edge_type(QString type_name);
-    void remove();
-    void break_intersections();
-    void subdivide();
-    void properties();
-    void reset_custom_style();
     
+public:
+    explicit Dialog_Edge_Properties(QWidget *parent = 0);
+
+    void set_style(const Edge_Style &style);
+    Edge_Style edge_style() const;
+
+protected:
+    void changeEvent(QEvent *e);
 };
 
-#endif // CONTEXT_MENU_EDGE_HPP
+#endif // DIALOG_EDGE_PROPERTIES_HPP

@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Cusp_Style_Dialog</class>
- <widget class="QDialog" name="Cusp_Style_Dialog">
+ <class>Dialog_Edge_Properties</class>
+ <widget class="QDialog" name="Dialog_Edge_Properties">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>184</width>
-    <height>195</height>
+    <height>201</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Node Preferences</string>
+   <string>Edge Properties</string>
   </property>
   <property name="windowIcon">
-   <iconset theme="edit-node">
-    <normaloff/>
-   </iconset>
+   <iconset theme="edge-crossing"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="Cusp_Style_Widget" name="cusp_style_widget" native="true"/>
+    <widget class="Crossing_Style_Widget" name="crossing_style_widget" native="true"/>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
@@ -36,9 +34,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>Cusp_Style_Widget</class>
+   <class>Crossing_Style_Widget</class>
    <extends>QWidget</extends>
-   <header>cusp_style_widget.hpp</header>
+   <header>crossing_style_widget.hpp</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
@@ -47,7 +45,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>Cusp_Style_Dialog</receiver>
+   <receiver>Dialog_Edge_Properties</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -63,7 +61,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>Cusp_Style_Dialog</receiver>
+   <receiver>Dialog_Edge_Properties</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "commands.hpp"
 #include "resource_manager.hpp"
 #include <QInputDialog>
+#include "dialog_edge_properties.hpp"
 
 Context_Menu_Edge::Context_Menu_Edge(Knot_View *parent) :
     QMenu(parent), view(parent), edge_type_actions(new QActionGroup(this))
@@ -42,6 +43,9 @@ Context_Menu_Edge::Context_Menu_Edge(Knot_View *parent) :
     addAction(tr("Break on intersections"),this,SLOT(break_intersections()));
     addAction(tr("Subdivide..."),this,SLOT(subdivide()));
 
+    addAction(QIcon::fromTheme("edge-crossing"),tr("Properties..."),this,SLOT(properties()));
+    action_reset_style = addAction(tr("Reset custom style"),this,SLOT(reset_custom_style()));
+
     connect(&mapper,SIGNAL(mapped(QString)),SLOT(change_edge_type(QString)));
 }
 
@@ -50,6 +54,10 @@ void Context_Menu_Edge::popup(Edge *e, QPoint pos)
     edge = e;
 
     action_snap->setEnabled( view->grid().is_enabled() );
+    action_reset_style->setEnabled(
+        edge->style().enabled_style != Edge_Style::EDGE_TYPE ||
+        edge->style().edge_type != Resource_Manager::default_edge_type()
+    );
 
     menu_edge_types->clear();
     foreach(Edge_Type* es, Resource_Manager::edge_styles())
@@ -194,4 +202,25 @@ void Context_Menu_Edge::subdivide()
 
         view->end_macro();
     }
+}
+
+void Context_Menu_Edge::properties()
+{
+    Dialog_Edge_Properties dialog;
+    dialog.set_style(edge->style());
+    if ( dialog.exec() )
+    {
+        view->push_command(new Edge_Style_All(edge,edge->style(),
+                                              dialog.edge_style(),view));
+    }
+}
+
+void Context_Menu_Edge::reset_custom_style()
+{
+    Edge_Style es;
+    es.enabled_style |= Edge_Style::EDGE_TYPE;
+    es.edge_type = Resource_Manager::default_edge_type();
+    view->begin_macro(tr("Reset Edge Style"));
+    view->push_command(new Edge_Style_All(edge,edge->style(),es,view));
+    view->end_macro();
 }
