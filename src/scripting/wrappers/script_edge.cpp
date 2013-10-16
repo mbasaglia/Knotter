@@ -29,8 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_manager.hpp"
 
 Script_Edge::Script_Edge(Edge *wrapped, Script_Graph *graph):
-    QObject(graph), wrapped(wrapped), graph(graph)
+    QObject(graph), wrapped(wrapped), graph(graph), m_style(&wrapped->style())
 {
+    connect(&m_style,SIGNAL(changed(Edge_Style,Edge_Style)),
+            SLOT(emit_style_changed(Edge_Style,Edge_Style)));
 }
 
 bool Script_Edge::is_vertex(const QObject *node) const
@@ -68,15 +70,7 @@ QString Script_Edge::toString() const
     return "[edge]";
 }
 
-/*QString Script_Edge::type()
+void Script_Edge::emit_style_changed(Edge_Style before, Edge_Style after)
 {
-
-    return wrapped->style()->machine_name();
+    emit style_changed(wrapped,before,after);
 }
-
-void Script_Edge::set_type(QString type_name)
-{
-    Edge_Type* t = Resource_Manager::edge_style_from_machine_name(type_name);
-    emit type_changed(t);
-    wrapped->set_style(t);
-}*/

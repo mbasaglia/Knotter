@@ -607,6 +607,22 @@ public:
 // edge style
 
 
+class Edge_Style_All : public Knot_Command
+{
+    Q_OBJECT
+
+    Edge_Style before;
+    Edge_Style after;
+    Edge* edge;
+
+public:
+    Edge_Style_All(Edge* edge, Edge_Style before, Edge_Style after, Knot_View* kv,
+               Knot_Macro* parent = nullptr);
+    void undo() override;
+    void redo() override;
+};
+
+
 /**
  *  \brief Base class for selection (edges) style commands
  *

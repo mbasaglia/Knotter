@@ -24,39 +24,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef SCRIPTING_NODE_STYLE_HPP
-#define SCRIPTING_NODE_STYLE_HPP
+#ifndef SCRIPT_EDGE_STYLE_HPP
+#define SCRIPT_EDGE_STYLE_HPP
 
 #include <QObject>
-#include "node_style.hpp"
-
+#include "edge_style.hpp"
 /**
  * \brief wrapper to Node_Style
  */
-class Script_Node_Style : public QObject
+class Script_Edge_Style : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(double cusp_angle READ cusp_angle WRITE set_cusp_angle )
     Q_PROPERTY(double handle_length READ handle_length WRITE set_handle_length )
-    Q_PROPERTY(double cusp_distance READ cusp_distance WRITE set_cusp_distance )
-    Q_PROPERTY(QString cusp_shape READ cusp_shape WRITE set_cusp_shape )
+    Q_PROPERTY(double crossing_distance READ crossing_distance WRITE set_crossing_distance )
+    Q_PROPERTY(QString type READ edge_type WRITE set_edge_type )
+    Q_PROPERTY(double slide READ slide WRITE set_slide )
 
 
-    Node_Style* wrapped;
+    Edge_Style* wrapped;
 
 public:
-    explicit Script_Node_Style(Node_Style* wrapped, QObject *parent = 0);
-    
-    double cusp_angle();
-    double handle_length();
-    double cusp_distance();
-    QString cusp_shape();
+    explicit Script_Edge_Style(Edge_Style* wrapped, QObject *parent = 0);
 
-    void set_cusp_angle( double value );
+    double handle_length();
+    double crossing_distance();
+    double slide();
+    QString edge_type();
+
+    void set_crossing_distance( double value );
     void set_handle_length( double value );
-    void set_cusp_distance( double value );
-    void set_cusp_shape( QString name );
+    void set_slide ( double value );
+    void set_edge_type( QString name );
 
     /**
      * \brief Disable all customized style features
@@ -64,10 +63,10 @@ public:
     Q_INVOKABLE void clear();
 
 
-    Q_INVOKABLE QString toString() const { return "[node style]"; }
+    Q_INVOKABLE QString toString() const { return "[edge style]"; }
 
 signals:
-    void changed(Node_Style before,Node_Style after);
-};
+    void changed(Edge_Style before,Edge_Style after);
 
-#endif // SCRIPTING_NODE_STYLE_HPP
+};
+#endif // SCRIPT_EDGE_STYLE_HPP

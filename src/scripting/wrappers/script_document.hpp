@@ -81,8 +81,8 @@ public slots:
     void remove_edge(Script_Edge* e);
     void add_edge(Script_Edge* e);
     void move_node(Script_Node* n, Script_Point p);
-    void change_edge_type(Script_Edge*edge,Edge_Type*type);
     void change_node_style(Node* node, Node_Style before, Node_Style after );
+    void change_edge_style(Edge* edge, Edge_Style before, Edge_Style after );
     
 };
 

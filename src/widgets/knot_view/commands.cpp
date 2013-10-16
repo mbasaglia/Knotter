@@ -850,3 +850,22 @@ void Edge_Style_Handle_Lenght::apply(Edge *edge, double value)
 {
     edge->style().handle_length = value;
 }
+
+
+Edge_Style_All::Edge_Style_All(Edge *edge, Edge_Style before, Edge_Style after, Knot_View *kv, Knot_Macro *parent)
+    : Knot_Command(kv,parent), before(before), after(after), edge(edge)
+{
+    setText(tr("Change Edge Style"));
+}
+
+void Edge_Style_All::undo()
+{
+    edge->set_style(before);
+    update_knot();
+}
+
+void Edge_Style_All::redo()
+{
+    edge->set_style(after);
+    update_knot();
+}

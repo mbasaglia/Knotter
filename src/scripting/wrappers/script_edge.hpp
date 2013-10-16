@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "script_node.hpp"
 #include "script_line.hpp"
 #include "edge.hpp"
-
+#include "script_edge_style.hpp"
 
 /**
  *  \brief Wrapper to Edge
@@ -45,10 +45,11 @@ class Script_Edge : public QObject
     Q_PROPERTY(QObject* vertex2 READ vertex2)
     Q_PROPERTY(Script_Line line READ line)
     Q_PROPERTY(Script_Point midpoint READ midpoint)
+    Q_PROPERTY(QObject* style READ style)
 
     Edge* wrapped;
     Script_Graph* graph;
-    /// \todo Style
+    Script_Edge_Style m_style;
 
 public:
     explicit Script_Edge(Edge* wrapped, Script_Graph* graph );
@@ -66,8 +67,16 @@ public:
 
     Q_INVOKABLE QString toString() const;
 
+    Script_Edge_Style* style() { return &m_style; }
+
+
 signals:
     void type_changed(Edge_Type* type);
+    void style_changed(Edge* node, Edge_Style before, Edge_Style after );
+
+private slots:
+    void emit_style_changed(Edge_Style before, Edge_Style after );
+
 };
 
 Q_DECLARE_METATYPE(Script_Edge*)

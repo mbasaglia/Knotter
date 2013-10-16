@@ -411,7 +411,7 @@ void Main_Window::connect_view(Knot_View *v)
     connect(widget_edge_style,SIGNAL(crossing_distance_changed(double)),
             v,SLOT(set_selection_crossing_distance(double)));
     connect(widget_edge_style,SIGNAL(edge_slide_changed(double)),
-            v,SLOT(set_selection_edge_slide(double)));/// \todo <--
+            v,SLOT(set_selection_edge_slide(double)));
     connect(widget_edge_style,SIGNAL(edge_type_changed(Edge_Type*)),
             v,SLOT(set_selection_edge_type(Edge_Type*)));
     connect(widget_edge_style,SIGNAL(handle_length_changed(double)),

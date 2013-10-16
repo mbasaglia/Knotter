@@ -30,7 +30,8 @@ HEADERS += \
     $$PWD/wrappers/script_document.hpp \
     $$PWD/wrappers/script_grid.hpp \
     $$PWD/wrappers/script_polygon.hpp \
-    $$PWD/wrappers/script_node_style.hpp
+    $$PWD/wrappers/script_node_style.hpp \
+    src/scripting/script_edge_style.hpp
 
 SOURCES += \
     $$PWD/wrappers/script_line.cpp \
@@ -47,5 +48,6 @@ SOURCES += \
     $$PWD/wrappers/script_document.cpp \
     $$PWD/wrappers/script_grid.cpp \
     $$PWD/wrappers/script_polygon.cpp \
-    $$PWD/wrappers/script_node_style.cpp
+    $$PWD/wrappers/script_node_style.cpp \
+    src/scripting/script_edge_style.cpp
 
