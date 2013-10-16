@@ -188,7 +188,7 @@ void XML_Exporter::save_edge(Edge *edge)
     xml.writeAttribute("type", edge->style().edge_type->machine_name());
     xml.writeAttribute("v1",QString("node_%1").arg(node_id(edge->vertex1())));
     xml.writeAttribute("v2",QString("node_%1").arg(node_id(edge->vertex2())));
-    if ( edge->style().enabled_style != Node_Style::NOTHING )
+    if ( edge->style().enabled_style & (Edge_Style::EVERYTHING^Edge_Style::EDGE_TYPE) )
         save_crossing("style",edge->style());
     end_element(); // edge
 }
