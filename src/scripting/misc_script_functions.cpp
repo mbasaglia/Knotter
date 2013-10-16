@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "misc_script_functions.hpp"
 #include "resource_manager.hpp"
+#include <QDir>
 
 QScriptValue script_print( QScriptContext * context, QScriptEngine * )
 {
@@ -74,3 +75,43 @@ QStringList Script_Knotter::cusp_shapes()
         l << s->machine_name();
     return l;
 }
+
+
+QByteArray Script_System::read_file(QString file_name)
+{
+    QFile file(file_name);
+    if ( file.open(QFile::ReadOnly) )
+        return file.readAll();
+    return QByteArray();
+}
+
+bool Script_System::write_file(QString file_name, QByteArray data)
+{
+    QFile file(file_name);
+    if ( file.open(QFile::WriteOnly) )
+    {
+        return file.write(data) != -1;
+    }
+    return false;
+}
+
+bool Script_System::write_file(QString file_name, QString data)
+{
+    QFile file(file_name);
+    if ( file.open(QFile::WriteOnly|QIODevice::Text) )
+    {
+        return file.write(data.toUtf8()) != -1;
+    }
+    return false;
+}
+
+QString Script_System::toString() const
+{
+    return "[system]";
+}
+
+QString Script_System::temp_path()
+{
+    return QDir::tempPath();
+}
+

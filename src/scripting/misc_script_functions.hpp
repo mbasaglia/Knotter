@@ -60,4 +60,38 @@ public:
     QStringList cusp_shapes();
 };
 
+/**
+ *  \brief System stuff
+ */
+class Script_System : public QObject
+{
+    Q_OBJECT
+
+public:
+    /**
+     * \brief Read data from a file
+     * \param file_name Name of the file
+     * \return The file data
+     */
+    Q_INVOKABLE QByteArray read_file( QString file_name );
+    /**
+     * \brief Write data to a  binary file
+     * \param file_name Name of the file
+     * \param data Data to write into the file
+     * \return Whether the operation was successful
+     */
+    Q_INVOKABLE bool write_file( QString file_name, QByteArray data );
+    /**
+     * \brief Write data to a text file
+     * \param file_name Name of the file
+     * \param data Data to write into the file
+     * \return Whether the operation was successful
+     */
+    Q_INVOKABLE bool write_file( QString file_name, QString data );
+
+    Q_INVOKABLE QString toString() const;
+
+    Q_INVOKABLE QString temp_path();
+};
+
 #endif // MISC_SCRIPT_FUNCTIONS_HPP

@@ -501,6 +501,10 @@ QScriptContext* Resource_Manager::script_context()
 
 
         engine->globalObject().setProperty("Polygon", engine->newFunction(build_polygon));
+
+        engine->globalObject().setProperty( "system",
+            engine->newQObject(new Script_System,QScriptEngine::ScriptOwnership));
+
     }
     return singleton.current_context;
 }
