@@ -9,7 +9,9 @@ function mirror(x,y)
 		var node_pos = selected[i].pos;
 		if ( x*node_pos.x != node_pos.x || y*node_pos.y != node_pos.y )
 		{
-			new_nodes.push(graph.add_node(x*node_pos.x,y*node_pos.y));
+			var node = graph.add_node(x*node_pos.x,y*node_pos.y);
+			node.style = selected[i].style;
+			new_nodes.push(node);
 			
 		}
 	}
@@ -25,7 +27,10 @@ function mirror(x,y)
 					var other_pos = selected[i].edges[j].other(selected[i]).pos;
 					var to = graph.node_at(x*other_pos.x,y*other_pos.y);
 					if ( to )
-						graph.connect(from,to);
+					{
+						var edge = graph.connect(from,to);
+						edge.style = selected[i].edges[j].style;
+					}
 			}
 		}
 	}
