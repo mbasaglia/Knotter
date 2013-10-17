@@ -4,8 +4,9 @@ icons=' accessories-text-editor
         application-exit
         arrow-down
         arrow-up
-        configure-toolbars
+        color-picker
         configure
+        configure-toolbars
         debug-run
         dialog-cancel
         dialog-close
