@@ -512,22 +512,6 @@
        </widget>
        <widget class="QWidget" name="page_2">
         <layout class="QGridLayout" name="gridLayout_3">
-         <item row="3" column="1">
-          <widget class="Color_Selector" name="color_grid_lines"/>
-         </item>
-         <item row="4" column="0" colspan="2">
-          <spacer name="verticalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
          <item row="0" column="0">
           <widget class="QLabel" name="label_6">
            <property name="text">
@@ -544,13 +528,6 @@
          </item>
          <item row="0" column="1">
           <widget class="QComboBox" name="combo_node_size"/>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_8">
-           <property name="text">
-            <string>Grid Color</string>
-           </property>
-          </widget>
          </item>
          <item row="1" column="1">
           <widget class="QComboBox" name="combo_widget_style">
@@ -596,6 +573,65 @@
                </property>
               </item>
              </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="3" column="0" colspan="2">
+          <widget class="QGroupBox" name="groupBox_5">
+           <property name="title">
+            <string>Colors</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_4">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_8">
+              <property name="text">
+               <string>Grid</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="Color_Selector" name="color_grid_lines"/>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_9">
+              <property name="text">
+               <string>Node (Resting)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="Color_Selector" name="color_node_resting"/>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_10">
+              <property name="text">
+               <string>Node (Highlighted)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="Color_Selector" name="color_node_highlighted"/>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_11">
+              <property name="text">
+               <string>Edge (Resting)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="Color_Selector" name="color_edge_resting"/>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_12">
+              <property name="text">
+               <string>Edge (Highlighted)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="Color_Selector" name="color_edge_highlighted"/>
             </item>
            </layout>
           </widget>

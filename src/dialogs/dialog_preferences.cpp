@@ -70,6 +70,9 @@ Dialog_Preferences::Dialog_Preferences(QMainWindow *parent) :
             QApplication::style()->objectName(),
             Qt::MatchFixedString
         ));
+
+    color_node_highlighted->setColor(Node::color_highlighted);
+    color_node_resting->setColor(Node::color_resting);
 }
 
 void Dialog_Preferences::init_combos()
@@ -93,6 +96,14 @@ void Dialog_Preferences::init_combos()
     combo_icon_style->setCurrentIndex(combo_icon_style->findData(
                                 Resource_Manager::settings.button_style()));
 
+
+    combo_node_size->clear();
+    combo_node_size->addItem(tr("Small"),3);
+    combo_node_size->addItem(tr("Medium"),5);
+    combo_node_size->addItem(tr("Large"),15);
+    combo_node_size->setCurrentIndex(combo_node_size->findData(Node::radius));
+
+
 }
 
 void Dialog_Preferences::set_preferences()
@@ -103,13 +114,14 @@ void Dialog_Preferences::set_preferences()
     Resource_Manager::settings.button_style( Qt::ToolButtonStyle (
         combo_icon_style->itemData(combo_icon_style->currentIndex()).toInt()) );
 
-    //if ( group_style_preview->style() != QApplication::style() )
-    {
-        QApplication::setStyle(combo_widget_style->currentText());
-    }
+
+    Node::radius = combo_node_size->itemData(combo_node_size->currentIndex()).toInt();
+    Node::color_resting = color_node_resting->color();
+    Node::color_highlighted = color_node_highlighted->color();
+
+    QApplication::setStyle(combo_widget_style->currentText());
     combo_widget_style->blockSignals(true); //< prevent retranslate to mess up things
 
-    Resource_Manager::change_lang_name(combo_language->currentText());
 
     Resource_Manager::settings.set_fluid_refresh(check_fluid_refresh->isChecked());
     Resource_Manager::settings.set_graph_cache(check_cache_image->isChecked());
@@ -130,6 +142,8 @@ void Dialog_Preferences::set_preferences()
     Resource_Manager::settings.set_clipboard_feature(Settings::SVG,check_clipboard_svg->isChecked());
     Resource_Manager::settings.set_clipboard_feature(Settings::XML,check_clipboard_xml->isChecked());
 
+    // keep as last, it will change the combo boxes
+    Resource_Manager::change_lang_name(combo_language->currentText());
 }
 
 void Dialog_Preferences::retranslate()
@@ -152,7 +166,7 @@ void Dialog_Preferences::on_button_clear_settings_clicked()
     group_save->setEnabled(false);
 }
 
-void Dialog_Preferences::on_combo_widget_style_currentIndexChanged(int index)
+void Dialog_Preferences::on_combo_widget_style_currentIndexChanged(int)
 {
     QStyle* old_style = group_style_preview->style();
     QStyle* style = QStyleFactory::create(combo_widget_style->currentText());

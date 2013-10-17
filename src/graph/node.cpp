@@ -29,6 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_manager.hpp"
 
 
+int Node::radius = 5;
+QColor Node::color_resting("#ff4400");
+QColor Node::color_highlighted("#ffcc00");
+
 Node::Node(QPointF pos)
 {
     setPos(pos);
@@ -89,11 +93,11 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 
     if ( visible && highlighted )
     {
-        painter->setBrush(QColor("#ffcc00"));
+        painter->setBrush(color_highlighted);
         r = boundingRect();
     }
     else if ( visible || highlighted )
-        painter->setBrush(QColor("#ff4400"));
+        painter->setBrush(color_resting);
     else
         return;
     painter->drawEllipse(r);
@@ -105,7 +109,7 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 
 QRectF Node::boundingRect() const
 {
-    return QRectF(-xradius,-xradius,xradius*2,xradius*2);
+    return QRectF(-external_radius(),-external_radius(),external_radius()*2,external_radius()*2);
 }
 
 void Node::move(QPointF p)

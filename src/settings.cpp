@@ -89,6 +89,7 @@ void Settings::load_config()
     }
 
     settings.beginGroup("gui");
+    Node::radius = settings.value("node/radius",Node::radius).toInt();
 
     QString style = settings.value("style").toString();
     if ( QStyleFactory::keys().contains(style,Qt::CaseInsensitive) )
@@ -131,6 +132,12 @@ void Settings::load_config()
                 settings.value("buttons",tool_button_style).toInt() );
 
     settings.endGroup();//gui
+
+
+    settings.beginGroup("colors");
+    Node::color_resting = settings.value("node/resting",Node::color_resting.name()).toString();
+    Node::color_highlighted = settings.value("node/highlighted",Node::color_highlighted.name()).toString();
+    settings.endGroup();//colors
 
 
 
@@ -208,6 +215,12 @@ void Settings::save_config()
     settings.setValue("buttons",int(tool_button_style));
 
     settings.endGroup();//gui
+
+
+    settings.beginGroup("colors");
+    settings.setValue("node/resting",Node::color_resting.name());
+    settings.setValue("node/highlighted",Node::color_highlighted.name());
+    settings.endGroup();//colors
 }
 
 void Settings::clear_config()

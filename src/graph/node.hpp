@@ -38,11 +38,16 @@ class Node : public Graph_Item
 {
     Q_OBJECT
 
+public:
+    /// Radius used to display the node
+    static int radius;
+    /// Color used to display the node (resting)
+    static QColor color_resting;
+    /// Color used to display the node (highlighted)
+    static QColor color_highlighted;
+
 private:
     QList<Edge*> m_edges;
-    static const int radius = 5; ///< \todo maybe not const and settings
-    /// Extended radius
-    static const int xradius = 6; ///< \todo maybe not const and settings
 
     Node_Style m_style;
 
@@ -91,7 +96,7 @@ public:
      */
     void move(QPointF p);
 
-    static int external_radius() { return xradius; }
+    static int external_radius() { return radius+1; }
 
 signals:
     void moved(QPointF);
