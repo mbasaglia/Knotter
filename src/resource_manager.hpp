@@ -56,7 +56,7 @@ private:
     QMap<QString,QTranslator*> translators; ///< map lang_code -> translator
     QTranslator* current_translator;
 
-    QList<Edge_Type*> m_edge_types;
+    QList<Edge_Type*>  m_edge_types;
     QList<Cusp_Shape*> m_cusp_shapes;
 
     QScriptEngine *     m_script_engine;
@@ -64,6 +64,9 @@ private:
     QScriptContext *    current_context;
     QScriptEngineAgent* m_script_engine_agent;
     QTimer*             script_timeout;
+
+    QStyle* m_default_style;
+    QString m_current_style_name;
 
 public:
     static Settings settings;
@@ -276,6 +279,9 @@ public:
 
     static void emit_script_output(QString s) { emit singleton.script_output(s); }
 
+    static QStyle* default_style() { return singleton.m_default_style; }
+    static void set_current_style_name(QString name) { singleton.m_current_style_name = name; }
+    static QString current_style_name() { return singleton.m_current_style_name; }
 
 public slots:
 

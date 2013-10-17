@@ -68,6 +68,7 @@ icons=' accessories-text-editor
         object-locked
         object-unlocked
         page-zoom
+        preferences-desktop-theme
         preferences-desktop-wallpaper
         preferences-other
         preferences-plugin

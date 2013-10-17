@@ -48,6 +48,7 @@ public slots:
 private slots:
     void on_button_clear_recent_clicked();
     void on_button_clear_settings_clicked();
+    void on_combo_widget_style_currentIndexChanged(int index);
 };
 
 #endif // DIALOG_PREFERENCES_HPP

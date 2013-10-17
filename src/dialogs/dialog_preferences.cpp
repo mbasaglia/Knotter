@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "dialog_preferences.hpp"
 #include "resource_manager.hpp"
+#include <QStyleFactory>
 
 Dialog_Preferences::Dialog_Preferences(QMainWindow *parent) :
     QDialog(parent)
@@ -62,6 +63,12 @@ Dialog_Preferences::Dialog_Preferences(QMainWindow *parent) :
 
     stackedWidget->setCurrentIndex(0);
     tableWidget->setCurrentCell(0,0);
+
+    foreach(QString k, QStyleFactory::keys() )
+        combo_widget_style->addItem(k);
+    if ( !Resource_Manager::current_style_name().isEmpty() )
+        combo_widget_style->setCurrentIndex(
+                combo_widget_style->findText(Resource_Manager::current_style_name()));
 }
 
 void Dialog_Preferences::init_combos()
@@ -84,6 +91,7 @@ void Dialog_Preferences::init_combos()
 
     combo_icon_style->setCurrentIndex(combo_icon_style->findData(
                                 Resource_Manager::settings.button_style()));
+
 }
 
 void Dialog_Preferences::set_preferences()
@@ -93,6 +101,16 @@ void Dialog_Preferences::set_preferences()
                                     combo_icon_size->currentIndex()).toInt());
     Resource_Manager::settings.button_style( Qt::ToolButtonStyle (
         combo_icon_style->itemData(combo_icon_style->currentIndex()).toInt()) );
+
+    if ( group_style_preview->style() != QApplication::style() )
+    {
+        if ( group_style_preview->style() == Resource_Manager::default_style() )
+            Resource_Manager::set_current_style_name(QString());
+        else
+            Resource_Manager::set_current_style_name(combo_widget_style->currentText());
+        QApplication::setStyle( group_style_preview->style() );
+    }
+    combo_widget_style->blockSignals(true); //< prevent retranslate to mess up things
 
     Resource_Manager::change_lang_name(combo_language->currentText());
 
@@ -135,4 +153,21 @@ void Dialog_Preferences::on_button_clear_settings_clicked()
 {
     Resource_Manager::settings.clear_config();
     group_save->setEnabled(false);
+}
+
+void Dialog_Preferences::on_combo_widget_style_currentIndexChanged(int index)
+{
+    QStyle* old_style = group_style_preview->style();
+    QStyle* style = nullptr;
+    if ( index == 0)
+        style = Resource_Manager::default_style();
+    else
+        style = QStyleFactory::create(combo_widget_style->currentText());
+    group_style_preview->setStyle(style);
+    foreach(QWidget* c, group_style_preview->findChildren<QWidget*>() )
+    {
+        c->setStyle(style);
+    }
+    if ( old_style != QApplication::style() )
+        delete old_style;
 }

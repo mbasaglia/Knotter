@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "script_window.hpp"
 #include "script_polygon.hpp"
 #include "script_color.hpp"
+#include <QApplication>
 
 #if HAS_QT_5
 #include <QStandardPaths>
@@ -151,6 +152,8 @@ QStringList Resource_Manager::data_directories_unckecked(QString name)
 
 void Resource_Manager::initialize(QString default_lang_code)
 {
+    singleton.m_default_style = QApplication::style();
+
     qApp->setApplicationName(TARGET);
     qApp->setApplicationVersion(program_version());
     qApp->setOrganizationDomain(DOMAIN_NAME);

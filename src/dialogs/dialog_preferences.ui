@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>538</width>
+    <width>543</width>
     <height>396</height>
    </rect>
   </property>
@@ -92,6 +92,11 @@
          <string/>
         </property>
        </row>
+       <row>
+        <property name="text">
+         <string/>
+        </property>
+       </row>
        <column>
         <property name="text">
          <string/>
@@ -133,6 +138,14 @@
          </iconset>
         </property>
        </item>
+       <item row="3" column="0">
+        <property name="text">
+         <string>Interface</string>
+        </property>
+        <property name="icon">
+         <iconset theme="preferences-desktop-theme"/>
+        </property>
+       </item>
       </widget>
      </item>
      <item>
@@ -144,7 +157,7 @@
         </sizepolicy>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="page_general">
         <layout class="QGridLayout" name="gridLayout_2">
@@ -346,7 +359,9 @@
                <string>TIFF</string>
               </property>
               <property name="icon">
-               <iconset theme="image-x-generic"/>
+               <iconset theme="image-x-generic">
+                <normaloff/>
+               </iconset>
               </property>
              </widget>
             </item>
@@ -493,6 +508,97 @@
          </item>
         </layout>
        </widget>
+       <widget class="QWidget" name="page_2">
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="3" column="1">
+          <widget class="Color_Selector" name="color_grid_lines"/>
+         </item>
+         <item row="4" column="0" colspan="2">
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Node Icon Size</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Widget Style</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="combo_node_size"/>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>Grid Color</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QComboBox" name="combo_widget_style">
+           <item>
+            <property name="text">
+             <string>Default</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="2" column="0" colspan="2">
+          <widget class="QGroupBox" name="group_style_preview">
+           <property name="title">
+            <string>Preview</string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QPushButton" name="pushButton">
+              <property name="text">
+               <string>Button</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="spinBox"/>
+            </item>
+            <item>
+             <widget class="QComboBox" name="comboBox">
+              <item>
+               <property name="text">
+                <string>Item1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Item2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Item3</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
      </item>
     </layout>
@@ -510,6 +616,17 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>Color_Preview</class>
+   <extends>QWidget</extends>
+   <header>color_preview.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Color_Selector</class>
+   <extends>Color_Preview</extends>
+   <header>color_selector.hpp</header>
+  </customwidget>
   <customwidget>
    <class>Toolbar_Editor</class>
    <extends>QWidget</extends>
