@@ -65,8 +65,7 @@ private:
     QScriptEngineAgent* m_script_engine_agent;
     QTimer*             script_timeout;
 
-    QStyle* m_default_style;
-    QString m_current_style_name;
+    QString m_default_style_name;
 
 public:
     static Settings settings;
@@ -279,9 +278,7 @@ public:
 
     static void emit_script_output(QString s) { emit singleton.script_output(s); }
 
-    static QStyle* default_style() { return singleton.m_default_style; }
-    static void set_current_style_name(QString name) { singleton.m_current_style_name = name; }
-    static QString current_style_name() { return singleton.m_current_style_name; }
+    static QString default_style_name() { return singleton.m_default_style_name; }
 
 public slots:
 

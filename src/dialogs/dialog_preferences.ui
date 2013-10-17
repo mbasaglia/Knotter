@@ -143,7 +143,9 @@
          <string>Interface</string>
         </property>
         <property name="icon">
-         <iconset theme="preferences-desktop-theme"/>
+         <iconset theme="preferences-desktop-theme">
+          <normaloff/>
+         </iconset>
         </property>
        </item>
       </widget>
@@ -552,15 +554,16 @@
          </item>
          <item row="1" column="1">
           <widget class="QComboBox" name="combo_widget_style">
-           <item>
-            <property name="text">
-             <string>Default</string>
-            </property>
-           </item>
+           <property name="toolTip">
+            <string>User interface style. Some widgets may require a restart to take effect.</string>
+           </property>
           </widget>
          </item>
          <item row="2" column="0" colspan="2">
           <widget class="QGroupBox" name="group_style_preview">
+           <property name="toolTip">
+            <string>Shows a preview of the widget style</string>
+           </property>
            <property name="title">
             <string>Preview</string>
            </property>

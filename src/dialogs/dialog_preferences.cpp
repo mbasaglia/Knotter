@@ -66,9 +66,10 @@ Dialog_Preferences::Dialog_Preferences(QMainWindow *parent) :
 
     foreach(QString k, QStyleFactory::keys() )
         combo_widget_style->addItem(k);
-    if ( !Resource_Manager::current_style_name().isEmpty() )
-        combo_widget_style->setCurrentIndex(
-                combo_widget_style->findText(Resource_Manager::current_style_name()));
+        combo_widget_style->setCurrentIndex(combo_widget_style->findText(
+            QApplication::style()->objectName(),
+            Qt::MatchFixedString
+        ));
 }
 
 void Dialog_Preferences::init_combos()
@@ -102,13 +103,9 @@ void Dialog_Preferences::set_preferences()
     Resource_Manager::settings.button_style( Qt::ToolButtonStyle (
         combo_icon_style->itemData(combo_icon_style->currentIndex()).toInt()) );
 
-    if ( group_style_preview->style() != QApplication::style() )
+    //if ( group_style_preview->style() != QApplication::style() )
     {
-        if ( group_style_preview->style() == Resource_Manager::default_style() )
-            Resource_Manager::set_current_style_name(QString());
-        else
-            Resource_Manager::set_current_style_name(combo_widget_style->currentText());
-        QApplication::setStyle( group_style_preview->style() );
+        QApplication::setStyle(combo_widget_style->currentText());
     }
     combo_widget_style->blockSignals(true); //< prevent retranslate to mess up things
 
@@ -158,11 +155,7 @@ void Dialog_Preferences::on_button_clear_settings_clicked()
 void Dialog_Preferences::on_combo_widget_style_currentIndexChanged(int index)
 {
     QStyle* old_style = group_style_preview->style();
-    QStyle* style = nullptr;
-    if ( index == 0)
-        style = Resource_Manager::default_style();
-    else
-        style = QStyleFactory::create(combo_widget_style->currentText());
+    QStyle* style = QStyleFactory::create(combo_widget_style->currentText());
     group_style_preview->setStyle(style);
     foreach(QWidget* c, group_style_preview->findChildren<QWidget*>() )
     {

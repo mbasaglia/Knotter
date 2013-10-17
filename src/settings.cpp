@@ -29,6 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "xml_exporter.hpp"
 #include "xml_loader.hpp"
 #include "knot_view.hpp"
+#include <QStyleFactory>
+#include <QApplication>
+#include <QStyle>
 
 Settings::Settings()
     : save_nothing(false),
@@ -86,6 +89,13 @@ void Settings::load_config()
     }
 
     settings.beginGroup("gui");
+
+    QString style = settings.value("style").toString();
+    if ( QStyleFactory::keys().contains(style,Qt::CaseInsensitive) )
+    {
+        QApplication::setStyle(style);
+    }
+
 
     m_save_toolbars = settings.value("save_toolbars",m_save_toolbars).toBool();
     int ntoolbars = settings.beginReadArray("toolbar");
@@ -174,6 +184,8 @@ void Settings::save_config()
     settings.setValue("disabled_plugins",disabled_plugins);
 
     settings.beginGroup("gui");
+
+    settings.setValue("style",QApplication::style()->objectName());
 
     settings.setValue("save_toolbars",m_save_toolbars);
     settings.beginWriteArray("toolbar",toolbars.size());
