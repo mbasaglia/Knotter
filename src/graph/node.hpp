@@ -45,6 +45,8 @@ public:
     static QColor color_resting;
     /// Color used to display the node (highlighted)
     static QColor color_highlighted;
+    /// Color used to display the node (selected outline)
+    static QColor color_selected;
 
 private:
     QList<Edge*> m_edges;

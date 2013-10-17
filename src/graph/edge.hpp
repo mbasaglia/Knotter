@@ -38,6 +38,13 @@ class Edge : public Graph_Item
 
 public:
 
+    /// Color used to display the edge (resting)
+    static QColor color_resting;
+    /// Color used to display the edge (highlighted)
+    static QColor color_highlighted;
+    /// Color used to display the edge (selected outline)
+    static QColor color_selected;
+
     enum Handle
     {
         NO_HANDLE   = 0x00,

@@ -30,6 +30,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_manager.hpp"
 #include "edge_style.hpp"
 
+QColor Edge::color_resting("#0088ff");
+QColor Edge::color_highlighted("#00ccff");
+QColor Edge::color_selected(128,128,128,128);
+
 Edge::Edge(Node *v1, Node *v2, Edge_Type *type) :
     v1(v1), v2(v2),
     available_handles(TOP_LEFT|TOP_RIGHT|BOTTOM_LEFT|BOTTOM_RIGHT),
@@ -93,7 +97,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     if ( isSelected() )
     {
-        QPen pen(QColor(128,128,128,128),2);
+        QPen pen(color_selected,2);
         pen.setCosmetic(true);
         painter->setPen(pen);
         QLineF nv = to_line().normalVector();

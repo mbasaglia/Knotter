@@ -73,6 +73,13 @@ Dialog_Preferences::Dialog_Preferences(QMainWindow *parent) :
 
     color_node_highlighted->setColor(Node::color_highlighted);
     color_node_resting->setColor(Node::color_resting);
+    color_node_selected->setColor(Node::color_selected);
+
+    color_edge_highlighted->setColor(Edge::color_highlighted);
+    color_edge_resting->setColor(Edge::color_resting);
+    color_edge_selected->setColor(Edge::color_selected);
+
+    color_grid_lines->setColor(Snapping_Grid::line_color);
 }
 
 void Dialog_Preferences::init_combos()
@@ -118,6 +125,13 @@ void Dialog_Preferences::set_preferences()
     Node::radius = combo_node_size->itemData(combo_node_size->currentIndex()).toInt();
     Node::color_resting = color_node_resting->color();
     Node::color_highlighted = color_node_highlighted->color();
+    Node::color_selected = color_node_selected->color();
+
+    Edge::color_highlighted = color_edge_highlighted->color();
+    Edge::color_resting = color_edge_resting->color();
+    Edge::color_selected = color_edge_selected->color();
+
+    Snapping_Grid::line_color = color_grid_lines->color();
 
     QApplication::setStyle(combo_widget_style->currentText());
     combo_widget_style->blockSignals(true); //< prevent retranslate to mess up things

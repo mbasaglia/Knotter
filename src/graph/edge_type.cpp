@@ -33,7 +33,7 @@ Edge_Type::Edge_Type()
 
 void Edge_Type::paint_regular(QPainter *painter, const Edge &edge)
 {
-    QPen pen(QColor("#0088ff"),2);
+    QPen pen(Edge::color_resting,2);
     pen.setCosmetic(true);
     painter->setPen(pen);
 
@@ -42,7 +42,7 @@ void Edge_Type::paint_regular(QPainter *painter, const Edge &edge)
 
 void Edge_Type::paint_highlighted(QPainter *painter, const Edge &edge)
 {
-    QPen pen(QColor("#00ccff"),4);
+    QPen pen(Edge::color_highlighted,4);
     pen.setCosmetic(true);
     painter->setPen(pen);
 

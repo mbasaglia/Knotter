@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 int Node::radius = 5;
 QColor Node::color_resting("#ff4400");
 QColor Node::color_highlighted("#ffcc00");
+QColor Node::color_selected(Qt::darkGray);
 
 Node::Node(QPointF pos)
 {
@@ -83,7 +84,7 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 
     if ( isSelected() )
     {
-        painter->setPen(QPen(Qt::darkGray,2));
+        painter->setPen(QPen(color_selected,2));
         painter->setBrush(Qt::white);
         painter->drawRect(r);
     }

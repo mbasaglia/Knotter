@@ -30,6 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static const double sqrt3 = 1.732050808;
 
+QColor Snapping_Grid::line_color(Qt::lightGray);
+
 Snapping_Grid::Snapping_Grid(unsigned size, Snapping_Grid::Grid_Shape shape,
                              QPointF origin, bool enabled)
     : m_size(size > 0 ? size : 1), m_shape(shape),
@@ -97,7 +99,7 @@ void Snapping_Grid::render(QPainter *painter, const QRectF &rect) const
 
     if ( !m_enabled )
         return;
-    painter->setPen(QPen(Qt::lightGray,0));
+    painter->setPen(QPen(line_color,0));
     painter->drawEllipse(m_origin,5,5);
     QPointF topleft = nearest(rect.left()-m_size,rect.top()-m_size);
 

@@ -171,6 +171,10 @@ signals:
     void tool_button_style_changed(Qt::ToolButtonStyle);
     void language_changed(/*todo*/);
 
+private:
+    void read_color(class QSettings& settings, QString name, QColor& value);
+    void write_color(class QSettings& settings, QString name, QColor value);
+
 };
 
 Q_DECLARE_METATYPE(Qt::ToolButtonStyle)

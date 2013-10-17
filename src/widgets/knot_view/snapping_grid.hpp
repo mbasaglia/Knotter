@@ -37,6 +37,8 @@ class Snapping_Grid : public QObject
 public:
     enum Grid_Shape { SQUARE, TRIANGLE1, TRIANGLE2 };
 
+    static QColor line_color;
+
 protected:
     unsigned    m_size;
     Grid_Shape  m_shape;

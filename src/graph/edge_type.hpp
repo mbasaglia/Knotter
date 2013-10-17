@@ -38,6 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class Edge_Type
 {
 public:
+
     Edge_Type();
     virtual ~Edge_Type(){}
 

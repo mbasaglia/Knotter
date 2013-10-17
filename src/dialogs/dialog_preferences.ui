@@ -582,56 +582,141 @@
            <property name="title">
             <string>Colors</string>
            </property>
-           <layout class="QGridLayout" name="gridLayout_4">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_8">
-              <property name="text">
-               <string>Grid</string>
+           <layout class="QGridLayout" name="gridLayout_5">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item row="0" column="0" colspan="2">
+             <widget class="QScrollArea" name="scrollArea">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
               </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="Color_Selector" name="color_grid_lines"/>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_9">
-              <property name="text">
-               <string>Node (Resting)</string>
+              <property name="widgetResizable">
+               <bool>true</bool>
               </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>365</width>
+                 <height>175</height>
+                </rect>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_4">
+                <item row="5" column="0">
+                 <widget class="QLabel" name="label_12">
+                  <property name="text">
+                   <string>Edge (Highlighted)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="Color_Selector" name="color_node_selected">
+                  <property name="alpha_mode" stdset="0">
+                   <enum>Color_Preview::SplitAlpha</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="Color_Selector" name="color_node_resting">
+                  <property name="alpha_mode" stdset="0">
+                   <enum>Color_Preview::SplitAlpha</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="1">
+                 <widget class="Color_Selector" name="color_edge_highlighted">
+                  <property name="alpha_mode" stdset="0">
+                   <enum>Color_Preview::SplitAlpha</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="0">
+                 <widget class="QLabel" name="label_13">
+                  <property name="text">
+                   <string>Edge (Selected)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="Color_Selector" name="color_edge_resting">
+                  <property name="alpha_mode" stdset="0">
+                   <enum>Color_Preview::SplitAlpha</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="Color_Selector" name="color_node_highlighted">
+                  <property name="alpha_mode" stdset="0">
+                   <enum>Color_Preview::SplitAlpha</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_11">
+                  <property name="text">
+                   <string>Edge (Resting)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_9">
+                  <property name="text">
+                   <string>Node (Resting)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="Color_Selector" name="color_grid_lines">
+                  <property name="alpha_mode" stdset="0">
+                   <enum>Color_Preview::SplitAlpha</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_8">
+                  <property name="text">
+                   <string>Grid</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="Color_Selector" name="color_edge_selected">
+                  <property name="alpha_mode" stdset="0">
+                   <enum>Color_Preview::SplitAlpha</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_14">
+                  <property name="text">
+                   <string>Node (Selected)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_10">
+                  <property name="text">
+                   <string>Node (Highlighted)</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
              </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="Color_Selector" name="color_node_resting"/>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_10">
-              <property name="text">
-               <string>Node (Highlighted)</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="Color_Selector" name="color_node_highlighted"/>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_11">
-              <property name="text">
-               <string>Edge (Resting)</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="Color_Selector" name="color_edge_resting"/>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_12">
-              <property name="text">
-               <string>Edge (Highlighted)</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="Color_Selector" name="color_edge_highlighted"/>
             </item>
            </layout>
           </widget>

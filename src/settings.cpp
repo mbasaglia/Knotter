@@ -25,13 +25,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "settings.hpp"
 #include "resource_manager.hpp"
-#include <QSettings>
 #include "xml_exporter.hpp"
 #include "xml_loader.hpp"
 #include "knot_view.hpp"
 #include <QStyleFactory>
 #include <QApplication>
 #include <QStyle>
+#include <QSettings>
 
 Settings::Settings()
     : save_nothing(false),
@@ -135,8 +135,13 @@ void Settings::load_config()
 
 
     settings.beginGroup("colors");
-    Node::color_resting = settings.value("node/resting",Node::color_resting.name()).toString();
-    Node::color_highlighted = settings.value("node/highlighted",Node::color_highlighted.name()).toString();
+    read_color(settings,"node/resting",Node::color_resting);
+    read_color(settings,"node/highlighted",Node::color_highlighted);
+    read_color(settings,"node/selected",Node::color_selected);
+    read_color(settings,"edge/resting",Edge::color_resting);
+    read_color(settings,"edge/highlighted",Edge::color_highlighted);
+    read_color(settings,"edge/selected",Edge::color_selected);
+    read_color(settings,"grid",Snapping_Grid::line_color);
     settings.endGroup();//colors
 
 
@@ -192,6 +197,9 @@ void Settings::save_config()
 
     settings.beginGroup("gui");
 
+
+    settings.setValue("node/radius",Node::radius);
+
     settings.setValue("style",QApplication::style()->objectName());
 
     settings.setValue("save_toolbars",m_save_toolbars);
@@ -218,8 +226,13 @@ void Settings::save_config()
 
 
     settings.beginGroup("colors");
-    settings.setValue("node/resting",Node::color_resting.name());
-    settings.setValue("node/highlighted",Node::color_highlighted.name());
+    write_color(settings,"node/resting",Node::color_resting);
+    write_color(settings,"node/highlighted",Node::color_highlighted);
+    write_color(settings,"node/selected",Node::color_selected);
+    write_color(settings,"edge/resting",Edge::color_resting);
+    write_color(settings,"edge/highlighted",Edge::color_highlighted);
+    write_color(settings,"edge/selected",Edge::color_selected);
+    write_color(settings,"grid",Snapping_Grid::line_color);
     settings.endGroup();//colors
 }
 
@@ -332,4 +345,15 @@ void Settings::set_clipboard_feature(Settings::Clipboard_Enum feature, bool enab
        m_clipboard |= feature;
     else
         m_clipboard &= ~feature;
+}
+
+
+void Settings::read_color(QSettings &settings, QString name, QColor &value)
+{
+    value = QColor::fromRgba(settings.value(name,value.rgba()).value<QRgb>());
+}
+
+void Settings::write_color(QSettings &settings, QString name, QColor value)
+{
+    settings.setValue(name,value.rgba());
 }
