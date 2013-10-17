@@ -13,6 +13,9 @@
   <property name="acceptDrops">
    <bool>true</bool>
   </property>
+  <property name="dockNestingEnabled">
+   <bool>true</bool>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
