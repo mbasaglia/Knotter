@@ -249,6 +249,16 @@ public:
     Transform_Handle::Mode transform_mode() const { return node_mover.mode(); }
 
 public slots:
+
+    /**
+     * \brief Fit the drawing in the view
+     */
+    void view_fit();
+    /**
+     *  \brief Reset to the default view
+     */
+    void reset_view();
+
     /**
      * \brief Zoom view by factor
      *

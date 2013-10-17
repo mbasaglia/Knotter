@@ -310,6 +310,7 @@ void Main_Window::connect_view(Knot_View *v)
     // zoom/view
     zoomer->setValue(v->get_zoom_factor()*100);
     connect(v,SIGNAL(zoomed(double)),zoomer,SLOT(setValue(double)));
+    connect(action_Fit_View,SIGNAL(triggered()),v,SLOT(view_fit()));
 
     // statusbar
     connect(v,SIGNAL(mose_position_changed(QPointF)),SLOT(update_mouse_pos(QPointF)));
@@ -467,6 +468,7 @@ void Main_Window::disconnect_view(Knot_View *v)
         disconnect(v);
 
         disconnect(v,SIGNAL(zoomed(double)),zoomer,SLOT(setValue(double)));
+        disconnect(action_Fit_View,SIGNAL(triggered()),v,SLOT(view_fit()));
 
         dock_grid->disconnect(v);
         dock_grid->unset_grid(&v->grid());
@@ -728,7 +730,7 @@ void Main_Window::on_action_Reset_Zoom_triggered()
 
 void Main_Window::on_action_Reset_View_triggered()
 {
-    view->resetTransform();
+    view->reset_view();
 }
 
 void Main_Window::on_action_Report_Bugs_triggered()

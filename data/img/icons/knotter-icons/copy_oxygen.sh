@@ -102,6 +102,7 @@ icons=' accessories-text-editor
         view-refresh
         view-restore
         x-kde-nsplugin-generated
+        zoom-fit-best
         zoom-in
         zoom-original
         zoom-out

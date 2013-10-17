@@ -158,6 +158,9 @@ bool Knot_View::load_file(QIODevice &device, QString action_name )
     end_macro();
     undo_stack.setClean();
 
+
+    view_fit();
+
     return true;
 }
 
@@ -774,6 +777,41 @@ void Knot_View::set_antialiasing(bool enable)
 bool Knot_View::has_antialiasing() const
 {
     return renderHints() & QPainter::Antialiasing;
+}
+
+void Knot_View::view_fit()
+{
+    if ( m_graph.nodes().empty() )
+        reset_view();
+    else
+    {
+        set_zoom(1);
+        QRectF area = m_graph.boundingRect();
+        QRectF self_area ( mapToScene(0,0), mapToScene(width(),height()) );
+
+        double zoom_w = self_area.width() / area.width();
+        double zoom_h = self_area.height() / area.height();
+        double zoom_wh = qMin(zoom_w,zoom_h);
+
+        area.setLeft(area.center().x()-self_area.width()/zoom_wh/2);
+        area.setWidth(self_area.width()/zoom_wh);
+
+        area.setTop(area.center().y()-self_area.height()/zoom_wh/2);
+        area.setHeight(self_area.height()/zoom_wh);
+
+        setSceneRect(area.united(sceneRect()));
+        set_zoom(zoom_wh);
+        centerOn(area.center());
+        expand_scene_rect(10);
+    }
+}
+
+void Knot_View::reset_view()
+{
+    resetTransform();
+    setSceneRect(-width()/2,-height()/2,width(),height());
+    centerOn(0,0);
+    expand_scene_rect(10);
 }
 
 

@@ -135,6 +135,7 @@
     <addaction name="separator"/>
     <addaction name="menu_Zoom"/>
     <addaction name="action_Reset_View"/>
+    <addaction name="action_Fit_View"/>
     <addaction name="separator"/>
     <addaction name="action_Display_Graph"/>
     <addaction name="separator"/>
@@ -235,6 +236,8 @@
    </attribute>
    <addaction name="action_Zoom_In"/>
    <addaction name="action_Zoom_Out"/>
+   <addaction name="action_Fit_View"/>
+   <addaction name="action_Reset_View"/>
    <addaction name="separator"/>
    <addaction name="action_Display_Graph"/>
    <addaction name="action_Enable_Grid"/>
@@ -755,6 +758,17 @@
    </property>
    <property name="text">
     <string>&amp;Toggle Edges</string>
+   </property>
+  </action>
+  <action name="action_Fit_View">
+   <property name="icon">
+    <iconset theme="zoom-fit-best"/>
+   </property>
+   <property name="text">
+    <string>&amp;Fit View</string>
+   </property>
+   <property name="toolTip">
+    <string>Scroll and zoom the view to display the entire knot</string>
    </property>
   </action>
  </widget>
