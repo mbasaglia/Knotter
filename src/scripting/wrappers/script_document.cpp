@@ -123,6 +123,7 @@ void Script_Document::change_graph_style(Node_Style bef_node, Edge_Style bef_edg
                                          Node_Style aft_node, Edge_Style aft_edge)
 {
     wrapped->push_command(new Knot_Style_All(bef_node,aft_node,bef_edge,aft_edge,wrapped));
+    emit style_changed();
 }
 
 void Script_Document::begin_macro(QString message)

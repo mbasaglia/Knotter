@@ -70,12 +70,14 @@ int Script_Window::open_tabs() const
 
 Script_Document* Script_Window::document()
 {
-    if ( docs.contains(window->view) )
+    if ( !docs.contains(window->view) )
     {
-        return docs[window->view];
+        Script_Document* doc = new Script_Document(window->view,this);
+        connect(doc,SIGNAL(style_changed()),window,SLOT(update_style()));
+        docs[window->view] = doc;
     }
-    else
-        return docs[window->view] = new Script_Document(window->view,this);
+
+    return docs[window->view];
 }
 
 Script_Window_Dialog *Script_Window::dialog()

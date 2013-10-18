@@ -90,6 +90,14 @@ public slots:
     void change_edge_style(Edge* edge, Edge_Style before, Edge_Style after );
     void change_graph_style(Node_Style bef_node, Edge_Style bef_edge,
                             Node_Style aft_node, Edge_Style aft_edge );
+
+signals:
+    /**
+     * \brief Graph style has changed
+     *
+     * The UI should update the dialogs accordingly
+     */
+    void style_changed();
     
 };
 
