@@ -59,6 +59,12 @@ public:
     Script_Graph_Style(class Script_Graph* owner,
                        const Script_Graph_Style &copy);
 
+    /**
+     * \brief copy style from graph
+     * \param copy Graph to copy from
+     */
+    void copy_style(const class Graph &copy);
+
     void set_crossing_style(QObject* style);
     QObject* crossing_style() { return &m_crossing_style; }
     void set_cusp_style(QObject* style);

@@ -369,3 +369,8 @@ void Script_Graph::append(QObject *other)
     }
 }
 
+void Script_Graph::copy_style(const Graph &copy)
+{
+    m_style.copy_style(copy);
+}
+

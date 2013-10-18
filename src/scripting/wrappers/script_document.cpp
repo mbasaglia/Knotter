@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "script_document.hpp"
 #include "commands.hpp"
+#include "xml_exporter.hpp"
 
 Script_Document::Script_Document(Knot_View *wrapped, QObject *parent) :
     QObject(parent), wrapped(wrapped), m_graph(wrapped->graph()),
@@ -150,4 +151,30 @@ void Script_Document::clean_macros()
 {
     while(macro_count > 0)
         end_macro();
+}
+
+bool Script_Document::open(QString file)
+{
+    bool ok = true;
+    wrapped->begin_macro(tr("Load File"));
+    m_graph.blockSignals(true);
+    ok = wrapped->load_file(file);
+    m_graph.clear();
+    if ( ok )
+    {
+        m_graph.from_graph(wrapped->graph());
+        m_graph.copy_style(wrapped->graph());
+    }
+    m_graph.blockSignals(false);
+    wrapped->end_macro();
+
+    return ok;
+}
+
+bool Script_Document::save(QString file)
+{
+    QFile out(file);
+    if ( out.open(QIODevice::WriteOnly|QIODevice::Text) )
+        return export_xml(wrapped->graph(),out);
+    return false;
 }

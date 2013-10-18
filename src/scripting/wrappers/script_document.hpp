@@ -80,6 +80,20 @@ public:
     Q_INVOKABLE void end_macro();
     void clean_macros();
 
+    /**
+     * \brief Open file
+     *
+     * replaces contents and style of the graph with the file contents
+     *
+     * \return true on success
+     */
+    Q_INVOKABLE bool open(QString file);
+    /**
+     * \brief Save file
+     * \return true on success
+     */
+    Q_INVOKABLE bool save(QString file);
+
 private slots:
     void add_node(Script_Node* n);
     void remove_node(Script_Node* n);

@@ -56,6 +56,17 @@ Script_Graph_Style::Script_Graph_Style(Script_Graph *owner, const Script_Graph_S
         add_color(*c);
 }
 
+void Script_Graph_Style::copy_style(const Graph &copy)
+{
+    m_crossing_style.from_style(copy.default_edge_style());
+    m_cusp_style.from_style(copy.default_node_style());
+
+    m_colors.clear();
+    foreach(QColor c, copy.colors())
+        add_color(c);
+    emit colors_changed();
+}
+
 
 
 void Script_Graph_Style::add_color(QColor c)

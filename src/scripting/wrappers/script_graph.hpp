@@ -62,25 +62,32 @@ public:
     Script_Graph(const Script_Graph &g);
 
     /**
-     * @brief Populate from actual graph
+     * \brief Populate from actual graph
+     * \note Won't copy the style
+     * \see copy_style()
      */
     void from_graph(const Graph &graph);
     /**
-     * @brief Create a Graph from nodes and edges
-     * @return a new Graph object
+     * \brief copy style from graph
+     * \param copy Graph to copy from
+     */
+    void copy_style(const Graph &copy);
+    /**
+     * \brief Create a Graph from nodes and edges
+     * \return a new Graph object
      * \note It's needed only if this graph is not connected to a Script_Document
      */
     Graph* create_graph() const;
 
     /**
-     * @brief Add a new wrapped node
+     * \brief Add a new wrapped node
      *
      * This function adds a node and connects the needed signals but does not
      * emit node_added().
      * It is intended as internal function, not directly invokable from scripts.
      *
-     * @param n The real node that needs to be wrapped
-     * @return The wrapped node
+     * \param n The real node that needs to be wrapped
+     * \return The wrapped node
      */
     Script_Node* add_node(Node* n);
     /**
