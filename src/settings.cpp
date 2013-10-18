@@ -48,7 +48,7 @@ Settings::Settings()
 
 void Settings::load_config()
 {
-    QSettings settings("knotter","knotter");
+    QSettings settings(TARGET,TARGET);
 
     config_version = settings.value("version",Resource_Manager::program_version()).toString();
 
@@ -153,7 +153,7 @@ void Settings::save_config()
     if ( save_nothing )
         return;
 
-    QSettings settings("knotter","knotter");
+    QSettings settings(TARGET,TARGET);
 
     settings.setValue("version",Resource_Manager::program_version());
 
@@ -240,7 +240,7 @@ void Settings::clear_config()
 {
     save_nothing = true;
 
-    QSettings settings("knotter","knotter");
+    QSettings settings(TARGET,TARGET);
     settings.clear();
 }
 
@@ -345,6 +345,11 @@ void Settings::set_clipboard_feature(Settings::Clipboard_Enum feature, bool enab
        m_clipboard |= feature;
     else
         m_clipboard &= ~feature;
+}
+
+QString Settings::settings_file() const
+{
+    return QSettings(TARGET,TARGET).fileName();
 }
 
 

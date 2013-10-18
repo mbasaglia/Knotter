@@ -159,6 +159,12 @@ public:
     bool clipboard_feature(Clipboard_Enum feature) const { return ( m_clipboard & feature ); }
     void set_clipboard_feature(Clipboard_Enum feature, bool enable);
 
+    /**
+     * \brief  Retrieve the location of the settings file
+     * \return Settings file (or registry) path
+     */
+    QString settings_file() const;
+
 public slots:
     void clear_config();
 
