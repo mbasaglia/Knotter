@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QObject>
 #include "graph.hpp"
 #include "script_edge.hpp"
+#include "script_graph_style.hpp"
 
 /**
  * @brief Wrapper to Graph
@@ -41,8 +42,8 @@ class Script_Graph : public QObject
     Q_PROPERTY(QObjectList nodes READ nodes_object)
     Q_PROPERTY(QObjectList edges READ edges_object)
     Q_PROPERTY(QObjectList selected_nodes READ selected_nodes_object)
-    Q_PROPERTY(QObject* crossing_style READ crossing_style)
-    Q_PROPERTY(QObject* cusp_style READ cusp_style)
+    Q_PROPERTY(QObject* style READ style)
+
 
     friend void graph_from_script(const QScriptValue &obj, Script_Graph &graph);
 
@@ -53,8 +54,8 @@ class Script_Graph : public QObject
     QList<Script_Node*> m_nodes;
     QList<Script_Edge*> m_edges;
 
-    Script_Edge_Style m_crossing_style;
-    Script_Node_Style m_cusp_style;
+    Script_Graph_Style m_style;
+
 
 public:
     explicit Script_Graph(const Graph &graph=Graph(), QObject *parent = 0);
@@ -194,9 +195,7 @@ public:
      */
     Q_INVOKABLE void append(QObject* other);
 
-
-    QObject* crossing_style() { return &m_crossing_style; }
-    QObject* cusp_style () { return &m_cusp_style; }
+    QObject* style() { return &m_style; }
 
 signals:
     void node_added(Script_Node* n);
@@ -213,8 +212,6 @@ private slots:
     void emit_node_moved(Script_Point pos);
     void node_removed();
     void edge_removed();
-    void emit_style_changed(Node_Style before,Node_Style after);
-    void emit_style_changed(Edge_Style before,Edge_Style after);
 
 private:
     /**

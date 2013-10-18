@@ -30,27 +30,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Script_Graph::Script_Graph(const Graph &graph, QObject *parent) :
     QObject(parent),
-    m_crossing_style(graph.default_edge_style()),
-    m_cusp_style(graph.default_node_style())
+    m_style(this,graph.default_edge_style(),graph.default_node_style(),
+            graph.colors())
 {
     from_graph(graph);
-
-
-    QObject::connect(&m_crossing_style,SIGNAL(changed(Edge_Style,Edge_Style)),
-            SLOT(emit_style_changed(Edge_Style,Edge_Style)));
-    QObject::connect(&m_cusp_style,SIGNAL(changed(Node_Style,Node_Style)), this,
-            SLOT(emit_style_changed(Node_Style,Node_Style)));
+    QObject::connect(&m_style,SIGNAL(style_changed(Node_Style,Edge_Style,Node_Style,Edge_Style)),
+            SIGNAL(style_changed(Node_Style,Edge_Style,Node_Style,Edge_Style)));
 }
 
 Script_Graph::Script_Graph(const Script_Graph &g)
     : QObject(g.parent()),
-    m_crossing_style(g.m_crossing_style.style()),
-    m_cusp_style(g.m_cusp_style.style())
+      m_style(this,g.m_style)
 {
-    QObject::connect(&m_crossing_style,SIGNAL(changed(Edge_Style,Edge_Style)),
-            SLOT(emit_style_changed(Edge_Style,Edge_Style)));
-    QObject::connect(&m_cusp_style,SIGNAL(changed(Node_Style,Node_Style)),
-            SLOT(emit_style_changed(Node_Style,Node_Style)));
+    QObject::connect(&m_style,SIGNAL(style_changed(Node_Style,Edge_Style,Node_Style,Edge_Style)),
+            SIGNAL(style_changed(Node_Style,Edge_Style,Node_Style,Edge_Style)));
 }
 
 void Script_Graph::from_graph(const Graph &graph)
@@ -374,22 +367,3 @@ void Script_Graph::append(QObject *other)
     }
 }
 
-
-void Script_Graph::emit_style_changed(Edge_Style before, Edge_Style after)
-{
-    Node_Style ns_before = m_cusp_style.style();
-    m_cusp_style.blockSignals(true);
-    m_cusp_style.set_handle_length(after.handle_length);
-    m_cusp_style.blockSignals(false);
-    emit style_changed(ns_before,before,m_cusp_style.style(),after);
-}
-
-
-void Script_Graph::emit_style_changed(Node_Style before, Node_Style after)
-{
-    Edge_Style es_before = m_crossing_style.style();
-    m_crossing_style.blockSignals(true);
-    m_crossing_style.set_handle_length(after.handle_length);
-    m_crossing_style.blockSignals(false);
-    emit style_changed(before,es_before,after,m_crossing_style.style());
-}
