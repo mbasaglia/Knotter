@@ -40,35 +40,39 @@ class Script_Color : public QObject, public QColor
 {
     Q_OBJECT
 
-
-
-
 public:
     explicit Script_Color(QColor col = Qt::transparent, QObject *parent = 0);
     Script_Color(const Script_Color &o) :QObject(), QColor(o) {}
 
     Q_INVOKABLE QString toString() const;
 
-    Q_PROPERTY(int alpha READ alpha WRITE setAlpha)
+    Q_PROPERTY(int alpha READ alpha WRITE setAlpha_script)
     Q_PROPERTY(int red READ red WRITE setRed)
-    Q_PROPERTY(int green READ green WRITE setGreen)
-    Q_PROPERTY(int blue READ blue WRITE setBlue)
+    Q_PROPERTY(int green READ green WRITE setGreen_script)
+    Q_PROPERTY(int blue READ blue WRITE setBlue_script)
+        void setAlpha_script( int v );
+        void setRed_script( int v );
+        void setGreen_script( int v );
+        void setBlue_script( int v );
 
     Q_PROPERTY(int hue READ hue WRITE setHue)
     Q_PROPERTY(int saturation READ saturation WRITE setSaturation)
     Q_PROPERTY(int value READ value WRITE setValue)
-        void setHue(int v) { setHsv(v,saturation(),value(),alpha()); }
-        void setSaturation(int v) { setHsv(hue(),v,value(),alpha());  }
-        void setValue(int v) { setHsv(hue(),saturation(),v,alpha());  }
+        void setHue(int v);
+        void setSaturation(int v);
+        void setValue(int v);
 
     Q_PROPERTY(int cyan READ cyan WRITE setCyan)
     Q_PROPERTY(int magenta READ magenta WRITE setMagenta)
     Q_PROPERTY(int yellow READ yellow WRITE setYellow)
     Q_PROPERTY(int black READ black WRITE setBlack)
-        void setCyan(int v) { setCmyk(v,magenta(),yellow(),black(),alpha()); }
-        void setMagenta(int v) { setCmyk(cyan(),v,yellow(),black(),alpha()); }
-        void setYellow(int v) {  setCmyk(cyan(),magenta(),v,black(),alpha());  }
-        void setBlack(int v) { setCmyk(cyan(),magenta(),yellow(),v,alpha());  }
+        void setCyan(int v);
+        void setMagenta(int v);
+        void setYellow(int v);
+        void setBlack(int v);
+
+signals:
+        void changed(QColor new_color);
 };
 
 

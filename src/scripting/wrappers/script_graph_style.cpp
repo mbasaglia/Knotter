@@ -39,7 +39,8 @@ Script_Graph_Style::Script_Graph_Style(Script_Graph *owner,
             SLOT(emit_style_changed(Node_Style,Node_Style)));
 
     foreach(QColor c, colors)
-        m_colors << new Script_Color(c,this);
+        add_color(c);
+
 }
 
 Script_Graph_Style::Script_Graph_Style(Script_Graph *owner, const Script_Graph_Style &copy)
@@ -52,8 +53,18 @@ Script_Graph_Style::Script_Graph_Style(Script_Graph *owner, const Script_Graph_S
             SLOT(emit_style_changed(Node_Style,Node_Style)));
 
     foreach(Script_Color* c, copy.m_colors)
-        m_colors << new Script_Color(QColor(*c),this);
+        add_color(*c);
 }
+
+
+
+void Script_Graph_Style::add_color(QColor c)
+{
+    Script_Color* cc = new Script_Color(c,this);
+    m_colors << cc;
+    connect(cc,SIGNAL(changed(QColor)),SIGNAL(colors_changed()));
+}
+
 
 void Script_Graph_Style::set_crossing_style(QObject *object)
 {
@@ -77,13 +88,13 @@ QObjectList Script_Graph_Style::colors()
     return l;
 }
 
-/*QList<QColor> Script_Graph_Style::internal_colors() const
+QList<QColor> Script_Graph_Style::internal_colors() const
 {
     QList<QColor> cl;
     foreach(Script_Color* c, m_colors)
         cl << *c;
     return cl;
-}*/
+}
 
 
 void Script_Graph_Style::emit_style_changed(Edge_Style before, Edge_Style after)

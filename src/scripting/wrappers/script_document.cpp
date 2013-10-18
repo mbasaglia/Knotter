@@ -45,6 +45,8 @@ Script_Document::Script_Document(Knot_View *wrapped, QObject *parent) :
 
     connect(&m_graph,SIGNAL(style_changed(Node_Style,Edge_Style,Node_Style,Edge_Style)),
             SLOT(change_graph_style(Node_Style,Edge_Style,Node_Style,Edge_Style)));
+
+    connect(&m_graph,SIGNAL(colors_changed()),SLOT(update_colors()));
 }
 
 Script_Document::~Script_Document()
@@ -124,6 +126,11 @@ void Script_Document::change_graph_style(Node_Style bef_node, Edge_Style bef_edg
 {
     wrapped->push_command(new Knot_Style_All(bef_node,aft_node,bef_edge,aft_edge,wrapped));
     emit style_changed();
+}
+
+void Script_Document::update_colors()
+{
+    wrapped->set_knot_colors(m_graph.style()->internal_colors());
 }
 
 void Script_Document::begin_macro(QString message)

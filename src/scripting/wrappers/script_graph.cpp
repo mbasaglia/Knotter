@@ -36,6 +36,7 @@ Script_Graph::Script_Graph(const Graph &graph, QObject *parent) :
     from_graph(graph);
     QObject::connect(&m_style,SIGNAL(style_changed(Node_Style,Edge_Style,Node_Style,Edge_Style)),
             SIGNAL(style_changed(Node_Style,Edge_Style,Node_Style,Edge_Style)));
+    QObject::connect(&m_style,SIGNAL(colors_changed()),SIGNAL(colors_changed()));
 }
 
 Script_Graph::Script_Graph(const Script_Graph &g)
@@ -44,6 +45,7 @@ Script_Graph::Script_Graph(const Script_Graph &g)
 {
     QObject::connect(&m_style,SIGNAL(style_changed(Node_Style,Edge_Style,Node_Style,Edge_Style)),
             SIGNAL(style_changed(Node_Style,Edge_Style,Node_Style,Edge_Style)));
+    QObject::connect(&m_style,SIGNAL(colors_changed()),SIGNAL(colors_changed()));
 }
 
 void Script_Graph::from_graph(const Graph &graph)

@@ -64,7 +64,7 @@ public:
     void set_cusp_style(QObject* style);
     QObject* cusp_style () { return &m_cusp_style; }
     QObjectList colors();
-    //QList<QColor> internal_colors() const;
+    QList<QColor> internal_colors() const;
 
 private slots:
     void emit_style_changed(Node_Style before,Node_Style after);
@@ -73,6 +73,10 @@ private slots:
 signals:
     void style_changed(Node_Style bef_node, Edge_Style bef_edge,
                        Node_Style aft_node, Edge_Style aft_edge );
+    void colors_changed();
+
+private:
+    void add_color(QColor c);
 };
 
 #endif // SCRIPT_GRAPH_STYLE_HPP

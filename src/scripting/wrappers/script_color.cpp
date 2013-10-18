@@ -133,3 +133,62 @@ QScriptValue script_cmyk(QScriptContext *context, QScriptEngine *engine)
                                      alpha
                                     )));
 }
+
+
+
+void Script_Color::setHue(int v)
+{
+    setHsv(v,saturation(),value(),alpha());
+    emit changed(*this);
+}
+void Script_Color::setSaturation(int v)
+{
+    setHsv(hue(),v,value(),alpha());
+    emit changed(*this);
+}
+void Script_Color::setValue(int v)
+{
+    setHsv(hue(),saturation(),v,alpha());
+    emit changed(*this);
+}
+
+void Script_Color::setCyan(int v)
+{
+    setCmyk(v,magenta(),yellow(),black(),alpha());
+    emit changed(*this);
+}
+void Script_Color::setMagenta(int v)
+{
+    setCmyk(cyan(),v,yellow(),black(),alpha());
+    emit changed(*this);
+}
+void Script_Color::setYellow(int v)
+{
+     setCmyk(cyan(),magenta(),v,black(),alpha());
+     emit changed(*this);
+}
+void Script_Color::setBlack(int v)
+{
+    setCmyk(cyan(),magenta(),yellow(),v,alpha());
+    emit changed(*this);
+}
+void Script_Color::setAlpha_script( int v )
+{
+    setAlpha(v);
+    emit changed(*this);
+}
+void Script_Color::setRed_script( int v )
+{
+    setRed(v);
+    emit changed(*this);
+}
+void Script_Color::setGreen_script( int v )
+{
+    setGreen(v);
+    emit changed(*this);
+}
+void Script_Color::setBlue_script( int v )
+{
+    setBlue(v);
+    emit changed(*this);
+}

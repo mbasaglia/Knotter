@@ -195,7 +195,7 @@ public:
      */
     Q_INVOKABLE void append(QObject* other);
 
-    QObject* style() { return &m_style; }
+    Script_Graph_Style* style() { return &m_style; }
 
 signals:
     void node_added(Script_Node* n);
@@ -207,6 +207,7 @@ signals:
     void node_style_changed(Node* node, Node_Style before, Node_Style after );
     void style_changed(Node_Style bef_node, Edge_Style bef_edge,
                        Node_Style aft_node, Edge_Style aft_edge );
+    void colors_changed();
 
 private slots:
     void emit_node_moved(Script_Point pos);
