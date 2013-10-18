@@ -75,6 +75,8 @@ Plugin::Plugin(const QVariantMap &metadata, Plugin::Type type)
                 QWidget *widget = loader.load(&ui_file);
                 if ( widget )
                 {
+                    if ( widget->windowIcon().isNull() )
+                        widget->setWindowIcon(icon());
                     //((QObject*)widget)->setParent(this);
                     widget->hide();
                     m_widgets << widget;

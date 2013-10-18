@@ -171,7 +171,7 @@ QStringList Resource_Manager::data_directories_unckecked(QString name)
 
 void Resource_Manager::initialize(QString default_lang_code)
 {
-    singleton.m_default_style_name = QApplication::style()->objectName();
+    //singleton.m_default_style_name = QApplication::style()->objectName();
 
     qApp->setApplicationName(TARGET);
     qApp->setApplicationVersion(program_version());
