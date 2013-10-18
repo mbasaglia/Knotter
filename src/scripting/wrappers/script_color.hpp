@@ -47,7 +47,7 @@ public:
     Q_INVOKABLE QString toString() const;
 
     Q_PROPERTY(int alpha READ alpha WRITE setAlpha_script)
-    Q_PROPERTY(int red READ red WRITE setRed)
+    Q_PROPERTY(int red READ red WRITE setRed_script)
     Q_PROPERTY(int green READ green WRITE setGreen_script)
     Q_PROPERTY(int blue READ blue WRITE setBlue_script)
         void setAlpha_script( int v );

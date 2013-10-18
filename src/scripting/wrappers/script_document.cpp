@@ -131,6 +131,7 @@ void Script_Document::change_graph_style(Node_Style bef_node, Edge_Style bef_edg
 void Script_Document::update_colors()
 {
     wrapped->set_knot_colors(m_graph.style()->internal_colors());
+    emit style_changed();
 }
 
 void Script_Document::begin_macro(QString message)
