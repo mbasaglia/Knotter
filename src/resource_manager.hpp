@@ -87,6 +87,12 @@ public:
     /// Check if has at least given version number
     static bool has_least_version(int maj, int min);
 
+    /**
+     * \brief Check if has at least given version number
+     * \param version Acceptable input: "0.9.5_devel" and similar
+     */
+    static bool has_least_version(QString version);
+
 
     /// Check if given version string has at least given version number
     static bool check_least_version(QString version, int maj, int min);

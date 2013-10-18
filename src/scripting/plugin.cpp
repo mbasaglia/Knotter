@@ -215,6 +215,16 @@ Plugin *Plugin::new_error_plugin(QVariantMap data, QString message)
     return new Plugin(data,Invalid);
 }
 
+bool Plugin::is_valid() const
+{
+    if ( m_type == Invalid )
+        return false;
+    if ( m_metadata.contains("requires") &&
+         !Resource_Manager::has_least_version(m_metadata["requires"].toString()) )
+        return false;
+    return true;
+}
+
 bool Plugin::reload_script_file()
 {
 

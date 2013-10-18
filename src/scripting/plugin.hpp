@@ -117,8 +117,7 @@ public:
      */
     static Plugin* new_error_plugin(QVariantMap data,QString message);
 
-    bool is_valid() const { return m_type != Invalid; }
-
+    bool is_valid() const;
 
     /**
      *  \brief Get the absolute script file path

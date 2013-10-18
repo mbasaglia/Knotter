@@ -68,6 +68,26 @@ bool Resource_Manager::has_least_version(int maj, int min)
     return check_least_version ( program_version(), maj, min );
 }
 
+bool Resource_Manager::has_least_version(QString version)
+{
+    QStringList v_in = version.split(".");
+    QStringList v_k = program_version().split(".");
+    if ( v_in.size() < 2 )
+        return false; // weird format
+    for ( int i = 0; i < v_in.size(); i++ )
+    {
+        if ( i >= v_k.size() )
+            return false; // input version has one extra sub-number
+        int vk = v_k[i].remove(QRegExp("[^0-9]")).toInt();
+        int vin = v_in[i].remove(QRegExp("[^0-9]")).toInt();
+        if ( vk < vin )
+            return false; // input version is greater
+        else if ( vk > vin )
+            return true; // local version is greater
+    }
+    return true; // versions are the same
+}
+
 bool Resource_Manager::check_least_version(QString version, int maj, int min)
 {
     QStringList v = version.split(".");
