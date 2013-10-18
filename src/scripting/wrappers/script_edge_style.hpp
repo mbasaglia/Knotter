@@ -45,7 +45,8 @@ class Script_Edge_Style : public QObject
     Edge_Style wrapped;
 
 public:
-    explicit Script_Edge_Style(Edge_Style wrapped, QObject *parent = 0);
+    explicit Script_Edge_Style(Edge_Style wrapped=Edge_Style(), QObject *parent = 0);
+
 
     double handle_length();
     double crossing_distance();
@@ -56,6 +57,11 @@ public:
     void set_handle_length( double value );
     void set_slide ( double value );
     void set_edge_type( QString name );
+
+    /**
+     * \brief Set all style features at once
+     */
+    void from_style(Edge_Style style);
 
     /**
      * \brief Disable all customized style features
@@ -71,4 +77,5 @@ signals:
     void changed(Edge_Style before,Edge_Style after);
 
 };
+
 #endif // SCRIPT_EDGE_STYLE_HPP

@@ -110,6 +110,13 @@ void Script_Node_Style::set_cusp_shape(QString name)
     emit changed(before,wrapped);
 }
 
+void Script_Node_Style::from_style(Node_Style style)
+{
+    Node_Style before = wrapped;
+    wrapped = style;
+    emit changed(before,wrapped);
+}
+
 void Script_Node_Style::clear()
 {
     Node_Style before = wrapped;

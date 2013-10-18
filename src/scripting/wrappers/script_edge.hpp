@@ -45,7 +45,7 @@ class Script_Edge : public QObject
     Q_PROPERTY(QObject* vertex2 READ vertex2)
     Q_PROPERTY(Script_Line line READ line)
     Q_PROPERTY(Script_Point midpoint READ midpoint)
-    Q_PROPERTY(QObject* style READ style)
+    Q_PROPERTY(QObject* style READ style WRITE set_style)
 
     Edge* wrapped;
     Script_Graph* graph;
@@ -68,6 +68,7 @@ public:
     Q_INVOKABLE QString toString() const;
 
     Script_Edge_Style* style() { return &m_style; }
+    void set_style(QObject* style);
 
 
 signals:

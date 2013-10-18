@@ -112,6 +112,14 @@ bool Script_Node::compare(Script_Node *n) const
     return n->m_wrapped_node == m_wrapped_node;
 }
 
+void Script_Node::set_style(QObject *object)
+{
+
+    Script_Node_Style* style = qobject_cast<Script_Node_Style*>(object);
+    if ( style )
+        m_style.from_style(style->style());
+}
+
 
 void Script_Node::emit_style_changed(Node_Style before, Node_Style after)
 {

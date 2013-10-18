@@ -107,6 +107,16 @@ void Script_Edge_Style::set_edge_type(QString name)
     emit changed(before,wrapped);
 }
 
+void Script_Edge_Style::from_style(Edge_Style style)
+{
+
+    Edge_Style before = wrapped;
+
+    wrapped = style;
+
+    emit changed(before,wrapped);
+}
+
 void Script_Edge_Style::clear()
 {
     Edge_Style before = wrapped;

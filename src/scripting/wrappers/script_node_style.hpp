@@ -58,6 +58,12 @@ public:
     void set_cusp_distance( double value );
     void set_cusp_shape( QString name );
 
+
+    /**
+     * \brief Set all style features at once
+     */
+    void from_style(Node_Style style);
+
     /**
      * \brief Disable all customized style features
      */

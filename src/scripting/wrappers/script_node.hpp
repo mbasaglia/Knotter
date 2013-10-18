@@ -49,7 +49,7 @@ class Script_Node : public QObject
 
     Q_PROPERTY(QObjectList edges READ edges_object)
 
-    Q_PROPERTY(QObject* style READ style)
+    Q_PROPERTY(QObject* style READ style WRITE set_style)
 
     Node* m_wrapped_node;
     Script_Graph* graph;
@@ -87,6 +87,7 @@ public:
     Q_INVOKABLE bool compare(Script_Node *n) const;
 
     Script_Node_Style* style() { return &m_style; }
+    void set_style(QObject* style);
 
 signals:
     void moved(Script_Point p);

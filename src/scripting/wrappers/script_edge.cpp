@@ -70,6 +70,13 @@ QString Script_Edge::toString() const
     return "[edge]";
 }
 
+void Script_Edge::set_style(QObject *object)
+{
+    Script_Edge_Style* style = qobject_cast<Script_Edge_Style*>(object);
+    if ( style )
+        m_style.from_style(style->style());
+}
+
 void Script_Edge::emit_style_changed(Edge_Style before, Edge_Style after)
 {
     emit style_changed(wrapped,before,after);
