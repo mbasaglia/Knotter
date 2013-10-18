@@ -71,6 +71,8 @@ public:
                                   QString format = "PNG",
                                   int quality = 0,
                                   Script_Color background = Script_Color());
+
+    Q_INVOKABLE QString toString();
 };
 
 

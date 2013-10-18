@@ -57,3 +57,8 @@ QByteArray Script_Renderer::raster(int width, int height, QString format, int qu
                   quality,m_draw_graph,false,Background_Image(),format.toStdString().c_str());
     return out_raw;
 }
+
+QString Script_Renderer::toString()
+{
+    return "[renderer]";
+}

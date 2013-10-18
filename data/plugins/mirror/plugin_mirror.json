@@ -7,6 +7,6 @@
 	"type" : "script",
 	"ui" : "dialog.ui",
 	"icon": "object-flip-horizontal",
-	"version" : 1,
-	"requires" : "0.9.4"
+	"version" : 2,
+	"requires" : "0.9.5"
 }
