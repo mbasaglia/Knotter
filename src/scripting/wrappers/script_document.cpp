@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "script_document.hpp"
 #include "commands.hpp"
 #include "xml_exporter.hpp"
+#include <QFile>
 
 Script_Document::Script_Document(Knot_View *wrapped, QObject *parent) :
     QObject(parent), wrapped(wrapped), m_graph(wrapped->graph()),
