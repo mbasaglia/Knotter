@@ -65,8 +65,6 @@ private:
     QScriptEngineAgent* m_script_engine_agent;
     QTimer*             script_timeout;
 
-    //QString m_default_style_name;
-
 public:
     static Settings settings;
     static Resource_Manager * const pointer ;
@@ -162,13 +160,21 @@ public:
     static void register_edge_type(Edge_Type* type);
 
     /**
+     * \brief Removes an edge type
+     *
+     * The object is not destroyed but loses ownership, the caller
+     * becomes responsible of destructing the shape object.
+     */
+    static void remove_edge_type(Edge_Type* type);
+
+    /**
      *  \brief get the default edge style
      *
      *  \returns the first inserted style or nullptr if there is no style
      */
     static Edge_Type* default_edge_type();
 
-    static QList<Edge_Type*> edge_styles() { return singleton.m_edge_types; }
+    static QList<Edge_Type*> edge_types() { return singleton.m_edge_types; }
 
     /**
      *  \brief Cycle edge styles
@@ -284,8 +290,6 @@ public:
 
     static void emit_script_output(QString s) { emit singleton.script_output(s); }
 
-    //static QString default_style_name() { return singleton.m_default_style_name; }
-
 public slots:
 
     static void change_lang_code ( QString code );
@@ -304,6 +308,9 @@ signals:
 
     /// Emitted when a cusp shape is registered or removed
     void cusp_shapes_changed();
+
+    /// Emitted when an edge type is registered or removed
+    void edge_types_changed();
 
     /// Emitted when an error has to be added to the plugin log
     void script_error(QString file,int line,QString msg, QStringList trace);

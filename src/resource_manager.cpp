@@ -171,8 +171,6 @@ QStringList Resource_Manager::data_directories_unckecked(QString name)
 
 void Resource_Manager::initialize(QString default_lang_code)
 {
-    //singleton.m_default_style_name = QApplication::style()->objectName();
-
     qApp->setApplicationName(TARGET);
     qApp->setApplicationVersion(program_version());
     qApp->setOrganizationDomain(DOMAIN_NAME);
@@ -377,6 +375,13 @@ void Resource_Manager::save_settings()
 void Resource_Manager::register_edge_type(Edge_Type *type)
 {
     singleton.m_edge_types.push_back(type);
+    emit singleton.edge_types_changed();
+}
+
+void Resource_Manager::remove_edge_type(Edge_Type *type)
+{
+    singleton.m_edge_types.removeOne(type);
+    emit singleton.edge_types_changed();
 }
 
 Edge_Type *Resource_Manager::default_edge_type()

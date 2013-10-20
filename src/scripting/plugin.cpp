@@ -222,7 +222,7 @@ bool Plugin::is_valid() const
     if ( m_type == Invalid )
         return false;
     if ( m_metadata.contains("requires") &&
-         !Resource_Manager::has_least_version(m_metadata["requires"].toString()) )
+         !Resource_Manager::has_least_version(string_data("requires")) )
         return false;
     return true;
 }

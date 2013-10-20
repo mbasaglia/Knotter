@@ -34,7 +34,9 @@ HEADERS += \
     $$PWD/wrappers/script_edge_style.hpp \
     $$PWD/wrappers/script_renderer.hpp \
     $$PWD/wrappers/script_color.hpp \
-    $$PWD/wrappers/script_graph_style.hpp
+    $$PWD/wrappers/script_graph_style.hpp \
+    $$PWD/plugin_crossing.hpp \
+    $$PWD/edge_scripted.hpp
 
 SOURCES += \
     $$PWD/wrappers/script_line.cpp \
@@ -55,5 +57,7 @@ SOURCES += \
     $$PWD/wrappers/script_edge_style.cpp \
     $$PWD/wrappers/script_renderer.cpp \
     $$PWD/wrappers/script_color.cpp \
-    $$PWD/wrappers/script_graph_style.cpp
+    $$PWD/wrappers/script_graph_style.cpp \
+    $$PWD/plugin_crossing.cpp \
+    $$PWD/edge_scripted.cpp
 

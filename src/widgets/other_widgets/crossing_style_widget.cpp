@@ -35,7 +35,7 @@ Crossing_Style_Widget::Crossing_Style_Widget(QWidget *parent) :
 
 
     combo_edge_type->clear();
-    foreach(Edge_Type* et, Resource_Manager::edge_styles())
+    foreach(Edge_Type* et, Resource_Manager::edge_types())
         combo_edge_type->addItem(et->icon(),et->name(),QVariant::fromValue(et));
 
     connect(spin_handle_length,SIGNAL(valueChanged(double)),

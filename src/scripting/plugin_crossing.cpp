@@ -24,35 +24,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "plugin_cusp.hpp"
+#include "plugin_crossing.hpp"
+#include "edge_scripted.hpp"
 #include "resource_manager.hpp"
-#include "cusp_scripted.hpp"
 
-Plugin_Cusp::Plugin_Cusp(const QVariantMap &metadata)
-    : Plugin(metadata,Plugin::Cusp)
+Plugin_Crossing::Plugin_Crossing(const QVariantMap &metadata)
+    : Plugin(metadata,Plugin::Crossing)
 {
     if ( icon().isNull() )
-        set_data("icon","cusp-other");
-    cusp_shape = new Cusp_Scripted(this);
+        set_data("icon","edge-other");/// \todo icon edge-other
+    edge_type = new Edge_Scripted(this);
 
     if ( is_enabled() )
         enable(true);
 }
 
-Plugin_Cusp::~Plugin_Cusp()
+Plugin_Crossing::~Plugin_Crossing()
 {
-    if ( !Resource_Manager::cusp_shapes().contains(cusp_shape) )
-        delete cusp_shape;
+    if ( !Resource_Manager::edge_types().contains(edge_type) )
+        delete edge_type;
 }
 
 
-void Plugin_Cusp::on_enable(bool b)
+void Plugin_Crossing::on_enable(bool b)
 {
     if ( b )
     {
-        if ( !Resource_Manager::cusp_shapes().contains(cusp_shape) )
-            Resource_Manager::register_cusp_shape(cusp_shape);
+        if ( !Resource_Manager::edge_types().contains(edge_type) )
+            Resource_Manager::register_edge_type(edge_type);
     }
     else
-        Resource_Manager::remove_cusp_shape(cusp_shape);
+        Resource_Manager::remove_edge_type(edge_type);
 }
+

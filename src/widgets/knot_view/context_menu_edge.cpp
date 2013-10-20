@@ -60,7 +60,7 @@ void Context_Menu_Edge::popup(Edge *e, QPoint pos)
     );
 
     menu_edge_types->clear();
-    foreach(Edge_Type* es, Resource_Manager::edge_styles())
+    foreach(Edge_Type* es, Resource_Manager::edge_types())
     {
         QAction*a = menu_edge_types->addAction(es->icon(),es->name(),&mapper,SLOT(map()));
         mapper.setMapping(a,es->machine_name());

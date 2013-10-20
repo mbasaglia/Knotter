@@ -36,11 +36,6 @@ public:
     Plugin_Cusp(const QVariantMap &metadata);
     ~Plugin_Cusp();
 
-    /**
-     *  \brief Machine name for the cusp shape, used when saving to XML
-     */
-    QString machine_name() const;
-
 protected:
     void on_enable(bool b) override;
 };

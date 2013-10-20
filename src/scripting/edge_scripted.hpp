@@ -24,28 +24,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef CUSP_SCRIPTED_HPP
-#define CUSP_SCRIPTED_HPP
+#ifndef EDGE_SCRIPTED_HPP
+#define EDGE_SCRIPTED_HPP
 
-#include "node_cusp_shape.hpp"
-#include "plugin_cusp.hpp"
+#include "edge_type.hpp"
+#include "plugin_crossing.hpp"
 
-class Cusp_Scripted : public Cusp_Shape
+class Edge_Scripted : public Edge_Type
 {
 private:
-    Plugin_Cusp* plugin;
+    Plugin_Crossing *plugin;
+
 public:
-    Cusp_Scripted(Plugin_Cusp* plugin) : plugin(plugin) {}
+    Edge_Scripted(Plugin_Crossing *plugin);
 
-    QString name() const override { return plugin->string_data("name"); }
+    /**
+     *  \brief Perform any rendering to path and return the next handle
+    */
+    Edge::Handle traverse(Edge* edge, Edge::Handle handle,Path_Builder& path) const override;
+    /**
+     *  \brief Get handle geometry
+     *
+     *  p1 is the point where the path line should pass, p2 the control point
+     */
+    QLineF handle(const Edge *edge, Edge::Handle handle) const override;
 
+    void paint(QPainter*painter, const Edge& edge) override;
+    QString name() const override;
     QString machine_name() const override;
-
-    virtual QIcon icon() const override { return plugin->icon(); }
-
-    void draw_joint ( Path_Builder& path,
-                        const Traversal_Info& ti,
-                        const Node_Style& style ) const override;
+    QIcon icon() const override;
 };
 
-#endif // CUSP_SCRIPTED_HPP
+#endif // EDGE_SCRIPTED_HPP
