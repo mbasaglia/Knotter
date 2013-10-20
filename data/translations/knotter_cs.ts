@@ -54,17 +54,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/about_dialog.ui" line="115"/>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation>Systém</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/about_dialog.ui" line="121"/>
         <source>Data directories:</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresáře s daty:</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/about_dialog.ui" line="131"/>
         <source>Settings location:</source>
-        <translation type="unfinished"></translation>
+        <translation>Umístění nastavení:</translation>
     </message>
     <message>
         <source>Plugins</source>
@@ -73,7 +73,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/about_dialog.ui" line="145"/>
         <source>Plugins are loaded from the following directories:</source>
-        <translation>Pří&amp;davné moduly jsou nahrány z následujících adresářů</translation>
+        <translation>Pří&amp;davné moduly jsou nahrány z následujících adresářů:</translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -186,7 +186,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/knot_view/commands.cpp" line="721"/>
         <source>Change Edge Type</source>
-        <translation type="unfinished">Změnit druh oblouku</translation>
+        <translation>Změnit druh oblouku</translation>
     </message>
 </context>
 <context>
@@ -239,7 +239,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/color/src/color_dialog.ui" line="264"/>
         <source>Pick</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrat</translation>
     </message>
     <message>
         <source>HHHhhhhh</source>
@@ -276,12 +276,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/knot_view/context_menu_edge.cpp" line="46"/>
         <source>Properties...</source>
-        <translation type="unfinished">Vlastnosti...</translation>
+        <translation>Vlastnosti...</translation>
     </message>
     <message>
         <location filename="../../src/widgets/knot_view/context_menu_edge.cpp" line="47"/>
         <source>Reset custom style</source>
-        <translation type="unfinished">Nastavit vlastní styl znovu</translation>
+        <translation>Nastavit vlastní styl znovu</translation>
     </message>
     <message>
         <location filename="../../src/widgets/knot_view/context_menu_edge.cpp" line="78"/>
@@ -306,7 +306,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/knot_view/context_menu_edge.cpp" line="223"/>
         <source>Reset Edge Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit styl oblouku znovu</translation>
     </message>
 </context>
 <context>
@@ -363,43 +363,43 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/other_widgets/crossing_style_widget.ui" line="33"/>
         <source>Curve</source>
-        <translation type="unfinished">Křivka</translation>
+        <translation>Křivka</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/crossing_style_widget.ui" line="46"/>
         <source>Size of the curve control handles</source>
-        <translation type="unfinished">Velikost úchopů pro ovládání křivky</translation>
+        <translation>Velikost úchopů pro ovládání křivky</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/crossing_style_widget.ui" line="49"/>
         <location filename="../../src/widgets/other_widgets/crossing_style_widget.ui" line="78"/>
         <source>px</source>
-        <translation type="unfinished">px</translation>
+        <translation>px</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/crossing_style_widget.ui" line="65"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/crossing_style_widget.ui" line="75"/>
         <source>Distance between the ends of a thread passing under another thread</source>
-        <translation type="unfinished">Vzdálenost konců vlákna jdoucího pod jiným vláknem</translation>
+        <translation>Vzdálenost konců vlákna jdoucího pod jiným vláknem</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/crossing_style_widget.ui" line="91"/>
         <source>Gap</source>
-        <translation type="unfinished">Mezera</translation>
+        <translation>Mezera</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/crossing_style_widget.ui" line="117"/>
         <source>Slide</source>
-        <translation type="unfinished"></translation>
+        <translation>Posun</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/crossing_style_widget.ui" line="127"/>
         <source>Position of the crossing in the edge</source>
-        <translation type="unfinished"></translation>
+        <translation>Poloha křížení v oblouku</translation>
     </message>
 </context>
 <context>
@@ -454,7 +454,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/other_widgets/cusp_style_widget.ui" line="119"/>
         <source>Shape</source>
-        <translation type="unfinished">Tvar</translation>
+        <translation>Tvar</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/cusp_style_widget.ui" line="145"/>
@@ -527,7 +527,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dialog_edge_properties.ui" line="14"/>
         <source>Edge Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Vlastnosti oblouku</translation>
     </message>
 </context>
 <context>
@@ -564,17 +564,17 @@ p, li { white-space: pre-wrap; }
         <location filename="../../src/dialogs/dialog_plugins.ui" line="92"/>
         <location filename="../../src/dialogs/dialog_plugins.cpp" line="176"/>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Zakázáno</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="102"/>
         <source>Reload Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahrát skript znovu</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="114"/>
         <source>Edit Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravit skript</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="135"/>
@@ -604,7 +604,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="192"/>
         <source>&amp;Create...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vytvořit...</translation>
     </message>
     <message>
         <source>&amp;Install...</source>
@@ -630,7 +630,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dialog_plugins.cpp" line="176"/>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Povoleno</translation>
     </message>
 </context>
 <context>
@@ -659,7 +659,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="143"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozhraní</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="380"/>
@@ -768,32 +768,32 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="291"/>
         <source>Clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Schránka</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="306"/>
         <source>Knot</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzel</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="316"/>
         <source>XML</source>
-        <translation type="unfinished"></translation>
+        <translation>XML</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="331"/>
         <source>SVG</source>
-        <translation type="unfinished"></translation>
+        <translation>SVG</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="346"/>
         <source>PNG</source>
-        <translation type="unfinished"></translation>
+        <translation>PNG</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="361"/>
         <source>TIFF</source>
-        <translation type="unfinished"></translation>
+        <translation>TIFF</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="427"/>
@@ -843,7 +843,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="478"/>
         <source>Timeout</source>
-        <translation>Překročení času</translation>
+        <translation>Časové omezení na provedení</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="485"/>
@@ -858,82 +858,82 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="518"/>
         <source>Node Icon Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Velikost ikony uzlu</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="525"/>
         <source>Widget Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Styl rozhraní</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="535"/>
         <source>User interface style. Some widgets may require a restart to take effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Styl uživatelského rozhraní. Některé doplňky vyžadují k tomu, aby se projevily, opětovné spuštění programu.</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="542"/>
         <source>Shows a preview of the widget style</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukáže náhled stylu doplňku</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="545"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Náhled</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="551"/>
         <source>Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Tlačítko</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="562"/>
         <source>Item1</source>
-        <translation type="unfinished"></translation>
+        <translation>Položka 1</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="567"/>
         <source>Item2</source>
-        <translation type="unfinished"></translation>
+        <translation>Položka 2</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="572"/>
         <source>Item3</source>
-        <translation type="unfinished"></translation>
+        <translation>Položka 3</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="583"/>
         <source>Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Barvy</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="622"/>
         <source>Edge (Highlighted)</source>
-        <translation type="unfinished"></translation>
+        <translation>Oblouk (zvýrazněný)</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="650"/>
         <source>Edge (Selected)</source>
-        <translation type="unfinished"></translation>
+        <translation>Oblouk (vybraný)</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="671"/>
         <source>Edge (Resting)</source>
-        <translation type="unfinished"></translation>
+        <translation>Oblouk (normální)</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="678"/>
         <source>Node (Resting)</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzel (normální)</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="706"/>
         <source>Node (Selected)</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzel (vybraný)</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.ui" line="713"/>
         <source>Node (Highlighted)</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzel (zvýrazněný)</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.cpp" line="88"/>
@@ -983,17 +983,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dialog_preferences.cpp" line="108"/>
         <source>Small</source>
-        <translation type="unfinished"></translation>
+        <translation>Malá</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.cpp" line="109"/>
         <source>Medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Střední</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_preferences.cpp" line="110"/>
         <source>Large</source>
-        <translation type="unfinished"></translation>
+        <translation>Velká</translation>
     </message>
 </context>
 <context>
@@ -1139,7 +1139,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dock/dock_grid.ui" line="155"/>
         <source>Reset grid position</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit polohu mřížky znovu</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_grid.ui" line="165"/>
@@ -1161,7 +1161,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="14"/>
         <source>Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Vzhled</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="34"/>
@@ -1214,87 +1214,87 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="72"/>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;Nový</translation>
+        <translation>&amp;Nový</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="87"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Otevřít</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="99"/>
         <source>&amp;Save</source>
-        <translation type="unfinished">&amp;Uložit</translation>
+        <translation>&amp;Uložit</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="111"/>
         <source>Save &amp;As</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložit &amp;jako</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="133"/>
         <source>&amp;Undo</source>
-        <translation type="unfinished">&amp;Zpět</translation>
+        <translation>&amp;Zpět</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="148"/>
         <source>R&amp;edo</source>
-        <translation type="unfinished"></translation>
+        <translation>Z&amp;novu</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="167"/>
         <source>External Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Vnější editor</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="170"/>
         <source>E&amp;xternal Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vnější editor</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="182"/>
         <source>If enabled, this dialog won&apos;t be dockable</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokud povoleno, tento dialog nebude ukotvitelný</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="185"/>
         <source>S&amp;tand Alone Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;amostatný dialog</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="207"/>
         <source>Deploy Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Nasadit přídavný modul</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="210"/>
         <source>&amp;Deploy Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nasadit přídavný modul</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="252"/>
         <source>Run</source>
-        <translation type="unfinished"></translation>
+        <translation>Spustit</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="290"/>
         <source>&amp;Run</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Spustit</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="302"/>
         <source>Clear Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Smazat výstup</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="317"/>
         <source>Stop the currently running script</source>
-        <translation type="unfinished"></translation>
+        <translation>Zastavit nyní běžící skript</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.ui" line="320"/>
         <source>Abort Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Přerušit skripty</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.cpp" line="140"/>
@@ -1304,17 +1304,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.cpp" line="209"/>
         <source>Script Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor skriptu</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.cpp" line="249"/>
         <source>Open Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Otevřít skript</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/dock/dock_script_log.cpp" line="270"/>
         <source>Save Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložit skript</translation>
     </message>
 </context>
 <context>
@@ -1322,7 +1322,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/knot_view/commands.cpp" line="860"/>
         <source>Change Edge Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Změnit styl oblouku</translation>
     </message>
 </context>
 <context>
@@ -1330,7 +1330,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/knot_view/commands.hpp" line="679"/>
         <source>Change Selection Crossing Gap</source>
-        <translation type="unfinished">Změnit mezeru křížení ve výběru</translation>
+        <translation>Změnit mezeru křížení ve výběru</translation>
     </message>
 </context>
 <context>
@@ -1338,7 +1338,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/knot_view/commands.hpp" line="698"/>
         <source>Slide Selected Edges</source>
-        <translation type="unfinished"></translation>
+        <translation>Posunout vybrané oblouky</translation>
     </message>
 </context>
 <context>
@@ -1346,7 +1346,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/knot_view/commands.cpp" line="815"/>
         <source>Toggle Selection Style Property</source>
-        <translation type="unfinished">Přepnout vlastnost styl výběru</translation>
+        <translation>Přepnout vlastnost styl výběru</translation>
     </message>
 </context>
 <context>
@@ -1354,7 +1354,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/knot_view/commands.hpp" line="759"/>
         <source>Change Edge Curve Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Změnit ovládání křivky oblouku</translation>
     </message>
 </context>
 <context>
@@ -1515,7 +1515,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/knot_view/commands.cpp" line="678"/>
         <source>Set Knot Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit styl uzlu</translation>
     </message>
 </context>
 <context>
@@ -1555,7 +1555,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/knot_view/commands.hpp" line="404"/>
         <source>Slide Crossing</source>
-        <translation type="unfinished"></translation>
+        <translation>Posunout křížení</translation>
     </message>
 </context>
 <context>
@@ -1571,84 +1571,84 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="23"/>
         <source>Curve</source>
-        <translation type="unfinished">Křivka</translation>
+        <translation>Křivka</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="33"/>
         <source>Size of the curve control handles</source>
-        <translation type="unfinished">Velikost úchopů pro ovládání křivky</translation>
+        <translation>Velikost úchopů pro ovládání křivky</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="36"/>
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="109"/>
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="176"/>
         <source>px</source>
-        <translation type="unfinished">px</translation>
+        <translation>px</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="49"/>
         <source>Nodes</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzly</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="67"/>
         <source>Angle</source>
-        <translation type="unfinished">Úhel</translation>
+        <translation>Úhel</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="77"/>
         <source>Minimum angle required to render a cusp</source>
-        <translation type="unfinished">Nejmenší úhel požadovaný pro udělání špičky</translation>
+        <translation>Nejmenší úhel požadovaný pro nakreslení špičky</translation>
     </message>
     <message utf8="true">
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="83"/>
         <source>°</source>
-        <translation type="unfinished">°</translation>
+        <translation>°</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="96"/>
         <source>Distance</source>
-        <translation type="unfinished">Vzdálenost</translation>
+        <translation>Vzdálenost</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="106"/>
         <source>Distance of the cusp tip from the node position</source>
-        <translation type="unfinished">Vzdálenost rady ke špičce od polohy uzlu</translation>
+        <translation>Vzdálenost rady ke špičce od polohy uzlu</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="125"/>
         <source>Shape</source>
-        <translation type="unfinished">Tvar</translation>
+        <translation>Tvar</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="135"/>
         <source>Shape style</source>
-        <translation type="unfinished">Styl tvaru</translation>
+        <translation>Styl tvaru</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="145"/>
         <source>Edges</source>
-        <translation type="unfinished"></translation>
+        <translation>Oblouky</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="163"/>
         <source>Gap</source>
-        <translation type="unfinished">Mezera</translation>
+        <translation>Mezera</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="173"/>
         <source>Distance between the ends of a thread passing under another thread</source>
-        <translation type="unfinished">Vzdálenost konců vlákna jdoucího pod jiným vláknem</translation>
+        <translation>Vzdálenost konců vlákna jdoucího pod jiným vláknem</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="195"/>
         <source>Slide</source>
-        <translation type="unfinished"></translation>
+        <translation>Posunout</translation>
     </message>
     <message>
         <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="205"/>
         <source>Position of the crossing in the edge</source>
-        <translation type="unfinished"></translation>
+        <translation>Poloha křížení v oblouku</translation>
     </message>
 </context>
 <context>
@@ -1661,7 +1661,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/widgets/knot_view/knot_view.cpp" line="316"/>
         <source>Change Edge Type</source>
-        <translation type="unfinished">Změnit druh oblouku</translation>
+        <translation>Změnit druh oblouku</translation>
     </message>
     <message>
         <location filename="../../src/widgets/knot_view/knot_view.cpp" line="386"/>
@@ -1777,12 +1777,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/main_window.ui" line="172"/>
         <source>&amp;Help</source>
-        <translation>&amp;Nápověda</translation>
+        <translation>Nápo&amp;věda</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/main_window.ui" line="182"/>
         <source>&amp;Plugins</source>
-        <translation>&amp;Přídavné moduly</translation>
+        <translation>Mo&amp;duly</translation>
     </message>
     <message>
         <source>Insert objects from plugin</source>
@@ -1938,12 +1938,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/main_window.ui" line="611"/>
         <source>&amp;Select</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vybrat</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/main_window.ui" line="627"/>
         <source>Edge &amp;Chain</source>
-        <translation type="unfinished"></translation>
+        <translation>Ř&amp;etězec oblouku</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/main_window.ui" line="723"/>
@@ -1953,12 +1953,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/main_window.ui" line="768"/>
         <source>&amp;Fit View</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Přizpůsobit zobrazení</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/main_window.ui" line="771"/>
         <source>Scroll and zoom the view to display the entire knot</source>
-        <translation type="unfinished"></translation>
+        <translation>Pohybovat a přiblížit pohled tak, aby byl zobrazen celý uzel</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/main_window.ui" line="112"/>
@@ -2003,7 +2003,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/main_window.ui" line="553"/>
         <source>&amp;Rotate</source>
-        <translation>&amp;Otočit</translation>
+        <translation>O&amp;točit</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/main_window.ui" line="569"/>
@@ -2138,17 +2138,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/dialogs/main_window.cpp" line="262"/>
         <source>Selected Nodes</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrané uzly</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/main_window.cpp" line="265"/>
         <source>Selected Edges</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrané oblouky</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/main_window.cpp" line="268"/>
         <source>Default Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Výchozí styl</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/main_window.cpp" line="282"/>
@@ -2367,7 +2367,7 @@ Chcete uložit změny?</translation>
     <message>
         <location filename="../../src/widgets/knot_view/commands.hpp" line="513"/>
         <source>Change Node Curve Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Změnit ovládání křivky uzlu</translation>
     </message>
 </context>
 <context>
@@ -2405,7 +2405,7 @@ Chcete uložit změny?</translation>
     <message>
         <location filename="../../src/graph/edge_type.cpp" line="111"/>
         <source>Regular</source>
-        <translation>Pravidelný</translation>
+        <translation>Normální</translation>
     </message>
     <message>
         <location filename="../../src/graph/edge_type.cpp" line="128"/>
@@ -2415,17 +2415,17 @@ Chcete uložit změny?</translation>
     <message>
         <location filename="../../src/graph/edge_type.cpp" line="212"/>
         <source>Wall</source>
-        <translation>Hradba</translation>
+        <translation>Zeď</translation>
     </message>
     <message>
         <location filename="../../src/graph/edge_type.cpp" line="266"/>
         <source>Hole</source>
-        <translation>Díra</translation>
+        <translation>Otvor</translation>
     </message>
     <message>
         <location filename="../../src/graph/node_cusp_shape.hpp" line="90"/>
         <source>Round</source>
-        <translation>Kolo</translation>
+        <translation>Zaoblený</translation>
     </message>
     <message>
         <location filename="../../src/graph/node_cusp_shape.hpp" line="104"/>
@@ -2534,7 +2534,7 @@ Chcete uložit změny?</translation>
     <message>
         <location filename="../../src/resource_manager.cpp" line="624"/>
         <source>Script aborted</source>
-        <translation type="unfinished"></translation>
+        <translation>Vynuceno ukončení skriptu</translation>
     </message>
     <message>
         <source>Script timeout</source>
@@ -2551,7 +2551,7 @@ Chcete uložit změny?</translation>
     <message>
         <location filename="../../src/scripting/wrappers/script_document.cpp" line="159"/>
         <source>Load File</source>
-        <translation type="unfinished">Nahrát soubor</translation>
+        <translation>Nahrát soubor</translation>
     </message>
 </context>
 <context>
@@ -2714,77 +2714,77 @@ Chcete uložit změny?</translation>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.ui" line="14"/>
         <source>Create Plugin Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Průvodce vytvořením přídavného modulu</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.ui" line="23"/>
         <source>Plugin Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informace o přídavném modulu</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.ui" line="29"/>
         <source>Name</source>
-        <translation type="unfinished">Název</translation>
+        <translation>Název</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.ui" line="39"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.ui" line="46"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Popis</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.ui" line="60"/>
         <source>Script Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Zdroj skriptu</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.ui" line="70"/>
         <source>Additional Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodatečná data</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.ui" line="76"/>
         <source>&amp;Remove</source>
-        <translation type="unfinished">&amp;Odstranit</translation>
+        <translation>&amp;Odstranit</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.ui" line="91"/>
         <source>&amp;Insert</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vložit</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.ui" line="116"/>
         <source>Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Klíč</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.ui" line="121"/>
         <source>Value</source>
-        <translation type="unfinished">Hodnota</translation>
+        <translation>Hodnota</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.ui" line="130"/>
         <source>Output Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Výstupní adresář</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.ui" line="139"/>
         <source>Browse...</source>
-        <translation type="unfinished">Procházet...</translation>
+        <translation>Procházet...</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="39"/>
         <source>Script</source>
-        <translation type="unfinished">Skript</translation>
+        <translation>Skript</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="40"/>
         <source>Cusp</source>
-        <translation type="unfinished"></translation>
+        <translation>Špička</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="71"/>
@@ -2792,32 +2792,32 @@ Chcete uložit změny?</translation>
         <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="120"/>
         <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="149"/>
         <source>Error</source>
-        <translation type="unfinished">Chyba</translation>
+        <translation>Chyba</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="71"/>
         <source>Name is required</source>
-        <translation type="unfinished"></translation>
+        <translation>Je požadován název</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="83"/>
         <source>%1 is not a writable directory.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 není zapisovatelný adresář.</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="120"/>
         <source>Error while creating plugin file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při vytváření přídavného modulu.</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="149"/>
         <source>Error while creating source file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při vytváření zdrojového souboru.</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="170"/>
         <source>Select Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrat adresář</translation>
     </message>
 </context>
 </TS>
