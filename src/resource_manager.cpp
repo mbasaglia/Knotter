@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "script_window.hpp"
 #include "script_polygon.hpp"
 #include "script_color.hpp"
+#include "edge_scripted.hpp"
 #include <QApplication>
 #include <QStyle>
 
@@ -243,6 +244,8 @@ void Resource_Manager::initialize(QString default_lang_code)
     qScriptRegisterMetaType(engine, polygon_to_script, polygon_from_script);
     qRegisterMetaType<Script_Color>("Script_Color");
     qScriptRegisterMetaType(engine, color_to_script, color_from_script);
+
+    qScriptRegisterMetaType(engine,edge_handle_to_script,edge_handle_from_script);
 
 
     //plugins

@@ -29,6 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "plugin.hpp"
 
+/**
+ * \brief Plugin than manages a scripted cusp shape
+ */
 class Plugin_Cusp : public Plugin
 {
     class Cusp_Scripted *cusp_shape;

@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "edge_type.hpp"
 #include "plugin_crossing.hpp"
+#include <QScriptEngine>
 
 class Edge_Scripted : public Edge_Type
 {
@@ -54,5 +55,9 @@ public:
     QString machine_name() const override;
     QIcon icon() const override;
 };
+
+
+void edge_handle_from_script(const QScriptValue &obj, Edge::Handle &h);
+QScriptValue edge_handle_to_script(QScriptEngine *engine, const Edge::Handle &h);
 
 #endif // EDGE_SCRIPTED_HPP

@@ -29,17 +29,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "plugin.hpp"
 #include "edge_type.hpp"
 
+/**
+ * \brief Plugin that manages a scripted edge type
+ */
 class Plugin_Crossing : public Plugin
 {
     class Edge_Scripted* edge_type;
 public:
     Plugin_Crossing(const QVariantMap &metadata);
     ~Plugin_Crossing();
-
-    /**
-     *  \brief Machine name for the cusp shape, used when saving to XML
-     */
-    QString machine_name() const;
 
 protected:
     void on_enable(bool b) override;

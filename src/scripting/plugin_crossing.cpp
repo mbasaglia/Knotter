@@ -32,7 +32,7 @@ Plugin_Crossing::Plugin_Crossing(const QVariantMap &metadata)
     : Plugin(metadata,Plugin::Crossing)
 {
     if ( icon().isNull() )
-        set_data("icon","edge-other");/// \todo icon edge-other
+        set_data("icon","edge-other");
     edge_type = new Edge_Scripted(this);
 
     if ( is_enabled() )

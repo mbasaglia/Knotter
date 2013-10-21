@@ -54,6 +54,7 @@ public:
         BOTTOM_RIGHT= 0x08
     };
 
+    Q_ENUMS(Handle)
     Q_DECLARE_FLAGS(Handle_Flags,Handle)
 
 private:
@@ -194,5 +195,7 @@ public slots:
     void attach();
     
 };
+
+Q_DECLARE_METATYPE(Edge::Handle)
 
 #endif // EDGE_HPP

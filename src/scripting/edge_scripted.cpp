@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "edge_scripted.hpp"
+#include "resource_manager.hpp"
 
 Edge_Scripted::Edge_Scripted(Plugin_Crossing *plugin)
     : plugin(plugin)
@@ -33,14 +34,15 @@ Edge_Scripted::Edge_Scripted(Plugin_Crossing *plugin)
 
 Edge::Handle Edge_Scripted::traverse(Edge *edge, Edge::Handle handle, Path_Builder &path) const
 {
+    Resource_Manager::run_script(plugin);
     /// \todo
-    return handle;
+    return Resource_Manager::default_edge_type()->traverse(edge,handle,path);
 }
 
 QLineF Edge_Scripted::handle(const Edge *edge, Edge::Handle handle) const
 {
     /// \todo
-    return  QLineF();
+    return Resource_Manager::default_edge_type()->handle(edge,handle);
 }
 
 void Edge_Scripted::paint(QPainter *painter, const Edge &edge)
@@ -74,3 +76,16 @@ QString Edge_Scripted::name() const
 {
     return plugin->string_data("name");
 }
+
+
+
+QScriptValue edge_handle_to_script(QScriptEngine *engine, const Edge::Handle &h)
+{
+    return engine->newVariant(int(h));
+}
+
+void edge_handle_from_script(const QScriptValue &obj, Edge::Handle &h)
+{
+    h = Edge::Handle(obj.toInt32());
+}
+
