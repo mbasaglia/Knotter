@@ -48,7 +48,7 @@ SOURCES += \
     $$PWD/dock/dock_script_log.cpp \
     $$PWD/wizard_create_plugin.cpp \
     $$PWD/dialog_edge_properties.cpp \
-    $$PWDdock/dock_knot_style.cpp
+    $$PWD/dock/dock_knot_style.cpp
 
 FORMS += \
     $$PWD/main_window.ui \
