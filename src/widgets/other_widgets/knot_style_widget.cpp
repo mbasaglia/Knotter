@@ -52,9 +52,6 @@ Knot_Style_Widget::Knot_Style_Widget(QWidget *parent) :
     connect(Resource_Manager::pointer,SIGNAL(cusp_shapes_changed()),
             SLOT(reload_cusp_shapes()));
 
-    connect(Resource_Manager::pointer,SIGNAL(edge_types_changed()),
-            SLOT(reload_edge_types()));
-
 }
 
 void Knot_Style_Widget::set_style(const Node_Style &nst, const Edge_Style &est)
