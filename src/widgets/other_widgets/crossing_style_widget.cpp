@@ -33,16 +33,16 @@ Crossing_Style_Widget::Crossing_Style_Widget(QWidget *parent) :
     setupUi(this);
     label_tooltip();
 
-
-    combo_edge_type->clear();
-    foreach(Edge_Type* et, Resource_Manager::edge_types())
-        combo_edge_type->addItem(et->icon(),et->name(),QVariant::fromValue(et));
+    reload_edge_types();
 
     connect(spin_handle_length,SIGNAL(valueChanged(double)),
             SIGNAL(handle_length_changed(double)));
     connect(spin_crossing_gap,SIGNAL(valueChanged(double)),
             SIGNAL(crossing_distance_changed(double)));
     connect(slide_edge_slide,SIGNAL(valueChanged(int)),SLOT(emit_edge_slide(int)));
+
+    connect(Resource_Manager::pointer,SIGNAL(edge_types_changed()),
+            SLOT(reload_edge_types()));
 
 
     mapper.setMapping(check_crossing_gap,Edge_Style::CROSSING_DISTANCE);
@@ -201,3 +201,35 @@ void Crossing_Style_Widget::emit_edge_slide(int percent)
     emit edge_slide_changed(percent/100.0);
 }
 
+
+void Crossing_Style_Widget::reload_edge_types()
+{
+    // reload cusp shapes
+    int current_index = combo_edge_type->currentIndex();
+    Edge_Type* current_type = edge_type();
+
+    blockSignals(true);
+    combo_edge_type->clear();
+
+    for( int i = 0; i < Resource_Manager::edge_types().size(); i++ )
+    {
+        Edge_Type* et = Resource_Manager::edge_types()[i];
+        if ( et == current_type )
+            current_index = i;
+        combo_edge_type->addItem(et->icon(),et->name(),
+                                  QVariant::fromValue(et) );
+    }
+
+
+    if ( current_index >= combo_edge_type->count() )
+        current_index = 0;
+
+    combo_edge_type->setCurrentIndex(current_index);
+
+    blockSignals(false);
+
+    Edge_Type* new_type = edge_type(current_index);
+
+    if ( new_type != current_type )
+        emit edge_type_changed(new_type);
+}

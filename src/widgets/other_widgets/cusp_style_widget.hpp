@@ -61,7 +61,6 @@ private slots:
     void checkbox_toggled(int style);
     void reload_cusp_shapes();
 
-
 private:
     /// Copy tooltip from buddy to label
     void label_tooltip();
