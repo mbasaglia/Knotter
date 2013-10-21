@@ -45,6 +45,8 @@ protected slots:
     void load_plugins();
 
 private slots:
+    void reload_combo();
+
     void on_listWidget_currentRowChanged(int currentRow);
 
     void on_check_enable_clicked(bool checked);
@@ -58,6 +60,8 @@ private slots:
     void on_button_create_clicked();
 
     void on_check_enable_toggled(bool checked);
+
+    void on_combo_category_currentIndexChanged(int index);
 
 private:
     void set_item_enabled(QListWidgetItem* it, bool enabled);

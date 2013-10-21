@@ -42,6 +42,7 @@ void Dialog_Plugins::changeEvent(QEvent *e)
     switch (e->type()) {
         case QEvent::LanguageChange:
             retranslateUi(this);
+            reload_combo();
             break;
         default:
             break;
@@ -62,11 +63,38 @@ void Dialog_Plugins::load_plugins()
         if ( item->icon().isNull() )
             item->setIcon(QIcon::fromTheme("text-x-script"));
         item->setData(Qt::UserRole,QVariant::fromValue(p));
+        item->setHidden(false);
         set_item_enabled(item,p->is_enabled());
         if ( !p->is_valid() )
             set_item_errored(item);
         listWidget->addItem(item);
     }
+
+    reload_combo();
+}
+
+void Dialog_Plugins::reload_combo()
+{
+    combo_category->blockSignals(true);
+    combo_category->clear();
+
+    combo_category->addItem(tr("All"));
+
+    QStringList categories;
+
+    foreach(Plugin* p, Resource_Manager::plugins())
+    {
+        if ( !categories.contains(p->string_data("category")) )
+            categories << p->string_data("category");
+    }
+
+    foreach(QString s, categories)
+    {
+        combo_category->addItem(s);
+    }
+
+    combo_category->blockSignals(false);
+    combo_category->setCurrentIndex(0);
 }
 
 void Dialog_Plugins::on_listWidget_currentRowChanged(int currentRow)
@@ -174,4 +202,22 @@ void Dialog_Plugins::on_button_create_clicked()
 void Dialog_Plugins::on_check_enable_toggled(bool checked)
 {
     check_enable->setText(checked?tr("Enabled"):tr("Disabled"));
+}
+
+void Dialog_Plugins::on_combo_category_currentIndexChanged(int index)
+{
+    for(int i = 0; i < listWidget->count(); i++ )
+    {
+        QListWidgetItem* item = listWidget->item(i);
+
+        if ( index == 0 )
+        {
+            item->setHidden(false);
+        }
+        else
+        {
+            Plugin* p = item->data(Qt::UserRole).value<Plugin*>();
+            item->setHidden( p->string_data("category") != combo_category->currentText() );
+        }
+    }
 }
