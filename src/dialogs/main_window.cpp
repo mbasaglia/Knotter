@@ -189,14 +189,9 @@ void Main_Window::init_docks()
     tabifyDockWidget(dock_knot_display,dock_borders);
 
     // Global style
-    widget_global_style = new Knot_Style_Widget;
-
-    QDockWidget* global_style_dock = new QDockWidget;
-    global_style_dock->setWidget(widget_global_style);
-    global_style_dock->setObjectName("global_style_dock");
-    global_style_dock->setWindowIcon(QIcon::fromTheme("cusp-pointed"));
-    addDockWidget(Qt::RightDockWidgetArea,global_style_dock);
-    tabifyDockWidget(dock_borders,global_style_dock);
+    dock_knot_style = new Dock_Knot_Style;
+    addDockWidget(Qt::RightDockWidgetArea,dock_knot_style);
+    tabifyDockWidget(dock_borders,dock_knot_style);
 
 
     // Background
@@ -263,9 +258,6 @@ void Main_Window::retranslate_docks()
 
     QDockWidget* edge_style_dock  = findChild<QDockWidget*>("edge_style_dock");
     edge_style_dock->setWindowTitle(tr("Selected Edges"));
-
-    QDockWidget* global_style_dock  = findChild<QDockWidget*>("global_style_dock");
-    global_style_dock->setWindowTitle(tr("Default Style"));
 
 }
 
@@ -376,21 +368,21 @@ void Main_Window::connect_view(Knot_View *v)
             v,SLOT(set_knot_display_border(bool)));
 
     // global style
-    widget_global_style->set_style(v->graph().default_node_style(),
+    dock_knot_style->set_style(v->graph().default_node_style(),
                                    v->graph().default_edge_style());
-    connect(widget_global_style,SIGNAL(cusp_angle_changed(double)),
+    connect(dock_knot_style,SIGNAL(cusp_angle_changed(double)),
             v,SLOT(set_knot_cusp_angle(double)));
-    connect(widget_global_style,SIGNAL(cusp_distance_changed(double)),
+    connect(dock_knot_style,SIGNAL(cusp_distance_changed(double)),
             v,SLOT(set_knot_cusp_distance(double)));
-    connect(widget_global_style,SIGNAL(handle_length_changed(double)),
+    connect(dock_knot_style,SIGNAL(handle_length_changed(double)),
             v,SLOT(set_knot_handle_lenght(double)));
-    connect(widget_global_style,SIGNAL(cusp_shape_changed(Cusp_Shape*)),
+    connect(dock_knot_style,SIGNAL(cusp_shape_changed(Cusp_Shape*)),
             v,SLOT(set_knot_cusp_shape(Cusp_Shape*)));
-    connect(widget_global_style,SIGNAL(crossing_distance_changed(double)),
+    connect(dock_knot_style,SIGNAL(crossing_distance_changed(double)),
             v,SLOT(set_knot_crossing_distance(double)));
-    connect(widget_global_style,SIGNAL(crossing_distance_changed(double)),
+    connect(dock_knot_style,SIGNAL(crossing_distance_changed(double)),
             v,SLOT(set_knot_crossing_distance(double)));
-    connect(widget_global_style,SIGNAL(edge_slide_changed(double)),
+    connect(dock_knot_style,SIGNAL(edge_slide_changed(double)),
             v,SLOT(set_knot_ege_slide(double)));
 
     //style
@@ -454,10 +446,10 @@ void Main_Window::update_style()
     dock_borders->blockSignals(false);
 
     // style
-    widget_global_style->blockSignals(true);
-    widget_global_style->set_style(view->graph().default_node_style(),
+    dock_knot_style->blockSignals(true);
+    dock_knot_style->set_style(view->graph().default_node_style(),
                                    view->graph().default_edge_style());
-    widget_global_style->blockSignals(false);
+    dock_knot_style->blockSignals(false);
 
 }
 
@@ -482,7 +474,7 @@ void Main_Window::disconnect_view(Knot_View *v)
         dock_knot_display->disconnect(v);
         dock_borders->disconnect(v);
 
-        widget_global_style->disconnect(v);
+        dock_knot_style->disconnect(v);
 
         widget_node_style->disconnect(v);
         widget_edge_style->disconnect(v);
@@ -597,10 +589,10 @@ bool Main_Window::create_tab(QString file)
         error = !view->load_file(file);
         if ( !error )
         {
-            widget_global_style->blockSignals(true);
-            widget_global_style->set_style(view->graph().default_node_style(),
+            dock_knot_style->blockSignals(true);
+            dock_knot_style->set_style(view->graph().default_node_style(),
                                            view->graph().default_edge_style());
-            widget_global_style->blockSignals(false);
+            dock_knot_style->blockSignals(false);
 
 
             dock_knot_display->blockSignals(true);

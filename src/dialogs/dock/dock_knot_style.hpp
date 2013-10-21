@@ -24,21 +24,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef KNOT_STYLE_WIDGET_HPP
-#define KNOT_STYLE_WIDGET_HPP
+#ifndef DOCK_KNOT_STYLE_HPP
+#define DOCK_KNOT_STYLE_HPP
 
-#include "ui_knot_style_widget.h"
+#include "ui_dock_knot_style.h"
 #include "node_style.hpp"
 #include "edge_style.hpp"
 #include "edge_type.hpp"
 
-class Knot_Style_Widget : public QWidget, private Ui::Knot_Style_Widget
+
+class Dock_Knot_Style : public QDockWidget, private Ui::Dock_Knot_Style
 {
     Q_OBJECT
 
 
 public:
-    explicit Knot_Style_Widget(QWidget *parent = 0);
+    explicit Dock_Knot_Style(QWidget *parent = 0);
 
     void set_style(const Node_Style& nst, const Edge_Style& est );
     Node_Style node_style() const;
@@ -77,4 +78,4 @@ private:
     void load_cusp_shapes();
 };
 
-#endif // KNOT_STYLE_WIDGET_HPP
+#endif // DOCK_KNOT_STYLE_HPP

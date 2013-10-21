@@ -35,7 +35,7 @@ Dock_Knot_Display::Dock_Knot_Display(QWidget *parent) :
     QDockWidget(parent)
 {
     setupUi(this);
-    setWidget(central_widget);
+    //setWidget(central_widget);
     /*list_colors->setModel(&color_list_model);
     color_list_model.insert_new();
     list_colors->setIndexWidget(color_list_model.index(0,0),new Color_Selector);

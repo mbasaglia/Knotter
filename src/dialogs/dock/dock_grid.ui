@@ -6,70 +6,141 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>182</width>
-    <height>189</height>
+    <width>230</width>
+    <height>250</height>
    </rect>
   </property>
   <property name="windowIcon">
-   <iconset theme="configure-grid"/>
+   <iconset theme="configure-grid">
+    <normaloff/>
+   </iconset>
   </property>
   <property name="windowTitle">
    <string>Configure Grid</string>
   </property>
-  <widget class="QWidget" name="dockWidgetContents">
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="spacing">
-     <number>0</number>
+  <widget class="QScrollArea" name="scrollArea">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::NoFrame</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>216</width>
+      <height>232</height>
+     </rect>
     </property>
-    <property name="leftMargin">
-     <number>6</number>
-    </property>
-    <property name="topMargin">
-     <number>0</number>
-    </property>
-    <property name="rightMargin">
-     <number>6</number>
-    </property>
-    <property name="bottomMargin">
-     <number>0</number>
-    </property>
-    <item>
-     <widget class="QCheckBox" name="check_enable">
-      <property name="text">
-       <string>Enable Grid</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="1">
-       <widget class="QSpinBox" name="spin_size">
-        <property name="suffix">
-         <string>px</string>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>1024</number>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Size</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" colspan="2">
-       <layout class="QGridLayout" name="gridLayout_3">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QCheckBox" name="check_enable">
+       <property name="text">
+        <string>Enable Grid</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Size</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QSpinBox" name="spin_size">
+         <property name="suffix">
+          <string>px</string>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>1024</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QComboBox" name="combo_shape">
+         <item>
+          <property name="text">
+           <string>Square</string>
+          </property>
+          <property name="icon">
+           <iconset theme="grid-square">
+            <normaloff/>
+           </iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Triangle 1</string>
+          </property>
+          <property name="icon">
+           <iconset theme="grid-triangle-h">
+            <normaloff/>
+           </iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Triangle 2</string>
+          </property>
+          <property name="icon">
+           <iconset theme="grid-triangle-v">
+            <normaloff/>
+           </iconset>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Shape</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string>Origin</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>x</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="1">
          <widget class="QDoubleSpinBox" name="spin_x">
           <property name="minimum">
@@ -80,10 +151,16 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_3">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
-           <string>x</string>
+           <string>y</string>
           </property>
          </widget>
         </item>
@@ -97,59 +174,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>y</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Shape</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QComboBox" name="combo_shape">
-        <item>
-         <property name="text">
-          <string>Square</string>
-         </property>
-         <property name="icon">
-          <iconset theme="grid-square">
-           <normaloff/>
-          </iconset>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Triangle 1</string>
-         </property>
-         <property name="icon">
-          <iconset theme="grid-triangle-h">
-           <normaloff/>
-          </iconset>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Triangle 2</string>
-         </property>
-         <property name="icon">
-          <iconset theme="grid-triangle-v">
-           <normaloff/>
-          </iconset>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="3" column="0" colspan="2">
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
+        <item row="2" column="0">
          <widget class="QPushButton" name="button_reset">
           <property name="toolTip">
            <string>Reset grid position</string>
@@ -159,7 +184,7 @@
           </property>
          </widget>
         </item>
-        <item>
+        <item row="2" column="1">
          <widget class="QPushButton" name="button_move">
           <property name="text">
            <string>Move...</string>
@@ -167,10 +192,10 @@
          </widget>
         </item>
        </layout>
-      </item>
-     </layout>
-    </item>
-   </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
  </widget>
  <resources/>

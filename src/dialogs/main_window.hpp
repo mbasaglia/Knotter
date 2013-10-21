@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "dock_borders.hpp"
 #include "dock_script_log.hpp"
 #include "crossing_style_widget.hpp"
-#include "knot_style_widget.hpp"
+#include "dock_knot_style.hpp"
 
 class Main_Window : public QMainWindow, private Ui::Main_Window
 {
@@ -59,7 +59,7 @@ private:
     Dock_Grid*              dock_grid;  ///< Grid conf dock
     Dock_Knot_Display*      dock_knot_display;///< Display conf dock
     Dock_Background*        dock_background;
-    Knot_Style_Widget*      widget_global_style;
+    Dock_Knot_Style*        dock_knot_style;
     Cusp_Style_Widget*      widget_node_style;
     Dock_Borders*           dock_borders;
     About_Dialog            about_dialog;

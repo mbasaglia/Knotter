@@ -24,11 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "knot_style_widget.hpp"
+#include "dock_knot_style.hpp"
 #include "resource_manager.hpp"
 
-Knot_Style_Widget::Knot_Style_Widget(QWidget *parent) :
-    QWidget(parent)
+Dock_Knot_Style::Dock_Knot_Style(QWidget *parent) :
+    QDockWidget(parent)
 {
     setupUi(this);
     label_tooltip();
@@ -54,7 +54,7 @@ Knot_Style_Widget::Knot_Style_Widget(QWidget *parent) :
 
 }
 
-void Knot_Style_Widget::set_style(const Node_Style &nst, const Edge_Style &est)
+void Dock_Knot_Style::set_style(const Node_Style &nst, const Edge_Style &est)
 {
 
     for(int i = 0; i < combo_cusp_shape->count(); i++ )
@@ -77,7 +77,7 @@ void Knot_Style_Widget::set_style(const Node_Style &nst, const Edge_Style &est)
     spin_handle_length->setValue(est.handle_length);
 }
 
-Node_Style Knot_Style_Widget::node_style() const
+Node_Style Dock_Knot_Style::node_style() const
 {
     return Node_Style(
                 spin_cusp_angle->value(),
@@ -89,7 +89,7 @@ Node_Style Knot_Style_Widget::node_style() const
 }
 
 
-Edge_Style Knot_Style_Widget::edge_style() const
+Edge_Style Dock_Knot_Style::edge_style() const
 {
     return Edge_Style(
                 spin_handle_length->value(),
@@ -101,21 +101,21 @@ Edge_Style Knot_Style_Widget::edge_style() const
 }
 
 
-Cusp_Shape *Knot_Style_Widget::cusp_shape() const
+Cusp_Shape *Dock_Knot_Style::cusp_shape() const
 {
     return cusp_shape(combo_cusp_shape->currentIndex());
 }
 
 
-Cusp_Shape *Knot_Style_Widget::cusp_shape(int index) const
+Cusp_Shape *Dock_Knot_Style::cusp_shape(int index) const
 {
     return combo_cusp_shape->itemData(index).value<Cusp_Shape*>();
 }
 
 
-void Knot_Style_Widget::changeEvent(QEvent *e)
+void Dock_Knot_Style::changeEvent(QEvent *e)
 {
-    QWidget::changeEvent(e);
+    QDockWidget::changeEvent(e);
     switch (e->type()) {
         case QEvent::LanguageChange:
         {
@@ -129,13 +129,13 @@ void Knot_Style_Widget::changeEvent(QEvent *e)
     }
 }
 
-void Knot_Style_Widget::on_combo_cusp_shape_activated(int index)
+void Dock_Knot_Style::on_combo_cusp_shape_activated(int index)
 {
     emit cusp_shape_changed(cusp_shape(index));
 }
 
 
-void Knot_Style_Widget::label_tooltip()
+void Dock_Knot_Style::label_tooltip()
 {
     foreach(QLabel* l, findChildren<QLabel*>())
     {
@@ -145,7 +145,7 @@ void Knot_Style_Widget::label_tooltip()
     }
 }
 
-void Knot_Style_Widget::reload_cusp_shapes()
+void Dock_Knot_Style::reload_cusp_shapes()
 {
 
     // reload cusp shapes
@@ -178,7 +178,7 @@ void Knot_Style_Widget::reload_cusp_shapes()
 }
 
 
-void Knot_Style_Widget::emit_edge_slide(int percent)
+void Dock_Knot_Style::emit_edge_slide(int percent)
 {
     emit edge_slide_changed(percent/100.0);
 }

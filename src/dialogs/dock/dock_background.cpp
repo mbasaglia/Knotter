@@ -32,7 +32,6 @@ Dock_Background::Dock_Background(QWidget *parent) :
     QDockWidget(parent)
 {
     setupUi(this);
-    setWidget(central_widget);
 
     connect(button_move,SIGNAL(clicked()),SIGNAL(move_image()));
     connect(spin_scale,SIGNAL(valueChanged(double)),SIGNAL(image_scaled(double)));

@@ -23,8 +23,7 @@ HEADERS += \
     $$PWD/border_edit_widget.hpp \
     $$PWD/copyable_text_browser.hpp \
     $$PWD/script_edit.hpp \
-    $$PWD/script_highlighter.hpp \
-    $$PWD/knot_style_widget.hpp
+    $$PWD/script_highlighter.hpp
 
 SOURCES += \
     $$PWD/border_widget.cpp \
@@ -33,11 +32,9 @@ SOURCES += \
     $$PWD/border_edit_widget.cpp \
     $$PWD/copyable_text_browser.cpp \
     $$PWD/script_edit.cpp \
-    $$PWD/script_highlighter.cpp \
-    $$PWD/knot_style_widget.cpp
+    $$PWD/script_highlighter.cpp
 
 FORMS += \
     $$PWD/cusp_style_widget.ui \
     $$PWD/crossing_style_widget.ui \
-    $$PWD/border_edit_widget.ui \
-    $$PWD/knot_style_widget.ui
+    $$PWD/border_edit_widget.ui

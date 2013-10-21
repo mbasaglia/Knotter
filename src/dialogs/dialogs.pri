@@ -30,7 +30,8 @@ HEADERS += \
     $$PWD/dock/dock_script_log.hpp \
     $$PWD/wizard_create_plugin.hpp \
     $$PWD/dock/dock_grid.hpp \
-    $$PWD/dialog_edge_properties.hpp
+    $$PWD/dialog_edge_properties.hpp \
+    $$PWD/dock/dock_knot_style.hpp
 
 SOURCES += \
     $$PWD/main_window.cpp \
@@ -46,7 +47,8 @@ SOURCES += \
     $$PWD/dock/dock_borders.cpp \
     $$PWD/dock/dock_script_log.cpp \
     $$PWD/wizard_create_plugin.cpp \
-    $$PWD/dialog_edge_properties.cpp
+    $$PWD/dialog_edge_properties.cpp \
+    $$PWDdock/dock_knot_style.cpp
 
 FORMS += \
     $$PWD/main_window.ui \
@@ -62,4 +64,5 @@ FORMS += \
     $$PWD/dock/dock_borders.ui \
     $$PWD/dock/dock_script_log.ui \
     $$PWD/wizard_create_plugin.ui \
-    $$PWD/dialog_edge_properties.ui
+    $$PWD/dialog_edge_properties.ui \
+    $$PWD/dock/dock_knot_style.ui
