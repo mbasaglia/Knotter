@@ -24,35 +24,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "plugin_cusp.hpp"
-#include "resource_manager.hpp"
-#include "cusp_scripted.hpp"
+#ifndef PLUGIN_CROSSING_HPP
+#define PLUGIN_CROSSING_HPP
+#include "plugin.hpp"
+#include "edge_type.hpp"
 
-Plugin_Cusp::Plugin_Cusp(const QVariantMap &metadata)
-    : Plugin(metadata,Plugin::Cusp)
+/**
+ * \brief Plugin that manages a scripted edge type
+ */
+class Plugin_Crossing : public Plugin
 {
-    if ( icon().isNull() )
-        set_data("icon","cusp-other");
-    cusp_shape = new Cusp_Scripted(this);
+    class Edge_Scripted* edge_type;
+public:
+    Plugin_Crossing(const QVariantMap &metadata);
+    ~Plugin_Crossing();
 
-    if ( is_enabled() )
-        enable(true);
-}
+protected:
+    void on_enable(bool b) override;
+};
 
-Plugin_Cusp::~Plugin_Cusp()
-{
-    if ( !Resource_Manager::cusp_shapes().contains(cusp_shape) )
-        delete cusp_shape;
-}
-
-
-void Plugin_Cusp::on_enable(bool b)
-{
-    if ( b )
-    {
-        if ( !Resource_Manager::cusp_shapes().contains(cusp_shape) )
-            Resource_Manager::register_cusp_shape(cusp_shape);
-    }
-    else
-        Resource_Manager::remove_cusp_shape(cusp_shape);
-}
+#endif // PLUGIN_CROSSING_HPP

@@ -38,6 +38,7 @@ Wizard_Create_Plugin::Wizard_Create_Plugin(QWidget *parent) :
 
     combo_type->addItem(tr("Script"),Plugin::Script);
     combo_type->addItem(tr("Cusp"),Plugin::Cusp);
+    combo_type->addItem(tr("Crossing"),Plugin::Crossing);
 
 
     int row = table_data->rowCount();

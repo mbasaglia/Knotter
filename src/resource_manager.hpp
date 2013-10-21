@@ -65,8 +65,6 @@ private:
     QScriptEngineAgent* m_script_engine_agent;
     QTimer*             script_timeout;
 
-    //QString m_default_style_name;
-
 public:
     static Settings settings;
     static Resource_Manager * const pointer ;
@@ -162,13 +160,21 @@ public:
     static void register_edge_type(Edge_Type* type);
 
     /**
+     * \brief Removes an edge type
+     *
+     * The object is not destroyed but loses ownership, the caller
+     * becomes responsible of destructing the shape object.
+     */
+    static void remove_edge_type(Edge_Type* type);
+
+    /**
      *  \brief get the default edge style
      *
      *  \returns the first inserted style or nullptr if there is no style
      */
     static Edge_Type* default_edge_type();
 
-    static QList<Edge_Type*> edge_styles() { return singleton.m_edge_types; }
+    static QList<Edge_Type*> edge_types() { return singleton.m_edge_types; }
 
     /**
      *  \brief Cycle edge styles
@@ -244,6 +250,11 @@ public:
     /// Get active plugins of given type
     static QList<Plugin*> active_plugins(Plugin::Type type);
 
+
+    /*/// Get a reference to the internal script engine
+    static QScriptEngine* script_engine() { return singleton.m_script_engine; }*/
+
+    /// Get the script engine agent
     static QScriptEngineAgent& script_engine_agent() { return *singleton.m_script_engine_agent; }
 
     /**
@@ -265,26 +276,31 @@ public:
     static void script_param_template(QString name, const T& value)
     { script_param(name,singleton.m_script_engine->toScriptValue(value)); }
 
-    /// Run a script in the current context
-    static void run_script(Plugin* source);
+    /**
+     *  \brief Run a script in the current context
+     *  \param source      Code to be executed
+     *  \param[out] activation_object If not \c nullptr used to store the context activation object
+     *  \param[out] global_object     If not \c nullptr used to store the context global object
+     *  \return The value resulting from the evaluation of the script
+     */
+    static QScriptValue run_script(Plugin* source,
+                                   QScriptValue* activation_object=nullptr);
 
     /**
      *  \brief Execute a script
      *  \param program      Code to be executed
      *  \param fileName     Name of the file, used for error reporting
      *  \param lineNumber   First line of the file, used for error reporting
-     *  \param[out] context_value If not \c nullptr used to store the context value
+     *  \param[out] activation_object If not \c nullptr used to store the context activation object
      *  \return The value resulting from the evaluation of the script
      */
     static QScriptValue run_script(const QString &program,
                                    const QString &fileName = QString(),
                                    int lineNumber = 1,
-                                   QScriptValue* context_value=nullptr);
+                                   QScriptValue* activation_object=nullptr );
 
 
     static void emit_script_output(QString s) { emit singleton.script_output(s); }
-
-    //static QString default_style_name() { return singleton.m_default_style_name; }
 
 public slots:
 
@@ -304,6 +320,9 @@ signals:
 
     /// Emitted when a cusp shape is registered or removed
     void cusp_shapes_changed();
+
+    /// Emitted when an edge type is registered or removed
+    void edge_types_changed();
 
     /// Emitted when an error has to be added to the plugin log
     void script_error(QString file,int line,QString msg, QStringList trace);

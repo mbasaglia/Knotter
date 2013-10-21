@@ -47,7 +47,8 @@ public:
     {
         Invalid,    ///< An invalid plugin
         Cusp,       ///< Node cusp
-        Script      ///< A script triggered by the user
+        Script,     ///< A script triggered by the user
+        Crossing    ///< Edge crossing
     };
 
 private:

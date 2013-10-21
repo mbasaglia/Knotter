@@ -39,7 +39,7 @@ public:
 
     QString name() const override { return plugin->string_data("name"); }
 
-    QString machine_name() const override { return plugin->machine_name(); }
+    QString machine_name() const override;
 
     virtual QIcon icon() const override { return plugin->icon(); }
 

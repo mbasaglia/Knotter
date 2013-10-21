@@ -1,0 +1,12 @@
+{
+	"author" : "Mattia Basaglia",
+	"description" : "An implementation of the built-in normal edge type as a plugin, disabled by default.\n\nThis plugin serves as an example on how to create crossing plugins.",
+    "license" : "GPLv3+",
+	"name" : "Example Edge",
+	"requires" : "0.9.6",
+	"script" : "example_edge.js",
+	"type" : "crossing",
+	"version" : "1",
+	"traverse" : "var result = traverse(edge,handle,style);",
+	"handle" : "var result = handle_line(edge,handle,style);"
+}

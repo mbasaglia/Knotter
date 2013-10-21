@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "script_window.hpp"
 #include "script_polygon.hpp"
 #include "script_color.hpp"
+#include "edge_scripted.hpp"
 #include <QApplication>
 #include <QStyle>
 
@@ -171,8 +172,6 @@ QStringList Resource_Manager::data_directories_unckecked(QString name)
 
 void Resource_Manager::initialize(QString default_lang_code)
 {
-    //singleton.m_default_style_name = QApplication::style()->objectName();
-
     qApp->setApplicationName(TARGET);
     qApp->setApplicationVersion(program_version());
     qApp->setOrganizationDomain(DOMAIN_NAME);
@@ -245,6 +244,8 @@ void Resource_Manager::initialize(QString default_lang_code)
     qScriptRegisterMetaType(engine, polygon_to_script, polygon_from_script);
     qRegisterMetaType<Script_Color>("Script_Color");
     qScriptRegisterMetaType(engine, color_to_script, color_from_script);
+
+    qScriptRegisterMetaType(engine,edge_handle_to_script,edge_handle_from_script);
 
 
     //plugins
@@ -377,6 +378,13 @@ void Resource_Manager::save_settings()
 void Resource_Manager::register_edge_type(Edge_Type *type)
 {
     singleton.m_edge_types.push_back(type);
+    emit singleton.edge_types_changed();
+}
+
+void Resource_Manager::remove_edge_type(Edge_Type *type)
+{
+    singleton.m_edge_types.removeOne(type);
+    emit singleton.edge_types_changed();
 }
 
 Edge_Type *Resource_Manager::default_edge_type()
@@ -558,7 +566,8 @@ void Resource_Manager::script_param(QString name, QObject* value,
     );
 }
 
-void Resource_Manager::run_script(Plugin *source)
+QScriptValue Resource_Manager::run_script(Plugin *source,
+                                          QScriptValue *activation_object)
 {
 
     script_context();
@@ -570,15 +579,16 @@ void Resource_Manager::run_script(Plugin *source)
     }
     script_param("plugin",plugin);
 
-    run_script(source->script_program().sourceCode(),
-               source->script_program().fileName(),
-               source->script_program().firstLineNumber());
+    return run_script(source->script_program().sourceCode(),
+                      source->script_program().fileName(),
+                      source->script_program().firstLineNumber(),
+                      activation_object);
 }
 
 QScriptValue Resource_Manager::run_script(const QString &program,
                                           const QString &fileName,
                                           int lineNumber,
-                                          QScriptValue *context_value)
+                                          QScriptValue *activation_object)
 {
     script_context();
     if ( settings.script_timeout() > 0 )
@@ -606,8 +616,8 @@ QScriptValue Resource_Manager::run_script(const QString &program,
                                 );
         singleton.m_script_engine->clearExceptions();
     }
-    if ( context_value != nullptr )
-        *context_value = singleton.current_context->activationObject();
+    if ( activation_object != nullptr )
+        *activation_object = singleton.current_context->activationObject();
     singleton.m_script_engine->popContext();
     singleton.current_context = nullptr;
     return result;

@@ -59,7 +59,7 @@ signals:
 private slots:
     void checkbox_toggled(int style);
     void emit_edge_slide(int percent);
-
+    void reload_edge_types();
     void on_combo_edge_type_activated(int index);
 
 private:

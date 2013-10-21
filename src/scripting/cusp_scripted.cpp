@@ -31,6 +31,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "traversal_info.hpp"
 #include "resource_manager.hpp"
 
+QString Cusp_Scripted::machine_name() const
+{
+    return "plugin_"+name();
+}
+
 void Cusp_Scripted::draw_joint(Path_Builder &path, const Traversal_Info &ti, const Node_Style &style) const
 {
     Script_Line input_edge ( ti.node->pos(), ti.in.edge->other(ti.node)->pos() );
@@ -39,8 +44,6 @@ void Cusp_Scripted::draw_joint(Path_Builder &path, const Traversal_Info &ti, con
     Script_Line finish_handle = ti.out.edge->style().edge_type->handle(ti.out.edge,ti.out.handle);
     Script_Point cusp_point = this->cusp_point(ti,style.cusp_distance);
     Script_Point node_point = ti.node->pos();
-
-
 
 
     Resource_Manager::script_param_template("input_edge",input_edge);

@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDir>
 #include "resource_manager.hpp"
 #include "plugin_cusp.hpp"
+#include "plugin_crossing.hpp"
 
 #include <QUiLoader>
 #include <QFile>
@@ -171,6 +172,8 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
     Plugin::Type type = Plugin::Invalid;
     if ( data["type"] == "cusp" )
         type = Cusp;
+    else if ( data["type"] == "crossing" )
+        type = Crossing;
     else
         type = Script;
 
@@ -182,6 +185,9 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
     {
         case Cusp:
             p = new Plugin_Cusp(data);
+            break;
+        case Crossing:
+            p = new Plugin_Crossing(data);
             break;
         case Script:
             p = new Plugin(data,type);
@@ -222,7 +228,7 @@ bool Plugin::is_valid() const
     if ( m_type == Invalid )
         return false;
     if ( m_metadata.contains("requires") &&
-         !Resource_Manager::has_least_version(m_metadata["requires"].toString()) )
+         !Resource_Manager::has_least_version(string_data("requires")) )
         return false;
     return true;
 }

@@ -6,5 +6,15 @@ src/generated/*.h
 *.pro.user
 *.desktop
 *.tar.gz
+*.tar.gz.md5
 data/plugins/*.sh
 package/*
+data/translations/*.po
+data/translations/*.pot
+Makefile
+Doxyfile
+build/
+doc/
+misc/
+configured_directories.sh
+push.sh
