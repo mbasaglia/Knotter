@@ -177,8 +177,17 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
     else
         type = Script;
 
-    if ( type == Script && !data.contains("category") )
-        data["category"] = "Other";
+    if ( !data.contains("category") )
+    {
+        switch (type)
+        {
+            case Cusp: data["category"] = QObject::tr("Cusp"); break;
+            case Crossing: data["category"] = QObject::tr("Crossing"); break;
+            case Script: data["category"] = QObject::tr("Other"); break;
+            default: data["category"] = QObject::tr("Invalid"); break;
+        }
+
+    }
 
     Plugin* p;
     switch (type)

@@ -2,5 +2,7 @@
     "name"        : "Plugin Tutorial",
     "description" : "This is the plugin created following the tutorial",
     "script"      : "line.js",
-    "auto_enable" : false
+    "auto_enable" : false,
+    "requires"    : "0.9.3",
+    "category"    : "Example"
 }

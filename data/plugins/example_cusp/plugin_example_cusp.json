@@ -8,6 +8,7 @@
     "icon"          : "cusp-round",
     "script"        : "example_cusp.js",
     "requires"      : "0.9.2",
-    "auto_enable"   : false
+    "auto_enable"   : false,
+    "category"      : "Example"
 }
     

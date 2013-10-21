@@ -9,5 +9,6 @@
     "version" : "1",
     "traverse" : "var result = traverse(edge,handle,style);",
     "handle" : "var result = handle_line(edge,handle,style);",
-    "auto_enable"   : false
+    "auto_enable"   : false,
+    "category" : "Example"
 }
