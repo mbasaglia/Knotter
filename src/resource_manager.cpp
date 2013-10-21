@@ -566,7 +566,8 @@ void Resource_Manager::script_param(QString name, QObject* value,
     );
 }
 
-void Resource_Manager::run_script(Plugin *source)
+QScriptValue Resource_Manager::run_script(Plugin *source,
+                                          QScriptValue *activation_object)
 {
 
     script_context();
@@ -578,15 +579,16 @@ void Resource_Manager::run_script(Plugin *source)
     }
     script_param("plugin",plugin);
 
-    run_script(source->script_program().sourceCode(),
-               source->script_program().fileName(),
-               source->script_program().firstLineNumber());
+    return run_script(source->script_program().sourceCode(),
+                      source->script_program().fileName(),
+                      source->script_program().firstLineNumber(),
+                      activation_object);
 }
 
 QScriptValue Resource_Manager::run_script(const QString &program,
                                           const QString &fileName,
                                           int lineNumber,
-                                          QScriptValue *context_value)
+                                          QScriptValue *activation_object)
 {
     script_context();
     if ( settings.script_timeout() > 0 )
@@ -614,8 +616,8 @@ QScriptValue Resource_Manager::run_script(const QString &program,
                                 );
         singleton.m_script_engine->clearExceptions();
     }
-    if ( context_value != nullptr )
-        *context_value = singleton.current_context->activationObject();
+    if ( activation_object != nullptr )
+        *activation_object = singleton.current_context->activationObject();
     singleton.m_script_engine->popContext();
     singleton.current_context = nullptr;
     return result;

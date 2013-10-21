@@ -250,6 +250,11 @@ public:
     /// Get active plugins of given type
     static QList<Plugin*> active_plugins(Plugin::Type type);
 
+
+    /*/// Get a reference to the internal script engine
+    static QScriptEngine* script_engine() { return singleton.m_script_engine; }*/
+
+    /// Get the script engine agent
     static QScriptEngineAgent& script_engine_agent() { return *singleton.m_script_engine_agent; }
 
     /**
@@ -271,21 +276,28 @@ public:
     static void script_param_template(QString name, const T& value)
     { script_param(name,singleton.m_script_engine->toScriptValue(value)); }
 
-    /// Run a script in the current context
-    static void run_script(Plugin* source);
+    /**
+     *  \brief Run a script in the current context
+     *  \param source      Code to be executed
+     *  \param[out] activation_object If not \c nullptr used to store the context activation object
+     *  \param[out] global_object     If not \c nullptr used to store the context global object
+     *  \return The value resulting from the evaluation of the script
+     */
+    static QScriptValue run_script(Plugin* source,
+                                   QScriptValue* activation_object=nullptr);
 
     /**
      *  \brief Execute a script
      *  \param program      Code to be executed
      *  \param fileName     Name of the file, used for error reporting
      *  \param lineNumber   First line of the file, used for error reporting
-     *  \param[out] context_value If not \c nullptr used to store the context value
+     *  \param[out] activation_object If not \c nullptr used to store the context activation object
      *  \return The value resulting from the evaluation of the script
      */
     static QScriptValue run_script(const QString &program,
                                    const QString &fileName = QString(),
                                    int lineNumber = 1,
-                                   QScriptValue* context_value=nullptr);
+                                   QScriptValue* activation_object=nullptr );
 
 
     static void emit_script_output(QString s) { emit singleton.script_output(s); }

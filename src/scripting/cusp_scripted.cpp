@@ -46,8 +46,6 @@ void Cusp_Scripted::draw_joint(Path_Builder &path, const Traversal_Info &ti, con
     Script_Point node_point = ti.node->pos();
 
 
-
-
     Resource_Manager::script_param_template("input_edge",input_edge);
     Resource_Manager::script_param_template("output_edge",output_edge);
     Resource_Manager::script_param_template("start_handle",start_handle);

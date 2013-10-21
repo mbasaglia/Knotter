@@ -54,6 +54,12 @@ public:
     QString name() const override;
     QString machine_name() const override;
     QIcon icon() const override;
+
+private:
+    /**
+     * \brief Executes the common script file and preserves the local context
+     */
+    void setup_script() const;
 };
 
 

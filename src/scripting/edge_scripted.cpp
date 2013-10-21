@@ -27,41 +27,89 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "edge_scripted.hpp"
 #include "resource_manager.hpp"
 #include "script_path_builder.hpp"
+#include "script_graph.hpp"
 
 Edge_Scripted::Edge_Scripted(Plugin_Crossing *plugin)
     : plugin(plugin)
 {
 }
 
-Edge::Handle Edge_Scripted::traverse(Edge *edge, Edge::Handle handle, Path_Builder &path) const
+
+void Edge_Scripted::setup_script() const
 {
-    Resource_Manager::script_param_template("handle",handle);
+    // set up enum
     Resource_Manager::script_param_template("BOTTOM_LEFT",Edge::BOTTOM_LEFT);
     Resource_Manager::script_param_template("BOTTOM_RIGHT",Edge::BOTTOM_RIGHT);
     Resource_Manager::script_param_template("TOP_LEFT",Edge::TOP_LEFT);
     Resource_Manager::script_param_template("TOP_RIGHT",Edge::TOP_RIGHT);
+
+    // run common script, preserving changes to the local context
+    QScriptValue old_local;
+    Resource_Manager::run_script(plugin,&old_local);
+
+    // restore context from previous execution
+    QScriptContext *new_context = Resource_Manager::script_context();
+    new_context->setActivationObject(old_local);
+}
+
+Edge::Handle Edge_Scripted::traverse(Edge *edge, Edge::Handle handle, Path_Builder &path) const
+{
+    // run common script
+    setup_script();
+
+    // set up params
+    Resource_Manager::script_param_template("handle",handle);
+    Resource_Manager::script_param_template("result",handle);
 
     Script_Path_Builder script_path(&path);
     Resource_Manager::script_param("path",&script_path);
 
-    Resource_Manager::run_script(plugin);
-    /// \todo
+    Script_Graph script_graph(*edge->graph());
+    Script_Edge script_edge(edge,&script_graph);
+    Resource_Manager::script_param("edge",&script_edge);
 
-    return Resource_Manager::default_edge_type()->traverse(edge,handle,path);
+    Script_Edge_Style script_style(edge->defaulted_style());
+    Resource_Manager::script_param("style",&script_style);
+
+    // Run traverse script
+    QScriptValue local;
+    Resource_Manager::run_script(plugin->string_data("traverse"),
+        QString("%1:traverse").arg(plugin->string_data("plugin_file")),
+        1,&local);
+
+    // Extract value
+    edge_handle_from_script(local.property("result"),handle);
+    return handle;
 }
 
 QLineF Edge_Scripted::handle(const Edge *edge, Edge::Handle handle) const
 {
+    // run common script
+    setup_script();
+
+    // set up params
     Resource_Manager::script_param_template("handle",handle);
-    Resource_Manager::script_param_template("BOTTOM_LEFT",Edge::BOTTOM_LEFT);
-    Resource_Manager::script_param_template("BOTTOM_RIGHT",Edge::BOTTOM_RIGHT);
-    Resource_Manager::script_param_template("TOP_LEFT",Edge::TOP_LEFT);
-    Resource_Manager::script_param_template("TOP_RIGHT",Edge::TOP_RIGHT);
 
-    Resource_Manager::run_script(plugin);
-    /// \todo
+    Script_Graph script_graph(*edge->graph());
+    /// \warning const_cast
+    Script_Edge script_edge(const_cast<Edge*>(edge),&script_graph);
+    Resource_Manager::script_param("edge",&script_edge);
 
-    return Resource_Manager::default_edge_type()->handle(edge,handle);
+    Script_Edge_Style script_style(edge->defaulted_style());
+    Resource_Manager::script_param("style",&script_style);
+
+    Script_Line result;
+    Resource_Manager::script_param("result",&result);
+
+    // Run handle script
+    QScriptValue local;
+    Resource_Manager::run_script(plugin->string_data("handle"),
+        QString("%1:handle").arg(plugin->string_data("plugin_file")),
+        1,&local);
+
+    // Extract value
+    line_from_script(local.property("result"),result);
+    return result;
 }
 
 void Edge_Scripted::paint(QPainter *painter, const Edge &edge)
@@ -83,6 +131,7 @@ QIcon Edge_Scripted::icon() const
 {
     return plugin->icon();
 }
+
 
 
 QString Edge_Scripted::machine_name() const
