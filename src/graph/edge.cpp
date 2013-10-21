@@ -95,7 +95,6 @@ Edge_Style Edge::defaulted_style() const
 
 void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    /// \todo check that if plugins are reloaded this won't be called with an invalid m_style.edge_type
     if ( isSelected() )
     {
         QPen pen(color_selected,2);
