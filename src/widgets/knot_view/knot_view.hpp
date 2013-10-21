@@ -433,6 +433,11 @@ private slots:
     /// Expand scene rect when scrollbars reach margin
     void update_scrollbars() { expand_scene_rect(2); }
 
+    /**
+     * \brief Checks that all cusp shapes and edge types are valid
+     */
+    void check_plugins();
+
 private:
     /**
      *  \brief Get node at location

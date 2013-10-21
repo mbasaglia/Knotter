@@ -47,6 +47,9 @@ Knot_View::Knot_View(QString file)
 {
     //setViewport(new QGLWidget);
 
+    connect(Resource_Manager::pointer,SIGNAL(plugins_changed()),
+            SLOT(check_plugins()));
+
     tool_edge_chain.set_graph(&m_graph);
     tool_select.set_graph(&m_graph);
     tool_toggle_edge.set_graph(&m_graph);
@@ -702,6 +705,32 @@ void Knot_View::rubberband_select(QList<Node *> nodes, bool modifier)
     }
 
     update_selection(false);
+}
+
+void Knot_View::check_plugins()
+{
+    if ( !Resource_Manager::cusp_shapes().contains(m_graph.default_node_style().cusp_shape) )
+    {
+        m_graph.default_node_style_reference().cusp_shape =
+                Resource_Manager::default_cusp_shape();
+    }
+    foreach(Node* n, m_graph.nodes())
+    {
+        if ( n->style().enabled_style & Node_Style::CUSP_SHAPE &&
+             !Resource_Manager::cusp_shapes().contains(n->style().cusp_shape) )
+        {
+            n->style().cusp_shape = nullptr;
+            n->style().enabled_style ^= Node_Style::CUSP_SHAPE;
+        }
+    }
+
+    foreach(Edge* e, m_graph.edges())
+    {
+        if ( !Resource_Manager::edge_types().contains(e->style().edge_type) )
+        {
+            e->style().edge_type = Resource_Manager::default_edge_type();
+        }
+    }
 }
 
 Node *Knot_View::node_at(QPointF p) const
