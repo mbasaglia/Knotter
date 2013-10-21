@@ -47,17 +47,14 @@ class Script_Graph_Style : public QObject
 
     //friend class Script_Graph;
 
-    class Script_Graph* owner;///< \todo maybe not needed
     Script_Edge_Style m_crossing_style;
     Script_Node_Style m_cusp_style;
     QList<Script_Color*> m_colors;
 
 public:
-    Script_Graph_Style(class Script_Graph* owner,
-                       Edge_Style crossing_style,
+    Script_Graph_Style(Edge_Style crossing_style,
                        Node_Style cusp_style, QList<QColor> colors);
-    Script_Graph_Style(class Script_Graph* owner,
-                       const Script_Graph_Style &copy);
+    Script_Graph_Style(const Script_Graph_Style &copy);
 
     /**
      * \brief copy style from graph

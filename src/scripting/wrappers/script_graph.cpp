@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Script_Graph::Script_Graph(const Graph &graph, QObject *parent) :
     QObject(parent),
-    m_style(this,graph.default_edge_style(),graph.default_node_style(),
+    m_style(graph.default_edge_style(),graph.default_node_style(),
             graph.colors())
 {
     from_graph(graph);
@@ -41,7 +41,7 @@ Script_Graph::Script_Graph(const Graph &graph, QObject *parent) :
 
 Script_Graph::Script_Graph(const Script_Graph &g)
     : QObject(g.parent()),
-      m_style(this,g.m_style)
+      m_style(g.m_style)
 {
     QObject::connect(&m_style,SIGNAL(style_changed(Node_Style,Edge_Style,Node_Style,Edge_Style)),
             SIGNAL(style_changed(Node_Style,Edge_Style,Node_Style,Edge_Style)));

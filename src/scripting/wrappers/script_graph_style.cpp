@@ -27,11 +27,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "script_graph_style.hpp"
 #include "script_graph.hpp"
 
-Script_Graph_Style::Script_Graph_Style(Script_Graph *owner,
-                                       Edge_Style crossing_style,
+Script_Graph_Style::Script_Graph_Style(Edge_Style crossing_style,
                                        Node_Style cusp_style,
                                        QList<QColor> colors )
-    : owner(owner), m_crossing_style(crossing_style), m_cusp_style(cusp_style)
+    : m_crossing_style(crossing_style), m_cusp_style(cusp_style)
 {
     connect(&m_crossing_style,SIGNAL(changed(Edge_Style,Edge_Style)),
             SLOT(emit_style_changed(Edge_Style,Edge_Style)));
@@ -43,8 +42,9 @@ Script_Graph_Style::Script_Graph_Style(Script_Graph *owner,
 
 }
 
-Script_Graph_Style::Script_Graph_Style(Script_Graph *owner, const Script_Graph_Style &copy)
-    : owner(owner), m_crossing_style(copy.m_crossing_style.style()),
+Script_Graph_Style::Script_Graph_Style(const Script_Graph_Style &copy)
+    : QObject(copy.parent()),
+      m_crossing_style(copy.m_crossing_style.style()),
       m_cusp_style(copy.m_cusp_style.style())
 {
     connect(&m_crossing_style,SIGNAL(changed(Edge_Style,Edge_Style)),
