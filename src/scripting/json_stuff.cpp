@@ -26,11 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "json_stuff.hpp"
 #include <QTextStream>
-
-/*#if HAS_QT_5
-#include <QJsonObject>
-#include <QJsonDocument>
-#else*/
 #include <QScriptValue>
 #include <QScriptEngine>
 #include <QScriptValueIterator>
@@ -47,44 +42,21 @@ QString json_escape(QString s)
     return '"'+s+'"';
 }
 
-
+/// \todo (Maybe) Remove -- use the other overload
 QVariantMap json_read_file(QIODevice& file)
 {
     if ( ! file.isOpen() )
         return QVariantMap();
 
-    QVariantMap data;
+    QScriptEngine engine;
+    QScriptValue obj = json_read_file(file,&engine);
+    return obj.toVariant().toMap();
+}
 
+QScriptValue json_read_file(QIODevice& file, QScriptEngine* engine)
+{
     QByteArray json_data = file.readAll();
-
-    /*#if HAS_QT_5
-        QJsonParseError err;
-        QJsonDocument json ( QJsonDocument::fromJson(json_data,&err) );
-        if ( !json.isNull() )
-        {
-            data = json.object().toVariantMap();
-        }
-        else if ( err.error != QJsonParseError::NoError )
-        {
-            *error = err.errorString();
-        }
-    #else*/
-        QScriptEngine engine;
-        QScriptValue obj = engine.evaluate("(" + json_data + ")");
-        QScriptValueIterator it(obj);
-        while (it.hasNext()) {
-            it.next();
-            if (it.value().isNumber())
-                data.insert(it.name(),QVariant(it.value().toNumber()));
-            else if (it.value().isBool())
-                    data.insert(it.name(),QVariant(it.value().toBool()));
-            else
-                data.insert(it.name(),QVariant(it.value().toString()));
-            data.insert(it.name(),it.value().toString());
-        }
-    //#endif
-
-    return data;
+    return engine->evaluate("(" + json_data + ")");
 }
 
 
@@ -119,7 +91,7 @@ void json_convert_map(QTextStream& json, QVariantMap map , int indent)
             json << ",";
         json << "\n";
     }
-    json << QString(indent,'\n') << "}";
+    json << QString(indent,'\t') << "}";
 }
 
 void json_convert(QTextStream& json, QVariant v, int indent)
@@ -161,7 +133,7 @@ void json_convert(QTextStream& json, QVariant v, int indent)
     }
 }
 
-void json_write_file( QIODevice&file, QVariantMap values )
+void json_write_file( QIODevice&file, QVariant values )
 {
     if ( file.isOpen() )
     {

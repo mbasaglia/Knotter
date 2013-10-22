@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFile>
 #include <QVariantMap>
 #include <QTextStream>
+#include <QScriptEngine>
 
 /**
  * \brief Escape a string in order to write it in a JSON file
@@ -47,18 +48,28 @@ QString json_escape(QString s);
 void json_convert(QTextStream& json, QVariant v, int indent);
 
 /**
+ * \brief Read a JSON file into a QScriptEngine
+ * \pre \c file must be open for reading
+ * \param file   The JSON file
+ * \param engine Engine for the QScriptValue
+ * \return The contents of the file as a QScriptValue
+ */
+QScriptValue json_read_file(QIODevice& file, QScriptEngine* engine);
+
+/**
  * \brief Read a JSON file into a QVariantMap
  * \pre \c file must be open for reading
  * \param file  The JSON file
  * \return The contents of the file as a QVariantMap
  */
 QVariantMap json_read_file(QIODevice& file);
+
 /**
- * \brief Write a QVariantMap in a file as JSON
+ * \brief Write a QVariant in a file as JSON
  * \pre \c file must be open for writing
  * \param[out] file     The JSON file
  * \param      values   Values to write
  */
-void json_write_file( QIODevice&file, QVariantMap values );
+void json_write_file( QIODevice&file, QVariant values );
 
 #endif // JSON_STUFF_HPP

@@ -35,6 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "edge_scripted.hpp"
 #include <QApplication>
 #include <QStyle>
+#include "json_stuff.hpp"
 
 #if HAS_QT_5
 #include <QStandardPaths>
@@ -593,14 +594,51 @@ QScriptValue Resource_Manager::run_script(Plugin *source,
     QScriptValue plugin = singleton.m_script_engine->newObject();
     foreach(QString k, source->metadata().keys())
     {
+        /// \todo this creates ampty objects...
         plugin.setProperty(k,singleton.m_script_engine->newVariant(source->metadata()[k]));
     }
+
+    QFile plugin_settings(source->settings_file_path());
+    if ( plugin_settings.open(QFile::ReadOnly) )
+    {
+        plugin.setProperty("settings",
+                            json_read_file(plugin_settings,singleton.m_script_engine)
+                           );
+        plugin_settings.close();
+    }
+
+
     script_param("plugin",plugin);
 
-    return run_script(source->script_program().sourceCode(),
+    QScriptValue *activation_object_local = activation_object;
+    if ( activation_object == nullptr )
+        activation_object_local = new QScriptValue;
+
+
+    QScriptValue result = run_script(source->script_program().sourceCode(),
                       source->script_program().fileName(),
                       source->script_program().firstLineNumber(),
-                      activation_object);
+                      activation_object_local);
+
+    QDir plugin_settings_dir = Plugin::settings_directory();
+    if ( !plugin_settings_dir.exists() )
+        plugin_settings_dir.mkpath(".");
+    plugin_settings.unsetError();
+    if ( ! plugin_settings.open(QFile::WriteOnly) )
+        emit singleton.script_error(plugin_settings.fileName(),0,
+                                    tr("Cannot open file"),QStringList() );
+    else
+    {
+        json_write_file(plugin_settings,
+                        activation_object_local->property("plugin").property("settings")
+                            .toVariant() );
+    }
+
+    if ( activation_object == nullptr  )
+        delete activation_object_local;
+
+    return result;
+
 }
 
 QScriptValue Resource_Manager::run_script(const QString &program,

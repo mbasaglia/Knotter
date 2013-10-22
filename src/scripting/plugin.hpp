@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QIcon>
 #include <QScriptProgram>
 #include <QObject>
+#include <QDir>
 
 class Main_Window;
 
@@ -128,6 +129,10 @@ public:
      * \brief Get absolute settings file path
      */
     QString settings_file_path() const;
+    /**
+     * \brief Get absolute settings directory path
+     */
+    static QDir settings_directory();
 
 
 protected:

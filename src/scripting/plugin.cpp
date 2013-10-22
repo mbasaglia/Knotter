@@ -213,9 +213,14 @@ bool Plugin::reload_script_file()
 }
 
 QString Plugin::settings_file_path() const
+{;
+    return settings_directory().absoluteFilePath(
+                string_data("plugin_shortname")+"_config.json");
+}
+
+QDir Plugin::settings_directory()
 {
-    QDir loc = Resource_Manager::writable_data_directory("plugin_config");
-    return loc.absoluteFilePath(string_data("plugin_shortname")+"_config.json");
+    return Resource_Manager::writable_data_directory("plugin_config");
 }
 
 QString Plugin::script_file_path() const
