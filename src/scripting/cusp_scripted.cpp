@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 QString Cusp_Scripted::machine_name() const
 {
-    return "plugin_"+name();
+    return plugin->string_data("plugin_shortname");
 }
 
 void Cusp_Scripted::draw_joint(Path_Builder &path, const Traversal_Info &ti, const Node_Style &style) const

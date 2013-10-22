@@ -136,7 +136,7 @@ QIcon Edge_Scripted::icon() const
 
 QString Edge_Scripted::machine_name() const
 {
-    return "plugin_"+name();
+    return plugin->string_data("plugin_shortname");
 }
 
 

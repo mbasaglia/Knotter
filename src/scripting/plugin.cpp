@@ -155,10 +155,10 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
     QFileInfo fi(file.fileName());
     data["plugin_file"] = fi.absoluteFilePath();
     data["plugin_dir"] = fi.absolutePath();
+    data["plugin_shortname"] = fi.baseName();/// \todo document plugin_shortname
     if ( data["name"].toString().isEmpty() )
     {
-
-        data["name"] = fi.baseName();
+        data["name"] = data["plugin_shortname"];
     }
 
 
