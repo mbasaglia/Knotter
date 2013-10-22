@@ -30,22 +30,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_manager.hpp"
 #include "plugin_cusp.hpp"
 #include "plugin_crossing.hpp"
-
 #include <QUiLoader>
 #include <QFile>
 #include <QDialog>
-
-/*#if HAS_QT_5
-#include <QJsonObject>
-#include <QJsonDocument>
-#else*/
-#include <QScriptValue>
-#include <QScriptEngine>
-#include <QScriptValueIterator>
-//#endif
-
 #include "main_window.hpp"
-
+#include "json_stuff.hpp"
 
 
 Plugin::Plugin()
@@ -115,42 +104,9 @@ void Plugin::enable(bool e)
 
 Plugin* Plugin::from_file (QFile &file, QString* error )
 {
-
-
-
     error->clear();
 
-    QVariantMap data;
-
-
-    QByteArray json_data = file.readAll();
-
-    /*#if HAS_QT_5
-        QJsonParseError err;
-        QJsonDocument json ( QJsonDocument::fromJson(json_data,&err) );
-        if ( !json.isNull() )
-        {
-            data = json.object().toVariantMap();
-        }
-        else if ( err.error != QJsonParseError::NoError )
-        {
-            *error = err.errorString();
-        }
-    #else*/
-        QScriptEngine engine;
-        QScriptValue obj = engine.evaluate("(" + json_data + ")");
-        QScriptValueIterator it(obj);
-        while (it.hasNext()) {
-            it.next();
-            if (it.value().isNumber())
-                data.insert(it.name(),QVariant(it.value().toNumber()));
-            else if (it.value().isBool())
-                    data.insert(it.name(),QVariant(it.value().toBool()));
-            else
-                data.insert(it.name(),QVariant(it.value().toString()));
-            data.insert(it.name(),it.value().toString());
-        }
-    //#endif
+    QVariantMap data = json_read_file(file);
 
     QFileInfo fi(file.fileName());
     data["plugin_file"] = fi.absoluteFilePath();
@@ -256,6 +212,12 @@ bool Plugin::reload_script_file()
     return true;
 }
 
+QString Plugin::settings_file_path() const
+{
+    QDir loc = Resource_Manager::writable_data_directory("plugin_config");
+    return loc.absoluteFilePath(string_data("plugin_shortname")+"_config.json");
+}
+
 QString Plugin::script_file_path() const
 {
     return string_data("plugin_dir")+"/"+string_data("script");
@@ -316,4 +278,5 @@ void Plugin::dialog_destroyed(QObject * widget)
 {
     m_widgets.removeOne((QWidget*)widget);
 }
+
 

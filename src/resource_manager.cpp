@@ -170,6 +170,24 @@ QStringList Resource_Manager::data_directories_unckecked(QString name)
     return filter;
 }
 
+QString Resource_Manager::writable_data_directory(QString name)
+{
+    QStringList search;
+
+#if HAS_QT_5
+    search << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+#else
+    search << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+#endif
+
+    if ( !search.empty() )
+    {
+        return QDir::cleanPath(QDir(search[0]).absoluteFilePath(name));
+    }
+
+    return QString();
+}
+
 void Resource_Manager::initialize(QString default_lang_code)
 {
     qApp->setApplicationName(TARGET);

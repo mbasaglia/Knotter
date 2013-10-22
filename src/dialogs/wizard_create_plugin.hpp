@@ -44,8 +44,6 @@ private:
      *  \brief plugin file identifier
      */
     QString plugin_id();
-
-    QString json_escaped(QString s);
 private slots:
     void on_pushButton_clicked();
     void on_pushButton_2_clicked();

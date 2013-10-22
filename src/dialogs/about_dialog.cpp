@@ -48,6 +48,8 @@ About_Dialog::About_Dialog(QWidget *parent) :
     list_data_dirs->addItems(Resource_Manager::data_directories_unckecked(""));
 
     text_settings_file->setText(Resource_Manager::settings.settings_file());
+
+    text_witable_data_dir->setText(Resource_Manager::writable_data_directory(""));
 }
 
 void About_Dialog::changeEvent(QEvent *e)

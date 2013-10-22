@@ -124,6 +124,10 @@ public:
      *  \brief Get the absolute script file path
      */
     QString script_file_path() const;
+    /**
+     * \brief Get absolute settings file path
+     */
+    QString settings_file_path() const;
 
 
 protected:

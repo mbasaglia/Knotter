@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "plugin.hpp"
 #include "QFileDialog"
 #include "QMessageBox"
+#include "json_stuff.hpp"
 
 Wizard_Create_Plugin::Wizard_Create_Plugin(QWidget *parent) :
     QWizard(parent)
@@ -98,13 +99,6 @@ QString Wizard_Create_Plugin::plugin_id()
     return id;
 }
 
-QString Wizard_Create_Plugin::json_escaped(QString s)
-{
-    s.replace('"',"\\\"");
-    s.replace('\'',"\\\'");
-    s.replace('\n',"\\n");
-    return '"'+s+'"';
-}
 
 void Wizard_Create_Plugin::accept()
 {
@@ -121,8 +115,9 @@ void Wizard_Create_Plugin::accept()
         QMessageBox::critical(this,tr("Error"),tr("Error while creating plugin file."));
         return;
     }
-    QTextStream json(&json_file);
-    QMap<QString,QString> data;
+
+
+    QVariantMap data;
     for ( int i = 0; i < table_data->rowCount(); i++ )
         data[table_data->item(i,0)->text()] = table_data->item(i,1)->text();
     data["name"] = text_name->text();
@@ -130,16 +125,8 @@ void Wizard_Create_Plugin::accept()
     data["type"] = combo_type->currentText().toLower();
     data["script"] = plugin_id()+".js";
 
-    json << "{\n";
-    for ( int i = 0; i < data.size(); i++ )
-    {
-        json << "\t" << json_escaped(data.keys()[i])
-             << " : " << json_escaped(data.values()[i]);
-        if ( i < data.size()-1 )
-            json << ",";
-        json << "\n";
-    }
-    json << "}";
+    json_write_file(json_file,data);
+
 
     QWizard::accept();
 

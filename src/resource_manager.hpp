@@ -121,6 +121,13 @@ public:
      */
     static QStringList data_directories_unckecked(QString name);
 
+
+    /**
+     * \brief A directory to write user preferences into
+     * \param name Name of the data subdirectory
+     */
+    static QString writable_data_directory(QString name);
+
     /**
      *  \brief Determine human readable language name from ISO 639-1 code
      *
