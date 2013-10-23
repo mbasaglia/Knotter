@@ -29,9 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QScriptValue>
 #include <QScriptEngine>
 #include <QScriptValueIterator>
-//#endif
-
-
 
 
 QString json_escape(QString s)

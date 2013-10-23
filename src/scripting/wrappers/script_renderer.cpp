@@ -50,6 +50,21 @@ QString Script_Renderer::svg()
 
 QByteArray Script_Renderer::raster(int width, int height, QString format, int quality, Script_Color background)
 {
+    QSizeF actual_size = graph->full_image_bounding_rect().size();
+    if ( width <= 0 && height <= 0 )
+    {
+        width = actual_size.width();
+        height = actual_size.height();
+    }
+    else if ( width <= 0 )
+    {
+        width = actual_size.width()*height/actual_size.height();
+    }
+    else if ( height <= 0 )
+    {
+        height = actual_size.height()*width/actual_size.width();
+    }
+
     QByteArray out_raw;
     QBuffer out(&out_raw);
     out.open(QIODevice::WriteOnly);

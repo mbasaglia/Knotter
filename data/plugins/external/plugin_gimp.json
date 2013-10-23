@@ -1,0 +1,11 @@
+{
+	"author" : "Mattia Basaglia",
+	"category" : "External",
+	"description" : "Opens a temporary PNG render with GIMP",
+	"license" : "GPLv3+",
+	"name" : "GIMP",
+	"requires" : "0.9.6",
+	"script" : "gimp.js",
+	"type" : "script",
+	"version" : "1"
+}
