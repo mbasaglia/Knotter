@@ -135,6 +135,7 @@ void json_convert(QTextStream& json, QVariant v, int indent)
 
 void json_write_file( QIODevice&file, QVariant values )
 {
+    /// \todo maybe use JSON.stringify
     if ( file.isOpen() )
     {
         QTextStream json(&file);

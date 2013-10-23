@@ -594,16 +594,22 @@ QScriptValue Resource_Manager::run_script(Plugin *source,
     QScriptValue plugin = singleton.m_script_engine->newObject();
     foreach(QString k, source->metadata().keys())
     {
-        /// \todo this creates ampty objects...
-        plugin.setProperty(k,singleton.m_script_engine->newVariant(source->metadata()[k]));
+        plugin.setProperty(k,singleton.m_script_engine->toScriptValue(source->metadata()[k]));
     }
 
     QFile plugin_settings(source->settings_file_path());
     if ( plugin_settings.open(QFile::ReadOnly) )
     {
-        plugin.setProperty("settings",
-                            json_read_file(plugin_settings,singleton.m_script_engine)
-                           );
+        QScriptValue settings = json_read_file(plugin_settings,singleton.m_script_engine);
+        if ( settings.isError() )
+        {
+            emit singleton.script_error(plugin_settings.fileName(),
+                                        settings.property("lineNumber").toInt32(),
+                                        settings.property("message").toString(),
+                                        QStringList());
+        }
+        else
+            plugin.setProperty("settings",settings);
         plugin_settings.close();
     }
 
