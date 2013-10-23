@@ -140,9 +140,9 @@ QString Script_System::unique_temp_file(QString base_name, QString extension)
     return tmp.absoluteFilePath(base_name+"."+extension);
 }
 
-void Script_System::exec(QString command, QStringList params)
+bool Script_System::exec(QString command, QStringList params)
 {
     QProcess proc;
-    proc.startDetached(command,params);
+    return proc.startDetached(command,params);
 }
 

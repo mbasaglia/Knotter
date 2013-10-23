@@ -118,7 +118,7 @@ public:
      * \param command  The name of the program
      * \param params   The command line arguments
      */
-    Q_INVOKABLE void exec(QString command, QStringList params);
+    Q_INVOKABLE bool exec(QString command, QStringList params);
 };
 
 #endif // MISC_SCRIPT_FUNCTIONS_HPP

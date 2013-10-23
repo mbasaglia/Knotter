@@ -8,5 +8,6 @@
 	"requires" : "0.9.6",
 	"script" : "set_up_external_programs.js",
 	"type" : "script",
-	"version" : "1"
+	"version" : "1",
+	"plugin_settings" : "external_programs"
 }
