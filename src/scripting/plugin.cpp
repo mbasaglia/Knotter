@@ -111,12 +111,16 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
     QFileInfo fi(file.fileName());
     data["plugin_file"] = fi.absoluteFilePath();
     data["plugin_dir"] = fi.absolutePath();
-    data["plugin_shortname"] = fi.baseName();/// \todo document plugin_shortname
+    data["plugin_shortname"] = fi.baseName();
     if ( data["name"].toString().isEmpty() )
     {
         data["name"] = data["plugin_shortname"];
     }
 
+    if ( !data.contains("plugin_settings") )
+    {
+        data["plugin_settings"] = data["plugin_shortname"].toString()+"_config.json";
+    }
 
 
     if ( !error->isEmpty() )
@@ -214,8 +218,7 @@ bool Plugin::reload_script_file()
 
 QString Plugin::settings_file_path() const
 {;
-    return settings_directory().absoluteFilePath(
-                string_data("plugin_shortname")+"_config.json");
+    return settings_directory().absoluteFilePath(string_data("plugin_settings"));
 }
 
 QDir Plugin::settings_directory()
