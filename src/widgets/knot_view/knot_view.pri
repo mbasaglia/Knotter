@@ -23,7 +23,7 @@ HEADERS += \
     $$PWD/context_menu_node.hpp \
     $$PWD/context_menu_edge.hpp \
     $$PWD/transform_handle.hpp \
-    src/widgets/knot_view/knot_tool.hpp
+    $$PWD/knot_tool.hpp
 
 SOURCES += \
     $$PWD/knot_view.cpp \
@@ -34,6 +34,6 @@ SOURCES += \
     $$PWD/context_menu_node.cpp \
     $$PWD/context_menu_edge.cpp \
     $$PWD/transform_handle.cpp \
-    src/widgets/knot_view/knot_tool.cpp
+    $$PWD/knot_tool.cpp
 
 INCLUDEPATH += $$PWD

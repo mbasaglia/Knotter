@@ -28,7 +28,7 @@ HEADERS += \
     $$PWD/traversal_info.hpp \
     $$PWD/node_cusp_shape.hpp \
     $$PWD/knot_border.hpp \
-    src/graph/edge_style.hpp
+    $$PWD/edge_style.hpp
 
 SOURCES += \
     $$PWD/node.cpp \
@@ -41,4 +41,4 @@ SOURCES += \
     $$PWD/path_item.cpp \
     $$PWD/node_cusp_shape.cpp \
     $$PWD/knot_border.cpp \
-    src/graph/edge_style.cpp
+    $$PWD/edge_style.cpp
