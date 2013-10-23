@@ -27,6 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "misc_script_functions.hpp"
 #include "resource_manager.hpp"
 #include <QDir>
+#include <limits>
+#include <QProcess>
 
 QScriptValue script_print( QScriptContext * context, QScriptEngine * )
 {
@@ -113,5 +115,34 @@ QString Script_System::toString() const
 QString Script_System::temp_path()
 {
     return QDir::tempPath();
+}
+
+bool Script_System::file_exists(QString file_name, bool readable, bool writable)
+{
+    QFileInfo finfo(file_name);
+    return finfo.exists() &&
+            ( !readable || finfo.isReadable() ) &&
+            ( !writable || finfo.isWritable() ) ;
+}
+
+QString Script_System::unique_temp_file(QString base_name, QString extension)
+{
+    QDir tmp = QDir::tempPath();
+
+    for ( uint i = 0; i < std::numeric_limits<uint>::max(); i++ )
+    {
+        QString name = QString("%1_%2").arg(base_name).arg(i);
+        if ( !extension.isEmpty() )
+            name += "." + extension;
+        if ( !tmp.exists(name) )
+            return tmp.absoluteFilePath(name);
+    }
+    return tmp.absoluteFilePath(base_name+"."+extension);
+}
+
+void Script_System::exec(QString command, QStringList params)
+{
+    QProcess proc;
+    proc.startDetached(command,params);
 }
 

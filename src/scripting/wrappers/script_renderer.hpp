@@ -65,6 +65,7 @@ public:
      * \param format    Name of the output format
      * \param quality   Quality/Compression (See QPixmap::save())
      * \param background Background color
+     * \todo width, height default = 0 => get size from graph
      */
     Q_INVOKABLE QByteArray raster(int width,
                                   int height,

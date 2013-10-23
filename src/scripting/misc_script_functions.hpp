@@ -91,7 +91,34 @@ public:
 
     Q_INVOKABLE QString toString() const;
 
+    /**
+     * \brief Get the system temporary directory path
+     */
     Q_INVOKABLE QString temp_path();
+
+    /**
+     * \brief Check if a file with the given name exists
+     * \param file_name Path to the file
+     * \param readable  If the file has to be readable
+     * \param writable  If the file has to be writable
+     */
+    Q_INVOKABLE bool file_exists( QString file_name, bool readable = false, bool writable = false );
+
+
+    /**
+     * \brief Get a unique temporary file name
+     * \param base_name Base file name
+     * \param extension File extension
+     * \return \c base_name \i (n) \c . \c extension
+     */
+    Q_INVOKABLE QString unique_temp_file(QString base_name,QString extension);
+
+    /**
+     * \brief Run an external program
+     * \param command  The name of the program
+     * \param params   The command line arguments
+     */
+    Q_INVOKABLE void exec(QString command, QStringList params);
 };
 
 #endif // MISC_SCRIPT_FUNCTIONS_HPP

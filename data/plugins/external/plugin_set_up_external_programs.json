@@ -1,0 +1,12 @@
+{
+	"author" : "Mattia Basaglia",
+	"category" : "External",
+	"description" : "Shows a dialog that allows the configuration of external programs.",
+	"icon" : "configure",
+	"license" : "GPLv3+",
+	"name" : "Set up external programs",
+	"requires" : "0.9.6",
+	"script" : "set_up_external_programs.js",
+	"type" : "script",
+	"version" : "1"
+}

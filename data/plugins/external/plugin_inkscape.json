@@ -1,0 +1,11 @@
+{
+	"author" : "Mattia Basaglia",
+	"category" : "External",
+	"description" : "Opens a temporary SVG render with Inkscape",
+	"license" : "GPLv3+",
+	"name" : "Inkscape",
+	"requires" : "0.9.6",
+	"script" : "inkscape.js",
+	"type" : "script",
+	"version" : "1"
+}
