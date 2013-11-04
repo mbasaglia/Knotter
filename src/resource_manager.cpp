@@ -36,6 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QApplication>
 #include <QStyle>
 #include "json_stuff.hpp"
+#include "qt_gui_script.hpp"
 
 #if HAS_QT_5
 #include <QStandardPaths>
@@ -551,6 +552,8 @@ QScriptContext* Resource_Manager::script_context()
             engine->newQObject(new Script_Knotter,QScriptEngine::ScriptOwnership));
         engine->globalObject().setProperty( "system",
             engine->newQObject(new Script_System,QScriptEngine::ScriptOwnership));
+        engine->globalObject().setProperty( "gui",
+            engine->newQObject(new Qt_GUI_Script,QScriptEngine::ScriptOwnership));
 
         engine->globalObject().setProperty("Graph", engine->newFunction(build_graph));
 

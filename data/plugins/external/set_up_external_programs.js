@@ -19,6 +19,14 @@ function item_changed(it)
 	print(JSON.stringify(it,null,4));
 }
 
+// populate teble
+Dialog.tableWidget.clear();
+for(var i = 0; i < items.length; i++)
+{
+    gui.table_append_row(Dialog.tableWidget,
+                         [items[i].name,items[i].type,items[i].command]);
+}
+
 Dialog.tableWidget.itemChanged.connect(item_changed);
 Dialog.tableWidget.currentCellChanged.connect(current_cell_changed);
 Dialog.button_add.clicked.connect(add);
