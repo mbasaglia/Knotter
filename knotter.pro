@@ -26,6 +26,7 @@ OBJECTS_DIR = obj
 include(knotter_info.pri)
 include(src/src.pri)
 include(translations.pri)
+include(data/plugins/plugins.pri)
 
 
 #non-source files

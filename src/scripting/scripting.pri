@@ -62,4 +62,3 @@ SOURCES += \
     $$PWD/plugin_crossing.cpp \
     $$PWD/edge_scripted.cpp \
     $$PWD/json_stuff.cpp
-

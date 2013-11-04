@@ -1903,28 +1903,33 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/about_dialog.ui" line="121"/>
+        <location filename="../../src/dialogs/about_dialog.ui" line="151"/>
         <source>Data directories:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/about_dialog.ui" line="131"/>
-        <source>Settings location:</source>
+        <location filename="../../src/dialogs/about_dialog.ui" line="161"/>
+        <source>Settings file:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/about_dialog.ui" line="145"/>
+        <location filename="../../src/dialogs/about_dialog.ui" line="175"/>
         <source>Plugins are loaded from the following directories:</source>
         <translation type="unfinished">Plug-ins are loaded from the following directories:</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/about_dialog.ui" line="161"/>
+        <location filename="../../src/dialogs/about_dialog.ui" line="185"/>
+        <source>Writable data directory:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/about_dialog.ui" line="209"/>
         <source>About Qt</source>
         <translation type="unfinished">About Qt</translation>
     </message>
     <message>
         <location filename="../../src/dialogs/about_dialog.cpp" line="43"/>
-        <location filename="../../src/dialogs/about_dialog.cpp" line="59"/>
+        <location filename="../../src/dialogs/about_dialog.cpp" line="61"/>
         <source>About %1</source>
         <translation type="unfinished">About %1</translation>
     </message>
@@ -2269,6 +2274,186 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>Dialog</name>
+    <message>
+        <location filename="../plugins/concentric_frame/dialog.ui" line="14"/>
+        <source>Concentric Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/concentric_frame/dialog.ui" line="20"/>
+        <location filename="../plugins/fill_area/dialog.ui" line="40"/>
+        <location filename="../plugins/fill_area/dialog.ui" line="118"/>
+        <location filename="../plugins/lattice/dialog.ui" line="67"/>
+        <location filename="../plugins/spiral/dialog.ui" line="77"/>
+        <source>px</source>
+        <translation type="unfinished">px</translation>
+    </message>
+    <message>
+        <location filename="../plugins/concentric_frame/dialog.ui" line="39"/>
+        <source>Width</source>
+        <translation type="unfinished">Width</translation>
+    </message>
+    <message>
+        <location filename="../plugins/concentric_frame/dialog.ui" line="52"/>
+        <source>Iterations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/concentric_frame/dialog.ui" line="59"/>
+        <source>Connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/concentric_frame/dialog.ui" line="92"/>
+        <location filename="../plugins/fill_area/dialog.ui" line="66"/>
+        <source>Delete original selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/external/config.ui" line="14"/>
+        <source>Configure external commands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/external/config.ui" line="33"/>
+        <source>Name</source>
+        <translation type="unfinished">Name</translation>
+    </message>
+    <message>
+        <location filename="../plugins/external/config.ui" line="38"/>
+        <source>Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/external/config.ui" line="43"/>
+        <source>Executable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/external/config.ui" line="53"/>
+        <source>Remove</source>
+        <translation type="unfinished">Remove</translation>
+    </message>
+    <message>
+        <location filename="../plugins/external/config.ui" line="63"/>
+        <source>Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/fill_area/dialog.ui" line="14"/>
+        <source>Fill Area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/fill_area/dialog.ui" line="20"/>
+        <source>Grid Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/fill_area/dialog.ui" line="27"/>
+        <source>Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/fill_area/dialog.ui" line="80"/>
+        <source>Convex Hull</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/fill_area/dialog.ui" line="85"/>
+        <source>Single Edge Loop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/fill_area/dialog.ui" line="93"/>
+        <source>Outline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/fill_area/dialog.ui" line="105"/>
+        <source>Thikness</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/fill_area/dialog.ui" line="134"/>
+        <source>Outset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/fill_area/dialog.ui" line="141"/>
+        <source>Inset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/lattice/dialog.ui" line="14"/>
+        <source>Insert Lattice</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/lattice/dialog.ui" line="20"/>
+        <source>Rows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/lattice/dialog.ui" line="40"/>
+        <source>Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/lattice/dialog.ui" line="60"/>
+        <source>Cell size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/mirror/dialog.ui" line="14"/>
+        <source>Mirror</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/mirror/dialog.ui" line="20"/>
+        <source>Mirror X</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/mirror/dialog.ui" line="27"/>
+        <source>Mirror Y</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/spiral/dialog.ui" line="14"/>
+        <source>Spiral</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/spiral/dialog.ui" line="20"/>
+        <source>End Angle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="../plugins/spiral/dialog.ui" line="27"/>
+        <location filename="../plugins/spiral/dialog.ui" line="57"/>
+        <location filename="../plugins/spiral/dialog.ui" line="90"/>
+        <source>°</source>
+        <translation type="unfinished">°</translation>
+    </message>
+    <message>
+        <location filename="../plugins/spiral/dialog.ui" line="50"/>
+        <source>Start Angle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/spiral/dialog.ui" line="70"/>
+        <source>Turning Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/spiral/dialog.ui" line="112"/>
+        <source>Angle Step</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Dialog_Confirm_Close</name>
     <message>
         <location filename="../../src/dialogs/dialog_confirm_close.ui" line="14"/>
@@ -2310,6 +2495,58 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>Dialog_Insert_Polygon</name>
+    <message>
+        <location filename="../plugins/polygon/dialog_insert_polygon.ui" line="14"/>
+        <source>Insert Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/polygon/dialog_insert_polygon.ui" line="31"/>
+        <source>Sides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/polygon/dialog_insert_polygon.ui" line="51"/>
+        <source>Whether there should be a node connected to the vertices on the center of the polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/polygon/dialog_insert_polygon.ui" line="54"/>
+        <source>Node at Center</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Dialog_Insert_Star</name>
+    <message>
+        <location filename="../plugins/star/dialog.ui" line="14"/>
+        <source>Insert Star</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/star/dialog.ui" line="29"/>
+        <source>Sides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/star/dialog.ui" line="55"/>
+        <source>Inner Radius</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/star/dialog.ui" line="62"/>
+        <location filename="../plugins/star/dialog.ui" line="91"/>
+        <source>px</source>
+        <translation type="unfinished">px</translation>
+    </message>
+    <message>
+        <location filename="../plugins/star/dialog.ui" line="84"/>
+        <source>Outer Radius</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Dialog_Plugins</name>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="14"/>
@@ -2317,58 +2554,63 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Plug-ins</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="92"/>
-        <location filename="../../src/dialogs/dialog_plugins.cpp" line="176"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="117"/>
+        <location filename="../../src/dialogs/dialog_plugins.cpp" line="204"/>
         <source>Disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="102"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="127"/>
         <source>Reload Script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="114"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="139"/>
         <source>Edit Script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="135"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="160"/>
         <source>Plugin data</source>
         <translation type="unfinished">Plug-in data</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="152"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="177"/>
         <source>Name</source>
         <translation type="unfinished">Name</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="157"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="182"/>
         <source>Value</source>
         <translation type="unfinished">Value</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="171"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="196"/>
         <source>No plugin installed</source>
         <translation type="unfinished">No plug-in installed</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="180"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="205"/>
         <source>&amp;Reload Plugins</source>
         <translation type="unfinished">&amp;Reload Plug-ins</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="192"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="217"/>
         <source>&amp;Create...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="204"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="229"/>
         <source>&amp;OK</source>
         <translation type="unfinished">&amp;OK</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.cpp" line="176"/>
+        <location filename="../../src/dialogs/dialog_plugins.cpp" line="81"/>
+        <source>All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dialog_plugins.cpp" line="204"/>
         <source>Enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2744,57 +2986,57 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Dock_Background</name>
     <message>
-        <location filename="../../src/dialogs/dock/dock_background.ui" line="14"/>
+        <location filename="../../src/dialogs/dock/dock_background.ui" line="17"/>
         <source>Background</source>
         <translation type="unfinished">Background</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_background.ui" line="32"/>
+        <location filename="../../src/dialogs/dock/dock_background.ui" line="42"/>
         <source>Color</source>
         <translation type="unfinished">Colour</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_background.ui" line="56"/>
+        <location filename="../../src/dialogs/dock/dock_background.ui" line="72"/>
         <source>Image</source>
         <translation type="unfinished">Image</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_background.ui" line="68"/>
+        <location filename="../../src/dialogs/dock/dock_background.ui" line="84"/>
         <source>File</source>
         <translation type="unfinished">File</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_background.ui" line="78"/>
+        <location filename="../../src/dialogs/dock/dock_background.ui" line="94"/>
         <source>Browse...</source>
         <translation type="unfinished">Browse...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_background.ui" line="88"/>
+        <location filename="../../src/dialogs/dock/dock_background.ui" line="106"/>
         <source>Scale</source>
         <translation type="unfinished">Scale</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_background.ui" line="95"/>
+        <location filename="../../src/dialogs/dock/dock_background.ui" line="113"/>
         <source>%</source>
         <translation type="unfinished">%</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_background.ui" line="111"/>
+        <location filename="../../src/dialogs/dock/dock_background.ui" line="129"/>
         <source>Move...</source>
         <translation type="unfinished">Move...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_background.cpp" line="69"/>
+        <location filename="../../src/dialogs/dock/dock_background.cpp" line="68"/>
         <source>Open background image</source>
         <translation type="unfinished">Open background image</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_background.cpp" line="71"/>
+        <location filename="../../src/dialogs/dock/dock_background.cpp" line="70"/>
         <source>All supported images (%1)</source>
         <translation type="unfinished">All supported images (%1)</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_background.cpp" line="71"/>
+        <location filename="../../src/dialogs/dock/dock_background.cpp" line="70"/>
         <source>All files (*)</source>
         <translation type="unfinished">All files (*)</translation>
     </message>
@@ -2815,67 +3057,72 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Dock_Grid</name>
     <message>
-        <location filename="../../src/dialogs/dock/dock_grid.ui" line="17"/>
+        <location filename="../../src/dialogs/dock/dock_grid.ui" line="19"/>
         <source>Configure Grid</source>
         <translation type="unfinished">Configure Grid</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_grid.ui" line="39"/>
+        <location filename="../../src/dialogs/dock/dock_grid.ui" line="50"/>
         <source>Enable Grid</source>
         <translation type="unfinished">Enable Grid</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_grid.ui" line="48"/>
+        <location filename="../../src/dialogs/dock/dock_grid.ui" line="72"/>
         <source>px</source>
         <translation type="unfinished">px</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_grid.ui" line="67"/>
+        <location filename="../../src/dialogs/dock/dock_grid.ui" line="65"/>
         <source>Size</source>
         <translation type="unfinished">Size</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_grid.ui" line="86"/>
+        <location filename="../../src/dialogs/dock/dock_grid.ui" line="140"/>
         <source>x</source>
         <translation type="unfinished">x</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_grid.ui" line="103"/>
+        <location filename="../../src/dialogs/dock/dock_grid.ui" line="163"/>
         <source>y</source>
         <translation type="unfinished">y</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_grid.ui" line="112"/>
+        <location filename="../../src/dialogs/dock/dock_grid.ui" line="119"/>
         <source>Shape</source>
         <translation type="unfinished">Shape</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_grid.ui" line="120"/>
+        <location filename="../../src/dialogs/dock/dock_grid.ui" line="86"/>
         <source>Square</source>
         <translation type="unfinished">Square</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_grid.ui" line="130"/>
+        <location filename="../../src/dialogs/dock/dock_grid.ui" line="96"/>
         <source>Triangle 1</source>
         <translation type="unfinished">Triangle 1</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_grid.ui" line="140"/>
+        <location filename="../../src/dialogs/dock/dock_grid.ui" line="106"/>
         <source>Triangle 2</source>
         <translation type="unfinished">Triangle 2</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_grid.ui" line="155"/>
+        <location filename="../../src/dialogs/dock/dock_grid.ui" line="128"/>
+        <source>Origin</source>
+        <translation type="unfinished">Origin</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dock/dock_grid.ui" line="180"/>
         <source>Reset grid position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_grid.ui" line="158"/>
+        <location filename="../../src/dialogs/dock/dock_grid.ui" line="183"/>
         <source>Reset</source>
         <translation type="unfinished">Reset</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_grid.ui" line="165"/>
+        <location filename="../../src/dialogs/dock/dock_grid.ui" line="190"/>
         <source>Move...</source>
         <translation type="unfinished">Move...</translation>
     </message>
@@ -2883,49 +3130,139 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Dock_Knot_Display</name>
     <message>
-        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="14"/>
+        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="17"/>
         <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="34"/>
+        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="120"/>
         <source>Custom Colors</source>
         <translation type="unfinished">Custom Colours</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="49"/>
+        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="79"/>
         <source>Width</source>
         <translation type="unfinished">Width</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="56"/>
+        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="86"/>
         <source>px</source>
         <translation type="unfinished">px</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="66"/>
+        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="113"/>
         <source>Joint Style</source>
         <translation type="unfinished">Joint Style</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="77"/>
+        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="46"/>
         <source>Bevel</source>
         <translation type="unfinished">Bevel</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="87"/>
+        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="56"/>
         <source>Miter</source>
         <translation type="unfinished">Mitre</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="97"/>
+        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="66"/>
         <source>Round</source>
         <translation type="unfinished">Round</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="110"/>
+        <location filename="../../src/dialogs/dock/dock_knot_display.ui" line="106"/>
         <source>Pattern</source>
         <translation type="unfinished">Pattern</translation>
+    </message>
+</context>
+<context>
+    <name>Dock_Knot_Style</name>
+    <message>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="19"/>
+        <source>Default Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="56"/>
+        <source>Curve</source>
+        <translation type="unfinished">Curve</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="66"/>
+        <source>Size of the curve control handles</source>
+        <translation type="unfinished">Size of the curve control handles</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="69"/>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="142"/>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="209"/>
+        <source>px</source>
+        <translation type="unfinished">px</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="82"/>
+        <source>Nodes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="100"/>
+        <source>Angle</source>
+        <translation type="unfinished">Angle</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="110"/>
+        <source>Minimum angle required to render a cusp</source>
+        <translation type="unfinished">Minimum angle required to render a cusp</translation>
+    </message>
+    <message utf8="true">
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="116"/>
+        <source>°</source>
+        <translation type="unfinished">°</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="129"/>
+        <source>Distance</source>
+        <translation type="unfinished">Distance</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="139"/>
+        <source>Distance of the cusp tip from the node position</source>
+        <translation type="unfinished">Distance of the cusp tip from the node position</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="158"/>
+        <source>Shape</source>
+        <translation type="unfinished">Shape</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="168"/>
+        <source>Shape style</source>
+        <translation type="unfinished">Shape style</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="178"/>
+        <source>Edges</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="196"/>
+        <source>Gap</source>
+        <translation type="unfinished">Gap</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="206"/>
+        <source>Distance between the ends of a thread passing under another thread</source>
+        <translation type="unfinished">Distance between the ends of a thread passing under another thread</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="228"/>
+        <source>Slide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dock/dock_knot_style.ui" line="238"/>
+        <source>Position of the crossing in the edge</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3285,86 +3622,52 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Knot_Style_Widget</name>
     <message>
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="23"/>
         <source>Curve</source>
-        <translation type="unfinished">Curve</translation>
+        <translation type="obsolete">Curve</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="33"/>
         <source>Size of the curve control handles</source>
-        <translation type="unfinished">Size of the curve control handles</translation>
+        <translation type="obsolete">Size of the curve control handles</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="36"/>
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="109"/>
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="176"/>
         <source>px</source>
-        <translation type="unfinished">px</translation>
+        <translation type="obsolete">px</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="49"/>
-        <source>Nodes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="67"/>
         <source>Angle</source>
-        <translation type="unfinished">Angle</translation>
+        <translation type="obsolete">Angle</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="77"/>
         <source>Minimum angle required to render a cusp</source>
-        <translation type="unfinished">Minimum angle required to render a cusp</translation>
+        <translation type="obsolete">Minimum angle required to render a cusp</translation>
     </message>
     <message utf8="true">
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="83"/>
         <source>°</source>
-        <translation type="unfinished">°</translation>
+        <translation type="obsolete">°</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="96"/>
         <source>Distance</source>
-        <translation type="unfinished">Distance</translation>
+        <translation type="obsolete">Distance</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="106"/>
         <source>Distance of the cusp tip from the node position</source>
-        <translation type="unfinished">Distance of the cusp tip from the node position</translation>
+        <translation type="obsolete">Distance of the cusp tip from the node position</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="125"/>
         <source>Shape</source>
-        <translation type="unfinished">Shape</translation>
+        <translation type="obsolete">Shape</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="135"/>
         <source>Shape style</source>
-        <translation type="unfinished">Shape style</translation>
+        <translation type="obsolete">Shape style</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="145"/>
-        <source>Edges</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="163"/>
         <source>Gap</source>
-        <translation type="unfinished">Gap</translation>
+        <translation type="obsolete">Gap</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="173"/>
         <source>Distance between the ends of a thread passing under another thread</source>
-        <translation type="unfinished">Distance between the ends of a thread passing under another thread</translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="195"/>
-        <source>Slide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/other_widgets/knot_style_widget.ui" line="205"/>
-        <source>Position of the crossing in the edge</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Distance between the ends of a thread passing under another thread</translation>
     </message>
 </context>
 <context>
@@ -3395,47 +3698,47 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Add Edge</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="173"/>
+        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="176"/>
         <source>Load File</source>
         <translation type="unfinished">Load File</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="316"/>
+        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="319"/>
         <source>Change Edge Type</source>
         <translation type="unfinished">Change Edge Type</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="386"/>
+        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="389"/>
         <source>Horizontal Flip</source>
         <translation type="unfinished">Horizontal Flip</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="401"/>
+        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="404"/>
         <source>Vertical Flip</source>
         <translation type="unfinished">Vertical Flip</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="458"/>
+        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="461"/>
         <source>Break Edge</source>
         <translation type="unfinished">Break Edge</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="482"/>
+        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="485"/>
         <source>Remove Node</source>
         <translation type="unfinished">Remove Node</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="974"/>
+        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="1003"/>
         <source>Move Nodes</source>
         <translation type="unfinished">Move Nodes</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="988"/>
+        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="1017"/>
         <source>Rotate Nodes</source>
         <translation type="unfinished">Rotate Nodes</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="988"/>
+        <location filename="../../src/widgets/knot_view/knot_view.cpp" line="1017"/>
         <source>Scale Nodes</source>
         <translation type="unfinished">Scale Nodes</translation>
     </message>
@@ -3791,42 +4094,37 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Zoom</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="258"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="253"/>
         <source>Action History</source>
         <translation type="unfinished">Action History</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="262"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="257"/>
         <source>Selected Nodes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="265"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="260"/>
         <source>Selected Edges</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="268"/>
-        <source>Default Style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="282"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="274"/>
         <source>Warning:</source>
         <translation type="unfinished">Warning:</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="283"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="275"/>
         <source>Discarding old configuration</source>
         <translation type="unfinished">Discarding old configuration</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="289"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="281"/>
         <source>Load old configuration</source>
         <translation type="unfinished">Load old configuration</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="290"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="282"/>
         <source>Knotter has detected configuration for version %1,
 this is version %2.
 Do you want to load it anyways?</source>
@@ -3835,118 +4133,118 @@ this is version %2.
 Do you want to load it anyways?</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="516"/>
-        <location filename="../../src/dialogs/main_window.cpp" line="631"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="508"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="623"/>
         <source>New Knot</source>
         <translation type="unfinished">New Knot</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="523"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="515"/>
         <source>%1 - %2%3</source>
         <extracomment>Main window title * %1 is the program name * %2 is the file name * %3 is a star * or an empty string depending on whether the file was modified</extracomment>
         <translation type="unfinished">%1 - %2%3</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="639"/>
-        <location filename="../../src/dialogs/main_window.cpp" line="804"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="631"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="796"/>
         <source>File Error</source>
         <translation type="unfinished">File Error</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="640"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="632"/>
         <source>Error while reading &quot;%1&quot;.</source>
         <translation type="unfinished">Error while reading &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="675"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="667"/>
         <source>Close File</source>
         <translation type="unfinished">Close File</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="676"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="668"/>
         <source>The file &quot;%1&quot; has been modified.
 Do you want to save changes?</source>
         <translation type="unfinished">The file &quot;%1&quot; has been modified.
 Do you want to save changes?</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="707"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="699"/>
         <source>Undo %1</source>
         <translation type="unfinished">Undo %1</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="712"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="704"/>
         <source>Redo %1</source>
         <translation type="unfinished">Redo %1</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="754"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="746"/>
         <source>Open Knot</source>
         <translation type="unfinished">Open Knot</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="784"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="776"/>
         <source>Knot files (*.knot);;XML files (*.xml);;All files (*)</source>
         <translation type="unfinished">Knot files (*.knot);;XML files (*.xml);;All files (*)</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="785"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="777"/>
         <source>Save Knot</source>
         <translation type="unfinished">Save Knot</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="805"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="797"/>
         <source>Failed to save file &quot;%1&quot;.</source>
         <translation type="unfinished">Failed to save file &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="812"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="804"/>
         <source>(%1,%2)</source>
         <extracomment>Displaying mouse position, %1 = x, %2 = y</extracomment>
         <translation type="unfinished">(%1,%2)</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="833"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="825"/>
         <source>No recent files</source>
         <translation type="unfinished">No recent files</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="988"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="980"/>
         <source>Paste</source>
         <translation type="unfinished">Paste</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1000"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="992"/>
         <source>Cut</source>
         <translation type="unfinished">Cut</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1051"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1043"/>
         <source>Drop</source>
         <translation type="unfinished">Drop</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1070"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1062"/>
         <source>Snap to Grid</source>
         <translation type="unfinished">Snap to Grid</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1085"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1077"/>
         <source>Delete</source>
         <translation type="unfinished">Delete</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1150"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1142"/>
         <source>Connect Nodes</source>
         <translation type="unfinished">Connect Nodes</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1169"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1161"/>
         <source>Disconnect Nodes</source>
         <translation type="unfinished">Disconnect Nodes</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1187"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1179"/>
         <source>Merge Nodes</source>
         <translation type="unfinished">Merge Nodes</translation>
     </message>
@@ -4075,22 +4373,42 @@ Do you want to save changes?</translation>
         <translation type="unfinished">Polygonal</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="577"/>
+        <location filename="../../src/resource_manager.cpp" line="669"/>
         <source>%1:%2:Error: %3</source>
         <translation type="unfinished">%1:%2:Error: %3</translation>
     </message>
     <message>
-        <location filename="../../src/scripting/plugin.cpp" line="188"/>
+        <location filename="../../src/scripting/plugin.cpp" line="144"/>
+        <source>Cusp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/scripting/plugin.cpp" line="145"/>
+        <source>Crossing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/scripting/plugin.cpp" line="146"/>
+        <source>Other</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/scripting/plugin.cpp" line="147"/>
+        <source>Invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/scripting/plugin.cpp" line="165"/>
         <source>Unknown plugin type</source>
         <translation type="unfinished">Unknown plug-in type</translation>
     </message>
     <message>
-        <location filename="../../src/scripting/plugin.cpp" line="195"/>
+        <location filename="../../src/scripting/plugin.cpp" line="172"/>
         <source>Missing script file</source>
         <translation type="unfinished">Missing script file</translation>
     </message>
     <message>
-        <location filename="../../src/scripting/plugin.cpp" line="201"/>
+        <location filename="../../src/scripting/plugin.cpp" line="178"/>
         <source>Error while opening script file %1</source>
         <translation type="unfinished">Error while opening script file %1</translation>
     </message>
@@ -4119,45 +4437,50 @@ Do you want to save changes?</translation>
 <context>
     <name>Resource_Manager</name>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="50"/>
+        <location filename="../../src/resource_manager.cpp" line="52"/>
         <source>Knotter</source>
         <translation type="unfinished">Knotter</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="200"/>
-        <location filename="../../src/resource_manager.cpp" line="280"/>
-        <location filename="../../src/resource_manager.cpp" line="331"/>
+        <location filename="../../src/resource_manager.cpp" line="238"/>
+        <location filename="../../src/resource_manager.cpp" line="320"/>
+        <location filename="../../src/resource_manager.cpp" line="371"/>
         <source>Warning:</source>
         <translation type="unfinished">Warning:</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="201"/>
+        <location filename="../../src/resource_manager.cpp" line="239"/>
         <source>Unrecognised translation file name pattern: %1</source>
         <translation type="unfinished">Unrecognised translation file name pattern: %1</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="285"/>
+        <location filename="../../src/resource_manager.cpp" line="325"/>
         <source>Error on loading translation file %1 for language %2 (%3)</source>
         <extracomment>%1 is the file name, * %2 is the human-readable language code * %3 is the ISO language code</extracomment>
         <translation type="unfinished">Error on loading translation file %1 for language %2 (%3)</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="332"/>
+        <location filename="../../src/resource_manager.cpp" line="372"/>
         <source>There is no translation for language %1 (%2)</source>
         <translation type="unfinished">There is no translation for language %1 (%2)</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="608"/>
+        <location filename="../../src/resource_manager.cpp" line="635"/>
+        <source>Cannot open file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/resource_manager.cpp" line="700"/>
         <source>Unknown error</source>
         <translation type="unfinished">Unknown error</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="611"/>
+        <location filename="../../src/resource_manager.cpp" line="703"/>
         <source>%1: Error: %2</source>
         <translation type="unfinished">%1: Error: %2</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="624"/>
+        <location filename="../../src/resource_manager.cpp" line="716"/>
         <source>Script aborted</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4165,12 +4488,12 @@ Do you want to save changes?</translation>
 <context>
     <name>Script_Document</name>
     <message>
-        <location filename="../../src/scripting/wrappers/script_document.cpp" line="76"/>
+        <location filename="../../src/scripting/wrappers/script_document.cpp" line="77"/>
         <source>Script Insert</source>
         <translation type="unfinished">Script Insert</translation>
     </message>
     <message>
-        <location filename="../../src/scripting/wrappers/script_document.cpp" line="159"/>
+        <location filename="../../src/scripting/wrappers/script_document.cpp" line="160"/>
         <source>Load File</source>
         <translation type="unfinished">Load File</translation>
     </message>
@@ -4394,45 +4717,50 @@ Do you want to save changes?</translation>
         <translation type="unfinished">Browse...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="39"/>
+        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="40"/>
         <source>Script</source>
         <translation type="unfinished">Script</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="40"/>
+        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="41"/>
         <source>Cusp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="71"/>
-        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="82"/>
-        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="120"/>
-        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="149"/>
+        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="42"/>
+        <source>Crossing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="73"/>
+        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="84"/>
+        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="115"/>
+        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="137"/>
         <source>Error</source>
         <translation type="unfinished">Error</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="71"/>
+        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="73"/>
         <source>Name is required</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="83"/>
+        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="85"/>
         <source>%1 is not a writable directory.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="120"/>
+        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="115"/>
         <source>Error while creating plugin file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="149"/>
+        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="137"/>
         <source>Error while creating source file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="170"/>
+        <location filename="../../src/dialogs/wizard_create_plugin.cpp" line="158"/>
         <source>Select Directory</source>
         <translation type="unfinished"></translation>
     </message>

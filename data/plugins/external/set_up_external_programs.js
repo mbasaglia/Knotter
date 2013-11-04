@@ -1,3 +1,5 @@
+var items = plugin.settings.programs;
+
 function add()
 {
 	Dialog.tableWidget.rowCount += 1;
