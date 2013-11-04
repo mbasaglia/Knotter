@@ -226,6 +226,13 @@ QDir Plugin::settings_directory()
     return Resource_Manager::writable_data_directory("plugin_config");
 }
 
+void Plugin::clear_settings()
+{
+    QFile file(settings_file_path());
+    if ( file.exists() )
+        file.remove();
+}
+
 QString Plugin::script_file_path() const
 {
     return string_data("plugin_dir")+"/"+string_data("script");

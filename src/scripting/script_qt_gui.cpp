@@ -24,16 +24,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "qt_gui_script.hpp"
+#include "script_qt_gui.hpp"
 
 #include "QTableWidget"
 
-Qt_GUI_Script::Qt_GUI_Script(QObject *parent) :
+Script_Qt_GUI::Script_Qt_GUI(QObject *parent) :
     QObject(parent)
 {
 }
 
-void Qt_GUI_Script::table_set(QObject *table_object, int row, int column, QString value)
+void Script_Qt_GUI::table_set(QObject *table_object, int row, int column, QString value)
 {
     QTableWidget *table = qobject_cast<QTableWidget*>(table_object);
     if ( table ) //&& table->rowCount() > row && table->columnCount() > column  )
@@ -49,7 +49,7 @@ void Qt_GUI_Script::table_set(QObject *table_object, int row, int column, QStrin
     }
 }
 
-QString Qt_GUI_Script::table_get(QObject *table_object, int row, int column)
+QString Script_Qt_GUI::table_get(QObject *table_object, int row, int column)
 {
     QTableWidget *table = qobject_cast<QTableWidget*>(table_object);
     if ( table ) //&& table->rowCount() > row && table->columnCount() > column  )
@@ -62,7 +62,7 @@ QString Qt_GUI_Script::table_get(QObject *table_object, int row, int column)
     return QString();
 }
 
-void Qt_GUI_Script::table_append_row(QObject *table_object, QStringList value)
+void Script_Qt_GUI::table_append_row(QObject *table_object, QStringList value)
 {
     QTableWidget *table = qobject_cast<QTableWidget*>(table_object);
     if ( table )
@@ -73,4 +73,20 @@ void Qt_GUI_Script::table_append_row(QObject *table_object, QStringList value)
             table->setItem(table->rowCount()-1,i,new QTableWidgetItem(value[i]));
         }
     }
+}
+
+int Script_Qt_GUI::table_current_row(QObject *table_object)
+{
+    QTableWidget *table = qobject_cast<QTableWidget*>(table_object);
+    if ( table )
+        return table->currentRow();
+    return -1;
+}
+
+int Script_Qt_GUI::table_current_column(QObject *table_object)
+{
+    QTableWidget *table = qobject_cast<QTableWidget*>(table_object);
+    if ( table )
+        return table->currentColumn();
+    return -1;
 }

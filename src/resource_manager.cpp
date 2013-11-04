@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QApplication>
 #include <QStyle>
 #include "json_stuff.hpp"
-#include "qt_gui_script.hpp"
+#include "script_qt_gui.hpp"
 
 #if HAS_QT_5
 #include <QStandardPaths>
@@ -553,7 +553,7 @@ QScriptContext* Resource_Manager::script_context()
         engine->globalObject().setProperty( "system",
             engine->newQObject(new Script_System,QScriptEngine::ScriptOwnership));
         engine->globalObject().setProperty( "gui",
-            engine->newQObject(new Qt_GUI_Script,QScriptEngine::ScriptOwnership));
+            engine->newQObject(new Script_Qt_GUI,QScriptEngine::ScriptOwnership));
 
         engine->globalObject().setProperty("Graph", engine->newFunction(build_graph));
 
@@ -611,7 +611,7 @@ QScriptValue Resource_Manager::run_script(Plugin *source,
                                         settings.property("message").toString(),
                                         QStringList());
         }
-        else
+        else if ( !settings.isNull() )
             plugin.setProperty("settings",settings);
         plugin_settings.close();
     }

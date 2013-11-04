@@ -221,3 +221,18 @@ void Dialog_Plugins::on_combo_category_currentIndexChanged(int index)
         }
     }
 }
+
+void Dialog_Plugins::on_button_clear_settings_clicked()
+{
+    Plugin* p = listWidget->item(listWidget->currentRow())->data(Qt::UserRole).value<Plugin*>();
+    if ( p )
+        p->clear_settings();
+}
+
+void Dialog_Plugins::on_button_view_settings_clicked()
+{
+
+    Plugin* p = listWidget->item(listWidget->currentRow())->data(Qt::UserRole).value<Plugin*>();
+    if ( p )
+        emit edit_file(p->settings_file_path());
+}

@@ -12,7 +12,7 @@
 	"plugin_settings" : "external_programs",
     "ui" : "config.ui",
     "settings": { programs:[
-            { "name":"GIMP", "type":"PNG", "command":"gimp" },
-            { "name":"Inkscape", "type":"SVG", "command":"inkscape" }
+            [ "GIMP", "PNG", "gimp" ],
+            ["Inkscape", "SVG", "inkscape" ]
     ]}
 }

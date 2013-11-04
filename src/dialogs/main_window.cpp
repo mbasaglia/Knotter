@@ -234,6 +234,8 @@ void Main_Window::init_docks()
     dock_script_log->hide();
     connect(&dialog_plugins,SIGNAL(edit_plugin(Plugin*)),
             dock_script_log,SLOT(load_plugin(Plugin*)));
+    connect(&dialog_plugins,SIGNAL(edit_file(QString)),
+            dock_script_log,SLOT(open_script_file(QString)));
 
     // Menu entries
     foreach(QDockWidget* dw, findChildren<QDockWidget*>())

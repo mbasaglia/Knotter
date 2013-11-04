@@ -390,9 +390,7 @@
   </action>
   <action name="action_Copy">
    <property name="icon">
-    <iconset theme="edit-copy">
-     <normaloff/>
-    </iconset>
+    <iconset theme="edit-copy"/>
    </property>
    <property name="text">
     <string>&amp;Copy</string>
@@ -400,9 +398,7 @@
   </action>
   <action name="action_Paste">
    <property name="icon">
-    <iconset theme="edit-paste">
-     <normaloff/>
-    </iconset>
+    <iconset theme="edit-paste"/>
    </property>
    <property name="text">
     <string>&amp;Paste</string>
@@ -440,9 +436,7 @@
   </action>
   <action name="action_Reset_View">
    <property name="icon">
-    <iconset theme="view-restore">
-     <normaloff/>
-    </iconset>
+    <iconset theme="view-restore"/>
    </property>
    <property name="text">
     <string>&amp;Reset View</string>
@@ -450,9 +444,7 @@
   </action>
   <action name="action_Zoom_In">
    <property name="icon">
-    <iconset theme="zoom-in">
-     <normaloff/>
-    </iconset>
+    <iconset theme="zoom-in"/>
    </property>
    <property name="text">
     <string>Zoom &amp;In</string>
@@ -460,9 +452,7 @@
   </action>
   <action name="action_Zoom_Out">
    <property name="icon">
-    <iconset theme="zoom-out">
-     <normaloff/>
-    </iconset>
+    <iconset theme="zoom-out"/>
    </property>
    <property name="text">
     <string>Zoom &amp;Out</string>
@@ -489,9 +479,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="knot-graph-on">
-     <normaloff/>
-    </iconset>
+    <iconset theme="knot-graph-on"/>
    </property>
    <property name="text">
     <string>Display &amp;Graph</string>
@@ -499,9 +487,7 @@
   </action>
   <action name="action_Connect">
    <property name="icon">
-    <iconset theme="format-connect-node">
-     <normaloff/>
-    </iconset>
+    <iconset theme="format-connect-node"/>
    </property>
    <property name="text">
     <string>&amp;Connect</string>
@@ -512,9 +498,7 @@
   </action>
   <action name="action_Disconnect">
    <property name="icon">
-    <iconset theme="format-disconnect-node">
-     <normaloff/>
-    </iconset>
+    <iconset theme="format-disconnect-node"/>
    </property>
    <property name="text">
     <string>&amp;Disconnect</string>
@@ -522,9 +506,7 @@
   </action>
   <action name="action_Mirror_Horizontal">
    <property name="icon">
-    <iconset theme="object-flip-horizontal">
-     <normaloff/>
-    </iconset>
+    <iconset theme="object-flip-horizontal"/>
    </property>
    <property name="text">
     <string>&amp;Horizontal Flip</string>
@@ -532,9 +514,7 @@
   </action>
   <action name="action_Mirror_Vertical">
    <property name="icon">
-    <iconset theme="object-flip-vertical">
-     <normaloff/>
-    </iconset>
+    <iconset theme="object-flip-vertical"/>
    </property>
    <property name="text">
     <string>&amp;Vertical Flip</string>
@@ -545,9 +525,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="transform-rotate">
-     <normaloff/>
-    </iconset>
+    <iconset theme="transform-rotate"/>
    </property>
    <property name="text">
     <string>&amp;Rotate</string>
@@ -561,9 +539,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="transform-scale">
-     <normaloff/>
-    </iconset>
+    <iconset theme="transform-scale"/>
    </property>
    <property name="text">
     <string>&amp;Scale</string>
@@ -571,9 +547,7 @@
   </action>
   <action name="action_Merge">
    <property name="icon">
-    <iconset theme="format-join-node">
-     <normaloff/>
-    </iconset>
+    <iconset theme="format-join-node"/>
    </property>
    <property name="text">
     <string>&amp;Merge</string>
@@ -584,9 +558,7 @@
   </action>
   <action name="action_Erase">
    <property name="icon">
-    <iconset theme="format-remove-node">
-     <normaloff/>
-    </iconset>
+    <iconset theme="format-remove-node"/>
    </property>
    <property name="text">
     <string>&amp;Erase</string>
@@ -603,9 +575,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="edit-select">
-     <normaloff/>
-    </iconset>
+    <iconset theme="edit-select"/>
    </property>
    <property name="text">
     <string>&amp;Select</string>
@@ -619,9 +589,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="draw-jagged-line">
-     <normaloff/>
-    </iconset>
+    <iconset theme="draw-jagged-line"/>
    </property>
    <property name="text">
     <string>Edge &amp;Chain</string>
@@ -739,9 +707,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="grid-square">
-     <normaloff/>
-    </iconset>
+    <iconset theme="grid-square"/>
    </property>
    <property name="text">
     <string>&amp;Enable Grid</string>
@@ -752,9 +718,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="draw-single-line">
-     <normaloff/>
-    </iconset>
+    <iconset theme="draw-single-line"/>
    </property>
    <property name="text">
     <string>&amp;Toggle Edges</string>

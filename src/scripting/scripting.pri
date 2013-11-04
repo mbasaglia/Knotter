@@ -38,7 +38,7 @@ HEADERS += \
     $$PWD/plugin_crossing.hpp \
     $$PWD/edge_scripted.hpp \
     $$PWD/json_stuff.hpp \
-    $$PWD/qt_gui_script.hpp
+    $$PWD/script_qt_gui.hpp
 
 SOURCES += \
     $$PWD/wrappers/script_line.cpp \
@@ -63,4 +63,4 @@ SOURCES += \
     $$PWD/plugin_crossing.cpp \
     $$PWD/edge_scripted.cpp \
     $$PWD/json_stuff.cpp \
-    $$PWD/qt_gui_script.cpp
+    $$PWD/script_qt_gui.cpp

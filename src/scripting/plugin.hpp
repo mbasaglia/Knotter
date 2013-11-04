@@ -134,6 +134,11 @@ public:
      */
     static QDir settings_directory();
 
+    /**
+     * \brief Clear the settings file
+     */
+    void clear_settings();
+
 
 protected:
     /**

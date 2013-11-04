@@ -63,6 +63,10 @@ private slots:
 
     void on_combo_category_currentIndexChanged(int index);
 
+    void on_button_clear_settings_clicked();
+
+    void on_button_view_settings_clicked();
+
 private:
     void set_item_enabled(QListWidgetItem* it, bool enabled);
     void set_item_errored(QListWidgetItem* it);
@@ -76,7 +80,16 @@ private:
     Plugin* plugin(int i);
 
 signals:
+    /**
+     * \brief Emitted when the user presses the "Edit Script" button
+     */
     void edit_plugin(Plugin*);
+    /**
+     * \brief Emitted when the user wants to view a file (like the plugin settings and such)
+     * \note This is not called for the plugin script
+     * \see edit_plugin()
+     */
+    void edit_file(QString);
 };
 
 #endif // DIALOG_PLUGINS_HPP

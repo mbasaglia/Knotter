@@ -36,11 +36,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * This allows to access stuff that is available from C++ classes but is not provided
  * as invokable methods or properties
  */
-class Qt_GUI_Script : public QObject
+class Script_Qt_GUI : public QObject
 {
     Q_OBJECT
 public:
-    explicit Qt_GUI_Script(QObject *parent = 0);
+    explicit Script_Qt_GUI(QObject *parent = 0);
 
     // QTableWidget
     /**
@@ -64,10 +64,21 @@ public:
      * \param value     Strings to write
      */
     Q_INVOKABLE void table_append_row(QObject* table_object, QStringList value);
-    
-signals:
-    
-public slots:
+
+
+    /**
+     * \brief Get the currently selected row in a QTableWidget
+     * \param table     The QTableWidget object
+     * \return The index of the selected row or -1
+     */
+    Q_INVOKABLE int table_current_row(QObject* table_object);
+    /**
+     * \brief Get the currently selected column in a QTableWidget
+     * \param table     The QTableWidget object
+     * \return The index of the selected column or -1
+     */
+    Q_INVOKABLE int table_current_column(QObject* table_object);
+
     
 };
 
