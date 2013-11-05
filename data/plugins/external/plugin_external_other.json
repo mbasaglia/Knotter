@@ -1,0 +1,13 @@
+{
+    "author" : "Mattia Basaglia",
+    "category" : "External",
+    "description" : "Shows a dialog that allows to choose an external program to launch.",
+    "icon" : "system-run",
+    "license" : "GPLv3+",
+    "name" : "Launch external programs",
+    "requires" : "0.9.6",
+    "script" : "other.js",
+    "type" : "script",
+    "version" : "1",
+    "plugin_settings" : "external_programs",
+}

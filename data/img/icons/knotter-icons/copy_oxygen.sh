@@ -85,6 +85,7 @@ icons=' accessories-text-editor
         stroke-join-bevel
         stroke-join-miter
         stroke-join-round
+        system-run
         tab-close
         tab-close-other
         tab-detach

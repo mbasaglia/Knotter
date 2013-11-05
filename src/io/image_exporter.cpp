@@ -70,6 +70,11 @@ void export_raster(QIODevice &file, const Graph& graph, QColor background,
         return;
     }
 
+    if ( img_size.width() == 0 )
+        img_size.setWidth(1);
+    if ( img_size.height() == 0 )
+        img_size.setHeight(1);
+
     QRectF fibr = graph.full_image_bounding_rect();
     QSizeF actual_size = fibr.size();
     double scale_x = img_size.width() / actual_size.width();

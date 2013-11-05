@@ -175,6 +175,8 @@ QString Script_Window_Dialog::get_text(QString message, QString title, QString d
 
 QString Script_Window_Dialog::get_item(QString message, QString title, QStringList items)
 {
+    if ( items.empty() )
+        return QString();
 
     bool ok = true;
     QString result = QInputDialog::getItem(parent_widget,default_title(title),

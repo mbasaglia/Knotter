@@ -70,152 +70,149 @@
        </layout>
       </item>
       <item>
-       <widget class="QScrollArea" name="scrollArea">
-        <property name="widgetResizable">
-         <bool>true</bool>
+       <widget class="QFrame" name="frame">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
         </property>
-        <widget class="QWidget" name="scrollAreaWidgetContents">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>294</width>
-           <height>350</height>
-          </rect>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
-            <item>
-             <widget class="QLabel" name="label_icon">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string notr="true">icon</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_title">
-              <property name="font">
-               <font>
-                <pointsize>15</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string notr="true">Title</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="QPushButton" name="check_enable">
-              <property name="text">
-               <string>Disabled</string>
-              </property>
-              <property name="checkable">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="button_reload_2">
-              <property name="text">
-               <string>Reload Script</string>
-              </property>
-              <property name="icon">
-               <iconset theme="view-refresh">
-                <normaloff/>
-               </iconset>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="button_edit">
-              <property name="text">
-               <string>Edit Script</string>
-              </property>
-              <property name="icon">
-               <iconset theme="document-edit">
-                <normaloff/>
-               </iconset>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="QPlainTextEdit" name="text_description">
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label">
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QLabel" name="label_icon">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string notr="true">icon</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_title">
+             <property name="font">
+              <font>
+               <pointsize>15</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string notr="true">Title</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QPushButton" name="check_enable">
+             <property name="text">
+              <string>Disabled</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="button_reload_2">
+             <property name="text">
+              <string>Reload Script</string>
+             </property>
+             <property name="icon">
+              <iconset theme="view-refresh">
+               <normaloff/>
+              </iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="button_edit">
+             <property name="text">
+              <string>Edit Script</string>
+             </property>
+             <property name="icon">
+              <iconset theme="document-edit">
+               <normaloff/>
+              </iconset>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPlainTextEdit" name="text_description">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Plugin data</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="tableWidget">
+           <property name="textElideMode">
+            <enum>Qt::ElideMiddle</enum>
+           </property>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <column>
             <property name="text">
-             <string>Plugin data</string>
+             <string>Name</string>
             </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QTableWidget" name="tableWidget">
-            <property name="textElideMode">
-             <enum>Qt::ElideMiddle</enum>
+           </column>
+           <column>
+            <property name="text">
+             <string>Value</string>
             </property>
-            <attribute name="horizontalHeaderStretchLastSection">
-             <bool>true</bool>
-            </attribute>
-            <attribute name="verticalHeaderVisible">
-             <bool>false</bool>
-            </attribute>
-            <column>
+           </column>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QPushButton" name="button_view_settings">
              <property name="text">
-              <string>Name</string>
+              <string>View &amp;Settings...</string>
              </property>
-            </column>
-            <column>
+             <property name="icon">
+              <iconset theme="document-edit">
+               <normaloff/>
+              </iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="button_clear_settings">
              <property name="text">
-              <string>Value</string>
+              <string>C&amp;lear Settings</string>
              </property>
-            </column>
-           </widget>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_5">
-            <item>
-             <widget class="QPushButton" name="button_view_settings">
-              <property name="text">
-               <string>View &amp;Settings...</string>
-              </property>
-              <property name="icon">
-               <iconset theme="document-edit"/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="button_clear_settings">
-              <property name="text">
-               <string>C&amp;lear Settings</string>
-              </property>
-              <property name="icon">
-               <iconset theme="edit-clear"/>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
+             <property name="icon">
+              <iconset theme="edit-clear">
+               <normaloff/>
+              </iconset>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>

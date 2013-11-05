@@ -9,10 +9,12 @@ OTHER_FILES += \
     $$PWD/example_edge/example_edge.js \
     $$PWD/external/common.js \
     $$PWD/external/config.js \
-    $$PWD/external/plugin_external.json \
+    $$PWD/external/plugin_external_config.json \
+    $$PWD/external/plugin_external_other.json \
     $$PWD/external/plugin_inkscape.json \
     $$PWD/external/plugin_gimp.json \
     $$PWD/external/inkscape.js \
+    $$PWD/external/other.js \
     $$PWD/external/gimp.js \
     $$PWD/fill_area/plugin_fill_area.json \
     $$PWD/fill_area/fill_area.js \

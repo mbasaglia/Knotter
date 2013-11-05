@@ -70,6 +70,9 @@ void Dialog_Plugins::load_plugins()
         listWidget->addItem(item);
     }
 
+    if ( listWidget->count() > 0)
+        listWidget->setCurrentRow(0);
+
     reload_combo();
 }
 
