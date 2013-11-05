@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QApplication>
 #include <QStyle>
 #include "json_stuff.hpp"
-#include "script_qt_gui.hpp"
+#include "script_qtablewidget.hpp"
 
 #if HAS_QT_5
 #include <QStandardPaths>
@@ -552,8 +552,6 @@ QScriptContext* Resource_Manager::script_context()
             engine->newQObject(new Script_Knotter,QScriptEngine::ScriptOwnership));
         engine->globalObject().setProperty( "system",
             engine->newQObject(new Script_System,QScriptEngine::ScriptOwnership));
-        engine->globalObject().setProperty( "gui",
-            engine->newQObject(new Script_Qt_GUI,QScriptEngine::ScriptOwnership));
 
         engine->globalObject().setProperty("Graph", engine->newFunction(build_graph));
 
@@ -567,6 +565,12 @@ QScriptContext* Resource_Manager::script_context()
         engine->globalObject().setProperty("hsv", engine->newFunction(script_hsv));
         engine->globalObject().setProperty("hsl", engine->newFunction(script_hsl));
         engine->globalObject().setProperty("cmyk", engine->newFunction(script_cmyk));
+
+
+
+        QScriptValue gui = singleton.m_script_engine->newObject();
+        gui.setProperty("table_widget",engine->newFunction(script_create_tablewidget_wrapper));
+        engine->globalObject().setProperty( "gui",gui);
 
     }
     return singleton.current_context;

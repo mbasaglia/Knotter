@@ -24,62 +24,69 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef QT_GUI_SCRIPT_HPP
-#define QT_GUI_SCRIPT_HPP
+#ifndef SCRIPT_QTABLEWIDGET_HPP
+#define SCRIPT_QTABLEWIDGET_HPP
 
-#include <QObject>
-#include <QStringList>
+#include <QTableWidget>
+#include <QScriptEngine>
 
-/**
- * \brief Allow interactions between Script and standard UI classes
- *
- * This allows to access stuff that is available from C++ classes but is not provided
- * as invokable methods or properties
- */
-class Script_Qt_GUI : public QObject
+class Script_QTableWidget : public QObject
 {
     Q_OBJECT
-public:
-    explicit Script_Qt_GUI(QObject *parent = 0);
 
-    // QTableWidget
+    Q_PROPERTY(QObject* table READ wrapped_table)
+
+private:
+    QTableWidget * table;
+
+public:
+    explicit Script_QTableWidget(QTableWidget * table, QObject *parent = 0);
+
     /**
      * \brief Set the value of a cell in a QTableWidget
-     * \param table     The QTableWidget object
      * \param row       Cell row
      * \param column    Cell column
      * \param value     String to write
      */
-    Q_INVOKABLE void table_set(QObject* table_object, int row, int column, QString value);
+    Q_INVOKABLE void set_value(int row, int column, QString value);
     /**
      * \brief Get the value of a cell in a QTableWidget
-     * \param table     The QTableWidget object
      * \param row       Cell row
      * \param column    Cell column
      */
-    Q_INVOKABLE QString table_get(QObject* table_object, int row, int column );
+    Q_INVOKABLE QString get_value ( int row, int column );
     /**
      * \brief Add a row at the end of a QTableWidget with the given items
-     * \param table     The QTableWidget object
      * \param value     Strings to write
      */
-    Q_INVOKABLE void table_append_row(QObject* table_object, QStringList value);
-
-
+    Q_INVOKABLE void append_row( QStringList value);
     /**
      * \brief Get the currently selected row in a QTableWidget
-     * \param table     The QTableWidget object
      * \return The index of the selected row or -1
      */
-    Q_INVOKABLE int table_current_row(QObject* table_object);
+    Q_INVOKABLE int current_row();
     /**
      * \brief Get the currently selected column in a QTableWidget
-     * \param table     The QTableWidget object
      * \return The index of the selected column or -1
      */
-    Q_INVOKABLE int table_current_column(QObject* table_object);
+    Q_INVOKABLE int current_column();
 
+    QTableWidget * wrapped_table() const { return table; }
+
+signals:
+    /**
+     * \brief Emitted when the user edits the text of a cell
+     * \param row       Row of the changed cell
+     * \param column    Column of the changed cell
+     * \param value     New text in that cell
+     */
+    void value_changed(int row, int column, QString value);
+
+private slots:
+    void emit_value_changed(QTableWidgetItem* it);
     
 };
 
-#endif // QT_GUI_SCRIPT_HPP
+QScriptValue script_create_tablewidget_wrapper (QScriptContext *context, QScriptEngine *engine);
+
+#endif // SCRIPT_QTABLEWIDGET_HPP
