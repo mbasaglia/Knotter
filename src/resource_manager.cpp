@@ -552,6 +552,7 @@ QScriptContext* Resource_Manager::script_context()
             engine->newQObject(new Script_Knotter,QScriptEngine::ScriptOwnership));
         engine->globalObject().setProperty( "system",
             engine->newQObject(new Script_System,QScriptEngine::ScriptOwnership));
+        engine->globalObject().setProperty("run_script", engine->newFunction(script_run_script));
 
         engine->globalObject().setProperty("Graph", engine->newFunction(build_graph));
 
@@ -638,8 +639,10 @@ QScriptValue Resource_Manager::run_script(Plugin *source,
         plugin_settings_dir.mkpath(".");
     plugin_settings.unsetError();
     if ( ! plugin_settings.open(QFile::WriteOnly) )
+    {
         emit singleton.script_error(plugin_settings.fileName(),0,
                                     tr("Cannot open file"),QStringList() );
+    }
     else
     {
         json_write_file(plugin_settings,

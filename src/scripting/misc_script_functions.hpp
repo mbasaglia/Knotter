@@ -30,11 +30,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QStringList>
 
 /**
- * @brief Override qt script print function
+ * \brief Override qt script print function
  *
  * Writes any argument to stdout and emits Resource_Manager::sctipt_output
  */
 QScriptValue script_print(QScriptContext * context, QScriptEngine * engine );
+
+/**
+ * \brief Run an external script file
+ *
+ * Takes the file name as parameter, will raise an exception if that is not found
+ */
+QScriptValue script_run_script(QScriptContext * context, QScriptEngine * engine );
+
 
 /**
  * \brief Information on the program accessible from the scripts

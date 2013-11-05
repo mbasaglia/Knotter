@@ -6,7 +6,7 @@
 	"license" : "GPLv3+",
 	"name" : "Set up external programs",
 	"requires" : "0.9.6",
-	"script" : "set_up_external_programs.js",
+    "script" : "config.js",
 	"type" : "script",
 	"version" : "1",
 	"plugin_settings" : "external_programs",

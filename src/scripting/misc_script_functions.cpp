@@ -47,6 +47,27 @@ QScriptValue script_print( QScriptContext * context, QScriptEngine * )
     return QScriptValue();
 }
 
+QScriptValue script_run_script(QScriptContext * context, QScriptEngine * engine )
+{
+    if ( context->argumentCount() < 1 || context->argument(0).toString().isEmpty() )
+        return context->throwError(QObject::tr("Expected file name for run_script()"));
+    QFile source ( context->argument(0).toString() );
+    if ( !source.open(QFile::ReadOnly) )
+        return context->throwError(QObject::tr("Cannot open file \"%1\"")
+                                   .arg(source.fileName()));
+
+    QScriptValue return_value =  engine->evaluate(source.readAll(),source.fileName(),1);
+
+    // preserve variables and functions from script
+    QScriptValue acto = context->activationObject();
+    foreach ( QString k, acto.toVariant().toMap().keys() )
+    {
+        engine->globalObject().setProperty(k,acto.property(k));
+    }
+
+    return return_value;
+}
+
 QString Script_Knotter::version() const
 {
     return Resource_Manager::program_version();

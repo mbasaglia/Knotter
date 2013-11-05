@@ -7,8 +7,9 @@ OTHER_FILES += \
     $$PWD/example_cusp/example_cusp.js \
     $$PWD/example_edge/plugin_example_edge.json \
     $$PWD/example_edge/example_edge.js \
-    $$PWD/external/set_up_external_programs.js \
-    $$PWD/external/plugin_set_up_external_programs.json \
+    $$PWD/external/common.js \
+    $$PWD/external/config.js \
+    $$PWD/external/plugin_external.json \
     $$PWD/external/plugin_inkscape.json \
     $$PWD/external/plugin_gimp.json \
     $$PWD/external/inkscape.js \
