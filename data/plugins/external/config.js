@@ -37,11 +37,4 @@ Dialog.exec();
 Dialog.button_add.clicked.disconnect(add);
 Dialog.button_remove.clicked.disconnect(remove);
 
-//print(JSON.stringify(Dialog.tableWidget,null,4));
-/*var items = [];
-for ( var i = 0; i < Dialog.tableWidget.rowCount; i++ )
-{
-	items.push({"name":Dialog.tableWidget.item(i,0)});
-}*/
-
-print(JSON.stringify(items,null,4));
+//print(JSON.stringify(items,null,4));
