@@ -11,7 +11,7 @@
 	"version" : "1",
 	"plugin_settings" : "external_programs",
     "ui" : "config.ui",
-    "settings": { programs:[
+    "settings": { "programs":[
             [ "GIMP", "PNG", "gimp" ],
             ["Inkscape", "SVG", "inkscape" ]
     ]}

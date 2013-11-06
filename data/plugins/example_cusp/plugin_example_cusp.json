@@ -1,6 +1,6 @@
 {
     "name"          : "Example cusp",
-    "version"       : "1.0",
+    "version"       : "1",
     "description"   : "An implementation of the built-in rounded cusp as a plugin, disabled by default.\n\nThis plugin serves as an example on how to create cusp plugins.",
     "author"        : "Mattia Basaglia",
     "license"       : "GPLv3+",

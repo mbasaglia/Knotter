@@ -1,6 +1,6 @@
 {
     "name"          : "Fill Area",
-    "version"       : "2.0",
+    "version"       : "2",
     "description"   : "Detects an area or an outline of the active selection and fills it with a dense graph.",
     "author"        : "Mattia Basaglia",
     "license"       : "GPLv3+",

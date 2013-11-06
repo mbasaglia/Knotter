@@ -1,6 +1,6 @@
 {
     "name"          : "Insert lattice",
-    "version"       : "1.0",
+    "version"       : "1",
     "description"   : "Insert a square grid of connected nodes. Useful as a starting point for large knots.",
     "author"        : "Mattia Basaglia",
     "license"       : "GPLv3+",

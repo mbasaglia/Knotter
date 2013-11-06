@@ -1,6 +1,6 @@
 {
     "name"          : "Insert Polygon",
-    "version"       : "1.0",
+    "version"       : "1",
     "description"   : "This plugin inserts a polygon. Can be useful to create knots with some rotational symmetry.",
     "author"        : "Mattia Basaglia",
     "license"       : "GPLv3+",

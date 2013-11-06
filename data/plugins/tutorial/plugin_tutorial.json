@@ -4,5 +4,6 @@
     "script"      : "line.js",
     "auto_enable" : false,
     "requires"    : "0.9.3",
-    "category"    : "Example"
+    "category"    : "Example",
+    "version"     : 1
 }

@@ -9,5 +9,5 @@
     "script" : "other.js",
     "type" : "script",
     "version" : "1",
-    "plugin_settings" : "external_programs",
+    "plugin_settings" : "external_programs"
 }

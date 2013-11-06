@@ -1,6 +1,6 @@
 {
     "name"          : "Star cusp",
-    "version"       : "1.0",
+    "version"       : "1",
     "author"        : "Mattia Basaglia",
     "description"   : "A cusp that looks like a star",
     "license"       : "GPLv3+",

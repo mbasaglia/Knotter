@@ -4,5 +4,7 @@
 	"license" : "GPLv3+",
 	"name" : "Remove Duplicates",
 	"script" : "remove_duplicates.js",
-	"type" : "script",
+    "type" : "script",
+    "requires" : "0.9.3",
+    "version" : 1
 }
