@@ -439,7 +439,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/concentric_frame/dialog.ui" line="14"/>
         <source>Concentric Frames</source>
-        <translation>Cornici contentriche</translation>
+        <translation type="unfinished">Cornici contentriche</translation>
     </message>
     <message>
         <location filename="../plugins/concentric_frame/dialog.ui" line="20"/>
@@ -448,28 +448,28 @@ p, li { white-space: pre-wrap; }
         <location filename="../plugins/lattice/dialog.ui" line="67"/>
         <location filename="../plugins/spiral/dialog.ui" line="77"/>
         <source>px</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../plugins/concentric_frame/dialog.ui" line="39"/>
         <source>Width</source>
-        <translation>Largezza</translation>
+        <translation type="unfinished">Largezza</translation>
     </message>
     <message>
         <location filename="../plugins/concentric_frame/dialog.ui" line="52"/>
         <source>Iterations</source>
-        <translation>Iterazioni</translation>
+        <translation type="unfinished">Iterazioni</translation>
     </message>
     <message>
         <location filename="../plugins/concentric_frame/dialog.ui" line="59"/>
         <source>Connected</source>
-        <translation>Connesse</translation>
+        <translation type="unfinished">Connesse</translation>
     </message>
     <message>
         <location filename="../plugins/concentric_frame/dialog.ui" line="92"/>
         <location filename="../plugins/fill_area/dialog.ui" line="66"/>
         <source>Delete original selection</source>
-        <translation>Cancella la selezione originale</translation>
+        <translation type="unfinished">Cancella la selezione originale</translation>
     </message>
     <message>
         <location filename="../plugins/external/config.ui" line="14"/>
@@ -479,7 +479,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/external/config.ui" line="33"/>
         <source>Name</source>
-        <translation>Nome</translation>
+        <translation type="unfinished">Nome</translation>
     </message>
     <message>
         <location filename="../plugins/external/config.ui" line="38"/>
@@ -497,7 +497,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/external/config.ui" line="63"/>
+        <location filename="../plugins/external/config.ui" line="65"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
@@ -660,12 +660,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/polygon/dialog_insert_polygon.ui" line="14"/>
         <source>Insert Polygon</source>
-        <translation>Inserisci poligono</translation>
+        <translation type="unfinished">Inserisci poligono</translation>
     </message>
     <message>
         <location filename="../plugins/polygon/dialog_insert_polygon.ui" line="31"/>
         <source>Sides</source>
-        <translation>Lati</translation>
+        <translation type="unfinished">Lati</translation>
     </message>
     <message>
         <location filename="../plugins/polygon/dialog_insert_polygon.ui" line="51"/>
@@ -683,28 +683,28 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/star/dialog.ui" line="14"/>
         <source>Insert Star</source>
-        <translation>Inserisci lati</translation>
+        <translation type="unfinished">Inserisci lati</translation>
     </message>
     <message>
         <location filename="../plugins/star/dialog.ui" line="29"/>
         <source>Sides</source>
-        <translation>Lati</translation>
+        <translation type="unfinished">Lati</translation>
     </message>
     <message>
         <location filename="../plugins/star/dialog.ui" line="55"/>
         <source>Inner Radius</source>
-        <translation>Raggio interno</translation>
+        <translation type="unfinished">Raggio interno</translation>
     </message>
     <message>
         <location filename="../plugins/star/dialog.ui" line="62"/>
         <location filename="../plugins/star/dialog.ui" line="91"/>
         <source>px</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../plugins/star/dialog.ui" line="84"/>
         <source>Outer Radius</source>
-        <translation>Raggio esterno</translation>
+        <translation type="unfinished">Raggio esterno</translation>
     </message>
 </context>
 <context>
@@ -720,7 +720,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="117"/>
-        <location filename="../../src/dialogs/dialog_plugins.cpp" line="204"/>
+        <location filename="../../src/dialogs/dialog_plugins.cpp" line="207"/>
         <source>Disabled</source>
         <translation>Disabilita</translation>
     </message>
@@ -750,17 +750,27 @@ p, li { white-space: pre-wrap; }
         <translation>Valore</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="196"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="192"/>
+        <source>View &amp;Settings...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="204"/>
+        <source>C&amp;lear Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="224"/>
         <source>No plugin installed</source>
         <translation>Nessun plugin installato</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="205"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="233"/>
         <source>&amp;Reload Plugins</source>
         <translation>&amp;Ricarica i Plugin</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="217"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="245"/>
         <source>&amp;Create...</source>
         <translation>&amp;Crea...</translation>
     </message>
@@ -769,17 +779,17 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Installa...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="229"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="257"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.cpp" line="81"/>
+        <location filename="../../src/dialogs/dialog_plugins.cpp" line="84"/>
         <source>All</source>
         <translation>Tutti</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.cpp" line="204"/>
+        <location filename="../../src/dialogs/dialog_plugins.cpp" line="207"/>
         <source>Enabled</source>
         <translation>Abilitato</translation>
     </message>
@@ -2045,82 +2055,82 @@ p, li { white-space: pre-wrap; }
         <translation>&amp;Esci</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="398"/>
+        <location filename="../../src/dialogs/main_window.ui" line="396"/>
         <source>&amp;Copy</source>
         <translation>&amp;Copina</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="408"/>
+        <location filename="../../src/dialogs/main_window.ui" line="404"/>
         <source>&amp;Paste</source>
         <translation>&amp;Incolla</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="418"/>
+        <location filename="../../src/dialogs/main_window.ui" line="414"/>
         <source>Cu&amp;t</source>
         <translation>&amp;Taglia</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="428"/>
+        <location filename="../../src/dialogs/main_window.ui" line="424"/>
         <source>Select &amp;All</source>
         <translation>Selezion&amp;a Tutto</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="438"/>
+        <location filename="../../src/dialogs/main_window.ui" line="434"/>
         <source>&amp;Preferences...</source>
         <translation>O&amp;pzioni...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="448"/>
+        <location filename="../../src/dialogs/main_window.ui" line="442"/>
         <source>&amp;Reset View</source>
         <translation>&amp;Reimposta Vista</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="458"/>
+        <location filename="../../src/dialogs/main_window.ui" line="450"/>
         <source>Zoom &amp;In</source>
         <translation>&amp;Ingrandisci</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="468"/>
+        <location filename="../../src/dialogs/main_window.ui" line="458"/>
         <source>Zoom &amp;Out</source>
         <translation>&amp;Rimpicciolisci</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="478"/>
+        <location filename="../../src/dialogs/main_window.ui" line="468"/>
         <source>&amp;Reset Zoom</source>
         <translation>&amp;Reimposta Zoom</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="481"/>
+        <location filename="../../src/dialogs/main_window.ui" line="471"/>
         <source>Ctrl+0</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="497"/>
+        <location filename="../../src/dialogs/main_window.ui" line="485"/>
         <source>Display &amp;Graph</source>
         <translation>Mostra &amp;Grafo</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="611"/>
+        <location filename="../../src/dialogs/main_window.ui" line="581"/>
         <source>&amp;Select</source>
         <translation>&amp;Selezione</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="627"/>
+        <location filename="../../src/dialogs/main_window.ui" line="595"/>
         <source>Edge &amp;Chain</source>
         <translation>&amp;Catena di archi</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="723"/>
+        <location filename="../../src/dialogs/main_window.ui" line="691"/>
         <source>Report &amp;Bugs...</source>
         <translation>Segnala Pro&amp;blemi...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="768"/>
+        <location filename="../../src/dialogs/main_window.ui" line="732"/>
         <source>&amp;Fit View</source>
         <translation>A&amp;datta visualizzazione</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="771"/>
+        <location filename="../../src/dialogs/main_window.ui" line="735"/>
         <source>Scroll and zoom the view to display the entire knot</source>
         <translation>Muove e ridimensiona la visyalizzazione in modo da mostrare l&apos;intreccio completo</translation>
     </message>
@@ -2140,57 +2150,57 @@ p, li { white-space: pre-wrap; }
         <translation>Antepri&amp;ma di Stampa...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="507"/>
+        <location filename="../../src/dialogs/main_window.ui" line="493"/>
         <source>&amp;Connect</source>
         <translation>&amp;Connetti</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="510"/>
+        <location filename="../../src/dialogs/main_window.ui" line="496"/>
         <source>F</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="520"/>
+        <location filename="../../src/dialogs/main_window.ui" line="504"/>
         <source>&amp;Disconnect</source>
         <translation>&amp;Disconnetti</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="530"/>
+        <location filename="../../src/dialogs/main_window.ui" line="512"/>
         <source>&amp;Horizontal Flip</source>
         <translation>Capovolgi &amp;Orizzontalmente</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="540"/>
+        <location filename="../../src/dialogs/main_window.ui" line="520"/>
         <source>&amp;Vertical Flip</source>
         <translation>Capovolgi &amp;Verticalmente</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="553"/>
+        <location filename="../../src/dialogs/main_window.ui" line="531"/>
         <source>&amp;Rotate</source>
         <translation>&amp;Ruota</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="569"/>
+        <location filename="../../src/dialogs/main_window.ui" line="545"/>
         <source>&amp;Scale</source>
         <translation>Ridimen&amp;siona</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="579"/>
+        <location filename="../../src/dialogs/main_window.ui" line="553"/>
         <source>&amp;Merge</source>
         <translation>&amp;Unisci</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="582"/>
+        <location filename="../../src/dialogs/main_window.ui" line="556"/>
         <source>Ctrl+M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="592"/>
+        <location filename="../../src/dialogs/main_window.ui" line="564"/>
         <source>&amp;Erase</source>
         <translation>&amp;Rimuovi</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="595"/>
+        <location filename="../../src/dialogs/main_window.ui" line="567"/>
         <source>Del</source>
         <translation>Canc</translation>
     </message>
@@ -2199,7 +2209,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Modifica Grafo</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="614"/>
+        <location filename="../../src/dialogs/main_window.ui" line="584"/>
         <source>Alt+Shift+E</source>
         <translation>Alt+Maiusc+E</translation>
     </message>
@@ -2208,72 +2218,72 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Lista di Archi</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="630"/>
+        <location filename="../../src/dialogs/main_window.ui" line="598"/>
         <source>Alt+Shift+L</source>
         <translation>Alt+Maiusc+L</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="760"/>
+        <location filename="../../src/dialogs/main_window.ui" line="724"/>
         <source>&amp;Toggle Edges</source>
         <translation>Abili&amp;ta/Disabilita Archi</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="640"/>
+        <location filename="../../src/dialogs/main_window.ui" line="608"/>
         <source>&amp;Refresh Path</source>
         <translation>&amp;Aggiorna Immagine</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="650"/>
+        <location filename="../../src/dialogs/main_window.ui" line="618"/>
         <source>&amp;Manual</source>
         <translation>&amp;Manuale</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="660"/>
+        <location filename="../../src/dialogs/main_window.ui" line="628"/>
         <source>&amp;About Knotter...</source>
         <translation>Inform&amp;azioni su Knotter...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="728"/>
+        <location filename="../../src/dialogs/main_window.ui" line="696"/>
         <source>Select Connected</source>
         <translation>Seleziona connessi</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="731"/>
+        <location filename="../../src/dialogs/main_window.ui" line="699"/>
         <source>Ctrl+L</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="747"/>
+        <location filename="../../src/dialogs/main_window.ui" line="713"/>
         <source>&amp;Enable Grid</source>
         <translation>A&amp;bilita Griglia</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="670"/>
+        <location filename="../../src/dialogs/main_window.ui" line="638"/>
         <source>E&amp;xport...</source>
         <translation>Es&amp;porta...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="673"/>
+        <location filename="../../src/dialogs/main_window.ui" line="641"/>
         <source>Ctrl+E</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="683"/>
+        <location filename="../../src/dialogs/main_window.ui" line="651"/>
         <source>Snap to &amp;Grid</source>
         <translation>Allinea alla &amp;Griglia</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="693"/>
+        <location filename="../../src/dialogs/main_window.ui" line="661"/>
         <source>&amp;Undo</source>
         <translation>&amp;Annulla</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="703"/>
+        <location filename="../../src/dialogs/main_window.ui" line="671"/>
         <source>&amp;Redo</source>
         <translation>&amp;Ripeti</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="713"/>
+        <location filename="../../src/dialogs/main_window.ui" line="681"/>
         <source>&amp;Configure Plugins...</source>
         <translation>&amp;Configura Estensioni...</translation>
     </message>
@@ -2291,17 +2301,17 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Sile Selezione</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="253"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="255"/>
         <source>Action History</source>
         <translation>Storico Azioni</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="257"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="259"/>
         <source>Selected Nodes</source>
         <translation>Nodi selezionati</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="260"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="262"/>
         <source>Selected Edges</source>
         <translation>Archi selezionati</translation>
     </message>
@@ -2310,22 +2320,22 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Sile predefinito</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="274"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="276"/>
         <source>Warning:</source>
         <translation>Attenzione:</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="275"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="277"/>
         <source>Discarding old configuration</source>
         <translation>La vecchia configurazione verrà ignorara</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="281"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="283"/>
         <source>Load old configuration</source>
         <translation>Carica vecchia configurazione</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="282"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="284"/>
         <source>Knotter has detected configuration for version %1,
 this is version %2.
 Do you want to load it anyways?</source>
@@ -2334,118 +2344,118 @@ Questa è la versione %2.
 Vuoi caricare le vecchie impostazioni?</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="508"/>
-        <location filename="../../src/dialogs/main_window.cpp" line="623"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="510"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="625"/>
         <source>New Knot</source>
         <translation>Nuovo Nodo</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="515"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="517"/>
         <source>%1 - %2%3</source>
         <extracomment>Main window title * %1 is the program name * %2 is the file name * %3 is a star * or an empty string depending on whether the file was modified</extracomment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="631"/>
-        <location filename="../../src/dialogs/main_window.cpp" line="796"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="633"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="798"/>
         <source>File Error</source>
         <translation>Errore di file</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="632"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="634"/>
         <source>Error while reading &quot;%1&quot;.</source>
         <translation>Errore durante la lettura di &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="667"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="669"/>
         <source>Close File</source>
         <translation>Chiudi File</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="668"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="670"/>
         <source>The file &quot;%1&quot; has been modified.
 Do you want to save changes?</source>
         <translation>Il file &quot;%1&quot; è stato modificato.
 Vuoi salvare le modifiche?</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="699"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="701"/>
         <source>Undo %1</source>
         <translation>Annlla %1</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="704"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="706"/>
         <source>Redo %1</source>
         <translation>Ripristina %1</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="746"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="748"/>
         <source>Open Knot</source>
         <translation>Apri nodo</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="776"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="778"/>
         <source>Knot files (*.knot);;XML files (*.xml);;All files (*)</source>
         <translation>File intreccio (*.knot);;File XML (*.knot);;Tutti i file(*)</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="777"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="779"/>
         <source>Save Knot</source>
         <translation>Salva nodo</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="797"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="799"/>
         <source>Failed to save file &quot;%1&quot;.</source>
         <translation>Errore durante il salvataggio di &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="804"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="806"/>
         <source>(%1,%2)</source>
         <extracomment>Displaying mouse position, %1 = x, %2 = y</extracomment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="825"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="827"/>
         <source>No recent files</source>
         <translation>Nessun file recente</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="980"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="982"/>
         <source>Paste</source>
         <translation>Incolla</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="992"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="994"/>
         <source>Cut</source>
         <translation>Taglia</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1043"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1045"/>
         <source>Drop</source>
         <translation>Nodo Rilasciato</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1062"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1064"/>
         <source>Snap to Grid</source>
         <translation>Blocca sulla griglia</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1077"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1079"/>
         <source>Delete</source>
         <translation>Cancella</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1142"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1144"/>
         <source>Connect Nodes</source>
         <translation>Connetti vertici</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1161"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1163"/>
         <source>Disconnect Nodes</source>
         <translation>Disconnetti vertici</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1179"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1181"/>
         <source>Merge Nodes</source>
         <translation>Unisci vertici</translation>
     </message>
@@ -2590,7 +2600,7 @@ Vuoi salvare le modifiche?</translation>
         <translation>Poligonale</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="669"/>
+        <location filename="../../src/resource_manager.cpp" line="679"/>
         <source>%1:%2:Error: %3</source>
         <translation>%1:%2:Errore:%3</translation>
     </message>
@@ -2629,6 +2639,16 @@ Vuoi salvare le modifiche?</translation>
         <source>Error while opening script file %1</source>
         <translation>Errore durante l&apos;apertura del file di script %1</translation>
     </message>
+    <message>
+        <location filename="../../src/scripting/misc_script_functions.cpp" line="53"/>
+        <source>Expected file name for run_script()</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/scripting/misc_script_functions.cpp" line="56"/>
+        <source>Cannot open file &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Remove_Edge</name>
@@ -2649,50 +2669,50 @@ Vuoi salvare le modifiche?</translation>
 <context>
     <name>Resource_Manager</name>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="52"/>
+        <location filename="../../src/resource_manager.cpp" line="53"/>
         <source>Knotter</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="238"/>
-        <location filename="../../src/resource_manager.cpp" line="320"/>
-        <location filename="../../src/resource_manager.cpp" line="371"/>
+        <location filename="../../src/resource_manager.cpp" line="239"/>
+        <location filename="../../src/resource_manager.cpp" line="321"/>
+        <location filename="../../src/resource_manager.cpp" line="372"/>
         <source>Warning:</source>
         <translation>Attenzione:</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="239"/>
+        <location filename="../../src/resource_manager.cpp" line="240"/>
         <source>Unrecognised translation file name pattern: %1</source>
         <translation>Nome file di traduzione non riconosciuto: %1</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="325"/>
+        <location filename="../../src/resource_manager.cpp" line="326"/>
         <source>Error on loading translation file %1 for language %2 (%3)</source>
         <extracomment>%1 is the file name, * %2 is the human-readable language code * %3 is the ISO language code</extracomment>
         <translation>Errore durante il caricamento del file di traduzione %1 per la lingua %2 (%3)</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="372"/>
+        <location filename="../../src/resource_manager.cpp" line="373"/>
         <source>There is no translation for language %1 (%2)</source>
         <translation>Nessun file di traduzione per la lingua %1 (%2)</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="635"/>
+        <location filename="../../src/resource_manager.cpp" line="644"/>
         <source>Cannot open file</source>
         <translation>Impossibile aprire il file</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="700"/>
+        <location filename="../../src/resource_manager.cpp" line="710"/>
         <source>Unknown error</source>
         <translation>Errore sconosciuto</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="703"/>
+        <location filename="../../src/resource_manager.cpp" line="713"/>
         <source>%1: Error: %2</source>
         <translation>%1: Errore: %2</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="716"/>
+        <location filename="../../src/resource_manager.cpp" line="726"/>
         <source>Script aborted</source>
         <translation>Script terminato di forza</translation>
     </message>
@@ -2715,9 +2735,17 @@ Vuoi salvare le modifiche?</translation>
     </message>
 </context>
 <context>
+    <name>Script_QTableWidget</name>
+    <message>
+        <location filename="../../src/scripting/wrappers/script_qtablewidget.cpp" line="88"/>
+        <source>Argument is not a QTableWidget object</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Script_Window_Dialog</name>
     <message>
-        <location filename="../../src/scripting/wrappers/script_window.cpp" line="210"/>
+        <location filename="../../src/scripting/wrappers/script_window.cpp" line="212"/>
         <source>Cancel</source>
         <translation>Annulla</translation>
     </message>

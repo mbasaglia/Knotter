@@ -561,8 +561,40 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Odstranit</translation>
     </message>
     <message>
-        <location filename="../plugins/external/config.ui" line="63"/>
+        <location filename="../plugins/external/config.ui" line="65"/>
         <source>Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/spiral/dialog.ui" line="14"/>
+        <source>Spiral</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/spiral/dialog.ui" line="20"/>
+        <source>End Angle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="../plugins/spiral/dialog.ui" line="27"/>
+        <location filename="../plugins/spiral/dialog.ui" line="57"/>
+        <location filename="../plugins/spiral/dialog.ui" line="90"/>
+        <source>°</source>
+        <translation type="unfinished">°</translation>
+    </message>
+    <message>
+        <location filename="../plugins/spiral/dialog.ui" line="50"/>
+        <source>Start Angle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/spiral/dialog.ui" line="70"/>
+        <source>Turning Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/spiral/dialog.ui" line="112"/>
+        <source>Angle Step</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -643,38 +675,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/mirror/dialog.ui" line="27"/>
         <source>Mirror Y</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/spiral/dialog.ui" line="14"/>
-        <source>Spiral</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/spiral/dialog.ui" line="20"/>
-        <source>End Angle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="../plugins/spiral/dialog.ui" line="27"/>
-        <location filename="../plugins/spiral/dialog.ui" line="57"/>
-        <location filename="../plugins/spiral/dialog.ui" line="90"/>
-        <source>°</source>
-        <translation type="unfinished">°</translation>
-    </message>
-    <message>
-        <location filename="../plugins/spiral/dialog.ui" line="50"/>
-        <source>Start Angle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/spiral/dialog.ui" line="70"/>
-        <source>Turning Size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/spiral/dialog.ui" line="112"/>
-        <source>Angle Step</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -784,7 +784,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="117"/>
-        <location filename="../../src/dialogs/dialog_plugins.cpp" line="204"/>
+        <location filename="../../src/dialogs/dialog_plugins.cpp" line="207"/>
         <source>Disabled</source>
         <translation>Zakázáno</translation>
     </message>
@@ -814,17 +814,27 @@ p, li { white-space: pre-wrap; }
         <translation>Hodnota</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="196"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="192"/>
+        <source>View &amp;Settings...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="204"/>
+        <source>C&amp;lear Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="224"/>
         <source>No plugin installed</source>
         <translation>Žádný přídavný modul není nainstalován</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="205"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="233"/>
         <source>&amp;Reload Plugins</source>
         <translation>&amp;Nahrát přídavné moduly znovu</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="217"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="245"/>
         <source>&amp;Create...</source>
         <translation>&amp;Vytvořit...</translation>
     </message>
@@ -833,7 +843,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Instalovat...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="229"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="257"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
@@ -850,12 +860,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Zavřít</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.cpp" line="81"/>
+        <location filename="../../src/dialogs/dialog_plugins.cpp" line="84"/>
         <source>All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.cpp" line="204"/>
+        <location filename="../../src/dialogs/dialog_plugins.cpp" line="207"/>
         <source>Enabled</source>
         <translation>Povoleno</translation>
     </message>
@@ -2181,82 +2191,82 @@ p, li { white-space: pre-wrap; }
         <translation>&amp;Ukončit</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="398"/>
+        <location filename="../../src/dialogs/main_window.ui" line="396"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopírovat</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="408"/>
+        <location filename="../../src/dialogs/main_window.ui" line="404"/>
         <source>&amp;Paste</source>
         <translation>&amp;Vložit</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="418"/>
+        <location filename="../../src/dialogs/main_window.ui" line="414"/>
         <source>Cu&amp;t</source>
         <translation>Vyj&amp;mout</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="428"/>
+        <location filename="../../src/dialogs/main_window.ui" line="424"/>
         <source>Select &amp;All</source>
         <translation>Vybrat &amp;vše</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="438"/>
+        <location filename="../../src/dialogs/main_window.ui" line="434"/>
         <source>&amp;Preferences...</source>
         <translation>&amp;Nastavení...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="448"/>
+        <location filename="../../src/dialogs/main_window.ui" line="442"/>
         <source>&amp;Reset View</source>
         <translation>Nastavit po&amp;hled znovu</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="458"/>
+        <location filename="../../src/dialogs/main_window.ui" line="450"/>
         <source>Zoom &amp;In</source>
         <translation>&amp;Přiblížit</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="468"/>
+        <location filename="../../src/dialogs/main_window.ui" line="458"/>
         <source>Zoom &amp;Out</source>
         <translation>&amp;Oddálit</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="478"/>
+        <location filename="../../src/dialogs/main_window.ui" line="468"/>
         <source>&amp;Reset Zoom</source>
         <translation>Nastavit &amp;zvětšení znovu</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="481"/>
+        <location filename="../../src/dialogs/main_window.ui" line="471"/>
         <source>Ctrl+0</source>
         <translation>Ctrl+0</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="497"/>
+        <location filename="../../src/dialogs/main_window.ui" line="485"/>
         <source>Display &amp;Graph</source>
         <translation>Zobrazit &amp;graf</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="611"/>
+        <location filename="../../src/dialogs/main_window.ui" line="581"/>
         <source>&amp;Select</source>
         <translation>&amp;Vybrat</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="627"/>
+        <location filename="../../src/dialogs/main_window.ui" line="595"/>
         <source>Edge &amp;Chain</source>
         <translation>Ř&amp;etězec oblouku</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="723"/>
+        <location filename="../../src/dialogs/main_window.ui" line="691"/>
         <source>Report &amp;Bugs...</source>
         <translation>Nahlásit &amp;chyby...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="768"/>
+        <location filename="../../src/dialogs/main_window.ui" line="732"/>
         <source>&amp;Fit View</source>
         <translation>&amp;Přizpůsobit zobrazení</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="771"/>
+        <location filename="../../src/dialogs/main_window.ui" line="735"/>
         <source>Scroll and zoom the view to display the entire knot</source>
         <translation>Pohybovat a přiblížit pohled tak, aby byl zobrazen celý uzel</translation>
     </message>
@@ -2276,57 +2286,57 @@ p, li { white-space: pre-wrap; }
         <translation>Ná&amp;hled tisku...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="507"/>
+        <location filename="../../src/dialogs/main_window.ui" line="493"/>
         <source>&amp;Connect</source>
         <translation>&amp;Připojit</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="510"/>
+        <location filename="../../src/dialogs/main_window.ui" line="496"/>
         <source>F</source>
         <translation>F</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="520"/>
+        <location filename="../../src/dialogs/main_window.ui" line="504"/>
         <source>&amp;Disconnect</source>
         <translation>&amp;Odpojit</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="530"/>
+        <location filename="../../src/dialogs/main_window.ui" line="512"/>
         <source>&amp;Horizontal Flip</source>
         <translation>Vo&amp;dorovné převrácení</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="540"/>
+        <location filename="../../src/dialogs/main_window.ui" line="520"/>
         <source>&amp;Vertical Flip</source>
         <translation>Sv&amp;islé převrácení</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="553"/>
+        <location filename="../../src/dialogs/main_window.ui" line="531"/>
         <source>&amp;Rotate</source>
         <translation>O&amp;točit</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="569"/>
+        <location filename="../../src/dialogs/main_window.ui" line="545"/>
         <source>&amp;Scale</source>
         <translation>&amp;Změnit velikost</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="579"/>
+        <location filename="../../src/dialogs/main_window.ui" line="553"/>
         <source>&amp;Merge</source>
         <translation>&amp;Sloučit</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="582"/>
+        <location filename="../../src/dialogs/main_window.ui" line="556"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="592"/>
+        <location filename="../../src/dialogs/main_window.ui" line="564"/>
         <source>&amp;Erase</source>
         <translation>&amp;Vymazat</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="595"/>
+        <location filename="../../src/dialogs/main_window.ui" line="567"/>
         <source>Del</source>
         <translation>Delete</translation>
     </message>
@@ -2335,7 +2345,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Upravit graf</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="614"/>
+        <location filename="../../src/dialogs/main_window.ui" line="584"/>
         <source>Alt+Shift+E</source>
         <translation>Alt+Shift+E</translation>
     </message>
@@ -2344,12 +2354,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Olemovat &amp;smyčku</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="630"/>
+        <location filename="../../src/dialogs/main_window.ui" line="598"/>
         <source>Alt+Shift+L</source>
         <translation>Alt+Shift+L</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="760"/>
+        <location filename="../../src/dialogs/main_window.ui" line="724"/>
         <source>&amp;Toggle Edges</source>
         <translation>&amp;Přepnout okraje</translation>
     </message>
@@ -2358,62 +2368,62 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Vložit mnohoú&amp;helník...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="640"/>
+        <location filename="../../src/dialogs/main_window.ui" line="608"/>
         <source>&amp;Refresh Path</source>
         <translation>&amp;Obnovit cestu</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="650"/>
+        <location filename="../../src/dialogs/main_window.ui" line="618"/>
         <source>&amp;Manual</source>
         <translation>Přír&amp;učka</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="660"/>
+        <location filename="../../src/dialogs/main_window.ui" line="628"/>
         <source>&amp;About Knotter...</source>
         <translation>&amp;O programu Knotter...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="728"/>
+        <location filename="../../src/dialogs/main_window.ui" line="696"/>
         <source>Select Connected</source>
         <translation>Vybrat spojený</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="731"/>
+        <location filename="../../src/dialogs/main_window.ui" line="699"/>
         <source>Ctrl+L</source>
         <translation>Ctrl+L</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="747"/>
+        <location filename="../../src/dialogs/main_window.ui" line="713"/>
         <source>&amp;Enable Grid</source>
         <translation>Povo&amp;lit mřížku</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="670"/>
+        <location filename="../../src/dialogs/main_window.ui" line="638"/>
         <source>E&amp;xport...</source>
         <translation>&amp;Vyvést...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="673"/>
+        <location filename="../../src/dialogs/main_window.ui" line="641"/>
         <source>Ctrl+E</source>
         <translation>Ctrl+E</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="683"/>
+        <location filename="../../src/dialogs/main_window.ui" line="651"/>
         <source>Snap to &amp;Grid</source>
         <translation>&amp;Přichytávat k mřížce</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="693"/>
+        <location filename="../../src/dialogs/main_window.ui" line="661"/>
         <source>&amp;Undo</source>
         <translation>&amp;Zpět</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="703"/>
+        <location filename="../../src/dialogs/main_window.ui" line="671"/>
         <source>&amp;Redo</source>
         <translation>&amp;Znovu</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="713"/>
+        <location filename="../../src/dialogs/main_window.ui" line="681"/>
         <source>&amp;Configure Plugins...</source>
         <translation>&amp;Nastavit přídavné moduly...</translation>
     </message>
@@ -2431,17 +2441,17 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Styl výběru</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="253"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="255"/>
         <source>Action History</source>
         <translation>Historie činností</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="257"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="259"/>
         <source>Selected Nodes</source>
         <translation>Vybrané uzly</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="260"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="262"/>
         <source>Selected Edges</source>
         <translation>Vybrané oblouky</translation>
     </message>
@@ -2450,22 +2460,22 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Výchozí styl</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="274"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="276"/>
         <source>Warning:</source>
         <translation>Varování:</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="275"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="277"/>
         <source>Discarding old configuration</source>
         <translation>Zahodit staré nastavení</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="281"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="283"/>
         <source>Load old configuration</source>
         <translation>Nahrát staré nastavení</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="282"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="284"/>
         <source>Knotter has detected configuration for version %1,
 this is version %2.
 Do you want to load it anyways?</source>
@@ -2474,78 +2484,78 @@ toto je verze %2.
 Přesto je chcete nahrát?</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="508"/>
-        <location filename="../../src/dialogs/main_window.cpp" line="623"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="510"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="625"/>
         <source>New Knot</source>
         <translation>Nový keltský uzel</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="515"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="517"/>
         <source>%1 - %2%3</source>
         <extracomment>Main window title * %1 is the program name * %2 is the file name * %3 is a star * or an empty string depending on whether the file was modified</extracomment>
         <translation>%1 - %2%3</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="631"/>
-        <location filename="../../src/dialogs/main_window.cpp" line="796"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="633"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="798"/>
         <source>File Error</source>
         <translation>Chyba souboru</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="632"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="634"/>
         <source>Error while reading &quot;%1&quot;.</source>
         <translation>Chyba při čtení &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="667"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="669"/>
         <source>Close File</source>
         <translation>Zavřít soubor</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="668"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="670"/>
         <source>The file &quot;%1&quot; has been modified.
 Do you want to save changes?</source>
         <translation>Soubor &quot;%1&quot; byl změněn.
 Chcete uložit změny?</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="699"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="701"/>
         <source>Undo %1</source>
         <translation>Zpět %1</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="704"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="706"/>
         <source>Redo %1</source>
         <translation>Znovu %1</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="746"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="748"/>
         <source>Open Knot</source>
         <translation>Otevřít keltský uzel</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="776"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="778"/>
         <source>Knot files (*.knot);;XML files (*.xml);;All files (*)</source>
         <translation>Soubory Knot (*.knot);;Soubory XML (*.xml);;Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="777"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="779"/>
         <source>Save Knot</source>
         <translation>Uložit keltský uzel</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="797"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="799"/>
         <source>Failed to save file &quot;%1&quot;.</source>
         <translation>Nepodařilo se uložit soubor &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="804"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="806"/>
         <source>(%1,%2)</source>
         <extracomment>Displaying mouse position, %1 = x, %2 = y</extracomment>
         <translation>(%1,%2)</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="825"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="827"/>
         <source>No recent files</source>
         <translation>Žádné nedávné soubory</translation>
     </message>
@@ -2555,42 +2565,42 @@ Chcete uložit změny?</translation>
         <translation type="obsolete">Vložit mnohoúhelník</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="980"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="982"/>
         <source>Paste</source>
         <translation>Vložit</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="992"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="994"/>
         <source>Cut</source>
         <translation>Vyjmout</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1043"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1045"/>
         <source>Drop</source>
         <translation>Upustit</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1062"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1064"/>
         <source>Snap to Grid</source>
         <translation>Přichytávat k mřížce</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1077"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1079"/>
         <source>Delete</source>
         <translation>Smazat</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1142"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1144"/>
         <source>Connect Nodes</source>
         <translation>Spojit uzly</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1161"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1163"/>
         <source>Disconnect Nodes</source>
         <translation>Odpojit uzly</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1179"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1181"/>
         <source>Merge Nodes</source>
         <translation>Sloučit uzly</translation>
     </message>
@@ -2754,7 +2764,7 @@ Chcete uložit změny?</translation>
         <translation type="obsolete">Neznámý typ přídavného modulu </translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="669"/>
+        <location filename="../../src/resource_manager.cpp" line="679"/>
         <source>%1:%2:Error: %3</source>
         <translation>%1:%2: Chyba: %3</translation>
     </message>
@@ -2793,6 +2803,16 @@ Chcete uložit změny?</translation>
         <source>Error while opening script file %1</source>
         <translation>Chyba při otevírání souboru se skriptem %1</translation>
     </message>
+    <message>
+        <location filename="../../src/scripting/misc_script_functions.cpp" line="53"/>
+        <source>Expected file name for run_script()</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/scripting/misc_script_functions.cpp" line="56"/>
+        <source>Cannot open file &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Remove_Edge</name>
@@ -2813,50 +2833,50 @@ Chcete uložit změny?</translation>
 <context>
     <name>Resource_Manager</name>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="52"/>
+        <location filename="../../src/resource_manager.cpp" line="53"/>
         <source>Knotter</source>
         <translation>Knotter</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="238"/>
-        <location filename="../../src/resource_manager.cpp" line="320"/>
-        <location filename="../../src/resource_manager.cpp" line="371"/>
+        <location filename="../../src/resource_manager.cpp" line="239"/>
+        <location filename="../../src/resource_manager.cpp" line="321"/>
+        <location filename="../../src/resource_manager.cpp" line="372"/>
         <source>Warning:</source>
         <translation>Varování:</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="239"/>
+        <location filename="../../src/resource_manager.cpp" line="240"/>
         <source>Unrecognised translation file name pattern: %1</source>
         <translation>Nerozpoznaný vzor názvu souboru s překladem: %1</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="325"/>
+        <location filename="../../src/resource_manager.cpp" line="326"/>
         <source>Error on loading translation file %1 for language %2 (%3)</source>
         <extracomment>%1 is the file name, * %2 is the human-readable language code * %3 is the ISO language code</extracomment>
         <translation>Chyba při nahrávání překladového souboru %1 pro jazyk %2 (%3)</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="372"/>
+        <location filename="../../src/resource_manager.cpp" line="373"/>
         <source>There is no translation for language %1 (%2)</source>
         <translation>Pro jazyk %1 (%2) není žádný překlad</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="635"/>
+        <location filename="../../src/resource_manager.cpp" line="644"/>
         <source>Cannot open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="700"/>
+        <location filename="../../src/resource_manager.cpp" line="710"/>
         <source>Unknown error</source>
         <translation>Neznámá chyba</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="703"/>
+        <location filename="../../src/resource_manager.cpp" line="713"/>
         <source>%1: Error: %2</source>
         <translation>%1: Chyba: %2</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="716"/>
+        <location filename="../../src/resource_manager.cpp" line="726"/>
         <source>Script aborted</source>
         <translation>Vynuceno ukončení skriptu</translation>
     </message>
@@ -2879,9 +2899,17 @@ Chcete uložit změny?</translation>
     </message>
 </context>
 <context>
+    <name>Script_QTableWidget</name>
+    <message>
+        <location filename="../../src/scripting/wrappers/script_qtablewidget.cpp" line="88"/>
+        <source>Argument is not a QTableWidget object</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Script_Window_Dialog</name>
     <message>
-        <location filename="../../src/scripting/wrappers/script_window.cpp" line="210"/>
+        <location filename="../../src/scripting/wrappers/script_window.cpp" line="212"/>
         <source>Cancel</source>
         <translation>Zrušit</translation>
     </message>

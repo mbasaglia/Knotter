@@ -2201,8 +2201,40 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Удалить</translation>
     </message>
     <message>
-        <location filename="../plugins/external/config.ui" line="63"/>
+        <location filename="../plugins/external/config.ui" line="65"/>
         <source>Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/spiral/dialog.ui" line="14"/>
+        <source>Spiral</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/spiral/dialog.ui" line="20"/>
+        <source>End Angle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="../plugins/spiral/dialog.ui" line="27"/>
+        <location filename="../plugins/spiral/dialog.ui" line="57"/>
+        <location filename="../plugins/spiral/dialog.ui" line="90"/>
+        <source>°</source>
+        <translation type="unfinished">°</translation>
+    </message>
+    <message>
+        <location filename="../plugins/spiral/dialog.ui" line="50"/>
+        <source>Start Angle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/spiral/dialog.ui" line="70"/>
+        <source>Turning Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/spiral/dialog.ui" line="112"/>
+        <source>Angle Step</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2283,38 +2315,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/mirror/dialog.ui" line="27"/>
         <source>Mirror Y</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/spiral/dialog.ui" line="14"/>
-        <source>Spiral</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/spiral/dialog.ui" line="20"/>
-        <source>End Angle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="../plugins/spiral/dialog.ui" line="27"/>
-        <location filename="../plugins/spiral/dialog.ui" line="57"/>
-        <location filename="../plugins/spiral/dialog.ui" line="90"/>
-        <source>°</source>
-        <translation type="unfinished">°</translation>
-    </message>
-    <message>
-        <location filename="../plugins/spiral/dialog.ui" line="50"/>
-        <source>Start Angle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/spiral/dialog.ui" line="70"/>
-        <source>Turning Size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/spiral/dialog.ui" line="112"/>
-        <source>Angle Step</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2420,7 +2420,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../src/dialogs/dialog_plugins.ui" line="117"/>
-        <location filename="../../src/dialogs/dialog_plugins.cpp" line="204"/>
+        <location filename="../../src/dialogs/dialog_plugins.cpp" line="207"/>
         <source>Disabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2450,32 +2450,42 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Значение</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="196"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="192"/>
+        <source>View &amp;Settings...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="204"/>
+        <source>C&amp;lear Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="224"/>
         <source>No plugin installed</source>
         <translation type="unfinished">Нет установленных модулей</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="205"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="233"/>
         <source>&amp;Reload Plugins</source>
         <translation type="unfinished">&amp;Перезагрузить модули</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="217"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="245"/>
         <source>&amp;Create...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.ui" line="229"/>
+        <location filename="../../src/dialogs/dialog_plugins.ui" line="257"/>
         <source>&amp;OK</source>
         <translation type="unfinished">&amp;OK</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.cpp" line="81"/>
+        <location filename="../../src/dialogs/dialog_plugins.cpp" line="84"/>
         <source>All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/dialog_plugins.cpp" line="204"/>
+        <location filename="../../src/dialogs/dialog_plugins.cpp" line="207"/>
         <source>Enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3736,212 +3746,212 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">В&amp;ыйти</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="398"/>
+        <location filename="../../src/dialogs/main_window.ui" line="396"/>
         <source>&amp;Copy</source>
         <translation type="unfinished">&amp;Копировать</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="408"/>
+        <location filename="../../src/dialogs/main_window.ui" line="404"/>
         <source>&amp;Paste</source>
         <translation type="unfinished">В&amp;ставить</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="418"/>
+        <location filename="../../src/dialogs/main_window.ui" line="414"/>
         <source>Cu&amp;t</source>
         <translation type="unfinished">Вы&amp;резать</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="428"/>
+        <location filename="../../src/dialogs/main_window.ui" line="424"/>
         <source>Select &amp;All</source>
         <translation type="unfinished">Выделить &amp;все</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="438"/>
+        <location filename="../../src/dialogs/main_window.ui" line="434"/>
         <source>&amp;Preferences...</source>
         <translation type="unfinished">&amp;Настройки...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="448"/>
+        <location filename="../../src/dialogs/main_window.ui" line="442"/>
         <source>&amp;Reset View</source>
         <translation type="unfinished">С&amp;бросить вид</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="458"/>
+        <location filename="../../src/dialogs/main_window.ui" line="450"/>
         <source>Zoom &amp;In</source>
         <translation type="unfinished">&amp;Увеличить масштаб</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="468"/>
+        <location filename="../../src/dialogs/main_window.ui" line="458"/>
         <source>Zoom &amp;Out</source>
         <translation type="unfinished">У&amp;меньшить масштаб</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="478"/>
+        <location filename="../../src/dialogs/main_window.ui" line="468"/>
         <source>&amp;Reset Zoom</source>
         <translation type="unfinished">&amp;Сбросить масштаб</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="481"/>
+        <location filename="../../src/dialogs/main_window.ui" line="471"/>
         <source>Ctrl+0</source>
         <translation type="unfinished">Ctrl+0</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="497"/>
+        <location filename="../../src/dialogs/main_window.ui" line="485"/>
         <source>Display &amp;Graph</source>
         <translation type="unfinished">Отображать &amp;граф</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="507"/>
+        <location filename="../../src/dialogs/main_window.ui" line="493"/>
         <source>&amp;Connect</source>
         <translation type="unfinished">&amp;Соединить</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="510"/>
+        <location filename="../../src/dialogs/main_window.ui" line="496"/>
         <source>F</source>
         <translation type="unfinished">F</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="520"/>
+        <location filename="../../src/dialogs/main_window.ui" line="504"/>
         <source>&amp;Disconnect</source>
         <translation type="unfinished">Р&amp;азъединить</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="530"/>
+        <location filename="../../src/dialogs/main_window.ui" line="512"/>
         <source>&amp;Horizontal Flip</source>
         <translation type="unfinished">Отразить по &amp;горизонтали</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="540"/>
+        <location filename="../../src/dialogs/main_window.ui" line="520"/>
         <source>&amp;Vertical Flip</source>
         <translation type="unfinished">Отразить по &amp;вертикали</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="553"/>
+        <location filename="../../src/dialogs/main_window.ui" line="531"/>
         <source>&amp;Rotate</source>
         <translation type="unfinished">П&amp;овернуть</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="569"/>
+        <location filename="../../src/dialogs/main_window.ui" line="545"/>
         <source>&amp;Scale</source>
         <translation type="unfinished">&amp;Изменить размер</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="579"/>
+        <location filename="../../src/dialogs/main_window.ui" line="553"/>
         <source>&amp;Merge</source>
         <translation type="unfinished">О&amp;бъединить</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="582"/>
+        <location filename="../../src/dialogs/main_window.ui" line="556"/>
         <source>Ctrl+M</source>
         <translation type="unfinished">Ctrl+M</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="592"/>
+        <location filename="../../src/dialogs/main_window.ui" line="564"/>
         <source>&amp;Erase</source>
         <translation type="unfinished">&amp;Удалить</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="595"/>
+        <location filename="../../src/dialogs/main_window.ui" line="567"/>
         <source>Del</source>
         <translation type="unfinished">Del</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="611"/>
+        <location filename="../../src/dialogs/main_window.ui" line="581"/>
         <source>&amp;Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="614"/>
+        <location filename="../../src/dialogs/main_window.ui" line="584"/>
         <source>Alt+Shift+E</source>
         <translation type="unfinished">Alt+Shift+E</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="627"/>
+        <location filename="../../src/dialogs/main_window.ui" line="595"/>
         <source>Edge &amp;Chain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="630"/>
+        <location filename="../../src/dialogs/main_window.ui" line="598"/>
         <source>Alt+Shift+L</source>
         <translation type="unfinished">Alt+Shift+L</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="640"/>
+        <location filename="../../src/dialogs/main_window.ui" line="608"/>
         <source>&amp;Refresh Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="650"/>
+        <location filename="../../src/dialogs/main_window.ui" line="618"/>
         <source>&amp;Manual</source>
         <translation type="unfinished">&amp;Руководство</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="660"/>
+        <location filename="../../src/dialogs/main_window.ui" line="628"/>
         <source>&amp;About Knotter...</source>
         <translation type="unfinished">&amp;О Knotter...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="670"/>
+        <location filename="../../src/dialogs/main_window.ui" line="638"/>
         <source>E&amp;xport...</source>
         <translation type="unfinished">&amp;Экспортировать...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="673"/>
+        <location filename="../../src/dialogs/main_window.ui" line="641"/>
         <source>Ctrl+E</source>
         <translation type="unfinished">Ctrl+E</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="683"/>
+        <location filename="../../src/dialogs/main_window.ui" line="651"/>
         <source>Snap to &amp;Grid</source>
         <translation type="unfinished">При&amp;вязать к сетке</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="693"/>
+        <location filename="../../src/dialogs/main_window.ui" line="661"/>
         <source>&amp;Undo</source>
         <translation type="unfinished">&amp;Отменить</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="703"/>
+        <location filename="../../src/dialogs/main_window.ui" line="671"/>
         <source>&amp;Redo</source>
         <translation type="unfinished">В&amp;ернуть</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="713"/>
+        <location filename="../../src/dialogs/main_window.ui" line="681"/>
         <source>&amp;Configure Plugins...</source>
         <translation type="unfinished">&amp;Настроить модули...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="723"/>
+        <location filename="../../src/dialogs/main_window.ui" line="691"/>
         <source>Report &amp;Bugs...</source>
         <translation type="unfinished">С&amp;ообщить об ошибках...</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="728"/>
+        <location filename="../../src/dialogs/main_window.ui" line="696"/>
         <source>Select Connected</source>
         <translation type="unfinished">Выделить соединённые</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="731"/>
+        <location filename="../../src/dialogs/main_window.ui" line="699"/>
         <source>Ctrl+L</source>
         <translation type="unfinished">Ctrl+L</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="747"/>
+        <location filename="../../src/dialogs/main_window.ui" line="713"/>
         <source>&amp;Enable Grid</source>
         <translation type="unfinished">&amp;Показать сетку</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="760"/>
+        <location filename="../../src/dialogs/main_window.ui" line="724"/>
         <source>&amp;Toggle Edges</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="768"/>
+        <location filename="../../src/dialogs/main_window.ui" line="732"/>
         <source>&amp;Fit View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.ui" line="771"/>
+        <location filename="../../src/dialogs/main_window.ui" line="735"/>
         <source>Scroll and zoom the view to display the entire knot</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3951,37 +3961,37 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Масштаб</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="253"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="255"/>
         <source>Action History</source>
         <translation type="unfinished">История действий</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="257"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="259"/>
         <source>Selected Nodes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="260"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="262"/>
         <source>Selected Edges</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="274"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="276"/>
         <source>Warning:</source>
         <translation type="unfinished">Предупреждение:</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="275"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="277"/>
         <source>Discarding old configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="281"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="283"/>
         <source>Load old configuration</source>
         <translation type="unfinished">Загрузить старые настройки</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="282"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="284"/>
         <source>Knotter has detected configuration for version %1,
 this is version %2.
 Do you want to load it anyways?</source>
@@ -3990,118 +4000,118 @@ Do you want to load it anyways?</source>
 Всё равно загрузить их?</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="508"/>
-        <location filename="../../src/dialogs/main_window.cpp" line="623"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="510"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="625"/>
         <source>New Knot</source>
         <translation type="unfinished">Новый узел</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="515"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="517"/>
         <source>%1 - %2%3</source>
         <extracomment>Main window title * %1 is the program name * %2 is the file name * %3 is a star * or an empty string depending on whether the file was modified</extracomment>
         <translation type="unfinished">%1 - %2%3</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="631"/>
-        <location filename="../../src/dialogs/main_window.cpp" line="796"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="633"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="798"/>
         <source>File Error</source>
         <translation type="unfinished">Ошибка файла</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="632"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="634"/>
         <source>Error while reading &quot;%1&quot;.</source>
         <translation type="unfinished">Ошибка при чтении «%1».</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="667"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="669"/>
         <source>Close File</source>
         <translation type="unfinished">Закрыть файл</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="668"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="670"/>
         <source>The file &quot;%1&quot; has been modified.
 Do you want to save changes?</source>
         <translation type="unfinished">Файл «%1» был изменён.
 Хотите сохранить изменения?</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="699"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="701"/>
         <source>Undo %1</source>
         <translation type="unfinished">Отменить %1</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="704"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="706"/>
         <source>Redo %1</source>
         <translation type="unfinished">Вернуть %1</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="746"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="748"/>
         <source>Open Knot</source>
         <translation type="unfinished">Открыть узел</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="776"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="778"/>
         <source>Knot files (*.knot);;XML files (*.xml);;All files (*)</source>
         <translation type="unfinished">Файлы узлов (*.knot);;XML-файлы (*.xml);;Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="777"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="779"/>
         <source>Save Knot</source>
         <translation type="unfinished">Сохранить узел</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="797"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="799"/>
         <source>Failed to save file &quot;%1&quot;.</source>
         <translation type="unfinished">Не удалось сохранить файл «%1».</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="804"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="806"/>
         <source>(%1,%2)</source>
         <extracomment>Displaying mouse position, %1 = x, %2 = y</extracomment>
         <translation type="unfinished">(%1,%2)</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="825"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="827"/>
         <source>No recent files</source>
         <translation type="unfinished">Нет недавних файлов</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="980"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="982"/>
         <source>Paste</source>
         <translation type="unfinished">Вставить</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="992"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="994"/>
         <source>Cut</source>
         <translation type="unfinished">Вырезать</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1043"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1045"/>
         <source>Drop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1062"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1064"/>
         <source>Snap to Grid</source>
         <translation type="unfinished">Привязать к сетке</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1077"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1079"/>
         <source>Delete</source>
         <translation type="unfinished">Удалить</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1142"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1144"/>
         <source>Connect Nodes</source>
         <translation type="unfinished">Соединить вершины</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1161"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1163"/>
         <source>Disconnect Nodes</source>
         <translation type="unfinished">Разъединить вершины</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/main_window.cpp" line="1179"/>
+        <location filename="../../src/dialogs/main_window.cpp" line="1181"/>
         <source>Merge Nodes</source>
         <translation type="unfinished">Объединить вершины</translation>
     </message>
@@ -4230,7 +4240,7 @@ Do you want to save changes?</source>
         <translation type="unfinished">Многоугольный</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="669"/>
+        <location filename="../../src/resource_manager.cpp" line="679"/>
         <source>%1:%2:Error: %3</source>
         <translation type="unfinished">%1:%2:Ошибка: %3</translation>
     </message>
@@ -4274,6 +4284,16 @@ Do you want to save changes?</source>
         <source>Unknown action %1</source>
         <translation type="unfinished">Неизвестное действие %1</translation>
     </message>
+    <message>
+        <location filename="../../src/scripting/misc_script_functions.cpp" line="53"/>
+        <source>Expected file name for run_script()</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/scripting/misc_script_functions.cpp" line="56"/>
+        <source>Cannot open file &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Remove_Edge</name>
@@ -4294,50 +4314,50 @@ Do you want to save changes?</source>
 <context>
     <name>Resource_Manager</name>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="52"/>
+        <location filename="../../src/resource_manager.cpp" line="53"/>
         <source>Knotter</source>
         <translation type="unfinished">Knotter</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="238"/>
-        <location filename="../../src/resource_manager.cpp" line="320"/>
-        <location filename="../../src/resource_manager.cpp" line="371"/>
+        <location filename="../../src/resource_manager.cpp" line="239"/>
+        <location filename="../../src/resource_manager.cpp" line="321"/>
+        <location filename="../../src/resource_manager.cpp" line="372"/>
         <source>Warning:</source>
         <translation type="unfinished">Предупреждение:</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="239"/>
+        <location filename="../../src/resource_manager.cpp" line="240"/>
         <source>Unrecognised translation file name pattern: %1</source>
         <translation type="unfinished">Нераспознанный шаблон имени файла с переводом: %1</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="325"/>
+        <location filename="../../src/resource_manager.cpp" line="326"/>
         <source>Error on loading translation file %1 for language %2 (%3)</source>
         <extracomment>%1 is the file name, * %2 is the human-readable language code * %3 is the ISO language code</extracomment>
         <translation type="unfinished">Ошибка при загрузке файла перевода %1 для языка %2 (%3)</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="372"/>
+        <location filename="../../src/resource_manager.cpp" line="373"/>
         <source>There is no translation for language %1 (%2)</source>
         <translation type="unfinished">Нет перевода для языка %1 (%2)</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="635"/>
+        <location filename="../../src/resource_manager.cpp" line="644"/>
         <source>Cannot open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="700"/>
+        <location filename="../../src/resource_manager.cpp" line="710"/>
         <source>Unknown error</source>
         <translation type="unfinished">Неизвестная ошибка</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="703"/>
+        <location filename="../../src/resource_manager.cpp" line="713"/>
         <source>%1: Error: %2</source>
         <translation type="unfinished">%1: Ошибка: %2</translation>
     </message>
     <message>
-        <location filename="../../src/resource_manager.cpp" line="716"/>
+        <location filename="../../src/resource_manager.cpp" line="726"/>
         <source>Script aborted</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4356,9 +4376,17 @@ Do you want to save changes?</source>
     </message>
 </context>
 <context>
+    <name>Script_QTableWidget</name>
+    <message>
+        <location filename="../../src/scripting/wrappers/script_qtablewidget.cpp" line="88"/>
+        <source>Argument is not a QTableWidget object</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Script_Window_Dialog</name>
     <message>
-        <location filename="../../src/scripting/wrappers/script_window.cpp" line="210"/>
+        <location filename="../../src/scripting/wrappers/script_window.cpp" line="212"/>
         <source>Cancel</source>
         <translation type="unfinished">Отменить</translation>
     </message>
