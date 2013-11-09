@@ -133,7 +133,7 @@ void json_convert(QTextStream& json, QVariant v, int indent)
 void json_write_file( QIODevice&file, QVariant values )
 {
     /// \todo maybe use JSON.stringify
-    if ( file.isOpen() )
+    if ( file.isOpen() && values.isValid() )
     {
         QTextStream json(&file);
         json_convert(json, values, 0);

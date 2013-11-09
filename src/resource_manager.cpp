@@ -514,7 +514,8 @@ void Resource_Manager::reload_plugins()
 
     foreach(Plugin* p,singleton.m_plugins )
     {
-        if ( active.contains(p->string_data("plugin_file")) )
+        if ( !p->data("plugin_deprecated",false)  &&
+             active.contains(p->string_data("plugin_file")) )
             p->enable(active[p->string_data("plugin_file")]);
     }
 
@@ -634,20 +635,24 @@ QScriptValue Resource_Manager::run_script(Plugin *source,
                       source->script_program().firstLineNumber(),
                       activation_object_local);
 
-    QDir plugin_settings_dir = Plugin::settings_directory();
-    if ( !plugin_settings_dir.exists() )
-        plugin_settings_dir.mkpath(".");
-    plugin_settings.unsetError();
-    if ( ! plugin_settings.open(QFile::WriteOnly) )
+
+    QVariant new_settings = activation_object_local->property("plugin")
+                                .property("settings").toVariant();
+    if ( new_settings.isValid() && !new_settings.isNull() )
     {
-        emit singleton.script_error(plugin_settings.fileName(),0,
-                                    tr("Cannot open file"),QStringList() );
-    }
-    else
-    {
-        json_write_file(plugin_settings,
-                        activation_object_local->property("plugin").property("settings")
-                            .toVariant() );
+        QDir plugin_settings_dir = Plugin::settings_directory();
+        if ( !plugin_settings_dir.exists() )
+            plugin_settings_dir.mkpath(".");
+        plugin_settings.unsetError();
+        if ( ! plugin_settings.open(QFile::WriteOnly) )
+        {
+            emit singleton.script_error(plugin_settings.fileName(),0,
+                                        tr("Cannot open file"),QStringList() );
+        }
+        else
+        {
+            json_write_file(plugin_settings,new_settings);
+        }
     }
 
     if ( activation_object == nullptr  )
@@ -711,6 +716,27 @@ void Resource_Manager::load_plugin(QString filename)
 
     if ( !error.isEmpty() )
         qWarning() << tr("%1: Error: %2").arg(filename).arg(error);
+
+    if ( p->is_enabled() )
+    {
+        foreach(Plugin* other, singleton.m_plugins)
+        {
+            if ( other->is_enabled() &&
+                 other->string_data("plugin_shortname") == p->string_data("plugin_shortname") )
+            {
+                if ( other->data<double>("version",0) < p->data<double>("version",0) )
+                {
+                    other->enable(false);
+                    other->set_data("plugin_deprecated",true);
+                }
+                else
+                {
+                    p->enable(false);
+                    other->set_data("plugin_deprecated",false);
+                }
+            }
+        }
+    }
 
     singleton.m_plugins << p;
 }

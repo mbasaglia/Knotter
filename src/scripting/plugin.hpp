@@ -139,6 +139,7 @@ public:
      */
     void clear_settings();
 
+    void set_data(QString name, QVariant value) { m_metadata[name] = value; }
 
 protected:
     /**
@@ -148,7 +149,6 @@ protected:
      */
     virtual void on_enable(bool){}
 
-    void set_data(QString name, QVariant value) { m_metadata[name] = value; }
 
 public slots:
 
