@@ -83,6 +83,8 @@ private slots:
 
     void on_combo_category_online_currentIndexChanged(int index);
 
+    void on_button_install_plugin_clicked();
+
 private:
     void set_item_enabled(QListWidgetItem* it, bool enabled);
     void set_item_errored(QListWidgetItem* it);

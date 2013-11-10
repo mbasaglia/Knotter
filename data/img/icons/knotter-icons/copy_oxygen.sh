@@ -11,6 +11,7 @@ icons=' accessories-text-editor
         debug-run
         dialog-cancel
         dialog-close
+        dialog-error
         dialog-ok
         document-close
         document-edit

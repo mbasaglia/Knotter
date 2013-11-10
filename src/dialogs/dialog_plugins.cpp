@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "resource_manager.hpp"
 #include "wizard_create_plugin.hpp"
 #include "json_stuff.hpp"
+#include "dialog_download_plugin.hpp"
 
 Dialog_Plugins::Dialog_Plugins(QWidget *parent) :
     QDialog(parent), reply(nullptr)
@@ -157,6 +158,7 @@ void Dialog_Plugins::on_check_enable_clicked(bool checked)
 
 void Dialog_Plugins::on_button_reload_clicked()
 {
+    network_abort();
     Plugin *old = current_plugin();
     QString file;
     if ( old )
@@ -276,7 +278,8 @@ void Dialog_Plugins::network_reply_all_finished()
 
 void Dialog_Plugins::network_reply_destroyed()
 {
-    reply = nullptr;
+    if ( reply == sender() )
+        reply = nullptr;
 }
 
 void Dialog_Plugins::update_network_plugins()
@@ -329,6 +332,11 @@ void Dialog_Plugins::update_network_plugins()
     }
     combo_category_online->blockSignals(false);
     combo_category_online->setCurrentIndex(0);
+
+    if ( list_online->count() == 0 )
+        update_network_current_plugin(-1);
+    else
+        list_online->setCurrentRow(0);
 }
 
 
@@ -436,5 +444,15 @@ void Dialog_Plugins::on_combo_category_online_currentIndexChanged(int index)
             QString cat = item->data(Qt::UserRole).toMap()["category"].toString();
             item->setHidden( cat != combo_category_online->currentText() );
         }
+    }
+}
+
+void Dialog_Plugins::on_button_install_plugin_clicked()
+{
+    QVariantMap plugin = list_online->currentItem()->data(Qt::UserRole).toMap();
+    if ( Dialog_Download_Plugin(plugin,this).exec() )
+    {
+        on_button_reload_clicked();
+        network_refresh_all();
     }
 }
