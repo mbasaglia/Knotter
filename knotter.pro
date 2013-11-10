@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Base configutation
-QT += core gui xml script svg
+QT += core gui xml script svg network
 
 TEMPLATE = app
 
@@ -67,6 +67,7 @@ DEFINES += "TARGET=\\\"$${TARGET}\\\""
 DEFINES += "DATA_DIR=\\\"$${DATADIR}\\\""
 DEFINES += "BUG_URL=\\\"$${BUGS}\\\""
 DEFINES += "DOC_URL=\\\"$${DOC_URL}\\\""
+DEFINES += "PLUGIN_REPO=\\\"$${PLUGIN_REPO}\\\""
 contains(CONFIG,debug) {
     DEFINES += "DEBUG=1"
 }

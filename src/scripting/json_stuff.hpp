@@ -62,7 +62,7 @@ QScriptValue json_read_file(QIODevice& file, QScriptEngine* engine);
  * \param file  The JSON file
  * \return The contents of the file as a QVariantMap
  */
-QVariantMap json_read_file(QIODevice& file);
+QVariant json_read_file(QIODevice& file);
 
 /**
  * \brief Write a QVariant in a file as JSON

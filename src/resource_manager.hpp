@@ -35,6 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "plugin.hpp"
 #include <QScriptEngineAgent>
 #include <QTimer>
+#include <QNetworkAccessManager>
 
 /**
  * Manage resources and data
@@ -64,6 +65,8 @@ private:
     QScriptContext *    current_context;
     QScriptEngineAgent* m_script_engine_agent;
     QTimer*             script_timeout;
+
+    QNetworkAccessManager* m_network_access_manager;
 
 public:
     static Settings settings;
@@ -308,6 +311,11 @@ public:
 
 
     static void emit_script_output(QString s) { emit singleton.script_output(s); }
+
+    // network
+    static QNetworkAccessManager* network_access_manager() { return singleton.m_network_access_manager; }
+
+    static QNetworkReply* network_get(QString url);
 
 public slots:
 

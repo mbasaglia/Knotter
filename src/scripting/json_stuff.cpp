@@ -40,14 +40,14 @@ QString json_escape(QString s)
 }
 
 /// \todo (Maybe) Remove -- use the other overload
-QVariantMap json_read_file(QIODevice& file)
+QVariant json_read_file(QIODevice& file)
 {
     if ( ! file.isOpen() )
-        return QVariantMap();
+        return QVariant();
 
     QScriptEngine engine;
     QScriptValue obj = json_read_file(file,&engine);
-    return obj.toVariant().toMap();
+    return obj.toVariant();
 }
 
 QScriptValue json_read_file(QIODevice& file, QScriptEngine* engine)

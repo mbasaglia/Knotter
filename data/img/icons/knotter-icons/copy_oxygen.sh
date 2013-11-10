@@ -5,6 +5,7 @@ icons=' accessories-text-editor
         arrow-down
         arrow-up
         color-picker
+        computer
         configure
         configure-toolbars
         debug-run
@@ -27,6 +28,7 @@ icons=' accessories-text-editor
         document-save-all
         document-save-as
         document-save
+        download
         draw-eraser
         draw-line
         draw-polygon
@@ -77,6 +79,7 @@ icons=' accessories-text-editor
         preferences-system-performance
         preferences-system-windows-move
         process-stop
+        repository
         run-build-install
         snap-orthogonal
         stroke-cap-butt

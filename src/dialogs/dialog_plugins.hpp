@@ -30,10 +30,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ui_dialog_plugins.h"
 
 #include "plugin.hpp"
+#include <QNetworkReply>
 
 class Dialog_Plugins : public QDialog, private Ui::Dialog_Plugins
 {
     Q_OBJECT
+
+    QNetworkReply* reply;
     
 public:
     explicit Dialog_Plugins(QWidget *parent = 0);
@@ -45,9 +48,17 @@ protected slots:
     void load_plugins();
 
 private slots:
+    void network_refresh_all();
+    void network_reply_all_finished();
+    void network_reply_destroyed();
+    void network_update ( qint64 bytesReceived, qint64 bytesTotal ) ;
+    void network_abort();
+    void update_network_current_plugin(int index);
+
+
     void reload_combo();
 
-    void on_listWidget_currentRowChanged(int currentRow);
+    void on_list_installed_currentRowChanged(int currentRow);
 
     void on_check_enable_clicked(bool checked);
 
@@ -67,6 +78,11 @@ private slots:
 
     void on_button_view_settings_clicked();
 
+
+    void on_tabWidget_currentChanged(int index);
+
+    void on_combo_category_online_currentIndexChanged(int index);
+
 private:
     void set_item_enabled(QListWidgetItem* it, bool enabled);
     void set_item_errored(QListWidgetItem* it);
@@ -78,6 +94,8 @@ private:
      *  \brief Get plugin at given index
      */
     Plugin* plugin(int i);
+
+    void update_network_plugins();
 
 signals:
     /**

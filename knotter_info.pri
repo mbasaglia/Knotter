@@ -40,6 +40,8 @@ REPO="https://github.com/mbasaglia/Knotter"
 REPO_GIT="git://github.com/mbasaglia/Knotter.git"
 # Bug tacker URL
 BUGS="https://github.com/mbasaglia/Knotter/issues"
+# Plugin Repo
+PLUGIN_REPO="http://plugins.knotter.mattbas.org/"
 # URL for on-line user manual
 DOC_URL="http://knotter.mattbas.org/manual"
 # Icon path relative to datadir

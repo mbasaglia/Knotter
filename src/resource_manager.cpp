@@ -37,6 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QStyle>
 #include "json_stuff.hpp"
 #include "script_qtablewidget.hpp"
+#include <QNetworkRequest>
 
 #if HAS_QT_5
 #include <QStandardPaths>
@@ -272,6 +273,9 @@ void Resource_Manager::initialize(QString default_lang_code)
     load_plugins();
     emit singleton.plugins_changed();
 
+    //network
+    singleton.m_network_access_manager = new QNetworkAccessManager;
+
 
     // Load Settings: note after load_plugins
     settings.load_config();
@@ -290,6 +294,10 @@ Resource_Manager::~Resource_Manager()
         delete p;
 
     delete script_timeout;
+
+    delete m_network_access_manager;
+
+    delete m_script_engine;
 }
 
 
@@ -698,6 +706,11 @@ QScriptValue Resource_Manager::run_script(const QString &program,
     singleton.m_script_engine->popContext();
     singleton.current_context = nullptr;
     return result;
+}
+
+QNetworkReply *Resource_Manager::network_get(QString url)
+{
+    return singleton.m_network_access_manager->get(QNetworkRequest(QUrl(url)));
 }
 
 

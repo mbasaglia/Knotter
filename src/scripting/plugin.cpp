@@ -106,7 +106,7 @@ Plugin* Plugin::from_file (QFile &file, QString* error )
 {
     error->clear();
 
-    QVariantMap data = json_read_file(file);
+    QVariantMap data = json_read_file(file).toMap();
 
     QFileInfo fi(file.fileName());
     data["plugin_file"] = fi.absoluteFilePath();
