@@ -62,12 +62,12 @@ p, li { white-space: pre-wrap; }
         <translation>Adresáře s daty:</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/about_dialog.ui" line="161"/>
+        <location filename="../../src/dialogs/about_dialog.ui" line="165"/>
         <source>Settings file:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/about_dialog.ui" line="185"/>
+        <location filename="../../src/dialogs/about_dialog.ui" line="196"/>
         <source>Writable data directory:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -80,7 +80,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Přídavné moduly</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/about_dialog.ui" line="175"/>
+        <location filename="../../src/dialogs/about_dialog.ui" line="182"/>
         <source>Plugins are loaded from the following directories:</source>
         <translation>Pří&amp;davné moduly jsou nahrány z následujících adresářů:</translation>
     </message>
@@ -125,15 +125,35 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/about_dialog.ui" line="209"/>
+        <location filename="../../src/dialogs/about_dialog.ui" line="223"/>
         <source>About Qt</source>
         <translation>O Qt</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/about_dialog.cpp" line="43"/>
-        <location filename="../../src/dialogs/about_dialog.cpp" line="61"/>
+        <location filename="../../src/dialogs/about_dialog.cpp" line="42"/>
+        <location filename="../../src/dialogs/about_dialog.cpp" line="65"/>
         <source>About %1</source>
         <translation>O %1</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/about_dialog.cpp" line="103"/>
+        <source>Copy directory name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/about_dialog.cpp" line="104"/>
+        <source>Open in file manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/about_dialog.cpp" line="111"/>
+        <source>Copy file name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/about_dialog.cpp" line="112"/>
+        <source>Open file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

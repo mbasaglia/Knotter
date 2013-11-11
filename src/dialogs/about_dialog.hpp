@@ -28,18 +28,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ABOUT_DIALOG_HPP
 
 #include "ui_about_dialog.h"
+#include <QMenu>
+#include "c++.hpp"
 
 class About_Dialog : public QDialog, private Ui::About_Dialog
 {
     Q_OBJECT
+
+    QMenu context_menu;
+    QString clicked_entry;
     
 public:
     explicit About_Dialog(QWidget *parent = 0);
     
 protected:
-    void changeEvent(QEvent *e);
+    void changeEvent(QEvent *e) override;
+
+
 private slots:
     void on_button_qt_clicked();
+    void contextmenu_line(QPoint pos);
+    void contextmenu_list(QPoint pos);
+    void click_copy();
+    void click_open();
+
+private:
+    void show_context_menu(QString file, QPoint pos);
 };
 
 #endif // ABOUT_DIALOG_HPP

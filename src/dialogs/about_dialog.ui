@@ -153,7 +153,11 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QListWidget" name="list_data_dirs"/>
+            <widget class="QListWidget" name="list_data_dirs">
+             <property name="contextMenuPolicy">
+              <enum>Qt::CustomContextMenu</enum>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_4">
@@ -164,6 +168,9 @@ p, li { white-space: pre-wrap; }
            </item>
            <item>
             <widget class="QLineEdit" name="text_settings_file">
+             <property name="contextMenuPolicy">
+              <enum>Qt::CustomContextMenu</enum>
+             </property>
              <property name="readOnly">
               <bool>true</bool>
              </property>
@@ -177,7 +184,11 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QListWidget" name="list_plugin_dirs"/>
+            <widget class="QListWidget" name="list_plugin_dirs">
+             <property name="contextMenuPolicy">
+              <enum>Qt::CustomContextMenu</enum>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_5">
@@ -188,6 +199,9 @@ p, li { white-space: pre-wrap; }
            </item>
            <item>
             <widget class="QLineEdit" name="text_witable_data_dir">
+             <property name="contextMenuPolicy">
+              <enum>Qt::CustomContextMenu</enum>
+             </property>
              <property name="readOnly">
               <bool>true</bool>
              </property>
@@ -258,5 +272,73 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>list_data_dirs</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>About_Dialog</receiver>
+   <slot>contextmenu_list(QPoint)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>144</x>
+     <y>175</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>488</x>
+     <y>169</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>text_settings_file</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>About_Dialog</receiver>
+   <slot>contextmenu_line(QPoint)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>375</x>
+     <y>226</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>504</x>
+     <y>242</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>list_plugin_dirs</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>About_Dialog</receiver>
+   <slot>contextmenu_list(QPoint)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>363</x>
+     <y>325</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>506</x>
+     <y>324</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>text_witable_data_dir</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>About_Dialog</receiver>
+   <slot>contextmenu_line(QPoint)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>266</x>
+     <y>361</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>367</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>contextmenu_list(QPoint)</slot>
+  <slot>contextmenu_line(QPoint)</slot>
+ </slots>
 </ui>

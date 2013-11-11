@@ -26,12 +26,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "about_dialog.hpp"
 #include "resource_manager.hpp"
-#if HAS_QT_5
-    #include <QStandardPaths>
-#else
-    #include <QDesktopServices>
-#endif
 #include <QDir>
+#include <QContextMenuEvent>
+#include <QClipboard>
+#include <QDesktopServices>
+#include <QUrl>
 
 About_Dialog::About_Dialog(QWidget *parent) :
     QDialog(parent)
@@ -50,6 +49,11 @@ About_Dialog::About_Dialog(QWidget *parent) :
     text_settings_file->setText(Resource_Manager::settings.settings_file());
 
     text_witable_data_dir->setText(Resource_Manager::writable_data_directory(""));
+
+    context_menu.addAction(QIcon::fromTheme("edit-copy"),"Copy directory name",
+                           this, SLOT(click_copy()));
+    context_menu.addAction(QIcon::fromTheme("document-open"),"Open in file manager",
+                           this, SLOT(click_open()));
 }
 
 void About_Dialog::changeEvent(QEvent *e)
@@ -65,7 +69,63 @@ void About_Dialog::changeEvent(QEvent *e)
     }
 }
 
+
 void About_Dialog::on_button_qt_clicked()
 {
     QApplication::aboutQt();
+}
+
+void About_Dialog::contextmenu_line(QPoint pos)
+{
+    QLineEdit* ed = static_cast<QLineEdit*>(sender());
+
+    show_context_menu(ed->text(),ed->mapToGlobal(pos));
+
+}
+
+void About_Dialog::contextmenu_list(QPoint pos)
+{
+    QListWidget* list = static_cast<QListWidget*>(sender());
+    QListWidgetItem * it = list->itemAt(pos);
+    if ( it )
+    {
+        show_context_menu(it->text(),list->mapToGlobal(pos));
+    }
+}
+
+void About_Dialog::show_context_menu(QString file, QPoint pos)
+{
+    clicked_entry = file;
+    if ( !clicked_entry.isEmpty() )
+    {
+        QFileInfo finfo(clicked_entry);
+
+        context_menu.actions()[0]->setText(tr("Copy directory name"));
+        context_menu.actions()[1]->setText(tr("Open in file manager"));
+
+        if ( finfo.exists() )
+        {
+            context_menu.actions()[1]->setEnabled(true);
+            if ( finfo.isFile() )
+            {
+                context_menu.actions()[0]->setText(tr("Copy file name"));
+                context_menu.actions()[1]->setText(tr("Open file"));
+            }
+        }
+        else
+        {
+            context_menu.actions()[1]->setEnabled(false);
+        }
+        context_menu.popup(pos);
+    }
+}
+
+void About_Dialog::click_copy()
+{
+    QApplication::clipboard()->setText(clicked_entry);
+}
+
+void About_Dialog::click_open()
+{
+    QDesktopServices::openUrl(QUrl("file:///"+clicked_entry));
 }

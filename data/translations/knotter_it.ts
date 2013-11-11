@@ -42,7 +42,7 @@ p, li { white-space: pre-wrap; }
         <translation>Cartelle con i dati:</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/about_dialog.ui" line="161"/>
+        <location filename="../../src/dialogs/about_dialog.ui" line="165"/>
         <source>Settings file:</source>
         <translation>File di configurazione:</translation>
     </message>
@@ -55,25 +55,45 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Plugin</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/about_dialog.ui" line="175"/>
+        <location filename="../../src/dialogs/about_dialog.ui" line="182"/>
         <source>Plugins are loaded from the following directories:</source>
         <translation>I plugin vengono caricati dalle seguenti cartelle:</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/about_dialog.ui" line="185"/>
+        <location filename="../../src/dialogs/about_dialog.ui" line="196"/>
         <source>Writable data directory:</source>
         <translation>Cartella dati utente:</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/about_dialog.ui" line="209"/>
+        <location filename="../../src/dialogs/about_dialog.ui" line="223"/>
         <source>About Qt</source>
         <translation>Informazioni su Qt</translation>
     </message>
     <message>
-        <location filename="../../src/dialogs/about_dialog.cpp" line="43"/>
-        <location filename="../../src/dialogs/about_dialog.cpp" line="61"/>
+        <location filename="../../src/dialogs/about_dialog.cpp" line="42"/>
+        <location filename="../../src/dialogs/about_dialog.cpp" line="65"/>
         <source>About %1</source>
         <translation>Informazioni su %1</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/about_dialog.cpp" line="103"/>
+        <source>Copy directory name</source>
+        <translation>Copia nome cartella</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/about_dialog.cpp" line="104"/>
+        <source>Open in file manager</source>
+        <translation>Apri nel gestore dei file</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/about_dialog.cpp" line="111"/>
+        <source>Copy file name</source>
+        <translation>Copia nome file</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogs/about_dialog.cpp" line="112"/>
+        <source>Open file</source>
+        <translation>Apri file</translation>
     </message>
 </context>
 <context>
