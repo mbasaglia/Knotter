@@ -39,7 +39,6 @@ QString json_escape(QString s)
     return '"'+s+'"';
 }
 
-/// \todo (Maybe) Remove -- use the other overload
 QVariant json_read_file(QIODevice& file)
 {
     if ( ! file.isOpen() )
