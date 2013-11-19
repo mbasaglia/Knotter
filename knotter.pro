@@ -13,6 +13,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Workaround a bug in OSX Qt5
+macx {
+    cache()
+}
+
 # Base configutation
 QT += core gui xml script svg network
 
@@ -26,8 +31,11 @@ OBJECTS_DIR = obj
 include(knotter_info.pri)
 include(src/src.pri)
 include(translations.pri)
-include(data/plugins/plugins.pri)
 
+#include for lupdate but discard on compilation
+!debug:!release {
+    include(data/plugins/plugins.pri)
+}
 
 #non-source files
 OTHER_FILES = \

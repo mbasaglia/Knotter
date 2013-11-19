@@ -19,7 +19,7 @@ mkdir src/ui
 mv src/generated/ui_*.h src/ui
 rmdir src/generated obj
 
-find -name '*.ui' -delete
+find -name '*.ui' -path './src/*' -delete
 
 cd src/ui
 
