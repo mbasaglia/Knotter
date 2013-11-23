@@ -276,6 +276,10 @@ elif qmake -v 2>/dev/null
 then
     QMAKE=`which qmake`
     echo "Using $QMAKE"
+elif qmake-qt5 -v 2>/dev/null
+then
+    QMAKE=`which qmake-qt5`
+    echo "Using $QMAKE"
 elif qmake-qt4 -v 2>/dev/null
 then
     QMAKE=`which qmake-qt4`
