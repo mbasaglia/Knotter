@@ -16,7 +16,7 @@
 # executable/package name
 TARGET=knotter
 # program version
-VERSION=0.9.6
+VERSION=0.9.7_devel
 # capitalized name
 TITLE=Knotter
 # Short description

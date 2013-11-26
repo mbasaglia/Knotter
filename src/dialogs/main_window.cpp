@@ -43,6 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPageSetupDialog>
 #include <QPrintPreviewDialog>
 #include "dialog_confirm_close.hpp"
+#include <limits>
 
 Main_Window::Main_Window(QWidget *parent) :
     QMainWindow(parent), zoomer(nullptr), view(nullptr),
@@ -153,6 +154,23 @@ void Main_Window::init_statusbar()
     zoomer->setMaximum(800);
     zoomer->setSuffix("%");
     zoomer->setValue(100);
+
+
+    QString labels[] = {tr("X"),tr("Y"),tr("W"),tr("H")};
+    for ( int i = 0; i < 4; i++ )
+    {
+        scene_widgets[i] = new QDoubleSpinBox(this);
+        scene_widgets[i]->setMinimum(-std::numeric_limits<double>::max());
+        scene_widgets[i]->setMaximum(std::numeric_limits<double>::max());
+        scene_widgets[i]->setSizePolicy(QSizePolicy::Preferred,
+                                        scene_widgets[i]->sizePolicy().verticalPolicy());
+        scene_widgets[i]->setMaximumWidth(80);
+        scene_widgets[i]->setReadOnly(true);
+        statusBar()->addPermanentWidget(new QLabel(labels[i]));
+        statusBar()->addPermanentWidget(scene_widgets[i]);
+    }
+
+
     statusBar()->addPermanentWidget(new QLabel(tr("Zoom")));
     statusBar()->addPermanentWidget(zoomer);
     connect(zoomer,SIGNAL(valueChanged(double)),this,SLOT(apply_zoom()));
@@ -305,6 +323,8 @@ void Main_Window::connect_view(Knot_View *v)
     zoomer->setValue(v->get_zoom_factor()*100);
     connect(v,SIGNAL(zoomed(double)),zoomer,SLOT(setValue(double)));
     connect(action_Fit_View,SIGNAL(triggered()),v,SLOT(view_fit()));
+
+    connect(v,SIGNAL(scene_rect_changed(QRectF)),SLOT(viewport_changed(QRectF)));
 
     // statusbar
     connect(v,SIGNAL(mose_position_changed(QPointF)),SLOT(update_mouse_pos(QPointF)));
@@ -527,6 +547,14 @@ void Main_Window::set_tool_button_style(Qt::ToolButtonStyle tbs)
 void Main_Window::apply_zoom()
 {
     view->set_zoom(zoomer->value()/100);
+}
+
+void Main_Window::viewport_changed(QRectF rect)
+{
+    scene_widgets[0]->setValue(rect.x());
+    scene_widgets[1]->setValue(rect.y());
+    scene_widgets[2]->setValue(rect.width());
+    scene_widgets[3]->setValue(rect.height());
 }
 
 void Main_Window::update_selection(QList<Node *> nodes, QList<Edge*> edges)

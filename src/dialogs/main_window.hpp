@@ -67,6 +67,7 @@ private:
     Dialog_Plugins          dialog_plugins;
     Dock_Script_Log*        dock_script_log;
     Crossing_Style_Widget*  widget_edge_style;
+    QDoubleSpinBox*         scene_widgets[4];
 
 public:
     explicit Main_Window(QWidget *parent = 0);
@@ -165,8 +166,13 @@ private slots:
     void set_tool_button_style(Qt::ToolButtonStyle);
     /**
      *  \brief Sets the current view zoom factor to the value of the slider in the statusbar
-    */
+     */
     void apply_zoom();
+
+    /**
+     * \brief Updates the viewport widgets to reflect changes on the scene rect
+     */
+    void viewport_changed(QRectF rect);
 
     /**
      *  \brief Update selected style dialog

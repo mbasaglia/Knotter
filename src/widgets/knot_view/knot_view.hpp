@@ -400,6 +400,11 @@ signals:
 
     void mose_position_changed(QPointF);
 
+    /**
+     * \brief Emitted when the viewed scene rect changes
+     */
+    void scene_rect_changed(QRectF);
+
 protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);

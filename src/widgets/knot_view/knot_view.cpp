@@ -667,6 +667,8 @@ void Knot_View::expand_scene_rect(int margin)
         QPoint p2 ( qMax(vp.right(),sr.right()),qMax(vp.bottom(),sr.bottom()) );
         setSceneRect(QRect(p1,p2));*/
     }
+
+    emit scene_rect_changed(QRectF(mapToScene(0,0),mapToScene(width(),height())));
 }
 
 void Knot_View::rubberband_select(QList<Node *> nodes, bool modifier)
