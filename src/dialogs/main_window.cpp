@@ -157,6 +157,8 @@ void Main_Window::init_statusbar()
 
 
     QString labels[] = {tr("X"),tr("Y"),tr("W"),tr("H")};
+    QString tooltips[] = {tr("Viewport X position"),tr("Viewport Y position"),
+                          tr("Viewport width"), tr("Viewport height")};
     for ( int i = 0; i < 4; i++ )
     {
         scene_widgets[i] = new QDoubleSpinBox(this);
@@ -165,10 +167,14 @@ void Main_Window::init_statusbar()
         scene_widgets[i]->setSizePolicy(QSizePolicy::Preferred,
                                         scene_widgets[i]->sizePolicy().verticalPolicy());
         scene_widgets[i]->setMaximumWidth(80);
-        scene_widgets[i]->setReadOnly(true);
+        scene_widgets[i]->setToolTip(tooltips[i]);
         statusBar()->addPermanentWidget(new QLabel(labels[i]));
         statusBar()->addPermanentWidget(scene_widgets[i]);
     }
+    scene_widgets[2]->setReadOnly(true);
+    scene_widgets[3]->setReadOnly(true);
+    connect(scene_widgets[0],SIGNAL(valueChanged(double)),SLOT(viewport_xy()));
+    connect(scene_widgets[1],SIGNAL(valueChanged(double)),SLOT(viewport_xy()));
 
 
     statusBar()->addPermanentWidget(new QLabel(tr("Zoom")));
@@ -547,14 +553,27 @@ void Main_Window::set_tool_button_style(Qt::ToolButtonStyle tbs)
 void Main_Window::apply_zoom()
 {
     view->set_zoom(zoomer->value()/100);
+    viewport_changed(QRectF(view->mapToScene(0,0),
+                            view->mapToScene(view->width(),view->height())
+                            ));
 }
 
 void Main_Window::viewport_changed(QRectF rect)
 {
+    for(int i = 0; i < 4; i++ )
+        scene_widgets[0]->blockSignals(true);
     scene_widgets[0]->setValue(rect.x());
     scene_widgets[1]->setValue(rect.y());
     scene_widgets[2]->setValue(rect.width());
     scene_widgets[3]->setValue(rect.height());
+    for(int i = 0; i < 4; i++ )
+        scene_widgets[0]->blockSignals(false);
+}
+
+void Main_Window::viewport_xy()
+{
+    view->translate_view_to(QPointF(scene_widgets[0]->value(),
+                                    scene_widgets[1]->value() ));
 }
 
 void Main_Window::update_selection(QList<Node *> nodes, QList<Edge*> edges)

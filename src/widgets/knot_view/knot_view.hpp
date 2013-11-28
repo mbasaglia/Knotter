@@ -122,8 +122,20 @@ public:
      *
      *  Translate the scene, if the result is not contained within sceneRect,
      *  the sceneRect is expanded
+     *
+     *  \param delta Translation amount
      */
     void translate_view(QPointF delta);
+
+    /**
+     *  \brief Translate and resize sceneRect
+     *
+     *  Translate the scene, if the result is not contained within sceneRect,
+     *  the sceneRect is expanded
+     *
+     *  \param destination The position of the topleft corner
+     */
+    void translate_view_to(QPointF destination);
 
     /**
      *  \brief Creates a node in the given location

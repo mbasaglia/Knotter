@@ -441,6 +441,11 @@ void Knot_View::translate_view(QPointF delta)
     expand_scene_rect(10);
 }
 
+void Knot_View::translate_view_to(QPointF destination)
+{
+    translate_view(mapToScene(0,0)-destination);
+}
+
 Node* Knot_View::add_node(QPointF pos)
 {
     Node* node = new Node(pos);

@@ -175,6 +175,11 @@ private slots:
     void viewport_changed(QRectF rect);
 
     /**
+     * \brief translate the viewport to match the statusbar widgets
+     */
+    void viewport_xy();
+
+    /**
      *  \brief Update selected style dialog
      */
     void update_selection(QList<Node*> nodes, QList<Edge*> edges);
