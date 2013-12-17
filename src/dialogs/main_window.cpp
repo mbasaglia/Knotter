@@ -1028,7 +1028,7 @@ void Main_Window::dropEvent(QDropEvent *event)
     {
         foreach ( QUrl url, event->mimeData()->urls() )
         {
-#ifdef HAS_QT_4_8
+#if HAS_QT_4_8
             if ( url.isLocalFile() )
 #endif
             {

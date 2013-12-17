@@ -295,8 +295,9 @@ Resource_Manager::~Resource_Manager()
 
     delete script_timeout;
 
-    delete m_network_access_manager;
-
+    #if !HAS_QT_5
+        delete m_network_access_manager;
+    #endif
     delete m_script_engine;
 }
 

@@ -148,7 +148,7 @@ void Export_Image_Dialog::on_button_image_clicked()
     file_name = exname;
 
     int name_filter = filters.indexOf(export_dialog.
-#ifdef HAS_QT_5
+#if HAS_QT_5
         selectedNameFilter
 #else
         selectedFilter

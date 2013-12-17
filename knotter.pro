@@ -83,16 +83,22 @@ contains(CONFIG,debug) {
 #DEFINES += "BUILD_INFO=\"\\\"Knotter $$VERSION\\nBuilt on $$_DATE_\\n$${QMAKE_HOST.os} \
 #$${QMAKE_HOST.version} $${QMAKE_HOST.arch}\\nQt $${QT_VERSION}\\\""\"
 
+HAS_QT_4_8=0
+HAS_QT_5=0
+
 !lessThan(QT_MAJOR_VERSION,4) !lessThan(QT_MINOR_VERSION,8) {
-    DEFINES += HAS_QT_4_8
+    HAS_QT_4_8=1
 }
 greaterThan(QT_MAJOR_VERSION, 4) {
-    DEFINES += HAS_QT_4_8 HAS_QT_5
+    HAS_QT_4_8=1
+    HAS_QT_5=1
     QT += widgets printsupport uitools
 }
 else {
     CONFIG += uitools
 }
+
+DEFINES += "HAS_QT_4_8=$${HAS_QT_4_8}" "HAS_QT_5=$${HAS_QT_5}"
 
 contains(CONFIG,c++11) {
     DEFINES += CXX_11
