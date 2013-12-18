@@ -15,7 +15,7 @@ Contacts
 Mattia Basaglia <mattia.basaglia@gmail.com>
 [Knotter Website](http://knotter.mattbas.org/)
 
-If you have any suggestion, criticism, feature request or bug report please let me know
+If you have any suggestion, criticism, feature request or bug report please let me know.
 
 
 License
@@ -58,7 +58,8 @@ The default install prefix is /usr/local (see ./configure.sh --help)
 Dependencies
 ---------------------------------------
 
-* Qt Framework, should work with 4.8 or later
+* Qt Framework, should work with 4.7 or later
+
 
 Misc build targets
 ---------------------------------------
