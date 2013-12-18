@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "dialog_preferences.hpp"
 #include "resource_manager.hpp"
 #include <QStyleFactory>
+#include <QMessageBox>
 
 Dialog_Preferences::Dialog_Preferences(QMainWindow *parent) :
     QDialog(parent)
@@ -177,7 +178,11 @@ void Dialog_Preferences::on_button_clear_recent_clicked()
 void Dialog_Preferences::on_button_clear_settings_clicked()
 {
     Resource_Manager::settings.clear_config();
-    group_save->setEnabled(false);
+    QMessageBox::information(this,tr("Clearing Configuration"),
+        tr("Next time %1 will start with the default settings.")
+        .arg(Resource_Manager::program_name())
+    );
+    //group_save->setEnabled(false);
 }
 
 void Dialog_Preferences::on_combo_widget_style_currentIndexChanged(int)
