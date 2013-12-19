@@ -163,6 +163,8 @@ QString Script_System::unique_temp_file(QString base_name, QString extension)
 
 bool Script_System::exec(QString command, QStringList params)
 {
+    if (command.startsWith ("~/"))
+        command.replace(0, 1, QDir::homePath());
     QProcess proc;
     return proc.startDetached(command,params);
 }

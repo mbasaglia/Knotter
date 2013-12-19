@@ -3,30 +3,30 @@ var script_table = gui.table_widget(Dialog.tableWidget);
 
 function add()
 {
-    var item = ["New Program","PNG",""];
-    items.push(item);
-    script_table.append_row(item);
+	var item = ["New Program","PNG",""];
+	items.push(item);
+	script_table.append_row(item);
 }
 function remove()
 { 
-    var current_row = script_table.current_column();
+	var current_row = script_table.current_column();
 	if ( current_row >= 0 )
-    {
+	{
 		Dialog.tableWidget.removeRow(current_row);
-        items.splice(current_row,1);
-    }
+		items.splice(current_row,1);
+	}
 }
 function item_changed( r, c, text )
 {
-    items[r][c] = text;
+	items[r][c] = text;
 }
 
-// populate teble
+// populate table
 Dialog.tableWidget.clearContents();
 Dialog.tableWidget.rowCount = 0;
 for(var i = 0; i < items.length; i++)
 {
-    script_table.append_row(items[i]);
+	script_table.append_row(items[i]);
 }
 
 script_table.value_changed.connect(item_changed);
