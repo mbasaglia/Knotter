@@ -271,7 +271,9 @@ void Dialog_Plugins::network_reply_all_finished()
         update_network_plugins();
     }
     else
-        label_status_download->setText(tr("Error %1").arg((int)reply->error() ));
+        label_status_download->setText(
+            tr("Error %1: %2").arg((int)reply->error()).arg(reply->errorString())
+        );
 
     reply->deleteLater();
 }

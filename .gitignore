@@ -3,7 +3,7 @@
 test/
 src/generated/*.cpp
 src/generated/*.h
-*.pro.user
+*.pro.user*
 *.desktop
 *.tar.gz
 *.tar.gz.md5
@@ -14,6 +14,7 @@ data/translations/*.pot
 Makefile
 Doxyfile
 build/
+bin/
 doc/
 misc/
 configured_directories.sh
