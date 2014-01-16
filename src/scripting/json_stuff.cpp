@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 QString json_escape(QString s)
 {
+    s.replace('\\',"\\\\");
     s.replace('"',"\\\"");
     s.replace('\'',"\\\'");
     s.replace('\n',"\\n");

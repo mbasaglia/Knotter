@@ -4,7 +4,8 @@ archbit=$1
 
 if [ -z "$archbit" ]
 then
-    echo 1>&2 "Please pass 32 or 64 to select the architecture" 
+    echo 1>&2 "Please pass 32 or 64 to select the architecture"
+    exit 1
 fi
 
 srcdir=../..

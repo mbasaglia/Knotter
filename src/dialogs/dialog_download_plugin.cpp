@@ -171,7 +171,10 @@ void Dialog_Download_Plugin::reply_finished()
 
 void Dialog_Download_Plugin::reply_progress(qint64 bytes, qint64 total)
 {
-    current_progress->setValue(bytes*100/total);
+    if ( total == 0 )
+        current_progress->setValue(100);
+    else
+        current_progress->setValue(bytes*100/total);
 }
 
 void Dialog_Download_Plugin::reply_destroyed()

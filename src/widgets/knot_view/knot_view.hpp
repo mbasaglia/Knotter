@@ -122,8 +122,20 @@ public:
      *
      *  Translate the scene, if the result is not contained within sceneRect,
      *  the sceneRect is expanded
+     *
+     *  \param delta Translation amount
      */
     void translate_view(QPointF delta);
+
+    /**
+     *  \brief Translate and resize sceneRect
+     *
+     *  Translate the scene, if the result is not contained within sceneRect,
+     *  the sceneRect is expanded
+     *
+     *  \param destination The position of the topleft corner
+     */
+    void translate_view_to(QPointF destination);
 
     /**
      *  \brief Creates a node in the given location
@@ -399,6 +411,11 @@ signals:
     void selection_changed(QList<Node*>,QList<Edge*>);
 
     void mose_position_changed(QPointF);
+
+    /**
+     * \brief Emitted when the viewed scene rect changes
+     */
+    void scene_rect_changed(QRectF);
 
 protected:
     void mousePressEvent(QMouseEvent *event);
