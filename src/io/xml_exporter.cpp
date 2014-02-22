@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -67,8 +67,8 @@ void XML_Exporter::begin()
     xml.writeStartElement("knot");
     xml.writeAttribute("version",QString::number(version));
     xml.writeAttribute("generator",QString("%1 %2")
-                       .arg(Resource_Manager::program_name())
-                       .arg(Resource_Manager::program_version())
+                       .arg(resource_manager().program.name())
+                       .arg(resource_manager().program.version())
                       );
 }
 
@@ -231,10 +231,10 @@ void export_xml_mime_data(QMimeData* data, const Graph& graph)
     data->setData("application/x-knotter",knot_xml);
 
 
-    if ( Resource_Manager::settings.clipboard_feature(Settings::XML) )
+    if ( resource_manager().settings.clipboard_feature(Settings::XML) )
         data->setData("text/xml",knot_xml);
 
-    if ( Resource_Manager::settings.clipboard_feature(Settings::SVG) )
+    if ( resource_manager().settings.clipboard_feature(Settings::SVG) )
     {
         QByteArray knot_svg;
         QBuffer svg_stream(&knot_svg);
@@ -242,7 +242,7 @@ void export_xml_mime_data(QMimeData* data, const Graph& graph)
         data->setData("image/svg+xml",knot_svg);
     }
 
-    if ( Resource_Manager::settings.clipboard_feature(Settings::PNG) )
+    if ( resource_manager().settings.clipboard_feature(Settings::PNG) )
     {
         QByteArray knot_png;
         QBuffer png_stream(&knot_png);
@@ -253,7 +253,7 @@ void export_xml_mime_data(QMimeData* data, const Graph& graph)
     }
 
 
-    if ( Resource_Manager::settings.clipboard_feature(Settings::TIFF) )
+    if ( resource_manager().settings.clipboard_feature(Settings::TIFF) )
     {
         QByteArray knot_tiff;
         QBuffer tiff_stream(&knot_tiff);

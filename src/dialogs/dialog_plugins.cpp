@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -54,13 +54,13 @@ void Dialog_Plugins::changeEvent(QEvent *e)
 
 void Dialog_Plugins::load_plugins()
 {
-    frame_info->setVisible(!Resource_Manager::plugins().empty());
-    label_empty->setVisible(Resource_Manager::plugins().empty());
+    frame_info->setVisible(!resource_manager().script.plugins().empty());
+    label_empty->setVisible(resource_manager().script.plugins().empty());
 
     list_installed->blockSignals(true);
     list_installed->clear();
     list_installed->blockSignals(false);
-    foreach(Plugin* p, Resource_Manager::plugins())
+    foreach(Plugin* p, resource_manager().script.plugins())
     {
         QListWidgetItem *item = new QListWidgetItem(p->icon(), p->string_data("name"));
         if ( item->icon().isNull() )
@@ -88,7 +88,7 @@ void Dialog_Plugins::reload_combo()
 
     QStringList categories;
 
-    foreach(Plugin* p, Resource_Manager::plugins())
+    foreach(Plugin* p, resource_manager().script.plugins())
     {
         if ( !categories.contains(p->string_data("category")) )
             categories << p->string_data("category");
@@ -152,7 +152,7 @@ void Dialog_Plugins::set_item_errored(QListWidgetItem *it)
 
 void Dialog_Plugins::on_check_enable_clicked(bool checked)
 {
-    Resource_Manager::plugins()[list_installed->currentIndex().row()]->enable(checked);
+    resource_manager().script.plugins()[list_installed->currentIndex().row()]->enable(checked);
     set_item_enabled(list_installed->currentItem(),checked);
 }
 
@@ -163,7 +163,7 @@ void Dialog_Plugins::on_button_reload_clicked()
     QString file;
     if ( old )
         file = old->string_data("plugin_file");
-    Resource_Manager::reload_plugins();
+    resource_manager().script.reload_plugins();
     load_plugins();
     for ( int i = 0; i < list_installed->count(); i++ )
     {
@@ -249,8 +249,8 @@ void Dialog_Plugins::network_refresh_all()
 {
     label_status_download->setText(tr("Connecting..."));
     progress_download->setValue(0);
-    reply = Resource_Manager::network_get(
-                QString("%1?v=%2").arg(PLUGIN_REPO).arg(Resource_Manager::program_version())
+    reply = resource_manager().network_get(
+                QString("%1?v=%2").arg(PLUGIN_REPO).arg(resource_manager().program.version())
     );
     frame_online_widget->setEnabled(false);
     connect(reply,SIGNAL(finished()),SLOT(network_reply_all_finished()));
@@ -310,7 +310,7 @@ void Dialog_Plugins::update_network_plugins()
 
         QListWidgetItem *item = new QListWidgetItem(map["name"].toString());
         bool installable = true;
-        foreach(Plugin*p, Resource_Manager::plugins())
+        foreach(Plugin*p, resource_manager().script.plugins())
         {
             if (p->string_data("plugin_shortname") == map["plugin_shortname"].toString() )
             {

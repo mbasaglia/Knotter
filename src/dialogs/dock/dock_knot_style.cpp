@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ Dock_Knot_Style::Dock_Knot_Style(QWidget *parent) :
 
 
     combo_cusp_shape->clear();
-    foreach(Cusp_Shape* cs, Resource_Manager::cusp_shapes())
+    foreach(Cusp_Shape* cs, resource_manager().cusp_shapes())
         combo_cusp_shape->addItem(cs->icon(),cs->name(),
                                   QVariant::fromValue(cs) );
 
@@ -49,7 +49,7 @@ Dock_Knot_Style::Dock_Knot_Style(QWidget *parent) :
             SIGNAL(crossing_distance_changed(double)));
     connect(slide_edge_slide,SIGNAL(valueChanged(int)),SLOT(emit_edge_slide(int)));
 
-    connect(Resource_Manager::pointer,SIGNAL(cusp_shapes_changed()),
+    connect(Resource_Manager::pointer(),SIGNAL(cusp_shapes_changed()),
             SLOT(reload_cusp_shapes()));
 
 }
@@ -95,7 +95,7 @@ Edge_Style Dock_Knot_Style::edge_style() const
                 spin_handle_length->value(),
                 spin_crossing_gap->value(),
                 slide_edge_slide->value()/100.0,
-                Resource_Manager::default_edge_type(),
+                resource_manager().default_edge_type(),
                 Edge_Style::EVERYTHING
                 );
 }
@@ -155,9 +155,9 @@ void Dock_Knot_Style::reload_cusp_shapes()
     blockSignals(true);
     combo_cusp_shape->clear();
 
-    for( int i = 0; i < Resource_Manager::cusp_shapes().size(); i++ )
+    for( int i = 0; i < resource_manager().cusp_shapes().size(); i++ )
     {
-        Cusp_Shape* cs = Resource_Manager::cusp_shapes()[i];
+        Cusp_Shape* cs = resource_manager().cusp_shapes()[i];
         if ( cs == current_shape )
             current_index = i;
         combo_cusp_shape->addItem(cs->icon(),cs->name(),

@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013  Mattia Basaglia
+# Copyright (C) 2012-2014  Mattia Basaglia
 #
 # Knotter is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -47,4 +47,4 @@ DOC_URL="http://knotter.mattbas.org/manual"
 # Icon path relative to datadir
 ICON_RELPATH="img/icon-big.svg"
 #Copyright years
-COPY_YEARS="2012-2013"
+COPY_YEARS="2012-2014"

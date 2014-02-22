@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -197,7 +197,7 @@ bool Plugin::is_valid() const
     if ( m_type == Invalid )
         return false;
     if ( m_metadata.contains("requires") &&
-         !Resource_Manager::has_least_version(string_data("requires")) )
+         !resource_manager().program.has_least_version(string_data("requires")) )
         return false;
     return true;
 }
@@ -223,7 +223,7 @@ QString Plugin::settings_file_path() const
 
 QDir Plugin::settings_directory()
 {
-    return Resource_Manager::writable_data_directory("plugin_config");
+    return resource_manager().program.writable_data_directory("plugin_config");
 }
 
 void Plugin::clear_settings()
@@ -257,7 +257,7 @@ QIcon Plugin::icon() const
         return QIcon(icon_name);
     }
 
-    QString data = Resource_Manager::data(icon_name);
+    QString data = resource_manager().program.data(icon_name);
     if ( !data.isEmpty() )
         return QIcon(data);
 
@@ -268,17 +268,17 @@ QIcon Plugin::icon() const
 void Plugin::execute(Main_Window *window)
 {
     foreach(QWidget* w, m_widgets)
-        Resource_Manager::script_param(w->objectName(),w);
+        resource_manager().script.param(w->objectName(),w);
 
     if ( window )
     {
         Script_Window win(window);
-        Resource_Manager::script_param("window",&win);
-        Resource_Manager::script_param("document",win.document());
-        Resource_Manager::run_script(this);
+        resource_manager().script.param("window",&win);
+        resource_manager().script.param("document",win.document());
+        resource_manager().script.execute(this);
     }
     else
-        Resource_Manager::run_script(this);
+        resource_manager().script.execute(this);
 
 }
 

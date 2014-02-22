@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ Knot_View::Knot_View(QString file)
 {
     //setViewport(new QGLWidget);
 
-    connect(Resource_Manager::pointer,SIGNAL(plugins_changed()),
+    connect(&resource_manager().script,SIGNAL(plugins_changed()),
             SLOT(check_plugins()));
 
     tool_edge_chain.set_graph(&m_graph);
@@ -182,7 +182,7 @@ bool Knot_View::load_file(QString fname)
     }
     else
     {
-        Resource_Manager::settings.get_knot_style(m_graph);
+        resource_manager().settings.get_knot_style(m_graph);
     }
     return false;
 }
@@ -475,7 +475,7 @@ Node *Knot_View::add_breaking_node(QPointF pos)
 
 Edge *Knot_View::add_edge(Node *n1, Node *n2)
 {
-    Edge* e = new Edge(n1,n2,Resource_Manager::default_edge_type());
+    Edge* e = new Edge(n1,n2,resource_manager().default_edge_type());
     push_command(new Create_Edge(e,this));
     return e;
 }
@@ -716,15 +716,15 @@ void Knot_View::rubberband_select(QList<Node *> nodes, bool modifier)
 
 void Knot_View::check_plugins()
 {
-    if ( !Resource_Manager::cusp_shapes().contains(m_graph.default_node_style().cusp_shape) )
+    if ( !resource_manager().cusp_shapes().contains(m_graph.default_node_style().cusp_shape) )
     {
         m_graph.default_node_style_reference().cusp_shape =
-                Resource_Manager::default_cusp_shape();
+                resource_manager().default_cusp_shape();
     }
     foreach(Node* n, m_graph.nodes())
     {
         if ( n->style().enabled_style & Node_Style::CUSP_SHAPE &&
-             !Resource_Manager::cusp_shapes().contains(n->style().cusp_shape) )
+             !resource_manager().cusp_shapes().contains(n->style().cusp_shape) )
         {
             n->style().cusp_shape = nullptr;
             n->style().enabled_style ^= Node_Style::CUSP_SHAPE;
@@ -733,9 +733,9 @@ void Knot_View::check_plugins()
 
     foreach(Edge* e, m_graph.edges())
     {
-        if ( !Resource_Manager::edge_types().contains(e->style().edge_type) )
+        if ( !resource_manager().edge_types().contains(e->style().edge_type) )
         {
-            e->style().edge_type = Resource_Manager::default_edge_type();
+            e->style().edge_type = resource_manager().default_edge_type();
         }
     }
 }
@@ -1076,8 +1076,8 @@ void Knot_View::wheelEvent(QWheelEvent *event)
         if ( e )
         {
             Edge_Type* st = event->delta() < 0 ?
-                        Resource_Manager::next_edge_type(e->style().edge_type) :
-                        Resource_Manager::prev_edge_type(e->style().edge_type) ;
+                        resource_manager().next_edge_type(e->style().edge_type) :
+                        resource_manager().prev_edge_type(e->style().edge_type) ;
             push_command(new Change_Edge_Type(e,e->style().edge_type,st,this));
         }
         else // scroll

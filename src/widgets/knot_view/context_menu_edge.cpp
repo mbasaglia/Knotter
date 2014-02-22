@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -56,11 +56,11 @@ void Context_Menu_Edge::popup(Edge *e, QPoint pos)
     action_snap->setEnabled( view->grid().is_enabled() );
     action_reset_style->setEnabled(
         edge->style().enabled_style != Edge_Style::EDGE_TYPE ||
-        edge->style().edge_type != Resource_Manager::default_edge_type()
+        edge->style().edge_type != resource_manager().default_edge_type()
     );
 
     menu_edge_types->clear();
-    foreach(Edge_Type* es, Resource_Manager::edge_types())
+    foreach(Edge_Type* es, resource_manager().edge_types())
     {
         QAction*a = menu_edge_types->addAction(es->icon(),es->name(),&mapper,SLOT(map()));
         mapper.setMapping(a,es->machine_name());
@@ -86,7 +86,7 @@ void Context_Menu_Edge::snap()
 void Context_Menu_Edge::change_edge_type(QString type_name)
 {
     view->push_command(new Change_Edge_Type(edge,edge->style().edge_type,
-                Resource_Manager::edge_type_from_machine_name(type_name), view));
+                resource_manager().edge_type_from_machine_name(type_name), view));
 }
 
 
@@ -219,7 +219,7 @@ void Context_Menu_Edge::reset_custom_style()
 {
     Edge_Style es;
     es.enabled_style |= Edge_Style::EDGE_TYPE;
-    es.edge_type = Resource_Manager::default_edge_type();
+    es.edge_type = resource_manager().default_edge_type();
     view->begin_macro(tr("Reset Edge Style"));
     view->push_command(new Edge_Style_All(edge,edge->style(),es,view));
     view->end_macro();

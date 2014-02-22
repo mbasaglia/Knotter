@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ Edge::Edge(Node *v1, Node *v2, Edge_Type *type) :
     setFlag(QGraphicsItem::ItemIsSelectable);
 
     m_style.enabled_style |= Edge_Style::EDGE_TYPE;
-    m_style.edge_type = type ? type : Resource_Manager::default_edge_type();
+    m_style.edge_type = type ? type : resource_manager().default_edge_type();
 }
 
 QRectF Edge::boundingRect() const
@@ -75,7 +75,7 @@ void Edge::set_style(Edge_Style st)
     m_style = st;
     m_style.enabled_style |= Edge_Style::EDGE_TYPE;
     m_style.edge_type = st.edge_type ? st.edge_type :
-                                       Resource_Manager::default_edge_type();
+                                       resource_manager().default_edge_type();
 }
 
 Edge_Style Edge::style() const

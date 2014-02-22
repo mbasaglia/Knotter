@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -89,7 +89,7 @@ Edge *XML_Loader_v3::get_edge(QDomElement element)
 
     Edge_Style es = get_edge_style(element.firstChildElement("style"),false);
     es.enabled_style |= Edge_Style::EDGE_TYPE;
-    es.edge_type = Resource_Manager::edge_type_from_machine_name(type);
+    es.edge_type = resource_manager().edge_type_from_machine_name(type);
     e->set_style(es);
 
     return e;
@@ -101,7 +101,7 @@ Node_Style XML_Loader_v3::get_node_style(QDomElement element, bool everything)
     if ( everything )
     {
         ns.enabled_style = Node_Style::EVERYTHING;
-        ns.cusp_shape = Resource_Manager::default_cusp_shape();
+        ns.cusp_shape = resource_manager().default_cusp_shape();
     }
 
     if ( !element.isNull() )
@@ -110,7 +110,7 @@ Node_Style XML_Loader_v3::get_node_style(QDomElement element, bool everything)
         if ( !e_style.isNull() )
         {
             ns.enabled_style |= Node_Style::CUSP_SHAPE;
-            ns.cusp_shape = Resource_Manager::cusp_shape_from_machine_name(e_style.text());
+            ns.cusp_shape = resource_manager().cusp_shape_from_machine_name(e_style.text());
         }
 
         QDomElement e_min_angle = element.firstChildElement("min-angle");
@@ -146,7 +146,7 @@ Edge_Style XML_Loader_v3::get_edge_style(QDomElement element, bool everything)
     if ( everything )
     {
         es.enabled_style = Edge_Style::EVERYTHING;
-        es.edge_type = Resource_Manager::default_edge_type();
+        es.edge_type = resource_manager().default_edge_type();
     }
 
     if ( !element.isNull() )

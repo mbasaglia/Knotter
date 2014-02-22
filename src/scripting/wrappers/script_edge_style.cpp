@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -55,7 +55,7 @@ double Script_Edge_Style::slide()
 QString Script_Edge_Style::edge_type()
 {
     return wrapped.edge_type ? wrapped.edge_type->machine_name() :
-                                Resource_Manager::default_edge_type()->machine_name();
+                                resource_manager().default_edge_type()->machine_name();
 }
 
 void Script_Edge_Style::set_crossing_distance(double value)
@@ -102,7 +102,7 @@ void Script_Edge_Style::set_edge_type(QString name)
 
     Edge_Style before = wrapped;
 
-    wrapped.edge_type = Resource_Manager::edge_type_from_machine_name(name);
+    wrapped.edge_type = resource_manager().edge_type_from_machine_name(name);
 
     emit changed(before,wrapped);
 }

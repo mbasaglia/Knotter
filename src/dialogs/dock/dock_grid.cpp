@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ Dock_Grid::Dock_Grid(QWidget *parent) :
     setupUi(this);
     connect(button_move,SIGNAL(clicked()),SIGNAL(move_grid()));
     connect(spin_size,SIGNAL(valueChanged(int)),
-            &Resource_Manager::settings, SLOT(set_grid_size(int)));
+            &resource_manager().settings, SLOT(set_grid_size(int)));
 
 }
 
@@ -126,7 +126,7 @@ void Dock_Grid::on_combo_shape_currentIndexChanged(int index)
     if ( target )
     {
         target->set_shape(Snapping_Grid::Grid_Shape(index));
-        Resource_Manager::settings.set_grid_shape(target->shape());
+        resource_manager().settings.set_grid_shape(target->shape());
     }
 }
 
@@ -134,6 +134,6 @@ void Dock_Grid::on_check_enable_toggled(bool arg1)
 {
     if ( target )
     {
-        Resource_Manager::settings.set_grid_enabled(arg1);
+        resource_manager().settings.set_grid_enabled(arg1);
     }
 }

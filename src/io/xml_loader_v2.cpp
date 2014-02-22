@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -71,7 +71,7 @@ void XML_Loader_v2::get_graph(Graph &kv)
         Node_Style ns = get_cusp( "cusp" );
         ns.enabled_style = Node_Style::EVERYTHING;
         if ( !ns.cusp_shape )
-            ns.cusp_shape = Resource_Manager::default_cusp_shape();
+            ns.cusp_shape = resource_manager().default_cusp_shape();
         kv.set_default_node_style ( ns );
 
 
@@ -115,7 +115,7 @@ void XML_Loader_v2::get_graph(Graph &kv)
             if ( !e )
             {
                 Edge* e = new Edge(cur_node,target_node,
-                    Resource_Manager::edge_type_from_machine_name(type_name));
+                    resource_manager().edge_type_from_machine_name(type_name));
                 kv.add_edge(e);
             }
             edge = edge.nextSiblingElement("edge");
@@ -195,7 +195,7 @@ Node_Style XML_Loader_v2::get_cusp(QString name)
     if ( !cusp_style.isNull() )
     {
         cusp_style_info.cusp_shape =
-                Resource_Manager::cusp_shape_from_machine_name(cusp_style.text());
+                resource_manager().cusp_shape_from_machine_name(cusp_style.text());
         cusp_style_info.enabled_style |= Node_Style::CUSP_SHAPE;
     }
 

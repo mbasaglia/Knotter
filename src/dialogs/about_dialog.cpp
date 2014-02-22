@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -36,19 +36,19 @@ About_Dialog::About_Dialog(QWidget *parent) :
     QDialog(parent)
 {
     setupUi(this);
-    label_title->setText(QString("%1 %2").arg(Resource_Manager::program_name())
-                         .arg(Resource_Manager::program_version() ));
-    label_icon->setPixmap(QIcon(Resource_Manager::data("img/icon-big.svg")).pixmap(64));
-    setWindowTitle(tr("About %1").arg(Resource_Manager::program_name()));
+    label_title->setText(QString("%1 %2").arg(resource_manager().program.name())
+                         .arg(resource_manager().program.version() ));
+    label_icon->setPixmap(QIcon(resource_manager().program.data("img/icon-big.svg")).pixmap(64));
+    setWindowTitle(tr("About %1").arg(resource_manager().program.name()));
 
 
-    list_plugin_dirs->addItems(Resource_Manager::data_directories_unckecked("plugins"));
+    list_plugin_dirs->addItems(resource_manager().program.data_directories_unckecked("plugins"));
 
-    list_data_dirs->addItems(Resource_Manager::data_directories_unckecked(""));
+    list_data_dirs->addItems(resource_manager().program.data_directories_unckecked(""));
 
-    text_settings_file->setText(Resource_Manager::settings.settings_file());
+    text_settings_file->setText(resource_manager().settings.settings_file());
 
-    text_witable_data_dir->setText(Resource_Manager::writable_data_directory(""));
+    text_witable_data_dir->setText(resource_manager().program.writable_data_directory(""));
 
     context_menu.addAction(QIcon::fromTheme("edit-copy"),"Copy directory name",
                            this, SLOT(click_copy()));
@@ -62,7 +62,7 @@ void About_Dialog::changeEvent(QEvent *e)
     switch (e->type()) {
         case QEvent::LanguageChange:
             retranslateUi(this);
-            setWindowTitle(tr("About %1").arg(Resource_Manager::program_name()));
+            setWindowTitle(tr("About %1").arg(resource_manager().program.name()));
             break;
         default:
             break;

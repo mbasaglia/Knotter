@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -46,23 +46,23 @@ void Cusp_Scripted::draw_joint(Path_Builder &path, const Traversal_Info &ti, con
     Script_Point node_point = ti.node->pos();
 
 
-    Resource_Manager::script_param_template("input_edge",input_edge);
-    Resource_Manager::script_param_template("output_edge",output_edge);
-    Resource_Manager::script_param_template("start_handle",start_handle);
-    Resource_Manager::script_param_template("finish_handle",finish_handle);
-    Resource_Manager::script_param_template("node_point",node_point);
-    Resource_Manager::script_param_template("cusp_point",cusp_point);
-    Resource_Manager::script_param_template("angle",ti.angle_delta);
-    Resource_Manager::script_param_template("handle_length",style.handle_length);
-    Resource_Manager::script_param_template("cusp_angle",style.cusp_angle);
-    Resource_Manager::script_param_template("cusp_distance",style.cusp_distance);
-    Resource_Manager::script_param_template("direction", ti.handside == Traversal_Info::LEFT ? -1 : +1 );
+    resource_manager().script.param_template("input_edge",input_edge);
+    resource_manager().script.param_template("output_edge",output_edge);
+    resource_manager().script.param_template("start_handle",start_handle);
+    resource_manager().script.param_template("finish_handle",finish_handle);
+    resource_manager().script.param_template("node_point",node_point);
+    resource_manager().script.param_template("cusp_point",cusp_point);
+    resource_manager().script.param_template("angle",ti.angle_delta);
+    resource_manager().script.param_template("handle_length",style.handle_length);
+    resource_manager().script.param_template("cusp_angle",style.cusp_angle);
+    resource_manager().script.param_template("cusp_distance",style.cusp_distance);
+    resource_manager().script.param_template("direction", ti.handside == Traversal_Info::LEFT ? -1 : +1 );
 
 
     Script_Path_Builder script_path(&path);
-    Resource_Manager::script_param("path",&script_path);
+    resource_manager().script.param("path",&script_path);
 
-    Resource_Manager::run_script(plugin);
+    resource_manager().script.execute(plugin);
 
 }
 

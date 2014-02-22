@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -38,17 +38,17 @@ Edge_Scripted::Edge_Scripted(Plugin_Crossing *plugin)
 void Edge_Scripted::setup_script() const
 {
     // set up enum
-    Resource_Manager::script_param_template("BOTTOM_LEFT",Edge::BOTTOM_LEFT);
-    Resource_Manager::script_param_template("BOTTOM_RIGHT",Edge::BOTTOM_RIGHT);
-    Resource_Manager::script_param_template("TOP_LEFT",Edge::TOP_LEFT);
-    Resource_Manager::script_param_template("TOP_RIGHT",Edge::TOP_RIGHT);
+    resource_manager().script.param_template("BOTTOM_LEFT",Edge::BOTTOM_LEFT);
+    resource_manager().script.param_template("BOTTOM_RIGHT",Edge::BOTTOM_RIGHT);
+    resource_manager().script.param_template("TOP_LEFT",Edge::TOP_LEFT);
+    resource_manager().script.param_template("TOP_RIGHT",Edge::TOP_RIGHT);
 
     // run common script, preserving changes to the local context
     QScriptValue old_local;
-    Resource_Manager::run_script(plugin,&old_local);
+    resource_manager().script.execute(plugin,&old_local);
 
     // restore context from previous execution
-    QScriptContext *new_context = Resource_Manager::script_context();
+    QScriptContext *new_context = resource_manager().script.script_context();
     new_context->setActivationObject(old_local);
 }
 
@@ -58,22 +58,22 @@ Edge::Handle Edge_Scripted::traverse(Edge *edge, Edge::Handle handle, Path_Build
     setup_script();
 
     // set up params
-    Resource_Manager::script_param_template("handle",handle);
-    Resource_Manager::script_param_template("result",handle);
+    resource_manager().script.param_template("handle",handle);
+    resource_manager().script.param_template("result",handle);
 
     Script_Path_Builder script_path(&path);
-    Resource_Manager::script_param("path",&script_path);
+    resource_manager().script.param("path",&script_path);
 
     Script_Graph script_graph(*edge->graph());
     Script_Edge script_edge(edge,&script_graph);
-    Resource_Manager::script_param("edge",&script_edge);
+    resource_manager().script.param("edge",&script_edge);
 
     Script_Edge_Style script_style(edge->defaulted_style());
-    Resource_Manager::script_param("style",&script_style);
+    resource_manager().script.param("style",&script_style);
 
     // Run traverse script
     QScriptValue local;
-    Resource_Manager::run_script(plugin->string_data("traverse"),
+    resource_manager().script.execute(plugin->string_data("traverse"),
         QString("%1:traverse").arg(plugin->string_data("plugin_file")),
         1,&local);
 
@@ -88,22 +88,22 @@ QLineF Edge_Scripted::handle(const Edge *edge, Edge::Handle handle) const
     setup_script();
 
     // set up params
-    Resource_Manager::script_param_template("handle",handle);
+    resource_manager().script.param_template("handle",handle);
 
     Script_Graph script_graph(*edge->graph());
     /// \warning const_cast
     Script_Edge script_edge(const_cast<Edge*>(edge),&script_graph);
-    Resource_Manager::script_param("edge",&script_edge);
+    resource_manager().script.param("edge",&script_edge);
 
     Script_Edge_Style script_style(edge->defaulted_style());
-    Resource_Manager::script_param("style",&script_style);
+    resource_manager().script.param("style",&script_style);
 
     Script_Line result;
-    Resource_Manager::script_param("result",&result);
+    resource_manager().script.param("result",&result);
 
     // Run handle script
     QScriptValue local;
-    Resource_Manager::run_script(plugin->string_data("handle"),
+    resource_manager().script.execute(plugin->string_data("handle"),
         QString("%1:handle").arg(plugin->string_data("plugin_file")),
         1,&local);
 

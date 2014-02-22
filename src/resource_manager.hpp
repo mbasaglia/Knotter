@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,11 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTranslator>
 #include "c++.hpp"
 #include "edge_type.hpp"
-#include <QScriptEngine>
-#include "plugin.hpp"
-#include <QScriptEngineAgent>
-#include <QTimer>
 #include <QNetworkAccessManager>
+#include "application_info.hpp"
+#include "resource_script.hpp"
 
 /**
  * Manage resources and data
@@ -50,8 +48,6 @@ private:
     Resource_Manager& operator= (const Resource_Manager&);
     ~Resource_Manager();
 
-    static Resource_Manager singleton;
-
 
     QMap<QString,QString> lang_names; ///< map lang_name -> lang_code
     QMap<QString,QTranslator*> translators; ///< map lang_code -> translator
@@ -60,76 +56,22 @@ private:
     QList<Edge_Type*>  m_edge_types;
     QList<Cusp_Shape*> m_cusp_shapes;
 
-    QScriptEngine *     m_script_engine;
-    QList<Plugin*>      m_plugins;
-    QScriptContext *    current_context;
-    QScriptEngineAgent* m_script_engine_agent;
-    QTimer*             script_timeout;
 
     QNetworkAccessManager* m_network_access_manager;
 
 public:
-    static Settings settings;
-    static Resource_Manager * const pointer ;
+    Settings         settings;
+    Application_Info program;
+    Resource_Script  script;
 
-    /// Initialize the resource system
-    static void initialize(QString default_lang_code="en");
-
-    /// Get the translated program name
-    static QString program_name();
-
-    /// Get version as string
-    static QString program_version();
-
-
-    /// Get version as string (without _devel identifier)
-    static QString trimmed_program_version();
-
-    /// Check if has at least given version number
-    static bool has_least_version(int maj, int min);
+    static Resource_Manager& instance();
+    static Resource_Manager * pointer();
 
     /**
-     * \brief Check if has at least given version number
-     * \param version Acceptable input: "0.9.5_devel" and similar
+     * \brief Initialize the resource system
+     * \note It must be called after the QApplication has been initialized
      */
-    static bool has_least_version(QString version);
-
-
-    /// Check if given version string has at least given version number
-    static bool check_least_version(QString version, int maj, int min);
-
-
-    /**
-     * \brief Get full path of given data file
-     * \param name Name of the file (relative to datadir)
-     * \return Full path or null string if not found
-     */
-    static QString data(QString name);
-
-
-    /**
-     * \brief Get all available directories to search data from
-     * \param name Name of the data directory
-     */
-    static QStringList data_directories(QString name);
-
-
-    /**
-     * \brief Get all directories to search data from
-     *
-     * This function may include directories that don't exist but that will be
-     * checked if they existed
-     *
-     * \param name Name of the data directory
-     */
-    static QStringList data_directories_unckecked(QString name);
-
-
-    /**
-     * \brief A directory to write user preferences into
-     * \param name Name of the data subdirectory
-     */
-    static QString writable_data_directory(QString name);
+    void initialize(QString default_lang_code="en");
 
     /**
      *  \brief Determine human readable language name from ISO 639-1 code
@@ -139,7 +81,7 @@ public:
      *
      *  If lang_code is not rectognised, a null string is returned
     */
-    static QString language_name ( QString lang_code );
+    QString language_name ( QString lang_code );
 
 
     /**
@@ -149,16 +91,16 @@ public:
      *  \param code ISO 639-1 language code
      *  \param file Path to the translation file, if empty no file gets loaded
     */
-    static void register_translation ( QString name, QString code, QString file );
+    void register_translation ( QString name, QString code, QString file );
 
 
-    static QString current_lang_name();
-    static QString current_lang_code();
-    static QTranslator* translator();
+    QString current_lang_name();
+    QString current_lang_code();
+    QTranslator* translator();
     /**
      *  Get list of the names of all the available languages
     */
-    static QStringList available_languages();
+    QStringList available_languages();
 
     /**
      *  \brief Register an edge style
@@ -167,7 +109,7 @@ public:
      *
      *  \param style Style to be registered
     */
-    static void register_edge_type(Edge_Type* type);
+    void register_edge_type(Edge_Type* type);
 
     /**
      * \brief Removes an edge type
@@ -175,16 +117,16 @@ public:
      * The object is not destroyed but loses ownership, the caller
      * becomes responsible of destructing the shape object.
      */
-    static void remove_edge_type(Edge_Type* type);
+    void remove_edge_type(Edge_Type* type);
 
     /**
      *  \brief get the default edge style
      *
      *  \returns the first inserted style or nullptr if there is no style
      */
-    static Edge_Type* default_edge_type();
+    Edge_Type* default_edge_type();
 
-    static QList<Edge_Type*> edge_types() { return singleton.m_edge_types; }
+    QList<Edge_Type*> edge_types() { return m_edge_types; }
 
     /**
      *  \brief Cycle edge styles
@@ -194,7 +136,7 @@ public:
      *
      *  Only returns NULL if there is no style available
      */
-    static Edge_Type* next_edge_type(Edge_Type* style);
+    Edge_Type* next_edge_type(Edge_Type* style);
     /**
      *  \brief Cycle edge styles
      *
@@ -202,7 +144,7 @@ public:
      *
      *  \sa next_edge_style
      */
-    static Edge_Type* prev_edge_type(Edge_Type* type);
+    Edge_Type* prev_edge_type(Edge_Type* type);
 
     /**
      *  \brief Get edge style from its machine-readable name
@@ -212,7 +154,7 @@ public:
      *
      *  Resurns NULL only if there are no registered styles
      */
-    static Edge_Type* edge_type_from_machine_name(QString name);
+    Edge_Type* edge_type_from_machine_name(QString name);
 
 
     /**
@@ -222,7 +164,7 @@ public:
      *
      *  \param style Style to be registered
     */
-    static void register_cusp_shape(Cusp_Shape* style);
+    void register_cusp_shape(Cusp_Shape* style);
 
     /**
      * \brief Removes a cusp style
@@ -230,11 +172,11 @@ public:
      * The object is not destroyed but loses ownership, the caller
      * becomes responsible of destructing the shape object.
      */
-    static void remove_cusp_shape(Cusp_Shape* shape);
+    void remove_cusp_shape(Cusp_Shape* shape);
 
-    static QList<Cusp_Shape*> cusp_shapes() { return singleton.m_cusp_shapes; }
+    QList<Cusp_Shape*> cusp_shapes() { return m_cusp_shapes; }
 
-    static Cusp_Shape* default_cusp_shape();
+    Cusp_Shape* default_cusp_shape();
     /**
      *  \brief Get cusp shape from its machine-readable name
      *
@@ -243,91 +185,20 @@ public:
      *
      *  Resurns NULL only if there are no registered styles
      */
-    static Cusp_Shape* cusp_shape_from_machine_name(QString name);
+    Cusp_Shape* cusp_shape_from_machine_name(QString name);
 
-    /// Load plugin from json file
-    static void load_plugin(QString filename);
-    /// Load all plugins from given directory
-    static void load_plugins(QString directory);
-    /// Load plugin from data directories
-    static void load_plugins();
-
-    /// Load plugin from data directories, keep active plugins
-    static void reload_plugins();
-
-    /// Get all plugins
-    static QList<Plugin*> plugins() { return singleton.m_plugins; }
-    /// Get active plugins of given type
-    static QList<Plugin*> active_plugins(Plugin::Type type);
-
-
-    /*/// Get a reference to the internal script engine
-    static QScriptEngine* script_engine() { return singleton.m_script_engine; }*/
-
-    /// Get the script engine agent
-    static QScriptEngineAgent& script_engine_agent() { return *singleton.m_script_engine_agent; }
-
-    /**
-     * \brief Get or create a new script context
-     *
-     *  Creates a context only if there is no current context.
-     *
-     *  This is called implicitly by script_param() and run_script().
-     */
-    static QScriptContext* script_context();
-
-    /// Adds parameter to the script context
-    static void script_param(QString name, QScriptValue value);
-    /// Adds parameter to the script context
-    static void script_param(QString name, QObject* value,
-                             QScriptEngine::ValueOwnership owner = QScriptEngine::QtOwnership );
-    /// Adds parameter to the script context
-    template <class T>
-    static void script_param_template(QString name, const T& value)
-    { script_param(name,singleton.m_script_engine->toScriptValue(value)); }
-
-    /**
-     *  \brief Run a script in the current context
-     *  \param source      Code to be executed
-     *  \param[out] activation_object If not \c nullptr used to store the context activation object
-     *  \param[out] global_object     If not \c nullptr used to store the context global object
-     *  \return The value resulting from the evaluation of the script
-     */
-    static QScriptValue run_script(Plugin* source,
-                                   QScriptValue* activation_object=nullptr);
-
-    /**
-     *  \brief Execute a script
-     *  \param program      Code to be executed
-     *  \param fileName     Name of the file, used for error reporting
-     *  \param lineNumber   First line of the file, used for error reporting
-     *  \param[out] activation_object If not \c nullptr used to store the context activation object
-     *  \return The value resulting from the evaluation of the script
-     */
-    static QScriptValue run_script(const QString &program,
-                                   const QString &fileName = QString(),
-                                   int lineNumber = 1,
-                                   QScriptValue* activation_object=nullptr );
-
-
-    static void emit_script_output(QString s) { emit singleton.script_output(s); }
 
     // network
-    static QNetworkAccessManager* network_access_manager() { return singleton.m_network_access_manager; }
+    QNetworkAccessManager* network_access_manager() { return m_network_access_manager; }
 
-    static QNetworkReply* network_get(QString url);
+    QNetworkReply* network_get(QString url);
 
 public slots:
 
-    static void change_lang_code ( QString code );
-    static void change_lang_name ( QString name );
+    void change_lang_code ( QString code );
+    void change_lang_name ( QString name );
 
     void save_settings();
-
-    /**
-     * \brief Terminates currently running scripts
-     */
-    void abort_script();
 
 signals:
 
@@ -339,18 +210,7 @@ signals:
     /// Emitted when an edge type is registered or removed
     void edge_types_changed();
 
-    /// Emitted when an error has to be added to the plugin log
-    void script_error(QString file,int line,QString msg, QStringList trace);
-
-    void script_output(QString);
-
-    /// Emitted when new plugins are loaded
-    void plugins_changed();
-
-    /// Emitted at the start and end of a script execution
-    void running_script(bool);
-
 };
 
-
+inline Resource_Manager& resource_manager() { return Resource_Manager::instance(); }
 #endif // RESOURCE_MANAGER_HPP

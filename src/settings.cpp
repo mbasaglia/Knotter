@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -50,10 +50,10 @@ void Settings::load_config()
 {
     QSettings settings(TARGET,TARGET);
 
-    config_version = settings.value("version",Resource_Manager::program_version()).toString();
+    config_version = settings.value("version",resource_manager().program.version()).toString();
 
-    Resource_Manager::change_lang_code( settings.value("language",
-                            Resource_Manager::current_lang_code()).toString() );
+    resource_manager().change_lang_code( settings.value("language",
+                            resource_manager().current_lang_code()).toString() );
 
 
     settings.beginGroup("recent_files");
@@ -81,7 +81,7 @@ void Settings::load_config()
     m_check_unsaved_files = settings.value("check_unsaved_files",m_check_unsaved_files).toBool();
 
     QStringList disabled_plugins = settings.value("disabled_plugins").toStringList();
-    foreach(Plugin* p, Resource_Manager::plugins())
+    foreach(Plugin* p, resource_manager().script.plugins())
     {
         QString name = p->string_data("plugin_file");
         if ( !name.isEmpty() && disabled_plugins.contains(name) )
@@ -155,10 +155,10 @@ void Settings::save_config()
 
     QSettings settings(TARGET,TARGET);
 
-    settings.setValue("version",Resource_Manager::program_version());
+    settings.setValue("version",resource_manager().program.version());
 
 
-    settings.setValue("language", Resource_Manager::current_lang_code());
+    settings.setValue("language", resource_manager().current_lang_code());
 
 
     settings.beginGroup("recent_files");
@@ -188,7 +188,7 @@ void Settings::save_config()
     settings.setValue("check_unsaved_files",m_check_unsaved_files);
 
     QStringList disabled_plugins;
-    foreach ( Plugin* p, Resource_Manager::plugins() )
+    foreach ( Plugin* p, resource_manager().script.plugins() )
     {
         if ( !p->is_enabled() )
             disabled_plugins << p->string_data("plugin_file");
@@ -283,12 +283,12 @@ QString Settings::version() const
 
 bool Settings::least_version(int maj, int min) const
 {
-    return Resource_Manager::check_least_version(config_version,maj,min);
+    return resource_manager().program.check_least_version(config_version,maj,min);
 }
 
 bool Settings::current_version() const
 {
-    return Resource_Manager::program_version() == config_version;
+    return resource_manager().program.version() == config_version;
 }
 
 void Settings::icon_size(int sz)

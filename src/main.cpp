@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -34,17 +34,17 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    Resource_Manager::register_cusp_shape(new Cusp_Pointed);
-    Resource_Manager::register_cusp_shape(new Cusp_Rounded);
-    Resource_Manager::register_cusp_shape(new Cusp_Polygonal);
-    Resource_Manager::register_cusp_shape(new Cusp_Ogee);
+    resource_manager().register_cusp_shape(new Cusp_Pointed);
+    resource_manager().register_cusp_shape(new Cusp_Rounded);
+    resource_manager().register_cusp_shape(new Cusp_Polygonal);
+    resource_manager().register_cusp_shape(new Cusp_Ogee);
 
-    Resource_Manager::register_edge_type(new Edge_Normal);
-    Resource_Manager::register_edge_type(new Edge_Inverted);
-    Resource_Manager::register_edge_type(new Edge_Wall);
-    Resource_Manager::register_edge_type(new Edge_Hole);
+    resource_manager().register_edge_type(new Edge_Normal);
+    resource_manager().register_edge_type(new Edge_Inverted);
+    resource_manager().register_edge_type(new Edge_Wall);
+    resource_manager().register_edge_type(new Edge_Hole);
 
-    Resource_Manager::initialize();
+    resource_manager().initialize();
 
     Command_Line cmd(argc, argv);
 

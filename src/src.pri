@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013  Mattia Basaglia
+# Copyright (C) 2012-2014  Mattia Basaglia
 #
 # Knotter is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -34,11 +34,15 @@ SOURCES += \
     $$PWD/resource_manager.cpp \
     $$PWD/settings.cpp \
     $$PWD/string_toolbar.cpp \
-    $$PWD/command_line.cpp
+    $$PWD/command_line.cpp \
+    src/application_info.cpp \
+    src/resource_script.cpp
 
 HEADERS += \
     $$PWD/resource_manager.hpp \
     $$PWD/settings.hpp \
     $$PWD/string_toolbar.hpp \
     $$PWD/c++.hpp \
-    $$PWD/command_line.hpp
+    $$PWD/command_line.hpp \
+    src/application_info.hpp \
+    src/resource_script.hpp

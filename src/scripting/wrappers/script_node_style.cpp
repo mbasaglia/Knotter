@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -105,7 +105,7 @@ void Script_Node_Style::set_cusp_shape(QString name)
     else
     {
         wrapped.enabled_style |= Node_Style::CUSP_SHAPE;
-        wrapped.cusp_shape = Resource_Manager::cusp_shape_from_machine_name(name);
+        wrapped.cusp_shape = resource_manager().cusp_shape_from_machine_name(name);
     }
     emit changed(before,wrapped);
 }

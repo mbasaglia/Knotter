@@ -5,7 +5,7 @@
 
 \section License
 
-    Copyright (C) 2013 Mattia Basaglia
+    Copyright (C) 2013-2014 Mattia Basaglia
     
     This software is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@ Dialog_Download_Plugin::Dialog_Download_Plugin(QVariantMap plugin, QWidget *pare
         }
     }
 
-    QString destdir = Resource_Manager::writable_data_directory("");
+    QString destdir = resource_manager().program.writable_data_directory("");
     if ( destdir.isEmpty() )
         error = true;
     else
@@ -90,7 +90,7 @@ void Dialog_Download_Plugin::download_file(int file_index)
     current_progress = new QProgressBar;
     tableWidget->setCellWidget(current_file,1,current_progress);
 
-    reply = Resource_Manager::network_get(QString(PLUGIN_REPO)+"plugins/"+file);
+    reply = resource_manager().network_get(QString(PLUGIN_REPO)+"plugins/"+file);
     connect(reply,SIGNAL(finished()),SLOT(reply_finished()));
     connect(reply,SIGNAL(downloadProgress(qint64,qint64)),
             SLOT(reply_progress(qint64,qint64)));

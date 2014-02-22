@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -161,6 +161,6 @@ void Command_Line::help() const
 
 void Command_Line::version() const
 {
-    std::cout << Resource_Manager::program_name().toStdString() << " " <<
-                 Resource_Manager::program_version().toStdString() << std::endl;
+    std::cout << resource_manager().program.name().toStdString() << " " <<
+                 resource_manager().program.version().toStdString() << std::endl;
 }

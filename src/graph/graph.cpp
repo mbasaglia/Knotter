@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -32,14 +32,14 @@ Graph::Graph() :
     m_default_node_style(225,// cusp angle
                          24, // handle length
                          32, // cusp distance
-                         Resource_Manager::default_cusp_shape(),
+                         resource_manager().default_cusp_shape(),
                          Node_Style::EVERYTHING
                     ),
     m_default_edge_style(
                          24, // handle length
                          10, // crossing distance
                          0.5,// edge slide
-                         Resource_Manager::default_edge_type(),
+                         resource_manager().default_edge_type(),
                          Edge_Style::EVERYTHING
                     ),
     auto_color(false), m_paint_border(true)

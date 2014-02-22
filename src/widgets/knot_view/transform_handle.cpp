@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -43,10 +43,10 @@ Transform_Handle::Transform_Handle(Mode mode, int image_angle)
     {
         images_initialized = true;
 
-        scale_rest.load(Resource_Manager::data("img/handle_scale_rest.svg"));
-        scale_active.load(Resource_Manager::data("img/handle_scale_active.svg"));
-        rotate_rest.load(Resource_Manager::data("img/handle_rotate_rest.svg"));
-        rotate_active.load(Resource_Manager::data("img/handle_rotate_active.svg"));
+        scale_rest.load(resource_manager().program.data("img/handle_scale_rest.svg"));
+        scale_active.load(resource_manager().program.data("img/handle_scale_active.svg"));
+        rotate_rest.load(resource_manager().program.data("img/handle_rotate_rest.svg"));
+        rotate_active.load(resource_manager().program.data("img/handle_rotate_active.svg"));
     }
     setFlag(QGraphicsItem::ItemIgnoresTransformations);
 }

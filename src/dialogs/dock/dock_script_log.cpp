@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -37,20 +37,20 @@ Dock_Script_Log::Dock_Script_Log(Main_Window *mw) :
     QDockWidget(mw), target_window(mw), local_run(false), plugin(nullptr)
 {
     setupUi(this);
-    connect(Resource_Manager::pointer,SIGNAL(script_error(QString,int,QString,QStringList)),
+    connect(&resource_manager().script,SIGNAL(error(QString,int,QString,QStringList)),
             SLOT(script_error(QString,int,QString,QStringList)));
-    connect(Resource_Manager::pointer,SIGNAL(script_output(QString)),
+    connect(&resource_manager().script,SIGNAL(output(QString)),
             SLOT(script_output(QString)));
-    connect(Resource_Manager::pointer,SIGNAL(plugins_changed()),
+    connect(&resource_manager().script,SIGNAL(plugins_changed()),
             SLOT(unload_plugin()));
 
-    connect(button_stop,SIGNAL(clicked()),Resource_Manager::pointer,SLOT(abort_script()));
-    connect(Resource_Manager::pointer,SIGNAL(running_script(bool)),
+    connect(button_stop,SIGNAL(clicked()),&resource_manager().script,SLOT(abort_script()));
+    connect(&resource_manager().script,SIGNAL(running_script(bool)),
             button_stop,SLOT(setEnabled(bool)));
 
     connect(source_editor,SIGNAL(sizeChanged(QSize)),SLOT(editor_resized(QSize)));
 
-    foreach(Plugin* p,Resource_Manager::plugins())
+    foreach(Plugin* p,resource_manager().script.plugins())
     {
         if ( !p->is_valid() )
         {
@@ -187,11 +187,11 @@ void Dock_Script_Log::run_script(const QString &source, QString file_name,
     }
 
     Script_Window sw(target_window);
-    Resource_Manager::script_param("window",&sw);
-    Resource_Manager::script_param("document",sw.document());
+    resource_manager().script.param("window",&sw);
+    resource_manager().script.param("document",sw.document());
 
 
-    QScriptValue v = Resource_Manager::run_script(source,file_name,line_number);
+    QScriptValue v = resource_manager().script.execute(source,file_name,line_number);
 
     if ( !v.isError() && !v.isUndefined() )
         text_output->insertHtml(escape_html(v.toString())+"<p></p>");

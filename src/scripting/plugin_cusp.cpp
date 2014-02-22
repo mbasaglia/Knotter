@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ Plugin_Cusp::Plugin_Cusp(const QVariantMap &metadata)
 
 Plugin_Cusp::~Plugin_Cusp()
 {
-    if ( !Resource_Manager::cusp_shapes().contains(cusp_shape) )
+    if ( !resource_manager().cusp_shapes().contains(cusp_shape) )
         delete cusp_shape;
 }
 
@@ -50,9 +50,9 @@ void Plugin_Cusp::on_enable(bool b)
 {
     if ( b )
     {
-        if ( !Resource_Manager::cusp_shapes().contains(cusp_shape) )
-            Resource_Manager::register_cusp_shape(cusp_shape);
+        if ( !resource_manager().cusp_shapes().contains(cusp_shape) )
+            resource_manager().register_cusp_shape(cusp_shape);
     }
     else
-        Resource_Manager::remove_cusp_shape(cusp_shape);
+        resource_manager().remove_cusp_shape(cusp_shape);
 }

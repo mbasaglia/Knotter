@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ QScriptValue script_print( QScriptContext * context, QScriptEngine * )
      * but most likely debug output from the plugin
      */
     qDebug() << out;
-    Resource_Manager::emit_script_output(out);
+    resource_manager().script.emit_output(out);
     return QScriptValue();
 }
 
@@ -70,23 +70,23 @@ QScriptValue script_run_script(QScriptContext * context, QScriptEngine * engine 
 
 QString Script_Knotter::version() const
 {
-    return Resource_Manager::program_version();
+    return resource_manager().program.version();
 }
 
 bool Script_Knotter::has_version(int maj, int min)
 {
-    return Resource_Manager::has_least_version(maj,min);
+    return resource_manager().program.has_least_version(maj,min);
 }
 
 QString Script_Knotter::toString() const
 {
-    return Resource_Manager::program_name()+" "+Resource_Manager::program_version();
+    return resource_manager().program.name()+" "+resource_manager().program.version();
 }
 
 QStringList Script_Knotter::edge_types()
 {
     QStringList l;
-    foreach(Edge_Type* s, Resource_Manager::edge_types())
+    foreach(Edge_Type* s, resource_manager().edge_types())
         l << s->machine_name();
     return l;
 }
@@ -94,7 +94,7 @@ QStringList Script_Knotter::edge_types()
 QStringList Script_Knotter::cusp_shapes()
 {
     QStringList l;
-    foreach(Cusp_Shape* s, Resource_Manager::cusp_shapes())
+    foreach(Cusp_Shape* s, resource_manager().cusp_shapes())
         l << s->machine_name();
     return l;
 }

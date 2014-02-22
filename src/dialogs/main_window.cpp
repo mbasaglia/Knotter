@@ -7,7 +7,7 @@
 \section License
 This file is part of Knotter.
 
-Copyright (C) 2012-2013  Mattia Basaglia
+Copyright (C) 2012-2014  Mattia Basaglia
 
 Knotter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -51,9 +51,9 @@ Main_Window::Main_Window(QWidget *parent) :
     dialog_plugins(this)
 {
     setupUi(this);
-    setWindowIcon(QIcon(Resource_Manager::data("img/icon-small.svg")));
+    setWindowIcon(QIcon(resource_manager().program.data("img/icon-small.svg")));
 
-    setWindowTitle(Resource_Manager::program_name());
+    setWindowTitle(resource_manager().program.name());
 
     init_statusbar();
     init_docks();
@@ -68,11 +68,11 @@ Main_Window::Main_Window(QWidget *parent) :
     init_toolbars();
 
 
-    connect(Resource_Manager::pointer,SIGNAL(language_changed()),this,SLOT(retranslate()));
-    connect(this,SIGNAL(destroyed()),Resource_Manager::pointer,SLOT(abort_script()));
-    connect(Resource_Manager::pointer,SIGNAL(plugins_changed()),SLOT(update_plugin_menu()));
+    connect(Resource_Manager::pointer(),SIGNAL(language_changed()),this,SLOT(retranslate()));
+    connect(this,SIGNAL(destroyed()),&resource_manager().script,SLOT(abort_script()));
+    connect(&resource_manager().script,SIGNAL(plugins_changed()),SLOT(update_plugin_menu()));
 
-    foreach(Plugin* p, Resource_Manager::plugins())
+    foreach(Plugin* p, resource_manager().script.plugins())
     {
         connect(p,SIGNAL(enabled(bool)),SLOT(update_plugin_menu()));
     }
@@ -289,34 +289,34 @@ void Main_Window::retranslate_docks()
 
 void Main_Window::load_config()
 {
-    connect(&Resource_Manager::settings,SIGNAL(icon_size_changed(int)),this,
+    connect(&resource_manager().settings,SIGNAL(icon_size_changed(int)),this,
             SLOT(set_icon_size(int)));
-    connect(&Resource_Manager::settings,
+    connect(&resource_manager().settings,
             SIGNAL(tool_button_style_changed(Qt::ToolButtonStyle)),
             this,SLOT(set_tool_button_style(Qt::ToolButtonStyle)));
 
-    if ( !Resource_Manager::settings.least_version(0,9) )
+    if ( !resource_manager().settings.least_version(0,9) )
     {
         qWarning() << tr("Warning:")
                    << tr("Discarding old configuration");
         return;
     }
-    if ( !Resource_Manager::settings.current_version() )
+    if ( !resource_manager().settings.current_version() )
     {
         int load_old = QMessageBox::question(this,
                     tr("Load old configuration"),
                     tr("Knotter has detected configuration for version %1,\n"
                         "this is version %2.\n"
                         "Do you want to load it anyways?")
-                        .arg(Resource_Manager::settings.version())
-                        .arg(Resource_Manager::program_version()),
+                        .arg(resource_manager().settings.version())
+                        .arg(resource_manager().program.version()),
                 QMessageBox::Yes,
                 QMessageBox::No
         );
         if ( load_old != QMessageBox::Yes)
             return;
     }
-    Resource_Manager::settings.initialize_window(this);
+    resource_manager().settings.initialize_window(this);
 }
 
 void Main_Window::connect_view(Knot_View *v)
@@ -449,9 +449,9 @@ void Main_Window::connect_view(Knot_View *v)
     action_Scale->setChecked(v->transform_mode() == Transform_Handle::SCALE);
 
     // Performance
-    v->set_fluid_refresh(Resource_Manager::settings.fluid_refresh());
-    v->enable_cache(Resource_Manager::settings.graph_cache());
-    v->set_antialiasing(Resource_Manager::settings.antialiasing());
+    v->set_fluid_refresh(resource_manager().settings.fluid_refresh());
+    v->enable_cache(resource_manager().settings.graph_cache());
+    v->set_antialiasing(resource_manager().settings.antialiasing());
 
 }
 
@@ -526,7 +526,7 @@ void Main_Window::update_title()
 {
     if ( !view )
     {
-        setWindowTitle(Resource_Manager::program_name());
+        setWindowTitle(resource_manager().program.name());
         return;
     }
 
@@ -540,7 +540,7 @@ void Main_Window::update_title()
      *  %2 is the file name
      *  %3 is a star * or an empty string depending on whether the file was modified
      */
-    setWindowTitle(tr("%1 - %2%3").arg(Resource_Manager::program_name())
+    setWindowTitle(tr("%1 - %2%3").arg(resource_manager().program.name())
                    .arg(filename).arg(clean?"":"*"));
 }
 
@@ -621,9 +621,9 @@ void Main_Window::update_selection(QList<Node *> nodes, QList<Edge*> edges)
 void Main_Window::on_action_Preferences_triggered()
 {
     Dialog_Preferences(this).exec();
-    view->set_fluid_refresh(Resource_Manager::settings.fluid_refresh());
-    view->enable_cache(Resource_Manager::settings.graph_cache());
-    view->set_antialiasing(Resource_Manager::settings.antialiasing());
+    view->set_fluid_refresh(resource_manager().settings.fluid_refresh());
+    view->enable_cache(resource_manager().settings.graph_cache());
+    view->set_antialiasing(resource_manager().settings.antialiasing());
     update_recent_files();
 }
 
@@ -666,7 +666,7 @@ bool Main_Window::create_tab(QString file)
     else
     {
         if ( view != nullptr )
-            Resource_Manager::settings.set_knot_style(view->graph());
+            resource_manager().settings.set_knot_style(view->graph());
         Knot_View *v = new Knot_View();
         error = !v->load_file(file);
         int t = tabWidget->addTab(v,file.isEmpty() ? tr("New Knot") : file);
@@ -683,14 +683,14 @@ bool Main_Window::create_tab(QString file)
     }
     else if ( !error && !file.isEmpty() )
     {
-        Resource_Manager::settings.add_recent_file(file);
+        resource_manager().settings.add_recent_file(file);
         update_recent_files();
     }
 
 
-    view->grid().set_shape(Resource_Manager::settings.grid_shape());
-    view->grid().set_size(Resource_Manager::settings.grid_size());
-    view->grid().enable(Resource_Manager::settings.grid_enabled());
+    view->grid().set_shape(resource_manager().settings.grid_shape());
+    view->grid().set_size(resource_manager().settings.grid_size());
+    view->grid().enable(resource_manager().settings.grid_enabled());
 
     return true;
 }
@@ -698,7 +698,7 @@ bool Main_Window::create_tab(QString file)
 void Main_Window::switch_to_tab(int i)
 {
     tabWidget->setCurrentIndex(i);
-    /*setWindowTitle(tr("%1 - %2").arg(Resource_Manager::program_name())
+    /*setWindowTitle(tr("%1 - %2").arg(resource_manager().program.name())
                    .arg(tabWidget->tabText(i)));*/
     disconnect_view(view);
     connect_view(dynamic_cast<Knot_View*>(tabWidget->currentWidget()));
@@ -710,7 +710,7 @@ void Main_Window::close_tab(int i, bool confirm_if_changed)
     Knot_View* kv = dynamic_cast<Knot_View*>(tabWidget->widget(i));
     if ( kv )
     {
-        if ( Resource_Manager::settings.check_unsaved_files() &&
+        if ( resource_manager().settings.check_unsaved_files() &&
              confirm_if_changed && !kv->undo_stack_pointer()->isClean() )
         {
             int r = QMessageBox::question(this,tr("Close File"),
@@ -838,7 +838,7 @@ void Main_Window::save(bool force_select, int tab_index)
             update_title();
             tabWidget->setTabText(tab_index,v->windowFilePath());
 
-            Resource_Manager::settings.add_recent_file(file);
+            resource_manager().settings.add_recent_file(file);
             update_recent_files();
         }
         else
@@ -870,13 +870,13 @@ void Main_Window::update_recent_files()
 {
     menu_Open_Recent->clear();
 
-    if ( Resource_Manager::settings.recent_files().empty() )
+    if ( resource_manager().settings.recent_files().empty() )
         menu_Open_Recent->addAction(tr("No recent files"))->setEnabled(false);
     else
-        foreach ( QString savefile, Resource_Manager::settings.recent_files() )
+        foreach ( QString savefile, resource_manager().settings.recent_files() )
         {
             QAction *a = menu_Open_Recent->addAction(
-                        QIcon(Resource_Manager::data("img/icon-small.svg")),
+                        QIcon(resource_manager().program.data("img/icon-small.svg")),
                         savefile);
             connect(a, SIGNAL(triggered()), this, SLOT(click_recent_file()));
         }
@@ -901,7 +901,7 @@ void Main_Window::update_plugin_menu()
 
 
     QMap<QString,QMenu*> categories;
-    foreach(Plugin* p, Resource_Manager::active_plugins(Plugin::Script) )
+    foreach(Plugin* p, resource_manager().script.active_plugins(Plugin::Script) )
     {
         QMenu* m;
         QString cat = p->string_data("category");
@@ -941,8 +941,8 @@ void Main_Window::execute_plugin()
         {
             /*Script_Document doc(view);
             Script_Window win(this);
-            Resource_Manager::script_param("document",&doc);
-            Resource_Manager::script_param("window",&win);*/
+            resource_manager().script.script_param("document",&doc);
+            resource_manager().script.script_param("window",&win);*/
             p->execute(this);
         }
     }
@@ -1101,8 +1101,8 @@ void Main_Window::closeEvent(QCloseEvent * ev)
         return;
     }
 
-    Resource_Manager::settings.save_window(this);
-    Resource_Manager::settings.set_knot_style(view->graph());
+    resource_manager().settings.save_window(this);
+    resource_manager().settings.set_knot_style(view->graph());
     QMainWindow::closeEvent(ev);
 }
 
@@ -1146,7 +1146,7 @@ void Main_Window::on_action_Close_All_triggered()
 
 bool Main_Window::check_close_all()
 {
-    if ( Resource_Manager::settings.check_unsaved_files() )
+    if ( resource_manager().settings.check_unsaved_files() )
     {
         Dialog_Confirm_Close dialog;
 
