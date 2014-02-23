@@ -14,6 +14,7 @@ icons=' accessories-text-editor
         dialog-close
         dialog-error
         dialog-ok
+        dialog-ok-apply
         document-close
         document-edit
         document-export

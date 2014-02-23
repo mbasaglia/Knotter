@@ -87,6 +87,7 @@ private:
     Clipboard                   m_clipboard;
 
     QMap<QString,QKeySequence>  m_actions;
+    QMap<QString,QKeySequence>  m_action_default;
 
 
 private:
@@ -168,6 +169,8 @@ public:
      * \return Settings file (or registry) path
      */
     QString settings_file() const;
+
+    QKeySequence default_shortcut(QString action_name );
 
 public slots:
     void clear_config();

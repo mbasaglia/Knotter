@@ -285,6 +285,12 @@ void Settings::initialize_window(QMainWindow *w)
         w->setToolButtonStyle(tool_button_style);
     }
 
+    foreach(QAction* action,w->findChildren<QAction*>())
+    {
+        if ( !action->objectName().isEmpty() )
+            m_action_default[action->objectName()] = action->shortcut();
+    }
+
     foreach(QString name, m_actions.keys())
     {
         QAction* action = w->findChild<QAction*>(name);
@@ -388,6 +394,13 @@ void Settings::set_clipboard_feature(Settings::Clipboard_Enum feature, bool enab
 QString Settings::settings_file() const
 {
     return QSettings(TARGET,TARGET).fileName();
+}
+
+QKeySequence Settings::default_shortcut(QString action_name)
+{
+    if ( m_action_default.contains(action_name) )
+        return m_action_default[action_name];
+    return QKeySequence();
 }
 
 

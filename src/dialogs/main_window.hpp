@@ -43,6 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "dock_script_log.hpp"
 #include "crossing_style_widget.hpp"
 #include "dock_knot_style.hpp"
+#include "dialog_preferences.hpp"
 
 class Main_Window : public QMainWindow, private Ui::Main_Window
 {

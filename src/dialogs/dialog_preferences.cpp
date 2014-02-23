@@ -34,7 +34,16 @@ Dialog_Preferences::Dialog_Preferences(QMainWindow *parent) :
 {
     setupUi(this);
     toolbar_editor->setTargetWindow(parent);
+
+    keysequence_listwidget->set_show_reset_buttons(true);
     keysequence_listwidget->append_window(parent);
+    foreach(QAction* action, parent->findChildren<QAction*>())
+    {
+        keysequence_listwidget->set_default(
+            action->objectName(),
+            resource_manager().settings.default_shortcut(action->objectName())
+        );
+    }
 
     init_combos();
 
