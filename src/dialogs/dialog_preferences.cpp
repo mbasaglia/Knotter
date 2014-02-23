@@ -34,6 +34,7 @@ Dialog_Preferences::Dialog_Preferences(QMainWindow *parent) :
 {
     setupUi(this);
     toolbar_editor->setTargetWindow(parent);
+    keysequence_listwidget->append_window(parent);
 
     init_combos();
 

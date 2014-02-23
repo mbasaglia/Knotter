@@ -7,6 +7,7 @@ icons=' accessories-text-editor
         color-picker
         computer
         configure
+        configure-shortcuts
         configure-toolbars
         debug-run
         dialog-cancel

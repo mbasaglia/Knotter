@@ -18,9 +18,9 @@
    version="1.0"
    sodipodi:docname="stroke-cap-butt.svgz"
    inkscape:output_extension="org.inkscape.output.svgz.inkscape"
-   inkscape:export-filename="/home/pinheiro/pics/oxygen-icons/scalable/actions/small/32x32/stroke-cap-butt.png"
-   inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-filename="/home/pinheiro/pics/oxygen-icons/scalable/actions/small/48x48/stroke-cap-butt.png"
+   inkscape:export-xdpi="135"
+   inkscape:export-ydpi="135">
   <defs
      id="defs4">
     <inkscape:perspective
@@ -94,7 +94,8 @@
        y1="5.9449472"
        x2="66.103683"
        y2="99.655617"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.6,0,0,1,25.6,0)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient2399"
@@ -135,6 +136,16 @@
          rx="1.5431566"
          ry="1.9923512" />
     </mask>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3189"
+       id="linearGradient3588"
+       gradientUnits="userSpaceOnUse"
+       x1="66.103683"
+       y1="5.9449472"
+       x2="66.103683"
+       y2="99.655617"
+       gradientTransform="matrix(0.6,0,0,1,25.6,0)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -146,9 +157,9 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4.96875"
-     inkscape:cx="48.532765"
-     inkscape:cy="60.233903"
+     inkscape:zoom="14.053747"
+     inkscape:cx="62.746227"
+     inkscape:cy="78.262007"
      inkscape:document-units="px"
      inkscape:current-layer="g2497"
      width="128px"
@@ -158,14 +169,16 @@
      inkscape:window-width="1174"
      inkscape:window-height="912"
      inkscape:window-x="63"
-     inkscape:window-y="219">
+     inkscape:window-y="219"
+     inkscape:snap-nodes="false"
+     inkscape:snap-bbox="true">
     <inkscape:grid
        id="GridFromPre046Settings"
        type="xygrid"
        originx="0px"
        originy="0px"
-       spacingx="2px"
-       spacingy="2px"
+       spacingx="2.6666px"
+       spacingy="2.6666px"
        color="#0000ff"
        empcolor="#0000ff"
        opacity="0.2"
@@ -182,7 +195,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -195,37 +208,38 @@
        inkscape:label="Livello 1">
       <g
          id="g3234"
-         mask="url(#mask3239)">
+         mask="url(#mask3239)"
+         transform="matrix(0.66665,0,0,0.66665,21.3328,21.336)">
         <rect
-           y="34"
-           x="38"
-           height="96.339752"
-           width="52"
+           y="34.037685"
+           x="34"
+           height="96.302078"
+           width="59.99741"
            id="rect2200"
            style="fill:url(#linearGradient3203);fill-opacity:1;stroke:url(#linearGradient3179);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:1.08779998"
            rx="2"
            ry="2" />
         <rect
-           y="30"
+           y="26"
            x="58"
-           height="106.53864"
+           height="110.53865"
            width="12"
            id="rect3187"
-           style="fill:#ffffff;fill-opacity:1;stroke:url(#linearGradient3195);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:1.08779998"
+           style="fill:#ffffff;fill-opacity:1;stroke:url(#linearGradient3588);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:1.08779998"
            rx="2"
            ry="2" />
         <path
            sodipodi:nodetypes="ccccccccccccccc"
            id="rect3205"
-           d="M 40,34 57.992669,34 58,32.020841 C 58.001104,30.818763 58.972142,30 60,30 l 8,0 c 1.251908,0 2,1.081581 2,1.997472 L 70,34 88.007649,34 C 89.111411,34 90,34.888589 90,35.992351 l 0,22.015298 C 90,59.111411 89.111411,60 88.007649,60 67.301739,63.967675 57.935359,64.034088 40,60 38.896238,60 38.007649,59.111411 38.007649,58.007649 l 0,-22.015298 C 38.007649,34.888589 38.896238,34 40,34 z"
-           style="fill:url(#linearGradient3214);fill-opacity:1.0;stroke:none;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dashoffset:1.08779998;stroke-opacity:1" />
+           d="m 36,34.499962 22.04277,0 0.0073,-6.479121 C 58.051205,26.818763 59.022243,26 60.050101,26 l 7.899798,0 c 1.251908,0 2,1.081581 2,1.997472 l 0,6.50249 22.157652,0 c 1.103762,0 1.992351,0.888589 1.992351,1.992351 l 0,21.515336 C 94.099902,59.111411 93.211313,60 92.107551,60 71.634914,61.868221 54.102254,62.532036 36,60 34.896238,60 34.007649,59.111411 34.007649,58.007649 l 0,-21.515336 c 0,-1.103762 0.888589,-1.992351 1.992351,-1.992351 z"
+           style="fill:url(#linearGradient3214);fill-opacity:1;stroke:none" />
         <rect
            style="opacity:0.72463768;fill:#ffffff;fill-opacity:1;stroke:url(#linearGradient3195);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:1.08779998"
            id="rect2816"
            width="12"
-           height="106.53863"
+           height="110.53865"
            x="58"
-           y="30"
+           y="26"
            rx="2"
            ry="2" />
       </g>

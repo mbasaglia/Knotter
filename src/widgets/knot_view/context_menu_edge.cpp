@@ -47,6 +47,8 @@ Context_Menu_Edge::Context_Menu_Edge(Knot_View *parent) :
     action_reset_style = addAction(tr("Reset custom style"),this,SLOT(reset_custom_style()));
 
     connect(&mapper,SIGNAL(mapped(QString)),SLOT(change_edge_type(QString)));
+
+    setTitle(tr("Edge Context Menu"));
 }
 
 void Context_Menu_Edge::popup(Edge *e, QPoint pos)

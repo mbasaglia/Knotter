@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QApplication>
 #include <QStyle>
 #include <QSettings>
+#include <QAction>
 
 Settings::Settings()
     : save_nothing(false),
@@ -131,6 +132,16 @@ void Settings::load_config()
     tool_button_style = Qt::ToolButtonStyle(
                 settings.value("buttons",tool_button_style).toInt() );
 
+
+    int nactions = settings.beginReadArray("shortcuts");
+    for(int i = 0; i < nactions; i++)
+    {
+        settings.setArrayIndex(i);
+        m_actions[settings.value("name").toString()] =
+                QKeySequence::fromString(settings.value("keys").toString());
+    }
+    settings.endArray();
+
     settings.endGroup();//gui
 
 
@@ -222,6 +233,17 @@ void Settings::save_config()
 
     settings.setValue("buttons",int(tool_button_style));
 
+    settings.beginWriteArray("shortcuts",m_actions.size());
+    for(int i = 0; i < m_actions.size(); i++)
+    {
+        settings.setArrayIndex(i);
+        QString name = m_actions.keys()[i];
+        settings.setValue("name",name);
+        settings.setValue("keys",m_actions[name].toString(QKeySequence::PortableText));
+    }
+    settings.endArray();
+
+
     settings.endGroup();//gui
 
 
@@ -263,6 +285,13 @@ void Settings::initialize_window(QMainWindow *w)
         w->setToolButtonStyle(tool_button_style);
     }
 
+    foreach(QString name, m_actions.keys())
+    {
+        QAction* action = w->findChild<QAction*>(name);
+        if ( action )
+            action->setShortcut(m_actions[name]);
+    }
+
 }
 
 void Settings::save_window(QMainWindow *w)
@@ -274,6 +303,15 @@ void Settings::save_window(QMainWindow *w)
     tool_button_style = w->toolButtonStyle();
     m_window_geometry = w->saveGeometry();
     m_window_state = w->saveState();
+
+    m_actions.clear();
+    foreach(QAction* action,w->findChildren<QAction*>())
+    {
+        if ( !action->objectName().isEmpty() )
+        {
+            m_actions[action->objectName()] = action->shortcut();
+        }
+    }
 }
 
 QString Settings::version() const

@@ -643,13 +643,13 @@
        x2="7.6776314"
        y2="19.013866"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(5.0064247,0,0,5.0005077,10.020283,3.0115298)" />
+       gradientTransform="matrix(4.1741381,0,0,4.1613891,14.977639,14.527008)" />
     <radialGradient
        inkscape:collect="always"
        xlink:href="#linearGradient10711"
        id="radialGradient3253"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(5.6560649,-1.7338234,3.1377073,10.211621,-35.168909,-41.213797)"
+       gradientTransform="matrix(4.7157796,-1.4428762,2.6160831,8.4980426,-22.699134,-22.277012)"
        spreadMethod="reflect"
        cx="8.2230186"
        cy="14.316785"
@@ -676,17 +676,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8284271"
-     inkscape:cx="66.336419"
-     inkscape:cy="42.537188"
+     inkscape:zoom="2"
+     inkscape:cx="8.5584572"
+     inkscape:cy="52.628863"
      inkscape:current-layer="layer1"
-     showgrid="false"
+     showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
      inkscape:window-width="1280"
      inkscape:window-height="742"
-     inkscape:window-x="398"
-     inkscape:window-y="62"
+     inkscape:window-x="296"
+     inkscape:window-y="56"
      showguides="true"
      inkscape:guide-bbox="true"
      width="24px"
@@ -701,8 +701,8 @@
        empspacing="2"
        visible="true"
        enabled="true"
-       spacingx="4px"
-       spacingy="4px" />
+       spacingx="2.6666px"
+       spacingy="2.6666px" />
     <sodipodi:guide
        orientation="1,0"
        position="10.507812,7.328125"
@@ -729,29 +729,29 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <path
-       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;opacity:0.18099547999999999;color:#000000;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans;filter:url(#filter3757)"
-       d="m 5,19 c 5.24e-5,0.523584 0.4764155,0.999948 1,1 l 3.59375,0 2.5,2.5625 c 0.272702,0.267764 0.706204,0.357015 1.0625,0.21875 l 1.25,-0.46875 c 0.353635,-0.127466 0.619754,-0.46962 0.65625,-0.84375 l 0.34375,-3.3125 2.40625,-3 c 0.296435,-0.374818 0.26821,-0.967546 -0.0625,-1.3125 L 6.5048501,3.5361943 5,19 z"
+       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;opacity:0.18099551;color:#000000;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter3757);enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       d="m 5,19 c 5.24e-5,0.523584 0.4764155,0.999948 1,1 l 3.59375,0 2.5,2.5625 c 0.272702,0.267764 0.706204,0.357015 1.0625,0.21875 l 1.25,-0.46875 c 0.353635,-0.127466 0.619754,-0.46962 0.65625,-0.84375 l 0.34375,-3.3125 2.40625,-3 c 0.296435,-0.374818 0.26821,-0.967546 -0.0625,-1.3125 L 5.2034921,1.0488435 5,19 z"
        id="path3670"
        sodipodi:nodetypes="cccccccccccc"
-       transform="matrix(5.0064249,0,0,5.0005072,8.020283,7.009385)" />
+       transform="matrix(3.8351065,0,0,3.8305733,20.000787,24.35592)" />
     <path
-       style="fill:#201020;fill-rule:evenodd;stroke:#595959;stroke-width:8;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 40.058831,8.0120374 0,80.0081236 20.0257,0 14.05376,14.241309 L 80.45751,99.896321 82.307644,81.75415 95.247994,65.628376 40.058831,8.0120374 z"
+       style="fill:#201020;fill-rule:evenodd;stroke:#595959;stroke-width:5.33333349;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 40.022468,18.688398 0,66.582224 16.696553,0 L 68.436432,97.122145 73.70512,95.153883 75.247683,80.05609 86.03678,66.636329 40.022468,18.688398 z"
        id="path3502"
        sodipodi:nodetypes="cccccccc" />
     <path
        sodipodi:nodetypes="cccccccc"
        id="path3504"
-       d="m 40.058833,8.0120367 0,80.0081183 20.025701,0 14.053761,14.241295 6.319219,-2.365137 L 82.307647,81.754144 95.07467,65.670856 40.058833,8.0120367 z"
+       d="m 40.022468,18.688397 0,66.58222 16.696554,0 11.717412,11.851511 5.268688,-1.968253 1.54256,-15.09779 L 85.892267,66.67168 40.022468,18.688397 z"
        style="fill:#c4c4c4;fill-opacity:1;fill-rule:evenodd;stroke:none" />
     <path
        style="fill:url(#radialGradient3253);fill-opacity:1;fill-rule:evenodd;stroke:none"
-       d="m 40.058833,8.0120367 0,80.0081183 20.025701,0 14.053761,14.241295 6.319219,-2.365137 L 82.307647,81.754144 94.97365,65.864855 40.058833,8.0120367 z"
+       d="m 40.022468,18.688397 0,66.58222 16.696554,0 11.717412,11.851511 5.268688,-1.968253 1.54256,-15.09779 10.56036,-13.22296 -45.785574,-48.144728 z"
        id="path3506"
        sodipodi:nodetypes="cccccccc" />
     <path
-       style="fill:none;stroke:url(#linearGradient3240);stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="M 42.005524,85.860988 62.09653,85.7768 74.317436,100.05209 78.220894,98.203122 80.406763,80.965254 92.274139,65.756001 42.193425,13.349717 42.005524,85.860988 z"
+       style="fill:none;stroke:url(#linearGradient3240);stroke-width:2.667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="M 41.38037,83.915714 58.396539,84.11082 69.204513,94.929961 72.193882,93.656427 73.839587,79.399575 84.08764,66.742537 41.448646,22.246495 41.38037,83.915714 z"
        id="path2253"
        sodipodi:nodetypes="cccccccc" />
   </g>

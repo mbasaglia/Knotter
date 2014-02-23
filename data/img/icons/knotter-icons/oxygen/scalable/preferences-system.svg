@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:cc="http://web.resource.org/cc/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -14,22 +13,12 @@
    height="128"
    id="svg5676"
    sodipodi:version="0.32"
-   inkscape:version="0.46+devel"
-   sodipodi:docname="preferences-system.svgz"
+   inkscape:version="0.45+devel"
+   sodipodi:docname="settings-wip.svgz"
    inkscape:output_extension="org.inkscape.output.svgz.inkscape"
-   version="1.0"
-   inkscape:export-filename="/home/pinheiro/pics/oxygen-icons/scalable/categories/preferences-system.png"
-   inkscape:export-xdpi="1440"
-   inkscape:export-ydpi="1440">
+   version="1.0">
   <defs
      id="defs5678">
-    <inkscape:perspective
-       sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 64 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_z="128 : 64 : 1"
-       inkscape:persp3d-origin="64 : 42.666667 : 1"
-       id="perspective269" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient4322"
@@ -1277,38 +1266,6 @@
          stdDeviation="2.3509538"
          id="feGaussianBlur12492" />
     </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter3841">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.26369726"
-         id="feGaussianBlur3843" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter3863">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.10931595"
-         id="feGaussianBlur3865" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter3871">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.37117441"
-         id="feGaussianBlur3873" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter3875">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.074234766"
-         id="feGaussianBlur3877" />
-    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -1317,18 +1274,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="195.94395"
-     inkscape:cy="38.026111"
+     inkscape:zoom="1"
+     inkscape:cx="13"
+     inkscape:cy="18.5"
      inkscape:document-units="px"
      inkscape:current-layer="g11357"
      inkscape:window-width="1024"
      inkscape:window-height="697"
      inkscape:window-x="0"
-     inkscape:window-y="438"
+     inkscape:window-y="0"
      height="128px"
-     width="128px"
-     showgrid="false" />
+     width="128px" />
   <metadata
      id="metadata5681">
     <rdf:RDF>
@@ -1337,7 +1293,6 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1367,7 +1322,7 @@
          sodipodi:nodetypes="cccsc"
          id="path3285" />
       <path
-         style="fill:url(#linearGradient11384);filter:url(#filter3875)"
+         style="fill:url(#linearGradient11384)"
          id="path23"
          d="M 322.07549,432.68428 L 323.06949,441.37828 L 324.97749,444.59028 C 326.91449,443.03428 328.49449,440.87628 329.72849,438.28428 C 331.33649,434.63428 332.30349,430.21428 332.65649,425.47228 L 322.07549,432.68428 z"
          enable-background="new    " />
@@ -1392,12 +1347,12 @@
          id="path72"
          d="M -0.051,18.554 L -0.847,9.66 C -0.847,9.66 8.141,4.482 10.38,3.193 C 3.985,-0.79 -3.654,1.07 -3.741,1.093 C -10.903,2.996 -15.908,8.865 -15.908,15.222 C -15.908,15.461 -15.901,15.701 -15.887,15.94 C -15.887,15.941 -15.887,15.941 -15.887,15.942 C -15.887,16.299 -16.25,36.73 -19.253,42.838 C -20.334,45.036 -30.401,58.18 -42.058,73.4 C -54.195,89.247 -69.3,108.968 -70.298,111.44 C -70.839,112.778 -71.079,114.126 -71.079,115.435 C -71.079,119.221 -69.06,122.663 -66.483,124.621 C -66.083,123.92 -65.655,123.178 -65.197,122.392 C -67.02,121.101 -68.463,119.074 -68.895,116.783 C -69.291,114.687 -68.831,112.48 -67.631,110.726 C -66.46,109.013 -64.659,107.855 -62.561,107.463 C -60.935,107.16 -59.182,107.593 -57.621,108.682 C -57.428,108.817 -57.245,108.966 -57.063,109.118 C -46.315,92.233 -27.938,65.35 3.195,23.824 C 1.323,20.784 -0.051,18.554 -0.051,18.554 z" />
       <path
-         style="fill:url(#radialGradient11394);filter:url(#filter3871)"
+         style="fill:url(#radialGradient11394)"
          id="path86"
          d="M 310.76249,424.19228 L 310.04449,416.17028 L 322.15949,409.19128 C 320.21949,407.64028 317.84449,406.51628 315.23549,405.92928 C 312.04649,405.90828 308.79349,406.38428 306.47749,407.16528 C 298.74149,409.77428 294.69849,415.49528 294.85149,422.31128 L 303.63249,437.15128 L 306.31749,435.47228 L 312.56749,446.29728 L 310.37649,447.80128 L 313.73849,451.42828 L 324.84249,447.04628 L 310.76249,424.19228 z" />
       <polygon
          transform="translate(229.83849,405.96228)"
-         style="fill:url(#linearGradient11396);filter:url(#filter3863)"
+         style="fill:url(#linearGradient11396)"
          points="65.82,36.446 76.487,27.791 85.179,40.128 72.511,46.783 65.82,36.446 "
          inkscape:r_cy="true"
          inkscape:r_cx="true"
@@ -1417,13 +1372,6 @@
          inkscape:r_cx="true"
          id="rect14950" />
       <polygon
-         id="polygon3845"
-         inkscape:r_cx="true"
-         inkscape:r_cy="true"
-         points="77.497,32.233 77.891,33.323 68.284,37.705 67.891,36.615 67.891,36.615 "
-         style="opacity:0.1831683;fill:#000000;fill-opacity:1"
-         transform="translate(229.95557,406.62667)" />
-      <polygon
          transform="translate(229.83849,405.96228)"
          style="fill:url(#radialGradient11402)"
          points="67.891,36.615 77.497,32.233 77.891,33.323 68.284,37.705 67.891,36.615 "
@@ -1431,26 +1379,12 @@
          inkscape:r_cx="true"
          id="rect10553" />
       <polygon
-         id="polygon3847"
-         inkscape:r_cx="true"
-         inkscape:r_cy="true"
-         points="81.653,38.899 82.001,39.827 72.56,43.9 72.212,42.972 72.212,42.972 "
-         style="opacity:0.1831683;fill:#000000;fill-opacity:1"
-         transform="translate(229.95557,406.62667)" />
-      <polygon
          transform="translate(229.83849,405.96228)"
          style="fill:url(#radialGradient11404)"
          points="72.212,42.972 81.653,38.899 82.001,39.827 72.56,43.9 72.212,42.972 "
          inkscape:r_cy="true"
          inkscape:r_cx="true"
          id="rect14938" />
-      <polygon
-         id="polygon3849"
-         inkscape:r_cx="true"
-         inkscape:r_cy="true"
-         points="79.757,35.751 80.11,36.673 70.015,40.914 69.661,39.991 69.661,39.991 "
-         style="opacity:0.1831683;fill:#000000;fill-opacity:1"
-         transform="translate(229.95557,406.62667)" />
       <polygon
          transform="translate(229.83849,405.96228)"
          style="fill:url(#radialGradient11406)"
@@ -1473,7 +1407,7 @@
          sodipodi:nodetypes="ccsss"
          id="path30758" />
       <path
-         style="fill:url(#linearGradient11414);stroke:#000000;filter:url(#filter3841);stroke-width:0.42202883;stroke-miterlimit:4;stroke-dasharray:none"
+         style="fill:url(#linearGradient11414);stroke:#000000"
          id="path159"
          d="M 292.02849,454.56028 C 289.53249,456.91828 266.85449,487.60628 250.66249,509.77928 C 252.02149,510.08228 253.37949,510.67028 254.63749,511.58128 C 256.37949,512.84228 257.66849,514.51428 258.50849,516.33428 C 267.27449,503.42428 294.06749,460.80328 295.50149,457.24628 C 295.53749,457.05828 295.56249,456.87128 295.56249,456.69028 C 295.56249,455.85828 295.18949,455.11828 294.50449,454.63828 C 293.74349,454.10528 292.82549,454.08928 292.02849,454.56028 z" />
       <path

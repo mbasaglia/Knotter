@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>556</width>
-    <height>396</height>
+    <height>467</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -97,6 +97,11 @@
          <string/>
         </property>
        </row>
+       <row>
+        <property name="text">
+         <string/>
+        </property>
+       </row>
        <column>
         <property name="text">
          <string/>
@@ -146,6 +151,14 @@
          <iconset theme="preferences-desktop-theme">
           <normaloff/>
          </iconset>
+        </property>
+       </item>
+       <item row="4" column="0">
+        <property name="text">
+         <string>Shortcuts</string>
+        </property>
+        <property name="icon">
+         <iconset theme="configure-shortcuts"/>
         </property>
        </item>
       </widget>
@@ -695,6 +708,17 @@
          </item>
         </layout>
        </widget>
+       <widget class="QWidget" name="page_3">
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="KeySequence_ListWidget" name="keysequence_listwidget">
+           <column/>
+           <column/>
+           <column/>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
      </item>
     </layout>
@@ -712,6 +736,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>KeySequence_ListWidget</class>
+   <extends>QTableWidget</extends>
+   <header>keysequence_listwidget.hpp</header>
+  </customwidget>
   <customwidget>
    <class>Color_Preview</class>
    <extends>QWidget</extends>

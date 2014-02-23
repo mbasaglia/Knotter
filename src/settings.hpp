@@ -86,6 +86,8 @@ private:
 
     Clipboard                   m_clipboard;
 
+    QMap<QString,QKeySequence>  m_actions;
+
 
 private:
     Settings();

@@ -27,6 +27,7 @@ include($$PWD/widgets/tabwidget/extended_tabwidget.pri)
 include($$PWD/widgets/knot_view/knot_view.pri)
 include($$PWD/widgets/other_widgets/other_widgets.pri)
 include($$PWD/widgets/history_line_edit/history_lineedit.pri)
+include($$PWD/widgets/keysequence_widget/keysequence_widget.pri)
 
 
 SOURCES += \

@@ -36,6 +36,8 @@ Context_Menu_Node::Context_Menu_Node(Knot_View *parent) :
     addAction(QIcon::fromTheme("format-remove-node"),tr("Remove"),this,SLOT(remove()));
     addAction(QIcon::fromTheme("edit-node"),tr("Properties..."),this,SLOT(properties()));
     action_reset_style = addAction(tr("Reset custom style"),this,SLOT(reset_custom_style()));
+
+    setTitle(tr("Node Context Menu"));
 }
 
 void Context_Menu_Node::popup(Node *n, QPoint pos)
