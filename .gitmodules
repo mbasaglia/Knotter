@@ -13,4 +13,4 @@
 	url = https://github.com/mbasaglia/Qt-History-LineEdit.git
 [submodule "src/widgets/keysequence_widget"]
 	path = src/widgets/keysequence_widget
-	url = git@github.com:mbasaglia/Qt-KeySequence-Widget.git
+	url = git://github.com/mbasaglia/Qt-KeySequence-Widget.git
