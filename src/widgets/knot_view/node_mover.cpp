@@ -33,8 +33,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Node_Mover::Node_Mover()
     : scale_factor(1), scale_count(0), rotate_angle(0), dragged_handle(nullptr)
 {
-    for ( int i = 0; i < n_handles; i++ )
+    for ( int i = 0; i < 4; i++ )
     {
+        transform_handles[i].set_mode(Transform_Handle::SCALE);
+        transform_handles[i].set_image_angle(90*i);
+        transform_handles[i].setVisible(false);
+    }
+
+    for ( int i = 4; i < 8; i++ )
+    {
+        transform_handles[i].set_mode(Transform_Handle::SIDE_SCALE);
         transform_handles[i].set_image_angle(90*i);
         transform_handles[i].setVisible(false);
     }
@@ -72,12 +80,15 @@ void Node_Mover::set_nodes(QList<Node *> nodes)
 
 void Node_Mover::update_transform_handles()
 {
-
-
     transform_handles[0].setPos(m_initial_box.topLeft());
     transform_handles[1].setPos(m_initial_box.bottomLeft());
     transform_handles[2].setPos(m_initial_box.bottomRight());
     transform_handles[3].setPos(m_initial_box.topRight());
+
+    transform_handles[4].setPos(m_initial_box.left(), m_initial_box.center().y());
+    transform_handles[5].setPos(m_initial_box.center().x(), m_initial_box.bottom());
+    transform_handles[6].setPos(m_initial_box.right(), m_initial_box.center().y());
+    transform_handles[7].setPos(m_initial_box.center().x(), m_initial_box.top());
 
     for ( int i = 0; i < n_handles; i++ )
     {
@@ -104,9 +115,15 @@ void Node_Mover::add_handles_to_scene(QGraphicsScene *scene)
 
 void Node_Mover::set_mode(Transform_Handle::Mode mode)
 {
-    for ( int i = 0; i < n_handles; i++ )
+    for ( int i = 0; i < 4; i++ )
     {
         transform_handles[i].set_mode(mode);
+        transform_handles[i].update();
+    }
+
+    for ( int i = 4; i < 8; i++ )
+    {
+        transform_handles[i].set_mode(Transform_Handle::side_mode(mode));
         transform_handles[i].update();
     }
 }
@@ -128,6 +145,11 @@ void Node_Mover::set_dragged_handle(Transform_Handle *handle, bool anchor_angle)
                     case 1: sp = m_initial_box.topRight(); break;
                     case 2: sp = m_initial_box.topLeft(); break;
                     case 3: sp = m_initial_box.bottomLeft(); break;
+
+                    case 4: sp = QPointF(m_initial_box.right(), m_initial_box.center().y()); break;
+                    case 5: sp = QPointF(m_initial_box.center().x(), m_initial_box.top()); break;
+                    case 6: sp = QPointF(m_initial_box.left(), m_initial_box.center().y()); break;
+                    case 7: sp = QPointF(m_initial_box.center().x(), m_initial_box.bottom()); break;
                 }
                 break;
             }
@@ -144,6 +166,7 @@ void Node_Mover::drag_handle(QPointF p, bool fixed, double step_size )
     QLineF l1 (pivot,dragged_handle->pos());
     QLineF l2 (pivot,p);
 
+    /// \todo Use dragged_handle mode
     if ( mode() == Transform_Handle::ROTATE )
     {
         double angle = l2.angle()-l1.angle();
@@ -173,11 +196,23 @@ QCursor Node_Mover::current_handle_cursor()
 {
     if ( dragged_handle && mode() == Transform_Handle::SCALE )
     {
-        if ( dragged_handle == transform_handles+0 ||
-             dragged_handle == transform_handles+2 )
-            return Qt::SizeFDiagCursor;
-        else
-            return Qt::SizeBDiagCursor;
+        switch ( dragged_handle-transform_handles )
+        {
+            case 0:
+            case 2:
+                return Qt::SizeFDiagCursor;
+            case 1:
+            case 3:
+                return Qt::SizeBDiagCursor;
+            case 4:
+            case 6:
+                return Qt::SizeHorCursor;
+            case 5:
+            case 07:
+                return Qt::SizeVerCursor;
+            default:
+                return Qt::SizeAllCursor;
+        }
     }
     return Qt::ArrowCursor;
 }

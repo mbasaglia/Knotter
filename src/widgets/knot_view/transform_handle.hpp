@@ -35,13 +35,27 @@ class Transform_Handle : public Graph_Item
 
 public:
     /// What kind of transformation this handle applies
-    enum Mode { SCALE, ROTATE };
+    enum Mode { SCALE, ROTATE, SIDE_SCALE, SKEW };
+
+    static Mode side_mode ( Mode m )
+    {
+        switch ( m )
+        {
+            case SCALE:  return SIDE_SCALE;
+            case ROTATE: return SKEW;
+            default:     return m;
+        }
+    }
 
 protected:
     static QSvgRenderer scale_rest; ///< SVG Image to display while at rest
     static QSvgRenderer scale_active;///< SVG Image to display when highlight == true
     static QSvgRenderer rotate_rest; ///< SVG Image to display while at rest
     static QSvgRenderer rotate_active;///< SVG Image to display when highlight == true
+    static QSvgRenderer side_scale_rest; ///< SVG Image to display while at rest
+    static QSvgRenderer side_scale_active;///< SVG Image to display when highlight == true
+    static QSvgRenderer skew_rest; ///< SVG Image to display while at rest
+    static QSvgRenderer skew_active;///< SVG Image to display when highlight == true
     static double       m_image_size; ///< Size of the image
     static bool         images_initialized; ///< whether static images have been initialized
 

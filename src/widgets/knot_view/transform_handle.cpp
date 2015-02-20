@@ -33,6 +33,10 @@ QSvgRenderer Transform_Handle::scale_rest;
 QSvgRenderer Transform_Handle::scale_active;
 QSvgRenderer Transform_Handle::rotate_rest;
 QSvgRenderer Transform_Handle::rotate_active;
+QSvgRenderer Transform_Handle::side_scale_rest;
+QSvgRenderer Transform_Handle::side_scale_active;
+QSvgRenderer Transform_Handle::skew_rest;
+QSvgRenderer Transform_Handle::skew_active;
 double Transform_Handle::m_image_size = 24;
 bool Transform_Handle::images_initialized = false;
 
@@ -47,6 +51,10 @@ Transform_Handle::Transform_Handle(Mode mode, int image_angle)
         scale_active.load(resource_manager().program.data("img/handle_scale_active.svg"));
         rotate_rest.load(resource_manager().program.data("img/handle_rotate_rest.svg"));
         rotate_active.load(resource_manager().program.data("img/handle_rotate_active.svg"));
+        side_scale_rest.load(resource_manager().program.data("img/handle_scaleside_rest.svg"));
+        side_scale_active.load(resource_manager().program.data("img/handle_scaleside_active.svg"));
+        skew_rest.load(resource_manager().program.data("img/handle_scaleside_rest.svg"));
+        skew_active.load(resource_manager().program.data("img/handle_scaleside_active.svg"));
     }
     setFlag(QGraphicsItem::ItemIgnoresTransformations);
 }
@@ -75,10 +83,22 @@ void Transform_Handle::set_angle(double angle)
 void Transform_Handle::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     QSvgRenderer* rend;
-    if ( m_mode == ROTATE )
-        rend = highlighted ? &rotate_active : &rotate_rest;
-    else
-        rend = highlighted ? &scale_active : &scale_rest;
+    switch ( m_mode )
+    {
+        case ROTATE:
+            rend = highlighted ? &rotate_active : &rotate_rest;
+            break;
+        case SCALE: default:
+            rend = highlighted ? &scale_active : &scale_rest;
+            break;
+        case SKEW:
+            painter->rotate(90);
+            rend = highlighted ? &skew_active : &skew_rest;
+            break;
+        case SIDE_SCALE:
+            rend = highlighted ? &side_scale_active : &side_scale_rest;
+            break;
+    }
 
     painter->rotate(-m_image_angle-m_angle);
     painter->translate(-m_image_size/2,

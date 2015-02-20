@@ -44,7 +44,7 @@ private:
     int                 scale_count; ///< Number of size units when using fixed_scale
     double              rotate_angle;
     QRectF              m_initial_box; ///< Bounding box of the selection on initialization
-    static const int    n_handles = 4; ///< size of transform_handles
+    static const int    n_handles = 8; ///< size of transform_handles
     Transform_Handle    transform_handles[n_handles];
     Transform_Handle*   dragged_handle; ///< Transform_Handle being dragged
 
