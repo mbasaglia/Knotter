@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>556</width>
+    <width>558</width>
     <height>467</height>
    </rect>
   </property>
@@ -158,7 +158,9 @@
          <string>Shortcuts</string>
         </property>
         <property name="icon">
-         <iconset theme="configure-shortcuts"/>
+         <iconset theme="configure-shortcuts">
+          <normaloff/>
+         </iconset>
         </property>
        </item>
       </widget>
@@ -172,7 +174,7 @@
         </sizepolicy>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="page_general">
         <layout class="QGridLayout" name="gridLayout_2">
@@ -624,8 +626,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>378</width>
-                 <height>175</height>
+                 <width>380</width>
+                 <height>226</height>
                 </rect>
                </property>
                <layout class="QGridLayout" name="gridLayout_4">
@@ -744,7 +746,9 @@
         <string>OK</string>
        </property>
        <property name="icon">
-        <iconset theme="dialog-ok"/>
+        <iconset theme="dialog-ok">
+         <normaloff/>
+        </iconset>
        </property>
       </widget>
      </item>
@@ -754,7 +758,9 @@
         <string>Apply</string>
        </property>
        <property name="icon">
-        <iconset theme="dialog-ok-apply"/>
+        <iconset theme="dialog-ok-apply">
+         <normaloff/>
+        </iconset>
        </property>
       </widget>
      </item>
@@ -764,7 +770,9 @@
         <string>Cancel</string>
        </property>
        <property name="icon">
-        <iconset theme="dialog-cancel"/>
+        <iconset theme="dialog-cancel">
+         <normaloff/>
+        </iconset>
        </property>
       </widget>
      </item>

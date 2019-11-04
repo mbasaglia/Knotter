@@ -4,7 +4,7 @@ Comment=Icons used in Knotter
 
 DisplayDepth=32
 
-Inherits=Oxygen
+# Inherits=Oxygen
 # Inherits=hicolor
 
 Example=folder
